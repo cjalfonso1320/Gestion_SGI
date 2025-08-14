@@ -1,0 +1,85 @@
+  .doc-accordion .doc-section, .doc-accordion .doc-subsection {
+    cursor: pointer;
+    background-color: #333;
+    color: #ffff;
+    padding: 12px;
+    margin: 0;
+    font-weight: bold;
+  }
+
+  .doc-accordion .doc-content, .doc-accordion .doc-subcontent {
+    display: none;
+    padding: 15px;
+    background: #333;
+    border: 1px solid #ccc;
+  }
+
+  .doc-accordion .doc-subsection {
+    background-color: #060528;
+    margin-top: 10px;
+  }
+
+  .doc-accordion table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+
+  .doc-accordion th, .doc-accordion td {
+    border: 1px solid #aaa;
+    padding: 8px;
+    text-align: left;
+  }
+
+  .doc-accordion .doc-subsubsection {
+  cursor: pointer;
+  background-color: #16134c;
+  color: white;
+  padding: 10px;
+  margin-top: 8px;
+  font-weight: normal;
+}
+
+.doc-accordion .doc-subsubcontent {
+  display: none;
+  padding: 10px;
+  background: #222;
+  border: 1px dashed #888;
+}
+
+ .sst-accordion .sst-section, .sst-accordion .sst-subsection {
+    cursor: pointer;
+    background-color: #333;
+    color: #fff;
+    padding: 12px;
+    margin-top: 5px;
+    font-weight: bold;
+    border: 1px solid #555;
+  }
+
+  .sst-accordion .sst-content, .sst-accordion .sst-subcontent {
+    display: none;
+    background: #222;
+    padding: 10px;
+    border: 1px solid #444;
+  }
+
+  .sst-accordion table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    background-color: #111;
+    color: #ddd;
+  }
+
+  .sst-accordion th, .sst-accordion td {
+    border: 1px solid #555;
+    padding: 8px;
+    text-align: left;
+  }
+
+  .sst-node { margin: .25rem 0 .25rem 1rem; }
+.sst-summary { cursor:pointer; font-weight:600; }
+.sst-node[open] > .sst-summary { color: #4b8; }
+/* Oculta el triangulito si no lo quieres */
+.sst-summary::-webkit-details-marker { display:none; }

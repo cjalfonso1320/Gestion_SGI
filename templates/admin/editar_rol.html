@@ -1,0 +1,16 @@
+{% extends 'home_admin.html' %}
+{% block title %}Creacion de Usuarios{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/form_new_user.css') }}">
+<h2>Editar Rol</h2>
+
+<div class="login-page">
+    <div class="form">
+        <form method="post">
+            <input type="text" name="rol" placeholder="Nombre de Rol" required>
+            <button type="submit">Guardar</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,210 @@
+{% extends 'home.html' %}
+{% block title %}Documentacion{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/acordeon_doc.css') }}">
+{% if current_user.rol != 17 and current_user.rol != 20 and current_user.rol != 21 %}
+    <div class="doc-accordion">
+        <div class="doc-section">Procedimientos</div>
+        <div class="doc-content">
+            {% include 'users/procedimientos.html' %}
+        </div>
+
+        <div class="doc-section">Caracterización</div>
+        <div class="doc-content">
+            {% for c in caracterizaciones %}
+            <iframe src="{{ url_for('doc.ver_caracterizacion', filepath=c.ruta)}}" frameborder="0" width="100%"
+                height="600px" style="margin-bottom: 20px;">
+
+            </iframe>
+            {% endfor %}
+        </div>
+
+        {% if current_user.rol != 14 %}
+        <div class="doc-section">Formatos</div>
+        <div class="doc-content">
+            <div class="doc-subsection">Formatos Digitales</div>
+            <div class="doc-subcontent">
+                {% include 'users/formatosDigitales.html' %}
+            </div>
+
+            <div class="doc-subsection">Formato Fisicos</div>
+            <div class="doc-subcontent">
+                {% include 'users/formatosFisicos.html' %}
+            </div>
+
+            {% if formatoExternoDigital and formatoExternoFisico %}
+            <div class="doc-subsection">Formatos Externos</div>
+            <div class="doc-subcontent">
+
+                <div class="doc-subsubsection">Formato Externo Digital</div>
+                <div class="doc-subsubcontent">
+                    {% include 'users/formatosExternosDigital.html' %}
+                </div>
+
+                <div class="doc-subsubsection">Formato Externo Fisico</div>
+                <div class="doc-subsubcontent">
+                    {% include 'users/formatosExternosFisico.html' %}
+                </div>
+
+            </div>
+            {% endif %}
+        </div>
+
+        {% if current_user.rol not in [8, 9, 14, 15, 16 ,17, 18, 19, 20] %} <!-- NO MOSTRAR SI EL ID ESTA EN LA LISTA -->
+        <div class="doc-section">Plan de Calidad</div>
+        <div class="doc-content">
+            {% include 'users/planCalidad.html' %}
+        </div>
+
+        <div class="doc-section">Requisitos del Cliente</div>
+        <div class="doc-content">
+            {% include 'users/requisitosCliente.html' %}
+        </div>
+
+        {% elif current_user.rol == 9 %} <!-- MOSTRAR SI EL ID ES EL DE T-I -->
+        <div class="doc-section">Actas de Restauración</div>
+        <div class="doc-content">
+            {% include 'users/actasRestauracion.html' %}
+        </div>
+
+        <div class="doc-section">Instructivos</div>
+        <div class="doc-content">
+            {% include 'users/instructivos.html' %}
+        </div>
+        <div class="doc-section">Manuales</div>
+        <div class="doc-content">
+            {% include 'users/manuales.html' %}
+        </div>
+
+        {% elif current_user.rol == 16 %} <!-- MOSTRAR SI EL ID ES EL DE SGI-->
+
+        <div class="doc-section">Auditorias Proveedores</div>
+        <div class="doc-content">
+            <div class="doc-subsection">IFX</div>
+            <div class="doc-subcontent">
+                {% include 'users/auditoriaIFX.html' %}
+            </div>
+
+            <div class="doc-subsection">INTEGRUM</div>
+            <div class="doc-subcontent">
+                {% include 'users/auditoriaIntegrum.html' %}
+            </div>
+
+            <div class="doc-subsection">INTER SERVICIOS</div>
+            <div class="doc-subcontent">
+                {% include 'users/auditoriaInterServicios.html' %}
+            </div>
+
+            <div class="doc-subsection">POLITICAS I-SEC</div>
+            <div class="doc-subcontent">
+
+                <div class="doc-subsubsection">CONTINUIDAD DEL NEGOCIO</div>
+                <div class="doc-subsubcontent">
+                    {% include 'users/ISECpoliticaContinuidad.html' %}
+                </div>
+
+                <div class="doc-subsubsection">PROTECCION DATOS</div>
+                <div class="doc-subsubcontent">
+                    {% include 'users/ISECpoliticaProteccionDatos.html' %}
+                </div>
+
+                <div class="doc-subsubsection">SEGURIDAD DE LA INF</div>
+                <div class="doc-subsubcontent">
+                    {% include 'users/ISECpoliticaSeguridadInf.html' %}
+                </div>
+            </div>
+        </div>
+
+        <div class="doc-section">Comite de Seguridad</div>
+        <div class="doc-content">
+            {% include 'users/comiteSeguridad.html' %}
+        </div>
+
+        <div class="doc-section">Informes de Hacking Etico</div>
+        <div class="doc-content">   
+            LA CARPETA ESTA MUY MAL ESTRUCTURADA
+        </div>
+
+        <div class="doc-section">Informes de Vulnerabilidades</div>
+        <div class="doc-content">
+            <div class="doc-subsection">2024</div>
+            <div class="doc-subcontent">
+                {% include 'users/vulnerabilidades_2024.html' %}
+            </div>
+
+            <div class="doc-subsection">2025</div>
+            <div class="doc-subcontent">
+                {% include 'users/vulnerabilidades_2025.html' %}
+            </div>
+
+            <div class="doc-subsection">Anteriores</div>
+            <div class="doc-subcontent">
+                {% include 'users/vulnerabilidades_ant.html' %}
+            </div>
+        </div>
+
+        <div class="doc-section">Instructivos</div>
+        <div class="doc-content">
+            {% include 'users/instructivos.html' %}
+        </div>
+
+        <div class="doc-section">Revision de Seguridad</div>
+        <div class="doc-content">
+            <div class="doc-subsection">2021</div>
+            <div class="doc-subcontent">
+                {% include 'users/revisionSeguridad_2021.html' %}
+            </div>
+
+            <div class="doc-subsection">2022</div>
+            <div class="doc-subcontent">
+                {% include 'users/revisionSeguridad_2022.html' %}
+            </div>
+
+            <div class="doc-subsection">2023</div>
+            <div class="doc-subcontent">
+                {% include 'users/revisionSeguridad_2023.html' %}
+            </div>
+
+            <div class="doc-subsection">2024</div>
+            <div class="doc-subcontent">
+                {% include 'users/revisionSeguridad_2024.html' %}
+            </div>
+        </div>
+
+        {% elif current_user.rol == 18 %} <!-- MOSTRAR SI EL ID ES EL DE COMERCIAL -->
+        <div class="doc-section">Encuestas de Satisfacción</div>
+        <div class="doc-content">
+            <div class="doc-subsection">2019</div>
+            <div class="doc-subcontent">
+                {% include 'users/encuestas_2019.html' %}
+            </div>
+
+            <div class="doc-subsection">2020</div>
+            <div class="doc-subcontent">
+                {% include 'users/encuestas_2020.html' %}
+            </div>
+
+            <div class="doc-subsection">2021</div>
+            <div class="doc-subcontent">
+                {% include 'users/encuestas_2021.html' %}
+            </div>
+        </div>
+        {% endif %}
+    {% endif %}
+    </div>
+{% elif current_user.rol == 17 %}
+        {% if sst_arbol_carpetas %}
+            {% include 'users/sst.html' %}
+        {% endif %}
+{% elif current_user.rol == 20 %}
+        {% if archivos_sagrilaft %}
+            {% include 'users/sagrilaft.html' %}
+        {% endif %}
+{% elif current_user.rol == 21 %}
+        {% if archivos_ambiental %}
+            {% include 'users/ambiental.html' %}
+        {% endif %}
+{% endif %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="{{ url_for('static', filename='js/acordeon_doc.js')}}"></script>
+{% endblock %}

@@ -1,0 +1,59 @@
+<div class="sst-accordion">
+  {% macro render_carpeta(carpeta) %}
+    <div class="sst-section">{{ carpeta.nombre }}</div>
+    <div class="sst-content">
+      {% if carpeta.archivos %}
+        <table>
+          <thead>
+            <tr><th>Archivo</th></tr>
+          </thead>
+          <tbody>
+            {% for archivo in carpeta.archivos %}
+              <tr><td>{{ archivo }}</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% endif %}
+
+      {% for hijo in carpeta.hijos %}
+        <div class="sst-subsection">{{ hijo.nombre }}</div>
+        <div class="sst-subcontent">
+          {% if hijo.archivos %}
+            <table>
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Tipo</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for archivo in hijo.archivos %}
+  {% set tipo = archivo.split('.')[-1].lower() %}
+  {% set ruta_completa = (hijo.ruta.rstrip('/') ~ '/' ~ archivo.lstrip('/')) %}
+  {% set ruta_limpia = ruta_completa %}
+  <tr>
+    <td>{{ archivo }}</td>
+    <td>{{ tipo }}</td>
+    <td>
+      {% if tipo == 'pdf' %}
+        <a target="_blank" href="{{ url_for('doc.ver_documento', filepath=ruta_limpia) }}" class="custom-btn btn-5">Ver</a>
+      {% endif %}
+      <a href="{{ url_for('doc.descargar_documento', filepath=ruta_limpia) }}" class="custom-btn btn-5" style="text-decoration: none; text-align: center;">Descargar</a>
+    </td> 
+  </tr>
+{% endfor %}
+              </tbody>
+            </table>
+          {% else %}
+            <p><em>Sin archivos</em></p>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  {% endmacro %}
+
+  {% for carpeta in sst_arbol_carpetas %}
+    {{ render_carpeta(carpeta) }}
+  {% endfor %}
+</div>

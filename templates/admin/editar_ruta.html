@@ -1,0 +1,16 @@
+{% extends 'home_admin.html' %}
+{% block title %}Ediar de Rutas Compartidas{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/form_new_user.css') }}">
+<h2>Editar Ruta</h2>
+
+<div class="login-page" style="width: 100% !important;">
+    <div class="form" style="max-width: none !important;">
+        <form method="post">
+            <input type="text" name="ruta" placeholder="Ruta Compartida" value="{{ruta_actual[3]}}" required>
+            <button type="submit">Guardar</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+

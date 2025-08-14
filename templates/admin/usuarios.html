@@ -1,0 +1,35 @@
+{% extends 'home_admin.html' %}
+{% block title %}Control de Usuarios{% endblock %}
+{% block content %}
+<h2>Lista de Usuarios</h2>
+<a class="custom-btn btn-10" href="{{ url_for('user.nuevo_usuario')}}">Nuevo usuario</a>
+<div class="tbl-header">
+    <table cellpadding="0" cellspacing="0" border="0">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Username</th>
+          <th>Rol</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+  <div class="tbl-content">
+    <table cellpadding="0" cellspacing="0" border="0">
+      <tbody>
+        {% for u in usuarios %}
+        <tr>
+            <td>{{ u[1] }}</td>
+            <td>{{ u[2] }}</td>
+            <td>{{ u[3] }}</td>
+            <td>
+                <a href="{{ url_for('user.editar_usuario', id=u[0]) }}" class="custom-btn btn-5" style="text-decoration: none; text-align: center;">Editar</a> |
+                <a href="{{ url_for('user.eliminar_usuario', id=u[0]) }}" class="custom-btn btn-5" style="text-decoration: none; text-align: center;" onclick="return confirm('¿Eliminar usuario?')">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+</div>
+{% endblock %}

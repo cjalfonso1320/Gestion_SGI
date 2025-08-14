@@ -1,0 +1,148 @@
+<form action="{{ url_for('ind.guardar_calidad_informacion') }}" method="post">
+    <input type="hidden" name="proceso" value="{{ proceso }}">
+    <div>
+        <label class="form-label" for="mes">Mes</label>
+        <select id="mes" name="mes" required>
+            <option value="">Seleccione un mes</option>
+            <option value="Enero">Enero</option>
+            <option value="Febrero">Febrero</option>
+            <option value="Marzo">Marzo</option>
+            <option value="Abril">Abril</option>
+            <option value="Mayo">Mayo</option>
+            <option value="Junio">Junio</option>
+            <option value="Julio">Julio</option>
+            <option value="Agosto">Agosto</option>
+            <option value="Septiembre">Septiembre</option>
+            <option value="Octubre">Octubre</option>
+            <option value="Noviembre">Noviembre</option>
+            <option value="Diciembre">Diciembre</option>
+        </select>
+    </div>
+
+    {% if proceso == 'radicacion' %}
+<div class="mb-3">
+        <label class="form-label" for="form_digitados_{{ proceso }}" >Creditos Prcesados</label>
+        <input class="form-control" type="number"  id="form_digitados_{{ proceso }}" name="form_digitados">
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="err_digitacion_{{ proceso }}" >Creditos con Error</label>
+        <input class="form-control" type="number"  id="err_digitacion_{{ proceso }}" name="err_digitacion">
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="resultado_calidadInformacion_{{ proceso }}" >Resultado (%)</label>
+        <input class="form-control" type="number"  id="resultado_calidadInformacion_{{ proceso }}" name="resultado_calidadInformacion" readonly>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="meta_calidadInformacion_{{ proceso }}" >Meta</label>
+        <input class="form-control" type="text"  id="meta_calidadInformacion_{{ proceso }}" name="meta_calidadInformacion" readonly>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="analisis" >Analisis</label>
+        <textarea id="analisis_calidadInformacion_{{ proceso }}" name="analisis_calidadInformacion"></textarea>
+    </div>
+    {% else %}
+<div class="mb-3">
+        <label class="form-label" for="form_digitados_{{ proceso }}" >Formularios Digitados</label>
+        <input class="form-control" type="number"  id="form_digitados_{{ proceso }}" name="form_digitados">
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="err_digitacion_{{ proceso }}" >Errores de Digitacion</label>
+        <input class="form-control" type="number"  id="err_digitacion_{{ proceso }}" name="err_digitacion">
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="resultado_calidadInformacion_{{ proceso }}" >Resultado(%)</label>
+        <input class="form-control" type="number"  id="resultado_calidadInformacion_{{ proceso }}" name="resultado_calidadInformacion" readonly>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="meta_calidadInformacion_{{ proceso }}" >Meta</label>
+        <input class="form-control" type="text"  id="meta_calidadInformacion_{{ proceso }}" name="meta_calidadInformacion" readonly>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="analisis" >Analisis</label>
+        <textarea id="analisis_calidadInformacion_{{ proceso }}" name="analisis_calidadInformacion"></textarea>
+    </div>
+    {% endif %}
+    <button type="submit">Guardar</button>
+</form>
+
+
+<div class="container mt-4">
+    
+<div class="accordion" id="acordeonTabla">
+  <div class="accordion-header" onclick="this.parentElement.classList.toggle('active')">
+    Ver Tabla de Registros
+  </div>
+  <div class="accordion-content">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Mes</th>
+          <th>Formularios Digitados</th>
+          <th>Errores</th>
+          <th>resultado_calidadInformacion (%)</th>
+          <th>meta_calidadInformacion</th>
+          <th>Analisis</th>
+        </tr>
+      </thead>
+    {% for registro in datos_calidadInformacion %}
+      <tbody>
+        <tr>
+          <td>{{registro[0]}}</td>
+          <td>{{registro[1]}}</td>
+          <td>{{registro[2]}}</td>
+          <td>{{registro[3]}}</td>
+          <td>{{registro[4]}}</td>
+          <td>{{registro[5]}}</td>
+        </tr>
+      </tbody>
+    {% endfor %}
+    </table>
+  </div>
+</div>
+    <h3>Porcentaje de Documentos Entregados por Mes</h3>
+    <canvas id="grafica_calidadInformacion_{{ proceso }}" width="400" height="200"></canvas>
+</div>
+
+<!-- Chart.js debe ir antes del script que lo usa -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx_calidadInformacion_{{ proceso }} = document.getElementById('grafica_calidadInformacion_{{ proceso }}').getContext('2d');
+    const grafica_calidadInformacion_{{ proceso }} = new Chart(ctx_calidadInformacion_{{ proceso }}, {
+        type: 'line',
+        data: {
+            labels: {{ meses_calidadInformacion|default([])|tojson|safe }},
+            datasets: [{
+                label: 'Porcentaje Nacionales (%)',
+                data: {{ porcentajes_calidadInformacion|default([])|tojson|safe }},
+                borderColor: 'rgba(255, 99, 132, 1)',
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                fill: true,
+                tension: 0.3
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 100
+                }
+            }
+        }
+    });
+</script>
+<script>
+document.addEventListener('input', function() {
+    const total = parseInt(document.getElementById('form_digitados_{{ proceso }}').value) || 0;
+    const fueraRango = parseInt(document.getElementById('err_digitacion_{{ proceso }}').value) || 0;
+    let porcentaje = 0;
+    if (total > 0) {
+        porcentaje = ((total - fueraRango) / total) * 100;
+    }
+    document.getElementById('resultado_calidadInformacion_{{ proceso }}').value = porcentaje.toFixed(1); // 1 decimal
+    if (porcentaje >= 99) {
+        document.getElementById('meta_calidadInformacion_{{ proceso }}').value = "meta Alcanzada";
+    } else {
+        document.getElementById('meta_calidadInformacion_{{ proceso }}').value = "meta no alcanzada";
+    }
+});
+</script>

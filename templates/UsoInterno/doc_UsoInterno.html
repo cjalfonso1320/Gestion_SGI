@@ -1,0 +1,47 @@
+<div class="sst-accordion">
+  {% macro render_carpeta(c) %}
+    <details class="sst-node">
+      <summary class="sst-summary">{{ c.nombre }}</summary>
+
+      {% if c.archivos %}
+        <table>
+          <thead><tr><th>Archivo</th><th>Tipo</th><th>Acciones</th></tr></thead>
+          <tbody>
+            {% for archivo in c.archivos %}
+              {% set tipo = archivo.split('.')[-1].lower() %}
+              {% set ruta = (c.ruta.rstrip('/') ~ '/' ~ archivo.lstrip('/')) %}
+              <tr>
+                <td>{{ archivo }}</td>
+                <td>{{ tipo }}</td>
+                <td>
+                  {% if tipo == 'pdf' %}
+                    <a target="_blank" href="{{ url_for('doc.ver_documento', filepath=ruta) }}" class="custom-btn btn-5">Ver</a>
+                  {% endif %}
+                  <a href="{{ url_for('doc.descargar_documento', filepath=ruta) }}" class="custom-btn btn-5">Descargar</a>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% endif %}
+
+      {% for h in c.hijos %}
+        {{ render_carpeta(h) }}
+      {% endfor %}
+    </details>
+  {% endmacro %}
+
+  {% for carpeta in archivos_UsoInterno %}
+    {{ render_carpeta(carpeta) }}
+  {% endfor %}
+</div>
+<script>
+  const siblings = Array.from(node.parentElement.children)
+  .filter(el => el !== node && el.classList.contains('sst-node'));
+
+siblings.forEach(sib => {
+  sib.classList.remove('open');
+  const sibBody = sib.querySelector(':scope > .sst-body');
+  if (sibBody) sibBody.classList.remove('open');
+});
+</script>

@@ -1,0 +1,138 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home_admin.css') }}">
+
+<body class="darkmode">
+
+    <!-- MENU LATERAL -->
+    <nav class="main-menu">
+        <div>
+            <div class="user-info">
+                <img src="{{ url_for('static', filename='imgs/user.png') }}"
+                    alt="user" />
+                <p>{{ usuario.name }}</p>
+            </div>
+          
+        </div>
+
+        <ul>
+            <li class="nav-item">
+                <a href="{{ url_for('auth.logout') }}">
+                    <i class="fa fa-right-from-bracket nav-icon"></i>
+                    <span class="nav-text">Logout</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <!-- FINALIZA MENU LATERAL -->
+
+    <section class="content">
+        <div class="left-content">
+
+            <!-- MENU CENTRAL -->
+            <div class="upcoming-events">
+                <h1>Sistema de Gestion Integrado</h1>
+                <div class="event-container">
+                    <a href="{{ url_for('doc.documentacion')}}" style="text-decoration: none; color: #FFFFFF;">
+                        <div class="card event-card">
+                            <div class="event-header">
+                                <img src="{{ url_for('static', filename='imgs/Documentacion.png') }}"
+                                    alt="" style="object-fit: fill;" />
+                                <i class="bx bx-heart like-btn"></i>
+                            </div>
+                            <div class="event-content">
+                                <h2>Documentacion</h2>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="{{ url_for('ind.indicadores')}}" style="text-decoration: none; color: #FFFFFF;">
+                        <div class="card event-card">
+                            <div class="event-header">
+                                <img src="{{ url_for('static', filename='imgs/adminRoles.png') }}"
+                                    alt="" style="object-fit: fill;" />
+                                <i class="bx bx-heart like-btn"></i>
+                            </div>
+                            <div class="event-content">
+                                <!-- <a href="#" style="text-decoration: none; color: antiquewhite;"><h2>Administracion de Usuarios</h2></a> -->
+                                <h2>Indicadores</h2>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="{{ url_for('usoInt.UsoInterno') }}" style="text-decoration: none; color: #FFFFFF;">
+                        <div class="card event-card">
+                            <div class="event-header">
+                                <img src="https://github.com/ecemgo/mini-samples-great-tricks/assets/13468728/697ef286-1104-4c6c-91d6-0b2a1e04009b"
+                                    alt="" />
+                                <i class="bx bx-heart like-btn"></i>
+                            </div>
+                            <div class="event-content">
+                                <!-- <a href="#" style="text-decoration: none; color: antiquewhite;"><h2>Administracion de Usuarios</h2></a> -->
+                                <h2>Informacion de Uso Interno</h2>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="" style="text-decoration: none; color: #FFFFFF;">
+                        <div class="card event-card">
+                            <div class="event-header">
+                                <img src="https://github.com/ecemgo/mini-samples-great-tricks/assets/13468728/697ef286-1104-4c6c-91d6-0b2a1e04009b"
+                                    alt="" />
+                                <i class="bx bx-heart like-btn"></i>
+                            </div>
+                            <div class="event-content">
+                                <!-- <a href="#" style="text-decoration: none; color: antiquewhite;"><h2>Administracion de Usuarios</h2></a> -->
+                                <h2>No se 2</h2>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <!-- FINALIZA MENU CENTRAL -->
+
+            <!-- INFORMACION -->
+             <div>
+             {% block content %}
+            <!-- Contenido específico de cada página -->
+            {% endblock %}
+            </div>
+            <!-- FINALIZA INFORMACION -->
+        </div>
+
+        <!-- MENU DERECHA-CONTEOS -->
+        <div class="right-content">
+            <div class="interaction-control interactions">
+                <i class="fa-regular fa-envelope notified"></i>
+                <i class="fa-regular fa-bell notified"></i>
+                <div class="toggle" onclick="switchTheme()">
+                    <div class="mode-icon moon">
+                        <i class="bx bxs-moon"></i>
+                    </div>
+                    <div class="mode-icon sun hidden">
+                        <i class="bx bxs-sun"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="analytics">
+                <h1>Conteo</h1>
+                <div class="analytics-container">
+                    <div class="total-events">
+                        <div class="event-number card">
+                            <h2>Usuarios</h2>
+                            <p>{{usuarios_cuenta}}</p>
+                            <i class="bx bx-check-circle"></i>
+                        </div>
+                        <div class="event-number card">
+                            <h2>Roles</h2>
+                            <p>{{roles_cuenta}}</p>
+                            <i class="bx bx-timer"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- FINALIZA MENU DERECHA -->
+    </section>
+</body>
+
+<script src="{{ url_for('static', filename='js/home_admin.js') }}"></script>

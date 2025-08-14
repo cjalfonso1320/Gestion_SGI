@@ -1,0 +1,123 @@
+<form action="{{ url_for('ind.guardar_registros_magneticos') }}" method="post">
+    <div>
+        <label class="form-label" for="mes">Mes</label>
+        <select id="mes" name="mes" required>
+            <option value="">Seleccione un mes</option>
+            <option value="Enero">Enero</option>
+            <option value="Febrero">Febrero</option>
+            <option value="Marzo">Marzo</option>
+            <option value="Abril">Abril</option>
+            <option value="Mayo">Mayo</option>
+            <option value="Junio">Junio</option>
+            <option value="Julio">Julio</option>
+            <option value="Agosto">Agosto</option>
+            <option value="Septiembre">Septiembre</option>
+            <option value="Octubre">Octubre</option>
+            <option value="Noviembre">Noviembre</option>
+            <option value="Diciembre">Diciembre</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="T_registros" >Total Registros</label>
+        <input class="form-control" type="number"  id="T_registros" name="T_registros">
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="R_extemporaneos" >Registros Extemporaneos</label>
+        <input class="form-control" type="number"  id="R_extemporaneos" name="R_extemporaneos">
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="resultado_resgitrosExtemporaneos" >resultado_resgitrosExtemporaneos (%)</label>
+        <input class="form-control" type="number"  id="resultado_resgitrosExtemporaneos" name="resultado_resgitrosExtemporaneos" readonly>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="meta_resgitrosExtemporaneos" >meta_resgitrosExtemporaneos</label>
+        <input class="form-control" type="text"  id="meta_resgitrosExtemporaneos" name="meta_resgitrosExtemporaneos" readonly>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="analisis" >Analisis</label>
+        <textarea id="analisis_resgitrosExtemporaneos" name="analisis_resgitrosExtemporaneos"></textarea>
+    </div>
+    <button type="submit">Guardar</button>
+</form>
+
+
+<div class="container mt-4">
+    
+<div class="accordion" id="acordeonTabla">
+  <div class="accordion-header" onclick="this.parentElement.classList.toggle('active')">
+    Ver Tabla de Registros
+  </div>
+  <div class="accordion-content">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Mes</th>
+          <th>Total Registros</th>
+          <th>Registros Extemporaneos</th>
+          <th>resultado_resgitrosExtemporaneos (%)</th>
+          <th>meta_resgitrosExtemporaneos</th>
+          <th>Analisis</th>
+        </tr>
+      </thead>
+    {% for registro in datos_registrosExtemporaneos %}
+      <tbody>
+        <tr>
+          <td>{{registro[0]}}</td>
+          <td>{{registro[1]}}</td>
+          <td>{{registro[2]}}</td>
+          <td>{{registro[3]}}</td>
+          <td>{{registro[4]}}</td>
+          <td>{{registro[5]}}</td>
+        </tr>
+      </tbody>
+    {% endfor %}
+    </table>
+  </div>
+</div>
+    <h3>Porcentaje de Documentos Entregados por Mes</h3>
+    <canvas id="grafica_registrosExtemporaneos" width="400" height="200"></canvas>
+</div>
+
+<!-- Chart.js debe ir antes del script que lo usa -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx_registrosExtemporaneos = document.getElementById('grafica_registrosExtemporaneos').getContext('2d');
+    const grafica_registrosExtemporaneos = new Chart(ctx_registrosExtemporaneos, {
+        type: 'line',
+        data: {
+            labels: {{ meses_registrosExtemporaneos|default([])|tojson|safe }},
+            datasets: [{
+                label: 'Porcentaje Nacionales (%)',
+                data: {{ porcentajes_registrosExtemporaneos|default([])|tojson|safe }},
+                borderColor: 'rgba(255, 99, 132, 1)',
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                fill: true,
+                tension: 0.3
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 100
+                }
+            }
+        }
+    });
+</script>
+<script>
+document.addEventListener('input', function() {
+    const total = parseInt(document.getElementById('T_registros').value) || 0;
+    const fueraRango = parseInt(document.getElementById('R_extemporaneos').value) || 0;
+    let porcentaje = 0;
+    if (total > 0) {
+        porcentaje = ((total - fueraRango) / total) * 100;
+    }
+    document.getElementById('resultado_resgitrosExtemporaneos').value = porcentaje.toFixed(1); // 1 decimal
+    if (porcentaje >= 99) {
+        document.getElementById('meta_resgitrosExtemporaneos').value = "meta Alcanzada";
+    } else {
+        document.getElementById('meta_resgitrosExtemporaneos').value = "meta no alcanzada";
+    }
+});
+</script>

@@ -1,0 +1,180 @@
+<form action="{{url_for('ind.guardar_sanciones_fisicos')}}" method="post">
+    <div>
+        <label class="form-label" for="mes_fisicos">mes</label>
+        <select id="mes_fisicos" name="mes_fisicos" required>
+            <option value="">Seleccione un mes</option>
+            <option value="Enero">Enero</option>
+            <option value="Febrero">Febrero</option>
+            <option value="Marzo">Marzo</option>
+            <option value="Abril">Abril</option>
+            <option value="Mayo">Mayo</option>
+            <option value="Junio">Junio</option>
+            <option value="Julio">Julio</option>
+            <option value="Agosto">Agosto</option>
+            <option value="Septiembre">Septiembre</option>
+            <option value="Octubre">Octubre</option>
+            <option value="Noviembre">Noviembre</option>
+            <option value="Diciembre">Diciembre</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="D_extemporaneos2" >Documentos Extemporaneos</label>
+        <input class="form-control" type="number"  id="D_extemporaneos2" name="D_extemporaneos2" readonly>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="dr_digicom" >Documentos Responsabilidad Digicom</label>
+        <input class="form-control" type="number"  id="dr_digicom" name="dr_digicom">
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="P_aceptacion_fisicos" >Porcentaje de Aceptacion</label>
+        <input class="form-control" id="P_aceptacion_fisicos" name="P_aceptacion_fisicos" type="text" value="0,01784%" readonly>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="resultado_sancionesFisicos" >Riesgo Aceptado</label>
+        <input class="form-control" type="number"  id="resultado_sancionesFisicos" name="resultado_sancionesFisicos" readonly>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="meta_sancionesFisicos" >Meta</label>
+        <input class="form-control" type="text"  id="meta_sancionesFisicos" name="meta_sancionesFisicos" readonly>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="UVT_sancionesFisicos" >UVT</label>
+        <input class="form-control" type="text"  id="UVT_sancionesFisicos" name="UVT_sancionesFisicos" value="${{ uvt_valor }}" readonly>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="multa_sancionesFisicos" >Valor Aproximado de Multa</label>
+        <input class="form-control" type="text"  id="multa_sancionesFisicos" name="multa_sancionesFisicos" readonly>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="analisis" >Analisis</label>
+        <textarea id="analisis_sancionesFisicos" name="analisis_sancionesFisicos"></textarea>
+    </div>
+    <button type="submit">Guardar</button>
+</form>
+
+
+<div class="container mt-4">
+    
+<div class="accordion" id="acordeonTabla">
+  <div class="accordion-header" onclick="this.parentElement.classList.toggle('active')">
+    Ver Tabla de Registros
+  </div>
+  <div class="accordion-content">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>mes</th>
+          <th>Documentos Extemporaneos</th>
+          <th>Documentos Responsabilidad Digicom</th>
+          <th>Meta</th>
+          <th>Multa</th>
+          <th>Analisis</th>
+        </tr>
+      </thead>
+    {% for registro in datos_sancionesFisicos %}
+      <tbody>
+        <tr>
+          <td>{{registro[0]}}</td>
+          <td>{{registro[1]}}</td>
+          <td>{{registro[2]}}</td>
+          <td>{{registro[3]}}</td>
+          <td>$ {{registro[4]}}</td>
+          <td>{{registro[5]}}</td>
+        </tr>
+      </tbody>
+    {% endfor %}
+    </table>
+  </div>
+</div>
+    <h3>Porcentaje de Documentos Entregados por mes</h3>
+    <canvas id="grafica_sancionesFisicos" width="400" height="200"></canvas>
+</div>
+
+<!-- Chart.js debe ir antes del script que lo usa -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    let resultadoGlobal_fisicos = 0;  // Guardar resultado global
+
+    // Evento: al seleccionar el mes
+    document.getElementById('mes_fisicos').addEventListener('change', function () {
+        const mesSeleccionado = this.value;
+
+        fetch('/registro_extemporaneo_fisico', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ mes: mesSeleccionado })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log("Respuesta recibida:", data);
+
+            // Mostrar registros extemporáneos
+            document.getElementById('D_extemporaneos2').value = data.d_extemporaneo ?? 0;
+
+            // Obtener porcentaje de aceptación
+            let P_aceptacion_fisicos_valor = document.getElementById('P_aceptacion_fisicos').value.trim();
+            P_aceptacion_fisicos_valor = P_aceptacion_fisicos_valor.replace('%', '').replace(',', '.');
+            const P_aceptacion_fisicos = parseFloat(P_aceptacion_fisicos_valor) || 0;
+
+            // Calcular resultado
+            const d_registros = parseInt(data.d_registros) || 0;
+            resultadoGlobal_fisicos = P_aceptacion_fisicos * d_registros;
+            console.log("Resultado calculado:", resultadoGlobal_fisicos);
+
+            // Mostrar resultado
+            document.getElementById('resultado_sancionesFisicos').value = resultadoGlobal_fisicos;
+        });
+    });
+
+    // Evento: al escribir o cambiar dr_digicom
+    document.getElementById('dr_digicom').addEventListener('input', function () {
+        let dr_digicom_valor = this.value.trim();
+        dr_digicom_valor = dr_digicom_valor.replace('%', '').replace(',', '.');
+        const dr_digicom = parseFloat(dr_digicom_valor) || 0;
+
+
+        // Evaluar meta
+        const metaInput = document.getElementById('meta_sancionesFisicos');
+        if (dr_digicom === 0) {
+            metaInput.value = "Lo esperado";
+        } else if (resultadoGlobal >= dr_digicom) {
+            metaInput.value = "Meta Alcanzada";
+        } else {
+            metaInput.value = "Meta no alcanzada";
+        }
+
+        // Calcular valor aproximado de multa
+        const uvt = parseFloat(document.getElementById('UVT_sancionesFisicos').value.replace('$', '').replace('.', '').replace(',', '.')) || 0;
+        const multa = (uvt * dr_digicom) / 2;
+        document.getElementById('multa_sancionesFisicos').value = `$${multa}`;
+    });
+</script>
+
+<script>
+    const ctx_sancionesFisicos = document.getElementById('grafica_sancionesFisicos').getContext('2d');
+    const grafica_sancionesFisicos = new Chart(ctx_sancionesFisicos, {
+        type: 'line',
+        data: {
+            labels: {{ meses_sancionesFisicos|default([])|tojson|safe }},
+            datasets: [{
+                label: 'Porcentaje Nacionales (%)',
+                data: {{ multas_sancionesFisicos|default([])|tojson|safe }},
+                borderColor: 'rgba(255, 99, 132, 1)',
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                fill: true,
+                tension: 0.3
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 10000000
+                }
+            }
+        }
+    });
+</script>

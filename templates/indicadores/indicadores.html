@@ -1,0 +1,640 @@
+{% extends 'home.html' %}
+{% block title %}Documentacion{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/acordeon_doc.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/form_indicadores.css') }}">
+
+<div class="doc-accordion">
+
+    <!-- GESTION DE PRODUCCION -->
+
+    <!-- 1 -->{% if current_user.rol in [5, 2, 4, 6, 7, 13] %}
+    <!-- ACORDEON PARA NACIONALES, BANCOS "AGRARIO, BANCOL, OCCIDENTE, DAVIVIEDA, itau, bcs"     -->
+    <div class="doc-section">Impuestos Nacionales</div>
+    <div class="doc-content">
+        <!-- 1.1 -->{% if current_user.rol == 5%} <!-- ACORDEON PARA NACIONALES, BANCOS "AGRARIO"  -->
+        <div class="doc-subsection">Calidad de la Información</div>
+        <div class="doc-subcontent">
+            {% set proceso = 'nacionales' %}
+            {% set datos_calidadInformacion = datos_calidadInformacion_nacionales %}
+            {% set meses_calidadInformacion = meses_calidadInformacion_nacionales %}
+            {% set porcentajes_calidadInformacion = porcentajes_calidadInformacion_nacionales %}
+            {% include 'indicadores/calidadInformacion.html' %}
+        </div>
+        <div class="doc-subsection">Registros Magneticos</div>
+        <div class="doc-subcontent">
+            {% include 'indicadores/registros_magneticos.html' %}
+        </div>
+        <div class="doc-subsection">Sanciones Magneticas</div>
+        <div class="doc-subcontent">
+            {% include 'indicadores/sanciones_magneticas.html' %}
+        </div>
+        <!-- 1.1.2 -->{% elif current_user.rol == 2 or current_user.rol == 4 or current_user.rol == 7 or
+        current_user.rol == 13 %}
+        <!-- ACORDEON PARA NACIONALES, BANCOS "BANCOL, OCCIDENTE "  -->
+        <div class="doc-subsection">Entrega Fisicos</div>
+        <div class="doc-subcontent">
+            {% set proceso = 'nacionales' %}
+            {% set datos_entrega_fisicos = datos_entrega_fisicos_nacionales %}
+            {% set meses_entregaFisicos = meses_entregaFisicos_nacionales %}
+            {% set porcentajes_entregaFisicos = porcentajes_entrega_fisicos_nacionales %}
+            {% include 'indicadores/entrega_fisicos.html' %}
+        </div>
+        <div class="doc-subsection">Registros Magneticos</div>
+        <div class="doc-subcontent">
+            {% include 'indicadores/registros_magneticos.html' %}
+        </div>
+        <div class="doc-subsection">Sanciones Fisicos</div>
+        <div class="doc-subcontent">
+            {% include 'indicadores/sanciones_fisicos.html' %}
+        </div>
+        <div class="doc-subsection">Sanciones Magneticas</div>
+        <div class="doc-subcontent">
+            {% include 'indicadores/sanciones_magneticas.html' %}
+        </div>
+            {% if current_user.rol == 13 %}
+        <div class="doc-subsection">Transmision de Aduanas</div>
+        <div class="doc-subcontent">
+            {% set proceso = 'nacionales' %}
+            {% set datos_transmision_aduanas = datos_transmision_aduanas_nacionales %}
+            {% set meses_Taduanas = meses_Taduanas_nacionales %}
+            {% set procentajes_Taduanas = procentajes_Taduanas_nacionales %}
+            {% include 'indicadores/aduanas.html' %}
+        </div>
+            {% endif %}
+        <!-- 1.1.3 -->{% elif current_user.rol == 6 %} <!-- ACORDEON PARA NACIONALES, BANCOS "DAVIVIENDA"  -->
+        <div class="doc-subsection">Entrega Informes</div>
+        <div class="doc-subcontent">
+            {% set proceso = 'nacionales' %}
+            {% set datos_entrega_informes = datos_entrega_informes_nacionales %}
+            {% set meses_informes = meses_entrega_informes_nacionales %}
+            {% set porcentajes_informes = porcentajes_entrega_informes_nacionales %}
+            {% include 'indicadores/entrega_informes.html' %}
+        </div>
+        <div class="doc-subsection">Calidad de Informes</div>
+        <div class="doc-subcontent">
+            {% set proceso = 'nacionales' %}
+            {% set datos_calidad_informes = datos_calidad_informes_nacionales %}
+            {% set meses_calidad_informes = meses_calidad_informes_nacionales %}
+            {% set porcentajes_calidad_informes = porcentajes_calidad_informes_nacionales %}
+            {% include 'indicadores/calidad_entrega_informes.html' %}
+        </div>
+        <div class="doc-subsection">Entrega de Imagenes</div>
+        <div class="doc-subcontent">
+            {% set proceso = 'nacionales' %}
+            {% set datos_entrega_imagenes = datos_entrega_imagenes_nacionales %}
+            {% set meses_entregaImagenes = meses_entregaImagenes_nacionales %}
+            {% set porcentajes_entregaImagenes = porcentajes_entregaImagenes_nacionales %}
+            {% include 'indicadores/entrega_imagenes.html' %}
+        </div>
+        <div class="doc-subsection">Entrega Documental</div>
+        <div class="doc-subcontent">
+            {% set proceso = 'nacionales' %}
+            {% set datos_entrega_fisicos = datos_entrega_fisicos_nacionales %}
+            {% set meses_entregaFisicos = meses_entregaFisicos_nacionales %}
+            {% set porcentajes_entregaFisicos = porcentajes_entrega_fisicos_nacionales %}
+            {% include 'indicadores/entrega_fisicos.html' %}
+        </div>
+        <div class="doc-subsection">Solucion de Inconsistencias</div>
+        <div class="doc-subcontent">
+            {% set proceso = 'nacionales' %}
+            {% set datos_solucion_inconsistencias = datos_solucion_inconsistencias_nacionales %}
+            {% set meses_inconsistencias = meses_inconsistencias_nacionales %}
+            {% set porcentajes_inconsistencias = porcentajes_inconsistencias_nacionales %}
+            {% include 'indicadores/solucion_inconsistencias.html' %}
+        </div>
+        <div class="doc-subsection">Traslados</div>
+        <div class="doc-subcontent">
+            {% set proceso = 'nacionales' %}
+            {% set datos_traslados = datos_traslados_nacionales %}
+            {% set meses_traslados = meses_traslados_nacionales %}
+            {% set porcentajes_traslados = porcentajes_traslados_nacionales %}
+            {% include 'indicadores/traslados.html' %}
+        </div>
+        <!-- CIERRE 1.1 -->{% endif %}
+    </div>
+    <!--  CIERRE 1 -->{% endif %}
+    <!-- 2 -->{% if current_user.rol in [2, 4, 6] %}
+    <!-- ACORDEON PARA DISTRITALES, BANCOS " BANCOL, OCCIDENTE, DAVIVIEDA"     -->
+    <div class="doc-section">Impuestos Distritales</div>
+    <div class="doc-content">
+        <!-- 2.1 -->{% if current_user.rol == 4 or current_user.rol == 2%}
+        <!-- ACORDEON PARA DISTRITALES, BANCOS "BANCOL, OCCIDENTE"     -->
+        <div class="doc-subsection">Entrega Fisicos</div>
+        <div class="doc-subcontent">
+            {% set proceso = 'distritales' %}
+            {% set datos_entrega_fisicos = datos_entrega_fisicos_distritales %}
+            {% set meses_entregaFisicos = meses_entregaFisicos_distritales %}
+            {% set porcentajes_entregaFisicos = porcentajes_entrega_fisicos_distritales %}
+            {% include 'indicadores/entrega_fisicos.html' %}
+        </div>
+        <div class="doc-subsection">Cintas Magneticas</div>
+        <div class="doc-subcontent">
+            {% set proceso = 'distritales' %}
+            {% set datos_cintas_magneticas = datos_cintas_magneticas_distritales %}
+            {% set meses_cintasMagneticas = meses_cintas_magneticas_distritales %}
+            {% set porcentajes_cintasMagneticas = porcentajes_cintas_magneticas_distritales %}
+            {% include 'indicadores/cintas_magneticas.html' %}
+        </div>
+        <!-- 2.1.2 -->{% elif current_user.rol == 6 %} <!-- ACORDEON PARA DISTRITALES, BANCOS "DAVIVIENDA"     -->
+        <div class="doc-subsection">Entrega Informes</div>
+        <div class="doc-subcontent">
+            {% set proceso = 'distritales' %}
+            {% set datos_entrega_informes = datos_entrega_informes_distritales %}
+            {% set meses_informes = meses_entrega_informes_distritales %}
+            {% set porcentajes_informes = porcentajes_entrega_informes_distritales %}
+            {% include 'indicadores/entrega_informes.html' %}
+        </div>
+        <div class="doc-subsection">Calidad de Informes</div>
+        <div class="doc-subcontent">
+            {% set proceso = 'distritales' %}
+            {% set datos_calidad_informes = datos_calidad_informes_distritales %}
+            {% set meses_calidad_informes = meses_calidad_informes_distritales %}
+            {% set porcentajes_calidad_informes = porcentajes_calidad_informes_distritales %}
+            {% include 'indicadores/calidad_entrega_informes.html' %}
+        </div>
+        <div class="doc-subsection">Entrega de Imagenes</div>
+        <div class="doc-subcontent">
+            {% set proceso = 'distritales' %}
+            {% set datos_entrega_imagenes = datos_entrega_imagenes_distritales %}
+            {% set meses_entregaImagenes = meses_entregaImagenes_distritales %}
+            {% set porcentajes_entregaImagenes = porcentajes_entregaImagenes_distritales %}
+            {% include 'indicadores/entrega_imagenes.html' %}
+        </div>
+        <div class="doc-subsection">Solucion de Inconsistencias</div>
+        <div class="doc-subcontent">
+            {% set proceso = 'distritales' %}
+            {% set datos_solucion_inconsistencias = datos_solucion_inconsistencias_distritales %}
+            {% set meses_inconsistencias = meses_inconsistencias_distritales %}
+            {% set porcentajes_inconsistencias = porcentajes_inconsistencias_distritales %}
+            {% include 'indicadores/solucion_inconsistencias.html' %}
+        </div>
+        <div class="doc-subsection">Traslados</div>
+        <div class="doc-subcontent">
+            {% set proceso = 'distritales' %}
+            {% set datos_traslados = datos_traslados_distritales %}
+            {% set meses_traslados = meses_traslados_distritales %}
+            {% set porcentajes_traslados = porcentajes_traslados_distritales %}
+            {% include 'indicadores/traslados.html' %}
+        </div>
+        <!-- CIERRE 2.1 -->{% endif %}
+    </div>
+    <!-- CIERRE 2 -->{% endif %}
+    <!-- 3 -->{% if current_user.rol in [2, 6, 7] %}
+    <!-- ACORDEON PARA DEPARTAMENTALES , BANCOS "BANCOL, DAVIVIENDA, itau"     -->
+    <div class="doc-section">Impuestos Departamentales</div>
+    <div class="doc-content">
+        <!-- 3.1 -->{% if current_user.rol == 2 %} <!-- ACORDEON PARA DEPARTAMENTALES, BANCOS "BANCOL"     -->
+        <div class="doc-subsection">Entrega Informes</div>
+        <div class="doc-subcontent">
+            {% set proceso = 'departamentales' %}
+            {% set datos_entrega_informes = datos_entrega_informes_departamentales %}
+            {% set meses_informes = meses_entrega_informes_departamentales %}
+            {% set porcentajes_informes = porcentajes_entrega_informes_departamentales %}
+            {% include 'indicadores/entrega_informes.html' %}
+        </div>
+        <!-- 3.1.2 -->{% elif current_user.rol == 7 %} <!-- ACORDEON PARA DEPARTAMENTALES, BANCOS "ITAU"     -->
+        <div class="doc-subsection">Entrega Fisicos</div>
+        <div class="doc-subcontent">
+            {% set proceso = 'departamentales' %}
+            {% set datos_entrega_fisicos = datos_entrega_fisicos_departamentales %}
+            {% set meses_entregaFisicos = meses_entregaFisicos_departamentales %}
+            {% set porcentajes_entregaFisicos = porcentajes_entregaFisicos_departamentales %}
+            {% include 'indicadores/entrega_fisicos.html' %}
+        </div>
+        <div class="doc-subsection">Entrega Informes</div>
+        <div class="doc-subcontent">
+            {% set proceso = 'departamentales' %}
+            {% set datos_entrega_informes = datos_entrega_informes_departamentales %}
+            {% set meses_informes = meses_entrega_informes_departamentales %}
+            {% set porcentajes_informes = porcentajes_entrega_informes_departamentales %}
+            {% include 'indicadores/entrega_informes.html' %}
+        </div>
+        <!-- 3.1.3 -->{% elif current_user.rol == 6 %} <!-- ACORDEON PARA DEPARTAMENTALES, BANCOS "DAVIVIENDA"     -->
+        <div class="doc-subsection">Entrega Informes</div>
+        <div class="doc-subcontent">
+            {% set proceso = 'departamentales' %}
+            {% set datos_entrega_informes = datos_entrega_informes_departamentales %}
+            {% set meses_informes = meses_entrega_informes_departamentales %}
+            {% set porcentajes_informes = porcentajes_entrega_informes_departamentales %}
+            {% include 'indicadores/entrega_informes.html' %}
+        </div>
+        <div class="doc-subsection">Calidad de Informes</div>
+        <div class="doc-subcontent">
+            {% set proceso = 'departamentales' %}
+            {% set datos_calidad_informes = datos_calidad_informes_departamentales %}
+            {% set meses_calidad_informes = meses_calidad_informes_departamentales %}
+            {% set porcentajes_calidad_informes = porcentajes_calidad_informes_departamentales %}
+            {% include 'indicadores/calidad_entrega_informes.html' %}
+        </div>
+        <div class="doc-subsection">Entrega de Imagenes</div>
+        <div class="doc-subcontent">
+            {% set proceso = 'departamentales' %}
+            {% set datos_entrega_imagenes = datos_entrega_imagenes_departamentales %}
+            {% set meses_entregaImagenes = meses_entregaImagenes_departamentales %}
+            {% set porcentajes_entregaImagenes = porcentajes_entregaImagenes_departamentales %}
+            {% include 'indicadores/entrega_imagenes.html' %}
+        </div>
+        <div class="doc-subsection">Entrega Documental</div>
+        <div class="doc-subcontent">
+            {% set proceso = 'departamentales' %}
+            {% set datos_entrega_fisicos = datos_entrega_fisicos_departamentales %}
+            {% set meses_entregaFisicos = meses_entregaFisicos_departamentales %}
+            {% set porcentajes_entregaFisicos = porcentajes_entrega_fisicos_departamentales %}
+            {% include 'indicadores/entrega_fisicos.html' %}
+        </div>
+        <div class="doc-subsection">Solucion de Inconsistencias</div>
+        <div class="doc-subcontent">
+            {% set proceso = 'departamentales' %}
+            {% set datos_solucion_inconsistencias = datos_solucion_inconsistencias_departamentales %}
+            {% set meses_inconsistencias = meses_inconsistencias_departamentales %}
+            {% set porcentajes_inconsistencias = porcentajes_inconsistencias_departamentales %}
+            {% include 'indicadores/solucion_inconsistencias.html' %}
+        </div>
+        <div class="doc-subsection">Traslados</div>
+        <div class="doc-subcontent">
+            {% set proceso = 'departamentales' %}
+            {% set datos_traslados = datos_traslados_departamentales %}
+            {% set meses_traslados = meses_traslados_departamentales %}
+            {% set porcentajes_traslados = porcentajes_traslados_departamentales %}
+            {% include 'indicadores/traslados.html' %}
+        </div>
+        <!-- CIERRE 3.1 -->{% endif %}
+    </div>
+    <!-- CIERRE 3 -->{% endif %}
+    <!-- 4 -->{% if current_user.rol in [2, 6, 13] %} <!-- ACORDEON PARA CONVENIOS, BANCOS "BANCOL, DAVIVIENDA, bcs"     -->
+    <div class="doc-section">Impuestos Convenios</div>
+    <div class="doc-content">
+        <!-- 4.1 -->{% if current_user.rol == 2 or current_user.rol == 13 %} <!-- ACORDEON PARA CONVENIOS, BANCOS "BANCOL, bcs"     -->
+        {% if current_user.rol == 2 %}
+        <div class="doc-subsection">Entrega Informes</div>
+        <div class="doc-subcontent">
+            {% set proceso = 'convenios' %}
+            {% set datos_entrega_informes = datos_entrega_informes_convenios %}
+            {% set meses_informes = meses_entrega_informes_convenios %}
+            {% set porcentajes_informes = porcentajes_entrega_informes_convenios %}
+            {% include 'indicadores/entrega_informes.html' %}
+        </div>
+        {% endif %}
+        <div class="doc-subsection">Entrega Fisicos</div>
+        <div class="doc-subcontent">
+            {% set proceso = 'convenios' %}
+            {% set datos_entrega_fisicos = datos_entrega_fisicos_convenios %}
+            {% set meses_entregaFisicos = meses_entregaFisicos_convenios %}
+            {% set porcentajes_entregaFisicos = porcentajes_entregaFisicos_convenios %}
+            {% include 'indicadores/entrega_fisicos.html' %}
+        </div>
+        <div class="doc-subsection">Imagenes Sitio Web</div>
+        <div class="doc-subcontent">
+            {% set proceso = 'convenios' %}
+            {% set datos_sitio_web = datos_sitio_web_convenios %}
+            {% set meses_sitio_web = meses_sitio_web_convenios %}
+            {% set porcentajes_sitio_web = porcentajes_sitio_web_convenios %}
+            {% include 'indicadores/sitio_web.html' %}
+        </div>
+        {% if current_user.rol == 13 %}
+        <div class="doc-subsection">Plano AFC</div>
+        <div class="doc-subcontent">
+            {% set proceso = 'convenios' %}
+            {% set datos_entrega_informes = datos_entrega_informes_convenios %}
+            {% set meses_informes = meses_entrega_informes_convenios %}
+            {% set porcentajes_informes = porcentajes_entrega_informes_convenios %}
+            {% include 'indicadores/entrega_informes.html' %}
+        </div>
+            {% endif %}
+        <!-- 4.1.2 -->{% elif current_user.rol == 6 %} <!-- ACORDEON PARA CONVENIOS, BANCOS "DAVIVIENDA"  -->
+        <div class="doc-subsection">Entrega Informes</div>
+        <div class="doc-subcontent">
+            {% set proceso = 'convenios' %}
+            {% set datos_entrega_informes = datos_entrega_informes_convenios %}
+            {% set meses_informes = meses_entrega_informes_convenios %}
+            {% set porcentajes_informes = porcentajes_entrega_informes_convenios %}
+            {% include 'indicadores/entrega_informes.html' %}
+        </div>
+        <div class="doc-subsection">Calidad de Informes</div>
+        <div class="doc-subcontent">
+            {% set proceso = 'convenios' %}
+            {% set datos_calidad_informes = datos_calidad_informes_convenios %}
+            {% set meses_calidad_informes = meses_calidad_informes_convenios %}
+            {% set porcentajes_calidad_informes = porcentajes_calidad_informes_convenios %}
+            {% include 'indicadores/calidad_entrega_informes.html' %}
+        </div>
+        <div class="doc-subsection">Entrega de Imagenes</div>
+        <div class="doc-subcontent">
+            {% set proceso = 'convenios' %}
+            {% set datos_entrega_imagenes = datos_entrega_imagenes_convenios %}
+            {% set meses_entregaImagenes = meses_entregaImagenes_convenios %}
+            {% set porcentajes_entregaImagenes = porcentajes_entregaImagenes_convenios %}
+            {% include 'indicadores/entrega_imagenes.html' %}
+        </div>
+        <div class="doc-subsection">Entrega Documental</div>
+        <div class="doc-subcontent">
+            {% set proceso = 'convenios' %}
+            {% set datos_entrega_fisicos = datos_entrega_fisicos_convenios %}
+            {% set meses_entregaFisicos = meses_entregaFisicos_convenios %}
+            {% set porcentajes_entregaFisicos = porcentajes_entrega_fisicos_convenios %}
+            {% include 'indicadores/entrega_fisicos.html' %}
+        </div>
+        <div class="doc-subsection">Solucion de Inconsistencias</div>
+        <div class="doc-subcontent">
+            {% set proceso = 'convenios' %}
+            {% set datos_solucion_inconsistencias = datos_solucion_inconsistencias_convenios %}
+            {% set meses_inconsistencias = meses_inconsistencias_convenios %}
+            {% set porcentajes_inconsistencias = porcentajes_inconsistencias_convenios %}
+            {% include 'indicadores/solucion_inconsistencias.html' %}
+        </div>
+        <div class="doc-subsection">Traslados</div>
+        <div class="doc-subcontent">
+            {% set proceso = 'convenios' %}
+            {% set datos_traslados = datos_traslados_convenios %}
+            {% set meses_traslados = meses_traslados_convenios %}
+            {% set porcentajes_traslados = porcentajes_traslados_convenios %}
+            {% include 'indicadores/traslados.html' %}
+        </div>
+        <!-- CIERRE 4.1 -->{% endif %}
+    </div>
+    <!-- CIERRE 4-->{% endif %}
+    <!-- 5 -->{% if current_user.rol in [7] %} <!-- ACORDEON PARA MUNICIPALES CALI, BANCOS "ITAU"     -->
+    <div class="doc-section">Impuestos Municipales Cali</div>
+    <div class="doc-content">
+        <!-- 5.1 -->{% if current_user.rol == 7 %} <!-- ACORDEON PARA CONVENIOS, BANCOS "BANCOL"     -->
+        <div class="doc-subsection">Entrega Fisicos</div>
+        <div class="doc-subcontent">
+            {% set proceso = 'municipalesCali' %}
+            {% set datos_entrega_fisicos = datos_entrega_fisicos_municipalesCali %}
+            {% set meses_entregaFisicos = meses_entregaFisicos_municipalesCali %}
+            {% set porcentajes_entregaFisicos = porcentajes_entregaFisicos_municipalesCali %}
+            {% include 'indicadores/entrega_fisicos.html' %}
+        </div>
+        <div class="doc-subsection">Entrega Informes</div>
+        <div class="doc-subcontent">
+            {% set proceso = 'municipalesCali' %}
+            {% set datos_entrega_informes = datos_entrega_informes_municipalesCali %}
+            {% set meses_informes = meses_entrega_informes_municipalesCali %}
+            {% set porcentajes_informes = porcentajes_entrega_informes_municipalesCali %}
+            {% include 'indicadores/entrega_informes.html' %}
+        </div>
+        <!-- CIERRE 5.1 -->{% endif %}
+    </div>
+    <!-- CIERRE 5-->{% endif %}
+    <!-- 6 -->{% if current_user.rol in [10, 12] %} <!-- ACORDEON PARA BANCOS "popular, coomeva,"     -->
+    <p>No tiene indicadores</p>
+    <!-- CIERRE 6-->{% endif %}
+    <!-- 7 -->{% if current_user.rol in [11] %} <!-- ACORDEON PARA COMPLEMENTACION , BANCOS "AVVILLAS"     -->
+    <div class="doc-section">Complementacion</div>
+    <div class="doc-content">
+        <div class="doc-subsection">Inconsistencias Pasivo</div>
+        <div class="doc-subcontent">
+            {% set proceso = 'complementacion_pasivo' %}
+            {% set datos_inconsistencias_pasivo = datos_inconsistencias_pasivo %}
+            {% set meses_inconsistenciasPasivo = meses_inconsistenciasPasivo %}
+            {% set porcentajes_inconsistenciasPasivo = porcentajes_inconsistenciasPasivo %}
+            {% include 'indicadores/inconsistencias_pasivo.html' %}
+        </div>
+        <div class="doc-subsection">Inconsistencias Activo</div>
+        <div class="doc-subcontent">
+            {% set proceso = 'complementacion_activo' %}
+            {% set datos_inconsistencias_pasivo = datos_inconsistencias_activo %}
+            {% set meses_inconsistenciasPasivo = meses_inconsistenciasActivo %}
+            {% set porcentajes_inconsistenciasPasivo = porcentajes_inconsistenciasActivo %}
+            {% include 'indicadores/inconsistencias_pasivo.html' %}
+        </div>
+        <div class="doc-subsection">Tiempo de respuesta Tradicional</div>
+        <div class="doc-subcontent">
+            {% set proceso = 'complementacion_repsuestaTradicional' %}
+            {% set datos_inconsistencias_pasivo = datos_inconsistencias_repsuestaTradicional %}
+            {% set meses_inconsistenciasPasivo = meses_inconsistenciasrepsuestaTradicional %}
+            {% set porcentajes_inconsistenciasPasivo = porcentajes_inconsistenciasrepsuestaTradicional %}
+            {% include 'indicadores/inconsistencias_pasivo.html' %}
+        </div>
+        <div class="doc-subsection">Tiempo de respuesta OCI</div>
+        <div class="doc-subcontent">
+            {% set proceso = 'complementacion_repsuestaOCI' %}
+            {% set datos_inconsistencias_pasivo = datos_inconsistencias_repsuestaOCI %}
+            {% set meses_inconsistenciasPasivo = meses_inconsistenciasrepsuestaOCI %}
+            {% set porcentajes_inconsistenciasPasivo = porcentajes_inconsistenciasrepsuestaOCI %}
+            {% include 'indicadores/inconsistencias_pasivo.html' %}
+        </div>
+        <div class="doc-subsection">Tiempo de respuesta por credito OCI</div>
+        <div class="doc-subcontent">
+            {% set proceso = 'complementacion_repsuestaCreditoOCI' %}
+            {% set datos_repsuestaCredito = datos_repsuestaCreditoOCI %}
+            {% set meses_repsuestaCredito = meses_repsuestaCrerditoOCI %}
+            {% set tiempo_repsuestaCredito = tiempo_repsuestaCreditoOCI %}
+            {% include 'indicadores/t_respuesta_credito.html' %}
+        </div>
+        <div class="doc-subsection">Tiempo de respuesta por credito Tradicional</div>
+        <div class="doc-subcontent">
+            {% set proceso = 'complementacion_repsuestaCreditoTradicional' %}
+            {% set datos_repsuestaCredito = datos_repsuestaCreditoTradicional %}
+            {% set meses_repsuestaCredito = meses_repsuestaCrerditoTradicional %}
+            {% set tiempo_repsuestaCredito = tiempo_repsuestaCreditoTradicional %}
+            {% include 'indicadores/t_respuesta_credito.html' %}
+        </div>
+    </div>
+    <div class="doc-section">Radicacion</div>
+    <div class="doc-content">
+        <div class="doc-subsection">Calidad de la Información</div>
+        <div class="doc-subcontent">
+            {% set proceso = 'radicacion' %}
+            {% set datos_calidadInformacion = datos_calidadInformacion_radicacion %}
+            {% set meses_calidadInformacion = meses_calidadInformacion_radicacion %}
+            {% set porcentajes_calidadInformacion = porcentajes_calidadInformacion_radicacion %}
+            {% include 'indicadores/calidadInformacion.html' %}
+        </div>
+        <div class="doc-subsection">Entrega Informes</div>
+        <div class="doc-subcontent">
+            {% set proceso = 'radicacion' %}
+            {% set datos_entrega_informes = datos_entrega_informes_radicacion %}
+            {% set meses_informes = meses_entrega_informes_radicacion %}
+            {% set porcentajes_informes = porcentajes_entrega_informes_radicacion %}
+            {% include 'indicadores/entrega_informes.html' %}
+        </div>
+        <div class="doc-subsection">Entrega de Imagenes</div>
+        <div class="doc-subcontent">
+            {% set proceso = 'radicacion' %}
+            {% set datos_entrega_imagenes = datos_entrega_imagenes_radicacion %}
+            {% set meses_entregaImagenes = meses_entregaImagenes_radicacion %}
+            {% set porcentajes_entregaImagenes = porcentajes_entregaImagenes_radicacion %}
+            {% include 'indicadores/entrega_imagenes.html' %}
+        </div>
+    </div>
+    <div class="doc-section">Tarjetas</div>
+    <div class="doc-content">
+        <div class="doc-subsection">Digital</div>
+        <div class="doc-subcontent">
+            {% set proceso = 'TarjetasDigital' %}
+            {% set datos_entrega_fisicos = datos_entrega_fisicos_TarjetasDigital %}
+            {% set meses_entregaFisicos = meses_entregaFisicos_TarjetasDigital %}
+            {% set porcentajes_entregaFisicos = porcentajes_entrega_fisicos_TarjetasDigital %}
+            {% include 'indicadores/entrega_fisicos.html' %}
+        </div>
+        <div class="doc-subsection">Fisico</div>
+        <div class="doc-subcontent">
+            {% set proceso = 'TarjetasFisico' %}
+            {% set datos_entrega_fisicos = datos_entrega_fisicos_TarjetasFisico %}
+            {% set meses_entregaFisicos = meses_entregaFisicos_TarjetasFisico %}
+            {% set porcentajes_entregaFisicos = porcentajes_entrega_fisicos_TarjetasFisico %}
+            {% include 'indicadores/entrega_fisicos.html' %}
+        </div>
+    </div>
+    <!-- CIERRE 7-->{% endif %}
+
+<!-- CIERRE GESTION DE PRODUCCION -->
+
+<!-- ADMINISTRATIVOS -->
+ <!-- 1 -->{% if current_user.rol in [14] %} <!-- ACORDEON PARA SISTEMAS     -->
+            {% set proceso = 'sistemas' %}
+            {% set meta = 'sistemas' %}
+            {% set datos_administrativo = datos_administrativo_sistemas %}
+            {% set meses_administrativo = meses_administrativo_sistemas %}
+            {% set porcentajes_administrativo = porcentajes_administrativo_sistemas %}
+            {% include 'indicadores/administrativo.html' %}
+<!-- CIERRE 1-->{% endif %}
+ <!-- 2 -->{% if current_user.rol in [18] %} <!-- ACORDEON PARA comercial-->
+    <div class="doc-section">Gestion Comercial</div>
+    <div class="doc-content">
+        <div class="doc-subsection">Envio de Propuestas</div>
+        <div class="doc-subcontent">
+            {% set proceso = 'comercial_propuestas' %}
+            {% set meta = 'propuesta' %}
+            {% set datos_administrativo = datos_administrativo_comercial_propuestas %}
+            {% set meses_administrativo = meses_administrativo_comercial_propuestas %}
+            {% set porcentajes_administrativo = porcentajes_administrativo_comercial_propuestas %}
+            {% include 'indicadores/administrativo.html' %}
+        </div>
+        <div class="doc-subsection">Efectividad</div>
+        <div class="doc-subcontent">
+            {% set proceso = 'comercial_efectividad' %}
+            {% set meta = 'efectividad' %}
+            {% set datos_administrativo = datos_administrativo_comercial_efectividad %}
+            {% set meses_administrativo = meses_administrativo_comercial_efectividad %}
+            {% set porcentajes_administrativo = porcentajes_administrativo_comercial_efectividad %}
+            {% include 'indicadores/administrativo.html' %}
+        </div>
+    </div>
+    <div class="doc-section">PQR</div>
+    <div class="doc-content">
+        {% set proceso = 'comercial_pqr' %}
+        {% set meta = 'pqr' %}
+            {% set datos_administrativo = datos_administrativo_comercial_pqr %}
+            {% set meses_administrativo = meses_administrativo_comercial_pqr %}
+            {% set porcentajes_administrativo = porcentajes_administrativo_comercial_pqr %}
+            {% include 'indicadores/administrativo.html' %}
+    </div>
+    <!-- CIERRE 2-->{% endif %}
+      <!-- 3 -->{% if current_user.rol in [8] %} <!-- ACORDEON PARA th-->
+    <div class="doc-section">Clima Organizacional</div>
+    <div class="doc-content">
+        {% set proceso = 'TH_clima_organizacional' %}
+        {% set meta = 'TH_clima_organizacional' %}
+            {% set datos_administrativo = datos_administrativo_TH_clima_organizacional %}
+            {% set meses_administrativo = meses_administrativo_TH_clima_organizacional %}
+            {% set porcentajes_administrativo = porcentajes_administrativo_TH_clima_organizacional %}
+            {% include 'indicadores/administrativo.html' %}
+    </div>
+    <div class="doc-section">Cumplimiento de Capacitaciones</div>
+    <div class="doc-content">
+        {% set proceso = 'TH_Cumplimiento_Capacitaciones' %}
+        {% set meta = 'TH_Cumplimiento_Capacitaciones' %}
+            {% set datos_administrativo = datos_administrativo_TH_Cumplimiento_Capacitaciones %}
+            {% set meses_administrativo = meses_administrativo_TH_Cumplimiento_Capacitaciones %}
+            {% set porcentajes_administrativo = porcentajes_administrativo_TH_Cumplimiento_Capacitaciones %}
+            {% include 'indicadores/administrativo.html' %}
+    </div>
+    <div class="doc-section">Eficacia de las Capacitaciones</div>
+    <div class="doc-content">
+        {% set proceso = 'TH_Eficacia_Capacitaciones' %}
+        {% set meta = 'TH_Eficacia_Capacitaciones' %}
+            {% set datos_administrativo = datos_administrativo_TH_Eficacia_Capacitaciones %}
+            {% set meses_administrativo = meses_administrativo_TH_Eficacia_Capacitaciones %}
+            {% set porcentajes_administrativo = porcentajes_administrativo_TH_Eficacia_Capacitaciones %}
+            {% include 'indicadores/administrativo.html' %}
+    </div>
+    <div class="doc-section">Evaluacion de Desempeño</div>
+    <div class="doc-content">
+        {% set proceso = 'TH_Evaluacion_Desempeño' %}
+        {% set meta = 'TH_Evaluacion_Desempeño' %}
+            {% set datos_administrativo = datos_administrativo_TH_Evaluacion_Desempeño %}
+            {% set meses_administrativo = meses_administrativo_TH_Evaluacion_Desempeño %}
+            {% set porcentajes_administrativo = porcentajes_administrativo_TH_Evaluacion_Desempeño %}
+            {% include 'indicadores/administrativo.html' %}
+    </div>
+    <!-- CIERRE 3-->{% endif %}
+      <!-- 4 -->{% if current_user.rol in [9] %} <!-- ACORDEON PARA ti     -->
+            {% set proceso = 'tecnologia' %}
+            {% set meta = 'tecnologia' %}
+            {% set datos_administrativo = datos_administrativo_tecnologia %}
+            {% set meses_administrativo = meses_administrativo_tecnologia %}
+            {% set porcentajes_administrativo = porcentajes_administrativo_tecnologia %}
+            {% include 'indicadores/administrativo.html' %}
+<!-- CIERRE 4-->{% endif %}
+       <!-- 5 -->{% if current_user.rol in [15] %} <!-- ACORDEON PARA contabilidad     -->
+            {% set proceso = 'financiera' %}
+            {% set meta = 'financiera' %}
+            {% set datos_administrativo = datos_administrativo_financiera %}
+            {% set meses_administrativo = meses_administrativo_financiera %}
+            {% set porcentajes_administrativo = porcentajes_administrativo_financiera %}
+            {% include 'indicadores/administrativo.html' %}
+<!-- CIERRE 5-->{% endif %}
+ <!-- 6 -->{% if current_user.rol in [17, 19, 20, 21] %} <!-- ACORDEON PARA BANCOS "popular, coomeva, SST, Direccion, sagrilaft, ambiental"     -->
+    <p>No tiene indicadores</p>
+    <!-- CIERRE 6-->{% endif %}
+      <!-- 7 -->{% if current_user.rol in [16] %} <!-- ACORDEON PARA SGI-->
+    <div class="doc-section">Gestion Acciones Correctivas</div>
+    <div class="doc-content">
+        {% set proceso = 'SGI_Acciones_Correctivas' %}
+        {% set meta = 'SGI_Acciones_Correctivas' %}
+            {% set datos_administrativo = datos_administrativo_SGI_Acciones_Correctivas %}
+            {% set meses_administrativo = meses_administrativo_SGI_Acciones_Correctivas %}
+            {% set porcentajes_administrativo = porcentajes_administrativo_SGI_Acciones_Correctivas %}
+            {% include 'indicadores/administrativo.html' %}
+    </div>
+    <div class="doc-section">Gestion Continuidad de Negocios</div>
+    <div class="doc-content">
+        {% set proceso = 'SGI_Continuidad_Negocio' %}
+        {% set meta = 'SGI_Continuidad_Negocio' %}
+            {% set datos_administrativo = datos_administrativo_SGI_Continuidad_Negocio %}
+            {% set meses_administrativo = meses_administrativo_SGI_Continuidad_Negocio %}
+            {% set porcentajes_administrativo = porcentajes_administrativo_SGI_Continuidad_Negocio %}
+            {% include 'indicadores/administrativo.html' %}
+    </div>
+    <div class="doc-section">Gestion Incidentes de Seguridad</div>
+    <div class="doc-content">
+        {% set proceso = 'SGI_Incidentes_Seguridad' %}
+        {% set meta = 'SGI_Incidentes_Seguridad' %}
+            {% set datos_administrativo = datos_administrativo_SGI_Incidentes_Seguridad %}
+            {% set meses_administrativo = meses_administrativo_SGI_Incidentes_Seguridad %}
+            {% set porcentajes_administrativo = porcentajes_administrativo_SGI_Incidentes_Seguridad %}
+            {% include 'indicadores/administrativo.html' %}
+    </div>
+    <div class="doc-section">Gestion Producto No Conforme</div>
+    <div class="doc-content">
+        {% set proceso = 'SGI_Producto_No_Conforme' %}
+        {% set meta = 'SGI_Producto_No_Conforme' %}
+            {% set datos_administrativo = datos_administrativo_SGI_Producto_No_Conforme %}
+            {% set meses_administrativo = meses_administrativo_SGI_Producto_No_Conforme %}
+            {% set porcentajes_administrativo = porcentajes_administrativo_SGI_Producto_No_Conforme %}
+            {% include 'indicadores/administrativo.html' %}
+    </div>
+    <div class="doc-section">Gestion Riesgos</div>
+    <div class="doc-content">
+        {% set proceso = 'SGI_Riesgos' %}
+        {% set meta = 'SGI_Riesgos' %}
+            {% set datos_administrativo = datos_administrativo_SGI_Riesgos %}
+            {% set meses_administrativo = meses_administrativo_SGI_Riesgos %}
+            {% set porcentajes_administrativo = porcentajes_administrativo_SGI_Riesgos %}
+            {% include 'indicadores/administrativo.html' %}
+    </div>
+    <!-- CIERRE 7-->{% endif %}
+
+
+
+
+
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="{{ url_for('static', filename='js/acordeon_doc.js')}}"></script>
+{% endblock %}

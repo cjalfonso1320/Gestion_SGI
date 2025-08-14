@@ -1,0 +1,33 @@
+{% extends 'home_admin.html' %}
+{% block title %}Control de Rutas{% endblock %}
+{% block content %}
+<h2>Lista de Rutas</h2>
+<div class="tbl-header">
+    <table cellpadding="0" cellspacing="0" border="0">
+      <thead>
+        <tr>
+          <th>Rol</th>
+          <th>Ruta</th>
+          <th >Carpeta</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+  <div class="tbl-content">
+    <table cellpadding="0" cellspacing="0" border="1">
+      <tbody>
+        {% for u in rutas %}
+        <tr>
+            <td>{{ u[2] }}</td>
+            <td style="word-break: break-all;">{{ u[3] }}</td>
+            <td>{{ u[4] }}</td>
+            <td>
+                <a href="{{ url_for('rutas.editar_ruta', id=u[0]) }}" class="custom-btn btn-5" style="text-decoration: none; text-align: center;">Editar</a> |
+            </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+</div>
+{% endblock %}

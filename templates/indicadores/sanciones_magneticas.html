@@ -1,0 +1,180 @@
+<form action="{{url_for('ind.guardar_sanciones_magneticas')}}" method="post">
+    <div>
+        <label class="form-label" for="mes2">mes2</label>
+        <select id="mes2" name="mes2" required>
+            <option value="">Seleccione un mes2</option>
+            <option value="Enero">Enero</option>
+            <option value="Febrero">Febrero</option>
+            <option value="Marzo">Marzo</option>
+            <option value="Abril">Abril</option>
+            <option value="Mayo">Mayo</option>
+            <option value="Junio">Junio</option>
+            <option value="Julio">Julio</option>
+            <option value="Agosto">Agosto</option>
+            <option value="Septiembre">Septiembre</option>
+            <option value="Octubre">Octubre</option>
+            <option value="Noviembre">Noviembre</option>
+            <option value="Diciembre">Diciembre</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="R_extemporaneos2" >Registros Extemporaneos</label>
+        <input class="form-control" type="number"  id="R_extemporaneos2" name="R_extemporaneos2" readonly>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="r_digicom" >Registros Responsabilidad Digicom</label>
+        <input class="form-control" type="number"  id="r_digicom" name="r_digicom">
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="P_aceptacion" >Porcentaje de Aceptacion</label>
+        <input class="form-control" id="P_aceptacion" name="P_aceptacion" type="text" value="0,00233%" readonly>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="resultado_sancionesMagneticas" >Riesgo Aceptado</label>
+        <input class="form-control" type="number"  id="resultado_sancionesMagneticas" name="resultado_sancionesMagneticas" readonly>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="meta_sancionesMagneticas" >Meta</label>
+        <input class="form-control" type="text"  id="meta_sancionesMagneticas" name="meta_sancionesMagneticas" readonly>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="UVT_sancionesMagneticas" >UVT</label>
+        <input class="form-control" type="text"  id="UVT_sancionesMagneticas" name="UVT_sancionesMagneticas" value="${{ uvt_valor }}" readonly>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="multa_sancionesMagneticas" >Valor Aproximado de Multa</label>
+        <input class="form-control" type="text"  id="multa_sancionesMagneticas" name="multa_sancionesMagneticas" readonly>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="analisis" >Analisis</label>
+        <textarea id="analisis_sancionesMagneticas" name="analisis_sancionesMagneticas"></textarea>
+    </div>
+    <button type="submit">Guardar</button>
+</form>
+
+
+<div class="container mt-4">
+    
+<div class="accordion" id="acordeonTabla">
+  <div class="accordion-header" onclick="this.parentElement.classList.toggle('active')">
+    Ver Tabla de Registros
+  </div>
+  <div class="accordion-content">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>mes</th>
+          <th>Registros Extemporaneos</th>
+          <th>Registros Responsabilidad Digicom</th>
+          <th>Meta</th>
+          <th>Multa</th>
+          <th>Analisis</th>
+        </tr>
+      </thead>
+    {% for registro in datos_sancionesMagneticas %}
+      <tbody>
+        <tr>
+          <td>{{registro[0]}}</td>
+          <td>{{registro[1]}}</td>
+          <td>{{registro[2]}}</td>
+          <td>{{registro[3]}}</td>
+          <td>$ {{registro[4]}}</td>
+          <td>{{registro[5]}}</td>
+        </tr>
+      </tbody>
+    {% endfor %}
+    </table>
+  </div>
+</div>
+    <h3>Porcentaje de Documentos Entregados por mes2</h3>
+    <canvas id="grafica_sancionesMagneticas" width="400" height="200"></canvas>
+</div>
+
+<!-- Chart.js debe ir antes del script que lo usa -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    let resultadoGlobal = 0;  // Guardar resultado global
+
+    // Evento: al seleccionar el mes
+    document.getElementById('mes2').addEventListener('change', function () {
+        const mesSeleccionado = this.value;
+
+        fetch('/registro_extemporaneo', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ mes: mesSeleccionado })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log("Respuesta recibida:", data);
+
+            // Mostrar registros extemporáneos
+            document.getElementById('R_extemporaneos2').value = data.r_extemporaneo ?? 0;
+
+            // Obtener porcentaje de aceptación
+            let p_aceptacion_valor = document.getElementById('P_aceptacion').value.trim();
+            p_aceptacion_valor = p_aceptacion_valor.replace('%', '').replace(',', '.');
+            const p_aceptacion = parseFloat(p_aceptacion_valor) || 0;
+
+            // Calcular resultado
+            const t_registros = parseInt(data.t_registros) || 0;
+            resultadoGlobal = p_aceptacion * t_registros;
+            console.log("Resultado calculado:", resultadoGlobal);
+
+            // Mostrar resultado
+            document.getElementById('resultado_sancionesMagneticas').value = resultadoGlobal;
+        });
+    });
+
+    // Evento: al escribir o cambiar r_digicom
+    document.getElementById('r_digicom').addEventListener('input', function () {
+        let r_digicom_valor = this.value.trim();
+        r_digicom_valor = r_digicom_valor.replace('%', '').replace(',', '.');
+        const r_digicom = parseFloat(r_digicom_valor) || 0;
+
+
+        // Evaluar meta
+        const metaInput = document.getElementById('meta_sancionesMagneticas');
+        if (r_digicom === 0) {
+            metaInput.value = "Lo esperado";
+        } else if (resultadoGlobal >= r_digicom) {
+            metaInput.value = "Meta Alcanzada";
+        } else {
+            metaInput.value = "Meta no alcanzada";
+        }
+
+        // Calcular valor aproximado de multa
+        const uvt = parseFloat(document.getElementById('UVT_sancionesMagneticas').value.replace('$', '').replace('.', '').replace(',', '.')) || 0;
+        const multa = (uvt * r_digicom) / 2;
+        document.getElementById('multa_sancionesMagneticas').value = `$${multa}`;
+    });
+</script>
+
+<script>
+    const ctx_sancionesMagneticas = document.getElementById('grafica_sancionesMagneticas').getContext('2d');
+    const grafica_sancionesMagneticas = new Chart(ctx_sancionesMagneticas, {
+        type: 'line',
+        data: {
+            labels: {{ meses_sancionesMagneticas|default([])|tojson|safe }},
+            datasets: [{
+                label: 'Porcentaje Nacionales (%)',
+                data: {{ multas_sancionesMagneticas|default([])|tojson|safe }},
+                borderColor: 'rgba(255, 99, 132, 1)',
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                fill: true,
+                tension: 0.3
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 10000000
+                }
+            }
+        }
+    });
+</script>
