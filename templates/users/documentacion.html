@@ -2,6 +2,90 @@
 {% block title %}Documentacion{% endblock %}
 {% block content %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/acordeon_doc.css') }}">
+
+<!-- Botón flotante para subir documentos -->
+<div class="upload-fab" onclick="openUploadModal()">
+    <i class="fa fa-upload"></i>
+</div>
+
+<!-- Modal para subir documentos -->
+<div id="uploadModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Subir Documento</h2>
+            <span class="close" onclick="closeUploadModal()">&times;</span>
+        </div>
+        <div class="modal-body">
+            <form id="uploadForm" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="carpeta">Seleccionar Carpeta:</label>
+                    <select id="carpeta" name="carpeta" required>
+                        <option value="">Seleccione una carpeta...</option>
+                        <option value="Procedimientos">Procedimientos</option>
+                        <option value="Caracterizacion">Caracterización</option>
+                        <option value="Formatos Digitales">Formatos Digitales</option>
+                        <option value="Formatos Fisicos">Formatos Fisicos</option>
+                        <option value="Formatos Externos">Formatos Externos</option>
+                        <option value="Formatos Externos Digitales">Formatos Externos Digitales</option>
+                        <option value="Formatos Externos Fisicos">Formatos Externos Fisicos</option>
+                        <option value="Plan de Calidad">Plan de Calidad</option>
+                        <option value="Requisitos del Cliente">Requisitos del Cliente</option>
+                        <option value="Actas de Restauración">Actas de Restauración</option>
+                        <option value="Instructivos">Instructivos</option>
+                        <option value="Manuales">Manuales</option>
+                        <option value="Auditorias IFX">Auditorias IFX</option>
+                        <option value="Auditoria Integrum">Auditoria Integrum</option>
+                        <option value="Auditoria Inter Servicios">Auditoria Inter Servicios</option>
+                        <option value="ISEC Continuidad">ISEC Continuidad</option>
+                        <option value="ISEC Proteccion Datos">ISEC Proteccion Datos</option>
+                        <option value="ISEC Seguridad Inf">ISEC Seguridad Inf</option>
+                        <option value="Comite de Seguridad">Comite de Seguridad</option>
+                        <option value="Vulnerabilidades 2024">Vulnerabilidades 2024</option>
+                        <option value="Vulnerabilidades 2025">Vulnerabilidades 2025</option>
+                        <option value="Vulnerabilidades Anteriores">Vulnerabilidades Anteriores</option>
+                        <option value="Revision Seguridad 2021">Revision Seguridad 2021</option>
+                        <option value="Revision Seguridad 2022">Revision Seguridad 2022</option>
+                        <option value="Revision Seguridad 2023">Revision Seguridad 2023</option>
+                        <option value="Revision Seguridad 2024">Revision Seguridad 2024</option>
+                        <option value="SST">SST</option>
+                        <option value="Encuestas 2019">Encuestas 2019</option>
+                        <option value="Encuestas 2020">Encuestas 2020</option>
+                        <option value="Encuestas 2021">Encuestas 2021</option>
+                        <option value="Sagrilaft">Sagrilaft</option>
+                        <option value="Ambiental">Ambiental</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="documento">Seleccionar Documento:</label>
+                    <input type="file" id="documento" name="documento" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt" required>
+                </div>
+                <div class="form-actions">
+                    <button type="button" onclick="closeUploadModal()" class="btn-secondary">Cancelar</button>
+                    <button type="submit" class="btn-primary">Subir</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de confirmación para reemplazar -->
+<div id="replaceModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Documento Existente</h2>
+            <span class="close" onclick="closeReplaceModal()">&times;</span>
+        </div>
+        <div class="modal-body">
+            <p>El documento <strong id="existingFileName"></strong> ya existe en la carpeta seleccionada.</p>
+            <p>¿Desea reemplazarlo?</p>
+            <div class="form-actions">
+                <button type="button" onclick="closeReplaceModal()" class="btn-secondary">Cancelar</button>
+                <button type="button" onclick="confirmReplace()" class="btn-warning">Reemplazar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 {% if current_user.rol != 17 and current_user.rol != 20 and current_user.rol != 21 %}
     <div class="doc-accordion">
         <div class="doc-section">Procedimientos</div>

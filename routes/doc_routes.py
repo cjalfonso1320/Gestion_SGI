@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, send_file, abort, request
 from flask_login import current_user
 import os
+from extension import mysql
 from controllers.doc_controller import procedimientos, caracterizacion, formatos_digitales, formatos_fisicos, formatos_externos_digitales, formatos_externos_fisicos, plan_calidad, requisitos_cliente, actas_restauracion, instructivos, manuales
 from controllers.doc_controller import auditorias_ifx, auditoria_integrum, auditoria_inter_servicios, ISECpoliticaContinuidad, ISECpoliticaProteccionDatos, ISECpoliticaSeguridadInf, comite_seguridad
 from controllers.doc_controller import vulnerabilidades_2024, vulnerabilidades_2025, vulnerabilidades_ant
@@ -124,4 +125,79 @@ def ver_caracterizacion(filepath):
         return send_file(filepath)
     else:
         abort(404, description="El archivo no existe o no se puede acceder.")
+
+@doc_bp.route('/documentacion/subir', methods=['POST'])
+def subir_documento():
+    from flask import jsonify
+    import os
+    from werkzeug.utils import secure_filename
+    
+    try:
+        # Verificar si se recibió el archivo
+        if 'documento' not in request.files:
+            return jsonify({'success': False, 'message': 'No se recibió ningún archivo'})
+        
+        file = request.files['documento']
+        carpeta = request.form.get('carpeta')
+        replace = request.form.get('replace', 'false').lower() == 'true'
+        
+        if file.filename == '':
+            return jsonify({'success': False, 'message': 'No se seleccionó ningún archivo'})
+        
+        if not carpeta:
+            return jsonify({'success': False, 'message': 'No se especificó la carpeta'})
+        
+        # Resolver rol para carpetas compartidas (roles que usan la misma ruta de 'Occidente')
+        roles_compartidos = [2, 4, 5, 6, 7, 10, 11, 12, 13]
+        rol_id_para_buscar = current_user.rol
+        
+        if current_user.rol in roles_compartidos:
+            cur = mysql.connection.cursor()
+            cur.execute("SELECT id FROM rol WHERE rol = %s LIMIT 1", ('Occidente',))
+            row = cur.fetchone()
+            cur.close()
+            if row and row[0]:
+                rol_id_para_buscar = row[0]
+            else:
+                # Fallback: si no existe 'Occidente' en la tabla, usar 4 como estaba acordado
+                rol_id_para_buscar = 4
+        
+        # Obtener la ruta de la carpeta desde la base de datos
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT ruta_compartida FROM rutas WHERE rol_id = %s AND carpeta = %s", (rol_id_para_buscar, carpeta))
+        result = cur.fetchone()
+        cur.close()
+        
+        if not result:
+            return jsonify({'success': False, 'message': 'Carpeta no encontrada para este rol'})
+        
+        carpeta_path = result[0]
+        
+        # Verificar que la carpeta existe
+        if not os.path.exists(carpeta_path):
+            return jsonify({'success': False, 'message': 'La carpeta de destino no existe'})
+        
+        # Obtener el nombre seguro del archivo
+        filename = secure_filename(file.filename)
+        file_path = os.path.join(carpeta_path, filename)
+        
+        # Verificar si el archivo ya existe
+        if os.path.exists(file_path) and not replace:
+            return jsonify({
+                'success': False, 
+                'exists': True, 
+                'message': 'El archivo ya existe'
+            })
+        
+        # Guardar el archivo
+        file.save(file_path)
+        
+        return jsonify({
+            'success': True, 
+            'message': 'Documento subido exitosamente',
+            'filename': filename
+        })
+        
+    except Exception as e:
+        return jsonify({'success': False, 'message': f'Error al subir el archivo: {str(e)}'})
 
