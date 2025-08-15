@@ -353,35 +353,53 @@ def indicadores():
 @login_required
 def guardar_calidad_informacion():
     if request.method == 'POST':
-        datos = {
-            'mes': request.form['mes'],
-            'form_digitados': request.form['form_digitados'],
-            'err_digitacion': request.form['err_digitacion'],
-            'resultado': request.form['resultado_calidadInformacion'],
-            'meta': request.form['meta_calidadInformacion'],
-            'analisis': request.form['analisis_calidadInformacion'],
-            'proceso': request.form['proceso']
-        }
-        rol = current_user.rol
-        guardar_calidadInformacion(datos, rol)
-        return redirect(url_for('ind.indicadores'))
-    return render_template('indicadores/indicadores.html', usuario=current_user)  
+        try:
+            datos = {
+                'mes': request.form['mes'],
+                'form_digitados': request.form['form_digitados'],
+                'err_digitacion': request.form['err_digitacion'],
+                'resultado': request.form['resultado_calidadInformacion'],
+                'meta': request.form['meta_calidadInformacion'],
+                'analisis': request.form['analisis_calidadInformacion'],
+                'proceso': request.form['proceso']
+            }
+            rol = current_user.rol
+            guardar_calidadInformacion(datos, rol)
+            return jsonify({
+                'success': True,
+                'message': 'Indicador de Calidad de Información guardado exitosamente'
+            })
+        except Exception as e:
+            return jsonify({
+                'success': False,
+                'message': f'Error al guardar el indicador: {str(e)}'
+            })
+    return jsonify({'success': False, 'message': 'Método no permitido'})
 @ind_bp.route('/guardar_registros_magneticos', methods=['POST'])
 @login_required
 def guardar_registros_magneticos():
     if request.method == 'POST':
-        datos = {
-            'mes': request.form['mes'],
-            'T_registros': request.form['T_registros'],
-            'R_extemporaneos': request.form['R_extemporaneos'],
-            'resultado': request.form['resultado_resgitrosExtemporaneos'],
-            'meta': request.form['meta_resgitrosExtemporaneos'],
-            'analisis': request.form['analisis_resgitrosExtemporaneos']
-        }
-        rol = current_user.rol
-        guardar_registrosExtemporaneos(datos, rol)
-        return redirect(url_for('ind.indicadores'))
-    return render_template('indicadores/indicadores.html', usuario=current_user)
+        try:
+            datos = {
+                'mes': request.form['mes'],
+                'T_registros': request.form['T_registros'],
+                'R_extemporaneos': request.form['R_extemporaneos'],
+                'resultado': request.form['resultado_resgitrosExtemporaneos'],
+                'meta': request.form['meta_resgitrosExtemporaneos'],
+                'analisis': request.form['analisis_resgitrosExtemporaneos']
+            }
+            rol = current_user.rol
+            guardar_registrosExtemporaneos(datos, rol)
+            return jsonify({
+                'success': True,
+                'message': 'Indicador de Registros Magnéticos guardado exitosamente'
+            })
+        except Exception as e:
+            return jsonify({
+                'success': False,
+                'message': f'Error al guardar el indicador: {str(e)}'
+            })
+    return jsonify({'success': False, 'message': 'Método no permitido'})
 @ind_bp.route('/registro_extemporaneo', methods=['POST'])
 def obtener_registro_extemporaneo():
     mes = request.json.get('mes')
@@ -408,204 +426,248 @@ def registro_extemporaneo_fisico():
 @login_required
 def guardar_sanciones_magneticas():
     if request.method == 'POST':
-        valor_porcentaje = request.form['P_aceptacion'].replace('%', '').replace(',', '.')
-        valor_uvt = request.form['UVT_sancionesMagneticas'].replace('$', '').replace(',', '.')
-        valor_multa = request.form['multa_sancionesMagneticas'].replace('$', '').replace(',', '.')
-        datos = {
-            'mes': request.form['mes2'],
-            'R_extemporaneos2': request.form['R_extemporaneos2'],
-            'r_digicom': request.form['r_digicom'],
-            'P_aceptacion': valor_porcentaje,
-            'resultado': request.form['resultado_sancionesMagneticas'],
-            'meta': request.form['meta_sancionesMagneticas'],
-            'uvt': valor_uvt,
-            'multa': valor_multa,
-            'analisis': request.form['analisis_sancionesMagneticas']
-        }
-        rol = current_user.rol
+        try:
+            valor_porcentaje = request.form['P_aceptacion'].replace('%', '').replace(',', '.')
+            valor_uvt = request.form['UVT_sancionesMagneticas'].replace('$', '').replace(',', '.')
+            valor_multa = request.form['multa_sancionesMagneticas'].replace('$', '').replace(',', '.')
+            datos = {
+                'mes': request.form['mes2'],
+                'R_extemporaneos2': request.form['R_extemporaneos2'],
+                'r_digicom': request.form['r_digicom'],
+                'P_aceptacion': valor_porcentaje,
+                'resultado': request.form['resultado_sancionesMagneticas'],
+                'meta': request.form['meta_sancionesMagneticas'],
+                'uvt': valor_uvt,
+                'multa': valor_multa,
+                'analisis': request.form['analisis_sancionesMagneticas']
+            }
+            rol = current_user.rol
 
-        print(datos)
-        guardar_sancionesMagneticas(datos, rol)
-        return redirect(url_for('ind.indicadores'))
-    return render_template('indicadores/indicadores.html', usuario=current_user)
+            
+            guardar_sancionesMagneticas(datos, rol)
+            return jsonify({
+                'success': True,
+                'message': 'Indicador de Sanciones Magnéticas guardado exitosamente'
+            })
+        except Exception as e:
+            return jsonify({
+                'success': False,
+                'message': f'Error al guardar el indicador: {str(e)}'
+            })
+    return jsonify({'success': False, 'message': 'Método no permitido'})
 @ind_bp.route('/guardar_sanciones_fisicos', methods=['POST'])
 @login_required
 def guardar_sanciones_fisicos():
     if request.method == 'POST':
-        valor_porcentaje = request.form['P_aceptacion_fisicos'].replace('%', '').replace(',', '.')
-        valor_uvt = request.form['UVT_sancionesFisicos'].replace('$', '').replace(',', '.')
-        valor_multa = request.form['multa_sancionesFisicos'].replace('$', '').replace(',', '.')
-        datos = {
-            'mes': request.form['mes_fisicos'],
-            'D_extemporaneos2': request.form['D_extemporaneos2'],
-            'dr_digicom': request.form['dr_digicom'],
-            'P_aceptacion_fisicos': valor_porcentaje,
-            'resultado_sancionesFisicos': request.form['resultado_sancionesFisicos'],
-            'meta_sancionesFisicos': request.form['meta_sancionesFisicos'],
-            'uvt_sancionesFisicos': valor_uvt,
-            'multa_sancionesFisicos': valor_multa,
-            'analisis_sancionesFisicos': request.form['analisis_sancionesFisicos']
-        }
-        rol = current_user.rol
-
-        guardar_sancionesFisicos(datos, rol)
-        return redirect(url_for('ind.indicadores'))
-    return render_template('indicadores/indicadores.html', usuario=current_user)
+        try:
+            valor_porcentaje = request.form['P_aceptacion_fisicos'].replace('%', '').replace(',', '.')
+            valor_uvt = request.form['UVT_sancionesFisicos'].replace('$', '').replace(',', '.')
+            valor_multa = request.form['multa_sancionesFisicos'].replace('$', '').replace(',', '.')
+            datos = {
+                'mes': request.form['mes_fisicos'],
+                'D_extemporaneos2': request.form['D_extemporaneos2'],
+                'dr_digicom': request.form['dr_digicom'],
+                'P_aceptacion_fisicos': valor_porcentaje,
+                'resultado_sancionesFisicos': request.form['resultado_sancionesFisicos'],
+                'meta_sancionesFisicos': request.form['meta_sancionesFisicos'],
+                'uvt_sancionesFisicos': valor_uvt,
+                'multa_sancionesFisicos': valor_multa,
+                'analisis_sancionesFisicos': request.form['analisis_sancionesFisicos']
+            }
+            rol = current_user.rol
+            guardar_sancionesFisicos(datos, rol)
+            return jsonify({
+                'success': True,
+                'message': 'Indicador de Sanciones Físicos guardado exitosamente'
+            })
+        except Exception as e:
+            return jsonify({
+                'success': False,
+                'message': f'Error al guardar el indicador: {str(e)}'
+            })
+    return jsonify({'success': False, 'message': 'Método no permitido'})
 @ind_bp.route('/guardar_entrega_fisicos', methods=['POST'])
 @login_required
 def guardar_entrega_fisicos():
     if request.method == 'POST':
-        datos = {
-            'mes': request.form['mes'],
-            'documentos_entregados': request.form['doc_entregados'],
-            'documentos_extemporaneos': request.form['doc_extemporaneos'],
-            'resultado': request.form['resultado_entrgeaFisicos'],
-            'meta': request.form['meta_entregaFisicos'],
-            'analisis': request.form['analisis_entregaFisicos'],
-            'proceso': request.form['proceso']
-        }
-        rol = current_user.rol
-        print(datos)
-        guardar_registrosFisicos(datos, rol)
-        return redirect(url_for('ind.indicadores'))
-    return render_template('indicadores/indicadores.html', usuario=current_user)
+        try:
+            datos = {
+                'mes': request.form['mes'],
+                'documentos_entregados': request.form['doc_entregados'],
+                'documentos_extemporaneos': request.form['doc_extemporaneos'],
+                'resultado': request.form['resultado_entrgeaFisicos'],
+                'meta': request.form['meta_entregaFisicos'],
+                'analisis': request.form['analisis_entregaFisicos'],
+                'proceso': request.form['proceso']
+            }
+            rol = current_user.rol
+            print(datos)
+            guardar_registrosFisicos(datos, rol)
+            return jsonify({'success': True, 'message': 'Indicador guardado correctamente'})
+        except Exception as e:
+            return jsonify({'success': False, 'message': f'Error al guardar: {str(e)}'})
+    return jsonify({'success': False, 'message': 'Método no permitido'})
 @ind_bp.route('/guardar_cintas_magneticas', methods=['POST'])
 @login_required
 def guardar_cintas_magneticas():
     if request.method == 'POST':
-        datos = {
-            'mes': request.form['mes'],
-            'cintas_enviadas': request.form['cin_enviadas'],
-            'cintas_rechazadas': request.form['cin_rechazadas'],
-            'resultado': request.form['resultado_cintasMagneticas'],
-            'meta': request.form['meta_cintasMagneticas'],
-            'analisis': request.form['analisis_cintasMagneticas'],
-            'proceso': request.form['proceso']
-        }
-        rol = current_user.rol
-        print(datos)
-        guardar_cintasMagneticas(datos, rol)
-        return redirect(url_for('ind.indicadores'))
-    return render_template('indicadores/indicadores.html', usuario=current_user)
+        try:
+            datos = {
+                'mes': request.form['mes'],
+                'cintas_enviadas': request.form['cin_enviadas'],
+                'cintas_rechazadas': request.form['cin_rechazadas'],
+                'resultado': request.form['resultado_cintasMagneticas'],
+                'meta': request.form['meta_cintasMagneticas'],
+                'analisis': request.form['analisis_cintasMagneticas'],
+                'proceso': request.form['proceso']
+            }
+            rol = current_user.rol
+            print(datos)
+            guardar_cintasMagneticas(datos, rol)
+            return jsonify({'success': True, 'message': 'Indicador guardado correctamente'})
+        except Exception as e:
+            return jsonify({'success': False, 'message': f'Error al guardar: {str(e)}'})
+    return jsonify({'success': False, 'message': 'Método no permitido'})
 @ind_bp.route('/guardar_informes_entregados', methods=['POST'])
 @login_required
 def guardar_informes_entregados():
     if request.method == 'POST':
-        datos = {
-            'mes': request.form['mes'],
-            'informes_entregados': request.form['inf_enviados'],
-            'informes_extemporaneos': request.form['inf_fueraTiempo'],
-            'resultado': request.form['resultado_informes'],
-            'meta': request.form['meta_informes'],
-            'analisis': request.form['analisis_informes'],
-            'proceso': request.form['proceso']
-        }
-        rol = current_user.rol
-        guardar_informesEntregados(datos, rol)
-        return redirect(url_for('ind.indicadores'))
-    return render_template('indicadores/indicadores.html', usuario=current_user)
+        try:
+            datos = {
+                'mes': request.form['mes'],
+                'informes_entregados': request.form['inf_enviados'],
+                'informes_extemporaneos': request.form['inf_fueraTiempo'],
+                'resultado': request.form['resultado_informes'],
+                'meta': request.form['meta_informes'],
+                'analisis': request.form['analisis_informes'],
+                'proceso': request.form['proceso']
+            }
+            rol = current_user.rol
+            guardar_informesEntregados(datos, rol)
+            return jsonify({'success': True, 'message': 'Indicador guardado correctamente'})
+        except Exception as e:
+            return jsonify({'success': False, 'message': f'Error al guardar: {str(e)}'})
+    return jsonify({'success': False, 'message': 'Método no permitido'})
 @ind_bp.route('/guardar_sitioWeb', methods=['POST'])
 @login_required
 def guardar_sitioWeb():
     if request.method == 'POST':
-        datos = {
-            'mes': request.form['mes'],
-            'img_enviados': request.form['img_enviados'],
-            'img_fueraTiempo': request.form['img_fueraTiempo'],
-            'resultado': request.form['resultado_sitio_web'],
-            'meta': request.form['meta_sitio_web'],
-            'analisis': request.form['analisis_sitio_web'],
-            'proceso': request.form['proceso']
-        }
-        rol = current_user.rol
-        guardar_sitio_web(datos, rol)
-        return redirect(url_for('ind.indicadores'))
-    return render_template('indicadores/indicadores.html', usuario=current_user)
+        try:
+            datos = {
+                'mes': request.form['mes'],
+                'img_enviados': request.form['img_enviados'],
+                'img_fueraTiempo': request.form['img_fueraTiempo'],
+                'resultado': request.form['resultado_sitio_web'],
+                'meta': request.form['meta_sitio_web'],
+                'analisis': request.form['analisis_sitio_web'],
+                'proceso': request.form['proceso']
+            }
+            rol = current_user.rol
+            guardar_sitio_web(datos, rol)
+            return jsonify({'success': True, 'message': 'Indicador guardado correctamente'})
+        except Exception as e:
+            return jsonify({'success': False, 'message': f'Error al guardar: {str(e)}'})
+    return jsonify({'success': False, 'message': 'Método no permitido'})
 @ind_bp.route('/guardar_calidad_informes', methods=['POST'])
 @login_required
 def guardar_calidad_informes():
     if request.method == 'POST':
-        datos = {
-            'mes': request.form['mes'],
-            'inf_entregados': request.form['inf_entregados'],
-            'inf_errados': request.form['inf_errados'],
-            'resultado': request.form['resultado_calidad_informes'],
-            'meta': request.form['meta_calidad_informes'],
-            'analisis': request.form['analisis_calidad_informes'],
-            'proceso': request.form['proceso']
-        }
-        rol = current_user.rol
-        guardar_calidadInformes(datos, rol)
-        return redirect(url_for('ind.indicadores'))
-    return render_template('indicadores/indicadores.html', usuario=current_user)
+        try:
+            datos = {
+                'mes': request.form['mes'],
+                'inf_entregados': request.form['inf_entregados'],
+                'inf_errados': request.form['inf_errados'],
+                'resultado': request.form['resultado_calidad_informes'],
+                'meta': request.form['meta_calidad_informes'],
+                'analisis': request.form['analisis_calidad_informes'],
+                'proceso': request.form['proceso']
+            }
+            rol = current_user.rol
+            guardar_calidadInformes(datos, rol)
+            return jsonify({'success': True, 'message': 'Indicador guardado correctamente'})
+        except Exception as e:
+            return jsonify({'success': False, 'message': f'Error al guardar: {str(e)}'})
+    return jsonify({'success': False, 'message': 'Método no permitido'})
 @ind_bp.route('/guardar_entrega_imagenes', methods=['POST'])
 @login_required
 def guardar_entrega_imagenes():
     if request.method == 'POST':
-        datos = {
-            'mes': request.form['mes'],
-            'img_entregadas': request.form['img_entregadas'],
-            'img_extemporaneas': request.form['img_extemporaneas'],
-            'resultado': request.form['resultado_entrgeaImagenes'],
-            'meta': request.form['meta_entregaImagenes'],
-            'analisis': request.form['analisis_entregaImagenes'],
-            'proceso': request.form['proceso']
-        }
-        rol = current_user.rol
-        guardar_entregaImagenes(datos, rol)
-        return redirect(url_for('ind.indicadores'))
-    return render_template('indicadores/indicadores.html', usuario=current_user)
+        try:
+            datos = {
+                'mes': request.form['mes'],
+                'img_entregadas': request.form['img_entregadas'],
+                'img_extemporaneas': request.form['img_extemporaneas'],
+                'resultado': request.form['resultado_entrgeaImagenes'],
+                'meta': request.form['meta_entregaImagenes'],
+                'analisis': request.form['analisis_entregaImagenes'],
+                'proceso': request.form['proceso']
+            }
+            rol = current_user.rol
+            guardar_entregaImagenes(datos, rol)
+            return jsonify({'success': True, 'message': 'Indicador guardado correctamente'})
+        except Exception as e:
+            return jsonify({'success': False, 'message': f'Error al guardar: {str(e)}'})
+    return jsonify({'success': False, 'message': 'Método no permitido'})
 @ind_bp.route('/guardar_solucion_inconsistencias', methods=['POST'])
 @login_required
 def guardar_solucion_inconsistencias():
     if request.method == 'POST':
-        datos = {
-            'mes': request.form['mes'],
-            'inc_repotadas': request.form['inc_repotadas'],
-            'inc_solucionadas': request.form['inc_solucionadas'],
-            'resultado': request.form['resultado_inconstencias'],
-            'meta': request.form['meta_inconstencias'],
-            'analisis': request.form['analisis_inconstencias'],
-            'proceso': request.form['proceso']
-        }
-        rol = current_user.rol
-        guardar_inconsistenciasSolucionadas(datos, rol)
-        return redirect(url_for('ind.indicadores'))
-    return render_template('indicadores/indicadores.html', usuario=current_user)
+        try:
+            datos = {
+                'mes': request.form['mes'],
+                'inc_repotadas': request.form['inc_repotadas'],
+                'inc_solucionadas': request.form['inc_solucionadas'],
+                'resultado': request.form['resultado_inconstencias'],
+                'meta': request.form['meta_inconstencias'],
+                'analisis': request.form['analisis_inconstencias'],
+                'proceso': request.form['proceso']
+            }
+            rol = current_user.rol
+            guardar_inconsistenciasSolucionadas(datos, rol)
+            return jsonify({'success': True, 'message': 'Indicador guardado correctamente'})
+        except Exception as e:
+            return jsonify({'success': False, 'message': f'Error al guardar: {str(e)}'})
+    return jsonify({'success': False, 'message': 'Método no permitido'})
 @ind_bp.route('/guardar_traslados', methods=['POST'])
 @login_required
 def guardar_traslados():
     if request.method == 'POST':
-        datos = {
-            'mes': request.form['mes'],
-            'traslados': request.form['traslados'],
-            'traslados_extemporaneos': request.form['traslados_extemporaneos'],
-            'resultado': request.form['resultado_traslados'],
-            'meta': request.form['meta_traslados'],
-            'analisis': request.form['analisis_traslados'],
-            'proceso': request.form['proceso']
-        }
-        rol = current_user.rol
-        guardar_traslado(datos, rol)
-        return redirect(url_for('ind.indicadores'))
-    return render_template('indicadores/indicadores.html', usuario=current_user)
+        try:
+            datos = {
+                'mes': request.form['mes'],
+                'traslados': request.form['traslados'],
+                'traslados_extemporaneos': request.form['traslados_extemporaneos'],
+                'resultado': request.form['resultado_traslados'],
+                'meta': request.form['meta_traslados'],
+                'analisis': request.form['analisis_traslados'],
+                'proceso': request.form['proceso']
+            }
+            rol = current_user.rol
+            guardar_traslado(datos, rol)
+            return jsonify({'success': True, 'message': 'Indicador guardado correctamente'})
+        except Exception as e:
+            return jsonify({'success': False, 'message': f'Error al guardar: {str(e)}'})
+    return jsonify({'success': False, 'message': 'Método no permitido'})
 @ind_bp.route('/guardar_inconsistencias_pasivo', methods=['POST'])
 @login_required
 def guardar_inconsistencias_pasivo():
     if request.method == 'POST':
-        datos = {
-            'mes': request.form['mes'],
-            't_casos': request.form['t_casos'],
-            'e_grabacion_analisis': request.form['e_grabacion_analisis'],
-            'resultado': request.form['resultado_inconsistenciasPasivo'],
-            'meta': request.form['meta_inconsistenciasPasivo'],
-            'analisis': request.form['analisis_inconsistenciasPasivo'],
-            'proceso': request.form['proceso']
-        }
-        rol = current_user.rol
-        guardar_inconsitenciasPasivo(datos, rol)
-        return redirect(url_for('ind.indicadores'))
-    return render_template('indicadores/indicadores.html', usuario=current_user)
+        try:
+            datos = {
+                'mes': request.form['mes'],
+                't_casos': request.form['t_casos'],
+                'e_grabacion_analisis': request.form['e_grabacion_analisis'],
+                'resultado': request.form['resultado_inconsistenciasPasivo'],
+                'meta': request.form['meta_inconsistenciasPasivo'],
+                'analisis': request.form['analisis_inconsistenciasPasivo'],
+                'proceso': request.form['proceso']
+            }
+            rol = current_user.rol
+            guardar_inconsitenciasPasivo(datos, rol)
+            return jsonify({'success': True, 'message': 'Indicador guardado correctamente'})
+        except Exception as e:
+            return jsonify({'success': False, 'message': f'Error al guardar: {str(e)}'})
+    return jsonify({'success': False, 'message': 'Método no permitido'})
 @ind_bp.route('/guardar_TRespuesta_Credito', methods=['POST'])
 @login_required
 def guardar_TRespuesta_Credito():
@@ -638,19 +700,22 @@ def guardar_TRespuesta_Credito():
         #convertir resultado
         t_resultado = request.form['resultado_TRespuesta']
         t_segundos_resultado = convertir_time(t_resultado)
-        datos = {
-            'mes': request.form['mes_TRespuesta'],
-            't_creditos': request.form['t_creditos'],
-            't_respuesta': t_segundos_respuesta,
-            'resultado': t_segundos_resultado,
-            'analisis': request.form['Analisis_TRespuesta'],
-            'proceso': request.form['proceso']
-        }
-        rol = current_user.rol
-        #print(datos)
-        guardar_TRespuesta_credito(datos, rol)
-        return redirect(url_for('ind.indicadores'))
-    return render_template('indicadores/indicadores.html', usuario=current_user)
+        try:
+            datos = {
+                'mes': request.form['mes_TRespuesta'],
+                't_creditos': request.form['t_creditos'],
+                't_respuesta': t_segundos_respuesta,
+                'resultado': t_segundos_resultado,
+                'analisis': request.form['Analisis_TRespuesta'],
+                'proceso': request.form['proceso']
+            }
+            rol = current_user.rol
+            #print(datos)
+            guardar_TRespuesta_credito(datos, rol)
+            return jsonify({'success': True, 'message': 'Indicador guardado correctamente'})
+        except Exception as e:
+            return jsonify({'success': False, 'message': f'Error al guardar: {str(e)}'})
+    return jsonify({'success': False, 'message': 'Método no permitido'})
 @ind_bp.route('/get_tiempo_mes_anterior', methods=['GET'])
 def get_tiempo_mes_anterior():
     proceso = request.args.get('proceso')
@@ -678,19 +743,22 @@ def get_tiempo_mes_anterior():
 @login_required
 def guardar_transmision_aduanas():
     if request.method == 'POST':
-        datos = {
-            'mes': request.form['mes'],
-            't_aduanas': request.form['t_aduanas'],
-            't_aduanasFueraTiempo': request.form['t_aduanasFueraTiempo'],
-            'resultado': request.form['resultado_Taduanas'],
-            'meta': request.form['meta_Taduanas'],
-            'analisis': request.form['analisis_Taduanas'],
-            'proceso': request.form['proceso']
-        }
-        rol = current_user.rol
-        guardar_TransAduanas(datos, rol)
-        return redirect(url_for('ind.indicadores'))
-    return render_template('indicadores/indicadores.html', usuario=current_user)
+        try:
+            datos = {
+                'mes': request.form['mes'],
+                't_aduanas': request.form['t_aduanas'],
+                't_aduanasFueraTiempo': request.form['t_aduanasFueraTiempo'],
+                'resultado': request.form['resultado_Taduanas'],
+                'meta': request.form['meta_Taduanas'],
+                'analisis': request.form['analisis_Taduanas'],
+                'proceso': request.form['proceso']
+            }
+            rol = current_user.rol
+            guardar_TransAduanas(datos, rol)
+            return jsonify({'success': True, 'message': 'Indicador guardado correctamente'})
+        except Exception as e:
+            return jsonify({'success': False, 'message': f'Error al guardar: {str(e)}'})
+    return jsonify({'success': False, 'message': 'Método no permitido'})
 
 
 '''ADMINISTRATIVO'''
@@ -698,16 +766,19 @@ def guardar_transmision_aduanas():
 @login_required
 def guardar_administrativo():
     if request.method == 'POST':
-        datos = {
-            'mes': request.form['mes'],
-            'Sol_atendidas': request.form['Sol_atendidas'],
-            'Sol_realizadas': request.form['Sol_realizadas'],
-            'resultado': request.form['resultado_administrativo'],
-            'meta': request.form['meta_administrativo'],
-            'analisis': request.form['analisis_administrativo'],
-            'proceso': request.form['proceso']
-        }
-        rol = current_user.rol
-        guardar_Administrativo(datos, rol)
-        return redirect(url_for('ind.indicadores'))
-    return render_template('indicadores/indicadores.html', usuario=current_user)
+        try:
+            datos = {
+                'mes': request.form['mes'],
+                'Sol_atendidas': request.form['Sol_atendidas'],
+                'Sol_realizadas': request.form['Sol_realizadas'],
+                'resultado': request.form['resultado_administrativo'],
+                'meta': request.form['meta_administrativo'],
+                'analisis': request.form['analisis_administrativo'],
+                'proceso': request.form['proceso']
+            }
+            rol = current_user.rol
+            guardar_Administrativo(datos, rol)
+            return jsonify({'success': True, 'message': 'Indicador guardado correctamente'})
+        except Exception as e:
+            return jsonify({'success': False, 'message': f'Error al guardar: {str(e)}'})
+    return jsonify({'success': False, 'message': 'Método no permitido'})
