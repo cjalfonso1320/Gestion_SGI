@@ -310,6 +310,50 @@ const updateUiSancionesFisicas = (data) => {
     }
 };
 
+ /**
+     * Actualizador de UI específico para los indicadores de "Entrega Físicos".
+     * @param {object} data - Los datos recibidos del servidor.
+     */
+    const updateUiAdministrativo = (data) => {
+    try {
+        const newData = data.newData;
+        // Obtenemos el 'proceso' de los datos devueltos para encontrar el elemento correcto
+        const proceso = newData.proceso;
+
+        // 1. Actualizar la tabla
+        // El ID de la tabla es dinámico, por eso necesitamos la variable 'proceso'
+        const tablaBody = document.getElementById(`tabla_administrativo_body_${proceso}`);
+        if (tablaBody) {
+            const newRow = tablaBody.insertRow(0); // Añadir la fila al principio
+            newRow.innerHTML = `
+                <td>${newData.mes}</td>
+                <td>${newData.sol_atendidas}</td>
+                <td>${newData.sol_realizadas}</td>
+                <td>${newData.meta}</td>
+                <td>${newData.resultado}</td>
+                <td>${newData.analisis}</td>
+            `;
+        } else {
+            console.error(`Error: No se encontró el body de la tabla con id 'tabla_administrativo_body_${proceso}'`);
+        }
+        
+        // 2. Actualizar la gráfica
+        // El nombre de la variable de la gráfica también es dinámico
+        const chart = window[`grafica_administrativo_${proceso}`];
+        if (chart) {
+            chart.data.labels.push(newData.mes);
+            chart.data.datasets[0].data.push(parseFloat(newData.resultado));
+            chart.update();
+        } else {
+            console.error(`Error: No se encontró la variable global de la gráfica 'window.grafica_administrativo_${proceso}'`);
+        }
+
+    } catch (error) {
+        console.error("¡Error dentro de updateUiAdministrativo!:", error);
+        throw error;
+    }
+};
+
     // --- ¡AQUÍ PUEDES AÑADIR MÁS FUNCIONES "updateUi..." PARA OTROS INDICADORES! ---
     // Ejemplo:
     // const updateUiCalidadInformacion = (data) => { ... lógica para actualizar tabla y gráfica de calidad ... }
@@ -359,5 +403,10 @@ const updateUiSancionesFisicas = (data) => {
         handleFormSubmit(form, endpoint, updateUiRespuestaCredito);
     });
     
+    // Indicador: Administrativo
+    document.querySelectorAll('form[id^="form_administrativos_"]').forEach(form => {
+        const endpoint = '/guardar_administrativo'; // O podrías leerlo de form.getAttribute('action')
+        handleFormSubmit(form, endpoint, updateUiAdministrativo);
+    });
 
 });

@@ -1,4 +1,4 @@
-<form action="{{ url_for('ind.guardar_administrativo') }}" method="post">
+<form id="form_administrativos_{{proceso}}" method="post">
     <input type="hidden" name="proceso" id="proceso_{{ proceso }}" value="{{ proceso }}">
     <input type="hidden" name="meta" id="meta_{{ proceso }}" value="{{ meta }}">
     <div>
@@ -186,8 +186,8 @@
           <th>Analisis</th>
         </tr>
       </thead>
+      <tbody id="tabla_administrativo_body_{{proceso}}">
     {% for registro in datos_administrativo %}
-      <tbody>
         <tr>
           <td>{{registro[0]}}</td>
           <td>{{registro[1]}}</td>
@@ -196,8 +196,8 @@
           <td>{{registro[4]}}</td>
           <td>{{registro[5]}}</td>
         </tr>
-      </tbody>
     {% endfor %}
+    </tbody>
     </table>
   </div>
 </div>
@@ -210,7 +210,7 @@
 
 <script>
     const ctx_administrativo_{{ proceso }} = document.getElementById('grafica_administrativo_{{ proceso }}').getContext('2d');
-    const grafica_administrativo_{{ proceso }} = new Chart(ctx_administrativo_{{ proceso }}, {
+    window.grafica_administrativo_{{ proceso }} = new Chart(ctx_administrativo_{{ proceso }}, {
         type: 'line',
         data: {
             labels: {{ meses_administrativo|default([])|tojson|safe }},

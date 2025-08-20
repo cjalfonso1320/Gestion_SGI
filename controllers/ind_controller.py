@@ -13,54 +13,6 @@ def uvt_rol(rol):
     }
     return valores_uvt.get(rol, 0)
 
-def lista_registrosExtemporaneos(rol):
-    cur = mysql.connection.cursor()
-    sql = """
-        SELECT mes, T_registros, R_extemporaneos, resultado, meta, analisis
-        FROM ind_registrosExtemporaneos
-        WHERE id_rol = %s
-        
-    """
-    cur.execute(sql, (rol,))
-    registros_extemporaneos = cur.fetchall()
-    cur.close()
-    return registros_extemporaneos
-def guardar_registrosExtemporaneos(datos, rol):
-    cur = mysql.connection.cursor()
-    sql = """
-        INSERT INTO ind_registrosExtemporaneos (mes, T_registros, R_extemporaneos, resultado, meta, analisis, id_rol)
-        VALUES (%s, %s, %s, %s, %s, %s, %s)
-        """
-    
-    # Validar y convertir valores numéricos
-    t_registros = int(datos['T_registros']) if datos['T_registros'] and datos['T_registros'].strip() else 0
-    r_extemporaneos = int(datos['R_extemporaneos']) if datos['R_extemporaneos'] and datos['R_extemporaneos'].strip() else 0
-    resultado = float(datos['resultado']) if datos['resultado'] and datos['resultado'].strip() else 0.0
-    
-    valores = (
-        datos['mes'],
-        t_registros,
-        r_extemporaneos,
-        resultado,
-        datos['meta'],
-        datos['analisis'], 
-        rol
-    )
-    cur.execute(sql, valores)
-    mysql.connection.commit()
-    cur.close()
-def grafica_registrosExtemporaneos(rol):
-    cur = mysql.connection.cursor()
-    sql = """
-        SELECT mes, resultado FROM ind_registrosExtemporaneos WHERE id_rol = %s
-        
-        """
-    cur.execute(sql, (rol,))
-    resultados = cur.fetchall()
-    meses = [fila[0] for fila in resultados]
-    porcentajes = [float(fila[1]) for fila in resultados]
-    cur.close()
-    return meses, porcentajes
 
 def obtener_r_extemporeaneo_mes(mes, rol, proceso):
     cur = mysql.connection.cursor()

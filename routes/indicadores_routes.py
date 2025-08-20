@@ -1,8 +1,8 @@
-from flask import Blueprint, render_template, send_file, abort, request, redirect, url_for, jsonify
+from flask import Blueprint, render_template, request, jsonify
 from flask_login import current_user, login_required
 '''GESTION DE PRODUCCION'''
 from controllers.ind_controller import uvt_rol
-from controllers.ind_controller import guardar_registrosExtemporaneos, obtener_r_extemporeaneo_mes
+from controllers.ind_controller import obtener_r_extemporeaneo_mes
 from controllers.ind_controller import lista_sancionesMagenticas, guardar_sancionesMagneticas, grafica_sancionesMagneticas
 from controllers.ind_controller import grafica_registrosFisicos, guardar_registrosFisicos, lista_registrosFisicos, obtener_r_extemporeaneoFisico_mes
 from controllers.ind_controller import guardar_sancionesFisicos, grafica_sancionesFisicos, lista_sancionesFisicos
@@ -24,7 +24,6 @@ def indicadores():
         #agrario
         datos_calidadInformacion_nacionales_agrario = lista_registrosFisicos(current_user.rol, 'Nacionales Agrario')
         datos_registrosMagneticos_nacionales_agrario = lista_registrosFisicos(current_user.rol, 'Nacionales_Agrario_RegistrosMagneticos')
-
         #bancolombia
         datos_entrega_fisicos_nacionales_bancolombia = lista_registrosFisicos(current_user.rol, 'Nacionales_Bancolombia_Fisicos')
         datos_registrosMagneticos_nacionales_bancolombia = lista_registrosFisicos(current_user.rol, 'Nacionales_Bancolombia_Magneticos')
@@ -77,7 +76,6 @@ def indicadores():
         datos_Convenios_Davivienda_Fisicos = lista_registrosFisicos(current_user.rol, 'Convenios_Davivienda_Fisicos')
         datos_Convenios_Inconsistencias_Davivienda = lista_registrosFisicos(current_user.rol, 'Convenios_Inconsistencias_Davivienda')
         datos_Convenios_Traslados_Davivienda = lista_registrosFisicos(current_user.rol, 'Convenios_Traslados_Davivienda')
-
         #avvillas
         datos_inconsistencias_pasivo = lista_inconsitenciasPasivo(current_user.rol, 'complementacion_pasivo')
         datos_inconsistencias_activo = lista_inconsitenciasPasivo(current_user.rol, 'complementacion_activo')
@@ -113,8 +111,6 @@ def indicadores():
         datos_administrativo_SGI_Riesgos = lista_Administrativo(current_user.rol, 'SGI_Riesgos')
         return {
             'uvt_valor': uvt_valor,
-            #'datos_calidadInformacion_nacionales': datos_calidadInformacion_nacionales,
-
             #agrario
             'datos_calidadInformacion_nacionales_agrario': datos_calidadInformacion_nacionales_agrario,
             'datos_registrosMagneticos_nacionales_agrario': datos_registrosMagneticos_nacionales_agrario,
@@ -146,7 +142,6 @@ def indicadores():
             'datos_Convenios_CajaSocial_Informes': datos_Convenios_CajaSocial_Informes,
             'datos_Convenios_CajaSocial_Fisicos': datos_Convenios_CajaSocial_Fisicos,
             'datos_Convenios_CajaSocial_Web': datos_Convenios_CajaSocial_Web,
-
             #davivienda
             'datos_Nacionales_Informes_Davivienda': datos_Nacionales_Informes_Davivienda,
             'datos_Nacionales_CalidadInformes_Davivienda': datos_Nacionales_CalidadInformes_Davivienda,
@@ -171,7 +166,6 @@ def indicadores():
             'datos_Convenios_Davivienda_Fisicos': datos_Convenios_Davivienda_Fisicos,
             'datos_Convenios_Inconsistencias_Davivienda': datos_Convenios_Inconsistencias_Davivienda,
             'datos_Convenios_Traslados_Davivienda': datos_Convenios_Traslados_Davivienda,
-
             #avvillas
             'datos_inconsistencias_pasivo': datos_inconsistencias_pasivo,
             'datos_inconsistencias_activo': datos_inconsistencias_activo,
@@ -188,12 +182,7 @@ def indicadores():
             'usuario': current_user,
             'datos_sancionesMagneticas': datos_sancionesMagneticas,
             'datos_sancionesFisicos': datos_sancionesFisicos,
-            
-            
-            
-            
-
-
+            #administrativo
             'datos_administrativo_sistemas': datos_administrativo_sistemas,
             'datos_administrativo_tecnologia': datos_administrativo_tecnologia,
             'datos_administrativo_financiera': datos_administrativo_financiera,
@@ -218,7 +207,6 @@ def indicadores():
         #Agrario
         meses_calidadInformacion_nacionales_agrario, porcentajes_calidadInformacion_nacionales_agrario = grafica_registrosFisicos(current_user.rol, 'Nacionales_Agrario_CalidadInformacion')
         meses_registrosMagneticos_nacionales_agrario, porcentajes_registrosMagneticos_nacionales_agrario = grafica_registrosFisicos(current_user.rol, 'Nacionales_Agrario_RegistrosMagneticos')
-
         #bancolombia
         meses_entregaFisicos_nacionales_bancolombia, porcentajes_entrega_fisicos_nacionales_bancolombia = grafica_registrosFisicos(current_user.rol, 'Nacionales_Bancolombia_Fisicos')
         meses_registrosMagneticos_nacionales_bancolombia, porcentajes_registrosMagneticos_nacionales_bancolombia = grafica_registrosFisicos(current_user.rol, 'Nacionales_Bancolombia_Magneticos')
@@ -233,8 +221,6 @@ def indicadores():
         meses_registrosMagneticos_nacionales_occidente, porcentajes_registrosMagneticos_nacionales_occidente = grafica_registrosFisicos(current_user.rol, 'Nacionales_Occidente_Magneticos')
         meses_entregaFisicos_Distritales_Occidente_Fisicos, porcentajes_entrega_fisicos_Distritales_Occidente_Fisicos = grafica_registrosFisicos(current_user.rol, 'Distritales_Occidente_Fisicos')
         meses_entregaFisicos_Distritales_Occidente_CMagneticas, porcentajes_entrega_fisicos_Distritales_Occidente_CMagneticas = grafica_registrosFisicos(current_user.rol, 'Distritales_Occidente_CMagneticas')
-
-
         #itau
         meses_entregaFisicos_nacionales_itau, porcentajes_entrega_fisicos_nacionales_itau = grafica_registrosFisicos(current_user.rol, 'Nacionales_Itau_Fisicos')
         meses_registrosMagneticos_nacionales_itau, porcentajes_registrosMagneticos_nacionales_itau = grafica_registrosFisicos(current_user.rol, 'Nacionales_Itau_Magneticos')
@@ -242,7 +228,6 @@ def indicadores():
         meses_Departamentales_Itau_Informes, porcentajes_Departamentales_Itau_Informes = grafica_registrosFisicos(current_user.rol, 'Departamentales_Itau_Informes')
         meses_MunicipalesCali_Iatu_Fisicos, porcentajes_MunicipalesCali_Iatu_Fisicos = grafica_registrosFisicos(current_user.rol, 'MunicipalesCali_Iatu_Fisicos')
         meses_MunicipalesCali_Iatu_Informes, porcentajes_MunicipalesCali_Iatu_Informes = grafica_registrosFisicos(current_user.rol, 'MunicipalesCali_Iatu_Informes')
-
         #cajaSocial
         meses_entregaFisicos_nacionales_cajasocial, porcentajes_entrega_fisicos_nacionales_cajasocial = grafica_registrosFisicos(current_user.rol, 'Nacionales_CajaSocial_Fisicos')
         meses_registrosMagneticos_nacionales_cajasocial, porcentajes_registrosMagneticos_nacionales_cajasocial = grafica_registrosFisicos(current_user.rol, 'Nacionales_CajaSocial_Magneticos')
@@ -274,7 +259,6 @@ def indicadores():
         meses_Convenios_Davivienda_Fisicos, porcentajes_Convenios_Davivienda_Fisicos = grafica_registrosFisicos(current_user.rol, 'Convenios_Davivienda_Fisicos')
         meses_Convenios_Inconsistencias_Davivienda, porcentajes_Convenios_Inconsistencias_Davivienda = grafica_registrosFisicos(current_user.rol, 'Convenios_Inconsistencias_Davivienda')
         meses_Convenios_Traslados_Davivienda, porcentajes_Convenios_Traslados_Davivienda = grafica_registrosFisicos(current_user.rol, 'Convenios_Traslados_Davivienda')
-
         #avvillas
         meses_inconsistenciasPasivo, porcentajes_inconsistenciasPasivo = grafica_inconsitenciasPasivo(current_user.rol, 'complementacion_pasivo')
         meses_inconsistenciasActivo, porcentajes_inconsistenciasActivo = grafica_inconsitenciasPasivo(current_user.rol, 'complementacion_activo')
@@ -289,10 +273,7 @@ def indicadores():
         meses_entregaFisicos_TarjetasFisico, porcentajes_entrega_fisicos_TarjetasFisico = grafica_registrosFisicos(current_user.rol, 'TarjetasFisico')
         #aplica para todos los bancos
         meses_sancionesMagneticas, multas_sancionesMagneticas = grafica_sancionesMagneticas(current_user.rol)
-        meses_sancionesFisicos, multas_sancionesFisicos = grafica_sancionesFisicos(current_user.rol)
-
-
-       
+        meses_sancionesFisicos, multas_sancionesFisicos = grafica_sancionesFisicos(current_user.rol)       
         '''ADMINISTRATIVO'''
         meses_administrativo_sistemas, porcentajes_administrativo_sistemas = grafica_Administrativo(current_user.rol, 'sistemas')
         meses_administrativo_tecnologia, porcentajes_administrativo_tecnologia = grafica_Administrativo(current_user.rol, 'tecnologia')
@@ -310,14 +291,11 @@ def indicadores():
         meses_administrativo_SGI_Producto_No_Conforme, porcentajes_administrativo_SGI_Producto_No_Conforme = grafica_Administrativo(current_user.rol, 'SGI_Producto_No_Conforme')
         meses_administrativo_SGI_Riesgos, porcentajes_administrativo_SGI_Riesgos = grafica_Administrativo(current_user.rol, 'SGI_Riesgos')
         return {
-            #'meses_calidadInformacion_nacionales': meses_calidadInformacion_nacionales,
-            #'porcentajes_calidadInformacion_nacionales': porcentajes_calidadInformacion_nacionales,
             #agrario
             'meses_calidadInformacion_nacionales_agrario': meses_calidadInformacion_nacionales_agrario,
             'porcentajes_calidadInformacion_nacionales_agrario': porcentajes_calidadInformacion_nacionales_agrario,
             'meses_registrosMagneticos_nacionales_agrario': meses_registrosMagneticos_nacionales_agrario,
             'porcentajes_registrosMagneticos_nacionales_agrario': porcentajes_registrosMagneticos_nacionales_agrario,
-
             #bancolombia
             'meses_entregaFisicos_nacionales_bancolombia': meses_entregaFisicos_nacionales_bancolombia,
             'porcentajes_entrega_fisicos_nacionales_bancolombia': porcentajes_entrega_fisicos_nacionales_bancolombia,
@@ -344,7 +322,6 @@ def indicadores():
             'porcentajes_entrega_fisicos_Distritales_Occidente_Fisicos': porcentajes_entrega_fisicos_Distritales_Occidente_Fisicos,
             'meses_entregaFisicos_Distritales_Occidente_CMagneticas': meses_entregaFisicos_Distritales_Occidente_CMagneticas,
             'porcentajes_entrega_fisicos_Distritales_Occidente_CMagneticas': porcentajes_entrega_fisicos_Distritales_Occidente_CMagneticas,
-
             #itau
             'meses_entregaFisicos_nacionales_itau': meses_entregaFisicos_nacionales_itau,
             'porcentajes_entrega_fisicos_nacionales_itau': porcentajes_entrega_fisicos_nacionales_itau,
@@ -446,9 +423,7 @@ def indicadores():
             'multas_sancionesMagneticas': multas_sancionesMagneticas,
             'meses_sancionesFisicos': meses_sancionesFisicos,
             'multas_sancionesFisicos': multas_sancionesFisicos,
-            
-
-
+            #administrativo
             'meses_administrativo_sistemas': meses_administrativo_sistemas,
             'porcentajes_administrativo_sistemas': porcentajes_administrativo_sistemas,
             'meses_administrativo_tecnologia': meses_administrativo_tecnologia,
@@ -736,7 +711,7 @@ def guardar_administrativo():
             }
             rol = current_user.rol
             guardar_Administrativo(datos, rol)
-            return jsonify({'success': True, 'message': 'Indicador guardado correctamente'})
+            return jsonify({'success': True, 'message': 'Indicador guardado correctamente', 'newData': datos})
         except Exception as e:
             return jsonify({'success': False, 'message': f'Error al guardar: {str(e)}'})
     return jsonify({'success': False, 'message': 'Método no permitido'})
