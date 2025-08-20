@@ -1,4 +1,4 @@
-<form action="{{ url_for('ind.guardar_TRespuesta_Credito') }}" method="post">
+<form id="form_tiempoCredito_{{proceso}}" method="post">
     <input type="hidden" id="procesoInput_{{ proceso }}" name="proceso" value="{{ proceso }}" data-proceso="{{ proceso }}">
     <div>
         <label class="form-label" for="mes_TRespuesta_{{ proceso }}">Mes</label>
@@ -75,8 +75,9 @@
                         <th>Analisis</th>
                     </tr>
                 </thead>
-                {% for registro in datos_repsuestaCredito %}
-                <tbody>
+                
+                <tbody id="tabla_RespuestaCredito_body_{{proceso}}">
+                    {% for registro in datos_repsuestaCredito %}
                     <tr>
                         <td>{{registro[0]}}</td>
                         <td>{{registro[1]}}</td>
@@ -84,8 +85,9 @@
                         <td>{{registro[3]}}</td>
                         <td>{{registro[4]}}</td>
                     </tr>
+                    {% endfor %}
                 </tbody>
-                {% endfor %}
+                
             </table>
         </div>
     </div>
@@ -116,7 +118,7 @@
 </script>
 <script>
     const ctx_TRespuesta_{{ proceso }} = document.getElementById('grafica_TRespuesta_{{ proceso }}').getContext('2d');
-    const grafica_TRespuesta_{{ proceso }} = new Chart(ctx_TRespuesta_{{ proceso }}, {
+    window.grafica_TRespuesta_{{ proceso }} = new Chart(ctx_TRespuesta_{{ proceso }}, {
         type: 'line',
         data: {
             labels: {{ meses_repsuestaCredito|default([]) | tojson | safe }},

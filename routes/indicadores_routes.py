@@ -2,21 +2,12 @@ from flask import Blueprint, render_template, send_file, abort, request, redirec
 from flask_login import current_user, login_required
 '''GESTION DE PRODUCCION'''
 from controllers.ind_controller import uvt_rol
-from controllers.ind_controller import guardar_calidadInformacion, lista__calidadInformacion, grafica_calidadInformacion
-from controllers.ind_controller import lista_registrosExtemporaneos, guardar_registrosExtemporaneos, grafica_registrosExtemporaneos, obtener_r_extemporeaneo_mes
+from controllers.ind_controller import guardar_registrosExtemporaneos, obtener_r_extemporeaneo_mes
 from controllers.ind_controller import lista_sancionesMagenticas, guardar_sancionesMagneticas, grafica_sancionesMagneticas
 from controllers.ind_controller import grafica_registrosFisicos, guardar_registrosFisicos, lista_registrosFisicos, obtener_r_extemporeaneoFisico_mes
 from controllers.ind_controller import guardar_sancionesFisicos, grafica_sancionesFisicos, lista_sancionesFisicos
-from controllers.ind_controller import lista_cintasMagneticas, guardar_cintasMagneticas, grafica_cintasMagneticas
-from controllers.ind_controller import lista_informesEntregados, guardar_informesEntregados, grafica_informesEntregados
-from controllers.ind_controller import lista_sitio_web, guardar_sitio_web, grafica_sitio_web
-from controllers.ind_controller import lista_calidad_informes, guardar_calidadInformes, grafica_calidadInformes
-from controllers.ind_controller import lista_entregaImagenes, guardar_entregaImagenes, grafica_entregaImagenes
-from controllers.ind_controller import lista_inconsistenciasSolucionadas, guardar_inconsistenciasSolucionadas, grafica_inconsistenciasSolucionadas
-from controllers.ind_controller import lista_traslado, guardar_traslado, grafica_traslado
 from controllers.ind_controller import lista_inconsitenciasPasivo, guardar_inconsitenciasPasivo, grafica_inconsitenciasPasivo
 from controllers.ind_controller import lista_TRespuesta_credito, guardar_TRespuesta_credito, datos_mes_anterior, grafica_TRespuesta_credito
-from controllers.ind_controller import lista_TransAduanas, guardar_TransAduanas, grafica_TransAduanas
 
 '''ADMINISTRATIVO'''
 from controllers.ind_controller import lista_Administrativo, grafica_Administrativo, guardar_Administrativo
@@ -29,50 +20,80 @@ def indicadores():
     def CONTEXTO():
         '''GESTION DE PRODUCCION'''
         uvt_valor = uvt_rol(current_user.rol)
-        datos_calidadInformacion_nacionales = lista__calidadInformacion(current_user.rol, 'nacionales')
-        datos_registrosExtemporaneos = lista_registrosExtemporaneos(current_user.rol)
-        datos_sancionesMagneticas = lista_sancionesMagenticas(current_user.rol)
-        datos_entrega_fisicos_nacionales = lista_registrosFisicos(current_user.rol, 'nacionales')
-        datos_entrega_fisicos_distritales = lista_registrosFisicos(current_user.rol, 'distritales')
-        datos_entrega_fisicos_convenios = lista_registrosFisicos(current_user.rol, 'convenios')
-        datos_entrega_fisicos_departamentales = lista_registrosFisicos(current_user.rol, 'departamentales')
-        datos_entrega_fisicos_municipalesCali = lista_registrosFisicos(current_user.rol, 'municipalesCali')
-        datos_sancionesFisicos = lista_sancionesFisicos(current_user.rol)
-        datos_cintas_magneticas_distritales = lista_cintasMagneticas(current_user.rol, 'distritales')
-        datos_entrega_informes_departamentales = lista_informesEntregados(current_user.rol, 'departamentales')
-        datos_entrega_informes_convenios = lista_informesEntregados(current_user.rol, 'convenios')
-        datos_entrega_informes_nacionales = lista_informesEntregados(current_user.rol, 'nacionales')
-        datos_entrega_informes_distritales = lista_informesEntregados(current_user.rol, 'distritales')
-        datos_entrega_informes_municipalesCali = lista_informesEntregados(current_user.rol, 'municipalesCali')
-        datos_sitio_web_convenios = lista_sitio_web(current_user.rol, 'convenios')
-        datos_calidad_informes_nacionales = lista_calidad_informes(current_user.rol, 'nacionales')
-        datos_calidad_informes_distritales = lista_calidad_informes(current_user.rol, 'distritales')
-        datos_calidad_informes_convenios = lista_calidad_informes(current_user.rol, 'convenios')
-        datos_calidad_informes_departamentales = lista_calidad_informes(current_user.rol, 'departamentales')
-        datos_entrega_imagenes_nacionales = lista_entregaImagenes(current_user.rol, 'nacionales')
-        datos_entrega_imagenes_distritales = lista_entregaImagenes(current_user.rol, 'distritales')
-        datos_entrega_imagenes_convenios = lista_entregaImagenes(current_user.rol, 'convenios')
-        datos_entrega_imagenes_departamentales = lista_entregaImagenes(current_user.rol, 'departamentales')
-        datos_solucion_inconsistencias_nacionales = lista_inconsistenciasSolucionadas(current_user.rol, 'nacionales')
-        datos_solucion_inconsistencias_distritales = lista_inconsistenciasSolucionadas(current_user.rol, 'distritales')
-        datos_solucion_inconsistencias_convenios = lista_inconsistenciasSolucionadas(current_user.rol, 'convenios')
-        datos_solucion_inconsistencias_departamentales = lista_inconsistenciasSolucionadas(current_user.rol, 'departamentales')
-        datos_traslados_nacionales = lista_traslado(current_user.rol, 'nacionales')
-        datos_traslados_distritales = lista_traslado(current_user.rol, 'distritales')
-        datos_traslados_convenios = lista_traslado(current_user.rol, 'convenios')
-        datos_traslados_departamentales = lista_traslado(current_user.rol, 'departamentales')
+
+        #agrario
+        datos_calidadInformacion_nacionales_agrario = lista_registrosFisicos(current_user.rol, 'Nacionales Agrario')
+        datos_registrosMagneticos_nacionales_agrario = lista_registrosFisicos(current_user.rol, 'Nacionales_Agrario_RegistrosMagneticos')
+
+        #bancolombia
+        datos_entrega_fisicos_nacionales_bancolombia = lista_registrosFisicos(current_user.rol, 'Nacionales_Bancolombia_Fisicos')
+        datos_registrosMagneticos_nacionales_bancolombia = lista_registrosFisicos(current_user.rol, 'Nacionales_Bancolombia_Magneticos')
+        datos_entrega_fisicos_Distritales_Bancolombia_Fisicos = lista_registrosFisicos(current_user.rol, 'Distritales_Bancolombia_Fisicos')
+        datos_entrega_fisicos_Distritales_Bancolombia_CMagneticas = lista_registrosFisicos(current_user.rol, 'Distritales_Bancolombia_CMagneticas')
+        datos_Departamentales_Bancolombia_informes = lista_registrosFisicos(current_user.rol, 'Departamentales_Bancolombia_informes')
+        datos_Convenios_Bancolombia_Informes = lista_registrosFisicos(current_user.rol, 'Convenios_Bancolombia_Informes')
+        datos_Convenios_Bancolombia_Fisicos = lista_registrosFisicos(current_user.rol, 'Convenios_Bancolombia_Fisicos')
+        datos_Convenios_Bancolombia_Web = lista_registrosFisicos(current_user.rol, 'Convenios_Bancolombia_Web')
+        #occidnete
+        datos_entrega_fisicos_nacionales_occidente = lista_registrosFisicos(current_user.rol, 'Nacionales_Occidente_Fisicos')
+        datos_registrosMagneticos_nacionales_occidente = lista_registrosFisicos(current_user.rol, 'Nacionales_Occidente_Magneticos')
+        datos_entrega_fisicos_Distritales_Occidente_Fisicos = lista_registrosFisicos(current_user.rol, 'Distritales_Occidente_Fisicos')
+        datos_entrega_fisicos_Distritales_Occidente_CMagneticas = lista_registrosFisicos(current_user.rol, 'Distritales_Occidente_CMagneticas')
+        #itau
+        datos_entrega_fisicos_nacionales_itau = lista_registrosFisicos(current_user.rol, 'Nacionales_Itau_Fisicos')
+        datos_registrosMagneticos_nacionales_itau = lista_registrosFisicos(current_user.rol, 'Nacionales_Itau_Magneticos')
+        datos_Departamentales_Itau_Fisicos = lista_registrosFisicos(current_user.rol, 'Departamentales_Itau_Fisicos')
+        datos_Departamentales_Itau_Informes = lista_registrosFisicos(current_user.rol, 'Departamentales_Itau_Informes')
+        datos_MunicipalesCali_Iatu_Fisicos = lista_registrosFisicos(current_user.rol, 'MunicipalesCali_Iatu_Fisicos')
+        datos_MunicipalesCali_Iatu_Informes = lista_registrosFisicos(current_user.rol, 'MunicipalesCali_Iatu_Informes')
+        #cajasocial
+        datos_entrega_fisicos_nacionales_cajasocial = lista_registrosFisicos(current_user.rol, 'Nacionales_CajaSocial_Fisicos')
+        datos_registrosMagneticos_nacionales_cajasocial = lista_registrosFisicos(current_user.rol, 'Nacionales_CajaSocial_Magneticos')
+        datos_Nacionales_Aduanas_CajaSocial = lista_registrosFisicos(current_user.rol, 'Nacionales_Aduanas_CajaSocial')
+        datos_Convenios_CajaSocial_Informes = lista_registrosFisicos(current_user.rol, 'Convenios_CajaSocial_Informes')
+        datos_Convenios_CajaSocial_Fisicos = lista_registrosFisicos(current_user.rol, 'Convenios_CajaSocial_Fisicos')
+        datos_Convenios_CajaSocial_Web = lista_registrosFisicos(current_user.rol, 'Convenios_CajaSocial_Web')
+        #davivienda
+        datos_Nacionales_Informes_Davivienda = lista_registrosFisicos(current_user.rol, 'Nacionales_Informes_Davivienda')
+        datos_Nacionales_CalidadInformes_Davivienda = lista_registrosFisicos(current_user.rol, 'Nacionales_CalidadInformes_Davivienda')
+        datos_Nacionales_EntregaImagenes_Davivienda = lista_registrosFisicos(current_user.rol, 'Nacionales_EntregaImagenes_Davivienda')
+        datos_Nacionales_Davivienda_Fisicos = lista_registrosFisicos(current_user.rol, 'Nacionales_Davivienda_Fisicos')
+        datos_Nacionales_Inconsistencias_Davivienda = lista_registrosFisicos(current_user.rol, 'Nacionales_Inconsistencias_Davivienda')
+        datos_Nacionales_Traslados_Davivienda = lista_registrosFisicos(current_user.rol, 'Nacionales_Traslados_Davivienda')
+        datos_Distritales_Informes_Davivienda = lista_registrosFisicos(current_user.rol, 'Distritales_Informes_Davivienda')
+        datos_Distritales_CalidadInformes_Davivienda = lista_registrosFisicos(current_user.rol, 'Distritales_CalidadInformes_Davivienda')
+        datos_Distritales_EntregaImagenes_Davivienda = lista_registrosFisicos(current_user.rol, 'Distritales_EntregaImagenes_Davivienda')
+        datos_Distritales_Inconsistencias_Davivienda = lista_registrosFisicos(current_user.rol, 'Distritales_Inconsistencias_Davivienda')
+        datos_Distritales_Traslados_Davivienda = lista_registrosFisicos(current_user.rol, 'Distritales_Traslados_Davivienda')
+        datos_Departamentales_Informes_Davivienda = lista_registrosFisicos(current_user.rol, 'Departamentales_Informes_Davivienda')
+        datos_Departamentales_CalidadInformes_Davivienda = lista_registrosFisicos(current_user.rol, 'Departamentales_CalidadInformes_Davivienda')
+        datos_Departamentales_EntregaImagenes_Davivienda = lista_registrosFisicos(current_user.rol, 'Departamentales_EntregaImagenes_Davivienda')
+        datos_Departamentales_Davivienda_Fisicos = lista_registrosFisicos(current_user.rol, 'Departamentales_Davivienda_Fisicos')
+        datos_Departamentales_Inconsistencias_Davivienda = lista_registrosFisicos(current_user.rol, 'Departamentales_Inconsistencias_Davivienda')
+        datos_Departamentales_Traslados_Davivienda = lista_registrosFisicos(current_user.rol, 'Departamentales_Traslados_Davivienda')
+        datos_Convenios_Informes_Davivienda = lista_registrosFisicos(current_user.rol, 'Convenios_Informes_Davivienda')
+        datos_Convenios_CalidadInformes_Davivienda = lista_registrosFisicos(current_user.rol, 'Convenios_CalidadInformes_Davivienda')
+        datos_Convenios_EntregaImagenes_Davivienda = lista_registrosFisicos(current_user.rol, 'Convenios_EntregaImagenes_Davivienda')
+        datos_Convenios_Davivienda_Fisicos = lista_registrosFisicos(current_user.rol, 'Convenios_Davivienda_Fisicos')
+        datos_Convenios_Inconsistencias_Davivienda = lista_registrosFisicos(current_user.rol, 'Convenios_Inconsistencias_Davivienda')
+        datos_Convenios_Traslados_Davivienda = lista_registrosFisicos(current_user.rol, 'Convenios_Traslados_Davivienda')
+
+        #avvillas
         datos_inconsistencias_pasivo = lista_inconsitenciasPasivo(current_user.rol, 'complementacion_pasivo')
         datos_inconsistencias_activo = lista_inconsitenciasPasivo(current_user.rol, 'complementacion_activo')
         datos_inconsistencias_repsuestaTradicional = lista_inconsitenciasPasivo(current_user.rol, 'complementacion_repsuestaTradicional')
         datos_inconsistencias_repsuestaOCI = lista_inconsitenciasPasivo(current_user.rol, 'complementacion_repsuestaOCI')
         datos_repsuestaCreditoOCI = lista_TRespuesta_credito(current_user.rol, 'complementacion_repsuestaCreditoOCI')
         datos_repsuestaCreditoTradicional = lista_TRespuesta_credito(current_user.rol, 'complementacion_repsuestaCreditoTradicional')
-        datos_calidadInformacion_radicacion = lista__calidadInformacion(current_user.rol, 'radicacion')
-        datos_entrega_informes_radicacion = lista_informesEntregados(current_user.rol, 'radicacion')
-        datos_entrega_imagenes_radicacion = lista_entregaImagenes(current_user.rol, 'radicacion')
+        datos_Radicacion_AvVillas_CalidadInformacion = lista_registrosFisicos(current_user.rol, 'Radicacion_AvVillas_CalidadInformacion')
+        datos_Radicacion_AvVillas_Informes = lista_registrosFisicos(current_user.rol, 'Radicacion_AvVillas_Informes')
+        datos_Radicacion_AvVillas_Imagenes = lista_registrosFisicos(current_user.rol, 'Radicacion_AvVillas_Imagenes')
         datos_entrega_fisicos_TarjetasDigital = lista_registrosFisicos(current_user.rol, 'TarjetasDigital')
         datos_entrega_fisicos_TarjetasFisico = lista_registrosFisicos(current_user.rol, 'TarjetasFisico')
-        datos_transmision_aduanas_nacionales = lista_TransAduanas(current_user.rol, 'nacionales')
+        #aplica para to0dos los bancos
+        datos_sancionesMagneticas = lista_sancionesMagenticas(current_user.rol)
+        datos_sancionesFisicos = lista_sancionesFisicos(current_user.rol)
+        
 
         '''ADMINISTRATIVO'''
         datos_administrativo_sistemas = lista_Administrativo(current_user.rol, 'sistemas')
@@ -92,51 +113,82 @@ def indicadores():
         datos_administrativo_SGI_Riesgos = lista_Administrativo(current_user.rol, 'SGI_Riesgos')
         return {
             'uvt_valor': uvt_valor,
-            'datos_calidadInformacion_nacionales': datos_calidadInformacion_nacionales,
-            'usuario': current_user,
-            'datos_registrosExtemporaneos': datos_registrosExtemporaneos,
-            'datos_sancionesMagneticas': datos_sancionesMagneticas,
-            'datos_entrega_fisicos_nacionales': datos_entrega_fisicos_nacionales,
-            'datos_entrega_fisicos_distritales': datos_entrega_fisicos_distritales,
-            'datos_sancionesFisicos': datos_sancionesFisicos,
-            'datos_cintas_magneticas_distritales': datos_cintas_magneticas_distritales,
-            'datos_entrega_informes_departamentales': datos_entrega_informes_departamentales,
-            'datos_entrega_informes_convenios': datos_entrega_informes_convenios,
-            'datos_entrega_fisicos_convenios': datos_entrega_fisicos_convenios,
-            'datos_sitio_web_convenios': datos_sitio_web_convenios,
-            'datos_entrega_informes_nacionales': datos_entrega_informes_nacionales,
-            'datos_entrega_informes_distritales': datos_entrega_informes_distritales,
-            'datos_calidad_informes_nacionales': datos_calidad_informes_nacionales,
-            'datos_entrega_imagenes_nacionales': datos_entrega_imagenes_nacionales,
-            'datos_solucion_inconsistencias_nacionales': datos_solucion_inconsistencias_nacionales,
-            'datos_traslados_nacionales': datos_traslados_nacionales,
-            'datos_calidad_informes_distritales': datos_calidad_informes_distritales,
-            'datos_entrega_imagenes_distritales': datos_entrega_imagenes_distritales,
-            'datos_solucion_inconsistencias_distritales': datos_solucion_inconsistencias_distritales,
-            'datos_traslados_distritales': datos_traslados_distritales,
-            'datos_calidad_informes_convenios': datos_calidad_informes_convenios,
-            'datos_entrega_imagenes_convenios': datos_entrega_imagenes_convenios,
-            'datos_solucion_inconsistencias_convenios': datos_solucion_inconsistencias_convenios,
-            'datos_traslados_convenios': datos_traslados_convenios,
-            'datos_entrega_fisicos_departamentales': datos_entrega_fisicos_departamentales,
-            'datos_calidad_informes_departamentales': datos_calidad_informes_departamentales,
-            'datos_entrega_imagenes_departamentales': datos_entrega_imagenes_departamentales,
-            'datos_solucion_inconsistencias_departamentales': datos_solucion_inconsistencias_departamentales,
-            'datos_traslados_departamentales': datos_traslados_departamentales,
-            'datos_entrega_fisicos_municipalesCali': datos_entrega_fisicos_municipalesCali,
-            'datos_entrega_informes_municipalesCali': datos_entrega_informes_municipalesCali,
+            #'datos_calidadInformacion_nacionales': datos_calidadInformacion_nacionales,
+
+            #agrario
+            'datos_calidadInformacion_nacionales_agrario': datos_calidadInformacion_nacionales_agrario,
+            'datos_registrosMagneticos_nacionales_agrario': datos_registrosMagneticos_nacionales_agrario,
+            #bancolombia
+            'datos_entrega_fisicos_nacionales_bancolombia': datos_entrega_fisicos_nacionales_bancolombia,
+            'datos_registrosMagneticos_nacionales_bancolombia': datos_registrosMagneticos_nacionales_bancolombia,
+            'datos_entrega_fisicos_Distritales_Bancolombia_Fisicos': datos_entrega_fisicos_Distritales_Bancolombia_Fisicos,
+            'datos_entrega_fisicos_Distritales_Bancolombia_CMagneticas': datos_entrega_fisicos_Distritales_Bancolombia_CMagneticas,
+            'datos_Departamentales_Bancolombia_informes': datos_Departamentales_Bancolombia_informes,
+            'datos_Convenios_Bancolombia_Informes': datos_Convenios_Bancolombia_Informes,
+            'datos_Convenios_Bancolombia_Fisicos': datos_Convenios_Bancolombia_Fisicos,
+            'datos_Convenios_Bancolombia_Web': datos_Convenios_Bancolombia_Web,
+            #occidente
+            'datos_entrega_fisicos_nacionales_occidente': datos_entrega_fisicos_nacionales_occidente,
+            'datos_registrosMagneticos_nacionales_occidente': datos_registrosMagneticos_nacionales_occidente,
+            'datos_entrega_fisicos_Distritales_Occidente_Fisicos': datos_entrega_fisicos_Distritales_Occidente_Fisicos,
+            'datos_entrega_fisicos_Distritales_Occidente_CMagneticas': datos_entrega_fisicos_Distritales_Occidente_CMagneticas,
+            #itau
+            'datos_entrega_fisicos_nacionales_itau': datos_entrega_fisicos_nacionales_itau,
+            'datos_registrosMagneticos_nacionales_itau': datos_registrosMagneticos_nacionales_itau,
+            'datos_Departamentales_Itau_Fisicos': datos_Departamentales_Itau_Fisicos,
+            'datos_Departamentales_Itau_Informes': datos_Departamentales_Itau_Informes,
+            'datos_MunicipalesCali_Iatu_Fisicos': datos_MunicipalesCali_Iatu_Fisicos,
+            'datos_MunicipalesCali_Iatu_Informes': datos_MunicipalesCali_Iatu_Informes,
+            #cajaSocial
+            'datos_entrega_fisicos_nacionales_cajasocial': datos_entrega_fisicos_nacionales_cajasocial,
+            'datos_registrosMagneticos_nacionales_cajasocial': datos_registrosMagneticos_nacionales_cajasocial,
+            'datos_Nacionales_Aduanas_CajaSocial': datos_Nacionales_Aduanas_CajaSocial,
+            'datos_Convenios_CajaSocial_Informes': datos_Convenios_CajaSocial_Informes,
+            'datos_Convenios_CajaSocial_Fisicos': datos_Convenios_CajaSocial_Fisicos,
+            'datos_Convenios_CajaSocial_Web': datos_Convenios_CajaSocial_Web,
+
+            #davivienda
+            'datos_Nacionales_Informes_Davivienda': datos_Nacionales_Informes_Davivienda,
+            'datos_Nacionales_CalidadInformes_Davivienda': datos_Nacionales_CalidadInformes_Davivienda,
+            'datos_Nacionales_EntregaImagenes_Davivienda': datos_Nacionales_EntregaImagenes_Davivienda,
+            'datos_Nacionales_Davivienda_Fisicos': datos_Nacionales_Davivienda_Fisicos,
+            'datos_Nacionales_Inconsistencias_Davivienda': datos_Nacionales_Inconsistencias_Davivienda,
+            'datos_Nacionales_Traslados_Davivienda': datos_Nacionales_Traslados_Davivienda,
+            'datos_Distritales_Informes_Davivienda': datos_Distritales_Informes_Davivienda,
+            'datos_Distritales_CalidadInformes_Davivienda': datos_Distritales_CalidadInformes_Davivienda,
+            'datos_Distritales_EntregaImagenes_Davivienda': datos_Distritales_EntregaImagenes_Davivienda,
+            'datos_Distritales_Inconsistencias_Davivienda': datos_Distritales_Inconsistencias_Davivienda,
+            'datos_Distritales_Traslados_Davivienda': datos_Distritales_Traslados_Davivienda,
+            'datos_Departamentales_Informes_Davivienda': datos_Departamentales_Informes_Davivienda,
+            'datos_Departamentales_CalidadInformes_Davivienda': datos_Departamentales_CalidadInformes_Davivienda,
+            'datos_Departamentales_EntregaImagenes_Davivienda': datos_Departamentales_EntregaImagenes_Davivienda,
+            'datos_Departamentales_Davivienda_Fisicos': datos_Departamentales_Davivienda_Fisicos,
+            'datos_Departamentales_Inconsistencias_Davivienda': datos_Departamentales_Inconsistencias_Davivienda,
+            'datos_Departamentales_Traslados_Davivienda': datos_Departamentales_Traslados_Davivienda,
+            'datos_Convenios_Informes_Davivienda': datos_Convenios_Informes_Davivienda,
+            'datos_Convenios_CalidadInformes_Davivienda': datos_Convenios_CalidadInformes_Davivienda,
+            'datos_Convenios_EntregaImagenes_Davivienda': datos_Convenios_EntregaImagenes_Davivienda,
+            'datos_Convenios_Davivienda_Fisicos': datos_Convenios_Davivienda_Fisicos,
+            'datos_Convenios_Inconsistencias_Davivienda': datos_Convenios_Inconsistencias_Davivienda,
+            'datos_Convenios_Traslados_Davivienda': datos_Convenios_Traslados_Davivienda,
+
+            #avvillas
             'datos_inconsistencias_pasivo': datos_inconsistencias_pasivo,
             'datos_inconsistencias_activo': datos_inconsistencias_activo,
             'datos_inconsistencias_repsuestaTradicional': datos_inconsistencias_repsuestaTradicional,
             'datos_inconsistencias_repsuestaOCI': datos_inconsistencias_repsuestaOCI,
             'datos_repsuestaCreditoOCI': datos_repsuestaCreditoOCI,
             'datos_repsuestaCreditoTradicional': datos_repsuestaCreditoTradicional,
-            'datos_calidadInformacion_radicacion': datos_calidadInformacion_radicacion,
-            'datos_entrega_informes_radicacion': datos_entrega_informes_radicacion,
-            'datos_entrega_imagenes_radicacion': datos_entrega_imagenes_radicacion,
+            'datos_Radicacion_AvVillas_CalidadInformacion': datos_Radicacion_AvVillas_CalidadInformacion,
+            'datos_Radicacion_AvVillas_Informes': datos_Radicacion_AvVillas_Informes,
+            'datos_Radicacion_AvVillas_Imagenes': datos_Radicacion_AvVillas_Imagenes,
             'datos_entrega_fisicos_TarjetasDigital': datos_entrega_fisicos_TarjetasDigital,
             'datos_entrega_fisicos_TarjetasFisico': datos_entrega_fisicos_TarjetasFisico,
-            'datos_transmision_aduanas_nacionales': datos_transmision_aduanas_nacionales,
+            #todos los bancos
+            'usuario': current_user,
+            'datos_sancionesMagneticas': datos_sancionesMagneticas,
+            'datos_sancionesFisicos': datos_sancionesFisicos,
+            
             
             
             
@@ -161,52 +213,86 @@ def indicadores():
 
         }
     def CONTEXTO_GRAFICA():
+
         '''GESTION DE PRODUCCION'''
-        meses_calidadInformacion_nacionales, porcentajes_calidadInformacion_nacionales = grafica_calidadInformacion(current_user.rol, 'nacionales')
-        meses_registrosExtemporaneos, porcentajes_registrosExtemporaneos = grafica_registrosExtemporaneos(current_user.rol)
-        meses_sancionesMagneticas, multas_sancionesMagneticas = grafica_sancionesMagneticas(current_user.rol)
-        meses_entregaFisicos_nacionales, porcentajes_entregaFisicos_nacionales = grafica_registrosFisicos(current_user.rol, 'nacionales')
-        meses_entregaFisicos_distritales, porcentajes_entregaFisicos_distritales = grafica_registrosFisicos(current_user.rol, 'distritales')
-        meses_entregaFisicos_convenios, porcentajes_entregaFisicos_convenios = grafica_registrosFisicos(current_user.rol, 'convenios')
-        meses_entregaFisicos_departamentales, porcentajes_entregaFisicos_departamentales = grafica_registrosFisicos(current_user.rol, 'departamentales')
-        meses_entregaFisicos_municipalesCali, porcentajes_entregaFisicos_municipalesCali = grafica_registrosFisicos(current_user.rol, 'municipalesCali')
-        meses_sancionesFisicos, multas_sancionesFisicos = grafica_sancionesFisicos(current_user.rol)
-        meses_cintasMagneticas_distritales, porcentajes_cintasMagneticas_distritales = grafica_cintasMagneticas(current_user.rol, 'distritales')
-        meses_entrega_informes_departamentales, porcentajes_entrega_informes_departamentales = grafica_informesEntregados(current_user.rol, 'departamentales')
-        meses_entrega_informes_convenios, porcentajes_entrega_informes_convenios = grafica_informesEntregados(current_user.rol, 'convenios')
-        meses_entrega_informes_nacionales, porcentajes_entrega_informes_nacionales = grafica_informesEntregados(current_user.rol, 'nacionales')
-        meses_entrega_informes_distritales, porcentajes_entrega_informes_distritales = grafica_informesEntregados(current_user.rol, 'distritales')
-        meses_entrega_informes_municipalesCali, porcentajes_entrega_informes_municipalesCali = grafica_informesEntregados(current_user.rol, 'municipalesCali')
-        meses_sitio_web_convenios, porcentajes_sitio_web_convenios = grafica_sitio_web(current_user.rol, 'convenios')
-        meses_calidad_informes_nacionales, porcentajes_calidad_informes_nacionales = grafica_calidadInformes(current_user.rol, 'nacionales')
-        meses_calidad_informes_distritales, porcentajes_calidad_informes_distritales = grafica_calidadInformes(current_user.rol, 'distritales')
-        meses_calidad_informes_departamentales, porcentajes_calidad_informes_departamentales = grafica_calidadInformes(current_user.rol, 'departamentales')
-        meses_calidad_informes_convenios, porcentajes_calidad_informes_convenios = grafica_calidadInformes(current_user.rol, 'convenios')
-        meses_entregaImagenes_nacionales, porcentajes_entregaImagenes_nacionales = grafica_entregaImagenes(current_user.rol, 'nacionales')
-        meses_entregaImagenes_distritales, porcentajes_entregaImagenes_distritales = grafica_entregaImagenes(current_user.rol, 'distritales')
-        meses_entregaImagenes_convenios, porcentajes_entregaImagenes_convenios = grafica_entregaImagenes(current_user.rol, 'convenios')
-        meses_entregaImagenes_departamentales, porcentajes_entregaImagenes_departamentales = grafica_entregaImagenes(current_user.rol, 'departamentales')
-        meses_inconsistencias_nacionales, porcentajes_inconsistencias_nacionales = grafica_inconsistenciasSolucionadas(current_user.rol, 'nacionales')
-        meses_inconsistencias_distritales, porcentajes_inconsistencias_distritales = grafica_inconsistenciasSolucionadas(current_user.rol, 'distritales')
-        meses_inconsistencias_convenios, porcentajes_inconsistencias_convenios = grafica_inconsistenciasSolucionadas(current_user.rol, 'convenios')
-        meses_inconsistencias_departamentales, porcentajes_inconsistencias_departamentales = grafica_inconsistenciasSolucionadas(current_user.rol, 'departamentales')
-        meses_traslados_nacionales, porcentajes_traslados_nacionales = grafica_traslado(current_user.rol, 'nacionales')
-        meses_traslados_distritales, porcentajes_traslados_distritales = grafica_traslado(current_user.rol, 'distritales')
-        meses_traslados_convenios, porcentajes_traslados_convenios = grafica_traslado(current_user.rol, 'convenios')
-        meses_traslados_departamentales, porcentajes_traslados_departamentales = grafica_traslado(current_user.rol, 'departamentales')
+        #Agrario
+        meses_calidadInformacion_nacionales_agrario, porcentajes_calidadInformacion_nacionales_agrario = grafica_registrosFisicos(current_user.rol, 'Nacionales_Agrario_CalidadInformacion')
+        meses_registrosMagneticos_nacionales_agrario, porcentajes_registrosMagneticos_nacionales_agrario = grafica_registrosFisicos(current_user.rol, 'Nacionales_Agrario_RegistrosMagneticos')
+
+        #bancolombia
+        meses_entregaFisicos_nacionales_bancolombia, porcentajes_entrega_fisicos_nacionales_bancolombia = grafica_registrosFisicos(current_user.rol, 'Nacionales_Bancolombia_Fisicos')
+        meses_registrosMagneticos_nacionales_bancolombia, porcentajes_registrosMagneticos_nacionales_bancolombia = grafica_registrosFisicos(current_user.rol, 'Nacionales_Bancolombia_Magneticos')
+        meses_entregaFisicos_Distritales_Bancolombia_Fisicos, porcentajes_entrega_fisicos_Distritales_Bancolombia_Fisicos = grafica_registrosFisicos(current_user.rol, 'Distritales_Bancolombia_Fisicos')
+        meses_entregaFisicos_Distritales_Bancolombia_CMagneticas, porcentajes_entrega_fisicos_Distritales_Bancolombia_CMagneticas = grafica_registrosFisicos(current_user.rol, 'Distritales_Bancolombia_CMagneticas')
+        meses_entrega_Departamentales_Bancolombia_informes, porcentajes_Departamentales_Bancolombia_informes = grafica_registrosFisicos(current_user.rol, 'Departamentales_Bancolombia_informes')
+        meses_Convenios_Bancolombia_Informes, porcentajes_Convenios_Bancolombia_Informes = grafica_registrosFisicos(current_user.rol, 'Convenios_Bancolombia_Informes')
+        meses_Convenios_Bancolombia_Fisicos, porcentajes_Convenios_Bancolombia_Fisicos = grafica_registrosFisicos(current_user.rol, 'Convenios_Bancolombia_Fisicos')
+        meses_Convenios_Bancolombia_Web, porcentajes_Convenios_Bancolombia_Web = grafica_registrosFisicos(current_user.rol, 'Convenios_Bancolombia_Web')
+        #occidente
+        meses_entregaFisicos_nacionales_occidente, porcentajes_entrega_fisicos_nacionales_occidente = grafica_registrosFisicos(current_user.rol, 'Nacionales_Occidente_Fisicos')
+        meses_registrosMagneticos_nacionales_occidente, porcentajes_registrosMagneticos_nacionales_occidente = grafica_registrosFisicos(current_user.rol, 'Nacionales_Occidente_Magneticos')
+        meses_entregaFisicos_Distritales_Occidente_Fisicos, porcentajes_entrega_fisicos_Distritales_Occidente_Fisicos = grafica_registrosFisicos(current_user.rol, 'Distritales_Occidente_Fisicos')
+        meses_entregaFisicos_Distritales_Occidente_CMagneticas, porcentajes_entrega_fisicos_Distritales_Occidente_CMagneticas = grafica_registrosFisicos(current_user.rol, 'Distritales_Occidente_CMagneticas')
+
+
+        #itau
+        meses_entregaFisicos_nacionales_itau, porcentajes_entrega_fisicos_nacionales_itau = grafica_registrosFisicos(current_user.rol, 'Nacionales_Itau_Fisicos')
+        meses_registrosMagneticos_nacionales_itau, porcentajes_registrosMagneticos_nacionales_itau = grafica_registrosFisicos(current_user.rol, 'Nacionales_Itau_Magneticos')
+        meses_Departamentales_Itau_Fisicos, porcentajes_Departamentales_Itau_Fisicos = grafica_registrosFisicos(current_user.rol, 'Departamentales_Itau_Fisicos')
+        meses_Departamentales_Itau_Informes, porcentajes_Departamentales_Itau_Informes = grafica_registrosFisicos(current_user.rol, 'Departamentales_Itau_Informes')
+        meses_MunicipalesCali_Iatu_Fisicos, porcentajes_MunicipalesCali_Iatu_Fisicos = grafica_registrosFisicos(current_user.rol, 'MunicipalesCali_Iatu_Fisicos')
+        meses_MunicipalesCali_Iatu_Informes, porcentajes_MunicipalesCali_Iatu_Informes = grafica_registrosFisicos(current_user.rol, 'MunicipalesCali_Iatu_Informes')
+
+        #cajaSocial
+        meses_entregaFisicos_nacionales_cajasocial, porcentajes_entrega_fisicos_nacionales_cajasocial = grafica_registrosFisicos(current_user.rol, 'Nacionales_CajaSocial_Fisicos')
+        meses_registrosMagneticos_nacionales_cajasocial, porcentajes_registrosMagneticos_nacionales_cajasocial = grafica_registrosFisicos(current_user.rol, 'Nacionales_CajaSocial_Magneticos')
+        meses_Nacionales_Aduanas_CajaSocial, procentajes_Nacionales_Aduanas_CajaSocial = grafica_registrosFisicos(current_user.rol, 'Nacionales_Aduanas_CajaSocial')
+        meses_Convenios_CajaSocial_Informes, porcentajes_Convenios_CajaSocial_Informes = grafica_registrosFisicos(current_user.rol, 'Convenios_CajaSocial_Informes')
+        meses_Convenios_CajaSocial_Fisicos, porcentajes_Convenios_CajaSocial_Fisicos = grafica_registrosFisicos(current_user.rol, 'Convenios_CajaSocial_Fisicos')
+        meses_Convenios_CajaSocial_Web, porcentajes_Convenios_CajaSocial_Web = grafica_registrosFisicos(current_user.rol, 'Convenios_CajaSocial_Web')
+        #davivienda
+        meses_entrega_Nacionales_Informes_Davivienda, porcentajes_Nacionales_Informes_Davivienda = grafica_registrosFisicos(current_user.rol, 'Nacionales_Informes_Davivienda')
+        meses_Nacionales_CalidadInformes_Davivienda, porcentajes_Nacionales_CalidadInformes_Davivienda = grafica_registrosFisicos(current_user.rol, 'Nacionales_CalidadInformes_Davivienda')
+        meses_Nacionales_EntregaImagenes_Davivienda, porcentajes_Nacionales_EntregaImagenes_Davivienda = grafica_registrosFisicos(current_user.rol, 'Nacionales_EntregaImagenes_Davivienda')
+        meses_Nacionales_Davivienda_Fisicos, porcentajes_Nacionales_Davivienda_Fisicos = grafica_registrosFisicos(current_user.rol, 'Nacionales_Davivienda_Fisicos')
+        meses_Nacionales_Inconsistencias_Davivienda, porcentajes_Nacionales_Inconsistencias_Davivienda = grafica_registrosFisicos(current_user.rol, 'Nacionales_Inconsistencias_Davivienda')
+        meses_Nacionales_Traslados_Davivienda, porcentajes_Nacionales_Traslados_Davivienda = grafica_registrosFisicos(current_user.rol, 'Nacionales_Traslados_Davivienda')
+        meses_entrega_Distritales_Informes_Davivienda, porcentajes_Distritales_Informes_Davivienda = grafica_registrosFisicos(current_user.rol, 'Distritales_Informes_Davivienda')
+        meses_Distritales_CalidadInformes_Davivienda, porcentajes_Distritales_CalidadInformes_Davivienda = grafica_registrosFisicos(current_user.rol, 'Distritales_CalidadInformes_Davivienda')
+        meses_Distritales_EntregaImagenes_Davivienda, porcentajes_Distritales_EntregaImagenes_Davivienda = grafica_registrosFisicos(current_user.rol, 'Distritales_EntregaImagenes_Davivienda')
+        meses_Distritales_Inconsistencias_Davivienda, porcentajes_Distritales_Inconsistencias_Davivienda = grafica_registrosFisicos(current_user.rol, 'Distritales_Inconsistencias_Davivienda')
+        meses_Distritales_Traslados_Davivienda, porcentajes_Distritales_Traslados_Davivienda = grafica_registrosFisicos(current_user.rol, 'Distritales_Traslados_Davivienda')
+        meses_entrega_Departamentales_Informes_Davivienda, porcentajes_Departamentales_Informes_Davivienda = grafica_registrosFisicos(current_user.rol, 'Departamentales_Informes_Davivienda')
+        meses_Departamentales_CalidadInformes_Davivienda, porcentajes_Departamentales_CalidadInformes_Davivienda = grafica_registrosFisicos(current_user.rol, 'Departamentales_CalidadInformes_Davivienda')
+        meses_Departamentales_EntregaImagenes_Davivienda, porcentajes_Departamentales_EntregaImagenes_Davivienda = grafica_registrosFisicos(current_user.rol, 'Departamentales_EntregaImagenes_Davivienda')
+        meses_Departamentales_Davivienda_Fisicos, porcentajes_Departamentales_Davivienda_Fisicos = grafica_registrosFisicos(current_user.rol, 'Departamentales_Davivienda_Fisicos')
+        meses_Departamentales_Inconsistencias_Davivienda, porcentajes_Departamentales_Inconsistencias_Davivienda = grafica_registrosFisicos(current_user.rol, 'Departamentales_Inconsistencias_Davivienda')
+        meses_Departamentales_Traslados_Davivienda, porcentajes_Departamentales_Traslados_Davivienda = grafica_registrosFisicos(current_user.rol, 'Departamentales_Traslados_Davivienda')
+        meses_entrega_Convenios_Informes_Davivienda, porcentajes_Convenios_Informes_Davivienda = grafica_registrosFisicos(current_user.rol, 'Convenios_Informes_Davivienda')
+        meses_Convenios_CalidadInformes_Davivienda, porcentajes_Convenios_CalidadInformes_Davivienda = grafica_registrosFisicos(current_user.rol, 'Convenios_CalidadInformes_Davivienda')
+        meses_Convenios_EntregaImagenes_Davivienda, porcentajes_Convenios_EntregaImagenes_Davivienda = grafica_registrosFisicos(current_user.rol, 'Convenios_EntregaImagenes_Davivienda')
+        meses_Convenios_Davivienda_Fisicos, porcentajes_Convenios_Davivienda_Fisicos = grafica_registrosFisicos(current_user.rol, 'Convenios_Davivienda_Fisicos')
+        meses_Convenios_Inconsistencias_Davivienda, porcentajes_Convenios_Inconsistencias_Davivienda = grafica_registrosFisicos(current_user.rol, 'Convenios_Inconsistencias_Davivienda')
+        meses_Convenios_Traslados_Davivienda, porcentajes_Convenios_Traslados_Davivienda = grafica_registrosFisicos(current_user.rol, 'Convenios_Traslados_Davivienda')
+
+        #avvillas
         meses_inconsistenciasPasivo, porcentajes_inconsistenciasPasivo = grafica_inconsitenciasPasivo(current_user.rol, 'complementacion_pasivo')
         meses_inconsistenciasActivo, porcentajes_inconsistenciasActivo = grafica_inconsitenciasPasivo(current_user.rol, 'complementacion_activo')
         meses_inconsistenciasrepsuestaTradicional, porcentajes_inconsistenciasrepsuestaTradicional = grafica_inconsitenciasPasivo(current_user.rol, 'complementacion_repsuestaTradicional')
         meses_inconsistenciasrepsuestaOCI, porcentajes_inconsistenciasrepsuestaOCI = grafica_inconsitenciasPasivo(current_user.rol, 'complementacion_repsuestaOCI')
         meses_repsuestaCrerditoOCI, tiempo_repsuestaCreditoOCI = grafica_TRespuesta_credito(current_user.rol, 'complementacion_repsuestaCreditoOCI')
         meses_repsuestaCrerditoTradicional, tiempo_repsuestaCreditoTradicional = grafica_TRespuesta_credito(current_user.rol, 'complementacion_repsuestaCreditoTradicional')
-        meses_calidadInformacion_radicacion, porcentajes_calidadInformacion_radicacion = grafica_calidadInformacion(current_user.rol, 'radicacion')
-        meses_entrega_informes_radicacion, porcentajes_entrega_informes_radicacion = grafica_informesEntregados(current_user.rol, 'radicacion')
-        meses_entregaImagenes_radicacion, porcentajes_entregaImagenes_radicacion = grafica_entregaImagenes(current_user.rol, 'radicacion')
+        meses_Radicacion_AvVillas_CalidadInformacion, porcentajes_Radicacion_AvVillas_CalidadInformacion = grafica_registrosFisicos(current_user.rol, 'Radicacion_AvVillas_CalidadInformacion')
+        meses_Radicacion_AvVillas_Informes, porcentajes_Radicacion_AvVillas_Informes = grafica_registrosFisicos(current_user.rol, 'Radicacion_AvVillas_Informes')
+        meses_Radicacion_AvVillas_Imagenes, porcentajes_Radicacion_AvVillas_Imagenes = grafica_registrosFisicos(current_user.rol, 'Radicacion_AvVillas_Imagenes')
         meses_entregaFisicos_TarjetasDigital, porcentajes_entrega_fisicos_TarjetasDigital = grafica_registrosFisicos(current_user.rol, 'TarjetasDigital')
         meses_entregaFisicos_TarjetasFisico, porcentajes_entrega_fisicos_TarjetasFisico = grafica_registrosFisicos(current_user.rol, 'TarjetasFisico')
-        meses_Taduanas_nacionales, procentajes_Taduanas_nacionales = grafica_TransAduanas(current_user.rol, 'nacionales')
+        #aplica para todos los bancos
+        meses_sancionesMagneticas, multas_sancionesMagneticas = grafica_sancionesMagneticas(current_user.rol)
+        meses_sancionesFisicos, multas_sancionesFisicos = grafica_sancionesFisicos(current_user.rol)
 
+
+       
         '''ADMINISTRATIVO'''
         meses_administrativo_sistemas, porcentajes_administrativo_sistemas = grafica_Administrativo(current_user.rol, 'sistemas')
         meses_administrativo_tecnologia, porcentajes_administrativo_tecnologia = grafica_Administrativo(current_user.rol, 'tecnologia')
@@ -224,70 +310,115 @@ def indicadores():
         meses_administrativo_SGI_Producto_No_Conforme, porcentajes_administrativo_SGI_Producto_No_Conforme = grafica_Administrativo(current_user.rol, 'SGI_Producto_No_Conforme')
         meses_administrativo_SGI_Riesgos, porcentajes_administrativo_SGI_Riesgos = grafica_Administrativo(current_user.rol, 'SGI_Riesgos')
         return {
-            'meses_calidadInformacion_nacionales': meses_calidadInformacion_nacionales,
-            'porcentajes_calidadInformacion_nacionales': porcentajes_calidadInformacion_nacionales,
-            'meses_registrosExtemporaneos': meses_registrosExtemporaneos,
-            'porcentajes_registrosExtemporaneos': porcentajes_registrosExtemporaneos,
-            'meses_sancionesMagneticas': meses_sancionesMagneticas,
-            'multas_sancionesMagneticas': multas_sancionesMagneticas,
-            'meses_entregaFisicos_nacionales': meses_entregaFisicos_nacionales,
-            'porcentajes_entrega_fisicos_nacionales': porcentajes_entregaFisicos_nacionales,
-            'meses_entregaFisicos_distritales': meses_entregaFisicos_distritales,
-            'porcentajes_entrega_fisicos_distritales': porcentajes_entregaFisicos_distritales,
-            'meses_sancionesFisicos': meses_sancionesFisicos,
-            'multas_sancionesFisicos': multas_sancionesFisicos,
-            'meses_cintas_magneticas_distritales': meses_cintasMagneticas_distritales,
-            'porcentajes_cintas_magneticas_distritales': porcentajes_cintasMagneticas_distritales,
-            'meses_entrega_informes_departamentales': meses_entrega_informes_departamentales,
-            'porcentajes_entrega_informes_departamentales': porcentajes_entrega_informes_departamentales,
-            'meses_entrega_informes_convenios': meses_entrega_informes_convenios,
-            'porcentajes_entrega_informes_convenios': porcentajes_entrega_informes_convenios,
-            'meses_entregaFisicos_convenios': meses_entregaFisicos_convenios,
-            'porcentajes_entregaFisicos_convenios': porcentajes_entregaFisicos_convenios,
-            'meses_sitio_web_convenios': meses_sitio_web_convenios,
-            'porcentajes_sitio_web_convenios': porcentajes_sitio_web_convenios,
-            'meses_entrega_informes_nacionales': meses_entrega_informes_nacionales,
-            'porcentajes_entrega_informes_nacionales': porcentajes_entrega_informes_nacionales,
-            'meses_calidad_informes_nacionales': meses_calidad_informes_nacionales,
-            'porcentajes_calidad_informes_nacionales': porcentajes_calidad_informes_nacionales,
-            'meses_entregaImagenes_nacionales': meses_entregaImagenes_nacionales,
-            'porcentajes_entregaImagenes_nacionales': porcentajes_entregaImagenes_nacionales,
-            'meses_inconsistencias_nacionales': meses_inconsistencias_nacionales,
-            'porcentajes_inconsistencias_nacionales': porcentajes_inconsistencias_nacionales,
-            'meses_traslados_nacionales': meses_traslados_nacionales,
-            'porcentajes_traslados_nacionales': porcentajes_traslados_nacionales,
-            'meses_entrega_informes_distritales': meses_entrega_informes_distritales,
-            'porcentajes_entrega_informes_distritales': porcentajes_entrega_informes_distritales,
-            'meses_calidad_informes_distritales': meses_calidad_informes_distritales,
-            'porcentajes_calidad_informes_distritales': porcentajes_calidad_informes_distritales,
-            'meses_entregaImagenes_distritales': meses_entregaImagenes_distritales,
-            'porcentajes_entregaImagenes_distritales': porcentajes_entregaImagenes_distritales,
-            'meses_inconsistencias_distritales': meses_inconsistencias_distritales,
-            'porcentajes_inconsistencias_distritales': porcentajes_inconsistencias_distritales,
-            'meses_traslados_distritales': meses_traslados_distritales,
-            'porcentajes_traslados_distritales': porcentajes_traslados_distritales,
-            'meses_calidad_informes_convenios': meses_calidad_informes_convenios,
-            'porcentajes_calidad_informes_convenios': porcentajes_calidad_informes_convenios,
-            'meses_entregaImagenes_convenios': meses_entregaImagenes_convenios,
-            'porcentajes_entregaImagenes_convenios': porcentajes_entregaImagenes_convenios,
-            'meses_inconsistencias_convenios': meses_inconsistencias_convenios,
-            'porcentajes_inconsistencias_convenios': porcentajes_inconsistencias_convenios,
-            'meses_traslados_convenios': meses_traslados_convenios,
-            'porcentajes_traslados_convenios': porcentajes_traslados_convenios,
-            'meses_entregaFisicos_departamentales': meses_entregaFisicos_departamentales,
-            'porcentajes_entregaFisicos_departamentales': porcentajes_entregaFisicos_departamentales,
-            'meses_calidad_informes_departamentales': meses_calidad_informes_departamentales,
-            'porcentajes_calidad_informes_departamentales': porcentajes_calidad_informes_departamentales,
-            'meses_entregaImagenes_departamentales': meses_entregaImagenes_departamentales,
-            'porcentajes_entregaImagenes_departamentales': porcentajes_entregaImagenes_departamentales,
-            'meses_inconsistencias_departamentales': meses_inconsistencias_departamentales,
-            'porcentajes_inconsistencias_departamentales': porcentajes_inconsistencias_departamentales,
-            'meses_traslados_departamentales': meses_traslados_departamentales,
-            'porcentajes_traslados_departamentales': porcentajes_traslados_departamentales,
-            'meses_entregaFisicos_municipalesCali': meses_entregaFisicos_municipalesCali,
-            'porcentajes_entregaFisicos_municipalesCali': porcentajes_entregaFisicos_municipalesCali,
-            'meses_entrega_informes_municipalesCali': meses_entrega_informes_municipalesCali,
-            'porcentajes_entrega_informes_municipalesCali': porcentajes_entrega_informes_municipalesCali,
+            #'meses_calidadInformacion_nacionales': meses_calidadInformacion_nacionales,
+            #'porcentajes_calidadInformacion_nacionales': porcentajes_calidadInformacion_nacionales,
+            #agrario
+            'meses_calidadInformacion_nacionales_agrario': meses_calidadInformacion_nacionales_agrario,
+            'porcentajes_calidadInformacion_nacionales_agrario': porcentajes_calidadInformacion_nacionales_agrario,
+            'meses_registrosMagneticos_nacionales_agrario': meses_registrosMagneticos_nacionales_agrario,
+            'porcentajes_registrosMagneticos_nacionales_agrario': porcentajes_registrosMagneticos_nacionales_agrario,
+
+            #bancolombia
+            'meses_entregaFisicos_nacionales_bancolombia': meses_entregaFisicos_nacionales_bancolombia,
+            'porcentajes_entrega_fisicos_nacionales_bancolombia': porcentajes_entrega_fisicos_nacionales_bancolombia,
+            'meses_registrosMagneticos_nacionales_bancolombia': meses_registrosMagneticos_nacionales_bancolombia,
+            'porcentajes_registrosMagneticos_nacionales_bancolombia': porcentajes_registrosMagneticos_nacionales_bancolombia,
+            'meses_entregaFisicos_Distritales_Bancolombia_Fisicos': meses_entregaFisicos_Distritales_Bancolombia_Fisicos,
+            'porcentajes_entrega_fisicos_Distritales_Bancolombia_Fisicos': porcentajes_entrega_fisicos_Distritales_Bancolombia_Fisicos,
+            'meses_entregaFisicos_Distritales_Bancolombia_CMagneticas': meses_entregaFisicos_Distritales_Bancolombia_CMagneticas,
+            'porcentajes_entrega_fisicos_Distritales_Bancolombia_CMagneticas': porcentajes_entrega_fisicos_Distritales_Bancolombia_CMagneticas,
+            'meses_entrega_Departamentales_Bancolombia_informes': meses_entrega_Departamentales_Bancolombia_informes,
+            'porcentajes_Departamentales_Bancolombia_informes': porcentajes_Departamentales_Bancolombia_informes,
+            'meses_Convenios_Bancolombia_Informes': meses_Convenios_Bancolombia_Informes,
+            'porcentajes_Convenios_Bancolombia_Informes': porcentajes_Convenios_Bancolombia_Informes,
+            'meses_Convenios_Bancolombia_Fisicos': meses_Convenios_Bancolombia_Fisicos,
+            'porcentajes_Convenios_Bancolombia_Fisicos': porcentajes_Convenios_Bancolombia_Fisicos,
+            'meses_Convenios_Bancolombia_Web': meses_Convenios_Bancolombia_Web,
+            'porcentajes_Convenios_Bancolombia_Web': porcentajes_Convenios_Bancolombia_Web,
+            #occiedente
+            'meses_entregaFisicos_nacionales_occidente': meses_entregaFisicos_nacionales_occidente,
+            'porcentajes_entrega_fisicos_nacionales_occidente': porcentajes_entrega_fisicos_nacionales_occidente,
+            'meses_registrosMagneticos_nacionales_occidente': meses_registrosMagneticos_nacionales_occidente,
+            'porcentajes_registrosMagneticos_nacionales_occidente': porcentajes_registrosMagneticos_nacionales_occidente,
+            'meses_entregaFisicos_Distritales_Occidente_Fisicos': meses_entregaFisicos_Distritales_Occidente_Fisicos,
+            'porcentajes_entrega_fisicos_Distritales_Occidente_Fisicos': porcentajes_entrega_fisicos_Distritales_Occidente_Fisicos,
+            'meses_entregaFisicos_Distritales_Occidente_CMagneticas': meses_entregaFisicos_Distritales_Occidente_CMagneticas,
+            'porcentajes_entrega_fisicos_Distritales_Occidente_CMagneticas': porcentajes_entrega_fisicos_Distritales_Occidente_CMagneticas,
+
+            #itau
+            'meses_entregaFisicos_nacionales_itau': meses_entregaFisicos_nacionales_itau,
+            'porcentajes_entrega_fisicos_nacionales_itau': porcentajes_entrega_fisicos_nacionales_itau,
+            'meses_registrosMagneticos_nacionales_itau': meses_registrosMagneticos_nacionales_itau,
+            'porcentajes_registrosMagneticos_nacionales_itau': porcentajes_registrosMagneticos_nacionales_itau,
+            'meses_Departamentales_Itau_Fisicos': meses_Departamentales_Itau_Fisicos,
+            'porcentajes_Departamentales_Itau_Fisicos': porcentajes_Departamentales_Itau_Fisicos,
+            'meses_Departamentales_Itau_Informes': meses_Departamentales_Itau_Informes,
+            'porcentajes_Departamentales_Itau_Informes': porcentajes_Departamentales_Itau_Informes,
+            'meses_MunicipalesCali_Iatu_Fisicos': meses_MunicipalesCali_Iatu_Fisicos,
+            'porcentajes_MunicipalesCali_Iatu_Fisicos': porcentajes_MunicipalesCali_Iatu_Fisicos,
+            'meses_MunicipalesCali_Iatu_Informes': meses_MunicipalesCali_Iatu_Informes,
+            'porcentajes_MunicipalesCali_Iatu_Informes': porcentajes_MunicipalesCali_Iatu_Informes,
+            #cajaSocial
+            'meses_entregaFisicos_nacionales_cajasocial': meses_entregaFisicos_nacionales_cajasocial,
+            'porcentajes_entrega_fisicos_nacionales_cajasocial': porcentajes_entrega_fisicos_nacionales_cajasocial,
+            'meses_registrosMagneticos_nacionales_cajasocial': meses_registrosMagneticos_nacionales_cajasocial,
+            'porcentajes_registrosMagneticos_nacionales_cajasocial': porcentajes_registrosMagneticos_nacionales_cajasocial,
+            'meses_Nacionales_Aduanas_CajaSocial': meses_Nacionales_Aduanas_CajaSocial,
+            'procentajes_Nacionales_Aduanas_CajaSocial': procentajes_Nacionales_Aduanas_CajaSocial,
+            'meses_Convenios_CajaSocial_Informes': meses_Convenios_CajaSocial_Informes,
+            'porcentajes_Convenios_CajaSocial_Informes': porcentajes_Convenios_CajaSocial_Informes,
+            'meses_Convenios_CajaSocial_Fisicos': meses_Convenios_CajaSocial_Fisicos,
+            'porcentajes_Convenios_CajaSocial_Fisicos': porcentajes_Convenios_CajaSocial_Fisicos,
+            'meses_Convenios_CajaSocial_Web': meses_Convenios_CajaSocial_Web,
+            'porcentajes_Convenios_CajaSocial_Web': porcentajes_Convenios_CajaSocial_Web,
+            #davivienda
+            'meses_entrega_Nacionales_Informes_Davivienda': meses_entrega_Nacionales_Informes_Davivienda,
+            'porcentajes_Nacionales_Informes_Davivienda': porcentajes_Nacionales_Informes_Davivienda,
+            'meses_Nacionales_CalidadInformes_Davivienda': meses_Nacionales_CalidadInformes_Davivienda,
+            'porcentajes_Nacionales_CalidadInformes_Davivienda': porcentajes_Nacionales_CalidadInformes_Davivienda,
+            'meses_Nacionales_EntregaImagenes_Davivienda': meses_Nacionales_EntregaImagenes_Davivienda,
+            'porcentajes_Nacionales_EntregaImagenes_Davivienda': porcentajes_Nacionales_EntregaImagenes_Davivienda,
+            'meses_Nacionales_Davivienda_Fisicos': meses_Nacionales_Davivienda_Fisicos,
+            'porcentajes_Nacionales_Davivienda_Fisicos': porcentajes_Nacionales_Davivienda_Fisicos,
+            'meses_Nacionales_Inconsistencias_Davivienda': meses_Nacionales_Inconsistencias_Davivienda,
+            'porcentajes_Nacionales_Inconsistencias_Davivienda': porcentajes_Nacionales_Inconsistencias_Davivienda,
+            'meses_Nacionales_Traslados_Davivienda': meses_Nacionales_Traslados_Davivienda,
+            'porcentajes_Nacionales_Traslados_Davivienda': porcentajes_Nacionales_Traslados_Davivienda,
+            'meses_entrega_Distritales_Informes_Davivienda': meses_entrega_Distritales_Informes_Davivienda,
+            'porcentajes_Distritales_Informes_Davivienda': porcentajes_Distritales_Informes_Davivienda,
+            'meses_Distritales_CalidadInformes_Davivienda': meses_Distritales_CalidadInformes_Davivienda,
+            'porcentajes_Distritales_CalidadInformes_Davivienda': porcentajes_Distritales_CalidadInformes_Davivienda,
+            'meses_Distritales_EntregaImagenes_Davivienda': meses_Distritales_EntregaImagenes_Davivienda,
+            'porcentajes_Distritales_EntregaImagenes_Davivienda': porcentajes_Distritales_EntregaImagenes_Davivienda,
+            'meses_Distritales_Inconsistencias_Davivienda': meses_Distritales_Inconsistencias_Davivienda,
+            'porcentajes_Distritales_Inconsistencias_Davivienda': porcentajes_Distritales_Inconsistencias_Davivienda,
+            'meses_Distritales_Traslados_Davivienda': meses_Distritales_Traslados_Davivienda,
+            'porcentajes_Distritales_Traslados_Davivienda': porcentajes_Distritales_Traslados_Davivienda,
+            'meses_entrega_Departamentales_Informes_Davivienda': meses_entrega_Departamentales_Informes_Davivienda,
+            'porcentajes_Departamentales_Informes_Davivienda': porcentajes_Departamentales_Informes_Davivienda,
+            'meses_Departamentales_CalidadInformes_Davivienda': meses_Departamentales_CalidadInformes_Davivienda,
+            'porcentajes_Departamentales_CalidadInformes_Davivienda': porcentajes_Departamentales_CalidadInformes_Davivienda,
+            'meses_Departamentales_EntregaImagenes_Davivienda': meses_Departamentales_EntregaImagenes_Davivienda,
+            'porcentajes_Departamentales_EntregaImagenes_Davivienda': porcentajes_Departamentales_EntregaImagenes_Davivienda,
+            'meses_Departamentales_Davivienda_Fisicos': meses_Departamentales_Davivienda_Fisicos,
+            'porcentajes_Departamentales_Davivienda_Fisicos': porcentajes_Departamentales_Davivienda_Fisicos,
+            'meses_Departamentales_Inconsistencias_Davivienda': meses_Departamentales_Inconsistencias_Davivienda,
+            'porcentajes_Departamentales_Inconsistencias_Davivienda': porcentajes_Departamentales_Inconsistencias_Davivienda,
+            'meses_Departamentales_Traslados_Davivienda': meses_Departamentales_Traslados_Davivienda,
+            'porcentajes_Departamentales_Traslados_Davivienda': porcentajes_Departamentales_Traslados_Davivienda,
+            'meses_entrega_Convenios_Informes_Davivienda': meses_entrega_Convenios_Informes_Davivienda,
+            'porcentajes_Convenios_Informes_Davivienda': porcentajes_Convenios_Informes_Davivienda,
+            'meses_Convenios_CalidadInformes_Davivienda': meses_Convenios_CalidadInformes_Davivienda,
+            'porcentajes_Convenios_CalidadInformes_Davivienda': porcentajes_Convenios_CalidadInformes_Davivienda,
+            'meses_Convenios_EntregaImagenes_Davivienda': meses_Convenios_EntregaImagenes_Davivienda,
+            'porcentajes_Convenios_EntregaImagenes_Davivienda': porcentajes_Convenios_EntregaImagenes_Davivienda,
+            'meses_Convenios_Davivienda_Fisicos': meses_Convenios_Davivienda_Fisicos,
+            'porcentajes_Convenios_Davivienda_Fisicos': porcentajes_Convenios_Davivienda_Fisicos,
+            'meses_Convenios_Inconsistencias_Davivienda': meses_Convenios_Inconsistencias_Davivienda,
+            'porcentajes_Convenios_Inconsistencias_Davivienda': porcentajes_Convenios_Inconsistencias_Davivienda,
+            'meses_Convenios_Traslados_Davivienda': meses_Convenios_Traslados_Davivienda,
+            'porcentajes_Convenios_Traslados_Davivienda': porcentajes_Convenios_Traslados_Davivienda,
+            #avvillas
             'meses_inconsistenciasPasivo': meses_inconsistenciasPasivo,
             'porcentajes_inconsistenciasPasivo': porcentajes_inconsistenciasPasivo,
             'meses_inconsistenciasActivo': meses_inconsistenciasActivo,
@@ -300,18 +431,22 @@ def indicadores():
             'tiempo_repsuestaCreditoOCI': tiempo_repsuestaCreditoOCI,
             'meses_repsuestaCrerditoTradicional': meses_repsuestaCrerditoTradicional,
             'tiempo_repsuestaCreditoTradicional': tiempo_repsuestaCreditoTradicional,
-            'meses_calidadInformacion_radicacion': meses_calidadInformacion_radicacion,
-            'porcentajes_calidadInformacion_radicacion': porcentajes_calidadInformacion_radicacion,
-            'meses_entrega_informes_radicacion': meses_entrega_informes_radicacion,
-            'porcentajes_entrega_informes_radicacion': porcentajes_entrega_informes_radicacion,
-            'meses_entregaImagenes_radicacion': meses_entregaImagenes_radicacion,
-            'porcentajes_entregaImagenes_radicacion': porcentajes_entregaImagenes_radicacion,
+            'meses_Radicacion_AvVillas_CalidadInformacion': meses_Radicacion_AvVillas_CalidadInformacion,
+            'porcentajes_Radicacion_AvVillas_CalidadInformacion': porcentajes_Radicacion_AvVillas_CalidadInformacion,
+            'meses_Radicacion_AvVillas_Informes': meses_Radicacion_AvVillas_Informes,
+            'porcentajes_Radicacion_AvVillas_Informes': porcentajes_Radicacion_AvVillas_Informes,
+            'meses_Radicacion_AvVillas_Imagenes': meses_Radicacion_AvVillas_Imagenes,
+            'porcentajes_Radicacion_AvVillas_Imagenes': porcentajes_Radicacion_AvVillas_Imagenes,
             'meses_entregaFisicos_TarjetasDigital': meses_entregaFisicos_TarjetasDigital,
             'porcentajes_entrega_fisicos_TarjetasDigital': porcentajes_entrega_fisicos_TarjetasDigital,
             'meses_entregaFisicos_TarjetasFisico': meses_entregaFisicos_TarjetasFisico,
             'porcentajes_entrega_fisicos_TarjetasFisico': porcentajes_entrega_fisicos_TarjetasFisico,
-            'meses_Taduanas_nacionales':meses_Taduanas_nacionales,
-            'procentajes_Taduanas_nacionales':procentajes_Taduanas_nacionales,
+            #aplica para todos los bancos
+            'meses_sancionesMagneticas': meses_sancionesMagneticas,
+            'multas_sancionesMagneticas': multas_sancionesMagneticas,
+            'meses_sancionesFisicos': meses_sancionesFisicos,
+            'multas_sancionesFisicos': multas_sancionesFisicos,
+            
 
 
             'meses_administrativo_sistemas': meses_administrativo_sistemas,
@@ -349,32 +484,7 @@ def indicadores():
 
 
 '''GESTION DE PRODUCCIOIN'''
-@ind_bp.route('/guardar_calidad_informacion', methods=['POST'])
-@login_required
-def guardar_calidad_informacion():
-    if request.method == 'POST':
-        try:
-            datos = {
-                'mes': request.form['mes'],
-                'form_digitados': request.form['form_digitados'],
-                'err_digitacion': request.form['err_digitacion'],
-                'resultado': request.form['resultado_calidadInformacion'],
-                'meta': request.form['meta_calidadInformacion'],
-                'analisis': request.form['analisis_calidadInformacion'],
-                'proceso': request.form['proceso']
-            }
-            rol = current_user.rol
-            guardar_calidadInformacion(datos, rol)
-            return jsonify({
-                'success': True,
-                'message': 'Indicador de Calidad de Información guardado exitosamente'
-            })
-        except Exception as e:
-            return jsonify({
-                'success': False,
-                'message': f'Error al guardar el indicador: {str(e)}'
-            })
-    return jsonify({'success': False, 'message': 'Método no permitido'})
+
 @ind_bp.route('/guardar_registros_magneticos', methods=['POST'])
 @login_required
 def guardar_registros_magneticos():
@@ -403,8 +513,9 @@ def guardar_registros_magneticos():
 @ind_bp.route('/registro_extemporaneo', methods=['POST'])
 def obtener_registro_extemporaneo():
     mes = request.json.get('mes')
+    proceso = request.json.get('proceso')
     rol = current_user.rol
-    resultado = obtener_r_extemporeaneo_mes(mes, rol)
+    resultado = obtener_r_extemporeaneo_mes(mes, rol, proceso)
     if resultado:
         return jsonify({'r_extemporaneo': resultado[0],
                         't_registros': resultado[1]})
@@ -414,8 +525,9 @@ def obtener_registro_extemporaneo():
 @ind_bp.route('/registro_extemporaneo_fisico', methods=['POST'])
 def registro_extemporaneo_fisico():
     mes = request.json.get('mes')
+    proceso = request.json.get('proceso')
     rol = current_user.rol
-    resultado = obtener_r_extemporeaneoFisico_mes(mes, rol)
+    resultado = obtener_r_extemporeaneoFisico_mes(mes, rol, proceso)
     if resultado:
         return jsonify({'d_extemporaneo': resultado[0],
                         'd_registros': resultado[1]})
@@ -427,64 +539,72 @@ def registro_extemporaneo_fisico():
 def guardar_sanciones_magneticas():
     if request.method == 'POST':
         try:
-            valor_porcentaje = request.form['P_aceptacion'].replace('%', '').replace(',', '.')
-            valor_uvt = request.form['UVT_sancionesMagneticas'].replace('$', '').replace(',', '.')
-            valor_multa = request.form['multa_sancionesMagneticas'].replace('$', '').replace(',', '.')
+            # Leemos los nombres EXACTOS del formulario de Sanciones Magnéticas
+            valor_porcentaje = request.form.get('P_aceptacion', '0').replace('%', '').replace(',', '.')
+            valor_uvt = request.form.get('UVT_sancionesMagneticas', '0').replace('$', '').replace('.', '').replace(',', '.')
+            valor_multa = request.form.get('multa_sancionesMagneticas', '0').replace('$', '').replace('.', '').replace(',', '.')
+            
+            # Creamos el diccionario 'datos' con las claves que espera el controlador
             datos = {
-                'mes': request.form['mes2'],
-                'R_extemporaneos2': request.form['R_extemporaneos2'],
-                'r_digicom': request.form['r_digicom'],
+                'mes': request.form.get('mes2', ''),
+                'R_extemporaneos': request.form.get('R_extemporaneos2', '0'),
+                'r_digicom': request.form.get('r_digicom', '0'),
                 'P_aceptacion': valor_porcentaje,
-                'resultado': request.form['resultado_sancionesMagneticas'],
-                'meta': request.form['meta_sancionesMagneticas'],
+                'resultado': request.form.get('resultado_sancionesMagneticas', '0.0'),
+                'meta': request.form.get('meta_sancionesMagneticas', ''),
                 'uvt': valor_uvt,
                 'multa': valor_multa,
-                'analisis': request.form['analisis_sancionesMagneticas']
+                'analisis': request.form.get('analisis_sancionesMagneticas', '')
             }
             rol = current_user.rol
-
-            
             guardar_sancionesMagneticas(datos, rol)
+            
             return jsonify({
                 'success': True,
-                'message': 'Indicador de Sanciones Magnéticas guardado exitosamente'
+                'message': 'Indicador de Sanciones Magnéticas guardado exitosamente',
+                'newData': datos 
             })
         except Exception as e:
-            return jsonify({
-                'success': False,
-                'message': f'Error al guardar el indicador: {str(e)}'
-            })
+            print(f"ERROR en guardar_sanciones_magneticas: {e}")
+            import traceback
+            traceback.print_exc()
+            return jsonify({'success': False, 'message': f'Error: {str(e)}'})
     return jsonify({'success': False, 'message': 'Método no permitido'})
 @ind_bp.route('/guardar_sanciones_fisicos', methods=['POST'])
 @login_required
 def guardar_sanciones_fisicos():
     if request.method == 'POST':
         try:
-            valor_porcentaje = request.form['P_aceptacion_fisicos'].replace('%', '').replace(',', '.')
-            valor_uvt = request.form['UVT_sancionesFisicos'].replace('$', '').replace(',', '.')
-            valor_multa = request.form['multa_sancionesFisicos'].replace('$', '').replace(',', '.')
+            # Leemos los nombres EXACTOS del formulario de Sanciones Físicas
+            valor_porcentaje = request.form.get('P_aceptacion_fisicos', '0').replace('%', '').replace(',', '.')
+            valor_uvt = request.form.get('UVT_sancionesFisicos', '0').replace('$', '').replace('.', '').replace(',', '.')
+            valor_multa = request.form.get('multa_sancionesFisicos', '0').replace('$', '').replace('.', '').replace(',', '.')
+            
+            # Creamos el diccionario 'datos' con las claves que espera el controlador
             datos = {
-                'mes': request.form['mes_fisicos'],
-                'D_extemporaneos2': request.form['D_extemporaneos2'],
-                'dr_digicom': request.form['dr_digicom'],
+                'mes': request.form.get('mes_fisicos', ''),
+                'D_extemporaneos2': request.form.get('D_extemporaneos2', '0'),
+                'dr_digicom': request.form.get('dr_digicom', '0'),
                 'P_aceptacion_fisicos': valor_porcentaje,
-                'resultado_sancionesFisicos': request.form['resultado_sancionesFisicos'],
-                'meta_sancionesFisicos': request.form['meta_sancionesFisicos'],
+                'resultado_sancionesFisicos': request.form.get('resultado_sancionesFisicos', '0.0'),
+                'meta_sancionesFisicos': request.form.get('meta_sancionesFisicos', ''),
                 'uvt_sancionesFisicos': valor_uvt,
                 'multa_sancionesFisicos': valor_multa,
-                'analisis_sancionesFisicos': request.form['analisis_sancionesFisicos']
+                'analisis_sancionesFisicos': request.form.get('analisis_sancionesFisicos', '')
             }
             rol = current_user.rol
             guardar_sancionesFisicos(datos, rol)
+            
             return jsonify({
                 'success': True,
-                'message': 'Indicador de Sanciones Físicos guardado exitosamente'
+                'message': 'Indicador de Sanciones Físicos guardado exitosamente', 
+                'newData': datos 
             })
         except Exception as e:
-            return jsonify({
-                'success': False,
-                'message': f'Error al guardar el indicador: {str(e)}'
-            })
+            print(f"ERROR en guardar_sanciones_fisicos: {e}")
+            import traceback
+            traceback.print_exc()
+            return jsonify({'success': False, 'message': f'Error: {str(e)}'})
     return jsonify({'success': False, 'message': 'Método no permitido'})
 @ind_bp.route('/guardar_entrega_fisicos', methods=['POST'])
 @login_required
@@ -501,150 +621,9 @@ def guardar_entrega_fisicos():
                 'proceso': request.form['proceso']
             }
             rol = current_user.rol
-            print(datos)
             guardar_registrosFisicos(datos, rol)
-            return jsonify({'success': True, 'message': 'Indicador guardado correctamente'})
-        except Exception as e:
-            return jsonify({'success': False, 'message': f'Error al guardar: {str(e)}'})
-    return jsonify({'success': False, 'message': 'Método no permitido'})
-@ind_bp.route('/guardar_cintas_magneticas', methods=['POST'])
-@login_required
-def guardar_cintas_magneticas():
-    if request.method == 'POST':
-        try:
-            datos = {
-                'mes': request.form['mes'],
-                'cintas_enviadas': request.form['cin_enviadas'],
-                'cintas_rechazadas': request.form['cin_rechazadas'],
-                'resultado': request.form['resultado_cintasMagneticas'],
-                'meta': request.form['meta_cintasMagneticas'],
-                'analisis': request.form['analisis_cintasMagneticas'],
-                'proceso': request.form['proceso']
-            }
-            rol = current_user.rol
-            print(datos)
-            guardar_cintasMagneticas(datos, rol)
-            return jsonify({'success': True, 'message': 'Indicador guardado correctamente'})
-        except Exception as e:
-            return jsonify({'success': False, 'message': f'Error al guardar: {str(e)}'})
-    return jsonify({'success': False, 'message': 'Método no permitido'})
-@ind_bp.route('/guardar_informes_entregados', methods=['POST'])
-@login_required
-def guardar_informes_entregados():
-    if request.method == 'POST':
-        try:
-            datos = {
-                'mes': request.form['mes'],
-                'informes_entregados': request.form['inf_enviados'],
-                'informes_extemporaneos': request.form['inf_fueraTiempo'],
-                'resultado': request.form['resultado_informes'],
-                'meta': request.form['meta_informes'],
-                'analisis': request.form['analisis_informes'],
-                'proceso': request.form['proceso']
-            }
-            rol = current_user.rol
-            guardar_informesEntregados(datos, rol)
-            return jsonify({'success': True, 'message': 'Indicador guardado correctamente'})
-        except Exception as e:
-            return jsonify({'success': False, 'message': f'Error al guardar: {str(e)}'})
-    return jsonify({'success': False, 'message': 'Método no permitido'})
-@ind_bp.route('/guardar_sitioWeb', methods=['POST'])
-@login_required
-def guardar_sitioWeb():
-    if request.method == 'POST':
-        try:
-            datos = {
-                'mes': request.form['mes'],
-                'img_enviados': request.form['img_enviados'],
-                'img_fueraTiempo': request.form['img_fueraTiempo'],
-                'resultado': request.form['resultado_sitio_web'],
-                'meta': request.form['meta_sitio_web'],
-                'analisis': request.form['analisis_sitio_web'],
-                'proceso': request.form['proceso']
-            }
-            rol = current_user.rol
-            guardar_sitio_web(datos, rol)
-            return jsonify({'success': True, 'message': 'Indicador guardado correctamente'})
-        except Exception as e:
-            return jsonify({'success': False, 'message': f'Error al guardar: {str(e)}'})
-    return jsonify({'success': False, 'message': 'Método no permitido'})
-@ind_bp.route('/guardar_calidad_informes', methods=['POST'])
-@login_required
-def guardar_calidad_informes():
-    if request.method == 'POST':
-        try:
-            datos = {
-                'mes': request.form['mes'],
-                'inf_entregados': request.form['inf_entregados'],
-                'inf_errados': request.form['inf_errados'],
-                'resultado': request.form['resultado_calidad_informes'],
-                'meta': request.form['meta_calidad_informes'],
-                'analisis': request.form['analisis_calidad_informes'],
-                'proceso': request.form['proceso']
-            }
-            rol = current_user.rol
-            guardar_calidadInformes(datos, rol)
-            return jsonify({'success': True, 'message': 'Indicador guardado correctamente'})
-        except Exception as e:
-            return jsonify({'success': False, 'message': f'Error al guardar: {str(e)}'})
-    return jsonify({'success': False, 'message': 'Método no permitido'})
-@ind_bp.route('/guardar_entrega_imagenes', methods=['POST'])
-@login_required
-def guardar_entrega_imagenes():
-    if request.method == 'POST':
-        try:
-            datos = {
-                'mes': request.form['mes'],
-                'img_entregadas': request.form['img_entregadas'],
-                'img_extemporaneas': request.form['img_extemporaneas'],
-                'resultado': request.form['resultado_entrgeaImagenes'],
-                'meta': request.form['meta_entregaImagenes'],
-                'analisis': request.form['analisis_entregaImagenes'],
-                'proceso': request.form['proceso']
-            }
-            rol = current_user.rol
-            guardar_entregaImagenes(datos, rol)
-            return jsonify({'success': True, 'message': 'Indicador guardado correctamente'})
-        except Exception as e:
-            return jsonify({'success': False, 'message': f'Error al guardar: {str(e)}'})
-    return jsonify({'success': False, 'message': 'Método no permitido'})
-@ind_bp.route('/guardar_solucion_inconsistencias', methods=['POST'])
-@login_required
-def guardar_solucion_inconsistencias():
-    if request.method == 'POST':
-        try:
-            datos = {
-                'mes': request.form['mes'],
-                'inc_repotadas': request.form['inc_repotadas'],
-                'inc_solucionadas': request.form['inc_solucionadas'],
-                'resultado': request.form['resultado_inconstencias'],
-                'meta': request.form['meta_inconstencias'],
-                'analisis': request.form['analisis_inconstencias'],
-                'proceso': request.form['proceso']
-            }
-            rol = current_user.rol
-            guardar_inconsistenciasSolucionadas(datos, rol)
-            return jsonify({'success': True, 'message': 'Indicador guardado correctamente'})
-        except Exception as e:
-            return jsonify({'success': False, 'message': f'Error al guardar: {str(e)}'})
-    return jsonify({'success': False, 'message': 'Método no permitido'})
-@ind_bp.route('/guardar_traslados', methods=['POST'])
-@login_required
-def guardar_traslados():
-    if request.method == 'POST':
-        try:
-            datos = {
-                'mes': request.form['mes'],
-                'traslados': request.form['traslados'],
-                'traslados_extemporaneos': request.form['traslados_extemporaneos'],
-                'resultado': request.form['resultado_traslados'],
-                'meta': request.form['meta_traslados'],
-                'analisis': request.form['analisis_traslados'],
-                'proceso': request.form['proceso']
-            }
-            rol = current_user.rol
-            guardar_traslado(datos, rol)
-            return jsonify({'success': True, 'message': 'Indicador guardado correctamente'})
+
+            return jsonify({'success': True, 'message': 'Indicador guardado correctamente', 'newData': datos})
         except Exception as e:
             return jsonify({'success': False, 'message': f'Error al guardar: {str(e)}'})
     return jsonify({'success': False, 'message': 'Método no permitido'})
@@ -664,7 +643,7 @@ def guardar_inconsistencias_pasivo():
             }
             rol = current_user.rol
             guardar_inconsitenciasPasivo(datos, rol)
-            return jsonify({'success': True, 'message': 'Indicador guardado correctamente'})
+            return jsonify({'success': True, 'message': 'Indicador guardado correctamente', 'newData': datos })
         except Exception as e:
             return jsonify({'success': False, 'message': f'Error al guardar: {str(e)}'})
     return jsonify({'success': False, 'message': 'Método no permitido'})
@@ -712,7 +691,7 @@ def guardar_TRespuesta_Credito():
             rol = current_user.rol
             #print(datos)
             guardar_TRespuesta_credito(datos, rol)
-            return jsonify({'success': True, 'message': 'Indicador guardado correctamente'})
+            return jsonify({'success': True, 'message': 'Indicador guardado correctamente', 'newData': datos})
         except Exception as e:
             return jsonify({'success': False, 'message': f'Error al guardar: {str(e)}'})
     return jsonify({'success': False, 'message': 'Método no permitido'})
@@ -739,27 +718,6 @@ def get_tiempo_mes_anterior():
         return jsonify({"tiempo_respuesta": mmss})
     else:
         return jsonify({"tiempo_respuesta": None})    
-@ind_bp.route('/guardar_transmision_aduanas', methods=['POST'])
-@login_required
-def guardar_transmision_aduanas():
-    if request.method == 'POST':
-        try:
-            datos = {
-                'mes': request.form['mes'],
-                't_aduanas': request.form['t_aduanas'],
-                't_aduanasFueraTiempo': request.form['t_aduanasFueraTiempo'],
-                'resultado': request.form['resultado_Taduanas'],
-                'meta': request.form['meta_Taduanas'],
-                'analisis': request.form['analisis_Taduanas'],
-                'proceso': request.form['proceso']
-            }
-            rol = current_user.rol
-            guardar_TransAduanas(datos, rol)
-            return jsonify({'success': True, 'message': 'Indicador guardado correctamente'})
-        except Exception as e:
-            return jsonify({'success': False, 'message': f'Error al guardar: {str(e)}'})
-    return jsonify({'success': False, 'message': 'Método no permitido'})
-
 
 '''ADMINISTRATIVO'''
 @ind_bp.route('/guardar_administrativo', methods=['POST'])

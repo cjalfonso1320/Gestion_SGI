@@ -1,4 +1,4 @@
-<form action="{{ url_for('ind.guardar_inconsistencias_pasivo') }}" method="post">
+<form id="form_incon_{{ proceso }}" method="post">
     <input type="hidden" name="proceso" value="{{ proceso }}">
     <div>
         <label class="form-label" for="mes">Mes</label>
@@ -66,8 +66,8 @@
           <th>Analisis</th>
         </tr>
       </thead>
+      <tbody id="tabla_inconsistencia_body_{{ proceso }}">
     {% for registro in datos_inconsistencias_pasivo %}
-      <tbody>
         <tr>
           <td>{{registro[0]}}</td>
           <td>{{registro[1]}}</td>
@@ -76,8 +76,8 @@
           <td>{{registro[4]}}</td>
           <td>{{registro[5]}}</td>
         </tr>
-      </tbody>
     {% endfor %}
+    </tbody>
     </table>
   </div>
 </div>
@@ -90,7 +90,7 @@
 
 <script>
     const ctx_inconsistenciasPasivo_{{ proceso }} = document.getElementById('grafica_inconsistenciasPasivo_{{ proceso }}').getContext('2d');
-    const grafica_inconsistenciasPasivo_{{ proceso }} = new Chart(ctx_inconsistenciasPasivo_{{ proceso }}, {
+    window.grafica_inconsistenciasPasivo_{{ proceso }} = new Chart(ctx_inconsistenciasPasivo_{{ proceso }}, {
         type: 'line',
         data: {
             labels: {{ meses_inconsistenciasPasivo|default([])|tojson|safe }},

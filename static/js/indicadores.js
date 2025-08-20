@@ -1,23 +1,18 @@
-// Funciones para manejar formularios de indicadores
 document.addEventListener('DOMContentLoaded', function() {
-    // Función para mostrar mensajes de éxito/error
+    
+    // =================================================================================
+    // 1. FUNCIONES AUXILIARES (Tus funciones de alertas y estilos, sin cambios)
+    // =================================================================================
+
+    // Función para mostrar mensajes de éxito/error (Tu código, está perfecto)
     function showMessage(message, isSuccess = true) {
-        // Crear elemento de mensaje
         const messageDiv = document.createElement('div');
         messageDiv.className = `alert ${isSuccess ? 'alert-success' : 'alert-danger'}`;
         messageDiv.style.cssText = `
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 9999;
-            padding: 15px 20px;
-            border-radius: 8px;
-            color: white;
-            font-weight: 600;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            animation: slideInRight 0.3s ease;
-            max-width: 400px;
-            word-wrap: break-word;
+            position: fixed; top: 20px; right: 20px; z-index: 9999;
+            padding: 15px 20px; border-radius: 8px; color: white;
+            font-weight: 600; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            animation: slideInRight 0.3s ease; max-width: 400px; word-wrap: break-word;
         `;
         
         if (isSuccess) {
@@ -27,11 +22,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         messageDiv.textContent = message;
-        
-        // Agregar al DOM
         document.body.appendChild(messageDiv);
         
-        // Remover después de 5 segundos
         setTimeout(() => {
             messageDiv.style.animation = 'slideOutRight 0.3s ease';
             setTimeout(() => {
@@ -41,22 +33,38 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 300);
         }, 5000);
     }
-    
-    // Función para manejar envío de formularios
-    function handleFormSubmit(form, endpoint) {
+
+    // Estilos CSS para las animaciones (Tu código, está perfecto)
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes slideInRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        @keyframes slideOutRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+    `;
+    document.head.appendChild(style);
+
+
+    // =================================================================================
+    // 2. MANEJADOR DE FORMULARIOS GENÉRICO Y ACTUALIZADORES DE UI
+    // =================================================================================
+
+    /**
+     * Función genérica para manejar el envío de formularios con AJAX.
+     * @param {HTMLFormElement} form - El formulario a manejar.
+     * @param {string} endpoint - La URL a la que se enviarán los datos.
+     * @param {function} successCallback - La función que se ejecutará en caso de éxito para actualizar la UI.
+     */
+    function handleFormSubmit(form, endpoint, successCallback) {
+        if (form.dataset.listenerAttached) return;
         form.addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Mostrar indicador de carga
             const submitBtn = form.querySelector('button[type="submit"]');
             const originalText = submitBtn.textContent;
             submitBtn.textContent = 'Guardando...';
             submitBtn.disabled = true;
             
-            // Crear FormData
             const formData = new FormData(form);
             
-            // Enviar petición
             fetch(endpoint, {
                 method: 'POST',
                 body: formData
@@ -65,142 +73,291 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(data => {
                 if (data.success) {
                     showMessage(data.message, true);
-                    // Limpiar formulario si es exitoso
+                    // Llama a la función específica para actualizar la tabla y la gráfica
+                    if (successCallback) {
+                        successCallback(data, form);
+                    }
                     form.reset();
-                    // Recargar la página después de un breve delay
-                    setTimeout(() => {
-                        location.reload();
-                    }, 2000);
+                    // Limpia campos 'readonly' que .reset() no afecta
+                    form.querySelectorAll('input[readonly]').forEach(input => input.value = '');
                 } else {
                     showMessage(data.message, false);
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                showMessage('Error al guardar el indicador', false);
+                showMessage('Error de comunicación al guardar el indicador.', false);
             })
             .finally(() => {
-                // Restaurar botón
                 submitBtn.textContent = originalText;
                 submitBtn.disabled = false;
             });
         });
     }
-    
-    // Aplicar a todos los formularios de indicadores
-    const forms = document.querySelectorAll('form[action*="guardar"]');
-    forms.forEach(form => {
-        const action = form.getAttribute('action');
-        if (action) {
-            handleFormSubmit(form, action);
+
+    /**
+     * Actualizador de UI específico para los indicadores de "Entrega Físicos".
+     * @param {object} data - Los datos recibidos del servidor.
+     */
+    const updateUiEntregaFisicos = (data) => {
+    try {
+        const newData = data.newData;
+        // Obtenemos el 'proceso' de los datos devueltos para encontrar el elemento correcto
+        const proceso = newData.proceso;
+
+        // 1. Actualizar la tabla
+        // El ID de la tabla es dinámico, por eso necesitamos la variable 'proceso'
+        const tablaBody = document.getElementById(`tabla_entrega_fisicos_body_${proceso}`);
+        if (tablaBody) {
+            const newRow = tablaBody.insertRow(0); // Añadir la fila al principio
+            newRow.innerHTML = `
+                <td>${newData.mes}</td>
+                <td>${newData.documentos_entregados}</td>
+                <td>${newData.documentos_extemporaneos}</td>
+                <td>${newData.resultado}</td>
+                <td>${newData.meta}</td>
+                <td>${newData.analisis}</td>
+            `;
+        } else {
+            console.error(`Error: No se encontró el body de la tabla con id 'tabla_entrega_fisicos_body_${proceso}'`);
         }
+        
+        // 2. Actualizar la gráfica
+        // El nombre de la variable de la gráfica también es dinámico
+        const chart = window[`grafica_entregaFisicos_${proceso}`];
+        if (chart) {
+            chart.data.labels.push(newData.mes);
+            chart.data.datasets[0].data.push(parseFloat(newData.resultado));
+            chart.update();
+        } else {
+            console.error(`Error: No se encontró la variable global de la gráfica 'window.grafica_entrega_fisicos_${proceso}'`);
+        }
+
+    } catch (error) {
+        console.error("¡Error dentro de updateUiEntregaFisicos!:", error);
+        throw error;
+    }
+};
+
+    /**
+     * Actualizador de UI específico para los indicadores de "Sanciones MAgneticas".
+     * @param {object} data - Los datos recibidos del servidor.
+     */
+    const updateUiSancionesMagneticas = (data) => {
+    try {
+        const newData = data.newData;
+        const tablaBody = document.getElementById('tabla_sancionesMagneticas_body');
+        if (tablaBody) {
+            const newRow = tablaBody.insertRow(0);
+            // Leemos las claves específicas para Magnéticas
+            newRow.innerHTML = `
+                <td>${newData.mes}</td>
+                <td>${newData.R_extemporaneos}</td>
+                <td>${newData.r_digicom}</td>
+                <td>${newData.meta}</td>
+                <td>$ ${newData.multa}</td>
+                <td>${newData.analisis}</td>
+            `;
+        } else {
+            console.error("Error: No se encontró el body de la tabla con id 'tabla_sancionesMagneticas_body'");
+        }
+        
+        const chart = window.grafica_sancionesMagneticas;
+        if (chart) {
+            const valorMultaNumerico = parseFloat(String(newData.multa).replace(/[^0-9.-]+/g,""));
+            
+            chart.data.labels.push(newData.mes);
+            chart.data.datasets[0].data.push(valorMultaNumerico);
+            chart.update();
+        } else {
+            console.error("Error: No se encontró la gráfica 'window.grafica_sancionesMagneticas'");
+        }
+
+    } catch (error) {
+        console.error("¡Error dentro de updateUiSancionesMagneticas!:", error);
+        throw error;
+    }
+};
+    /**
+     * Actualizador de UI específico para los indicadores de "Sanciones Fisicas".
+      * @param {object} data - Los datos recibidos del servidor.
+ */
+const updateUiSancionesFisicas = (data) => {
+    try {
+       const newData = data.newData;
+
+        // Para depurar: Muestra en la consola exactamente lo que el servidor envió.
+        console.log("Datos recibidos para actualizar la tabla de Físicos:", newData);
+
+        const tablaBody = document.getElementById('tabla_sancionesFisicos_body');
+        if (tablaBody) {
+            const newRow = tablaBody.insertRow(0); // Añade la fila al principio
+            
+            // VERSIÓN FINAL Y CORREGIDA: Usa las claves EXACTAS del diccionario de Python
+            newRow.innerHTML = `
+                <td>${newData.mes}</td>
+                <td>${newData.D_extemporaneos2}</td>
+                <td>${newData.dr_digicom}</td>
+                <td>${newData.meta_sancionesFisicos}</td>
+                <td>$ ${newData.multa_sancionesFisicos}</td>
+                <td>${newData.analisis_sancionesFisicos}</td>
+            `;
+        } else {
+            console.error("Error: No se encontró el body de la tabla con id 'tabla_sancionesFisicas_body'");
+        }
+        
+        const chart = window.grafica_sancionesFisicos;
+        if (chart) {
+            const valorMultaNumerico = parseFloat(String(newData.multa_sancionesFisicos).replace(/[^0-9.-]+/g,""));
+            
+            chart.data.labels.push(newData.mes);
+            chart.data.datasets[0].data.push(valorMultaNumerico);
+            chart.update();
+        } else {
+            console.error("Error: No se encontró la gráfica 'window.grafica_sancionesFisicos'");
+        }
+
+    } catch (error) {
+        console.error("¡Error dentro de updateUiSancionesFisicas!:", error);
+        throw error;
+    }
+};
+    
+ /**
+     * Actualizador de UI específico para los indicadores de "Entrega Físicos".
+     * @param {object} data - Los datos recibidos del servidor.
+     */
+    const updateUiPasivo = (data) => {
+    try {
+        const newData = data.newData;
+        // Obtenemos el 'proceso' de los datos devueltos para encontrar el elemento correcto
+        const proceso = newData.proceso;
+
+        // 1. Actualizar la tabla
+        // El ID de la tabla es dinámico, por eso necesitamos la variable 'proceso'
+        const tablaBody = document.getElementById(`tabla_inconsistencia_body_${proceso}`);
+        if (tablaBody) {
+            const newRow = tablaBody.insertRow(0); // Añadir la fila al principio
+            newRow.innerHTML = `
+                <td>${newData.mes}</td>
+                <td>${newData.t_casos}</td>
+                <td>${newData.e_grabacion_analisis}</td>
+                <td>${newData.resultado}</td>
+                <td>${newData.meta}</td>
+                <td>${newData.analisis}</td>
+            `;
+        } else {
+            console.error(`Error: No se encontró el body de la tabla con id 'tabla_inconsistencia_body_${proceso}'`);
+        }
+        
+        // 2. Actualizar la gráfica
+        // El nombre de la variable de la gráfica también es dinámico
+        const chart = window[`grafica_inconsistenciasPasivo_${proceso}`];
+        if (chart) {
+            chart.data.labels.push(newData.mes);
+            chart.data.datasets[0].data.push(parseFloat(newData.resultado));
+            chart.update();
+        } else {
+            console.error(`Error: No se encontró la variable global de la gráfica 'window.grafica_inconsistenciasPasivo_${proceso}'`);
+        }
+
+    } catch (error) {
+        console.error("¡Error dentro de updateUiPasivo!:", error);
+        throw error;
+    }
+};
+
+ /**
+     * Actualizador de UI específico para los indicadores de "Entrega Físicos".
+     * @param {object} data - Los datos recibidos del servidor.
+     */
+    const updateUiRespuestaCredito = (data) => {
+    try {
+        const newData = data.newData;
+        // Obtenemos el 'proceso' de los datos devueltos para encontrar el elemento correcto
+        const proceso = newData.proceso;
+
+        // 1. Actualizar la tabla
+        // El ID de la tabla es dinámico, por eso necesitamos la variable 'proceso'
+        const tablaBody = document.getElementById(`tabla_RespuestaCredito_body_${proceso}`);
+        if (tablaBody) {
+            const newRow = tablaBody.insertRow(0); // Añadir la fila al principio
+            newRow.innerHTML = `
+                <td>${newData.mes}</td>
+                <td>${newData.t_creditos}</td>
+                <td>${newData.t_respuesta}</td>
+                <td>${newData.resultado}</td>
+                <td>${newData.analisis}</td>
+            `;
+        } else {
+            console.error(`Error: No se encontró el body de la tabla con id 'tabla_RespuestaCredito_body_${proceso}'`);
+        }
+        
+        // 2. Actualizar la gráfica
+        // El nombre de la variable de la gráfica también es dinámico
+        const chart = window[`grafica_TRespuesta_${proceso}`];
+        if (chart) {
+            chart.data.labels.push(newData.mes);
+            chart.data.datasets[0].data.push(parseFloat(newData.resultado));
+            chart.update();
+        } else {
+            console.error(`Error: No se encontró la variable global de la gráfica 'window.grafica_TRespuesta_${proceso}'`);
+        }
+
+    } catch (error) {
+        console.error("¡Error dentro de updateUiRespuestaCredito!:", error);
+        throw error;
+    }
+};
+
+    // --- ¡AQUÍ PUEDES AÑADIR MÁS FUNCIONES "updateUi..." PARA OTROS INDICADORES! ---
+    // Ejemplo:
+    // const updateUiCalidadInformacion = (data) => { ... lógica para actualizar tabla y gráfica de calidad ... }
+
+
+    // =================================================================================
+    // 3. INICIALIZACIÓN (Conectar los formularios con sus manejadores y actualizadores)
+    // =================================================================================
+
+    // Usamos selectores de atributos para encontrar todos los formularios de un tipo.
+    
+    // Indicador: Entrega Físicos
+    document.querySelectorAll('form[id^="form_entrega_fisicos_"]').forEach(form => {
+        const endpoint = '/guardar_entrega_fisicos'; // O podrías leerlo de form.getAttribute('action')
+        handleFormSubmit(form, endpoint, updateUiEntregaFisicos);
     });
-    
-    // También manejar formularios que no tienen action pero sí un id específico
-    const calidadInfoForm = document.getElementById('form-calidad-informacion');
-    if (calidadInfoForm) {
-        handleFormSubmit(calidadInfoForm, '/guardar_calidad_informacion');
+
+    // Indicador: Sanciones Magneticas
+    document.querySelectorAll('form[id^="form_sanciones"]').forEach(form => {
+    let endpoint = '';
+    let updateCallback = null;
+
+    // Decidimos qué hacer basándonos en el ID del propio formulario.
+    // Esto es más robusto que depender del valor de un input oculto.
+    if (form.id.includes('Fisicos')) {
+        endpoint = '/guardar_sanciones_fisicos';
+        updateCallback = updateUiSancionesFisicas;
+    } else if (form.id.includes('Magneticas')) {
+        endpoint = '/guardar_sanciones_magneticas';
+        updateCallback = updateUiSancionesMagneticas;
     }
-    
-    const registrosMagneticosForm = document.getElementById('form-registros-magneticos');
-    if (registrosMagneticosForm) {
-        handleFormSubmit(registrosMagneticosForm, '/guardar_registros_magneticos');
-    }
-    
-    const sancionesMagneticasForm = document.getElementById('form-sanciones-magneticas');
-    if (sancionesMagneticasForm) {
-        handleFormSubmit(sancionesMagneticasForm, '/guardar_sanciones_magneticas');
-    }
-    
-    const sancionesFisicosForm = document.getElementById('form-sanciones-fisicos');
-    if (sancionesFisicosForm) {
-        handleFormSubmit(sancionesFisicosForm, '/guardar_sanciones_fisicos');
-    }
-    
-    const entregaFisicosForm = document.getElementById('form-entrega-fisicos');
-    if (entregaFisicosForm) {
-        handleFormSubmit(entregaFisicosForm, '/guardar_entrega_fisicos');
-    }
-    
-    const cintasMagneticasForm = document.getElementById('form-cintas-magneticas');
-    if (cintasMagneticasForm) {
-        handleFormSubmit(cintasMagneticasForm, '/guardar_cintas_magneticas');
-    }
-    
-    const informesEntregadosForm = document.getElementById('form-informes-entregados');
-    if (informesEntregadosForm) {
-        handleFormSubmit(informesEntregadosForm, '/guardar_informes_entregados');
-    }
-    
-    const sitioWebForm = document.getElementById('form-sitio-web');
-    if (sitioWebForm) {
-        handleFormSubmit(sitioWebForm, '/guardar_sitioWeb');
-    }
-    
-    const calidadInformesForm = document.getElementById('form-calidad-informes');
-    if (calidadInformesForm) {
-        handleFormSubmit(calidadInformesForm, '/guardar_calidad_informes');
-    }
-    
-    const entregaImagenesForm = document.getElementById('form-entrega-imagenes');
-    if (entregaImagenesForm) {
-        handleFormSubmit(entregaImagenesForm, '/guardar_entrega_imagenes');
-    }
-    
-    const solucionInconsistenciasForm = document.getElementById('form-solucion-inconsistencias');
-    if (solucionInconsistenciasForm) {
-        handleFormSubmit(solucionInconsistenciasForm, '/guardar_solucion_inconsistencias');
-    }
-    
-    const trasladosForm = document.getElementById('form-traslados');
-    if (trasladosForm) {
-        handleFormSubmit(trasladosForm, '/guardar_traslados');
-    }
-    
-    const inconsistenciasPasivoForm = document.getElementById('form-inconsistencias-pasivo');
-    if (inconsistenciasPasivoForm) {
-        handleFormSubmit(inconsistenciasPasivoForm, '/guardar_inconsistencias_pasivo');
-    }
-    
-    const tRespuestaCreditoForm = document.getElementById('form-trespuesta-credito');
-    if (tRespuestaCreditoForm) {
-        handleFormSubmit(tRespuestaCreditoForm, '/guardar_TRespuesta_Credito');
-    }
-    
-    const transmisionAduanasForm = document.getElementById('form-transmision-aduanas');
-    if (transmisionAduanasForm) {
-        handleFormSubmit(transmisionAduanasForm, '/guardar_transmision_aduanas');
-    }
-    
-    const administrativoForm = document.getElementById('form-administrativo');
-    if (administrativoForm) {
-        handleFormSubmit(administrativoForm, '/guardar_administrativo');
+
+    // Solo añadimos el manejador si encontramos un endpoint válido
+    if (endpoint) {
+        handleFormSubmit(form, endpoint, updateCallback);
     }
 });
-
-// Estilos CSS para las animaciones
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes slideInRight {
-        from {
-            transform: translateX(100%);
-            opacity: 0;
-        }
-        to {
-            transform: translateX(0);
-            opacity: 1;
-        }
-    }
+// Indicador: Inconsistencias Pasivo y Activo Complementacion Avvillñas
+    document.querySelectorAll('form[id^="form_incon_"]').forEach(form => {
+        const endpoint = '/guardar_inconsistencias_pasivo'; // O podrías leerlo de form.getAttribute('action')
+        handleFormSubmit(form, endpoint, updateUiPasivo);
+    });
     
-    @keyframes slideOutRight {
-        from {
-            transform: translateX(0);
-            opacity: 1;
-        }
-        to {
-            transform: translateX(100%);
-            opacity: 0;
-        }
-    }
-`;
-document.head.appendChild(style);
+    // Indicador: Tiempo de respuesta credito Complementacion Avvillñas
+    document.querySelectorAll('form[id^="form_tiempoCredito_"]').forEach(form => {
+        const endpoint = '/guardar_TRespuesta_Credito'; // O podrías leerlo de form.getAttribute('action')
+        handleFormSubmit(form, endpoint, updateUiRespuestaCredito);
+    });
+    
+
+});

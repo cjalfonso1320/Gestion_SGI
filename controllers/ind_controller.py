@@ -13,57 +13,6 @@ def uvt_rol(rol):
     }
     return valores_uvt.get(rol, 0)
 
-def lista__calidadInformacion(rol, proceso):
-    cur = mysql.connection.cursor()
-    sql = """
-        SELECT mes, form_digitados, err_digitacion, resultado, meta, analisis
-        FROM ind_calidadinformacion
-        WHERE id_rol = %s AND proceso = %s
-        
-    """
-    cur.execute(sql, (rol, proceso))
-    calidad_info = cur.fetchall()
-    cur.close()
-    return calidad_info
-def guardar_calidadInformacion(datos, rol):
-
-    cur = mysql.connection.cursor()
-    sql = """
-        INSERT INTO ind_calidadinformacion (mes, form_digitados, err_digitacion, resultado, meta, analisis, proceso, id_rol)
-        VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
-        """
-    
-    # Validar y convertir valores numéricos
-    form_digitados = int(datos['form_digitados']) if datos['form_digitados'] and datos['form_digitados'].strip() else 0
-    err_digitacion = int(datos['err_digitacion']) if datos['err_digitacion'] and datos['err_digitacion'].strip() else 0
-    resultado = float(datos['resultado']) if datos['resultado'] and datos['resultado'].strip() else 0.0
-    
-    valores = (
-        datos['mes'],
-        form_digitados,
-        err_digitacion,
-        resultado,
-        datos['meta'],
-        datos['analisis'], 
-        datos['proceso'],
-        rol
-    )
-    cur.execute(sql, valores)
-    mysql.connection.commit()
-    cur.close()
-def grafica_calidadInformacion(rol, proceso):
-    cur = mysql.connection.cursor()
-    sql = """
-        SELECT mes, resultado FROM ind_calidadinformacion WHERE id_rol = %s AND proceso = %s
-        
-        """
-    cur.execute(sql, (rol, proceso))
-    resultados = cur.fetchall()
-    meses = [fila[0] for fila in resultados]
-    porcentajes = [float(fila[1]) for fila in resultados]
-    cur.close()
-    return meses, porcentajes
-
 def lista_registrosExtemporaneos(rol):
     cur = mysql.connection.cursor()
     sql = """
@@ -113,16 +62,20 @@ def grafica_registrosExtemporaneos(rol):
     cur.close()
     return meses, porcentajes
 
-def obtener_r_extemporeaneo_mes(mes, rol):
+def obtener_r_extemporeaneo_mes(mes, rol, proceso):
     cur = mysql.connection.cursor()
-    cur.execute("SELECT R_extemporaneos, T_registros FROM ind_registrosExtemporaneos WHERE mes = %s AND id_rol = %s", (mes, rol))
+    #cur.execute("SELECT R_extemporaneos, T_registros FROM ind_registrosExtemporaneos WHERE mes = %s AND id_rol = %s", (mes, rol))
+    cur.execute("SELECT documentos_extemporaneos, documentos_entregados FROM ind_EntregasFisicas WHERE mes = %s AND id_rol = %s AND proceso = %s", (mes, rol, proceso))
+    print("Magneticos", mes, rol, proceso)
     resultado = cur.fetchall()
+    
     cur.close()
     return resultado[0] if resultado else None
-def obtener_r_extemporeaneoFisico_mes(mes, rol):
+def obtener_r_extemporeaneoFisico_mes(mes, rol, proceso):
     cur = mysql.connection.cursor()
-    cur.execute("SELECT documentos_extemporaneos, documentos_entregados FROM ind_EntregasFisicas WHERE mes = %s AND id_rol = %s", (mes, rol))
+    cur.execute("SELECT documentos_extemporaneos, documentos_entregados FROM ind_EntregasFisicas WHERE mes = %s AND id_rol = %s AND proceso = %s", (mes, rol, proceso))
     resultado = cur.fetchall()
+    print(resultado)
     cur.close()
     return resultado[0] if resultado else None
 
@@ -145,24 +98,23 @@ def guardar_sancionesMagneticas(datos, rol):
         VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
         """
     
-    # Validar y convertir valores numéricos
-    r_extemporaneos = int(datos['R_extemporaneos2']) if datos['R_extemporaneos2'] and datos['R_extemporaneos2'].strip() else 0
-    r_digicom = int(datos['r_digicom']) if datos['r_digicom'] and datos['r_digicom'].strip() else 0
-    p_aceptacion = float(datos['P_aceptacion']) if datos['P_aceptacion'] and datos['P_aceptacion'].strip() else 0.0
-    resultado = float(datos['resultado']) if datos['resultado'] and datos['resultado'].strip() else 0.0
-    uvt = float(datos['uvt']) if datos['uvt'] and datos['uvt'].strip() else 0.0
-    multa = float(datos['multa']) if datos['multa'] and datos['multa'].strip() else 0.0
+    r_extemporaneos = int(datos.get('R_extemporaneos', '0').strip() or 0)
+    r_digicom = int(datos.get('r_digicom', '0').strip() or 0)
+    p_aceptacion = float(datos.get('P_aceptacion', '0.0').strip() or 0.0)
+    resultado = float(datos.get('resultado', '0.0').strip() or 0.0)
+    uvt = float(datos.get('uvt', '0.0').strip() or 0.0)
+    multa = float(datos.get('multa', '0.0').strip() or 0.0)
     
     valores = (
-        datos['mes'],
+        datos.get('mes', ''),
         r_extemporaneos,
         r_digicom,
         p_aceptacion,
         resultado,
-        datos['meta'],
+        datos.get('meta', ''),
         uvt,
         multa,
-        datos['analisis'], 
+        datos.get('analisis', ''), 
         rol
     )
     cur.execute(sql, valores)
@@ -257,24 +209,24 @@ def guardar_sancionesFisicos(datos, rol):
         VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
         """
     
-    # Validar y convertir valores numéricos
-    d_extemporaneos = int(datos['D_extemporaneos2']) if datos['D_extemporaneos2'] and datos['D_extemporaneos2'].strip() else 0
-    dr_digicom = int(datos['dr_digicom']) if datos['dr_digicom'] and datos['dr_digicom'].strip() else 0
-    p_aceptacion = float(datos['P_aceptacion_fisicos']) if datos['P_aceptacion_fisicos'] and datos['P_aceptacion_fisicos'].strip() else 0.0
-    resultado = float(datos['resultado_sancionesFisicos']) if datos['resultado_sancionesFisicos'] and datos['resultado_sancionesFisicos'].strip() else 0.0
-    uvt = float(datos['uvt_sancionesFisicos']) if datos['uvt_sancionesFisicos'] and datos['uvt_sancionesFisicos'].strip() else 0.0
-    multa = float(datos['multa_sancionesFisicos']) if datos['multa_sancionesFisicos'] and datos['multa_sancionesFisicos'].strip() else 0.0
+    # Leemos las claves específicas que la ruta nos envía
+    d_extemporaneos = int(datos.get('D_extemporaneos2', '0').strip() or 0)
+    dr_digicom = int(datos.get('dr_digicom', '0').strip() or 0)
+    p_aceptacion = float(datos.get('P_aceptacion_fisicos', '0.0').strip() or 0.0)
+    resultado = float(datos.get('resultado_sancionesFisicos', '0.0').strip() or 0.0)
+    uvt = float(datos.get('uvt_sancionesFisicos', '0.0').strip() or 0.0)
+    multa = float(datos.get('multa_sancionesFisicos', '0.0').strip() or 0.0)
     
     valores = (
-        datos['mes'],
+        datos.get('mes', ''),
         d_extemporaneos,
         dr_digicom,
         p_aceptacion,
         resultado,
-        datos['meta_sancionesFisicos'],
+        datos.get('meta_sancionesFisicos', ''),
         uvt,
         multa,
-        datos['analisis_sancionesFisicos'], 
+        datos.get('analisis_sancionesFisicos', ''), 
         rol
     )
     cur.execute(sql, valores)
@@ -299,362 +251,6 @@ def grafica_sancionesFisicos(rol):
 
     return meses, multas
 
-def lista_cintasMagneticas(rol, proceso):
-    cur = mysql.connection.cursor()
-    sql = """
-        SELECT mes, cin_enviadas, cin_rechazadas, resultado, meta, analisis
-        FROM ind_cintasMagneticas
-        WHERE id_rol = %s AND proceso = %s
-        
-    """
-    cur.execute(sql, (rol, proceso))
-    cintas_magneticas = cur.fetchall()
-    cur.close()
-    return cintas_magneticas
-def guardar_cintasMagneticas(datos, rol):
-    cur = mysql.connection.cursor()
-    sql = """
-        INSERT INTO ind_cintasMagneticas (mes, cin_enviadas, cin_rechazadas, resultado, meta, analisis, id_rol, proceso)
-        VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
-        """
-    
-    # Validar y convertir valores numéricos
-    cin_enviadas = int(datos['cintas_enviadas']) if datos['cintas_enviadas'] and datos['cintas_enviadas'].strip() else 0
-    cin_rechazadas = int(datos['cintas_rechazadas']) if datos['cintas_rechazadas'] and datos['cintas_rechazadas'].strip() else 0
-    resultado = float(datos['resultado']) if datos['resultado'] and datos['resultado'].strip() else 0.0
-    
-    valores = (
-        datos['mes'],
-        cin_enviadas,
-        cin_rechazadas,
-        resultado,
-        datos['meta'],
-        datos['analisis'], 
-        rol,
-        datos['proceso']
-    )
-    cur.execute(sql, valores)
-    mysql.connection.commit()
-    cur.close()
-def grafica_cintasMagneticas(rol, proceso):
-    cur = mysql.connection.cursor()
-    sql = """
-        SELECT mes, resultado FROM ind_cintasMagneticas WHERE id_rol = %s AND proceso = %s
-        
-        """
-    cur.execute(sql, (rol, proceso))
-    resultados = cur.fetchall()
-    meses = [fila[0] for fila in resultados]
-    multas = []
-    for fila in resultados:
-        try:
-            # Convertir "$ 18154" a 18154
-            multa = float(str(fila[1]).replace('$', '').strip()) if fila[1] else 0
-        except ValueError:
-            multa = 0
-        multas.append(multa)
-    cur.close()
-    return meses, multas
-
-def lista_informesEntregados(rol, proceso):
-    cur = mysql.connection.cursor()
-    sql = """
-        SELECT mes, inf_enviados, inf_fueraTiempo, resultado, meta, analisis
-        FROM ind_entregaInformes
-        WHERE id_rol = %s AND proceso = %s
-        
-    """
-    cur.execute(sql, (rol, proceso))
-    informes_entregados = cur.fetchall()
-    cur.close()
-    return informes_entregados
-def guardar_informesEntregados(datos, rol):
-    cur = mysql.connection.cursor()
-    sql = """
-        INSERT INTO ind_entregaInformes (mes, inf_enviados, inf_fueraTiempo, resultado, meta, analisis, proceso, id_rol)
-        VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
-        """
-    
-    # Validar y convertir valores numéricos
-    inf_enviados = int(datos['informes_entregados']) if datos['informes_entregados'] and datos['informes_entregados'].strip() else 0
-    inf_fuera_tiempo = int(datos['informes_extemporaneos']) if datos['informes_extemporaneos'] and datos['informes_extemporaneos'].strip() else 0
-    resultado = float(datos['resultado']) if datos['resultado'] and datos['resultado'].strip() else 0.0
-    
-    valores = (
-        datos['mes'],
-        inf_enviados,
-        inf_fuera_tiempo,
-        resultado,
-        datos['meta'],
-        datos['analisis'],
-        datos['proceso'],
-        rol
-    )
-    cur.execute(sql, valores)
-    mysql.connection.commit()
-    cur.close()
-def grafica_informesEntregados(rol, proceso):
-    cur = mysql.connection.cursor()
-    sql = """
-        SELECT mes, resultado FROM ind_entregaInformes WHERE id_rol = %s AND proceso = %s
-        
-        """
-    cur.execute(sql, (rol, proceso))
-    resultados = cur.fetchall()
-    meses = [fila[0] for fila in resultados]
-    porcentajes = [float(fila[1]) for fila in resultados]
-    cur.close()
-    return meses, porcentajes
-
-def lista_sitio_web(rol, proceso):
-    cur = mysql.connection.cursor()
-    sql = """
-        SELECT mes, img_enviados, img_fueraTiempo, resultado, meta, analisis
-        FROM ind_sitioWeb
-        WHERE id_rol = %s AND proceso = %s
-        
-    """
-    cur.execute(sql, (rol, proceso))
-    informes_entregados = cur.fetchall()
-    cur.close()
-    return informes_entregados
-def guardar_sitio_web(datos, rol):
-    cur = mysql.connection.cursor()
-    sql = """
-        INSERT INTO ind_sitioWeb (mes, img_enviados, img_fueraTiempo, resultado, meta, analisis, proceso, id_rol)
-        VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
-        """
-    
-    # Validar y convertir valores numéricos
-    img_enviados = int(datos['img_enviados']) if datos['img_enviados'] and datos['img_enviados'].strip() else 0
-    img_fuera_tiempo = int(datos['img_fueraTiempo']) if datos['img_fueraTiempo'] and datos['img_fueraTiempo'].strip() else 0
-    resultado = float(datos['resultado']) if datos['resultado'] and datos['resultado'].strip() else 0.0
-    
-    valores = (
-        datos['mes'],
-        img_enviados,
-        img_fuera_tiempo,
-        resultado,
-        datos['meta'],
-        datos['analisis'],
-        datos['proceso'],
-        rol
-    )
-    cur.execute(sql, valores)
-    mysql.connection.commit()
-    cur.close()
-def grafica_sitio_web(rol, proceso):
-    cur = mysql.connection.cursor()
-    sql = """
-        SELECT mes, resultado FROM ind_sitioWeb WHERE id_rol = %s AND proceso = %s
-        
-        """
-    cur.execute(sql, (rol, proceso))
-    resultados = cur.fetchall()
-    meses = [fila[0] for fila in resultados]
-    porcentajes = [float(fila[1]) for fila in resultados]
-    cur.close()
-    return meses, porcentajes
-
-def lista_calidad_informes(rol, proceso):
-    cur = mysql.connection.cursor()
-    sql = """
-        SELECT mes, inf_entregados, inf_errados, resultado, meta, analisis
-        FROM ind_calidadInformes
-        WHERE id_rol = %s AND proceso = %s
-        
-    """
-    cur.execute(sql, (rol, proceso))
-    informes_entregados = cur.fetchall()
-    cur.close()
-    return informes_entregados    
-def guardar_calidadInformes(datos, rol):
-    cur = mysql.connection.cursor()
-    sql = """
-        INSERT INTO ind_calidadInformes (mes, inf_entregados, inf_errados, resultado, meta, analisis, proceso, id_rol)
-        VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
-        """
-    
-    # Validar y convertir valores numéricos
-    inf_entregados = int(datos['inf_entregados']) if datos['inf_entregados'] and datos['inf_entregados'].strip() else 0
-    inf_errados = int(datos['inf_errados']) if datos['inf_errados'] and datos['inf_errados'].strip() else 0
-    resultado = float(datos['resultado']) if datos['resultado'] and datos['resultado'].strip() else 0.0
-    
-    valores = (
-        datos['mes'],
-        inf_entregados,
-        inf_errados,
-        resultado,
-        datos['meta'],
-        datos['analisis'],
-        datos['proceso'],
-        rol
-    )
-    cur.execute(sql, valores)
-    mysql.connection.commit()
-    cur.close()
-def grafica_calidadInformes(rol, proceso):
-    cur = mysql.connection.cursor()
-    sql = """
-        SELECT mes, resultado FROM ind_calidadInformes WHERE id_rol = %s AND proceso = %s
-        
-        """
-    cur.execute(sql, (rol, proceso))
-    resultados = cur.fetchall()
-    meses = [fila[0] for fila in resultados]
-    porcentajes = [float(fila[1]) for fila in resultados]
-    cur.close()
-    return meses, porcentajes
-
-def lista_entregaImagenes(rol, proceso):
-    cur = mysql.connection.cursor()
-    sql = """
-        SELECT mes, img_entregadas, img_extemporaneas, resultado, meta, analisis
-        FROM ind_entregaImagenes
-        WHERE id_rol = %s AND proceso = %s
-        
-    """
-    cur.execute(sql, (rol, proceso))
-    informes_entregados = cur.fetchall()
-    cur.close()
-    return informes_entregados    
-def guardar_entregaImagenes(datos, rol):
-    cur = mysql.connection.cursor()
-    sql = """
-        INSERT INTO ind_entregaImagenes (mes, img_entregadas, img_extemporaneas, resultado, meta, analisis, proceso, id_rol)
-        VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
-        """
-    
-    # Validar y convertir valores numéricos
-    img_entregadas = int(datos['img_entregadas']) if datos['img_entregadas'] and datos['img_entregadas'].strip() else 0
-    img_extemporaneas = int(datos['img_extemporaneas']) if datos['img_extemporaneas'] and datos['img_extemporaneas'].strip() else 0
-    resultado = float(datos['resultado']) if datos['resultado'] and datos['resultado'].strip() else 0.0
-    
-    valores = (
-        datos['mes'],
-        img_entregadas,
-        img_extemporaneas,
-        resultado,
-        datos['meta'],
-        datos['analisis'],
-        datos['proceso'],
-        rol
-    )
-    cur.execute(sql, valores)
-    mysql.connection.commit()
-    cur.close()
-def grafica_entregaImagenes(rol, proceso):
-    cur = mysql.connection.cursor()
-    sql = """
-        SELECT mes, resultado FROM ind_entregaImagenes WHERE id_rol = %s AND proceso = %s
-        
-        """
-    cur.execute(sql, (rol, proceso))
-    resultados = cur.fetchall()
-    meses = [fila[0] for fila in resultados]
-    porcentajes = [float(fila[1]) for fila in resultados]
-    cur.close()
-    return meses, porcentajes
-
-def lista_inconsistenciasSolucionadas(rol, proceso):
-    cur = mysql.connection.cursor()
-    sql = """
-        SELECT mes, inc_repotadas, inc_solucionadas, resultado, meta, analisis
-        FROM ind_inconsistenciasSolucionadas
-        WHERE id_rol = %s AND proceso = %s
-        
-    """
-    cur.execute(sql, (rol, proceso))
-    incosistencias = cur.fetchall()
-    cur.close()
-    return incosistencias    
-def guardar_inconsistenciasSolucionadas(datos, rol):
-    cur = mysql.connection.cursor()
-    sql = """
-        INSERT INTO ind_inconsistenciasSolucionadas (mes, inc_repotadas, inc_solucionadas, resultado, meta, analisis, proceso, id_rol)
-        VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
-        """
-    
-    # Validar y convertir valores numéricos
-    inc_repotadas = int(datos['inc_repotadas']) if datos['inc_repotadas'] and datos['inc_repotadas'].strip() else 0
-    inc_solucionadas = int(datos['inc_solucionadas']) if datos['inc_solucionadas'] and datos['inc_solucionadas'].strip() else 0
-    resultado = float(datos['resultado']) if datos['resultado'] and datos['resultado'].strip() else 0.0
-    
-    valores = (
-        datos['mes'],
-        inc_repotadas,
-        inc_solucionadas,
-        resultado,
-        datos['meta'],
-        datos['analisis'],
-        datos['proceso'],
-        rol
-    )
-    cur.execute(sql, valores)
-    mysql.connection.commit()
-    cur.close()
-def grafica_inconsistenciasSolucionadas(rol, proceso):
-    cur = mysql.connection.cursor()
-    sql = """
-        SELECT mes, resultado FROM ind_inconsistenciasSolucionadas WHERE id_rol = %s AND proceso = %s
-        
-        """
-    cur.execute(sql, (rol, proceso))
-    resultados = cur.fetchall()
-    meses = [fila[0] for fila in resultados]
-    porcentajes = [float(fila[1]) for fila in resultados]
-    cur.close()
-    return meses, porcentajes
-
-def lista_traslado(rol, proceso):
-    cur = mysql.connection.cursor()
-    sql = """
-        SELECT mes, traslados, traslados_extemporaneos, resultado, meta, analisis
-        FROM ind_traslados
-        WHERE id_rol = %s AND proceso = %s
-        
-    """
-    cur.execute(sql, (rol, proceso))
-    traslados = cur.fetchall()
-    cur.close()
-    return traslados    
-def guardar_traslado(datos, rol):
-    cur = mysql.connection.cursor()
-    sql = """
-        INSERT INTO ind_traslados (mes, traslados, traslados_extemporaneos, resultado, meta, analisis, proceso, id_rol)
-        VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
-        """
-    
-    # Validar y convertir valores numéricos
-    traslados = int(datos['traslados']) if datos['traslados'] and datos['traslados'].strip() else 0
-    traslados_extemporaneos = int(datos['traslados_extemporaneos']) if datos['traslados_extemporaneos'] and datos['traslados_extemporaneos'].strip() else 0
-    resultado = float(datos['resultado']) if datos['resultado'] and datos['resultado'].strip() else 0.0
-    
-    valores = (
-        datos['mes'],
-        traslados,
-        traslados_extemporaneos,
-        resultado,
-        datos['meta'],
-        datos['analisis'],
-        datos['proceso'],
-        rol
-    )
-    cur.execute(sql, valores)
-    mysql.connection.commit()
-    cur.close()
-def grafica_traslado(rol, proceso):
-    cur = mysql.connection.cursor()
-    sql = """
-        SELECT mes, resultado FROM ind_traslados WHERE id_rol = %s AND proceso = %s
-        
-        """
-    cur.execute(sql, (rol, proceso))
-    resultados = cur.fetchall()
-    meses = [fila[0] for fila in resultados]
-    porcentajes = [float(fila[1]) for fila in resultados]
-    cur.close()
-    return meses, porcentajes
 
 def lista_inconsitenciasPasivo(rol, proceso):
     cur = mysql.connection.cursor()
@@ -705,7 +301,6 @@ def grafica_inconsitenciasPasivo(rol, proceso):
     porcentajes = [float(fila[1]) for fila in resultados]
     cur.close()
     return meses, porcentajes
-
 
 def lista_TRespuesta_credito(rol, proceso):
     cur = mysql.connection.cursor()
@@ -758,57 +353,6 @@ def grafica_TRespuesta_credito(rol, proceso):
     t_respuesta = [fila[1].total_seconds() for fila in resultados]
     cur.close()
     return meses, t_respuesta
-
-def guardar_TransAduanas(datos, rol):
-    cur = mysql.connection.cursor()
-    sql = """
-        INSERT INTO ind_TransAduanas (mes, t_aduanas, t_aduanasFueraTiempo, resultado, meta, analisis, proceso, id_rol)
-        VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
-        """
-    
-    # Validar y convertir valores numéricos
-    t_aduanas = int(datos['t_aduanas']) if datos['t_aduanas'] and datos['t_aduanas'].strip() else 0
-    t_aduanas_fuera_tiempo = int(datos['t_aduanasFueraTiempo']) if datos['t_aduanasFueraTiempo'] and datos['t_aduanasFueraTiempo'].strip() else 0
-    resultado = float(datos['resultado']) if datos['resultado'] and datos['resultado'].strip() else 0.0
-    
-    valores = (
-        datos['mes'],
-        t_aduanas,
-        t_aduanas_fuera_tiempo,
-        resultado,
-        datos['meta'],
-        datos['analisis'],
-        datos['proceso'], 
-        rol
-    )
-    cur.execute(sql, valores)
-    mysql.connection.commit()
-    cur.close()
-def lista_TransAduanas(rol, proceso):
-    cur = mysql.connection.cursor()
-    sql = """
-        SELECT mes, t_aduanas, t_aduanasFueraTiempo, resultado, meta, analisis
-        FROM ind_TransAduanas
-        WHERE id_rol = %s AND proceso = %s
-        
-    """
-    cur.execute(sql, (rol, proceso))
-    transmisioin_aduanas = cur.fetchall()
-    cur.close()
-    return transmisioin_aduanas
-def grafica_TransAduanas(rol, proceso):
-    cur = mysql.connection.cursor()
-    sql = """
-        SELECT mes, resultado FROM ind_TransAduanas WHERE id_rol = %s AND proceso = %s
-        
-        """
-    cur.execute(sql, (rol, proceso))
-    resultados = cur.fetchall()
-    meses = [fila[0] for fila in resultados]
-    porcentajes = [float(fila[1]) for fila in resultados]
-    cur.close()
-    return meses, porcentajes
-
 
 '''ADMINISTRATIVO'''
 def guardar_Administrativo(datos, rol):
