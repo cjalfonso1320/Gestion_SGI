@@ -9,6 +9,7 @@ from routes.roles_routes import rol_bp
 from routes.indicadores_routes import ind_bp
 from routes.rutas_routes import rutas_bp
 from routes.usoInt_routes import usoInt_bp
+from routes.matrizActivos_routes import mActivos_bp
 
 from routes.doc_routes import doc_bp
 
@@ -43,6 +44,7 @@ app.register_blueprint(rutas_bp)
 app.register_blueprint(doc_bp)
 app.register_blueprint(ind_bp)
 app.register_blueprint(usoInt_bp)
+app.register_blueprint(mActivos_bp)
 
 
 

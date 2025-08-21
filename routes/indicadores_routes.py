@@ -460,31 +460,7 @@ def indicadores():
 
 '''GESTION DE PRODUCCIOIN'''
 
-@ind_bp.route('/guardar_registros_magneticos', methods=['POST'])
-@login_required
-def guardar_registros_magneticos():
-    if request.method == 'POST':
-        try:
-            datos = {
-                'mes': request.form['mes'],
-                'T_registros': request.form['T_registros'],
-                'R_extemporaneos': request.form['R_extemporaneos'],
-                'resultado': request.form['resultado_resgitrosExtemporaneos'],
-                'meta': request.form['meta_resgitrosExtemporaneos'],
-                'analisis': request.form['analisis_resgitrosExtemporaneos']
-            }
-            rol = current_user.rol
-            guardar_registrosExtemporaneos(datos, rol)
-            return jsonify({
-                'success': True,
-                'message': 'Indicador de Registros Magnéticos guardado exitosamente'
-            })
-        except Exception as e:
-            return jsonify({
-                'success': False,
-                'message': f'Error al guardar el indicador: {str(e)}'
-            })
-    return jsonify({'success': False, 'message': 'Método no permitido'})
+
 @ind_bp.route('/registro_extemporaneo', methods=['POST'])
 def obtener_registro_extemporaneo():
     mes = request.json.get('mes')
@@ -576,7 +552,6 @@ def guardar_sanciones_fisicos():
                 'newData': datos 
             })
         except Exception as e:
-            print(f"ERROR en guardar_sanciones_fisicos: {e}")
             import traceback
             traceback.print_exc()
             return jsonify({'success': False, 'message': f'Error: {str(e)}'})

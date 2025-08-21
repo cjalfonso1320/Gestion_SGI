@@ -25,7 +25,7 @@
         </div>
         <div class="mb-3">
             <label class="form-label" for="doc_extemporaneos" >Errores de Digitacion</label>
-            <input class="form-control" type="number"  id="doc_extemporaneos_{{ proceso }}" name="doc_extemporaneos">
+            <input class="form-control" type="number"  id="doc_extemporaneos_{{ proceso }}" name="doc_extemporaneos" required>
         </div>
     {% elif proceso == 'TarjetasFisico' %}
         <div class="mb-3">
@@ -34,7 +34,7 @@
         </div>
         <div class="mb-3">
             <label class="form-label" for="doc_extemporaneos" >Devoluciones</label>
-            <input class="form-control" type="number"  id="doc_extemporaneos_{{ proceso }}" name="doc_extemporaneos">
+            <input class="form-control" type="number"  id="doc_extemporaneos_{{ proceso }}" name="doc_extemporaneos" required>
         </div>
     {% elif proceso in ['Nacionales_Agrario_CalidadInformacion', 'Radicacion_AvVillas_CalidadInformacion'] %}
         <div class="mb-3">
@@ -43,7 +43,7 @@
         </div>
         <div class="mb-3">
             <label class="form-label" for="doc_extemporaneos" >Errores de Digitacion</label>
-            <input class="form-control" type="number"  id="doc_extemporaneos_{{ proceso }}" name="doc_extemporaneos">
+            <input class="form-control" type="number"  id="doc_extemporaneos_{{ proceso }}" name="doc_extemporaneos" required>
         </div>
         {% elif proceso == 'Nacionales_Agrario_RegistrosMagneticos' or proceso == 'Nacionales_Bancolombia_Magneticos' %}
         <div class="mb-3">
@@ -52,7 +52,7 @@
         </div>
         <div class="mb-3">
             <label class="form-label" for="doc_extemporaneos" >Registros Extemporaneos</label>
-            <input class="form-control" type="number"  id="doc_extemporaneos_{{ proceso }}" name="doc_extemporaneos">
+            <input class="form-control" type="number"  id="doc_extemporaneos_{{ proceso }}" name="doc_extemporaneos" required>
         </div>
         {% elif proceso == 'Distritales_Bancolombia_CMagneticas' or proceso == 'Distritales_Occidente_CMagneticas' %}
         <div class="mb-3">
@@ -61,7 +61,7 @@
         </div>
         <div class="mb-3">
             <label class="form-label" for="doc_extemporaneos" >Cintas Rechazadas</label>
-            <input class="form-control" type="number"  id="doc_extemporaneos_{{ proceso }}" name="doc_extemporaneos">
+            <input class="form-control" type="number"  id="doc_extemporaneos_{{ proceso }}" name="doc_extemporaneos" required>
         </div>
         {% elif proceso in ['Radicacion_AvVillas_Informes', 'MunicipalesCali_Iatu_Informes', 'Convenios_Informes_Davivienda', 'Convenios_CajaSocial_Informes', 'Convenios_Bancolombia_Informes', 'Departamentales_Bancolombia_informes', 'Nacionales_Informes_Davivienda', 'Distritales_Informes_Davivienda', 'Departamentales_Itau_Informes'] %}
         <div class="mb-3">
@@ -70,7 +70,7 @@
         </div>
         <div class="mb-3">
             <label class="form-label" for="doc_extemporaneos" >Informes Enviados fuera de tiempo</label>
-            <input class="form-control" type="number"  id="doc_extemporaneos_{{ proceso }}" name="doc_extemporaneos">
+            <input class="form-control" type="number"  id="doc_extemporaneos_{{ proceso }}" name="doc_extemporaneos" required>
         </div>
         {% elif proceso == 'Nacionales_Aduanas_CajaSocial' %}
         <div class="mb-3">
@@ -79,7 +79,7 @@
         </div>
         <div class="mb-3">
             <label class="form-label" for="doc_extemporaneos" >Transmision de Aduanas fuera de tiempo</label>
-            <input class="form-control" type="number"  id="doc_extemporaneos_{{ proceso }}" name="doc_extemporaneos">
+            <input class="form-control" type="number"  id="doc_extemporaneos_{{ proceso }}" name="doc_extemporaneos" required>
         </div>
          {% elif proceso in ['Convenios_CalidadInformes_Davivienda', 'Departamentales_CalidadInformes_Davivienda', 'Nacionales_CalidadInformes_Davivienda', 'Distritales_CalidadInformes_Davivienda'] %}
         <div class="mb-3">
@@ -88,7 +88,7 @@
         </div>
         <div class="mb-3">
             <label class="form-label" for="doc_extemporaneos" >Informes Errados</label>
-            <input class="form-control" type="number"  id="doc_extemporaneos_{{ proceso }}" name="doc_extemporaneos">
+            <input class="form-control" type="number"  id="doc_extemporaneos_{{ proceso }}" name="doc_extemporaneos" required>
         </div>
         {% elif proceso in ['Radicacion_AvVillas_Imagenes', 'Convenios_EntregaImagenes_Davivienda', 'Departamentales_EntregaImagenes_Davivienda', 'Nacionales_EntregaImagenes_Davivienda', 'Distritales_EntregaImagenes_Davivienda'] %}
         <div class="mb-3">
@@ -97,7 +97,7 @@
         </div>
         <div class="mb-3">
             <label class="form-label" for="doc_extemporaneos" >Imagenes Enviadas Fuera de Tiempo</label>
-            <input class="form-control" type="number"  id="doc_extemporaneos_{{ proceso }}" name="doc_extemporaneos">
+            <input class="form-control" type="number"  id="doc_extemporaneos_{{ proceso }}" name="doc_extemporaneos" required>
         </div>
          {% elif proceso in ['Convenios_Inconsistencias_Davivienda', 'Departamentales_Inconsistencias_Davivienda', 'Nacionales_Inconsistencias_Davivienda', 'Distritales_Inconsistencias_Davivienda'] %}
         <div class="mb-3">
@@ -106,7 +106,7 @@
         </div>
         <div class="mb-3">
             <label class="form-label" for="doc_extemporaneos" >Inconsistencias Solucionadas</label>
-            <input class="form-control" type="number"  id="doc_extemporaneos_{{ proceso }}" name="doc_extemporaneos">
+            <input class="form-control" type="number"  id="doc_extemporaneos_{{ proceso }}" name="doc_extemporaneos" required>
         </div>
          {% elif proceso in ['Convenios_Traslados_Davivienda', 'Departamentales_Traslados_Davivienda', 'Nacionales_Traslados_Davivienda', 'Distritales_Traslados_Davivienda'] %}
         <div class="mb-3">
@@ -115,7 +115,7 @@
         </div>
         <div class="mb-3">
             <label class="form-label" for="doc_extemporaneos" >Traslados Extemporaneos / Dispersion de Recursos Extemporaneos</label>
-            <input class="form-control" type="number"  id="doc_extemporaneos_{{ proceso }}" name="doc_extemporaneos">
+            <input class="form-control" type="number"  id="doc_extemporaneos_{{ proceso }}" name="doc_extemporaneos" required>
         </div>
          {% elif proceso in ['Convenios_Bancolombia_Web', 'Convenios_CajaSocial_Web'] %}
         <div class="mb-3">
@@ -124,7 +124,7 @@
         </div>
         <div class="mb-3">
             <label class="form-label" for="doc_extemporaneos" >Imagenes Publicadas fuera de tiempo</label>
-            <input class="form-control" type="number"  id="doc_extemporaneos_{{ proceso }}" name="doc_extemporaneos">
+            <input class="form-control" type="number"  id="doc_extemporaneos_{{ proceso }}" name="doc_extemporaneos" required>
         </div>
     {% else %}
         <div class="mb-3">
@@ -133,7 +133,7 @@
         </div>
         <div class="mb-3">
             <label class="form-label" for="doc_extemporaneos" >Documentos Extemporaneos</label>
-            <input class="form-control" type="number"  id="doc_extemporaneos_{{ proceso }}" name="doc_extemporaneos">
+            <input class="form-control" type="number"  id="doc_extemporaneos_{{ proceso }}" name="doc_extemporaneos" required>
         </div>
     {% endif %}
     <div class="mb-3">
@@ -146,7 +146,7 @@
     </div>
     <div class="mb-3">
         <label class="form-label" for="analisis_entregaFisicos" >Analisis</label>
-        <textarea id="analisis_entregaFisicos_{{ proceso }}" name="analisis_entregaFisicos"></textarea>
+        <textarea id="analisis_entregaFisicos_{{ proceso }}" name="analisis_entregaFisicos" required></textarea>
     </div>
     <!-- Cambiamos el type="submit" por type="button" o lo manejamos en JS -->
     <button type="submit">Guardar</button>

@@ -1,0 +1,31 @@
+{% extends 'home.html' %}
+{% block title %}Matriz de Activos{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/acordeon_doc.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/form_indicadores.css') }}">
+
+{% if lista_procesos %}
+<div class="proceso-selector" style="margin-bottom: 20px;">
+    
+        <label for="proceso-select" style="margin-right: 10px; font-weight: bold;">Seleccionar Proceso</label>
+        <select name="proceso" id="proceso-select" onchange="this.form.submit()">
+            {% for proceso_opcion in lista_procesos %}
+                <option value="{{ proceso_opcion}}" {% if proceso_opcion == proceso_actual %}selected{% endif %}>
+                    {{ proceso_opcion.replace('_',' ')}}
+                </option>
+                {% endfor %}
+        </select>
+    
+</div>
+    <div id="matriz-content-wrapper">
+        {%set proceso = proceso_actual %}
+        {% include 'MatrizActivos/_matriz_template.html' %}
+    </div>
+{% else %}
+    <p>No hay matriz de activos definida para tu rol</p>
+{% endif %}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="{{ url_for('static', filename='js/acordeon_doc.js')}}"></script>
+<script src="{{ url_for('static', filename='js/matriz.js')}}"></script>
+{% endblock %}

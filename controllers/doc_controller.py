@@ -2,51 +2,47 @@ from extension import mysql
 from controllers.rol_controller import nombre_rol as nombre
 import os
 
-roles_produccion = ['Bancolombia', 'Occidente', 'Davivienda', 'Banagrario', 'Itau', 'Popular', 'Av Villas', 'Bancoomeva', 'Banco Caja Social']
+ROLES_PRODUCCION = ['bancolombia', 'occidente', 'davivienda', 'banagrario', 'itau', 'popular', 'av Villas', 'bancoomeva', 'banco caja social']
+PROCESOS = {
+    5: ['nacionales'],
+    2: ['nacionales', 'distritales', 'departamentales', 'convenios'],
+    6: ['nacionales', 'distritales', 'departamentales', 'convenios'],
+    4: ['nacionales'],
+    7: ['nacionales', 'departamentales'],
+    10: ['nacionales', 'convenios', 'departamentales'],
+    11: ['nacionales', 'distritales', 'convenios', 'complementacion', 'tarjetas', 'libranzas', 'radicacion'],
+    12: ['nacionales'],
+    13: ['nacionales', 'recaudos']
+}
 
 def procedimientos(rol):
     nombre_rol = nombre(rol)
     cur = mysql.connection.cursor()
     archivos_procedimientos  = []
-    if nombre_rol in roles_produccion:
+    if nombre_rol.lower() in ROLES_PRODUCCION:
         cur.execute("SELECT rutas.ruta_compartida FROM rutas INNER JOIN rol ON rutas.rol_id = rol.id WHERE carpeta = 'Procedimientos' AND rol.rol = 'Occidente'")
-        carpeta_compartida = cur.fetchone()
-        if carpeta_compartida:
-            ruta = carpeta_compartida[0]
-            for archivo in os.listdir(ruta):
-                if archivo.startswith("~") or archivo.startswith("."):
-                    continue #ignora temporales y ocultos
-                if nombre_rol.lower() in archivo.lower():
-                    tipo = os.path.splitext(archivo)[1].lower()
-                    archivos_procedimientos.append({
-                        'nombre': archivo,
-                        'tipo': tipo,
-                        'ruta': os.path.join(ruta, archivo),
-                    }) 
-        cur.close()
     else:
         cur.execute("SELECT ruta_compartida FROM rutas WHERE rol_id = %s AND carpeta = 'Procedimientos'", (rol,))
-        carpeta_compartida = cur.fetchone()
-        if carpeta_compartida:
-            ruta = carpeta_compartida[0]
-            for archivo in os.listdir(ruta):
-                if archivo.startswith("~") or archivo.startswith(".") or archivo.lower() == "thumbs.db":
-                    continue
+    carpeta_compartida = cur.fetchone()
+    if carpeta_compartida:
+        ruta = carpeta_compartida[0]
+        for archivo in os.listdir(ruta):
+            if archivo.startswith("~") or archivo.startswith("."):
+                continue #ignora temporales y ocultos
+            if nombre_rol.lower() in archivo.lower():
                 tipo = os.path.splitext(archivo)[1].lower()
                 archivos_procedimientos.append({
                     'nombre': archivo,
                     'tipo': tipo,
                     'ruta': os.path.join(ruta, archivo),
-                })
-        cur.close()
-    
-    
+                }) 
+    cur.close()  
     return archivos_procedimientos
 
 def caracterizacion(rol):
     nombre_rol = nombre(rol)
     cur = mysql.connection.cursor()
-    if nombre_rol in roles_produccion:
+    if nombre_rol.lower() in ROLES_PRODUCCION:
         cur.execute("SELECT rutas.ruta_compartida FROM rutas INNER JOIN rol ON rutas.rol_id = rol.id WHERE carpeta = 'Caracterizacion' AND rol.rol = 'Occidente'")
     else:
         cur.execute("SELECT ruta_compartida FROM rutas WHERE rol_id = %s AND carpeta = 'Caracterizacion'", (rol,))
@@ -69,7 +65,7 @@ def caracterizacion(rol):
 def formatos_digitales(rol):
     nombre_rol = nombre(rol)
     cur = mysql.connection.cursor()
-    if nombre_rol in roles_produccion:
+    if nombre_rol.lower() in ROLES_PRODUCCION:
         cur.execute("SELECT rutas.ruta_compartida FROM rutas INNER JOIN rol ON rutas.rol_id = rol.id WHERE carpeta = 'Formatos Digitales' AND rol.rol = 'Occidente'")
     else:
         cur.execute("SELECT ruta_compartida FROM rutas WHERE rol_id = %s AND carpeta = 'Formatos Digitales'", (rol,))
@@ -92,7 +88,7 @@ def formatos_digitales(rol):
 def formatos_fisicos(rol):
     nombre_rol = nombre(rol)
     cur = mysql.connection.cursor()
-    if nombre_rol in roles_produccion:
+    if nombre_rol.lower() in ROLES_PRODUCCION:
         cur.execute("SELECT rutas.ruta_compartida FROM rutas INNER JOIN rol ON rutas.rol_id = rol.id WHERE carpeta = 'Formatos Fisicos' AND rol.rol = 'Occidente'")
     else:
         cur.execute("SELECT ruta_compartida FROM rutas WHERE rol_id = %s AND carpeta = 'Formatos Fisicos'", (rol,))
@@ -115,7 +111,7 @@ def formatos_fisicos(rol):
 def formatos_externos(rol):
     nombre_rol = nombre(rol)
     cur = mysql.connection.cursor()
-    if nombre_rol in roles_produccion:
+    if nombre_rol.lower() in ROLES_PRODUCCION:
         cur.execute("SELECT rutas.ruta_compartida FROM rutas INNER JOIN rol ON rutas.rol_id = rol.id WHERE carpeta = 'Formatos Externos' AND rol.rol = 'Occidente'")
     else:
         cur.execute("SELECT ruta_compartida FROM rutas WHERE rol_id = %s AND carpeta = 'Formatos Externos'", (rol,))
@@ -138,7 +134,7 @@ def formatos_externos(rol):
 def formatos_externos_digitales(rol):
     nombre_rol = nombre(rol)
     cur = mysql.connection.cursor()
-    if nombre_rol in roles_produccion:
+    if nombre_rol.lower() in ROLES_PRODUCCION:
         cur.execute("SELECT rutas.ruta_compartida FROM rutas INNER JOIN rol ON rutas.rol_id = rol.id WHERE carpeta = 'Formatos Externos Digitales' AND rol.rol = 'Occidente'")
     else:
         cur.execute("SELECT ruta_compartida FROM rutas WHERE rol_id = %s AND carpeta = 'Formatos Externos Digitales'", (rol,))
@@ -161,7 +157,7 @@ def formatos_externos_digitales(rol):
 def formatos_externos_fisicos(rol):
     nombre_rol = nombre(rol)
     cur = mysql.connection.cursor()
-    if nombre_rol in roles_produccion:
+    if nombre_rol.lower() in ROLES_PRODUCCION:
         cur.execute("SELECT rutas.ruta_compartida FROM rutas INNER JOIN rol ON rutas.rol_id = rol.id WHERE carpeta = 'Formatos Externos Fisicos' AND rol.rol = 'Occidente'")
     else:
         cur.execute("SELECT ruta_compartida FROM rutas WHERE rol_id = %s AND carpeta = 'Formatos Externos Fisicos'", (rol,))
@@ -182,77 +178,144 @@ def formatos_externos_fisicos(rol):
     return archivos_formatos_externos_fisicos
 
 def plan_calidad(rol):
-    nombre_rol = nombre(rol)
-    cur = mysql.connection.cursor()
+    nombre_rol_actual = nombre(rol).lower()
+    palabras_clave = PROCESOS.get(rol, []) # Usamos una lista vacía por defecto
     archivos_plan_calidad = []
-    if nombre_rol in roles_produccion:
-        cur.execute("SELECT rutas.ruta_compartida FROM rutas INNER JOIN rol ON rutas.rol_id = rol.id WHERE carpeta = 'Plan de Calidad' AND rol.rol = 'Occidente'")
-        carpeta_compartida = cur.fetchone()
-        if carpeta_compartida:
-            ruta = carpeta_compartida[0]
-            for archivo in os.listdir(ruta):
-                if archivo.startswith("~") or archivo.startswith(".") or archivo.lower() == "thumbs.db":
-                    continue
-                if nombre_rol.lower() in archivo.lower():
-                    tipo = os.path.splitext(archivo)[1].lower()
-                    archivos_plan_calidad.append({
-                        'nombre': archivo,
-                        'tipo': tipo,
-                        'ruta': os.path.join(ruta, archivo),
-                    })
-        cur.close()
+    
+    cur = mysql.connection.cursor()
+
+    # Paso 1: Obtener la ruta. La lógica es diferente para roles de producción y otros.
+    # Esta parte de tu código original es importante si tienen carpetas diferentes.
+    if nombre_rol_actual in ROLES_PRODUCCION:
+        # Todos los roles de producción leen de una carpeta común (ej. la de Occidente)
+        # Esto asume que todos los archivos del Plan de Calidad están en un solo lugar.
+        cur.execute("SELECT ruta_compartida FROM rutas WHERE carpeta = 'Plan de Calidad' AND rol_id = 4") # Rol 4 = Occidente
     else:
+        # Los roles no-producción (ej. admin) leen de su propia carpeta asignada.
         cur.execute("SELECT ruta_compartida FROM rutas WHERE rol_id = %s AND carpeta = 'Plan de Calidad'", (rol,))
-        carpeta_compartida = cur.fetchone()
-        if carpeta_compartida:
-            ruta = carpeta_compartida[0]
-            for archivo in os.listdir(ruta):
-                if archivo.startswith("~") or archivo.startswith(".") or archivo.lower() == "thumbs.db":
-                    continue
+    
+    resultado_ruta = cur.fetchone()
+    cur.close()
+
+    if not resultado_ruta:
+        print(f"ADVERTENCIA: No se encontró ruta de 'Plan de Calidad' para el rol {rol}.")
+        return []
+
+    ruta = resultado_ruta[0]
+
+    # Paso 2: Iterar y filtrar
+    try:
+        for archivo in os.listdir(ruta):
+            if archivo.startswith("~") or archivo.startswith(".") or archivo.lower() == "thumbs.db":
+                continue
+
+            archivo_lower = archivo.lower()
+            
+            # Por defecto, asumimos que el archivo es válido para ser añadido.
+            debe_anadirse = True 
+            
+            # Aplicamos el filtro solo si el rol es de producción
+            if nombre_rol_actual in ROLES_PRODUCCION:
+                
+                # REGLA A: ¿El archivo NO contiene los procesos del rol?
+                if not any(palabra.lower() in archivo_lower for palabra in palabras_clave):
+                    debe_anadirse = False # Si no contiene ninguno, no lo añadimos.
+
+                # REGLA B: ¿El archivo contiene el nombre de OTRO banco?
+                # Esta regla solo se aplica si la Regla A no ya lo descartó.
+                if debe_anadirse:
+                    for otro_banco in ROLES_PRODUCCION:
+                        if otro_banco.lower() != nombre_rol_actual and otro_banco.lower() in archivo_lower:
+                            debe_anadirse = False # Si es de otro banco, no lo añadimos.
+                            break
+            
+            # DECISIÓN FINAL: Si la bandera 'debe_anadirse' sigue siendo True, añadimos el archivo.
+            if debe_anadirse:
                 tipo = os.path.splitext(archivo)[1].lower()
                 archivos_plan_calidad.append({
                     'nombre': archivo,
                     'tipo': tipo,
-                    'ruta': os.path.join(ruta, archivo),
+                    'ruta': os.path.join(ruta, archivo)
                 })
-        cur.close()
+
+    except FileNotFoundError:
+        print(f"ADVERTENCIA DE RUTA: La carpeta '{ruta}' no fue encontrada.")
+    except Exception as e:
+        print(f"Ocurrió un error inesperado al leer la carpeta: {e}")
+
     return archivos_plan_calidad
 
 def requisitos_cliente(rol):
-    nombre_rol = nombre(rol)
-    cur = mysql.connection.cursor()
+    """
+    Lista los archivos de la carpeta 'Requisitos del Cliente' aplicando una lógica
+    de filtrado inteligente basada en el rol del usuario.
+    """
+    nombre_rol_actual = nombre(rol).lower()
+    # Usamos .get(rol, []) para obtener la lista o una lista vacía si el rol no está en el diccionario
+    palabras_clave = PROCESOS.get(rol, []) 
     archivos_requisitos_cliente = []
-    if nombre_rol in roles_produccion:
-        cur.execute("SELECT rutas.ruta_compartida FROM rutas INNER JOIN rol ON rutas.rol_id = rol.id WHERE carpeta = 'Requisitos del Cliente' AND rol.rol = 'Occidente'")
-        carpeta_compartida = cur.fetchone()
-        if carpeta_compartida:
-            ruta = carpeta_compartida[0]
-            for archivo in os.listdir(ruta):
-                if archivo.startswith("~") or archivo.startswith(".") or archivo.lower() == "thumbs.db":
-                    continue
-                if nombre_rol.lower() in archivo.lower():
-                    tipo = os.path.splitext(archivo)[1].lower()
-                    archivos_requisitos_cliente.append({
-                        'nombre': archivo,
-                        'tipo': tipo,
-                        'ruta': os.path.join(ruta, archivo),
-                    })
-        cur.close()
+    
+    cur = mysql.connection.cursor()
+
+    # Paso 1: Obtener la ruta de la carpeta.
+    # Se mantiene tu lógica original: los roles de producción leen de una carpeta de referencia,
+    # mientras que los otros roles leen de la suya específica.
+    if nombre_rol_actual in ROLES_PRODUCCION:
+        # Usamos Occidente (rol 4) como referencia para la carpeta principal.
+        cur.execute("SELECT ruta_compartida FROM rutas WHERE carpeta = 'Requisitos del Cliente' AND rol_id = 4")
     else:
         cur.execute("SELECT ruta_compartida FROM rutas WHERE rol_id = %s AND carpeta = 'Requisitos del Cliente'", (rol,))
-        carpeta_compartida = cur.fetchone()
-        if carpeta_compartida:
-            ruta = carpeta_compartida[0]
-            for archivo in os.listdir(ruta):
-                if archivo.startswith("~") or archivo.startswith(".") or archivo.lower() == "thumbs.db":
-                    continue
+    
+    resultado_ruta = cur.fetchone()
+    cur.close()
+
+    if not resultado_ruta:
+        print(f"ADVERTENCIA: No se encontró ruta de 'Requisitos del Cliente' para el rol {rol}.")
+        return []
+
+    ruta = resultado_ruta[0]
+
+    # Paso 2: Iterar sobre los archivos y aplicar la lógica de filtrado.
+    try:
+        for archivo in os.listdir(ruta):
+            # Ignorar archivos temporales o del sistema
+            if archivo.startswith("~") or archivo.startswith(".") or archivo.lower() == "thumbs.db":
+                continue
+
+            archivo_lower = archivo.lower()
+            
+            # Por defecto, asumimos que el archivo es válido para ser añadido.
+            debe_anadirse = True
+            
+            # Aplicamos el filtro solo si el rol es de producción y tiene palabras clave definidas.
+            if nombre_rol_actual in ROLES_PRODUCCION and palabras_clave:
+                
+                # REGLA A: El archivo DEBE contener al menos una de las palabras clave del rol.
+                if not any(proceso.lower() in archivo_lower for proceso in palabras_clave):
+                    debe_anadirse = False
+
+                # REGLA B: El archivo NO debe contener el nombre de OTRO banco.
+                # (Solo se ejecuta si la Regla A no lo descartó ya)
+                if debe_anadirse:
+                    for otro_banco in ROLES_PRODUCCION:
+                        if otro_banco.lower() != nombre_rol_actual and otro_banco.lower() in archivo_lower:
+                            debe_anadirse = False
+                            break
+            
+            # DECISIÓN FINAL: Si la bandera sigue siendo True, añadimos el archivo.
+            if debe_anadirse:
                 tipo = os.path.splitext(archivo)[1].lower()
                 archivos_requisitos_cliente.append({
                     'nombre': archivo,
                     'tipo': tipo,
-                    'ruta': os.path.join(ruta, archivo),
+                    'ruta': os.path.join(ruta, archivo)
                 })
-        cur.close()
+
+    except FileNotFoundError:
+        print(f"ADVERTENCIA DE RUTA: La carpeta '{ruta}' para 'Requisitos del Cliente' no fue encontrada.")
+    except Exception as e:
+        print(f"Ocurrió un error inesperado al leer la carpeta de Requisitos del Cliente: {e}")
+
     return archivos_requisitos_cliente
 
 def actas_restauracion(rol):

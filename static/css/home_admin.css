@@ -240,15 +240,14 @@ body {
 
 .event-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
   padding: 14px 0 20px;
 }
 
 .event-card {
   display: grid;
   grid-auto-flow: dense;
-  grid-template-rows: 2fr 0.8fr 0.5fr;
   padding: 8px;
 }
 

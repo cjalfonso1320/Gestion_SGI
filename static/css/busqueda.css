@@ -1,0 +1,24 @@
+.search-container {
+        margin-bottom: 25px;
+        position: relative;
+    }
+    #searchInput {
+        width: 100%;
+        padding: 12px 20px 12px 40px; /* Espacio para el ícono */
+        font-size: 16px;
+        border: 1px solid var(--border-color);
+        background-color: var(--card-bg-color);
+        color: var(--primary-color);
+        border-radius: 8px;
+        box-sizing: border-box;
+    }
+    .search-container::before {
+        content: '\f002'; /* Código del ícono de búsqueda de Font Awesome */
+        font-family: 'Font Awesome 5 Free';
+        font-weight: 900;
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--primary-hover-color);
+    }

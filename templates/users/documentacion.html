@@ -2,7 +2,12 @@
 {% block title %}Documentacion{% endblock %}
 {% block content %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/acordeon_doc.css') }}">
-
+<link rel="stylesheet" href="{{ url_for('static', filename='css/busqueda.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
+<!-- barra de busqeuda -->
+<div class="search-container">
+    <input type="text" id="searchInput" placeholder="Buscar documentos por nombre...">
+</div>
 <!-- Botón flotante para subir documentos -->
 <div class="upload-fab" onclick="openUploadModal()">
     <i class="fa fa-upload"></i>
@@ -96,10 +101,12 @@
         <div class="doc-section">Caracterización</div>
         <div class="doc-content">
             {% for c in caracterizaciones %}
+            <div class="filterable-item">
             <iframe src="{{ url_for('doc.ver_caracterizacion', filepath=c.ruta)}}" frameborder="0" width="100%"
                 height="600px" style="margin-bottom: 20px;">
 
             </iframe>
+            </div>
             {% endfor %}
         </div>
 
@@ -291,4 +298,56 @@
 {% endif %}
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="{{ url_for('static', filename='js/acordeon_doc.js')}}"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('searchInput');
+    const docAccordion = document.querySelector('.doc-accordion');
+
+    // Esta función es la que hace toda la magia
+    function filterDocuments() {
+        const searchTerm = searchInput.value.toLowerCase();
+        
+        // Obtenemos TODOS los elementos filtrables dentro del acordeón
+        const items = docAccordion.querySelectorAll('.filterable-item');
+
+        items.forEach(item => {
+            const itemText = item.textContent.toLowerCase();
+            
+            // Comparamos el texto del item con el término de búsqueda
+            if (itemText.includes(searchTerm)) {
+                item.style.display = ''; // Muestra el item si coincide
+            } else {
+                item.style.display = 'none'; // Oculta el item si no coincide
+            }
+        });
+
+        // (Opcional pero recomendado) Ocultamos las secciones que se queden vacías
+        updateSectionVisibility();
+    }
+    
+    // Esta función revisa cada sección y subsección y la oculta si no tiene items visibles
+    function updateSectionVisibility() {
+        const allSections = docAccordion.querySelectorAll('.doc-section, .doc-subsection, .doc-subsubsection');
+        
+        allSections.forEach(section => {
+            // Buscamos el contenedor de contenido hermano o hijo
+            let content = section.querySelector('.doc-content, .doc-subcontent, .doc-subsubcontent') || section.nextElementSibling;
+            
+            if (content) {
+                // Buscamos si hay algún item visible dentro del contenedor
+                const visibleItem = content.querySelector('.filterable-item:not([style*="display: none"])');
+                
+                if (visibleItem) {
+                    section.style.display = ''; // Si hay items, muestra la sección
+                } else {
+                    section.style.display = 'none'; // Si no hay, oculta la sección
+                }
+            }
+        });
+    }
+
+    // Escuchamos el evento 'input' para filtrar mientras el usuario escribe
+    searchInput.addEventListener('input', filterDocuments);
+});
+</script>
 {% endblock %}

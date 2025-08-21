@@ -1,0 +1,101 @@
+<div class="accordion" id="acordeonTabla">
+    <div class="accordion-header" onclick="this.parentElement.classList.toggle('active')">
+        Nuevo Activo
+    </div>
+    <div class="accordion-content">
+        <form id="form_MatrizActivos">
+            <input type="hidden" id="proceso" name="proceso" value="{{ proceso }}">
+            <div>
+                <label class="form-label" for="tipoActivo">Tipo de Activo</label>
+                <select id="tipoActivo" name="tipoActivo" required>
+                    <option value="">Seleccione un Tipo de Activo</option>
+                    <option value="Software">Software</option>
+                    <option value="Hardware">Hardware</option>
+                    <option value="Personal">Personal</option>
+                    <option value="Informacion">Informacion</option>
+                    <option value="Ubicacion">Ubicacion</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="nombre_activo">Nombre</label>
+                <input class="form-control" type="text" id="nombre_activo" name="nombre_activo"
+                    required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="cant_activo">Cantidad</label>
+                <input class="form-control" type="text" id="cant_activo" name="cant_activo" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="responsable_activo">Responsable</label>
+                <input class="form-control" type="text" id="responsable_activo"
+                    name="responsable_activo" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="clasificacionActivo">Clasificacion de la Informacion</label>
+                <select id="clasificacionActivo" name="clasificacionActivo" required>
+                    <option value="">Seleccione una Clasificacion</option>
+                    <option value="Confidencial">Confidencial</option>
+                    <option value="Uso Interno">Uso Interno</option>
+                    <option value="No aplica">No aplica</option>
+                    <option value="Confidencial">Confidencial</option>
+                </select>
+            </div>
+            
+            <div class="mb-3">
+                <label class="form-label" for="ConfidencialidadActivo">Confidencialidad</label>
+                <input class="form-control" type="number" id="ConfidencialidadActivo" name="ConfidencialidadActivo" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="IntegridadActivo">Integridad</label>
+                <input class="form-control" type="number" id="IntegridadActivo" name="IntegridadActivo" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="DisponibilidadActivo">Disponibilidad</label>
+                <input class="form-control" type="number" id="DisponibilidadActivo" name="DisponibilidadActivo" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="TotalActivo">Total</label>
+                <input class="form-control" type="number" id="TotalActivo" name="TotalActivo" required readonly>
+            </div>
+            <button type="submit">Guardar</button>
+        </form>
+    </div>
+</div>
+
+ <table class="table">
+        <thead>
+            <!-- Primera fila del encabezado -->
+            <tr>
+                <th rowspan="2">Tipo de Activo</th>
+                <th rowspan="2">Nombre</th>
+                <th rowspan="2">Cantidad</th>
+                <th rowspan="2">Responsable</th>
+                <th rowspan="2">Clasificación de la Información</th>
+                <th colspan="3" style="text-align: center;">Criticidad</th>
+                <th rowspan="2">Total</th>
+
+            </tr>
+            <!-- Segunda fila del encabezado (solo para las subcolumnas) -->
+            <tr>
+                <th>Confidencialidad</th>
+                <th>Integridad</th>
+                <th>Disponibilidad</th>
+            </tr>
+        </thead>
+        <tbody id="tabla_MatrizActivos_body">
+            {%for dato in datos_matriz %}
+            <tr data-id="{{dato[0]}}">
+                <td data-column="tipoActivo">{{dato[1]}}</td>
+                <td data-column="nombre_activo">{{dato[2]}}</td>
+                <td data-column="cant_activo">{{dato[3]}}</td>
+                <td data-column="responsable_activo">{{dato[4]}}</td>
+                <td data-column="clasificacionActivo">{{dato[5]}}</td>
+                <td data-column="ConfidencialidadActivo">{{dato[6]}}</td>
+                <td data-column="IntegridadActivo">{{dato[7]}}</td>
+                <td data-column="DisponibilidadActivo">{{dato[8]}}</td>
+                <td data-column="total">{{dato[9]}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+

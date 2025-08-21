@@ -32,7 +32,7 @@
   {% set tipo = archivo.split('.')[-1].lower() %}
   {% set ruta_completa = (hijo.ruta.rstrip('/') ~ '/' ~ archivo.lstrip('/')) %}
   {% set ruta_limpia = ruta_completa %}
-  <tr>
+  <tr class="filterable-item">
     <td>{{ archivo }}</td>
     <td>{{ tipo }}</td>
     <td>

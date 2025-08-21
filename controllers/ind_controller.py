@@ -1,5 +1,4 @@
 from extension import mysql
-from controllers.rol_controller import nombre_rol as nombre
 import os
 
 '''GESTION DE PRODUCCION'''
@@ -45,6 +44,11 @@ def lista_sancionesMagenticas(rol):
     return sanciones_magneticas
 def guardar_sancionesMagneticas(datos, rol):
     cur = mysql.connection.cursor()
+    check_sql = "SELECT COUNT(*) FROM ind_sancionesMagneticas WHERE mes = %s AND rol = %s"
+    cur.execute(check_sql, (datos['mes'], rol))
+    if cur.fetchone()[0] > 0:
+        cur.close()
+        raise ValueError(f"Ya existe un registro para el mes de '{datos['mes']}' en este indicador.")
     sql = """
         INSERT INTO ind_sancionesMagneticas (mes, R_extemporaneos, r_digicom, p_aceptacion, resultado, meta, uvt, multa, analisis, rol)
         VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
@@ -94,6 +98,12 @@ def grafica_sancionesMagneticas(rol):
 
 def guardar_registrosFisicos(datos, rol):
     cur = mysql.connection.cursor()
+    check_sql = "SELECT COUNT(*) FROM ind_EntregasFisicas WHERE mes = %s AND id_rol = %s AND proceso = %s"
+    cur.execute(check_sql, (datos['mes'], rol, datos['proceso']))
+    if cur.fetchone()[0] > 0:
+        cur.close()
+        raise ValueError(f"Ya existe un registro para el mes de '{datos['mes']}' en este indicador.")
+
     sql = """
         INSERT INTO ind_EntregasFisicas (mes, documentos_entregados, documentos_extemporaneos, resultado, meta, analisis, proceso, id_rol)
         VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
@@ -156,6 +166,12 @@ def lista_sancionesFisicos(rol):
     return sanciones_fisicos
 def guardar_sancionesFisicos(datos, rol):
     cur = mysql.connection.cursor()
+    check_sql = "SELECT COUNT(*) FROM ind_sancionesFisicos WHERE mes = %s AND id_rol = %s"
+    cur.execute(check_sql, (datos['mes'], rol))
+    if cur.fetchone()[0] > 0:
+        cur.close()
+        raise ValueError(f"Ya existe un registro para el mes de '{datos['mes']}' en este indicador.")
+
     sql = """
         INSERT INTO ind_sancionesFisicos (mes, D_extemporaneos, D_digicom, p_aceptacion, resultado, meta, uvt, multa, analisis, rol)
         VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
@@ -218,6 +234,11 @@ def lista_inconsitenciasPasivo(rol, proceso):
     return inconsistencias_pasivo    
 def guardar_inconsitenciasPasivo(datos, rol):
     cur = mysql.connection.cursor()
+    check_sql = "SELECT COUNT(*) FROM ind_incPasivo WHERE mes = %s AND id_rol = %s AND proceso = %s"
+    cur.execute(check_sql, (datos['mes'], rol, datos['proceso']))
+    if cur.fetchone()[0] > 0:
+        cur.close()
+        raise ValueError(f"Ya existe un registro para el mes de '{datos['mes']}' en este indicador.")    
     sql = """
         INSERT INTO ind_incPasivo (mes, t_casos, e_grabacion_analisis, resultado, meta, analisis, proceso, id_rol)
         VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
@@ -268,6 +289,11 @@ def lista_TRespuesta_credito(rol, proceso):
     return t_respuestaCredito    
 def guardar_TRespuesta_credito(datos, rol):
     cur = mysql.connection.cursor()
+    check_sql = "SELECT COUNT(*) FROM ind_Trespuesta_credito WHERE mes = %s AND id_rol = %s AND proceso = %s"
+    cur.execute(check_sql, (datos['mes'], rol, datos['proceso']))
+    if cur.fetchone()[0] > 0:
+        cur.close()
+        raise ValueError(f"Ya existe un registro para el mes de '{datos['mes']}' en este indicador.")    
     sql = """
         INSERT INTO ind_Trespuesta_credito (mes, t_creditos, t_respuesta, resultado, analisis, proceso, id_rol)
         VALUES (%s, %s, %s, %s, %s, %s, %s)
@@ -309,6 +335,11 @@ def grafica_TRespuesta_credito(rol, proceso):
 '''ADMINISTRATIVO'''
 def guardar_Administrativo(datos, rol):
     cur = mysql.connection.cursor()
+    check_sql = "SELECT COUNT(*) FROM ind_Administrativo WHERE mes = %s AND id_rol = %s AND proceso = %s"
+    cur.execute(check_sql, (datos['mes'], rol, datos['proceso']))
+    if cur.fetchone()[0] > 0:
+        cur.close()
+        raise ValueError(f"Ya existe un registro para el mes de '{datos['mes']}' en este indicador.")   
     sql = """
         INSERT INTO ind_Administrativo (mes, Sol_atendidas, Sol_realizadas, resultado, meta, analisis, proceso, id_rol)
         VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
