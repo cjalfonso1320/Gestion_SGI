@@ -6,6 +6,7 @@ from controllers.doc_controller import procedimientos, caracterizacion, formatos
 from controllers.doc_controller import auditorias_ifx, auditoria_integrum, auditoria_inter_servicios, ISECpoliticaContinuidad, ISECpoliticaProteccionDatos, ISECpoliticaSeguridadInf, comite_seguridad
 from controllers.doc_controller import vulnerabilidades_2024, vulnerabilidades_2025, vulnerabilidades_ant
 from controllers.doc_controller import revision_seguridad_2021, revision_seguridad_2022, revision_seguridad_2023, revision_seguridad_2024, sst, encuestas_2019, encuestas_2020, encuestas_2021, sagrilaft, ambiental
+from controllers.rol_controller import PROCESOS_ROL
 
 
 
@@ -16,6 +17,8 @@ doc_bp = Blueprint('doc', __name__)
 def documentacion():
     def CONTEXTO():
         rol = current_user.rol
+        procesos = PROCESOS_ROL.get(rol, [])
+        print(procesos)
         archivos_procedimientos = procedimientos(rol)
         caracterizaciones = caracterizacion(rol)
         formatoDigital = formatos_digitales(rol)
@@ -96,7 +99,8 @@ def documentacion():
             'archivos_encuestas_2020': archivos_encuestas_2020,
             'archivos_encuestas_2021': archivos_encuestas_2021,
             'archivos_sagrilaft': archivos_sagrilaft,
-            'archivos_ambiental': archivos_ambiental
+            'archivos_ambiental': archivos_ambiental,
+            'procesos': procesos
         }
     return render_template('users/documentacion.html', 
                            usuario=current_user, 

@@ -1,36 +1,17 @@
 from flask import Blueprint, render_template, request, jsonify
 from flask_login import current_user, login_required
 from controllers.matriz_controller import guardar_matriz, lista_matriz, modificar_matriz
+from controllers.rol_controller import PROCESOS_ROL
 
 mActivos_bp = Blueprint('mActivos', __name__)
 
-PROCESOS_ROL = {
-    5: ['Nacionales_Agrario'],
-    2: ['Nacionales_Bancolombia', 'Distritales_Bancolombia', 'Departamentales_Bancolombia', 'Convenios_Bancolombia'],
-    6: ['Nacionales_Davivienda', 'Distritales_Davivienda', 'Departamentales_Davivienda', 'Convenios_Davivienda'],
-    4: ['Nacionales_Occidente'],
-    7: ['Nacionales_Itau', 'Departamentales_Itau'],
-    10: ['Nacionales_Popular', 'Departamentales_Popular', 'Convenios_Popular'],
-    11: ['Nacionales_AvVillas', 'Distritales_AvVillas', 'Convenios_AvVillas', 'Complementacion_AvVillas', 'Tarjetas_AvVillas', 'Libranzas_AvVillas', 'Radicacion_AvVillas'],
-    12: ['Nacionales_Bancoomeva'],
-    13: ['Nacionales_CajaSocial', 'Recaudos_CajaSocial'],
-    14: ['Administrativo'],
-    8: ['Administrativo'],
-    9: ['Administrativo'],
-    15: ['Administrativo'],
-    16: ['Administrativo'],
-    17: ['Administrativo'],
-    18: ['Administrativo'],
-    19: ['Administrativo'],
-    20: ['Administrativo'],
-    21: ['Administrativo'],
-}
 
 @mActivos_bp.route('/Matriz_Activos')
 @login_required
 def Matriz_Activos():
     rol_id = current_user.rol
     #1. obtener lista de procesos para el rol
+    procesos = PROCESOS_ROL.get(rol_id, [])
     lista_procesos = PROCESOS_ROL.get(rol_id, [])
     if not lista_procesos:
         #si el rol no tiene procesos definidos muestra un mensaje o una pagina vacia
@@ -50,7 +31,8 @@ def Matriz_Activos():
                            usuario=current_user,
                            lista_procesos=lista_procesos,
                            proceso_actual=proceso_actual,
-                           datos_matriz=datos_matriz)
+                           datos_matriz=datos_matriz,
+                           procesos=procesos)
 
 @mActivos_bp.route('/cargar_matriz_proceso')
 @login_required
@@ -84,7 +66,7 @@ def guardarMatriz():
                 'cant_activo': request.form.get('cant_activo'),
                 'responsable_activo': request.form.get('responsable_activo'),
                 'clasificacionActivo': request.form.get('clasificacionActivo'),
-                'ConfidencialidadActivo': request.form.get('ConfidencialencialidadActivo'),
+                'ConfidencialidadActivo': request.form.get('ConfidencialidadActivo'),
                 'IntegridadActivo': request.form.get('IntegridadActivo'),
                 'DisponibilidadActivo': request.form.get('DisponibilidadActivo'),
                 'TotalActivo': request.form.get('TotalActivo')

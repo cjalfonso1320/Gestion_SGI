@@ -1,6 +1,9 @@
 from extension import mysql
-import os
+import pytz
+from datetime import datetime
 
+zona_actual = pytz.timezone('America/Bogota')
+fecha_registro = datetime.now(zona_actual)
 '''GESTION DE PRODUCCION'''
 def uvt_rol(rol):
     valores_uvt = {
@@ -50,8 +53,8 @@ def guardar_sancionesMagneticas(datos, rol):
         cur.close()
         raise ValueError(f"Ya existe un registro para el mes de '{datos['mes']}' en este indicador.")
     sql = """
-        INSERT INTO ind_sancionesMagneticas (mes, R_extemporaneos, r_digicom, p_aceptacion, resultado, meta, uvt, multa, analisis, rol)
-        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+        INSERT INTO ind_sancionesMagneticas (mes, R_extemporaneos, r_digicom, p_aceptacion, resultado, meta, uvt, multa, analisis, fecha_registro, rol)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
         """
     
     r_extemporaneos = int(datos.get('R_extemporaneos', '0').strip() or 0)
@@ -70,7 +73,8 @@ def guardar_sancionesMagneticas(datos, rol):
         datos.get('meta', ''),
         uvt,
         multa,
-        datos.get('analisis', ''), 
+        datos.get('analisis', ''),
+        fecha_registro, 
         rol
     )
     cur.execute(sql, valores)
@@ -105,8 +109,8 @@ def guardar_registrosFisicos(datos, rol):
         raise ValueError(f"Ya existe un registro para el mes de '{datos['mes']}' en este indicador.")
 
     sql = """
-        INSERT INTO ind_EntregasFisicas (mes, documentos_entregados, documentos_extemporaneos, resultado, meta, analisis, proceso, id_rol)
-        VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+        INSERT INTO ind_EntregasFisicas (mes, documentos_entregados, documentos_extemporaneos, resultado, meta, analisis, fecha_registro, proceso, id_rol)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
         """
     
     # Validar y convertir valores numéricos
@@ -121,6 +125,7 @@ def guardar_registrosFisicos(datos, rol):
         resultado,
         datos['meta'],
         datos['analisis'],
+        fecha_registro,
         datos['proceso'], 
         rol
     )
@@ -173,8 +178,8 @@ def guardar_sancionesFisicos(datos, rol):
         raise ValueError(f"Ya existe un registro para el mes de '{datos['mes']}' en este indicador.")
 
     sql = """
-        INSERT INTO ind_sancionesFisicos (mes, D_extemporaneos, D_digicom, p_aceptacion, resultado, meta, uvt, multa, analisis, rol)
-        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+        INSERT INTO ind_sancionesFisicos (mes, D_extemporaneos, D_digicom, p_aceptacion, resultado, meta, uvt, multa, analisis, fecha_registro, rol)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
         """
     
     # Leemos las claves específicas que la ruta nos envía
@@ -194,7 +199,8 @@ def guardar_sancionesFisicos(datos, rol):
         datos.get('meta_sancionesFisicos', ''),
         uvt,
         multa,
-        datos.get('analisis_sancionesFisicos', ''), 
+        datos.get('analisis_sancionesFisicos', ''),
+        fecha_registro, 
         rol
     )
     cur.execute(sql, valores)
@@ -240,7 +246,7 @@ def guardar_inconsitenciasPasivo(datos, rol):
         cur.close()
         raise ValueError(f"Ya existe un registro para el mes de '{datos['mes']}' en este indicador.")    
     sql = """
-        INSERT INTO ind_incPasivo (mes, t_casos, e_grabacion_analisis, resultado, meta, analisis, proceso, id_rol)
+        INSERT INTO ind_incPasivo (mes, t_casos, e_grabacion_analisis, resultado, meta, analisis, fecha_registro, proceso, id_rol)
         VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
         """
     
@@ -256,6 +262,7 @@ def guardar_inconsitenciasPasivo(datos, rol):
         resultado,
         datos['meta'],
         datos['analisis'],
+        fecha_registro,
         datos['proceso'],
         rol
     )
@@ -295,8 +302,8 @@ def guardar_TRespuesta_credito(datos, rol):
         cur.close()
         raise ValueError(f"Ya existe un registro para el mes de '{datos['mes']}' en este indicador.")    
     sql = """
-        INSERT INTO ind_Trespuesta_credito (mes, t_creditos, t_respuesta, resultado, analisis, proceso, id_rol)
-        VALUES (%s, %s, %s, %s, %s, %s, %s)
+        INSERT INTO ind_Trespuesta_credito (mes, t_creditos, t_respuesta, resultado, analisis, fecha_registro, proceso, id_rol)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
         """
     
     # Validar y convertir valores numéricos
@@ -308,6 +315,7 @@ def guardar_TRespuesta_credito(datos, rol):
         datos['t_respuesta'],
         datos['resultado'],
         datos['analisis'],
+        fecha_registro,
         datos['proceso'],
         rol
     )
@@ -341,8 +349,8 @@ def guardar_Administrativo(datos, rol):
         cur.close()
         raise ValueError(f"Ya existe un registro para el mes de '{datos['mes']}' en este indicador.")   
     sql = """
-        INSERT INTO ind_Administrativo (mes, Sol_atendidas, Sol_realizadas, resultado, meta, analisis, proceso, id_rol)
-        VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+        INSERT INTO ind_Administrativo (mes, Sol_atendidas, Sol_realizadas, resultado, meta, analisis, fecha_registro, proceso, id_rol)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
         """
     
     # Validar y convertir valores numéricos
@@ -357,6 +365,7 @@ def guardar_Administrativo(datos, rol):
         resultado,
         datos['meta'],
         datos['analisis'],
+        fecha_registro,
         datos['proceso'], 
         rol
     )

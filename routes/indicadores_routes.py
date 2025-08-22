@@ -8,6 +8,7 @@ from controllers.ind_controller import grafica_registrosFisicos, guardar_registr
 from controllers.ind_controller import guardar_sancionesFisicos, grafica_sancionesFisicos, lista_sancionesFisicos
 from controllers.ind_controller import lista_inconsitenciasPasivo, guardar_inconsitenciasPasivo, grafica_inconsitenciasPasivo
 from controllers.ind_controller import lista_TRespuesta_credito, guardar_TRespuesta_credito, datos_mes_anterior, grafica_TRespuesta_credito
+from controllers.rol_controller import PROCESOS_ROL
 
 '''ADMINISTRATIVO'''
 from controllers.ind_controller import lista_Administrativo, grafica_Administrativo, guardar_Administrativo
@@ -18,6 +19,8 @@ ind_bp = Blueprint('ind', __name__)
 @login_required
 def indicadores():
     def CONTEXTO():
+        rol = current_user.rol
+        procesos = PROCESOS_ROL.get(rol, [])
         '''GESTION DE PRODUCCION'''
         uvt_valor = uvt_rol(current_user.rol)
 
@@ -182,6 +185,7 @@ def indicadores():
             'usuario': current_user,
             'datos_sancionesMagneticas': datos_sancionesMagneticas,
             'datos_sancionesFisicos': datos_sancionesFisicos,
+            'procesos': procesos,
             #administrativo
             'datos_administrativo_sistemas': datos_administrativo_sistemas,
             'datos_administrativo_tecnologia': datos_administrativo_tecnologia,
