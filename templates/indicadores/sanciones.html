@@ -1,206 +1,208 @@
 {% if 'Fisicos' in proceso %}
-    {% set tipo_sancion = 'Fisicos' %}
-    {% set datos_sanciones = datos_sancionesFisicos %}
-    {% set meses_sanciones = meses_sancionesFisicos %}
-    {% set multas_sanciones = multas_sancionesFisicos %}
+{% set tipo_sancion = 'Fisicos' %}
+{% set datos_sanciones = datos_sancionesFisicos %}
+{% set meses_sanciones = meses_sancionesFisicos %}
+{% set multas_sanciones = multas_sancionesFisicos %}
 {% else %}
-    {% set tipo_sancion = 'Magneticas' %}
-    {% set datos_sanciones = datos_sancionesMagneticas %}
-    {% set meses_sanciones = meses_sancionesMagneticas %}
-    {% set multas_sanciones = multas_sancionesMagneticas %}
+{% set tipo_sancion = 'Magneticas' %}
+{% set datos_sanciones = datos_sancionesMagneticas %}
+{% set meses_sanciones = meses_sancionesMagneticas %}
+{% set multas_sanciones = multas_sancionesMagneticas %}
 {% endif %}
 <form class="form-sanciones" id="form_sanciones{{ tipo_sancion }}" method="post">
-    <input type="hidden" value="{{ proceso }}" name="proceso" class="proceso">
+    <div class="form-grid-container">
+        <input type="hidden" value="{{ proceso }}" name="proceso" class="proceso">
 
-    <div>
-        <label class="form-label">Mes</label>
-         <select name="{{ 'mes_fisicos' if tipo_sancion == 'Fisicos' else 'mes2' }}" class="mes" required>
-            <option value="">Seleccione un mes</option>
-            <option value="Enero">Enero</option>
-            <option value="Febrero">Febrero</option>
-            <option value="Marzo">Marzo</option>
-            <option value="Abril">Abril</option>
-            <option value="Mayo">Mayo</option>
-            <option value="Junio">Junio</option>
-            <option value="Julio">Julio</option>
-            <option value="Agosto">Agosto</option>
-            <option value="Septiembre">Septiembre</option>
-            <option value="Octubre">Octubre</option>
-            <option value="Noviembre">Noviembre</option>
-            <option value="Diciembre">Diciembre</option>
-        </select>
+        <div class="form-field">
+            <label class="form-label">Mes</label>
+            <select name="{{ 'mes_fisicos' if tipo_sancion == 'Fisicos' else 'mes2' }}" class="mes" required>
+                <option value="">Seleccione un mes</option>
+                <option value="Enero">Enero</option>
+                <option value="Febrero">Febrero</option>
+                <option value="Marzo">Marzo</option>
+                <option value="Abril">Abril</option>
+                <option value="Mayo">Mayo</option>
+                <option value="Junio">Junio</option>
+                <option value="Julio">Julio</option>
+                <option value="Agosto">Agosto</option>
+                <option value="Septiembre">Septiembre</option>
+                <option value="Octubre">Octubre</option>
+                <option value="Noviembre">Noviembre</option>
+                <option value="Diciembre">Diciembre</option>
+            </select>
+        </div>
+
+        <div class="mb-3 form-field">
+            <label class="form-label">Documentos/Registros Extemporaneos</label>
+            <input class="form-control r-extemporaneos" type="number"
+                name="{{ 'D_extemporaneos2' if tipo_sancion == 'Fisicos' else 'R_extemporaneos2' }}" readonly>
+        </div>
+
+        <div class="mb-3 form-field">
+            <label class="form-label">Documentos/Registros Resp. Digicom</label>
+            <input class="form-control r-digicom" type="number"
+                name="{{ 'dr_digicom' if tipo_sancion == 'Fisicos' else 'r_digicom' }}">
+        </div>
+
+        <div class="mb-3 form-field">
+            <label class="form-label">Porcentaje de Aceptacion</label>
+            <input class="form-control p-aceptacion" type="text"
+                name="{{ 'P_aceptacion_fisicos' if tipo_sancion == 'Fisicos' else 'P_aceptacion' }}"
+                value="{{ '0,01784%' if tipo_sancion == 'Fisicos' else '0,00233%' }}" readonly>
+        </div>
+
+        <div class="mb-3 form-field">
+            <label class="form-label">Riesgo Aceptado</label>
+            <input class="form-control resultado" type="number"
+                name="{{ 'resultado_sancionesFisicos' if tipo_sancion == 'Fisicos' else 'resultado_sancionesMagneticas' }}"
+                readonly>
+        </div>
+
+        <div class="mb-3 form-field">
+            <label class="form-label">Meta</label>
+            <input class="form-control meta" type="text"
+                name="{{ 'meta_sancionesFisicos' if tipo_sancion == 'Fisicos' else 'meta_sancionesMagneticas' }}"
+                readonly>
+        </div>
+
+        <div class="mb-3 form-field">
+            <label class="form-label">UVT</label>
+            <input class="form-control uvt" type="text"
+                name="{{ 'UVT_sancionesFisicos' if tipo_sancion == 'Fisicos' else 'UVT_sancionesMagneticas' }}"
+                value="${{ uvt_valor }}" readonly>
+        </div>
+
+        <div class="mb-3 form-field">
+            <label class="form-label">Valor Aproximado de Multa</label>
+            <input class="form-control multa" type="text"
+                name="{{ 'multa_sancionesFisicos' if tipo_sancion == 'Fisicos' else 'multa_sancionesMagneticas' }}"
+                readonly>
+        </div>
+
+        <div class="mb-3 form-field">
+            <label class="form-label">Analisis</label>
+            <textarea class="analisis"
+                name="{{ 'analisis_sancionesFisicos' if tipo_sancion == 'Fisicos' else 'analisis_sancionesMagneticas' }}"></textarea>
+        </div>
+
+        <button type="submit">Guardar</button>
     </div>
-
-    <div class="mb-3">
-        <label class="form-label">Documentos/Registros Extemporaneos</label>
-        <input class="form-control r-extemporaneos" type="number" 
-               name="{{ 'D_extemporaneos2' if tipo_sancion == 'Fisicos' else 'R_extemporaneos2' }}" readonly>
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">Documentos/Registros Resp. Digicom</label>
-        <input class="form-control r-digicom" type="number" 
-               name="{{ 'dr_digicom' if tipo_sancion == 'Fisicos' else 'r_digicom' }}">
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">Porcentaje de Aceptacion</label>
-        <input class="form-control p-aceptacion" type="text" 
-               name="{{ 'P_aceptacion_fisicos' if tipo_sancion == 'Fisicos' else 'P_aceptacion' }}" 
-               value="{{ '0,01784%' if tipo_sancion == 'Fisicos' else '0,00233%' }}" readonly>
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">Riesgo Aceptado</label>
-        <input class="form-control resultado" type="number" 
-               name="{{ 'resultado_sancionesFisicos' if tipo_sancion == 'Fisicos' else 'resultado_sancionesMagneticas' }}" readonly>
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">Meta</label>
-        <input class="form-control meta" type="text" 
-               name="{{ 'meta_sancionesFisicos' if tipo_sancion == 'Fisicos' else 'meta_sancionesMagneticas' }}" readonly>
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">UVT</label>
-        <input class="form-control uvt" type="text" 
-               name="{{ 'UVT_sancionesFisicos' if tipo_sancion == 'Fisicos' else 'UVT_sancionesMagneticas' }}" 
-               value="${{ uvt_valor }}" readonly>
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">Valor Aproximado de Multa</label>
-        <input class="form-control multa" type="text" 
-               name="{{ 'multa_sancionesFisicos' if tipo_sancion == 'Fisicos' else 'multa_sancionesMagneticas' }}" readonly>
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">Analisis</label>
-        <textarea class="analisis" 
-                  name="{{ 'analisis_sancionesFisicos' if tipo_sancion == 'Fisicos' else 'analisis_sancionesMagneticas' }}"></textarea>
-    </div>
-
-    <button type="submit">Guardar</button>
 </form>
 
 
 <div class="container mt-4">
-    
-<div class="accordion" id="acordeonTabla">
-  <div class="accordion-header" onclick="this.parentElement.classList.toggle('active')">
-    Ver Tabla de Registros
-  </div>
-  <div class="accordion-content">
-    <table class="table">
-      <thead>
-        <tr>
-          <th>mes</th>
-          <th>Registros Extemporaneos</th>
-          <th>Registros Responsabilidad Digicom</th>
-          <th>Meta</th>
-          <th>Multa</th>
-          <th>Analisis</th>
-        </tr>
-      </thead>
-      <tbody id="tabla_sanciones{{ tipo_sancion }}_body">
-    {% for registro in datos_sanciones %}
-        <tr>
-          <td>{{registro[0]}}</td>
-          <td>{{registro[1]}}</td>
-          <td>{{registro[2]}}</td>
-          <td>{{registro[3]}}</td>
-          <td>$ {{registro[4]}}</td>
-          <td>{{registro[5]}}</td>
-        </tr>
-      </tbody>
-    {% endfor %}
-    </table>
-  </div>
-</div>
+
+    <div class="accordion" id="acordeonTabla">
+        <div class="accordion-header" onclick="this.parentElement.classList.toggle('active')">
+            Ver Tabla de Registros
+        </div>
+        <div class="accordion-content">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>mes</th>
+                        <th>Registros Extemporaneos</th>
+                        <th>Registros Responsabilidad Digicom</th>
+                        <th>Meta</th>
+                        <th>Multa</th>
+                        <th>Analisis</th>
+                    </tr>
+                </thead>
+                <tbody id="tabla_sanciones{{ tipo_sancion }}_body">
+                    {% for registro in datos_sanciones %}
+                    <tr>
+                        <td>{{registro[0]}}</td>
+                        <td>{{registro[1]}}</td>
+                        <td>{{registro[2]}}</td>
+                        <td>{{registro[3]}}</td>
+                        <td>$ {{registro[4]}}</td>
+                        <td>{{registro[5]}}</td>
+                    </tr>
+                </tbody>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
     <h3>Porcentaje de Documentos Entregados por mes</h3>
     <canvas id="grafica_sanciones{{ tipo_sancion }}" width="400" height="200"></canvas>
 </div>
-
-<!-- Chart.js debe ir antes del script que lo usa -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
 <script>
-document.querySelectorAll('.form-sanciones').forEach(form => {
-    let resultadoGlobal = 0;
+    document.querySelectorAll('.form-sanciones').forEach(form => {
+        let resultadoGlobal = 0;
 
-    form.querySelector('.mes').addEventListener('change', function () {
-        const mesSeleccionado = this.value;
-        const proceso = form.querySelector('.proceso').value;
-        
-        let url = '';
-        // CORRECCIÓN FINAL en la lógica de la URL
-        if (proceso.includes('Fisicos')) {
-            url = '/registro_extemporaneo_fisico';
-        } else {
-            url = '/registro_extemporaneo'; // Apunta a la URL correcta para magnéticos
-        }
+        form.querySelector('.mes').addEventListener('change', function () {
+            const mesSeleccionado = this.value;
+            const proceso = form.querySelector('.proceso').value;
 
-        fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ mes: mesSeleccionado, proceso: proceso })
-        })
-        .then(response => {
-            if (!response.ok) throw new Error('Network response was not ok');
-            return response.json();
-        })
-        .then(data => {
-            // Lógica unificada para leer la respuesta
-            const extemporaneos = data.d_extemporaneo ?? data.r_extemporaneo ?? 0;
-            const registros = data.d_registros ?? data.t_registros ?? 0;
+            let url = '';
+            // CORRECCIÓN FINAL en la lógica de la URL
+            if (proceso.includes('Fisicos')) {
+                url = '/registro_extemporaneo_fisico';
+            } else {
+                url = '/registro_extemporaneo'; // Apunta a la URL correcta para magnéticos
+            }
 
-            form.querySelector('.r-extemporaneos').value = extemporaneos;
+            fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ mes: mesSeleccionado, proceso: proceso })
+            })
+                .then(response => {
+                    if (!response.ok) throw new Error('Network response was not ok');
+                    return response.json();
+                })
+                .then(data => {
+                    // Lógica unificada para leer la respuesta
+                    const extemporaneos = data.d_extemporaneo ?? data.r_extemporaneo ?? 0;
+                    const registros = data.d_registros ?? data.t_registros ?? 0;
 
-            let p_aceptacion_valor = form.querySelector('.p-aceptacion').value.trim().replace('%','').replace(',','.');
-            const p_aceptacion = parseFloat(p_aceptacion_valor) || 0;
-            
-            const t_registros = parseInt(registros) || 0;
-            resultadoGlobal = p_aceptacion * t_registros;
-            form.querySelector('.resultado').value = resultadoGlobal.toFixed(5);
-        })
-        .catch(error => {
-            console.error('Error al obtener datos extemporáneos:', error);
-            form.querySelector('.r-extemporaneos').value = 0;
-            form.querySelector('.resultado').value = 0;
+                    form.querySelector('.r-extemporaneos').value = extemporaneos;
+
+                    let p_aceptacion_valor = form.querySelector('.p-aceptacion').value.trim().replace('%', '').replace(',', '.');
+                    const p_aceptacion = parseFloat(p_aceptacion_valor) || 0;
+
+                    const t_registros = parseInt(registros) || 0;
+                    resultadoGlobal = p_aceptacion * t_registros;
+                    form.querySelector('.resultado').value = resultadoGlobal.toFixed(5);
+                })
+                .catch(error => {
+                    console.error('Error al obtener datos extemporáneos:', error);
+                    form.querySelector('.r-extemporaneos').value = 0;
+                    form.querySelector('.resultado').value = 0;
+                });
+        });
+
+        form.querySelector('.r-digicom').addEventListener('input', function () {
+            const r_digicom = parseFloat(this.value.trim()) || 0;
+            const metaInput = form.querySelector('.meta');
+
+            if (r_digicom === 0) {
+                metaInput.value = "Lo esperado";
+            } else if (resultadoGlobal >= r_digicom) {
+                metaInput.value = "Meta Alcanzada";
+            } else {
+                metaInput.value = "Meta no alcanzada";
+            }
+
+            const uvt = parseFloat(form.querySelector('.uvt').value.replace(/[^0-9,.]/g, '').replace(',', '.')) || 0;
+            const multa = (uvt * r_digicom) / 2;
+            form.querySelector('.multa').value = `$${multa.toFixed(0)}`;
         });
     });
-
-    form.querySelector('.r-digicom').addEventListener('input', function () {
-        const r_digicom = parseFloat(this.value.trim()) || 0;
-        const metaInput = form.querySelector('.meta');
-        
-        if (r_digicom === 0) {
-            metaInput.value = "Lo esperado";
-        } else if (resultadoGlobal >= r_digicom) {
-            metaInput.value = "Meta Alcanzada";
-        } else {
-            metaInput.value = "Meta no alcanzada";
-        }
-
-        const uvt = parseFloat(form.querySelector('.uvt').value.replace(/[^0-9,.]/g, '').replace(',', '.')) || 0;
-        const multa = (uvt * r_digicom) / 2;
-        form.querySelector('.multa').value = `$${multa.toFixed(0)}`;
-    });
-});
 </script>
 
 
 <script>
     // Usamos 'let' en lugar de 'const' y un IIFE (Immediately Invoked Function Expression)
     // para crear un nuevo ámbito para nuestras variables y evitar errores de redeclaración.
-    (function() {
+    (function () {
         // 1. El nombre de la variable del contexto también es dinámico ahora.
         let canvasId = 'grafica_sanciones{{ tipo_sancion }}';
         let chartVarName = 'grafica_sanciones{{ tipo_sancion }}';
 
         let canvasElement = document.getElementById(canvasId);
-        
+
         // Verificamos si el canvas existe antes de continuar
         if (canvasElement) {
             let ctx = canvasElement.getContext('2d');
@@ -209,28 +211,29 @@ document.querySelectorAll('.form-sanciones').forEach(form => {
             window[chartVarName] = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: {{ meses_sanciones|default([])|tojson|safe }},
-                    datasets: [{
-                        label: 'Multa por mes', // Etiqueta más genérica
-                        data: {{ multas_sanciones|default([])|tojson|safe }},
-                        borderColor: 'rgba(255, 99, 132, 1)',
-                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                        fill: true,
-                        tension: 0.3
+                    labels: {{ meses_sanciones|default([]) | tojson | safe }}
+    },
+    datasets: [{
+        label: 'Multa por mes', // Etiqueta más genérica
+        data: {{ multas_sanciones|default ([]) | tojson | safe }},
+        borderColor: 'rgba(255, 99, 132, 1)',
+        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+        fill: true,
+        tension: 0.3
                     }]
                 },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                            // Es mejor no fijar un 'max' a menos que sea necesario,
-                            // Chart.js lo calculará automáticamente.
-                        }
-                    }
-                }
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+                // Es mejor no fijar un 'max' a menos que sea necesario,
+                // Chart.js lo calculará automáticamente.
+            }
+        }
+    }
             });
         } else {
-            console.error('No se pudo encontrar el elemento canvas con id:', canvasId);
-        }
-    })();
+        console.error('No se pudo encontrar el elemento canvas con id:', canvasId);
+    }
+    }) ();
 </script>

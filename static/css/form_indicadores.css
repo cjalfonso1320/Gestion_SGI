@@ -103,3 +103,94 @@
 .table th {
   background-color: #555;
 }
+.form-grid-container {
+        display: grid;
+        /* Crea 3 columnas de igual tamaño que ocupan el espacio disponible */
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        /* Espacio entre los campos */
+    }
+
+    .form-field {
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Campos que deben ocupar todo el ancho (3 columnas) */
+    .full-width {
+        grid-column: 1 / -1;
+        /* Ocupa desde la línea 1 hasta la última */
+    }
+
+    /* Estilos para los inputs dobles (Como/Donde y Activo/Inactivo) */
+    .input-group {
+        display: flex;
+        gap: 10px;
+    }
+
+    .input-group input {
+        width: 50%;
+    }
+
+.risk-form-grid {
+        display: grid;
+        /* Rejilla principal de 3 columnas */
+        grid-template-columns: repeat(3, 1fr);
+        gap: 25px 20px; /* 25px de espacio vertical, 20px horizontal */
+    }
+
+    /* Estilo base para cada campo del formulario */
+    .form-field {
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Estilo para los títulos de las secciones grandes */
+    .section-title {
+        grid-column: 1 / -1; /* Ocupa todo el ancho */
+        margin-top: 20px;
+        margin-bottom: -5px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid var(--border-color);
+        color: var(--primary-color);
+        font-size: 1.1em;
+        font-weight: bold;
+    }
+
+    /* Contenedor para las columnas de análisis (Inherente vs. Residual) */
+    .analysis-container {
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* Dos columnas iguales */
+        gap: 20px;
+    }
+    
+    .analysis-column {
+        display: flex;
+        flex-direction: column;
+        gap: 20px; /* Espacio entre los campos dentro de una columna */
+    }
+
+    /* Utilidad para que un campo ocupe todo el ancho de su contenedor */
+    .full-width {
+        grid-column: 1 / -1;
+    }
+    
+    /* Grupos de inputs que van juntos en la misma línea */
+    .input-group {
+        display: flex;
+        gap: 10px;
+    }
+    .input-group input {
+        width: 100%; /* Ocupan el espacio disponible dentro del grupo */
+    }
+
+    /* Estilo para el botón de guardar */
+    .submit-container {
+        grid-column: 3 / 4; /* Coloca el botón en la tercera columna */
+        align-self: end; /* Lo alinea al final del contenedor */
+    }
+    .submit-container button {
+        width: 100%;
+        padding: 15px;
+        font-size: 1.1em;

@@ -1,31 +1,5 @@
 from extension import mysql
 
-# def guardar_matriz(rol, proceso, datos):
-#     cur = mysql.connection.cursor()
-#     sql = """
-#         INSERT INTO matriz_activo (tipo_activo, nombre, cantidad, responsable, clasificacion, confidencialidad, integridad, disponibilidad, total, id_rol, proceso) 
-#         VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-# """
-#     id_rol = rol
-#     proceso = proceso
-#     valores = (
-#         datos.get('tipoActivo'),
-#         datos.get('nombre_activo'),
-#         datos.get('cant_activo'),
-#         datos.get('responsable_activo'),
-#         datos.get('clasificacionActivo'),
-#         datos.get('ConfidencialidadActivo'),
-#         datos.get('IntegridadActivo'),
-#         datos.get('DisponibilidadActivo'),
-#         datos.get('TotalActivo'),
-#         id_rol,
-#         proceso
-
-#     )
-#     cur.execute(sql, valores)
-#     mysql.connection.commit()
-#     cur.close()
-
 def guardar_matriz(rol, proceso, datos):
     cur = mysql.connection.cursor()
     sql_insert = """
@@ -117,4 +91,28 @@ def modificar_matriz(activo_id, columna, nuevo_valor):
 
     return resultado_total[0] if resultado_total else 0
 
-    
+def lista_para_riesgos(riesgo): 
+    cur = mysql.connection.cursor()
+    if riesgo == 'operacional':
+        sql = """
+        SELECT nombre, tipo_activo, total FROM matriz_activo WHERE id_rol IN (2, 4, 5, 6, 7, 10, 11, 12, 13) AND total >= 9
+        """
+    elif riesgo == 'administrativo':
+        sql = """
+        SELECT nombre, tipo_activo, total FROM matriz_activo WHERE id_rol IN (8, 14, 15, 16, 17, 18, 19, 20, 21) AND total >= 9
+        """
+    elif riesgo == 'T-I':
+        sql = """
+        SELECT nombre, tipo_activo, total FROM matriz_activo WHERE id_rol = 9 AND total >= 9
+        """
+
+    if not sql:
+        return []
+    cur.execute(sql)
+    nombre_columnas = [desc[0] for desc in cur.description]
+    activos_lista = [dict(zip(nombre_columnas, row)) for row in cur.fetchall()]
+    cur.close()
+    return activos_lista
+
+
+

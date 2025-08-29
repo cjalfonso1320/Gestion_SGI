@@ -7,14 +7,62 @@
     <nav class="main-menu">
         <div>
             <div class="user-info">
-                <img src="{{ url_for('static', filename='imgs/user.png') }}"
-                    alt="user" />
+                <img src="{{ url_for('static', filename='imgs/user.png') }}" alt="user" />
                 <p>{{ usuario.name }}</p>
             </div>
-          
+        </div>
+        <div>
+            <ul>
+                <li class="nav-item">
+                    <a href="{{ url_for('doc.documentacion')}}" class="nav-link" data-section="documentacion">
+                        <i class="fa-regular fa-file-lines nav-icon"></i>
+                        <span class="nav-text">Documentacion</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url_for('ind.indicadores')}}" class="nav-link" data-section="indicadores">
+                        <i class="fa-solid fa-chart-line nav-icon"></i>
+                        <span class="nav-text">Indicadores</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url_for('usoInt.UsoInterno')}}" class="nav-link" data-section="uso-interno">
+                        <i class="fa-regular fa-file-lines nav-icon"></i>
+                        <span class="nav-text">Informacion de Uso Interno</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url_for('mRiesgos.Matriz_Riesgos')}}" class="nav-link" data-section="matriz-riesgos">
+                        <i class="fa-regular fa-file-lines nav-icon"></i>
+                        <span class="nav-text">Matriz de Riesgos</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url_for('mActivos.Matriz_Activos')}}" class="nav-link" data-section="matriz-activos">
+                        <i class="fa-regular fa-file-lines nav-icon"></i>
+                        <span class="nav-text">Matriz de Activos</span>
+                    </a>
+                </li>
+                {% if current_user.rol == 16 %}
+                <li class="nav-item">
+                    <a href="{{ url_for('lMaestra.Lista_Maestra')}}" class="nav-link" data-section="lista-maestra">
+                        <i class="fa-regular fa-file-lines nav-icon"></i>
+                        <span class="nav-text">Lista Maestra</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-section="control">
+                        <i class="fa-regular fa-file-lines nav-icon"></i>
+                        <span class="nav-text">Control</span>
+                    </a>
+                </li>
+                {% endif %}
+
+            </ul>
         </div>
 
         <ul>
+
             <li class="nav-item">
                 <a href="{{ url_for('auth.logout') }}">
                     <i class="fa fa-right-from-bracket nav-icon"></i>
@@ -31,98 +79,85 @@
             <!-- MENU CENTRAL -->
             <div class="upcoming-events">
                 <h1>Sistema de Gestion Integrado</h1>
-                <div class="event-container">
-                    <a href="{{ url_for('doc.documentacion')}}" style="text-decoration: none; color: #FFFFFF;">
-                        <div class="card event-card">
-                            <div class="event-header">
-                                <img src="{{ url_for('static', filename='imgs/Documentacion.png') }}"
-                                    alt="" style="object-fit: fill;" />
-                                <i class="bx bx-heart like-btn"></i>
-                            </div>
-                            <div class="event-content">
-                                <h2>Documentacion</h2>
+                {% if request.endpoint != 'home.home' %}
+                <div style="margin-bottom: 20px;">
+                    <a href="{{ url_for('home.home') }}" class="btn-10" style="text-decoration: none; display: inline-block;">
+                        <i class="fa fa-home"></i> Volver al Inicio
+                    </a>
+                </div>
+                {% endif %}
+                <div id="content-container">
+                    <!-- PRESENTACION INICIAL -->
+                    <div id="initial-presentation" class="initial-content" {% if request.endpoint != 'home.home' %}style="display: none;"{% endif %}>
+                        <div class="welcome-section">
+                            <h2>¡Bienvenido al Sistema de Gestión Integrado!</h2>
+                            <p>Selecciona una opción del menú lateral para comenzar a gestionar tu información.</p>
+                            
+                            <div class="feature-grid">
+                                <a href="{{ url_for('doc.documentacion')}}" style="text-decoration: none;">
+                                    <div class="feature-card">
+                                        <i class="fa-regular fa-file-lines"></i>
+                                        <h3>Documentación</h3>
+                                        <p>Gestiona toda la documentación del sistema</p>
+                                    </div>
+                                </a>
+                                <a href="{{ url_for('ind.indicadores')}}" style="text-decoration: none;">
+                                    <div class="feature-card">
+                                        <i class="fa-solid fa-chart-line"></i>
+                                        <h3>Indicadores</h3>
+                                        <p>Visualiza y analiza los indicadores clave</p>
+                                    </div>
+                                </a>
+                                <a href="{{ url_for('usoInt.UsoInterno')}}" style="text-decoration: none;">
+                                    <div class="feature-card">
+                                        <i class="fa-regular fa-file-lines"></i>
+                                        <h3>Uso Interno</h3>
+                                        <p>Accede a información de uso interno</p>
+                                    </div>
+                                </a>
+                                <a href="{{ url_for('mRiesgos.Matriz_Riesgos')}}" style="text-decoration: none;">
+                                    <div class="feature-card">
+                                        <i class="fa-regular fa-file-lines"></i>
+                                        <h3>Matriz de Riesgos</h3>
+                                        <p>Gestiona y evalúa los riesgos del sistema</p>
+                                    </div>
+                                </a>
+                                <a href="{{ url_for('mActivos.Matriz_Activos')}}" style="text-decoration: none;">
+                                    <div class="feature-card">
+                                        <i class="fa-regular fa-file-lines"></i>
+                                        <h3>Matriz de Activos</h3>
+                                        <p>Administra los activos del sistema</p>
+                                    </div>
+                                </a>
+                                {% if current_user.rol == 16 %}
+                                <a href="{{ url_for('lMaestra.Lista_Maestra')}}" style="text-decoration: none;">
+                                    <div class="feature-card">
+                                        <i class="fa-regular fa-file-lines"></i>
+                                        <h3>Lista Maestra</h3>
+                                        <p>Gestiona la lista maestra de documentos</p>
+                                    </div>
+                                </a>
+                                <a href="#" style="text-decoration: none;">
+                                    <div class="feature-card">
+                                        <i class="fa-regular fa-file-lines"></i>
+                                        <h3>Control</h3>
+                                        <p>Accede a las funciones de control</p>
+                                    </div>
+                                </a>
+                                {% endif %}
                             </div>
                         </div>
-                    </a>
-
-                    <a href="{{ url_for('ind.indicadores')}}" style="text-decoration: none; color: #FFFFFF;">
-                        <div class="card event-card">
-                            <div class="event-header">
-                                <img src="{{ url_for('static', filename='imgs/adminRoles.png') }}"
-                                    alt="" style="object-fit: fill;" />
-                                <i class="bx bx-heart like-btn"></i>
-                            </div>
-                            <div class="event-content">
-                                <!-- <a href="#" style="text-decoration: none; color: antiquewhite;"><h2>Administracion de Usuarios</h2></a> -->
-                                <h2>Indicadores</h2>
-                            </div>
-                        </div>
-                    </a>
-
-                    <a href="{{ url_for('usoInt.UsoInterno') }}" style="text-decoration: none; color: #FFFFFF;">
-                        <div class="card event-card">
-                            <div class="event-header">
-                                <img src="{{ url_for('static', filename='imgs/UsoInterno.png') }}"
-                                    alt="" />
-                                <i class="bx bx-heart like-btn"></i>
-                            </div>
-                            <div class="event-content">
-                                <!-- <a href="#" style="text-decoration: none; color: antiquewhite;"><h2>Administracion de Usuarios</h2></a> -->
-                                <h2>Informacion de Uso Interno</h2>
-                            </div>
-                        </div>
-                    </a>
-
-                    <a href="{{ url_for('mActivos.Matriz_Activos') }}" style="text-decoration: none; color: #FFFFFF;">
-                        <div class="card event-card">
-                            <div class="event-header">
-                                <img src="{{ url_for('static', filename='imgs/matriz.png') }}"
-                                    alt="" />
-                                <i class="bx bx-heart like-btn"></i>
-                            </div>
-                            <div class="event-content">
-                                <!-- <a href="#" style="text-decoration: none; color: antiquewhite;"><h2>Administracion de Usuarios</h2></a> -->
-                                <h2>Matriz de Activos</h2>
-                            </div>
-                        </div>
-                    </a>
-                    {% if current_user.rol == 16 %}
-                    <a href="" style="text-decoration: none; color: #FFFFFF;">
-                        <div class="card event-card">
-                            <div class="event-header">
-                                <img src="{{ url_for('static', filename='imgs/matriz.png') }}"
-                                    alt="" />
-                                <i class="bx bx-heart like-btn"></i>
-                            </div>
-                            <div class="event-content">
-                                <h2>Lista Maestra</h2>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="" style="text-decoration: none; color: #FFFFFF;">
-                        <div class="card event-card">
-                            <div class="event-header">
-                                <img src="{{ url_for('static', filename='imgs/matriz.png') }}"
-                                    alt="" />
-                                <i class="bx bx-heart like-btn"></i>
-                            </div>
-                            <div class="event-content">
-                                <h2>Control</h2>
-                            </div>
-                        </div>
-                    </a>
-                    {% endif %}
+                    </div>
+                    
+                    <!-- CONTENIDO DINÁMICO -->
+                    <div id="dynamic-content" class="dynamic-content" {% if request.endpoint != 'home.home' %}style="display: block;"{% endif %}>
+                        {% block content %}
+                        <!-- Contenido específico de cada página -->
+                        {% endblock %}
+                    </div>
                 </div>
             </div>
             <!-- FINALIZA MENU CENTRAL -->
-
-            <!-- INFORMACION -->
-             <div>
-             {% block content %}
-            <!-- Contenido específico de cada página -->
-            {% endblock %}
-            </div>
-            <!-- FINALIZA INFORMACION -->
         </div>
 
         <!-- MENU DERECHA-CONTEOS -->
@@ -135,20 +170,15 @@
                             <h2>Procesos</h2>
                             {% if procesos %}
                             {% for proceso in procesos %}
-                    <li style="padding: 8px 0; border-bottom: 1px solid var(--border-color);">
-                        <!-- Usamos .replace('_', ' ') para mostrar un nombre más legible -->
-                        {{ proceso.replace('_', ' ') }}
-                    </li>
-                    {% endfor %}
-                    {% else %}
-                    <p>no se han cargado procesos</p>
-                    {% endif %}
+                            <li style="padding: 8px 0; border-bottom: 1px solid var(--border-color); list-style: none;">
+                                <!-- Usamos .replace('_', ' ') para mostrar un nombre más legible -->
+                                {{ proceso.replace('_', ' ') }}
+                            </li>
+                            {% endfor %}
+                            {% else %}
+                            <p>no se han cargado procesos</p>
+                            {% endif %}
                             <i class="bx bx-check-circle"></i>
-                        </div>
-                        <div class="event-number card">
-                            <h2>Roles</h2>
-                            <p>{{roles_cuenta}}</p>
-                            <i class="bx bx-timer"></i>
                         </div>
                     </div>
                 </div>

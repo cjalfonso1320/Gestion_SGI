@@ -1,332 +1,342 @@
 <form id="form_administrativos_{{proceso}}" method="post">
-    <input type="hidden" name="proceso" id="proceso_{{ proceso }}" value="{{ proceso }}">
-    <input type="hidden" name="meta" id="meta_{{ proceso }}" value="{{ meta }}">
-    <div>
-        <label class="form-label" for="mes">Mes</label>
-        <select id="mes" name="mes" required>
-            <option value="">Seleccione un mes</option>
-            <option value="Enero">Enero</option>
-            <option value="Febrero">Febrero</option>
-            <option value="Marzo">Marzo</option>
-            <option value="Abril">Abril</option>
-            <option value="Mayo">Mayo</option>
-            <option value="Junio">Junio</option>
-            <option value="Julio">Julio</option>
-            <option value="Agosto">Agosto</option>
-            <option value="Septiembre">Septiembre</option>
-            <option value="Octubre">Octubre</option>
-            <option value="Noviembre">Noviembre</option>
-            <option value="Diciembre">Diciembre</option>
-        </select>
+    <div class="form-grid-container">
+        <input type="hidden" name="proceso" id="proceso_{{ proceso }}" value="{{ proceso }}">
+        <input type="hidden" name="meta" id="meta_{{ proceso }}" value="{{ meta }}">
+        <div class="form-field">
+            <label class="form-label" for="mes">Mes</label>
+            <select id="mes" name="mes" required>
+                <option value="">Seleccione un mes</option>
+                <option value="Enero">Enero</option>
+                <option value="Febrero">Febrero</option>
+                <option value="Marzo">Marzo</option>
+                <option value="Abril">Abril</option>
+                <option value="Mayo">Mayo</option>
+                <option value="Junio">Junio</option>
+                <option value="Julio">Julio</option>
+                <option value="Agosto">Agosto</option>
+                <option value="Septiembre">Septiembre</option>
+                <option value="Octubre">Octubre</option>
+                <option value="Noviembre">Noviembre</option>
+                <option value="Diciembre">Diciembre</option>
+            </select>
+        </div>
+        {% if proceso == 'sistemas' or proceso == 'tecnologia' %}
+        <div class="mb-3 form-field">
+            <label class="form-label" for="Sol_atendidas">Solicitudes Atendidas</label>
+            <input class="form-control" type="number" id="Sol_atendidas_{{ proceso }}" name="Sol_atendidas" required>
+        </div>
+        <div class="mb-3 form-field">
+            <label class="form-label" for="Sol_realizadas">Solicitudes Realizadas</label>
+            <input class="form-control" type="number" id="Sol_realizadas_{{ proceso }}" name="Sol_realizadas">
+        </div>
+        {% elif proceso == 'comercial_propuestas' %}
+        <div class="mb-3 form-field">
+            <label class="form-label" for="Sol_atendidas">Propuestas Acepatadas</label>
+            <input class="form-control" type="number" id="Sol_atendidas_{{ proceso }}" name="Sol_atendidas" required>
+        </div>
+        <div class="mb-3 form-field">
+            <label class="form-label" for="Sol_realizadas">Propuestas Enviadas</label>
+            <input class="form-control" type="number" id="Sol_realizadas_{{ proceso }}" name="Sol_realizadas">
+        </div>
+        {% elif proceso == 'comercial_efectividad' %}
+        <div class="mb-3 form-field">
+            <label class="form-label" for="Sol_atendidas">Propuestas Recibidas</label>
+            <input class="form-control" type="number" id="Sol_atendidas_{{ proceso }}" name="Sol_atendidas" required>
+        </div>
+        <div class="mb-3 form-field">
+            <label class="form-label" for="Sol_realizadas">Propuestas Aprobadas</label>
+            <input class="form-control" type="number" id="Sol_realizadas_{{ proceso }}" name="Sol_realizadas">
+        </div>
+        {% elif proceso == 'comercial_pqr' %}
+        <div class="mb-3 form-field">
+            <label class="form-label" for="Sol_atendidas">Quejas Recibidas</label>
+            <input class="form-control" type="number" id="Sol_atendidas_{{ proceso }}" name="Sol_atendidas" required>
+        </div>
+        <div class="mb-3 form-field">
+            <label class="form-label" for="Sol_realizadas">Quejas Atendidas</label>
+            <input class="form-control" type="number" id="Sol_realizadas_{{ proceso }}" name="Sol_realizadas">
+        </div>
+        {% elif proceso == 'TH_clima_organizacional' %}
+        <div class="mb-3 form-field">
+            <label class="form-label" for="Sol_atendidas">Suma Total de los 12 Items Evaluados</label>
+            <input class="form-control" type="number" id="Sol_atendidas_{{ proceso }}" name="Sol_atendidas" required
+                step="0.01">
+        </div>
+        <div class="mb-3 form-field">
+            <label class="form-label" for="Sol_realizadas">Total de Indicadores</label>
+            <input class="form-control" type="number" id="Sol_realizadas_{{ proceso }}" name="Sol_realizadas">
+        </div>
+        {% elif proceso == 'TH_Cumplimiento_Capacitaciones' %}
+        <div class="mb-3 form-field">
+            <label class="form-label" for="Sol_atendidas">Capacitaciones Planeadas</label>
+            <input class="form-control" type="number" id="Sol_atendidas_{{ proceso }}" name="Sol_atendidas" required>
+        </div>
+        <div class="mb-3 form-field">
+            <label class="form-label" for="Sol_realizadas">Capacitaciones Realizadas</label>
+            <input class="form-control" type="number" id="Sol_realizadas_{{ proceso }}" name="Sol_realizadas">
+        </div>
+        {% elif proceso == 'TH_Eficacia_Capacitaciones' %}
+        <div class="mb-3 form-field">
+            <label class="form-label" for="Sol_atendidas">Calificacion de las Evaluaciones</label>
+            <input class="form-control" type="number" id="Sol_atendidas_{{ proceso }}" name="Sol_atendidas" required
+                step="0.01">
+        </div>
+        <input class="form-control" type="hidden" id="Sol_realizadas_{{ proceso }}" name="Sol_realizadas" value="0">
+        {% elif proceso == 'TH_Evaluacion_Desempeño' %}
+        <div class="mb-3 form-field">
+            <label class="form-label" for="Sol_atendidas">Sumatoria de Calificaciones Globales</label>
+            <input class="form-control" type="number" id="Sol_atendidas_{{ proceso }}" name="Sol_atendidas" required
+                step="0.01">
+        </div>
+        <div class="mb-3 form-field">
+            <label class="form-label" for="Sol_realizadas">Cantidad de Colaboradores Evaluados</label>
+            <input class="form-control" type="number" id="Sol_realizadas_{{ proceso }}" name="Sol_realizadas">
+        </div>
+        {% elif proceso == 'financiera' %}
+        <div class="mb-3 form-field">
+            <label class="form-label" for="Sol_atendidas">Sumatoria de Evaluacion de Proveedores</label>
+            <input class="form-control" type="number" id="Sol_atendidas_{{ proceso }}" name="Sol_atendidas" required
+                step="0.01">
+        </div>
+        <div class="mb-3 form-field">
+            <label class="form-label" for="Sol_realizadas">Total Proveedores Evaluados</label>
+            <input class="form-control" type="number" id="Sol_realizadas_{{ proceso }}" name="Sol_realizadas">
+        </div>
+        {% elif proceso == 'SGI_Acciones_Correctivas' %}
+        <div class="mb-3 form-field">
+            <label class="form-label" for="Sol_atendidas">Acciones Correctivas Documentadas</label>
+            <input class="form-control" type="number" id="Sol_atendidas_{{ proceso }}" name="Sol_atendidas" required
+                step="0.01">
+        </div>
+        <div class="mb-3 form-field">
+            <label class="form-label" for="Sol_realizadas">Acciones Correctivas Abiertas</label>
+            <input class="form-control" type="number" id="Sol_realizadas_{{ proceso }}" name="Sol_realizadas">
+        </div>
+        {% elif proceso == 'SGI_Continuidad_Negocio' %}
+        <div class="mb-3 form-field">
+            <label class="form-label" for="Sol_atendidas">Pruebas Programadas</label>
+            <input class="form-control" type="number" id="Sol_atendidas_{{ proceso }}" name="Sol_atendidas" required
+                step="0.01">
+        </div>
+        <div class="mb-3 form-field">
+            <label class="form-label" for="Sol_realizadas">Pruebas Realizadas</label>
+            <input class="form-control" type="number" id="Sol_realizadas_{{ proceso }}" name="Sol_realizadas">
+        </div>
+        {% elif proceso == 'SGI_Incidentes_Seguridad' %}
+        <div class="mb-3 form-field">
+            <label class="form-label" for="Sol_atendidas">Incidentes Presentados</label>
+            <input class="form-control" type="number" id="Sol_atendidas_{{ proceso }}" name="Sol_atendidas" required
+                step="0.01">
+        </div>
+        <div class="mb-3 form-field">
+            <label class="form-label" for="Sol_realizadas">Incidentes Repetidos</label>
+            <input class="form-control" type="number" id="Sol_realizadas_{{ proceso }}" name="Sol_realizadas">
+        </div>
+        {% elif proceso == 'SGI_Producto_No_Conforme' %}
+        <div class="mb-3 form-field">
+            <label class="form-label" for="Sol_atendidas">Producto No Conforme Identificados</label>
+            <input class="form-control" type="number" id="Sol_atendidas_{{ proceso }}" name="Sol_atendidas" required
+                step="0.01">
+        </div>
+        <div class="mb-3 form-field">
+            <label class="form-label" for="Sol_realizadas">Producto No Conforme Repetidos</label>
+            <input class="form-control" type="number" id="Sol_realizadas_{{ proceso }}" name="Sol_realizadas">
+        </div>
+        {% elif proceso == 'SGI_Riesgos' %}
+        <div class="mb-3 form-field">
+            <label class="form-label" for="Sol_atendidas">Total Riesgos Evaluados</label>
+            <input class="form-control" type="number" id="Sol_atendidas_{{ proceso }}" name="Sol_atendidas" required
+                step="0.01">
+        </div>
+        <div class="mb-3 form-field">
+            <label class="form-label" for="Sol_realizadas">Riesgos con Disminucion</label>
+            <input class="form-control" type="number" id="Sol_realizadas_{{ proceso }}" name="Sol_realizadas">
+        </div>
+        {% else %}
+        <div class="mb-3 form-field">
+            <label class="form-label" for="Sol_atendidas">Documentos Entregados</label>
+            <input class="form-control" type="number" id="Sol_atendidas_{{ proceso }}" name="Sol_atendidas" required>
+        </div>
+        <div class="mb-3 form-field">
+            <label class="form-label" for="Sol_realizadas">Documentos Extemporaneos</label>
+            <input class="form-control" type="number" id="Sol_realizadas_{{ proceso }}" name="Sol_realizadas">
+        </div>
+        {% endif %}
+        <div class="mb-3 form-field">
+            <label class="form-label" for="resultado_administrativo">Resultado (%)</label>
+            <input class="form-control" type="number" id="resultado_administrativo_{{ proceso }}"
+                name="resultado_administrativo" readonly>
+        </div>
+        <div class="mb-3 form-field">
+            <label class="form-label" for="meta_administrativo">Meta</label>
+            <input class="form-control" type="text" id="meta_administrativo_{{ proceso }}" name="meta_administrativo"
+                readonly>
+        </div>
+        <div class="mb-3 form-field">
+            <label class="form-label" for="analisis_administrativo">Analisis</label>
+            <textarea id="analisis_administrativo_{{ proceso }}" name="analisis_administrativo"></textarea>
+        </div>
+        <button type="submit">Guardar</button>
     </div>
-    {% if proceso == 'sistemas' or proceso == 'tecnologia' %}
-        <div class="mb-3">
-            <label class="form-label" for="Sol_atendidas" >Solicitudes Atendidas</label>
-            <input class="form-control" type="number"  id="Sol_atendidas_{{ proceso }}" name="Sol_atendidas" required>
-        </div>
-        <div class="mb-3">
-            <label class="form-label" for="Sol_realizadas" >Solicitudes Realizadas</label>
-            <input class="form-control" type="number"  id="Sol_realizadas_{{ proceso }}" name="Sol_realizadas">
-        </div>
-    {% elif proceso == 'comercial_propuestas' %}
-        <div class="mb-3">
-            <label class="form-label" for="Sol_atendidas" >Propuestas Acepatadas</label>
-            <input class="form-control" type="number"  id="Sol_atendidas_{{ proceso }}" name="Sol_atendidas" required>
-        </div>
-        <div class="mb-3">
-            <label class="form-label" for="Sol_realizadas" >Propuestas Enviadas</label>
-            <input class="form-control" type="number"  id="Sol_realizadas_{{ proceso }}" name="Sol_realizadas">
-        </div>
-    {% elif proceso == 'comercial_efectividad' %}
-        <div class="mb-3">
-            <label class="form-label" for="Sol_atendidas" >Propuestas Recibidas</label>
-            <input class="form-control" type="number"  id="Sol_atendidas_{{ proceso }}" name="Sol_atendidas" required>
-        </div>
-        <div class="mb-3">
-            <label class="form-label" for="Sol_realizadas" >Propuestas Aprobadas</label>
-            <input class="form-control" type="number"  id="Sol_realizadas_{{ proceso }}" name="Sol_realizadas">
-        </div>
-    {% elif proceso == 'comercial_pqr' %}
-        <div class="mb-3">
-            <label class="form-label" for="Sol_atendidas" >Quejas Recibidas</label>
-            <input class="form-control" type="number"  id="Sol_atendidas_{{ proceso }}" name="Sol_atendidas" required>
-        </div>
-        <div class="mb-3">
-            <label class="form-label" for="Sol_realizadas" >Quejas Atendidas</label>
-            <input class="form-control" type="number"  id="Sol_realizadas_{{ proceso }}" name="Sol_realizadas">
-        </div>
-    {% elif proceso == 'TH_clima_organizacional' %}
-        <div class="mb-3">
-            <label class="form-label" for="Sol_atendidas" >Suma Total de los 12 Items Evaluados</label>
-            <input class="form-control" type="number"  id="Sol_atendidas_{{ proceso }}" name="Sol_atendidas" required step="0.01">
-        </div>
-        <div class="mb-3">
-            <label class="form-label" for="Sol_realizadas" >Total de Indicadores</label>
-            <input class="form-control" type="number"  id="Sol_realizadas_{{ proceso }}" name="Sol_realizadas">
-        </div>
-    {% elif proceso == 'TH_Cumplimiento_Capacitaciones' %}
-        <div class="mb-3">
-            <label class="form-label" for="Sol_atendidas" >Capacitaciones Planeadas</label>
-            <input class="form-control" type="number"  id="Sol_atendidas_{{ proceso }}" name="Sol_atendidas" required>
-        </div>
-        <div class="mb-3">
-            <label class="form-label" for="Sol_realizadas" >Capacitaciones Realizadas</label>
-            <input class="form-control" type="number"  id="Sol_realizadas_{{ proceso }}" name="Sol_realizadas">
-        </div>
-    {% elif proceso == 'TH_Eficacia_Capacitaciones' %}
-        <div class="mb-3">
-            <label class="form-label" for="Sol_atendidas" >Calificacion de las Evaluaciones</label>
-            <input class="form-control" type="number"  id="Sol_atendidas_{{ proceso }}" name="Sol_atendidas" required step="0.01">
-        </div>
-            <input class="form-control" type="hidden"  id="Sol_realizadas_{{ proceso }}" name="Sol_realizadas" value="0">
-    {% elif proceso == 'TH_Evaluacion_Desempeño' %}
-        <div class="mb-3">
-            <label class="form-label" for="Sol_atendidas" >Sumatoria de Calificaciones Globales</label>
-            <input class="form-control" type="number"  id="Sol_atendidas_{{ proceso }}" name="Sol_atendidas" required step="0.01">
-        </div>
-        <div class="mb-3">
-            <label class="form-label" for="Sol_realizadas" >Cantidad de Colaboradores Evaluados</label>
-            <input class="form-control" type="number"  id="Sol_realizadas_{{ proceso }}" name="Sol_realizadas">
-        </div>
-    {% elif proceso == 'financiera' %}
-        <div class="mb-3">
-            <label class="form-label" for="Sol_atendidas" >Sumatoria de Evaluacion de Proveedores</label>
-            <input class="form-control" type="number"  id="Sol_atendidas_{{ proceso }}" name="Sol_atendidas" required step="0.01">
-        </div>
-        <div class="mb-3">
-            <label class="form-label" for="Sol_realizadas" >Total Proveedores Evaluados</label>
-            <input class="form-control" type="number"  id="Sol_realizadas_{{ proceso }}" name="Sol_realizadas">
-        </div>
-    {% elif proceso == 'SGI_Acciones_Correctivas' %}
-        <div class="mb-3">
-            <label class="form-label" for="Sol_atendidas" >Acciones Correctivas Documentadas</label>
-            <input class="form-control" type="number"  id="Sol_atendidas_{{ proceso }}" name="Sol_atendidas" required step="0.01">
-        </div>
-        <div class="mb-3">
-            <label class="form-label" for="Sol_realizadas" >Acciones Correctivas Abiertas</label>
-            <input class="form-control" type="number"  id="Sol_realizadas_{{ proceso }}" name="Sol_realizadas">
-        </div>
-{% elif proceso == 'SGI_Continuidad_Negocio' %}
-        <div class="mb-3">
-            <label class="form-label" for="Sol_atendidas" >Pruebas Programadas</label>
-            <input class="form-control" type="number"  id="Sol_atendidas_{{ proceso }}" name="Sol_atendidas" required step="0.01">
-        </div>
-        <div class="mb-3">
-            <label class="form-label" for="Sol_realizadas" >Pruebas Realizadas</label>
-            <input class="form-control" type="number"  id="Sol_realizadas_{{ proceso }}" name="Sol_realizadas">
-        </div>
-{% elif proceso == 'SGI_Incidentes_Seguridad' %}
-        <div class="mb-3">
-            <label class="form-label" for="Sol_atendidas" >Incidentes Presentados</label>
-            <input class="form-control" type="number"  id="Sol_atendidas_{{ proceso }}" name="Sol_atendidas" required step="0.01">
-        </div>
-        <div class="mb-3">
-            <label class="form-label" for="Sol_realizadas" >Incidentes Repetidos</label>
-            <input class="form-control" type="number"  id="Sol_realizadas_{{ proceso }}" name="Sol_realizadas">
-        </div>
-{% elif proceso == 'SGI_Producto_No_Conforme' %}
-        <div class="mb-3">
-            <label class="form-label" for="Sol_atendidas" >Producto No Conforme Identificados</label>
-            <input class="form-control" type="number"  id="Sol_atendidas_{{ proceso }}" name="Sol_atendidas" required step="0.01">
-        </div>
-        <div class="mb-3">
-            <label class="form-label" for="Sol_realizadas" >Producto No Conforme Repetidos</label>
-            <input class="form-control" type="number"  id="Sol_realizadas_{{ proceso }}" name="Sol_realizadas">
-        </div>
-{% elif proceso == 'SGI_Riesgos' %}
-        <div class="mb-3">
-            <label class="form-label" for="Sol_atendidas" >Total Riesgos Evaluados</label>
-            <input class="form-control" type="number"  id="Sol_atendidas_{{ proceso }}" name="Sol_atendidas" required step="0.01">
-        </div>
-        <div class="mb-3">
-            <label class="form-label" for="Sol_realizadas" >Riesgos con Disminucion</label>
-            <input class="form-control" type="number"  id="Sol_realizadas_{{ proceso }}" name="Sol_realizadas">
-        </div>
-    {% else %}
-        <div class="mb-3">
-            <label class="form-label" for="Sol_atendidas" >Documentos Entregados</label>
-            <input class="form-control" type="number"  id="Sol_atendidas_{{ proceso }}" name="Sol_atendidas" required>
-        </div>
-        <div class="mb-3">
-            <label class="form-label" for="Sol_realizadas" >Documentos Extemporaneos</label>
-            <input class="form-control" type="number"  id="Sol_realizadas_{{ proceso }}" name="Sol_realizadas">
-        </div>
-    {% endif %}
-    <div class="mb-3">
-        <label class="form-label" for="resultado_administrativo" >Resultado (%)</label>
-        <input class="form-control" type="number"  id="resultado_administrativo_{{ proceso }}" name="resultado_administrativo" readonly>
-    </div>
-    <div class="mb-3">
-        <label class="form-label" for="meta_administrativo" >Meta</label>
-        <input class="form-control" type="text"  id="meta_administrativo_{{ proceso }}" name="meta_administrativo" readonly>
-    </div>
-    <div class="mb-3">
-        <label class="form-label" for="analisis_administrativo" >Analisis</label>
-        <textarea id="analisis_administrativo_{{ proceso }}" name="analisis_administrativo"></textarea>
-    </div>
-    <button type="submit">Guardar</button>
 </form>
 
 
 <div class="container mt-4">
-    
-<div class="accordion" id="acordeonTabla">
-  <div class="accordion-header" onclick="this.parentElement.classList.toggle('active')">
-    Ver Tabla de Registros
-  </div>
-  <div class="accordion-content">
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Mes</th>
-          <th>Documentos Entregados</th>
-          <th>Documentos Extemporaneos</th>
-          <th>Resultado (%)</th>
-          <th>Meta</th>
-          <th>Analisis</th>
-        </tr>
-      </thead>
-      <tbody id="tabla_administrativo_body_{{proceso}}">
-    {% for registro in datos_administrativo %}
-        <tr>
-          <td>{{registro[0]}}</td>
-          <td>{{registro[1]}}</td>
-          <td>{{registro[2]}}</td>
-          <td>{{registro[3]}}</td>
-          <td>{{registro[4]}}</td>
-          <td>{{registro[5]}}</td>
-        </tr>
-    {% endfor %}
-    </tbody>
-    </table>
-  </div>
-</div>
+
+    <div class="accordion" id="acordeonTabla">
+        <div class="accordion-header" onclick="this.parentElement.classList.toggle('active')">
+            Ver Tabla de Registros
+        </div>
+        <div class="accordion-content">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Mes</th>
+                        <th>Documentos Entregados</th>
+                        <th>Documentos Extemporaneos</th>
+                        <th>Resultado (%)</th>
+                        <th>Meta</th>
+                        <th>Analisis</th>
+                    </tr>
+                </thead>
+                <tbody id="tabla_administrativo_body_{{proceso}}">
+                    {% for registro in datos_administrativo %}
+                    <tr>
+                        <td>{{registro[0]}}</td>
+                        <td>{{registro[1]}}</td>
+                        <td>{{registro[2]}}</td>
+                        <td>{{registro[3]}}</td>
+                        <td>{{registro[4]}}</td>
+                        <td>{{registro[5]}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
     <h3>Porcentaje de Documentos Entregados por Mes</h3>
     <canvas id="grafica_administrativo_{{ proceso }}" width="400" height="200"></canvas>
 </div>
-
-<!-- Chart.js debe ir antes del script que lo usa -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
 <script>
     const ctx_administrativo_{{ proceso }} = document.getElementById('grafica_administrativo_{{ proceso }}').getContext('2d');
-    window.grafica_administrativo_{{ proceso }} = new Chart(ctx_administrativo_{{ proceso }}, {
+    window.grafica_administrativo_{ { proceso } } = new Chart(ctx_administrativo_{{ proceso }}, {
         type: 'line',
         data: {
-            labels: {{ meses_administrativo|default([])|tojson|safe }},
-            datasets: [{
-                label: 'Porcentaje Nacionales (%)',
-                data: {{ porcentajes_administrativo|default([])|tojson|safe }},
-                borderColor: 'rgba(255, 99, 132, 1)',
-                backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                fill: true,
-                tension: 0.3
+            labels: {{ meses_administrativo|default([]) | tojson | safe }},
+        datasets: [{
+            label: 'Porcentaje Nacionales (%)',
+            data: {{ porcentajes_administrativo|default ([]) | tojson | safe }},
+        borderColor: 'rgba(255, 99, 132, 1)',
+        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+        fill: true,
+        tension: 0.3
             }]
         },
         options: {
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    max: 100
-                }
+        scales: {
+            y: {
+                beginAtZero: true,
+                max: 100
             }
         }
+    }
     });
 </script>
 <script>
-document.addEventListener('input', function() {
-    meta = document.getElementById('meta_{{ proceso }}').value;
-    proceso = document.getElementById('proceso_{{ proceso }}').value;
-    let total = 0;
-    let fueraRango = 0;
-    if (proceso == 'TH_clima_organizacional' || proceso == 'TH_Eficacia_Capacitaciones' || proceso == 'TH_Evaluacion_Desempeño' || proceso == 'financiera'){
-        total = parseFloat(document.getElementById('Sol_atendidas_{{ proceso }}').value) || 0;
-        fueraRango = parseFloat(document.getElementById('Sol_realizadas_{{ proceso }}').value) || 0;
-    }else{
-        total = parseInt(document.getElementById('Sol_atendidas_{{ proceso }}').value) || 0;
-        fueraRango = parseInt(document.getElementById('Sol_realizadas_{{ proceso }}').value) || 0;
-    }
-    let porcentaje = 0;
-    if (total > 0) {
-        if(proceso == 'SGI_Incidentes_Seguridad' || proceso == 'SGI_Producto_No_Conforme'){
-            porcentaje = ((total - fueraRango) / total) * 100;
+    document.addEventListener('input', function () {
+        meta = document.getElementById('meta_{{ proceso }}').value;
+        proceso = document.getElementById('proceso_{{ proceso }}').value;
+        let total = 0;
+        let fueraRango = 0;
+        if (proceso == 'TH_clima_organizacional' || proceso == 'TH_Eficacia_Capacitaciones' || proceso == 'TH_Evaluacion_Desempeño' || proceso == 'financiera') {
+            total = parseFloat(document.getElementById('Sol_atendidas_{{ proceso }}').value) || 0;
+            fueraRango = parseFloat(document.getElementById('Sol_realizadas_{{ proceso }}').value) || 0;
+        } else {
+            total = parseInt(document.getElementById('Sol_atendidas_{{ proceso }}').value) || 0;
+            fueraRango = parseInt(document.getElementById('Sol_realizadas_{{ proceso }}').value) || 0;
         }
-        else if (fueraRango > 0 && proceso != 'SGI_Incidentes_Seguridad' && proceso != 'SGI_Producto_No_Conforme'){
-            if(proceso == 'TH_clima_organizacional' || proceso == 'financiera'){
-                porcentaje = (total / fueraRango) ;
+        let porcentaje = 0;
+        if (total > 0) {
+            if (proceso == 'SGI_Incidentes_Seguridad' || proceso == 'SGI_Producto_No_Conforme') {
+                porcentaje = ((total - fueraRango) / total) * 100;
             }
-            else if(proceso === 'TH_Evaluacion_Desempeño'){
-                porcentaje = (total / fueraRango) * 100;
+            else if (fueraRango > 0 && proceso != 'SGI_Incidentes_Seguridad' && proceso != 'SGI_Producto_No_Conforme') {
+                if (proceso == 'TH_clima_organizacional' || proceso == 'financiera') {
+                    porcentaje = (total / fueraRango);
+                }
+                else if (proceso === 'TH_Evaluacion_Desempeño') {
+                    porcentaje = (total / fueraRango) * 100;
+                } else {
+                    porcentaje = (fueraRango / total) * 100;
+                }
+            } else if (fueraRango === 0) {
+                porcentaje = total;
             } else {
-                porcentaje = (fueraRango / total) * 100;
+                porcentaje = 0;
             }
-        } else if(fueraRango === 0){
-            porcentaje = total;
-        } else { 
-            porcentaje = 0;
         }
-    }
-    document.getElementById('resultado_administrativo_{{ proceso }}').value = porcentaje.toFixed(2); // 1 decimal
-    if (meta == 'propuesta'){
-        if (porcentaje >= 60) {
-            document.getElementById('meta_administrativo_{{ proceso }}').value = "meta Alcanzada";
+        document.getElementById('resultado_administrativo_{{ proceso }}').value = porcentaje.toFixed(2); // 1 decimal
+        if (meta == 'propuesta') {
+            if (porcentaje >= 60) {
+                document.getElementById('meta_administrativo_{{ proceso }}').value = "meta Alcanzada";
+            } else {
+                document.getElementById('meta_administrativo_{{ proceso }}').value = "meta no alcanzada";
+            }
+        } else if (meta == 'efectividad') {
+            if (porcentaje >= 10) {
+                document.getElementById('meta_administrativo_{{ proceso }}').value = "meta Alcanzada";
+            } else {
+                document.getElementById('meta_administrativo_{{ proceso }}').value = "meta no alcanzada";
+            }
+        } else if (meta == 'pqr' || meta == 'TH_Cumplimiento_Capacitaciones' || meta == 'SGI_Continuidad_Negocio') {
+            if (porcentaje >= 90) {
+                document.getElementById('meta_administrativo_{{ proceso }}').value = "meta Alcanzada";
+            } else {
+                document.getElementById('meta_administrativo_{{ proceso }}').value = "meta no alcanzada";
+            }
+        } else if (meta == 'TH_clima_organizacional') {
+            if (porcentaje >= 3.5) {
+                document.getElementById('meta_administrativo_{{ proceso }}').value = "meta Alcanzada";
+            } else {
+                document.getElementById('meta_administrativo_{{ proceso }}').value = "meta no alcanzada";
+            }
+        } else if (meta == 'TH_Eficacia_Capacitaciones') {
+            if (porcentaje >= 3.30) {
+                document.getElementById('meta_administrativo_{{ proceso }}').value = "meta Alcanzada";
+            } else {
+                document.getElementById('meta_administrativo_{{ proceso }}').value = "meta no alcanzada";
+            }
+        } else if (meta == 'TH_Evaluacion_Desempeño') {
+            if (porcentaje >= 4.5) {
+                document.getElementById('meta_administrativo_{{ proceso }}').value = "meta Alcanzada";
+            } else {
+                document.getElementById('meta_administrativo_{{ proceso }}').value = "meta no alcanzada";
+            }
+        } else if (meta == 'financiera') {
+            if (porcentaje >= 81) {
+                document.getElementById('meta_administrativo_{{ proceso }}').value = "meta Alcanzada";
+            } else {
+                document.getElementById('meta_administrativo_{{ proceso }}').value = "meta no alcanzada";
+            }
+        } else if (meta == 'SGI_Acciones_Correctivas' || meta == 'SGI_Incidentes_Seguridad') {
+            if (porcentaje >= 60) {
+                document.getElementById('meta_administrativo_{{ proceso }}').value = "meta Alcanzada";
+            } else {
+                document.getElementById('meta_administrativo_{{ proceso }}').value = "meta no alcanzada";
+            }
+        } else if (meta == 'SGI_Producto_No_Conforme' || meta == 'SGI_Riesgos') {
+            if (porcentaje >= 80) {
+                document.getElementById('meta_administrativo_{{ proceso }}').value = "meta Alcanzada";
+            } else {
+                document.getElementById('meta_administrativo_{{ proceso }}').value = "meta no alcanzada";
+            }
         } else {
-            document.getElementById('meta_administrativo_{{ proceso }}').value = "meta no alcanzada";
+            if (porcentaje >= 99) {
+                document.getElementById('meta_administrativo_{{ proceso }}').value = "meta Alcanzada";
+            } else {
+                document.getElementById('meta_administrativo_{{ proceso }}').value = "meta no alcanzada";
+            }
         }
-    } else if(meta == 'efectividad'){
-         if (porcentaje >= 10) {
-            document.getElementById('meta_administrativo_{{ proceso }}').value = "meta Alcanzada";
-        } else {
-            document.getElementById('meta_administrativo_{{ proceso }}').value = "meta no alcanzada";
-        }
-    } else if(meta == 'pqr' || meta == 'TH_Cumplimiento_Capacitaciones' || meta == 'SGI_Continuidad_Negocio'){
-         if (porcentaje >= 90) {
-            document.getElementById('meta_administrativo_{{ proceso }}').value = "meta Alcanzada";
-        } else {
-            document.getElementById('meta_administrativo_{{ proceso }}').value = "meta no alcanzada";
-        }
-    } else if(meta == 'TH_clima_organizacional'){
-         if (porcentaje >= 3.5) {
-            document.getElementById('meta_administrativo_{{ proceso }}').value = "meta Alcanzada";
-        } else {
-            document.getElementById('meta_administrativo_{{ proceso }}').value = "meta no alcanzada";
-        }
-    } else if(meta == 'TH_Eficacia_Capacitaciones'){
-        if (porcentaje >= 3.30) {
-            document.getElementById('meta_administrativo_{{ proceso }}').value = "meta Alcanzada";
-        } else {
-            document.getElementById('meta_administrativo_{{ proceso }}').value = "meta no alcanzada";
-        }
-    } else if(meta == 'TH_Evaluacion_Desempeño'){
-         if (porcentaje >= 4.5) {
-            document.getElementById('meta_administrativo_{{ proceso }}').value = "meta Alcanzada";
-        } else {
-            document.getElementById('meta_administrativo_{{ proceso }}').value = "meta no alcanzada";
-        }
-    } else if(meta == 'financiera'){
-        if (porcentaje >= 81) {
-            document.getElementById('meta_administrativo_{{ proceso }}').value = "meta Alcanzada";
-        } else {
-            document.getElementById('meta_administrativo_{{ proceso }}').value = "meta no alcanzada";
-        }
-    }else if(meta == 'SGI_Acciones_Correctivas' || meta == 'SGI_Incidentes_Seguridad'){
-        if (porcentaje >= 60) {
-            document.getElementById('meta_administrativo_{{ proceso }}').value = "meta Alcanzada";
-        } else {
-            document.getElementById('meta_administrativo_{{ proceso }}').value = "meta no alcanzada";
-        }
-    }else if(meta == 'SGI_Producto_No_Conforme' || meta == 'SGI_Riesgos'){
-        if (porcentaje >= 80) {
-            document.getElementById('meta_administrativo_{{ proceso }}').value = "meta Alcanzada";
-        } else {
-            document.getElementById('meta_administrativo_{{ proceso }}').value = "meta no alcanzada";
-        }
-    }else {
-        if (porcentaje >= 99) {
-            document.getElementById('meta_administrativo_{{ proceso }}').value = "meta Alcanzada";
-        } else {
-            document.getElementById('meta_administrativo_{{ proceso }}').value = "meta no alcanzada";
-        }
-    }
-});
+    });
 </script>

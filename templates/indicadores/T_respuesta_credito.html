@@ -1,60 +1,64 @@
 <form id="form_tiempoCredito_{{proceso}}" method="post">
-    <input type="hidden" id="procesoInput_{{ proceso }}" name="proceso" value="{{ proceso }}" data-proceso="{{ proceso }}">
-    <div>
-        <label class="form-label" for="mes_TRespuesta_{{ proceso }}">Mes</label>
-        <select id="mes_TRespuesta_{{ proceso }}" name="mes_TRespuesta" required>
-            <option value="">Seleccione un mes</option>
-            <option value="Enero">Enero</option>
-            <option value="Febrero">Febrero</option>
-            <option value="Marzo">Marzo</option>
-            <option value="Abril">Abril</option>
-            <option value="Mayo">Mayo</option>
-            <option value="Junio">Junio</option>
-            <option value="Julio">Julio</option>
-            <option value="Agosto">Agosto</option>
-            <option value="Septiembre">Septiembre</option>
-            <option value="Octubre">Octubre</option>
-            <option value="Noviembre">Noviembre</option>
-            <option value="Diciembre">Diciembre</option>
-        </select>
-    </div>
-    <div class="mb-3">
-        <label class="form-label" for="t_creditos">Total de Creditos Recibidos</label>
-        <input class="form-control" type="number" id="t_creditos_{{ proceso }}" name="t_creditos" required>
-    </div>
-    <div class="mb-3">
-        <label class="form-label" for="t_respuesta">Tiempo de Respuesta en minutos y segundos del mes anterior</label>
-        {% if proceso == 'complementacion_repsuestaCreditoOCI' %}
-        <input class="form-control" type="text" id="mes_anterior_{{ proceso }}" name="" placeholder="MM:SS"
-            pattern="^[0-5]?[0-9]:[0-5][0-9]$">
-        {% elif proceso == 'complementacion_repsuestaCreditoTradicional' %}
-        <input class="form-control" type="text" id="mes_anterior_{{ proceso }}" name="mes_anterior" placeholder="HH:MM:SS"
-            pattern="^([0-9]{1,2}:)?[0-5]?[0-9]:[0-5][0-9]$">
-        {% endif %}
+    <div class="form-grid-container">
+        <input type="hidden" id="procesoInput_{{ proceso }}" name="proceso" value="{{ proceso }}"
+            data-proceso="{{ proceso }}">
+        <div class="form-field">
+            <label class="form-label" for="mes_TRespuesta_{{ proceso }}">Mes</label>
+            <select id="mes_TRespuesta_{{ proceso }}" name="mes_TRespuesta" required>
+                <option value="">Seleccione un mes</option>
+                <option value="Enero">Enero</option>
+                <option value="Febrero">Febrero</option>
+                <option value="Marzo">Marzo</option>
+                <option value="Abril">Abril</option>
+                <option value="Mayo">Mayo</option>
+                <option value="Junio">Junio</option>
+                <option value="Julio">Julio</option>
+                <option value="Agosto">Agosto</option>
+                <option value="Septiembre">Septiembre</option>
+                <option value="Octubre">Octubre</option>
+                <option value="Noviembre">Noviembre</option>
+                <option value="Diciembre">Diciembre</option>
+            </select>
+        </div>
+        <div class="mb-3 form-field">
+            <label class="form-label" for="t_creditos">Total de Creditos Recibidos</label>
+            <input class="form-control" type="number" id="t_creditos_{{ proceso }}" name="t_creditos" required>
+        </div>
+        <div class="mb-3 form-field">
+            <label class="form-label" for="t_respuesta">Tiempo de Respuesta en minutos y segundos del mes
+                anterior</label>
+            {% if proceso == 'complementacion_repsuestaCreditoOCI' %}
+            <input class="form-control" type="text" id="mes_anterior_{{ proceso }}" name="" placeholder="MM:SS"
+                pattern="^[0-5]?[0-9]:[0-5][0-9]$">
+            {% elif proceso == 'complementacion_repsuestaCreditoTradicional' %}
+            <input class="form-control" type="text" id="mes_anterior_{{ proceso }}" name="mes_anterior"
+                placeholder="HH:MM:SS" pattern="^([0-9]{1,2}:)?[0-5]?[0-9]:[0-5][0-9]$">
+            {% endif %}
 
 
-    </div>
-    <div class="mb-3">
-        <label class="form-label" for="t_respuesta">Tiempo de Respuesta en minutos y segundos</label>
-        {% if proceso == 'complementacion_repsuestaCreditoOCI' %}
-        <input class="form-control" type="text" id="t_respuesta_{{ proceso }}" name="t_respuesta" placeholder="MM:SS"
-            pattern="^[0-5]?[0-9]:[0-5][0-9]$">
-        {% elif proceso == 'complementacion_repsuestaCreditoTradicional' %}
-        <input class="form-control" type="text" id="t_respuesta_{{ proceso }}" name="t_respuesta" placeholder="HH:MM:SS"
-            pattern="^([0-9]{1,2}:)?[0-5]?[0-9]:[0-5][0-9]$">
-        {% endif %}
+        </div>
+        <div class="mb-3 form-field">
+            <label class="form-label" for="t_respuesta">Tiempo de Respuesta en minutos y segundos</label>
+            {% if proceso == 'complementacion_repsuestaCreditoOCI' %}
+            <input class="form-control" type="text" id="t_respuesta_{{ proceso }}" name="t_respuesta"
+                placeholder="MM:SS" pattern="^[0-5]?[0-9]:[0-5][0-9]$">
+            {% elif proceso == 'complementacion_repsuestaCreditoTradicional' %}
+            <input class="form-control" type="text" id="t_respuesta_{{ proceso }}" name="t_respuesta"
+                placeholder="HH:MM:SS" pattern="^([0-9]{1,2}:)?[0-5]?[0-9]:[0-5][0-9]$">
+            {% endif %}
 
+        </div>
+        <div class="mb-3 form-field">
+            <label class="form-label" for="resultado_TRespuesta">Variacion (Segundos)</label>
+            <input class="form-control" type="text" id="resultado_TRespuesta_{{ proceso }}" name="resultado_TRespuesta"
+                readonly>
+        </div>
+        <div class="mb-3 form-field">
+            <label class="form-label" for="Analisis_TRespuesta">Analisis</label>
+            <textarea id="Analisis_TRespuesta_{{ proceso }}" name="Analisis_TRespuesta"></textarea>
+        </div>
+        <button type="submit">Guardar</button>
     </div>
-    <div class="mb-3">
-        <label class="form-label" for="resultado_TRespuesta">Variacion (Segundos)</label>
-        <input class="form-control" type="text" id="resultado_TRespuesta_{{ proceso }}" name="resultado_TRespuesta"
-            readonly>
-    </div>
-    <div class="mb-3">
-        <label class="form-label" for="Analisis_TRespuesta">Analisis</label>
-        <textarea id="Analisis_TRespuesta_{{ proceso }}" name="Analisis_TRespuesta"></textarea>
-    </div>
-    <button type="submit">Guardar</button>
 </form>
 
 
@@ -75,7 +79,7 @@
                         <th>Analisis</th>
                     </tr>
                 </thead>
-                
+
                 <tbody id="tabla_RespuestaCredito_body_{{proceso}}">
                     {% for registro in datos_repsuestaCredito %}
                     <tr>
@@ -87,16 +91,14 @@
                     </tr>
                     {% endfor %}
                 </tbody>
-                
+
             </table>
         </div>
     </div>
     <h3>Porcentaje de Casos por Mes</h3>
     <canvas id="grafica_TRespuesta_{{ proceso }}" width="400" height="200"></canvas>
 </div>
-
-<!-- Chart.js debe ir antes del script que lo usa -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
 <script>
     document.getElementById('mes_TRespuesta_{{ proceso }}').addEventListener('change', function () {
         const mes = this.value;
@@ -118,7 +120,7 @@
 </script>
 <script>
     const ctx_TRespuesta_{{ proceso }} = document.getElementById('grafica_TRespuesta_{{ proceso }}').getContext('2d');
-    window.grafica_TRespuesta_{{ proceso }} = new Chart(ctx_TRespuesta_{{ proceso }}, {
+    window.grafica_TRespuesta_{ { proceso } } = new Chart(ctx_TRespuesta_{{ proceso }}, {
         type: 'line',
         data: {
             labels: {{ meses_repsuestaCredito|default([]) | tojson | safe }},

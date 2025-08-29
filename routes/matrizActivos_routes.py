@@ -74,7 +74,6 @@ def guardarMatriz():
             proceso = request.form.get('proceso')
 
             rol = current_user.rol
-            print(proceso)
             nuevo_registro_tupla = guardar_matriz(rol, proceso, datos_form)
             
             # --- DICCIONARIO CORREGIDO ---

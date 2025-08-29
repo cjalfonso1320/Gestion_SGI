@@ -409,4 +409,7 @@ const updateUiSancionesFisicas = (data) => {
         handleFormSubmit(form, endpoint, updateUiAdministrativo);
     });
 
+
+
+
 });

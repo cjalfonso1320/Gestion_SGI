@@ -10,6 +10,8 @@ from routes.indicadores_routes import ind_bp
 from routes.rutas_routes import rutas_bp
 from routes.usoInt_routes import usoInt_bp
 from routes.matrizActivos_routes import mActivos_bp
+from routes.listaMaestra_routes import lMaestra_bp
+from routes.riesgos_routes import mRiesgos_bp
 
 from routes.doc_routes import doc_bp
 
@@ -45,11 +47,13 @@ app.register_blueprint(doc_bp)
 app.register_blueprint(ind_bp)
 app.register_blueprint(usoInt_bp)
 app.register_blueprint(mActivos_bp)
+app.register_blueprint(mRiesgos_bp)
 
-
+    # Blueprints SGI
+app.register_blueprint(lMaestra_bp)    
 
 
 
 #iniciar aplicacion
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0')

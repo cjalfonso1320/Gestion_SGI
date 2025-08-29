@@ -4,8 +4,9 @@
     </div>
     <div class="accordion-content">
         <form id="form_MatrizActivos">
-            <input type="hidden" id="proceso" name="proceso" value="{{ proceso }}">
-            <div>
+           <div class="form-grid-container">
+             <input type="hidden" id="proceso" name="proceso" value="{{ proceso }}">
+            <div class="form-field">
                 <label class="form-label" for="tipoActivo">Tipo de Activo</label>
                 <select id="tipoActivo" name="tipoActivo" required>
                     <option value="">Seleccione un Tipo de Activo</option>
@@ -16,21 +17,21 @@
                     <option value="Ubicacion">Ubicacion</option>
                 </select>
             </div>
-            <div class="mb-3">
+            <div class="mb-3 form-field">
                 <label class="form-label" for="nombre_activo">Nombre</label>
                 <input class="form-control" type="text" id="nombre_activo" name="nombre_activo"
                     required>
             </div>
-            <div class="mb-3">
+            <div class="mb-3 form-field">
                 <label class="form-label" for="cant_activo">Cantidad</label>
                 <input class="form-control" type="text" id="cant_activo" name="cant_activo" required>
             </div>
-            <div class="mb-3">
+            <div class="mb-3 form-field">
                 <label class="form-label" for="responsable_activo">Responsable</label>
                 <input class="form-control" type="text" id="responsable_activo"
                     name="responsable_activo" required>
             </div>
-            <div class="mb-3">
+            <div class="mb-3 form-field">
                 <label class="form-label" for="clasificacionActivo">Clasificacion de la Informacion</label>
                 <select id="clasificacionActivo" name="clasificacionActivo" required>
                     <option value="">Seleccione una Clasificacion</option>
@@ -41,23 +42,24 @@
                 </select>
             </div>
             
-            <div class="mb-3">
+            <div class="mb-3 form-field">
                 <label class="form-label" for="ConfidencialidadActivo">Confidencialidad</label>
                 <input class="form-control" type="number" id="ConfidencialidadActivo" name="ConfidencialidadActivo" required>
             </div>
-            <div class="mb-3">
+            <div class="mb-3 form-field">
                 <label class="form-label" for="IntegridadActivo">Integridad</label>
                 <input class="form-control" type="number" id="IntegridadActivo" name="IntegridadActivo" required>
             </div>
-            <div class="mb-3">
+            <div class="mb-3 form-field">
                 <label class="form-label" for="DisponibilidadActivo">Disponibilidad</label>
                 <input class="form-control" type="number" id="DisponibilidadActivo" name="DisponibilidadActivo" required>
             </div>
-            <div class="mb-3">
+            <div class="mb-3 form-field">
                 <label class="form-label" for="TotalActivo">Total</label>
                 <input class="form-control" type="number" id="TotalActivo" name="TotalActivo" required readonly>
             </div>
             <button type="submit">Guardar</button>
+           </div>
         </form>
     </div>
 </div>

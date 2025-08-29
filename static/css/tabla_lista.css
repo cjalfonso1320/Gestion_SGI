@@ -1,0 +1,27 @@
+.tabla-expandible { width: 100%; border-collapse: collapse; }
+    .tabla-expandible th, .tabla-expandible td { border: 1px solid #4a4a6a; padding: 12px 15px; text-align: left; }
+    .tabla-expandible thead th { background-color: #333; color: #fff; }
+    .fila-principal { cursor: pointer; background-color: #2c2c4a; transition: background-color 0.2s ease; }
+    .fila-principal:hover, .fila-principal.expanded { background-color: #3a3a5a; }
+    .toggle-icon { display: inline-block; width: 20px; text-align: center; font-weight: bold; transition: transform 0.3s ease; }
+    .fila-principal.expanded .toggle-icon { transform: rotate(45deg); }
+    .fila-detalles { display: none; background-color: #22223a; }
+    .fila-detalles.show { display: table-row; }
+    .detalles-contenido { padding: 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 15px; }
+    .detalle-item { display: flex; flex-direction: column; }
+    .detalle-item strong { color: #a0a0c0; font-size: 0.8em; text-transform: uppercase; margin-bottom: 5px; }
+
+/* Asegurar el mismo layout para cualquier tabla expandible, incl. Riesgos */
+.tabla-expandible .fila-detalles > td { padding: 16px; }
+.tabla-expandible .fila-detalles .detalles-contenido {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 14px;
+    width: 100%;
+    box-sizing: border-box;
+}
+.tabla-expandible .fila-detalles .detalles-contenido.use-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)) !important;
+}
+.tabla-expandible .fila-detalles .detalle-item { white-space: normal; word-break: break-word; }

@@ -1,0 +1,213 @@
+
+<div class="accordion" id="acordeonTabla">
+    <div class="accordion-header" onclick="this.parentElement.classList.toggle('active')">
+        Nuevo Riesgo <i class="fa-regular fa-square-plus"></i>
+    </div>
+    <div class="accordion-content">
+        <form id="form_MatrizRiesgos">
+    <div class="risk-form-grid">
+        <input type="hidden" name="proceso" value="{{ riesgo }}">
+        
+        <!-- ==================== SECCIÓN 1: IDENTIFICACIÓN DEL ACTIVO ==================== -->
+        <h3 class="section-title">1. Identificación del Activo</h3>
+
+        <div class="form-field">
+            <label class="form-label" for="nombre_activo">Activo Afectado</label>
+            <select id="nombre_activo" name="nombre_activo" required>
+                <option value="">Seleccione un Activo...</option>
+                {% for activo in activos %}
+                <option value="{{activo.nombre}}">{{activo.nombre}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-field">
+            <label class="form-label" for="tipoActivo">Tipo de Activo</label>
+            <input class="form-control" type="text" id="tipoActivo" name="tipoActivo" readonly required>
+        </div>
+        <div class="form-field">
+            <label class="form-label" for="criticidadActivo">Criticidad del Activo</label>
+            <input type="text" class="form-control" id="criticidadActivo" name="criticidadActivo" readonly required>
+        </div>
+
+        <!-- ==================== SECCIÓN 2: IDENTIFICACIÓN DEL RIESGO ==================== -->
+        <h3 class="section-title">2. Identificación del Riesgo</h3>
+
+        <div class="form-field">
+            <label class="form-label" for="amenaza">Amenaza</label>
+            <input class="form-control" type="text" id="amenaza" name="amenaza" required>
+        </div>
+        <div class="form-field">
+            <label class="form-label" for="vulnerabilidad">Vulnerabilidad</label>
+            <input class="form-control" type="text" id="vulnerabilidad" name="vulnerabilidad" required>
+        </div>
+        <div class="form-field">
+            <label class="form-label" for="nombre_riesgo">Nombre del Riesgo</label>
+            <input class="form-control" type="text" id="nombre_riesgo" name="nombre_riesgo" required>
+        </div>
+
+        <div class="form-field full-width">
+            <label class="form-label" for="descripcion_riesgo">Descripción del Riesgo</label>
+            <textarea id="descripcion_riesgo" name="descripcion_riesgo" required rows="3"></textarea>
+        </div>
+
+        <div class="form-field">
+            <label class="form-label" for="tipoRiesgo">Tipo del Riesgo</label>
+            <select id="tipoRiesgo" name="tipoRiesgo" required>
+                <option value="">Seleccione un Tipo...</option>
+                <option value="Financiero">Financiero</option>
+                <option value="Reputacional">Reputacional</option>
+                <!-- ... más opciones ... -->
+            </select>
+        </div>
+        <div class="form-field">
+            <label class="form-label" for="responsable_riesgo">Responsable del Riesgo</label>
+            <input class="form-control" type="text" id="responsable_riesgo" name="responsable_riesgo" required>
+        </div>
+        <div class="form-field">
+            <label class="form-label" for="norma">Norma</label>
+            <select id="norma" name="norma" required>
+                <option value="">Seleccione una Norma...</option>
+                <option value="9001">9001</option>
+                <option value="27001">27001</option>
+            </select>
+        </div>
+        
+        <!-- ==================== SECCIÓN 3: ANÁLISIS Y CONTROLES ==================== -->
+        <h3 class="section-title">3. Análisis y Controles</h3>
+
+        <div class="analysis-container">
+            <!-- Columna Izquierda: Inherente y Controles -->
+            <div class="analysis-column">
+                <div class="form-field">
+                    <label><strong>Análisis del Riesgo Inherente</strong></label>
+                    <div class="input-group">
+                        <input class="form-control" type="number" id="probabilidadInherente" name="probabilidadInherente" placeholder="Probabilidad" required>
+                        <input class="form-control" type="number" id="impactoInherente" name="impactoInherente" placeholder="Impacto" required>
+                    </div>
+                    <div class="input-group" style="margin-top: 10px;">
+                        <input class="form-control" type="number" id="total_riesgoInherente" name="total_riesgoInherente" placeholder="Evaluación" readonly>
+                        <input class="form-control" type="text" id="criticidadRiesgoInherente" name="criticidadRiesgoInherente" placeholder="Criticidad" readonly>
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label><strong>Controles</strong></label>
+                    <input class="form-control" type="text" id="NormaISO" name="NormaISO" placeholder="Norma ISO" required>
+                    <textarea id="descripcionControl" name="descripcionControl" placeholder="Descripción" required rows="3" style="margin-top: 10px;"></textarea>
+                    <textarea id="seguimientoControl" name="seguimientoControl" placeholder="Seguimiento" required rows="2" style="margin-top: 10px;"></textarea>
+                    <input class="form-control" type="date" id="fechaRevision" name="fechaRevision" required style="margin-top: 10px;">
+                </div>
+            </div>
+
+            <!-- Columna Derecha: Residual y Tratamiento -->
+            <div class="analysis-column">
+                <div class="form-field">
+                    <label><strong>Análisis del Riesgo Residual</strong></label>
+                    <div class="input-group">
+                        <input class="form-control" type="number" id="probabilidadResidual" name="probabilidadResidual" placeholder="Probabilidad" required>
+                        <input class="form-control" type="number" id="impactoResidual" name="impactoResidual" placeholder="Impacto" required>
+                    </div>
+                    <div class="input-group" style="margin-top: 10px;">
+                        <input class="form-control" type="number" id="total_riesgoResidual" name="total_riesgoResidual" placeholder="Evaluación" readonly>
+                        <input class="form-control" type="text" id="criticidadRiesgoResidual" name="criticidadRiesgoResidual" placeholder="Criticidad" readonly>
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label><strong>Opciones de Manejo</strong></label>
+                    <select id="opcionesManejo" name="opcionesManejo" required>
+                        <option value="">Seleccione una Opción...</option>
+                        <option value="Asumir">Asumir</option>
+                        <option value="Mitigar">Mitigar</option>
+                        <option value="Transferir">Transferir</option>
+                        <option value="Evitar">Evitar</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        
+        <!-- ==================== SECCIÓN 4: TRATAMIENTO Y SEGUIMIENTO ==================== -->
+        <h3 class="section-title">4. Tratamiento y Seguimiento</h3>
+        
+        <div class="form-field">
+            <label><strong>Tratamiento: Plan de Acción</strong></label>
+            <textarea id="actividades_planAccion" name="actividades_planAccion" required rows="3"></textarea>
+            <input class="form-control" type="date" id="fechaImplementacion" name="fechaImplementacion" required style="margin-top: 10px;">
+        </div>
+
+        <div class="form-field">
+            <label><strong>Seguimiento: Descripción</strong></label>
+            <textarea id="descripcion_seguimiento" name="descripcion_seguimiento" required rows="3"></textarea>
+            <input class="form-control" type="date" id="fechaSeguimiento" name="fechaSeguimiento" required style="margin-top: 10px;">
+        </div>
+
+        <div class="form-field">
+            <label><strong>Responsable Implementación</strong></label>
+            <input class="form-control" type="text" id="responsable_implementacion" name="responsable_implementacion" required>
+        </div>
+
+        <!-- Botón de Guardar en su propio contenedor para posicionarlo -->
+        <div class="submit-container full-width" style="text-align: right; margin-top: 20px;">
+            <button type="submit" style="width: 33%;">Guardar</button>
+        </div>
+
+    </div> <!-- Cierre de .risk-form-grid -->
+</form>
+    </div>
+</div>
+
+<table class="tabla-expandible">
+    <thead>
+        <tr>
+            <th style="width: 5%;"></th>
+            <th>Nombre del Riesgo</th>
+            <th>Activo Afectado</th>
+            <th>Criticidad Inherente</th>
+            <th>Criticidad Residual</th>
+            <th>Opciones de Manejo</th>
+        </tr>
+    </thead>
+    <tbody id="tabla_riesgos_body">
+        {% for riesgo in datos_riesgos %}
+            <tr class="fila-principal" data-id="{{ riesgo.id }}">
+                <!-- Corregido: 'toggle-icon' -->
+                <td><span class="toggle-icon">+</span></td> 
+                <td>{{ riesgo.nombre_riesgo }}</td>
+                <td>{{ riesgo.nombre_activo }}</td>
+                <td>{{ riesgo.criticidad_riesgo_inherente }}</td>
+                <td>{{ riesgo.criticidad_riesgo_residual }}</td>
+                <td>{{ riesgo.opciones_manejo }}</td>
+            </tr>
+            <tr class="fila-detalles">
+                <td colspan="6">
+                    <div class="detalles-contenido">
+                        <!-- Corregidos todos los errores de tipeo y HTML -->
+                        <div class="detalle-item"><strong>Proceso:</strong><span>{{ riesgo.proceso }}</span></div>
+                        <div class="detalle-item"><strong>Tipo de Activo:</strong><span>{{ riesgo.tipo_activo }}</span></div>
+                        <div class="detalle-item"><strong>Criticidad del Activo:</strong><span>{{ riesgo.criticidad_activo }}</span></div>
+                        <div class="detalle-item"><strong>Amenaza:</strong><span>{{ riesgo.amenaza }}</span></div>
+                        <div class="detalle-item"><strong>Vulnerabilidad:</strong><span>{{ riesgo.vulnerabilidad }}</span></div>
+                        <div class="detalle-item"><strong>Descripción del Riesgo:</strong><span>{{ riesgo.descripcion_riesgo }}</span></div>
+                        <div class="detalle-item"><strong>Tipo del Riesgo:</strong><span>{{ riesgo.tipo_riesgo }}</span></div>
+                        <div class="detalle-item"><strong>Responsable del Riesgo:</strong><span>{{ riesgo.responsable_riesgo }}</span></div>
+                        <div class="detalle-item"><strong>Norma:</strong><span>{{ riesgo.norma }}</span></div>
+                        <div class="detalle-item"><strong>Probabilidad Inherente:</strong><span>{{ riesgo.probabilidad_inherente }}</span></div>
+                        <div class="detalle-item"><strong>Impacto Inherente:</strong><span>{{ riesgo.impacto_inherente }}</span></div>
+                        <div class="detalle-item"><strong>Total del Riesgo Inherente:</strong><span>{{ riesgo.total_riesgo_inherente }}</span></div>
+                        <div class="detalle-item"><strong>Norma ISO:</strong><span>{{ riesgo.control_norma_iso }}</span></div>
+                        <div class="detalle-item"><strong>Descripción del control:</strong><span>{{ riesgo.control_descripcion }}</span></div>
+                        <div class="detalle-item"><strong>Seguimiento del control:</strong><span>{{ riesgo.control_seguimiento }}</span></div>
+                        <div class="detalle-item"><strong>Fecha de Revisión del control:</strong><span>{{ riesgo.control_fecha_revision }}</span></div>
+                        <div class="detalle-item"><strong>Probabilidad Residual:</strong><span>{{ riesgo.probabilidad_residual }}</span></div>
+                        <div class="detalle-item"><strong>Impacto Residual:</strong><span>{{ riesgo.impacto_residual }}</span></div>
+                        <div class="detalle-item"><strong>Riesgo Residual:</strong><span>{{ riesgo.total_riesgo_residual }}</span></div>
+                        <div class="detalle-item"><strong>Plan de Acción:</strong><span>{{ riesgo.tratamiento_plan_accion }}</span></div>
+                        <div class="detalle-item"><strong>Fecha de Implementación:</strong><span>{{ riesgo.tratamiento_fecha_implementacion }}</span></div>
+                        <div class="detalle-item"><strong>Responsable del Tratamiento:</strong><span>{{ riesgo.tratamiento_responsable }}</span></div>
+                        <div class="detalle-item"><strong>Descripción del Seguimiento:</strong><span>{{ riesgo.seguimiento_descripcion }}</span></div>
+                        <div class="detalle-item"><strong>Fecha del Seguimiento:</strong><span>{{ riesgo.seguimiento_fecha }}</span></div>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+

@@ -1,0 +1,231 @@
+
+<div class="accordion" id="acordeonTabla">
+    <div class="accordion-header" onclick="this.parentElement.classList.toggle('active')">
+        Nuevo Activo <i class="fa-regular fa-square-plus"></i>
+    </div>
+    <div class="accordion-content">
+        <form id="form_ListaMaestra">
+            <!-- 1. Envolvemos todos los campos en el contenedor de la rejilla -->
+            <div class="form-grid-container">
+
+                <!-- Fila 1 -->
+                <div class="form-field">
+                    <label class="form-label" for="Area">Area</label>
+                    <select id="Area" name="Area" required>
+                        <option value="">Seleccione un Area</option>
+                        <option value="COM">COMERCIAL</option>
+                        <option value="FIN">FINANCIERA</option>
+                        <option value="GER">GERERENCIA</option>
+                        <option value="GS">GS</option>
+                        <option value="PRO">PRODUCCION</option>
+                        <option value="SAG">SAGRILAFT</option>
+                        <option value="SGI">SISTEMA DE GESTION INTEGRADO</option>
+                        <option value="TEC">TECNOLOGIA</option>
+                        <option value="TH">TALENTO HUMANO</option>
+                    </select>
+                </div>
+                <div class="form-field">
+                    <label class="form-label" for="tipoDoc">Tipo de Documento</label>
+                    <select id="tipoDoc" name="tipoDoc" required>
+                        <option value="">Seleccione un tipo de Documento</option>
+                        <option value="D">Digital</option>
+                        <option value="F">Fisico</option>
+                        <option value="IF">IF</option>
+                        <option value="IN">IN</option>
+                        <option value="LE">LE</option>
+                        <option value="MA">MA</option>
+                        <option value="NO">NO</option>
+                        <option value="PL">PL</option>
+                        <option value="PO">PO</option>
+                        <option value="PR">PR</option>
+                        <option value="RE">RE</option>
+                    </select>
+                </div>
+                <div class="form-field">
+                    <label class="form-label" for="consecutivo">Consecutivo</label>
+                    <input class="form-control" type="number" id="consecutivo" name="consecutivo" required>
+                </div>
+
+                <!-- Fila 2 -->
+                <div class="form-field">
+                    <label class="form-label" for="int_ext">Interno / Externo</label>
+                    <select id="int_ext" name="int_ext" required>
+                        <option value="">Seleccione un tipo</option>
+                        <option value="INT">INT</option>
+                        <option value="EXT">EXT</option>
+                    </select>
+                </div>
+                <div class="form-field">
+                    <label class="form-label" for="medio">Medio</label>
+                    <select id="medio" name="medio" required>
+                        <option value="">Seleccione un Medio</option>
+                        <option value="Fisico">Fisico</option>
+                        <option value="Digital">Digital</option>
+                    </select>
+                </div>
+                <div class="form-field">
+                    <label class="form-label" for="version">Versión</label>
+                    <input class="form-control" type="number" id="version" name="version" required>
+                </div>
+
+                <!-- Fila 3 (Campos de ancho completo) -->
+                <div class="form-field full-width">
+                    <label class="form-label" for="nombre_documento">Nombre del Documento</label>
+                    <input class="form-control" type="text" id="nombre_documento" name="nombre_documento" required>
+                </div>
+                <div class="form-field full-width">
+                    <label class="form-label" for="procedimiento">Procedimiento</label>
+                    <input class="form-control" type="text" id="procedimiento" name="procedimiento" required>
+                </div>
+
+                <!-- Fila 4 -->
+                <div class="form-field">
+                    <label class="form-label" for="fecha_aprobacion">Fecha de Aprobación</label>
+                    <input class="form-control" type="date" id="fecha_aprobacion" name="fecha_aprobacion" required>
+                </div>
+                <div class="form-field full-width" style="grid-column: 2 / -1;"> <!-- Ocupa 2 columnas -->
+                    <label class="form-label" for="responsable_aprobacion">Responsable de Aprobación</label>
+                    <input class="form-control" type="text" id="responsable_aprobacion" name="responsable_aprobacion"
+                        required>
+                </div>
+
+                <!-- Fila 5 -->
+                <div class="form-field">
+                    <label class="form-label" for="fecha_revision">Fecha de Última Revisión</label>
+                    <input class="form-control" type="date" id="fecha_revision" name="fecha_revision" required>
+                </div>
+                <div class="form-field full-width" style="grid-column: 2 / -1;">
+                    <label class="form-label">Almacenamiento</label>
+                    <div class="input-group">
+                        <input class="form-control" type="text" id="como_almacenamiento" name="como_almacenamiento"
+                            placeholder="Como" readonly>
+                        <input class="form-control" type="text" id="donde_almacenamiento" name="donde_almacenamiento"
+                            placeholder="Donde" required>
+                    </div>
+                </div>
+
+                <!-- Fila 6 -->
+                <div class="form-field">
+                    <label class="form-label" for="clasificacionActivo">Clasificación</label>
+                    <select id="clasificacionActivo" name="clasificacionActivo" required>
+                        <option value="">Seleccione una Clasificación</option>
+                        <option value="Confidencial">Confidencial</option>
+                        <option value="Uso Interno">Uso Interno</option>
+                        <option value="No aplica">No aplica</option>
+                    </select>
+                </div>
+                <div class="form-field">
+                    <label class="form-label" for="disponible">Disponible Para:</label>
+                    <input class="form-control" type="text" id="disponible" name="disponible" required>
+                </div>
+                <div class="form-field">
+                    <label class="form-label" for="proteccion">Protección</label>
+                    <select id="proteccion" name="proteccion" required>
+                        <option value="">Seleccione una Protección</option>
+                        <option value="Acceso Restringido">Acceso Restringido</option>
+                        <option value="Solo Lectura">Solo Lectura</option>
+                        <option value="No Aplica">No Aplica</option>
+                        <option value="Confidencial">Confidencial</option>
+                        <option value="Contraseña">Contraseña</option>
+                        <option value="Acceso Restringido">Acceso Restringido</option>
+                        <option value="Oculto">Oculto</option>
+                    </select>
+                </div>
+
+                <!-- Fila 7 -->
+                <div class="form-field">
+                    <label class="form-label">Tiempo de Archivo</label>
+                    <div class="input-group">
+                        <input class="form-control" type="text" id="activo_tiempo" name="activo_tiempo"
+                            placeholder="Activo" required>
+                        <input class="form-control" type="text" id="inactivo_tiempo" name="inactivo_tiempo"
+                            placeholder="Inactivo" required>
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label class="form-label" for="disposicion">Disposición</label>
+                    <select id="disposicion" name="disposicion" required>
+                        <option value="">Seleccione una Disposición</option>
+                        <option value="No Aplica">No Aplica</option>
+                        <option value="Destrucción">Destrucción</option>
+                        <option value="Borrado">Borrado</option>
+                        <option value="Suprimir">Suprimir</option>
+                        <option value="Borrado ">Borrado </option>
+                        <option value="Permanente">Permanente</option>
+                        <option value="Banco">Banco</option>
+                        <option value="Archivo Muerto">Archivo Muerto</option>
+                        <option value="Sustitución">Sustitución</option>
+                        <option value="Eliminación ">Eliminación </option>
+                        <option value="Digitalización y Destrucción">Digitalización y Destrucción</option>
+                    </select>
+                </div>
+                <div class="form-field">
+                    <label class="form-label" for="estado">Estado</label>
+                    <select id="estado" name="estado" required>
+                        <option value="">Seleccione un Estado</option>
+                        <option value="Activo">Activo</option>
+                        <option value="Vigente">Vigente</option>
+                    </select>
+                </div>
+
+            </div> <!-- Cierre de .form-grid-container -->
+
+            <div style="text-align: right; margin-top: 20px;">
+                <button type="submit">Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>
+<table class="tabla-expandible">
+    <thead>
+        <tr>
+            <th>Tipo Doc.</th>
+            <th>Consecutivo</th>
+            <th>Nombre del Documento</th>
+            <th>Versión</th>
+            <th>Última Revisión</th>
+        </tr>
+    </thead>
+    <tbody id="tabla_lista_maestra_body">
+        {% for dato in datos_lista_maestra %}
+        <!-- Fila Principal Visible -->
+        <tr class="fila-principal" data-id="{{ dato[0] }}">
+            <td data-column="tipo_documento">{{ dato[2] }}</td> <!-- tipo_documento -->
+            <td data-column="consecutivo">{{ dato[3] }}</td> <!-- consecutivo -->
+            <td data-column="nombre_documento">{{ dato[6] }}</td> <!-- nombre_documento -->
+            <td data-column="version">{{ dato[9] }}</td> <!-- version -->
+            <td data-column="fecha_ultima_revision">{{ dato[11] }}</td> <!-- fecha_ultima_revision -->
+        </tr>
+        <!-- Fila de Detalles Oculta -->
+        <tr class="fila-detalles">
+            <td colspan="5">
+                <div class="detalles-contenido">
+                    <div class="detalle-item"><strong>Área:</strong> <span data-column="area">{{ dato[1] }}</span></div>
+                    <div class="detalle-item"><strong>Int/Ext:</strong> <span data-column="int_ext">{{ dato[4] }}</span></div>
+                    <div class="detalle-item"><strong>Medio:</strong> <span data-column="medio">{{ dato[5] }}</span></div>
+                    <div class="detalle-item"><strong>Procedimiento:</strong> <span data-column="procedimiento">{{ dato[7] }}</span></div>
+                    <div class="detalle-item"><strong>Fecha Aprobación:</strong> <span data-column="fecha_aprobacion">{{ dato[8] }}</span></div>
+                    <div class="detalle-item"><strong>Responsable:</strong> <span data-column="responsable">{{ dato[10] }}</span></div>
+                    <div class="detalle-item"><strong>Estado:</strong> <span data-column="estado">{{ dato[20] }}</span></div>
+                    <div class="detalle-item"><strong>Almacenamiento (Como):</strong> <span data-column="almacenamiento_como">{{ dato[12] }}</span></div>
+                    <div class="detalle-item"><strong>Almacenamiento (Donde):</strong> <span data-column="almacenamiento_donde">{{ dato[13] }}</span></div>
+                    <div class="detalle-item"><strong>Clasificación:</strong> <span data-column="clasificacion">{{ dato[14] }}</span></div>
+                    <div class="detalle-item"><strong>Disponible Para:</strong> <span data-column="disponible_para">{{ dato[15] }}</span></div>
+                    <div class="detalle-item"><strong>Protección:</strong> <span data-column="proteccion">{{ dato[16] }}</span></div>
+                    <div class="detalle-item"><strong>Tiempo Archivo:</strong> <span data-column="tiempo_activo">Activo: {{ dato[17] }}, Inactivo:
+                            {{ dato[18] }}</span></div>
+                    <div class="detalle-item"><strong>Disposición:</strong> <span data-column="disposicion">{{ dato[19] }}</span></div>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<script>
+    const medio = document.getElementById('medio');
+    const como = document.getElementById('como_almacenamiento');
+    medio.addEventListener('change', () => {
+        const medio_seleccionado = medio.value;
+        como.value = medio_seleccionado;
+    })
+</script>

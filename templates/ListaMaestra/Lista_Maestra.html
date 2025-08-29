@@ -1,0 +1,20 @@
+{% extends 'home.html' %}
+{% block title %}Lista Maestra{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/acordeon_doc.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/form_indicadores.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/tabla_lista.css') }}">
+
+
+    <div id="lista-maestra-content-wrapper">
+        <!-- Pasamos las variables a la plantilla hija -->
+        
+        {% include 'ListaMaestra/_lista_template.html' %}
+            
+    </div>
+
+<script src="{{ url_for('static', filename='js/jquery.min.js')}}"></script>
+<script src="{{ url_for('static', filename='js/acordeon_doc.js')}}"></script>
+<script src="{{ url_for('static', filename='js/lista_maestra.js')}}"></script>
+
+{% endblock %}

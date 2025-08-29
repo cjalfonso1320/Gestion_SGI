@@ -1,13 +1,55 @@
-//! Navbar
+//! Navbar and Content Navigation
 
 const navItems = document.querySelectorAll(".nav-item");
+const navLinks = document.querySelectorAll(".nav-link");
+const initialPresentation = document.getElementById("initial-presentation");
+const dynamicContent = document.getElementById("dynamic-content");
 
-navItems.forEach((navItem, i) => {
-  navItem.addEventListener("click", () => {
-    navItems.forEach((item, j) => {
+// Handle navigation clicks
+navLinks.forEach((navLink) => {
+  navLink.addEventListener("click", (e) => {
+    // Remove active class from all nav items
+    navItems.forEach((item) => {
       item.className = "nav-item";
     });
+    
+    // Add active class to clicked nav item
+    const navItem = navLink.closest(".nav-item");
     navItem.className = "nav-item active";
+    
+    // Hide initial presentation and show dynamic content
+    if (initialPresentation && dynamicContent) {
+      initialPresentation.style.display = "none";
+      dynamicContent.style.display = "block";
+      
+      // Add fade animation
+      initialPresentation.style.animation = "fadeOut 0.3s ease-in-out";
+      dynamicContent.style.animation = "fadeIn 0.5s ease-in-out";
+    }
+    
+    // Get the section data attribute
+    const section = navLink.getAttribute("data-section");
+    
+    // Allow normal navigation to proceed
+    // The page will reload and show the actual content
+    console.log("Navigating to section:", section);
+  });
+});
+
+// Handle feature card clicks (optional - for better UX)
+const featureCards = document.querySelectorAll(".feature-card");
+featureCards.forEach((card) => {
+  card.addEventListener("click", () => {
+    // Find corresponding nav link and trigger click
+    const cardTitle = card.querySelector("h3").textContent.toLowerCase();
+    const correspondingLink = Array.from(navLinks).find(link => {
+      const linkText = link.querySelector(".nav-text").textContent.toLowerCase();
+      return linkText.includes(cardTitle) || cardTitle.includes(linkText);
+    });
+    
+    if (correspondingLink) {
+      correspondingLink.click();
+    }
   });
 });
 

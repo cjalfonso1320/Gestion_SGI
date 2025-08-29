@@ -1,209 +1,232 @@
 <form id="form_entrega_fisicos_{{ proceso }}">
-    <input type="hidden" id="proceso" name="proceso" value="{{ proceso }}">
-    <div>
-        <label class="form-label" for="mes">Mes</label>
-        <select id="mes_{{ proceso }}" name="mes" required>
-            <option value="">Seleccione un mes</option>
-            <option value="Enero">Enero</option>
-            <option value="Febrero">Febrero</option>
-            <option value="Marzo">Marzo</option>
-            <option value="Abril">Abril</option>
-            <option value="Mayo">Mayo</option>
-            <option value="Junio">Junio</option>
-            <option value="Julio">Julio</option>
-            <option value="Agosto">Agosto</option>
-            <option value="Septiembre">Septiembre</option>
-            <option value="Octubre">Octubre</option>
-            <option value="Noviembre">Noviembre</option>
-            <option value="Diciembre">Diciembre</option>
-        </select>
-    </div>
-    {% if proceso == 'TarjetasDigital' %}
-        <div class="mb-3">
-            <label class="form-label" for="doc_entregados" >Tarjetas Digitadas</label>
-            <input class="form-control" type="number"  id="doc_entregados_{{ proceso }}" name="doc_entregados" required>
+    <div class="form-grid-container">
+        <input type="hidden" id="proceso" name="proceso" value="{{ proceso }}">
+        <div>
+            <label class="form-label" for="mes">Mes</label>
+            <select id="mes_{{ proceso }}" name="mes" required>
+                <option value="">Seleccione un mes</option>
+                <option value="Enero">Enero</option>
+                <option value="Febrero">Febrero</option>
+                <option value="Marzo">Marzo</option>
+                <option value="Abril">Abril</option>
+                <option value="Mayo">Mayo</option>
+                <option value="Junio">Junio</option>
+                <option value="Julio">Julio</option>
+                <option value="Agosto">Agosto</option>
+                <option value="Septiembre">Septiembre</option>
+                <option value="Octubre">Octubre</option>
+                <option value="Noviembre">Noviembre</option>
+                <option value="Diciembre">Diciembre</option>
+            </select>
         </div>
-        <div class="mb-3">
-            <label class="form-label" for="doc_extemporaneos" >Errores de Digitacion</label>
-            <input class="form-control" type="number"  id="doc_extemporaneos_{{ proceso }}" name="doc_extemporaneos" required>
+        {% if proceso == 'TarjetasDigital' %}
+        <div class="mb-3 form-field">
+            <label class="form-label" for="doc_entregados">Tarjetas Digitadas</label>
+            <input class="form-control" type="number" id="doc_entregados_{{ proceso }}" name="doc_entregados" required>
         </div>
-    {% elif proceso == 'TarjetasFisico' %}
-        <div class="mb-3">
-            <label class="form-label" for="doc_entregados" >Documentos Recibidos</label>
-            <input class="form-control" type="number"  id="doc_entregados_{{ proceso }}" name="doc_entregados" required>
+        <div class="mb-3 form-field">
+            <label class="form-label" for="doc_extemporaneos">Errores de Digitacion</label>
+            <input class="form-control" type="number" id="doc_extemporaneos_{{ proceso }}" name="doc_extemporaneos"
+                required>
         </div>
-        <div class="mb-3">
-            <label class="form-label" for="doc_extemporaneos" >Devoluciones</label>
-            <input class="form-control" type="number"  id="doc_extemporaneos_{{ proceso }}" name="doc_extemporaneos" required>
+        {% elif proceso == 'TarjetasFisico' %}
+        <div class="mb-3 form-field">
+            <label class="form-label" for="doc_entregados">Documentos Recibidos</label>
+            <input class="form-control" type="number" id="doc_entregados_{{ proceso }}" name="doc_entregados" required>
         </div>
-    {% elif proceso in ['Nacionales_Agrario_CalidadInformacion', 'Radicacion_AvVillas_CalidadInformacion'] %}
-        <div class="mb-3">
-            <label class="form-label" for="doc_entregados" >Formularios Digitados</label>
-            <input class="form-control" type="number"  id="doc_entregados_{{ proceso }}" name="doc_entregados" required>
+        <div class="mb-3 form-field">
+            <label class="form-label" for="doc_extemporaneos">Devoluciones</label>
+            <input class="form-control" type="number" id="doc_extemporaneos_{{ proceso }}" name="doc_extemporaneos"
+                required>
         </div>
-        <div class="mb-3">
-            <label class="form-label" for="doc_extemporaneos" >Errores de Digitacion</label>
-            <input class="form-control" type="number"  id="doc_extemporaneos_{{ proceso }}" name="doc_extemporaneos" required>
+        {% elif proceso in ['Nacionales_Agrario_CalidadInformacion', 'Radicacion_AvVillas_CalidadInformacion'] %}
+        <div class="mb-3 form-field">
+            <label class="form-label" for="doc_entregados">Formularios Digitados</label>
+            <input class="form-control" type="number" id="doc_entregados_{{ proceso }}" name="doc_entregados" required>
+        </div>
+        <div class="mb-3 form-field">
+            <label class="form-label" for="doc_extemporaneos">Errores de Digitacion</label>
+            <input class="form-control" type="number" id="doc_extemporaneos_{{ proceso }}" name="doc_extemporaneos"
+                required>
         </div>
         {% elif proceso == 'Nacionales_Agrario_RegistrosMagneticos' or proceso == 'Nacionales_Bancolombia_Magneticos' %}
-        <div class="mb-3">
-            <label class="form-label" for="doc_entregados" >Total Registros</label>
-            <input class="form-control" type="number"  id="doc_entregados_{{ proceso }}" name="doc_entregados" required>
+        <div class="mb-3 form-field">
+            <label class="form-label" for="doc_entregados">Total Registros</label>
+            <input class="form-control" type="number" id="doc_entregados_{{ proceso }}" name="doc_entregados" required>
         </div>
-        <div class="mb-3">
-            <label class="form-label" for="doc_extemporaneos" >Registros Extemporaneos</label>
-            <input class="form-control" type="number"  id="doc_extemporaneos_{{ proceso }}" name="doc_extemporaneos" required>
+        <div class="mb-3 form-field">
+            <label class="form-label" for="doc_extemporaneos">Registros Extemporaneos</label>
+            <input class="form-control" type="number" id="doc_extemporaneos_{{ proceso }}" name="doc_extemporaneos"
+                required>
         </div>
         {% elif proceso == 'Distritales_Bancolombia_CMagneticas' or proceso == 'Distritales_Occidente_CMagneticas' %}
-        <div class="mb-3">
-            <label class="form-label" for="doc_entregados" >Cintas Enviadas</label>
-            <input class="form-control" type="number"  id="doc_entregados_{{ proceso }}" name="doc_entregados" required>
+        <div class="mb-3 form-field">
+            <label class="form-label" for="doc_entregados">Cintas Enviadas</label>
+            <input class="form-control" type="number" id="doc_entregados_{{ proceso }}" name="doc_entregados" required>
         </div>
-        <div class="mb-3">
-            <label class="form-label" for="doc_extemporaneos" >Cintas Rechazadas</label>
-            <input class="form-control" type="number"  id="doc_extemporaneos_{{ proceso }}" name="doc_extemporaneos" required>
+        <div class="mb-3 form-field">
+            <label class="form-label" for="doc_extemporaneos">Cintas Rechazadas</label>
+            <input class="form-control" type="number" id="doc_extemporaneos_{{ proceso }}" name="doc_extemporaneos"
+                required>
         </div>
-        {% elif proceso in ['Radicacion_AvVillas_Informes', 'MunicipalesCali_Iatu_Informes', 'Convenios_Informes_Davivienda', 'Convenios_CajaSocial_Informes', 'Convenios_Bancolombia_Informes', 'Departamentales_Bancolombia_informes', 'Nacionales_Informes_Davivienda', 'Distritales_Informes_Davivienda', 'Departamentales_Itau_Informes'] %}
-        <div class="mb-3">
-            <label class="form-label" for="doc_entregados" >Informes Enviados</label>
-            <input class="form-control" type="number"  id="doc_entregados_{{ proceso }}" name="doc_entregados" required>
+        {% elif proceso in ['Radicacion_AvVillas_Informes', 'MunicipalesCali_Iatu_Informes',
+        'Convenios_Informes_Davivienda', 'Convenios_CajaSocial_Informes', 'Convenios_Bancolombia_Informes',
+        'Departamentales_Bancolombia_informes', 'Nacionales_Informes_Davivienda', 'Distritales_Informes_Davivienda',
+        'Departamentales_Itau_Informes'] %}
+        <div class="mb-3 form-field">
+            <label class="form-label" for="doc_entregados">Informes Enviados</label>
+            <input class="form-control" type="number" id="doc_entregados_{{ proceso }}" name="doc_entregados" required>
         </div>
-        <div class="mb-3">
-            <label class="form-label" for="doc_extemporaneos" >Informes Enviados fuera de tiempo</label>
-            <input class="form-control" type="number"  id="doc_extemporaneos_{{ proceso }}" name="doc_extemporaneos" required>
+        <div class="mb-3 form-field">
+            <label class="form-label" for="doc_extemporaneos">Informes Enviados fuera de tiempo</label>
+            <input class="form-control" type="number" id="doc_extemporaneos_{{ proceso }}" name="doc_extemporaneos"
+                required>
         </div>
         {% elif proceso == 'Nacionales_Aduanas_CajaSocial' %}
-        <div class="mb-3">
-            <label class="form-label" for="doc_entregados" >Total Transmision de Aduanas</label>
-            <input class="form-control" type="number"  id="doc_entregados_{{ proceso }}" name="doc_entregados" required>
+        <div class="mb-3 form-field">
+            <label class="form-label" for="doc_entregados">Total Transmision de Aduanas</label>
+            <input class="form-control" type="number" id="doc_entregados_{{ proceso }}" name="doc_entregados" required>
         </div>
-        <div class="mb-3">
-            <label class="form-label" for="doc_extemporaneos" >Transmision de Aduanas fuera de tiempo</label>
-            <input class="form-control" type="number"  id="doc_extemporaneos_{{ proceso }}" name="doc_extemporaneos" required>
+        <div class="mb-3 form-field">
+            <label class="form-label" for="doc_extemporaneos">Transmision de Aduanas fuera de tiempo</label>
+            <input class="form-control" type="number" id="doc_extemporaneos_{{ proceso }}" name="doc_extemporaneos"
+                required>
         </div>
-         {% elif proceso in ['Convenios_CalidadInformes_Davivienda', 'Departamentales_CalidadInformes_Davivienda', 'Nacionales_CalidadInformes_Davivienda', 'Distritales_CalidadInformes_Davivienda'] %}
-        <div class="mb-3">
-            <label class="form-label" for="doc_entregados" >Informes Entregados</label>
-            <input class="form-control" type="number"  id="doc_entregados_{{ proceso }}" name="doc_entregados" required>
+        {% elif proceso in ['Convenios_CalidadInformes_Davivienda', 'Departamentales_CalidadInformes_Davivienda',
+        'Nacionales_CalidadInformes_Davivienda', 'Distritales_CalidadInformes_Davivienda'] %}
+        <div class="mb-3 form-field">
+            <label class="form-label" for="doc_entregados">Informes Entregados</label>
+            <input class="form-control" type="number" id="doc_entregados_{{ proceso }}" name="doc_entregados" required>
         </div>
-        <div class="mb-3">
-            <label class="form-label" for="doc_extemporaneos" >Informes Errados</label>
-            <input class="form-control" type="number"  id="doc_extemporaneos_{{ proceso }}" name="doc_extemporaneos" required>
+        <div class="mb-3 form-field">
+            <label class="form-label" for="doc_extemporaneos">Informes Errados</label>
+            <input class="form-control" type="number" id="doc_extemporaneos_{{ proceso }}" name="doc_extemporaneos"
+                required>
         </div>
-        {% elif proceso in ['Radicacion_AvVillas_Imagenes', 'Convenios_EntregaImagenes_Davivienda', 'Departamentales_EntregaImagenes_Davivienda', 'Nacionales_EntregaImagenes_Davivienda', 'Distritales_EntregaImagenes_Davivienda'] %}
-        <div class="mb-3">
-            <label class="form-label" for="doc_entregados" >Imagenes Generadas</label>
-            <input class="form-control" type="number"  id="doc_entregados_{{ proceso }}" name="doc_entregados" required>
+        {% elif proceso in ['Radicacion_AvVillas_Imagenes', 'Convenios_EntregaImagenes_Davivienda',
+        'Departamentales_EntregaImagenes_Davivienda', 'Nacionales_EntregaImagenes_Davivienda',
+        'Distritales_EntregaImagenes_Davivienda'] %}
+        <div class="mb-3 form-field">
+            <label class="form-label" for="doc_entregados">Imagenes Generadas</label>
+            <input class="form-control" type="number" id="doc_entregados_{{ proceso }}" name="doc_entregados" required>
         </div>
-        <div class="mb-3">
-            <label class="form-label" for="doc_extemporaneos" >Imagenes Enviadas Fuera de Tiempo</label>
-            <input class="form-control" type="number"  id="doc_extemporaneos_{{ proceso }}" name="doc_extemporaneos" required>
+        <div class="mb-3 form-field">
+            <label class="form-label" for="doc_extemporaneos">Imagenes Enviadas Fuera de Tiempo</label>
+            <input class="form-control" type="number" id="doc_extemporaneos_{{ proceso }}" name="doc_extemporaneos"
+                required>
         </div>
-         {% elif proceso in ['Convenios_Inconsistencias_Davivienda', 'Departamentales_Inconsistencias_Davivienda', 'Nacionales_Inconsistencias_Davivienda', 'Distritales_Inconsistencias_Davivienda'] %}
-        <div class="mb-3">
-            <label class="form-label" for="doc_entregados" >Inconsistencias Reportadas</label>
-            <input class="form-control" type="number"  id="doc_entregados_{{ proceso }}" name="doc_entregados" required>
+        {% elif proceso in ['Convenios_Inconsistencias_Davivienda', 'Departamentales_Inconsistencias_Davivienda',
+        'Nacionales_Inconsistencias_Davivienda', 'Distritales_Inconsistencias_Davivienda'] %}
+        <div class="mb-3 form-field">
+            <label class="form-label" for="doc_entregados">Inconsistencias Reportadas</label>
+            <input class="form-control" type="number" id="doc_entregados_{{ proceso }}" name="doc_entregados" required>
         </div>
-        <div class="mb-3">
-            <label class="form-label" for="doc_extemporaneos" >Inconsistencias Solucionadas</label>
-            <input class="form-control" type="number"  id="doc_extemporaneos_{{ proceso }}" name="doc_extemporaneos" required>
+        <div class="mb-3 form-field">
+            <label class="form-label" for="doc_extemporaneos">Inconsistencias Solucionadas</label>
+            <input class="form-control" type="number" id="doc_extemporaneos_{{ proceso }}" name="doc_extemporaneos"
+                required>
         </div>
-         {% elif proceso in ['Convenios_Traslados_Davivienda', 'Departamentales_Traslados_Davivienda', 'Nacionales_Traslados_Davivienda', 'Distritales_Traslados_Davivienda'] %}
-        <div class="mb-3">
-            <label class="form-label" for="doc_entregados" >Traslados / Dispersion de Recursos</label>
-            <input class="form-control" type="number"  id="doc_entregados_{{ proceso }}" name="doc_entregados" required>
+        {% elif proceso in ['Convenios_Traslados_Davivienda', 'Departamentales_Traslados_Davivienda',
+        'Nacionales_Traslados_Davivienda', 'Distritales_Traslados_Davivienda'] %}
+        <div class="mb-3 form-field">
+            <label class="form-label" for="doc_entregados">Traslados / Dispersion de Recursos</label>
+            <input class="form-control" type="number" id="doc_entregados_{{ proceso }}" name="doc_entregados" required>
         </div>
-        <div class="mb-3">
-            <label class="form-label" for="doc_extemporaneos" >Traslados Extemporaneos / Dispersion de Recursos Extemporaneos</label>
-            <input class="form-control" type="number"  id="doc_extemporaneos_{{ proceso }}" name="doc_extemporaneos" required>
+        <div class="mb-3 form-field">
+            <label class="form-label" for="doc_extemporaneos">Traslados Extemporaneos / Dispersion de Recursos
+                Extemporaneos</label>
+            <input class="form-control" type="number" id="doc_extemporaneos_{{ proceso }}" name="doc_extemporaneos"
+                required>
         </div>
-         {% elif proceso in ['Convenios_Bancolombia_Web', 'Convenios_CajaSocial_Web'] %}
-        <div class="mb-3">
-            <label class="form-label" for="doc_entregados" >Imagenes Publicadas</label>
-            <input class="form-control" type="number"  id="doc_entregados_{{ proceso }}" name="doc_entregados" required>
+        {% elif proceso in ['Convenios_Bancolombia_Web', 'Convenios_CajaSocial_Web'] %}
+        <div class="mb-3 form-field">
+            <label class="form-label" for="doc_entregados">Imagenes Publicadas</label>
+            <input class="form-control" type="number" id="doc_entregados_{{ proceso }}" name="doc_entregados" required>
         </div>
-        <div class="mb-3">
-            <label class="form-label" for="doc_extemporaneos" >Imagenes Publicadas fuera de tiempo</label>
-            <input class="form-control" type="number"  id="doc_extemporaneos_{{ proceso }}" name="doc_extemporaneos" required>
+        <div class="mb-3 form-field">
+            <label class="form-label" for="doc_extemporaneos">Imagenes Publicadas fuera de tiempo</label>
+            <input class="form-control" type="number" id="doc_extemporaneos_{{ proceso }}" name="doc_extemporaneos"
+                required>
         </div>
-    {% else %}
-        <div class="mb-3">
-            <label class="form-label" for="doc_entregados" >Documentos Entregados</label>
-            <input class="form-control" type="number"  id="doc_entregados_{{ proceso }}" name="doc_entregados" required>
+        {% else %}
+        <div class="mb-3 form-field">
+            <label class="form-label" for="doc_entregados">Documentos Entregados</label>
+            <input class="form-control" type="number" id="doc_entregados_{{ proceso }}" name="doc_entregados" required>
         </div>
-        <div class="mb-3">
-            <label class="form-label" for="doc_extemporaneos" >Documentos Extemporaneos</label>
-            <input class="form-control" type="number"  id="doc_extemporaneos_{{ proceso }}" name="doc_extemporaneos" required>
+        <div class="mb-3 form-field">
+            <label class="form-label" for="doc_extemporaneos">Documentos Extemporaneos</label>
+            <input class="form-control" type="number" id="doc_extemporaneos_{{ proceso }}" name="doc_extemporaneos"
+                required>
         </div>
-    {% endif %}
-    <div class="mb-3">
-        <label class="form-label" for="resultado_entrgeaFisicos" >Resultado (%)</label>
-        <input class="form-control" type="number"  id="resultado_entrgeaFisicos_{{ proceso }}" name="resultado_entrgeaFisicos" readonly>
-    </div>
-    <div class="mb-3">
-        <label class="form-label" for="meta_entregaFisicos" >Meta</label>
-        <input class="form-control" type="text"  id="meta_entregaFisicos_{{ proceso }}" name="meta_entregaFisicos" readonly>
-    </div>
-    <div class="mb-3">
-        <label class="form-label" for="analisis_entregaFisicos" >Analisis</label>
-        <textarea id="analisis_entregaFisicos_{{ proceso }}" name="analisis_entregaFisicos" required></textarea>
-    </div>
-    <!-- Cambiamos el type="submit" por type="button" o lo manejamos en JS -->
-    <button type="submit">Guardar</button>
+        {% endif %}
+        <div class="mb-3 form-field">
+            <label class="form-label" for="resultado_entrgeaFisicos">Resultado (%)</label>
+            <input class="form-control" type="number" id="resultado_entrgeaFisicos_{{ proceso }}"
+                name="resultado_entrgeaFisicos" readonly>
+        </div>
+        <div class="mb-3 form-field">
+            <label class="form-label" for="meta_entregaFisicos">Meta</label>
+            <input class="form-control" type="text" id="meta_entregaFisicos_{{ proceso }}" name="meta_entregaFisicos"
+                readonly>
+        </div>
+        <div class="mb-3 form-field">
+            <label class="form-label" for="analisis_entregaFisicos">Analisis</label>
+            <textarea id="analisis_entregaFisicos_{{ proceso }}" name="analisis_entregaFisicos" required></textarea>
+        </div>
+        <!-- Cambiamos el type="submit" por type="button" o lo manejamos en JS -->
+        <button type="submit">Guardar</button>
 </form>
+</div>
 
 
 <div class="container mt-4">
-    
-<div class="accordion" id="acordeonTabla">
-  <div class="accordion-header" onclick="this.parentElement.classList.toggle('active')">
-    Ver Tabla de Registros
-  </div>
-  <div class="accordion-content">
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Mes</th>
-          <th>Documentos Entregados</th>
-          <th>Documentos Extemporaneos</th>
-          <th>Resultado (%)</th>
-          <th>Meta</th>
-          <th>Analisis</th>
-        </tr>
-      </thead>
-      <!-- ID para el cuerpo de la tabla -->
-      <tbody id="tabla_entrega_fisicos_body_{{ proceso }}">
-        {% for registro in datos_entrega_fisicos %}
-        <tr>
-          <td>{{registro[0]}}</td>
-          <td>{{registro[1]}}</td>
-          <td>{{registro[2]}}</td>
-          <td>{{registro[3]}}</td>
-          <td>{{registro[4]}}</td>
-          <td>{{registro[5]}}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
-</div>
+
+    <div class="accordion" id="acordeonTabla">
+        <div class="accordion-header" onclick="this.parentElement.classList.toggle('active')">
+            Ver Tabla de Registros
+        </div>
+        <div class="accordion-content">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Mes</th>
+                        <th>Documentos Entregados</th>
+                        <th>Documentos Extemporaneos</th>
+                        <th>Resultado (%)</th>
+                        <th>Meta</th>
+                        <th>Analisis</th>
+                    </tr>
+                </thead>
+                <!-- ID para el cuerpo de la tabla -->
+                <tbody id="tabla_entrega_fisicos_body_{{ proceso }}">
+                    {% for registro in datos_entrega_fisicos %}
+                    <tr>
+                        <td>{{registro[0]}}</td>
+                        <td>{{registro[1]}}</td>
+                        <td>{{registro[2]}}</td>
+                        <td>{{registro[3]}}</td>
+                        <td>{{registro[4]}}</td>
+                        <td>{{registro[5]}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
     <h3>Porcentaje de Documentos Entregados por Mes</h3>
     <canvas id="grafica_entregaFisicos_{{ proceso }}" width="400" height="200"></canvas>
 </div>
-
-<!-- Chart.js debe ir antes del script que lo usa -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
 <script>
     // --- LÓGICA DE LA GRÁFICA (sin cambios) ---
     const ctx_entregaFisicos_{{ proceso }} = document.getElementById('grafica_entregaFisicos_{{ proceso }}').getContext('2d');
     window.grafica_entregaFisicos_{{ proceso }} = new Chart(ctx_entregaFisicos_{{ proceso }}, {
         type: 'line',
         data: {
-            labels: {{ meses_entregaFisicos|default([])|tojson|safe }},
+            labels: {{ meses_entregaFisicos|default([]) | tojson | safe }},
             datasets: [{
                 label: 'Porcentaje Nacionales (%)',
-                data: {{ porcentajes_entregaFisicos|default([])|tojson|safe }},
+                data: {{ porcentajes_entregaFisicos|default([]) | tojson | safe }},
                 borderColor: 'rgba(255, 99, 132, 1)',
                 backgroundColor: 'rgba(255, 99, 132, 0.2)',
                 fill: true,
@@ -211,6 +234,8 @@
             }]
         },
         options: {
+            responsive: true,
+            maintainAspectRatio: false,
             scales: {
                 y: {
                     beginAtZero: true,
@@ -221,7 +246,7 @@
     });
 
     // --- LÓGICA DE CÁLCULO DEL FORMULARIO (sin cambios) ---
-    document.addEventListener('input', function(event) {
+    document.addEventListener('input', function (event) {
         // Asegurarse que el input pertenece a este formulario específico
         if (event.target.closest('#form_entrega_fisicos_{{ proceso }}')) {
             const total = parseInt(document.getElementById('doc_entregados_{{ proceso }}').value) || 0;
@@ -229,9 +254,9 @@
             let proceso = document.getElementById('proceso').value;
             let porcentaje = 0;
             if (total > 0) {
-                if (proceso === 'Nacionales_Inconsistencias_Davivienda' || proceso === 'Distritales_Inconsistencias_Davivienda' || proceso === 'Departamentales_Inconsistencias_Davivienda' || proceso === 'Convenios_Inconsistencias_Davivienda'){
+                if (proceso === 'Nacionales_Inconsistencias_Davivienda' || proceso === 'Distritales_Inconsistencias_Davivienda' || proceso === 'Departamentales_Inconsistencias_Davivienda' || proceso === 'Convenios_Inconsistencias_Davivienda') {
                     porcentaje = (fueraRango / total) * 100;
-                }else{
+                } else {
                     porcentaje = ((total - fueraRango) / total) * 100;
                 }
             }
@@ -243,7 +268,4 @@
             }
         }
     });
-
-
-
 </script>
