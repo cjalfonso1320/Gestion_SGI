@@ -7,7 +7,7 @@
     <nav class="main-menu">
         <div>
             <div class="user-info">
-                <img src="{{ url_for('static', filename='imgs/user.png') }}" alt="user" />
+                <img src="{{ url_for('static', filename=imagen_rol) }}" alt="user" />
                 <p>{{ usuario.name }}</p>
             </div>
         </div>
@@ -27,32 +27,32 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{ url_for('usoInt.UsoInterno')}}" class="nav-link" data-section="uso-interno">
-                        <i class="fa-regular fa-file-lines nav-icon"></i>
+                        <i class="fa-solid fa-up-right-from-square nav-icon"></i>
                         <span class="nav-text">Informacion de Uso Interno</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ url_for('mRiesgos.Matriz_Riesgos')}}" class="nav-link" data-section="matriz-riesgos">
-                        <i class="fa-regular fa-file-lines nav-icon"></i>
+                        <i class="fa-solid fa-arrows-up-to-line nav-icon"></i>
                         <span class="nav-text">Matriz de Riesgos</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ url_for('mActivos.Matriz_Activos')}}" class="nav-link" data-section="matriz-activos">
-                        <i class="fa-regular fa-file-lines nav-icon"></i>
+                        <i class="fa-solid fa-chart-line nav-icon"></i>
                         <span class="nav-text">Matriz de Activos</span>
                     </a>
                 </li>
                 {% if current_user.rol == 16 %}
                 <li class="nav-item">
                     <a href="{{ url_for('lMaestra.Lista_Maestra')}}" class="nav-link" data-section="lista-maestra">
-                        <i class="fa-regular fa-file-lines nav-icon"></i>
+                        <i class="fa-solid fa-brain nav-icon"></i>
                         <span class="nav-text">Lista Maestra</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link" data-section="control">
-                        <i class="fa-regular fa-file-lines nav-icon"></i>
+                        <i class="fa-solid fa-gamepad nav-icon"></i>
                         <span class="nav-text">Control</span>
                     </a>
                 </li>
@@ -78,7 +78,6 @@
 
             <!-- MENU CENTRAL -->
             <div class="upcoming-events">
-                <h1>Sistema de Gestion Integrado</h1>
                 {% if request.endpoint != 'home.home' %}
                 <div style="margin-bottom: 20px;">
                     <a href="{{ url_for('home.home') }}" class="btn-10" style="text-decoration: none; display: inline-block;">
@@ -91,7 +90,7 @@
                     <div id="initial-presentation" class="initial-content" {% if request.endpoint != 'home.home' %}style="display: none;"{% endif %}>
                         <div class="welcome-section">
                             <h2>¡Bienvenido al Sistema de Gestión Integrado!</h2>
-                            <p>Selecciona una opción del menú lateral para comenzar a gestionar tu información.</p>
+                            <p>Selecciona una opción del menú para comenzar a gestionar tu información.</p>
                             
                             <div class="feature-grid">
                                 <a href="{{ url_for('doc.documentacion')}}" style="text-decoration: none;">

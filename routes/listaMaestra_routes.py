@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, jsonify
 from flask_login import current_user, login_required
-from controllers.rol_controller import PROCESOS_ROL
+from controllers.rol_controller import PROCESOS_ROL, ROL_IMAGES
 from controllers.lista_controller import lista_maestra, guardar_lista_maestra, actualizar_documento_maestro
 
 lMaestra_bp = Blueprint('lMaestra', __name__)
@@ -10,8 +10,9 @@ lMaestra_bp = Blueprint('lMaestra', __name__)
 def Lista_Maestra():
     rol = current_user.rol
     procesos = PROCESOS_ROL.get(rol, [])
+    imagen_rol = ROL_IMAGES.get(rol, 'imgs/user.png')
     datos = lista_maestra()
-    return render_template('ListaMaestra/Lista_Maestra.html', usuario=current_user, procesos=procesos, datos_lista_maestra=datos)
+    return render_template('ListaMaestra/Lista_Maestra.html', usuario=current_user, procesos=procesos, datos_lista_maestra=datos, imagen_rol=imagen_rol)
 
 @lMaestra_bp.route('/guardaListaMaestra', methods=['POST'])
 @login_required

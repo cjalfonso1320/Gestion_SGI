@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, jsonify
 from flask_login import current_user, login_required
 from controllers.matriz_controller import guardar_matriz, lista_matriz, modificar_matriz
-from controllers.rol_controller import PROCESOS_ROL
+from controllers.rol_controller import PROCESOS_ROL, ROL_IMAGES
 
 mActivos_bp = Blueprint('mActivos', __name__)
 
@@ -12,10 +12,11 @@ def Matriz_Activos():
     rol_id = current_user.rol
     #1. obtener lista de procesos para el rol
     procesos = PROCESOS_ROL.get(rol_id, [])
+    imagen_rol = ROL_IMAGES.get(rol_id, 'imgs/user.png')
     lista_procesos = PROCESOS_ROL.get(rol_id, [])
     if not lista_procesos:
         #si el rol no tiene procesos definidos muestra un mensaje o una pagina vacia
-        return render_template('MatrizActivos/Matriz_Activos.html', usuario=current_user, lista_procesos=[], proceso_actual=None, datos_matriz=[])
+        return render_template('MatrizActivos/Matriz_Activos.html', usuario=current_user, lista_procesos=[], proceso_actual=None, datos_matriz=[], imagen_rol=imagen_rol)
     #2. determinar proceso mostrar
         #intenta obtener el proceso desde la URL ej. =proceso=Nacionales_banco
     proceso_solicitado = request.args.get('proceso')

@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, jsonify
 from flask_login import current_user, login_required
-from controllers.rol_controller import PROCESOS_ROL
+from controllers.rol_controller import PROCESOS_ROL, ROL_IMAGES
 from controllers.matriz_controller import  lista_para_riesgos
 from controllers.riesgos_controller import guardar_riesgo, lista_riesgos
 
@@ -8,7 +8,7 @@ mRiesgos_bp = Blueprint('mRiesgos', __name__)
 @mRiesgos_bp.route('/Matriz_Riesgos')
 def Matriz_Riesgos():
     rol = current_user.rol
-    
+    imagen_rol = ROL_IMAGES.get(rol, 'imgs/user.png')
     # Determinar el tipo de riesgo basado en el rol
     if rol in [2, 4, 5, 6, 7, 10, 11, 12, 13]:
         riesgo_tipo = 'operacional'
@@ -26,13 +26,16 @@ def Matriz_Riesgos():
     else:
         activos = []
         datos_riesgos = []
+    procesos = PROCESOS_ROL.get(rol, [])
 
     return render_template(
         'MatrizRiesgos/Matriz_Riesgos.html',
         usuario=current_user,
         activos=activos,
         datos_riesgos=datos_riesgos,
-        riesgo=riesgo_tipo
+        riesgo=riesgo_tipo,
+        imagen_rol=imagen_rol,
+        procesos=procesos
     )
 
 @mRiesgos_bp.route('/guardar_riesgo', methods=['POST'])

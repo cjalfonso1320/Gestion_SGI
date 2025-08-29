@@ -8,7 +8,7 @@ from controllers.ind_controller import grafica_registrosFisicos, guardar_registr
 from controllers.ind_controller import guardar_sancionesFisicos, grafica_sancionesFisicos, lista_sancionesFisicos
 from controllers.ind_controller import lista_inconsitenciasPasivo, guardar_inconsitenciasPasivo, grafica_inconsitenciasPasivo
 from controllers.ind_controller import lista_TRespuesta_credito, guardar_TRespuesta_credito, datos_mes_anterior, grafica_TRespuesta_credito
-from controllers.rol_controller import PROCESOS_ROL
+from controllers.rol_controller import PROCESOS_ROL, ROL_IMAGES
 
 '''ADMINISTRATIVO'''
 from controllers.ind_controller import lista_Administrativo, grafica_Administrativo, guardar_Administrativo
@@ -21,6 +21,7 @@ def indicadores():
     def CONTEXTO():
         rol = current_user.rol
         procesos = PROCESOS_ROL.get(rol, [])
+        imagen_rol = ROL_IMAGES.get(rol, 'imgs/user.png')
         '''GESTION DE PRODUCCION'''
         uvt_valor = uvt_rol(current_user.rol)
 
@@ -114,6 +115,7 @@ def indicadores():
         datos_administrativo_SGI_Riesgos = lista_Administrativo(current_user.rol, 'SGI_Riesgos')
         return {
             'uvt_valor': uvt_valor,
+            'imagen_rol': imagen_rol,
             #agrario
             'datos_calidadInformacion_nacionales_agrario': datos_calidadInformacion_nacionales_agrario,
             'datos_registrosMagneticos_nacionales_agrario': datos_registrosMagneticos_nacionales_agrario,

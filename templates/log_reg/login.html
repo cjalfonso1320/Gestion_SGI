@@ -12,17 +12,17 @@
         <div class="shape"></div>
     </div>
     <form method="POST" action="{{ url_for('auth.login') }}">
-        <h3>Login Here</h3>
+        <h3>Iniciar Sesión</h3>
 
-        <label for="username">Username</label>
-        <input type="text" name="username" placeholder="Email or Phone" id="username">
+        <label for="username">Usuario</label>
+        <input type="text" name="username" placeholder="Usuario" id="username">
 
-        <label for="password">Password</label>
-        <input type="password" name="password" placeholder="Password" id="password">
+        <label for="password">Contraseña</label>
+        <input type="password" name="password" placeholder="Contraseña" id="password">
 
-        <button type="submit">Log In</button>
+        <button type="submit">Iniciar Sesión</button>
         <div class="social">
-          <div class="go"><a href="{{ url_for('auth.register') }}">¿No tienes cuenta? Regístrate</a></div>
+          <!-- <div class="go"><a href="{{ url_for('auth.register') }}">¿No tienes cuenta? Regístrate</a></div> -->
         </div>
     </form>
     
