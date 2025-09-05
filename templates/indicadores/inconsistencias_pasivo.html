@@ -1,9 +1,10 @@
-  <form id="form_incon_{{ proceso }}" method="post">
+{% if current_user.rol != 16 %}
+    <form id="form_incon_{{ proceso }}" method="post">
         <div class="form-grid-container">
             <input type="hidden" name="proceso" value="{{ proceso }}">
         <div class="form-field">
             <label class="form-label" for="mes">Mes</label>
-            <select id="mes" name="mes" required>
+            <select id="mes_{{ proceso }}" name="mes" required>
                 <option value="">Seleccione un mes</option>
                 <option value="Enero">Enero</option>
                 <option value="Febrero">Febrero</option>
@@ -53,7 +54,7 @@
         </div>
     </form>
 
-
+{% endif %}
 <div class="container mt-4">
 
     <div class="accordion" id="acordeonTabla">
@@ -93,7 +94,7 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
 <script>
     const ctx_inconsistenciasPasivo_{{ proceso }} = document.getElementById('grafica_inconsistenciasPasivo_{{ proceso }}').getContext('2d');
-    window.grafica_inconsistenciasPasivo_{ { proceso } } = new Chart(ctx_inconsistenciasPasivo_{{ proceso }}, {
+    window.grafica_inconsistenciasPasivo_{{ proceso }} = new Chart(ctx_inconsistenciasPasivo_{{ proceso }}, {
         type: 'line',
         data: {
             labels: {{ meses_inconsistenciasPasivo|default([]) | tojson | safe }},
@@ -117,18 +118,21 @@
     });
 </script>
 <script>
-    document.addEventListener('input', function () {
-        const total = parseInt(document.getElementById('t_casos_{{ proceso }}').value) || 0;
-        const fueraRango = parseInt(document.getElementById('e_grabacion_analisis_{{ proceso }}').value) || 0;
-        let porcentaje = 0;
-        if (total > 0) {
-            porcentaje = ((total - fueraRango) / total) * 100;
-        }
-        document.getElementById('resultado_inconsistenciasPasivo_{{ proceso }}').value = porcentaje.toFixed(1); // 1 decimal
-        if (porcentaje >= 99) {
-            document.getElementById('meta_inconsistenciasPasivo_{{ proceso }}').value = "meta Alcanzada";
-        } else {
-            document.getElementById('meta_inconsistenciasPasivo_{{ proceso }}').value = "meta no alcanzada";
+    document.addEventListener('input', function (event) {
+        const form = event.target.closest('#form_incon_{{ proceso }}');
+        if (form) {
+            const total = parseInt(document.getElementById('t_casos_{{ proceso }}').value) || 0;
+            const fueraRango = parseInt(document.getElementById('e_grabacion_analisis_{{ proceso }}').value) || 0;
+            let porcentaje = 0;
+            if (total > 0) {
+                porcentaje = ((total - fueraRango) / total) * 100;
+            }
+            document.getElementById('resultado_inconsistenciasPasivo_{{ proceso }}').value = porcentaje.toFixed(1); // 1 decimal
+            if (porcentaje >= 99) {
+                document.getElementById('meta_inconsistenciasPasivo_{{ proceso }}').value = "meta Alcanzada";
+            } else {
+                document.getElementById('meta_inconsistenciasPasivo_{{ proceso }}').value = "meta no alcanzada";
+            }
         }
     });
 </script>

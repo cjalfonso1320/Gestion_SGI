@@ -32,7 +32,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ url_for('mRiesgos.Matriz_Riesgos')}}" class="nav-link" data-section="matriz-riesgos">
+                    <a href="{{ url_for('mRiesgos.Matriz_Riesgos', role_id=current_user.rol)}}" class="nav-link" data-section="matriz-riesgos">
                         <i class="fa-solid fa-arrows-up-to-line nav-icon"></i>
                         <span class="nav-text">Matriz de Riesgos</span>
                     </a>
@@ -51,7 +51,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link" data-section="control">
+                    <a href="{{ url_for('control.control') }}" class="nav-link" data-section="control">
                         <i class="fa-solid fa-gamepad nav-icon"></i>
                         <span class="nav-text">Control</span>
                     </a>
@@ -136,7 +136,7 @@
                                         <p>Gestiona la lista maestra de documentos</p>
                                     </div>
                                 </a>
-                                <a href="#" style="text-decoration: none;">
+                                <a href="{{ url_for('control.control') }}" style="text-decoration: none;">
                                     <div class="feature-card">
                                         <i class="fa-regular fa-file-lines"></i>
                                         <h3>Control</h3>

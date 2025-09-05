@@ -1,0 +1,212 @@
+{% extends 'home.html' %}
+{% block title %}Control{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/form_indicadores.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/modal.css') }}">
+
+<div class="welcome-section">
+    <h2>¡Bienvenido al Control del Sistema de Gestión Integrado!</h2>
+    <p>Selecciona una opción del menú para comenzar a gestionar tu información.</p>
+
+    <div class="feature-grid">
+        <div class="feature-card" onclick="openRoleModal(event, 'documentacion')" style="cursor: pointer;">
+            <i class="fa-regular fa-file-lines"></i>
+            <h3>Documentación</h3>
+            <p>Gestiona toda la documentación del sistema</p>
+        </div>
+
+
+        <div class="feature-card" onclick="openRoleModal(event, 'indicadores')" style="cursor: pointer;">
+            <i class="fa-solid fa-chart-line"></i>
+            <h3>Indicadores</h3>
+            <p>Visualiza y analiza los indicadores clave</p>
+        </div>
+        <div class="feature-card" onclick="openRoleModal(event, 'Matriz_Riesgos')" style="cursor: pointer;">
+            <i class="fa-solid fa-arrows-up-to-line"></i>
+            <h3>Matriz de Riesgos</h3>
+            <p>Gestiona y evalúa los riesgos del sistema</p>
+        </div>
+
+        <div class="feature-card" onclick="openRoleModal(event, 'Matriz_Activos')" style="cursor: pointer;">
+            <i class="fa-solid fa-boxes-stacked"></i>
+            <h3>Matriz de Activos</h3>
+            <p>Administra los activos del sistema</p>
+        </div>
+    </div>
+</div>
+
+
+<!-- MODAL -->
+<div id="roleModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Seleccionar Rol</h2>
+            <span class="close" onclick="closeRoleModal()">&times;</span>
+        </div>
+        <div class="modal-body">
+            <p>Selecciona el rol para el cual quieres ver la información:</p>
+            <div class="role-grid">
+                <div class="role-option" onclick="selectRole(5, 'Agrario')">
+                    <img src="{{ url_for('static', filename='imgs/rol/agrario.png') }}" alt="Agrario">
+                    <span>Agrario</span>
+                </div>
+                <div class="role-option" onclick="selectRole(2, 'Bancolombia')">
+                    <img src="{{ url_for('static', filename='imgs/rol/bancolombia.png') }}" alt="Bancolombia">
+                    <span>Bancolombia</span>
+                </div>
+                <div class="role-option" onclick="selectRole(6, 'Davivienda')">
+                    <img src="{{ url_for('static', filename='imgs/rol/davivienda.png') }}" alt="Davivienda">
+                    <span>Davivienda</span>
+                </div>
+                <div class="role-option" onclick="selectRole(4, 'Occidente')">
+                    <img src="{{ url_for('static', filename='imgs/rol/occidente.png') }}" alt="Occidente">
+                    <span>Occidente</span>
+                </div>
+                <div class="role-option" onclick="selectRole(7, 'Itau')">
+                    <img src="{{ url_for('static', filename='imgs/rol/itau.png') }}" alt="Itau">
+                    <span>Itau</span>
+                </div>
+                <div class="role-option" onclick="selectRole(10, 'Popular')">
+                    <img src="{{ url_for('static', filename='imgs/rol/popular.png') }}" alt="Popular">
+                    <span>Popular</span>
+                </div>
+                <div class="role-option" onclick="selectRole(11, 'AvVillas')">
+                    <img src="{{ url_for('static', filename='imgs/rol/av villas.png') }}" alt="AvVillas">
+                    <span>AvVillas</span>
+                </div>
+                <div class="role-option" onclick="selectRole(12, 'Bancoomeva')">
+                    <img src="{{ url_for('static', filename='imgs/rol/bancoomeva.png') }}" alt="Bancoomeva">
+                    <span>Bancoomeva</span>
+                </div>
+                <div class="role-option" onclick="selectRole(13, 'CajaSocial')">
+                    <img src="{{ url_for('static', filename='imgs/rol/caja social.png') }}" alt="CajaSocial">
+                    <span>CajaSocial</span>
+                </div>
+                <div class="role-option" onclick="selectRole(14, 'Sistemas')">
+                    <img src="{{ url_for('static', filename='imgs/rol/sistemas.png') }}" alt="Sistemas">
+                    <span>Gestión de Sistemas</span>
+                </div>
+                <div class="role-option" onclick="selectRole(8, 'GestionHumana')">
+                    <img src="{{ url_for('static', filename='imgs/rol/th.png') }}" alt="GestionHumana">
+                    <span>Gestión Humana</span>
+                </div>
+                <div class="role-option" onclick="selectRole(9, 'Tecnologico')">
+                    <img src="{{ url_for('static', filename='imgs/rol/ti.png') }}" alt="Tecnologico">
+                    <span>Recurso Tecnológico</span>
+                </div>
+                <div class="role-option" onclick="selectRole(15, 'Financiero')">
+                    <img src="{{ url_for('static', filename='imgs/rol/financiero.png') }}" alt="Financiero">
+                    <span>Recurso Financiero</span>
+                </div>
+                <div class="role-option" onclick="selectRole(16, 'SGI')">
+                    <img src="{{ url_for('static', filename='imgs/rol/sgi.png') }}" alt="SGI">
+                    <span>Sistema de Gestión Integrado</span>
+                </div>
+                <div class="role-option" onclick="selectRole(17, 'SST')">
+                    <img src="{{ url_for('static', filename='imgs/rol/sst.png') }}" alt="SST">
+                    <span>Seguridad y Salud en el Trabajo</span>
+                </div>
+                <div class="role-option" onclick="selectRole(18, 'Comercial')">
+                    <img src="{{ url_for('static', filename='imgs/rol/comercial.png') }}" alt="Comercial">
+                    <span>Gestión Comercial</span>
+                </div>
+                <div class="role-option" onclick="selectRole(19, 'Direccion')">
+                    <img src="{{ url_for('static', filename='imgs/rol/direccion.png') }}" alt="Direccion">
+                    <span>Gestión Dirección</span>
+                </div>
+                <div class="role-option" onclick="selectRole(20, 'Sagrilaft')">
+                    <img src="{{ url_for('static', filename='imgs/rol/sagrilaft.png') }}" alt="Sagrilaft">
+                    <span>Sagrilaft</span>
+                </div>
+                <div class="role-option" onclick="selectRole(21, 'Ambiental')">
+                    <img src="{{ url_for('static', filename='imgs/rol/ambiental.png') }}" alt="Ambiental">
+                    <span>Gestión Ambiental</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{{ url_for('static', filename='js/jquery.min.js')}}"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Solo ejecuta este script si estamos en la página de Control
+        if (window.location.pathname.startsWith("/control")) {
+            // Selecciona todos los enlaces del menú lateral que no deben navegar desde esta página
+            const enlacesADeshabilitar = document.querySelectorAll(
+                'a[data-section="documentacion"], a[data-section="indicadores"], ' +
+                'a[data-section="matriz-riesgos"], a[data-section="matriz-activos"]'
+            );
+
+            enlacesADeshabilitar.forEach(enlace => {
+                enlace.addEventListener("click", function(e) {
+                    e.preventDefault(); // Anula la redirección desde el menú lateral
+                    console.log(`Deshabilitado enlace lateral de '${enlace.dataset.section}' en la página de Control.`);
+                });
+            });
+        }
+    });
+</script>
+<script>
+    let currentAction = '';
+
+    function openRoleModal(event, action) {
+        console.log('Opening role modal for action:', action);
+        event.preventDefault(); // ¡CLAVE! Detiene cualquier otra acción del clic.
+        currentAction = action;
+        const modal = document.getElementById('roleModal');
+        console.log('Modal element:', modal);
+        if (modal) {
+            modal.style.display = 'block';
+            console.log('Modal display set to block');
+        } else {
+            console.error('Modal element not found!');
+        }
+    }
+
+    function closeRoleModal() {
+        console.log('Closing role modal');
+        const modal = document.getElementById('roleModal');
+        if (modal) {
+            modal.style.display = 'none';
+        }
+    }
+
+    function selectRole(roleId, roleName) {
+        console.log('Selecting role:', roleId, roleName);
+        closeRoleModal();
+
+        if (currentAction === 'documentacion') {
+            console.log('Redirecting to documentacion:', roleId);
+            window.location.href = `/documentacion/${roleId}`;
+        } else if (currentAction === 'indicadores') {
+            console.log('Redirecting to indicadores:', roleId);
+            window.location.href = `/indicadores/${roleId}`;
+        } else if (currentAction === 'Matriz_Riesgos') {
+            console.log('Redirecting to Matriz de Riesgos:', roleId);
+            window.location.href = `/Matriz_Riesgos/${roleId}`;
+        } else if (currentAction === 'Matriz_Activos') {
+            console.log('Redirecting to Matriz de Activos:', roleId);
+            window.location.href = `/Matriz_Activos/${roleId}`;
+        }
+    }
+
+    // Cerrar modal al hacer clic fuera de él
+    window.onclick = function (event) {
+        const modal = document.getElementById('roleModal');
+        if (event.target === modal) {
+            closeRoleModal();
+        }
+    }
+
+    // Debug: Check if modal exists when page loads
+    document.addEventListener('DOMContentLoaded', function () {
+        console.log('Page loaded, checking modal elements...');
+        const modal = document.getElementById('roleModal');
+        console.log('Modal element found:', modal);
+        if (modal) {
+            console.log('Modal initial display style:', modal.style.display);
+        }
+    });
+</script>
+
+{% endblock %}

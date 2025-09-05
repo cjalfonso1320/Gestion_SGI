@@ -1,44 +1,60 @@
-from flask import Blueprint, render_template, request, jsonify
+from flask import Blueprint, render_template, request, jsonify, session
 from flask_login import current_user, login_required
-from controllers.matriz_controller import guardar_matriz, lista_matriz, modificar_matriz
-from controllers.rol_controller import PROCESOS_ROL, ROL_IMAGES
+from controllers.matriz_controller import guardar_matriz, lista_matriz, modificar_matriz, lista_para_riesgos
+from controllers.rol_controller import PROCESOS_ROL, ROL_IMAGES, nombre_rol
 
 mActivos_bp = Blueprint('mActivos', __name__)
 
 
-@mActivos_bp.route('/Matriz_Activos')
+@mActivos_bp.route('/Matriz_Activos', defaults={'role_id': None})
+@mActivos_bp.route('/Matriz_Activos/<int:role_id>')
 @login_required
-def Matriz_Activos():
-    rol_id = current_user.rol
-    #1. obtener lista de procesos para el rol
-    procesos = PROCESOS_ROL.get(rol_id, [])
-    imagen_rol = ROL_IMAGES.get(rol_id, 'imgs/user.png')
-    lista_procesos = PROCESOS_ROL.get(rol_id, [])
+def Matriz_Activos(role_id):
+    is_role_override = role_id is not None
+
+    if is_role_override:
+        session['selected_rol'] = role_id
+        rol = role_id
+    else:
+        rol = session.get('selected_rol', current_user.rol)
+
+    nombre_del_rol = nombre_rol(rol)
+    imagen_rol = ROL_IMAGES.get(rol, 'imgs/user.png')
+    lista_procesos = PROCESOS_ROL.get(rol, [])
+
     if not lista_procesos:
-        #si el rol no tiene procesos definidos muestra un mensaje o una pagina vacia
-        return render_template('MatrizActivos/Matriz_Activos.html', usuario=current_user, lista_procesos=[], proceso_actual=None, datos_matriz=[], imagen_rol=imagen_rol)
-    #2. determinar proceso mostrar
-        #intenta obtener el proceso desde la URL ej. =proceso=Nacionales_banco
+        return render_template('MatrizActivos/Matriz_Activos.html',
+                               usuario=current_user,
+                               lista_procesos=[],
+                               proceso_actual=None,
+                               datos_matriz=[],
+                               imagen_rol=imagen_rol,
+                               rol_seleccionado=rol,
+                               nombre_rol_seleccionado=nombre_del_rol,
+                               is_role_override=is_role_override)
+
     proceso_solicitado = request.args.get('proceso')
-        #si el proceso solitado es valido lo usamos
-        #si no usamos el primer porceso de la lista como valor por defecto
+
     if proceso_solicitado in lista_procesos:
         proceso_actual = proceso_solicitado
     else:
         proceso_actual = lista_procesos[0]
-    #3. cargar los datos solo para el proceso seleccionado
-    datos_matriz = lista_matriz(rol_id, proceso_actual)
+
+    datos_matriz = lista_matriz(rol, proceso_actual)
     return render_template('MatrizActivos/Matriz_Activos.html',
                            usuario=current_user,
                            lista_procesos=lista_procesos,
                            proceso_actual=proceso_actual,
                            datos_matriz=datos_matriz,
-                           procesos=procesos)
+                           rol_seleccionado=rol,
+                           imagen_rol=imagen_rol,
+                           nombre_rol_seleccionado=nombre_del_rol,
+                           is_role_override=is_role_override)
 
 @mActivos_bp.route('/cargar_matriz_proceso')
 @login_required
 def cargar_matriz_proceso():
-    rol_id = current_user.rol
+    rol_id = session.get('selected_rol', current_user.rol)
     proceso_solicitado = request.args.get('proceso')
     lista_procesos = PROCESOS_ROL.get(rol_id, [])
 

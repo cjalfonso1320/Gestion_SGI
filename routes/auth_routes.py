@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask import Blueprint, render_template, request, redirect, url_for, flash, session
 from flask_login import login_user, logout_user, login_required
 from models import Usuarios
 from models import obtener_roles
@@ -13,6 +13,10 @@ def login():
         password = request.form.get('password')
         user = Usuarios.obtener_por_username(username)
         if user and user.verifica_contrasena(password):
+            # Limpiar la sesión del rol anterior si existe
+            if 'selected_rol' in session:
+                session.pop('selected_rol', None)
+            
             login_user(user)
             return redirect(url_for('home.home'))  # ← usa el nombre del blueprint y la función
     return render_template('log_reg/login.html')
@@ -34,5 +38,9 @@ def register():
 @auth_bp.route('/logout')
 @login_required
 def logout():
+    # Limpiar la sesión del rol seleccionado
+    if 'selected_rol' in session:
+        session.pop('selected_rol', None)
+    
     logout_user()
     return redirect(url_for('auth.login'))

@@ -1,3 +1,4 @@
+{% if current_user.rol != 16 %}
 <form id="form_tiempoCredito_{{proceso}}" method="post">
     <div class="form-grid-container">
         <input type="hidden" id="procesoInput_{{ proceso }}" name="proceso" value="{{ proceso }}"
@@ -60,6 +61,7 @@
         <button type="submit">Guardar</button>
     </div>
 </form>
+{% endif %}
 
 
 <div class="container mt-4">

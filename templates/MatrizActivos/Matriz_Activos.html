@@ -3,7 +3,42 @@
 {% block content %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/acordeon_doc.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/form_indicadores.css') }}">
-
+{% if current_user.rol == 16 %}
+<div class="role-selection-header" style="margin-bottom: 20px; padding: 20px; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-radius: 12px; border: 1px solid #dee2e6; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div>
+            <h3 style="margin: 0; color: #495057; font-size: 1.5rem;">
+                <i class="fa-solid fa-boxes-stacked" style="margin-right: 15px; color: #007bff;"></i>
+                Matriz de Activos para: <strong style="color: #007bff;">{{ nombre_rol_seleccionado }}</strong>
+            </h3>
+            <p style="margin: 8px 0 0 0; color: #6c757d; font-size: 14px;">
+                <i class="fa-solid fa-user-tag" style="margin-right: 8px; color: #28a745;"></i>
+                {% if is_role_override %}
+                    <span style="color: #28a745; font-weight: 600;">Vista de rol específico seleccionado</span>
+                {% else %}
+                    <span style="color: #6c757d;">Vista de tu rol actual</span>
+                {% endif %}
+            </p>
+        </div>
+        <div style="display: flex; gap: 10px;">
+            <a href="{{ url_for('control.control') }}" class="btn btn-outline-primary" style="text-decoration: none; padding: 10px 20px; border-radius: 8px; font-weight: 500; transition: all 0.3s ease;">
+                <i class="fa-solid fa-arrow-left" style="margin-right: 8px;"></i>
+                Cambiar Rol
+            </a>
+            {% if is_role_override %}
+            <a href="{{ url_for('mActivos.Matriz_Activos') }}" class="btn btn-outline-secondary" style="text-decoration: none; padding: 10px 20px; border-radius: 8px; font-weight: 500; transition: all 0.3s ease;">
+                <i class="fa-solid fa-home" style="margin-right: 8px;"></i>
+                Mi Rol
+            </a>
+            {% endif %}
+            <button onclick="limpiarRolSeleccionado()" class="btn btn-outline-secondary" style="text-decoration: none; padding: 10px 20px; border-radius: 8px; font-weight: 500; transition: all 0.3s ease; border: 2px solid #dc3545; color: #dc3545;">
+                <i class="fa-solid fa-eraser" style="margin-right: 8px;"></i>
+                Limpiar Rol
+            </button>
+        </div>
+    </div>
+</div>
+{% endif %}
 {% if lista_procesos %}
 <div class="proceso-selector" style="margin-bottom: 20px;">
     

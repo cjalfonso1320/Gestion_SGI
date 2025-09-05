@@ -1,6 +1,8 @@
+{% if current_user.rol != 16 %}
 <form id="form_entrega_fisicos_{{ proceso }}">
     <div class="form-grid-container">
-        <input type="hidden" id="proceso" name="proceso" value="{{ proceso }}">
+        <input type="hidden" name="proceso" value="{{ proceso }}">
+        <input type="hidden" name="rol" value="{{ current_user.rol }}">
         <div>
             <label class="form-label" for="mes">Mes</label>
             <select id="mes_{{ proceso }}" name="mes" required>
@@ -177,6 +179,8 @@
         <button type="submit">Guardar</button>
 </form>
 </div>
+{% endif %}
+
 
 
 <div class="container mt-4">
@@ -245,13 +249,14 @@
         }
     });
 
-    // --- LÓGICA DE CÁLCULO DEL FORMULARIO (sin cambios) ---
+    // --- LÓGICA DE CÁLCULO DEL FORMULARIO ---
     document.addEventListener('input', function (event) {
         // Asegurarse que el input pertenece a este formulario específico
-        if (event.target.closest('#form_entrega_fisicos_{{ proceso }}')) {
+        const form = event.target.closest('#form_entrega_fisicos_{{ proceso }}');
+        if (form) {
             const total = parseInt(document.getElementById('doc_entregados_{{ proceso }}').value) || 0;
             const fueraRango = parseInt(document.getElementById('doc_extemporaneos_{{ proceso }}').value) || 0;
-            let proceso = document.getElementById('proceso').value;
+            let proceso = form.querySelector('input[name="proceso"]').value;
             let porcentaje = 0;
             if (total > 0) {
                 if (proceso === 'Nacionales_Inconsistencias_Davivienda' || proceso === 'Distritales_Inconsistencias_Davivienda' || proceso === 'Departamentales_Inconsistencias_Davivienda' || proceso === 'Convenios_Inconsistencias_Davivienda') {

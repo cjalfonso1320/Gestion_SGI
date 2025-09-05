@@ -9,6 +9,7 @@
 {% set meses_sanciones = meses_sancionesMagneticas %}
 {% set multas_sanciones = multas_sancionesMagneticas %}
 {% endif %}
+{% if current_user.rol != 16 %}
 <form class="form-sanciones" id="form_sanciones{{ tipo_sancion }}" method="post">
     <div class="form-grid-container">
         <input type="hidden" value="{{ proceso }}" name="proceso" class="proceso">
@@ -88,6 +89,7 @@
         <button type="submit">Guardar</button>
     </div>
 </form>
+{% endif %}
 
 
 <div class="container mt-4">

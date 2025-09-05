@@ -3,7 +3,42 @@
 {% block content %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/acordeon_doc.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/busqueda.css') }}">
-
+{% if current_user.rol == 16 %}
+<div class="role-selection-header" style="margin-bottom: 20px; padding: 20px; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-radius: 12px; border: 1px solid #dee2e6; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div>
+            <h3 style="margin: 0; color: #495057; font-size: 1.5rem;">
+                <i class="fa-regular fa-file-lines" style="margin-right: 15px; color: #007bff;"></i>
+                Documentación para: <strong style="color: #007bff;">{{ nombre_rol_seleccionado }}</strong>
+            </h3>
+            <p style="margin: 8px 0 0 0; color: #6c757d; font-size: 14px;">
+                <i class="fa-solid fa-user-tag" style="margin-right: 8px; color: #28a745;"></i>
+                {% if is_role_override %}
+                    <span style="color: #28a745; font-weight: 600;">Vista de rol específico seleccionado</span>
+                {% else %}
+                    <span style="color: #6c757d;">Vista de tu rol actual</span>
+                {% endif %}
+            </p>
+        </div>
+        <div style="display: flex; gap: 10px;">
+            <a href="{{ url_for('control.control') }}" class="btn btn-outline-primary" style="text-decoration: none; padding: 10px 20px; border-radius: 8px; font-weight: 500; transition: all 0.3s ease;">
+                <i class="fa-solid fa-arrow-left" style="margin-right: 8px;"></i>
+                Cambiar Rol
+            </a>
+            {% if is_role_override %}
+            <a href="{{ url_for('doc.documentacion') }}" class="btn btn-outline-secondary" style="text-decoration: none; padding: 10px 20px; border-radius: 8px; font-weight: 500; transition: all 0.3s ease;">
+                <i class="fa-solid fa-home" style="margin-right: 8px;"></i>
+                Mi Rol
+            </a>
+            {% endif %}
+            <button onclick="limpiarRolSeleccionado()" class="btn btn-outline-secondary" style="text-decoration: none; padding: 10px 20px; border-radius: 8px; font-weight: 500; transition: all 0.3s ease; border: 2px solid #dc3545; color: #dc3545;">
+                <i class="fa-solid fa-eraser" style="margin-right: 8px;"></i>
+                Limpiar Rol
+            </button>
+        </div>
+    </div>
+</div>
+{% endif %}
 <!-- barra de busqeuda -->
 <div class="search-container">
     <input type="text" id="searchInput" placeholder="Buscar documentos por nombre...">
@@ -91,8 +126,9 @@
     </div>
 </div>
 
-{% if current_user.rol != 17 and current_user.rol != 20 and current_user.rol != 21 %}
     <div class="doc-accordion">
+        <!-- Procedimientos y Caracterización para todos los roles -->
+        {% if rol_seleccionado not in [] %}
         <div class="doc-section">Procedimientos</div>
         <div class="doc-content">
             {% include 'users/procedimientos.html' %}
@@ -109,8 +145,9 @@
             </div>
             {% endfor %}
         </div>
+        {% endif %}
 
-        {% if current_user.rol != 14 %}
+        {% if rol_seleccionado != 14 %}
         <div class="doc-section">Formatos</div>
         <div class="doc-content">
             <div class="doc-subsection">Formatos Digitales</div>
@@ -141,7 +178,7 @@
             {% endif %}
         </div>
 
-        {% if current_user.rol not in [8, 9, 14, 15, 16 ,17, 18, 19, 20] %} <!-- NO MOSTRAR SI EL ID ESTA EN LA LISTA -->
+        {% if rol_seleccionado not in [8, 9, 14, 15, 16 ,17, 18, 19, 20] %} <!-- NO MOSTRAR SI EL ID ESTA EN LA LISTA -->
         <div class="doc-section">Plan de Calidad</div>
         <div class="doc-content">
             {% include 'users/planCalidad.html' %}
@@ -152,7 +189,7 @@
             {% include 'users/requisitosCliente.html' %}
         </div>
 
-        {% elif current_user.rol == 9 %} <!-- MOSTRAR SI EL ID ES EL DE T-I -->
+        {% elif rol_seleccionado == 9 %} <!-- MOSTRAR SI EL ID ES EL DE T-I -->
         <div class="doc-section">Actas de Restauración</div>
         <div class="doc-content">
             {% include 'users/actasRestauracion.html' %}
@@ -167,7 +204,7 @@
             {% include 'users/manuales.html' %}
         </div>
 
-        {% elif current_user.rol == 16 %} <!-- MOSTRAR SI EL ID ES EL DE SGI-->
+        {% elif rol_seleccionado == 16 %} <!-- MOSTRAR SI EL ID ES EL DE SGI-->
 
         <div class="doc-section">Auditorias Proveedores</div>
         <div class="doc-content">
@@ -262,7 +299,7 @@
             </div>
         </div>
 
-        {% elif current_user.rol == 18 %} <!-- MOSTRAR SI EL ID ES EL DE COMERCIAL -->
+        {% elif rol_seleccionado == 18 %} <!-- MOSTRAR SI EL ID ES EL DE COMERCIAL -->
         <div class="doc-section">Encuestas de Satisfacción</div>
         <div class="doc-content">
             <div class="doc-subsection">2019</div>
@@ -281,21 +318,22 @@
             </div>
         </div>
         {% endif %}
-    {% endif %}
-    </div>
-{% elif current_user.rol == 17 %}
+        
+        <!-- Contenido específico para roles especiales -->
+        {% elif rol_seleccionado == 17 %}
         {% if sst_arbol_carpetas %}
             {% include 'users/sst.html' %}
         {% endif %}
-{% elif current_user.rol == 20 %}
+        {% elif rol_seleccionado == 20 %}
         {% if archivos_sagrilaft %}
             {% include 'users/sagrilaft.html' %}
         {% endif %}
-{% elif current_user.rol == 21 %}
+        {% elif rol_seleccionado == 21 %}
         {% if archivos_ambiental %}
             {% include 'users/ambiental.html' %}
         {% endif %}
-{% endif %}
+    {% endif %}
+    </div>
 <script src="{{ url_for('static', filename='js/jquery.min.js')}}"></script>
 <script src="{{ url_for('static', filename='js/acordeon_doc.js')}}"></script>
 <script>
@@ -350,4 +388,31 @@ document.addEventListener('DOMContentLoaded', function() {
     searchInput.addEventListener('input', filterDocuments);
 });
 </script>
+<script>
+    // Función para limpiar el rol seleccionado y volver al rol por defecto
+    function limpiarRolSeleccionado() {
+        if (confirm('¿Estás seguro de que quieres limpiar el rol seleccionado y volver a tu rol por defecto?')) {
+            // Hacer una petición AJAX para limpiar la sesión
+            fetch('/limpiar_rol_seleccionado', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Recargar la página para mostrar el rol por defecto
+                    window.location.reload();
+                } else {
+                    alert('Error al limpiar el rol seleccionado');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error al limpiar el rol seleccionado');
+            });
+        }
+    }
+    </script>
 {% endblock %}

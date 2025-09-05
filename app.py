@@ -12,6 +12,7 @@ from routes.usoInt_routes import usoInt_bp
 from routes.matrizActivos_routes import mActivos_bp
 from routes.listaMaestra_routes import lMaestra_bp
 from routes.riesgos_routes import mRiesgos_bp
+from routes.control_routes import control_bp
 
 from routes.doc_routes import doc_bp
 
@@ -50,7 +51,9 @@ app.register_blueprint(mActivos_bp)
 app.register_blueprint(mRiesgos_bp)
 
     # Blueprints SGI
-app.register_blueprint(lMaestra_bp)    
+app.register_blueprint(lMaestra_bp)  
+app.register_blueprint(control_bp)
+
 
 
 

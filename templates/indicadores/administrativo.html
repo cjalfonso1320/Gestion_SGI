@@ -1,10 +1,11 @@
+{% if current_user.rol != 16 %}
 <form id="form_administrativos_{{proceso}}" method="post">
     <div class="form-grid-container">
         <input type="hidden" name="proceso" id="proceso_{{ proceso }}" value="{{ proceso }}">
         <input type="hidden" name="meta" id="meta_{{ proceso }}" value="{{ meta }}">
         <div class="form-field">
             <label class="form-label" for="mes">Mes</label>
-            <select id="mes" name="mes" required>
+            <select id="mes_{{ proceso }}" name="mes" required>
                 <option value="">Seleccione un mes</option>
                 <option value="Enero">Enero</option>
                 <option value="Febrero">Febrero</option>
@@ -179,6 +180,7 @@
         <button type="submit">Guardar</button>
     </div>
 </form>
+{% endif %}
 
 
 <div class="container mt-4">
@@ -220,7 +222,7 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
 <script>
     const ctx_administrativo_{{ proceso }} = document.getElementById('grafica_administrativo_{{ proceso }}').getContext('2d');
-    window.grafica_administrativo_{ { proceso } } = new Chart(ctx_administrativo_{{ proceso }}, {
+    window.grafica_administrativo_{{ proceso }} = new Chart(ctx_administrativo_{{ proceso }}, {
         type: 'line',
         data: {
             labels: {{ meses_administrativo|default([]) | tojson | safe }},
@@ -244,99 +246,61 @@
     });
 </script>
 <script>
-    document.addEventListener('input', function () {
-        meta = document.getElementById('meta_{{ proceso }}').value;
-        proceso = document.getElementById('proceso_{{ proceso }}').value;
-        let total = 0;
-        let fueraRango = 0;
-        if (proceso == 'TH_clima_organizacional' || proceso == 'TH_Eficacia_Capacitaciones' || proceso == 'TH_Evaluacion_Desempeño' || proceso == 'financiera') {
-            total = parseFloat(document.getElementById('Sol_atendidas_{{ proceso }}').value) || 0;
-            fueraRango = parseFloat(document.getElementById('Sol_realizadas_{{ proceso }}').value) || 0;
-        } else {
-            total = parseInt(document.getElementById('Sol_atendidas_{{ proceso }}').value) || 0;
-            fueraRango = parseInt(document.getElementById('Sol_realizadas_{{ proceso }}').value) || 0;
-        }
-        let porcentaje = 0;
-        if (total > 0) {
-            if (proceso == 'SGI_Incidentes_Seguridad' || proceso == 'SGI_Producto_No_Conforme') {
-                porcentaje = ((total - fueraRango) / total) * 100;
+    document.addEventListener('input', function (event) {
+        const form = event.target.closest('#form_administrativos_{{proceso}}');
+        if (form) {
+            const meta = form.querySelector('input[name="meta"]').value;
+            const proceso = form.querySelector('input[name="proceso"]').value;
+            let total = 0;
+            let fueraRango = 0;
+
+            const solAtendidasInput = form.querySelector('#Sol_atendidas_{{ proceso }}');
+            const solRealizadasInput = form.querySelector('#Sol_realizadas_{{ proceso }}');
+
+            if (proceso == 'TH_clima_organizacional' || proceso == 'TH_Eficacia_Capacitaciones' || proceso == 'TH_Evaluacion_Desempeño' || proceso == 'financiera') {
+                total = parseFloat(solAtendidasInput.value) || 0;
+                fueraRango = parseFloat(solRealizadasInput.value) || 0;
+            } else {
+                total = parseInt(solAtendidasInput.value) || 0;
+                fueraRango = parseInt(solRealizadasInput.value) || 0;
             }
-            else if (fueraRango > 0 && proceso != 'SGI_Incidentes_Seguridad' && proceso != 'SGI_Producto_No_Conforme') {
-                if (proceso == 'TH_clima_organizacional' || proceso == 'financiera') {
-                    porcentaje = (total / fueraRango);
+
+            let porcentaje = 0;
+            if (total > 0) {
+                if (proceso == 'SGI_Incidentes_Seguridad' || proceso == 'SGI_Producto_No_Conforme') {
+                    porcentaje = ((total - fueraRango) / total) * 100;
                 }
-                else if (proceso === 'TH_Evaluacion_Desempeño') {
-                    porcentaje = (total / fueraRango) * 100;
+                else if (fueraRango > 0 && proceso != 'SGI_Incidentes_Seguridad' && proceso != 'SGI_Producto_No_Conforme') {
+                    if (proceso == 'TH_clima_organizacional' || proceso == 'financiera') {
+                        porcentaje = (total / fueraRango);
+                    }
+                    else if (proceso === 'TH_Evaluacion_Desempeño') {
+                        porcentaje = (total / fueraRango) * 100;
+                    } else {
+                        porcentaje = (fueraRango / total) * 100;
+                    }
+                } else if (fueraRango === 0) {
+                    porcentaje = total;
                 } else {
-                    porcentaje = (fueraRango / total) * 100;
+                    porcentaje = 0;
                 }
-            } else if (fueraRango === 0) {
-                porcentaje = total;
-            } else {
-                porcentaje = 0;
             }
-        }
-        document.getElementById('resultado_administrativo_{{ proceso }}').value = porcentaje.toFixed(2); // 1 decimal
-        if (meta == 'propuesta') {
-            if (porcentaje >= 60) {
-                document.getElementById('meta_administrativo_{{ proceso }}').value = "meta Alcanzada";
-            } else {
-                document.getElementById('meta_administrativo_{{ proceso }}').value = "meta no alcanzada";
-            }
-        } else if (meta == 'efectividad') {
-            if (porcentaje >= 10) {
-                document.getElementById('meta_administrativo_{{ proceso }}').value = "meta Alcanzada";
-            } else {
-                document.getElementById('meta_administrativo_{{ proceso }}').value = "meta no alcanzada";
-            }
-        } else if (meta == 'pqr' || meta == 'TH_Cumplimiento_Capacitaciones' || meta == 'SGI_Continuidad_Negocio') {
-            if (porcentaje >= 90) {
-                document.getElementById('meta_administrativo_{{ proceso }}').value = "meta Alcanzada";
-            } else {
-                document.getElementById('meta_administrativo_{{ proceso }}').value = "meta no alcanzada";
-            }
-        } else if (meta == 'TH_clima_organizacional') {
-            if (porcentaje >= 3.5) {
-                document.getElementById('meta_administrativo_{{ proceso }}').value = "meta Alcanzada";
-            } else {
-                document.getElementById('meta_administrativo_{{ proceso }}').value = "meta no alcanzada";
-            }
-        } else if (meta == 'TH_Eficacia_Capacitaciones') {
-            if (porcentaje >= 3.30) {
-                document.getElementById('meta_administrativo_{{ proceso }}').value = "meta Alcanzada";
-            } else {
-                document.getElementById('meta_administrativo_{{ proceso }}').value = "meta no alcanzada";
-            }
-        } else if (meta == 'TH_Evaluacion_Desempeño') {
-            if (porcentaje >= 4.5) {
-                document.getElementById('meta_administrativo_{{ proceso }}').value = "meta Alcanzada";
-            } else {
-                document.getElementById('meta_administrativo_{{ proceso }}').value = "meta no alcanzada";
-            }
-        } else if (meta == 'financiera') {
-            if (porcentaje >= 81) {
-                document.getElementById('meta_administrativo_{{ proceso }}').value = "meta Alcanzada";
-            } else {
-                document.getElementById('meta_administrativo_{{ proceso }}').value = "meta no alcanzada";
-            }
-        } else if (meta == 'SGI_Acciones_Correctivas' || meta == 'SGI_Incidentes_Seguridad') {
-            if (porcentaje >= 60) {
-                document.getElementById('meta_administrativo_{{ proceso }}').value = "meta Alcanzada";
-            } else {
-                document.getElementById('meta_administrativo_{{ proceso }}').value = "meta no alcanzada";
-            }
-        } else if (meta == 'SGI_Producto_No_Conforme' || meta == 'SGI_Riesgos') {
-            if (porcentaje >= 80) {
-                document.getElementById('meta_administrativo_{{ proceso }}').value = "meta Alcanzada";
-            } else {
-                document.getElementById('meta_administrativo_{{ proceso }}').value = "meta no alcanzada";
-            }
-        } else {
-            if (porcentaje >= 99) {
-                document.getElementById('meta_administrativo_{{ proceso }}').value = "meta Alcanzada";
-            } else {
-                document.getElementById('meta_administrativo_{{ proceso }}').value = "meta no alcanzada";
-            }
+            form.querySelector('#resultado_administrativo_{{ proceso }}').value = porcentaje.toFixed(2);
+            const metaInput = form.querySelector('#meta_administrativo_{{ proceso }}');
+
+            let metaAlcanzada = false;
+            if (meta == 'propuesta' && porcentaje >= 60) metaAlcanzada = true;
+            else if (meta == 'efectividad' && porcentaje >= 10) metaAlcanzada = true;
+            else if ((meta == 'pqr' || meta == 'TH_Cumplimiento_Capacitaciones' || meta == 'SGI_Continuidad_Negocio') && porcentaje >= 90) metaAlcanzada = true;
+            else if (meta == 'TH_clima_organizacional' && porcentaje >= 3.5) metaAlcanzada = true;
+            else if (meta == 'TH_Eficacia_Capacitaciones' && porcentaje >= 3.30) metaAlcanzada = true;
+            else if (meta == 'TH_Evaluacion_Desempeño' && porcentaje >= 4.5) metaAlcanzada = true;
+            else if (meta == 'financiera' && porcentaje >= 81) metaAlcanzada = true;
+            else if ((meta == 'SGI_Acciones_Correctivas' || meta == 'SGI_Incidentes_Seguridad') && porcentaje >= 60) metaAlcanzada = true;
+            else if ((meta == 'SGI_Producto_No_Conforme' || meta == 'SGI_Riesgos') && porcentaje >= 80) metaAlcanzada = true;
+            else if (porcentaje >= 99) metaAlcanzada = true;
+
+            metaInput.value = metaAlcanzada ? "meta Alcanzada" : "meta no alcanzada";
         }
     });
 </script>

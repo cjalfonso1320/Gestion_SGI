@@ -15,167 +15,124 @@ PROCESOS = {
     13: ['nacionales', 'recaudos']
 }
 
-def procedimientos(rol):
-    nombre_rol = nombre(rol)
+# Lista de roles administrativos que pueden ver todos los archivos en carpetas compartidas
+ROLES_ADMIN = [8, 9, 14, 15, 16, 17, 18, 19, 20, 21]
+# ID del rol de referencia para buscar la ruta de la carpeta compartida (Occidente=4)
+REFERENCE_ROL_ID = 4
+
+def _get_files_from_shared_folder(rol, carpeta_nombre):
+    """
+    Función auxiliar refactorizada para obtener archivos de una carpeta compartida.
+    - Para roles de producción, usa una ruta de referencia común y luego filtra los archivos por nombre.
+    - Los roles administrativos (definidos en ROLES_ADMIN) ven todos los archivos.
+    - Los demás roles ven los archivos de su propia carpeta asignada.
+    """
+    nombre_rol_actual = nombre(rol)
     cur = mysql.connection.cursor()
-    archivos_procedimientos  = []
-    if nombre_rol.lower() in ROLES_PRODUCCION:
-        cur.execute("SELECT rutas.ruta_compartida FROM rutas INNER JOIN rol ON rutas.rol_id = rol.id WHERE carpeta = 'Procedimientos' AND rol.rol = 'Occidente'")
+    archivos = []
+    
+    # Los roles de producción usan una carpeta compartida, que está asociada al rol de referencia.
+    if nombre_rol_actual.lower() in ROLES_PRODUCCION:
+        cur.execute("SELECT ruta_compartida FROM rutas WHERE carpeta = %s AND rol_id = %s", (carpeta_nombre, REFERENCE_ROL_ID))
     else:
-        cur.execute("SELECT ruta_compartida FROM rutas WHERE rol_id = %s AND carpeta = 'Procedimientos'", (rol,))
-    carpeta_compartida = cur.fetchone()
-    if carpeta_compartida:
-        ruta = carpeta_compartida[0]
+        # Otros roles (administrativos, etc.) usan su propia ruta asignada.
+        cur.execute("SELECT ruta_compartida FROM rutas WHERE rol_id = %s AND carpeta = %s", (rol, carpeta_nombre))
+    
+    resultado_ruta = cur.fetchone()
+    cur.close()
+
+    if not resultado_ruta or not resultado_ruta[0]:
+        print(f"ADVERTENCIA: No se encontró ruta para la carpeta '{carpeta_nombre}' y rol {rol}.")
+        return []
+
+    ruta = resultado_ruta[0]
+    
+    try:
+        if not os.path.isdir(ruta):
+            print(f"ERROR: La ruta '{ruta}' no es un directorio válido para la carpeta '{carpeta_nombre}'.")
+            return []
+            
         for archivo in os.listdir(ruta):
-            if archivo.startswith("~") or archivo.startswith("."):
-                continue #ignora temporales y ocultos
-            if nombre_rol.lower() in archivo.lower():
+            # Ignorar archivos temporales, ocultos o del sistema
+            if archivo.startswith("~") or archivo.startswith(".") or archivo.lower() == "thumbs.db":
+                continue
+
+            # Si el rol es administrativo, o si el nombre del rol de producción está en el nombre del archivo, se añade.
+            if rol in ROLES_ADMIN or nombre_rol_actual.lower() in archivo.lower():
                 tipo = os.path.splitext(archivo)[1].lower()
-                archivos_procedimientos.append({
+                archivos.append({
                     'nombre': archivo,
                     'tipo': tipo,
                     'ruta': os.path.join(ruta, archivo),
-                }) 
-    cur.close()  
-    return archivos_procedimientos
+                })
+    except FileNotFoundError:
+        print(f"ERROR: La ruta '{ruta}' no fue encontrada para la carpeta '{carpeta_nombre}'.")
+    except Exception as e:
+        print(f"ERROR inesperado al leer la carpeta '{carpeta_nombre}': {e}")
+
+    return archivos
+
+def _get_files_for_rol(rol, carpeta_nombre):
+    """
+    Función auxiliar simple para obtener todos los archivos de una carpeta específica para un rol,
+    sin lógica de filtrado adicional.
+    """
+    cur = mysql.connection.cursor()
+    archivos = []
+    
+    try:
+        cur.execute("SELECT ruta_compartida FROM rutas WHERE rol_id = %s AND carpeta = %s", (rol, carpeta_nombre))
+        resultado_ruta = cur.fetchone()
+
+        if not resultado_ruta or not resultado_ruta[0]:
+            print(f"ADVERTENCIA: No se encontró ruta para la carpeta '{carpeta_nombre}' y rol {rol}.")
+            return []
+
+        ruta = resultado_ruta[0]
+
+        if not os.path.isdir(ruta):
+            print(f"ERROR: La ruta '{ruta}' no es un directorio válido para la carpeta '{carpeta_nombre}'.")
+            return []
+
+        for archivo in os.listdir(ruta):
+            if archivo.startswith("~") or archivo.startswith(".") or archivo.lower() == "thumbs.db":
+                continue
+            
+            tipo = os.path.splitext(archivo)[1].lower()
+            archivos.append({
+                'nombre': archivo,
+                'tipo': tipo,
+                'ruta': os.path.join(ruta, archivo),
+            })
+    except FileNotFoundError:
+        print(f"ERROR: La ruta '{ruta}' no fue encontrada para la carpeta '{carpeta_nombre}'.")
+    except Exception as e:
+        print(f"ERROR inesperado al leer la carpeta '{carpeta_nombre}': {e}")
+    finally:
+        cur.close()
+
+    return archivos
+
+def procedimientos(rol):
+    return _get_files_from_shared_folder(rol, 'Procedimientos')
 
 def caracterizacion(rol):
-    nombre_rol = nombre(rol)
-    cur = mysql.connection.cursor()
-    if nombre_rol.lower() in ROLES_PRODUCCION:
-        cur.execute("SELECT rutas.ruta_compartida FROM rutas INNER JOIN rol ON rutas.rol_id = rol.id WHERE carpeta = 'Caracterizacion' AND rol.rol = 'Occidente'")
-    else:
-        cur.execute("SELECT ruta_compartida FROM rutas WHERE rol_id = %s AND carpeta = 'Caracterizacion'", (rol,))
-    carpeta_compartida = cur.fetchone()
-    cur.close()
-    archivos_caracterizacion = []
-    if carpeta_compartida:
-        ruta = carpeta_compartida[0]
-        for archivo in os.listdir(ruta):
-            if archivo.startswith("~") or archivo.startswith(".") or archivo.lower() == "thumbs.db":
-                continue
-            tipo = os.path.splitext(archivo)[1].lower()
-            archivos_caracterizacion.append({
-                'nombre': archivo,
-                'tipo': tipo,
-                'ruta': os.path.join(ruta, archivo),
-            })
-    return archivos_caracterizacion
+    return _get_files_from_shared_folder(rol, 'Caracterizacion')
 
 def formatos_digitales(rol):
-    nombre_rol = nombre(rol)
-    cur = mysql.connection.cursor()
-    if nombre_rol.lower() in ROLES_PRODUCCION:
-        cur.execute("SELECT rutas.ruta_compartida FROM rutas INNER JOIN rol ON rutas.rol_id = rol.id WHERE carpeta = 'Formatos Digitales' AND rol.rol = 'Occidente'")
-    else:
-        cur.execute("SELECT ruta_compartida FROM rutas WHERE rol_id = %s AND carpeta = 'Formatos Digitales'", (rol,))
-    carpeta_compartida = cur.fetchone()
-    cur.close()
-    archivos_formatos_digitales = []
-    if carpeta_compartida:
-        ruta = carpeta_compartida[0]
-        for archivo in os.listdir(ruta):
-            if archivo.startswith("~") or archivo.startswith(".") or archivo.lower() == "thumbs.db":
-                continue
-            tipo = os.path.splitext(archivo)[1].lower()
-            archivos_formatos_digitales.append({
-                'nombre': archivo,
-                'tipo': tipo,
-                'ruta': os.path.join(ruta, archivo),
-            })
-    return archivos_formatos_digitales
+    return _get_files_from_shared_folder(rol, 'Formatos Digitales')
 
 def formatos_fisicos(rol):
-    nombre_rol = nombre(rol)
-    cur = mysql.connection.cursor()
-    if nombre_rol.lower() in ROLES_PRODUCCION:
-        cur.execute("SELECT rutas.ruta_compartida FROM rutas INNER JOIN rol ON rutas.rol_id = rol.id WHERE carpeta = 'Formatos Fisicos' AND rol.rol = 'Occidente'")
-    else:
-        cur.execute("SELECT ruta_compartida FROM rutas WHERE rol_id = %s AND carpeta = 'Formatos Fisicos'", (rol,))
-    carpeta_compartida = cur.fetchone()
-    cur.close()
-    archivos_formatos_fisicos = []
-    if carpeta_compartida:
-        ruta = carpeta_compartida[0]
-        for archivo in os.listdir(ruta):
-            if archivo.startswith("~") or archivo.startswith(".") or archivo.lower() == "thumbs.db":
-                continue
-            tipo = os.path.splitext(archivo)[1].lower()
-            archivos_formatos_fisicos.append({
-                'nombre': archivo,
-                'tipo': tipo,
-                'ruta': os.path.join(ruta, archivo),
-            })
-    return archivos_formatos_fisicos
+    return _get_files_from_shared_folder(rol, 'Formatos Fisicos')
 
 def formatos_externos(rol):
-    nombre_rol = nombre(rol)
-    cur = mysql.connection.cursor()
-    if nombre_rol.lower() in ROLES_PRODUCCION:
-        cur.execute("SELECT rutas.ruta_compartida FROM rutas INNER JOIN rol ON rutas.rol_id = rol.id WHERE carpeta = 'Formatos Externos' AND rol.rol = 'Occidente'")
-    else:
-        cur.execute("SELECT ruta_compartida FROM rutas WHERE rol_id = %s AND carpeta = 'Formatos Externos'", (rol,))
-    carpeta_compartida = cur.fetchone()
-    cur.close()
-    archivos_formatos_externos = []
-    if carpeta_compartida:
-        ruta = carpeta_compartida[0]
-        for archivo in os.listdir(ruta):
-            if archivo.startswith("~") or archivo.startswith(".") or archivo.lower() == "thumbs.db":
-                continue
-            tipo = os.path.splitext(archivo)[1].lower()
-            archivos_formatos_externos.append({
-                'nombre': archivo,
-                'tipo': tipo,
-                'ruta': os.path.join(ruta, archivo),
-            })
-    return archivos_formatos_externos
+    return _get_files_from_shared_folder(rol, 'Formatos Externos')
 
 def formatos_externos_digitales(rol):
-    nombre_rol = nombre(rol)
-    cur = mysql.connection.cursor()
-    if nombre_rol.lower() in ROLES_PRODUCCION:
-        cur.execute("SELECT rutas.ruta_compartida FROM rutas INNER JOIN rol ON rutas.rol_id = rol.id WHERE carpeta = 'Formatos Externos Digitales' AND rol.rol = 'Occidente'")
-    else:
-        cur.execute("SELECT ruta_compartida FROM rutas WHERE rol_id = %s AND carpeta = 'Formatos Externos Digitales'", (rol,))
-    carpeta_compartida = cur.fetchone()
-    cur.close()
-    archivos_formatos_externos_digitales = []
-    if carpeta_compartida:
-        ruta = carpeta_compartida[0]
-        for archivo in os.listdir(ruta):
-            if archivo.startswith("~") or archivo.startswith(".") or archivo.lower() == "thumbs.db":
-                continue
-            tipo = os.path.splitext(archivo)[1].lower()
-            archivos_formatos_externos_digitales.append({
-                'nombre': archivo,
-                'tipo': tipo,
-                'ruta': os.path.join(ruta, archivo),
-            })
-    return archivos_formatos_externos_digitales
+    return _get_files_from_shared_folder(rol, 'Formatos Externos Digitales')
 
 def formatos_externos_fisicos(rol):
-    nombre_rol = nombre(rol)
-    cur = mysql.connection.cursor()
-    if nombre_rol.lower() in ROLES_PRODUCCION:
-        cur.execute("SELECT rutas.ruta_compartida FROM rutas INNER JOIN rol ON rutas.rol_id = rol.id WHERE carpeta = 'Formatos Externos Fisicos' AND rol.rol = 'Occidente'")
-    else:
-        cur.execute("SELECT ruta_compartida FROM rutas WHERE rol_id = %s AND carpeta = 'Formatos Externos Fisicos'", (rol,))
-    carpeta_compartida = cur.fetchone()
-    cur.close()
-    archivos_formatos_externos_fisicos = []
-    if carpeta_compartida:
-        ruta = carpeta_compartida[0]
-        for archivo in os.listdir(ruta):
-            if archivo.startswith("~") or archivo.startswith(".") or archivo.lower() == "thumbs.db":
-                continue
-            tipo = os.path.splitext(archivo)[1].lower()
-            archivos_formatos_externos_fisicos.append({
-                'nombre': archivo,
-                'tipo': tipo,
-                'ruta': os.path.join(ruta, archivo),
-            })
-    return archivos_formatos_externos_fisicos
+    return _get_files_from_shared_folder(rol, 'Formatos Externos Fisicos')
 
 def plan_calidad(rol):
     nombre_rol_actual = nombre(rol).lower()
@@ -319,328 +276,55 @@ def requisitos_cliente(rol):
     return archivos_requisitos_cliente
 
 def actas_restauracion(rol):
-    cur = mysql.connection.cursor()
-    archivos_actas_restauracion = []
-    cur.execute("SELECT ruta_compartida FROM rutas WHERE rol_id = %s AND carpeta = 'Actas de Restauración'", (rol,))
-    carpeta_compartida = cur.fetchone()
-    if carpeta_compartida:
-        ruta = carpeta_compartida[0]
-        for archivo in os.listdir(ruta):
-            if archivo.startswith("~") or archivo.startswith(".") or archivo.lower() == "thumbs.db":
-                continue
-            tipo = os.path.splitext(archivo)[1].lower()
-            archivos_actas_restauracion.append({
-                'nombre': archivo,
-                'tipo': tipo,
-                'ruta': os.path.join(ruta, archivo),
-            })
-    cur.close()
-    return archivos_actas_restauracion
+    return _get_files_for_rol(rol, 'Actas de Restauración')
 
 def instructivos(rol):
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT ruta_compartida FROM rutas WHERE rol_id = %s AND carpeta = 'Instructivos'", (rol,))
-    carpeta_compartida = cur.fetchone()
-    archivos_instructivos = []
-    if carpeta_compartida:
-        ruta = carpeta_compartida[0]
-        for archivo in os.listdir(ruta):
-            if archivo.startswith("~") or archivo.startswith(".") or archivo.lower() == "thumbs.db":
-                continue
-            tipo = os.path.splitext(archivo)[1].lower()
-            archivos_instructivos.append({
-                'nombre': archivo,
-                'tipo': tipo,
-                'ruta': os.path.join(ruta, archivo),
-            })
-    cur.close()
-    return archivos_instructivos
+    return _get_files_for_rol(rol, 'Instructivos')
 
 def manuales(rol):
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT ruta_compartida FROM rutas WHERE rol_id = %s AND carpeta = 'Manuales'", (rol,))
-    carpeta_compartida = cur.fetchone()
-    archivos_manuales = []
-    if carpeta_compartida:
-        ruta = carpeta_compartida[0]
-        for archivo in os.listdir(ruta):
-            if archivo.startswith("~") or archivo.startswith(".") or archivo.lower() == "thumbs.db":
-                continue
-            tipo = os.path.splitext(archivo)[1].lower()
-            archivos_manuales.append({
-                'nombre': archivo,
-                'tipo': tipo,
-                'ruta': os.path.join(ruta, archivo),
-            })
-    cur.close()
-    return archivos_manuales
-
+    return _get_files_for_rol(rol, 'Manuales')
 
 def auditorias_ifx(rol):
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT ruta_compartida FROM rutas WHERE rol_id = %s AND carpeta = 'Auditorias IFX'", (rol,))
-    carpeta_compartida = cur.fetchone()
-    archivos_auditorias_ifx = []
-    if carpeta_compartida:
-        ruta = carpeta_compartida[0]
-        for archivo in os.listdir(ruta):
-            if archivo.startswith("~") or archivo.startswith(".") or archivo.lower() == "thumbs.db":
-                continue
-            tipo = os.path.splitext(archivo)[1].lower()
-            archivos_auditorias_ifx.append({
-                'nombre': archivo,
-                'tipo': tipo,
-                'ruta': os.path.join(ruta, archivo),
-            })
-    cur.close()
-    return archivos_auditorias_ifx
+    return _get_files_for_rol(rol, 'Auditorias IFX')
 
 def auditoria_integrum(rol):
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT ruta_compartida FROM rutas WHERE rol_id = %s AND carpeta = 'Auditoria Integrum'", (rol,))
-    carpeta_compartida = cur.fetchone()
-    archivos_auditoria_integrum = []
-    if carpeta_compartida:
-        ruta = carpeta_compartida[0]
-        for archivo in os.listdir(ruta):
-            if archivo.startswith("~") or archivo.startswith(".") or archivo.lower() == "thumbs.db":
-                continue
-            tipo = os.path.splitext(archivo)[1].lower()
-            archivos_auditoria_integrum.append({
-                'nombre': archivo,
-                'tipo': tipo,
-                'ruta': os.path.join(ruta, archivo),
-            })
-    cur.close()
-    return archivos_auditoria_integrum
+    return _get_files_for_rol(rol, 'Auditoria Integrum')
 
 def auditoria_inter_servicios(rol):
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT ruta_compartida FROM rutas WHERE rol_id = %s AND carpeta = 'Auditoria Inter Servicios'", (rol,))
-    carpeta_compartida = cur.fetchone()
-    archivos_auditoria_inter_servicios = []
-    if carpeta_compartida:
-        ruta = carpeta_compartida[0]
-        for archivo in os.listdir(ruta):
-            if archivo.startswith("~") or archivo.startswith(".") or archivo.lower() == "thumbs.db":
-                continue
-            tipo = os.path.splitext(archivo)[1].lower()
-            archivos_auditoria_inter_servicios.append({
-                'nombre': archivo,
-                'tipo': tipo,
-                'ruta': os.path.join(ruta, archivo),
-            })
-    cur.close()
-    return archivos_auditoria_inter_servicios
+    return _get_files_for_rol(rol, 'Auditoria Inter Servicios')
 
 def ISECpoliticaContinuidad(rol):
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT ruta_compartida FROM rutas WHERE rol_id = %s AND carpeta = 'ISEC Continuidad'", (rol,))
-    carpeta_compartida = cur.fetchone()
-    archivos_ISECpoliticaContinuidad = []
-    if carpeta_compartida:
-        ruta = carpeta_compartida[0]
-        for archivo in os.listdir(ruta):
-            if archivo.startswith("~") or archivo.startswith(".") or archivo.lower() == "thumbs.db":
-                continue
-            tipo = os.path.splitext(archivo)[1].lower()
-            archivos_ISECpoliticaContinuidad.append({
-                'nombre': archivo,
-                'tipo': tipo,
-                'ruta': os.path.join(ruta, archivo),
-            })
-    cur.close()
-    return archivos_ISECpoliticaContinuidad
+    return _get_files_for_rol(rol, 'ISEC Continuidad')
 
 def ISECpoliticaProteccionDatos(rol):
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT ruta_compartida FROM rutas WHERE rol_id = %s AND carpeta = 'ISEC Proteccion Datos'", (rol,))
-    carpeta_compartida = cur.fetchone()
-    archivos_ISECpoliticaProteccionDatos = []
-    if carpeta_compartida:
-        ruta = carpeta_compartida[0]
-        for archivo in os.listdir(ruta):
-            if archivo.startswith("~") or archivo.startswith(".") or archivo.lower() == "thumbs.db":
-                continue
-            tipo = os.path.splitext(archivo)[1].lower()
-            archivos_ISECpoliticaProteccionDatos.append({
-                'nombre': archivo,
-                'tipo': tipo,
-                'ruta': os.path.join(ruta, archivo),
-            })
-    cur.close()
-    return archivos_ISECpoliticaProteccionDatos
+    return _get_files_for_rol(rol, 'ISEC Proteccion Datos')
 
 def ISECpoliticaSeguridadInf(rol):
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT ruta_compartida FROM rutas WHERE rol_id = %s AND carpeta = 'ISEC Seguridad Inf'", (rol,))
-    carpeta_compartida = cur.fetchone()
-    archivos_ISECpoliticaSeguridadInf = []
-    if carpeta_compartida:
-        ruta = carpeta_compartida[0]
-        for archivo in os.listdir(ruta):
-            if archivo.startswith("~") or archivo.startswith(".") or archivo.lower() == "thumbs.db":
-                continue
-            tipo = os.path.splitext(archivo)[1].lower()
-            archivos_ISECpoliticaSeguridadInf.append({
-                'nombre': archivo,
-                'tipo': tipo,
-                'ruta': os.path.join(ruta, archivo),
-            })
-    cur.close()
-    return archivos_ISECpoliticaSeguridadInf
+    return _get_files_for_rol(rol, 'ISEC Seguridad Inf')
 
 def comite_seguridad(rol):
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT ruta_compartida FROM rutas WHERE rol_id = %s AND carpeta = 'Comite de Seguridad'", (rol,))
-    carpeta_compartida = cur.fetchone()
-    archivos_comite_seguridad = []
-    if carpeta_compartida:
-        ruta = carpeta_compartida[0]
-        for archivo in os.listdir(ruta):
-            if archivo.startswith("~") or archivo.startswith(".") or archivo.lower() == "thumbs.db":
-                continue
-            tipo = os.path.splitext(archivo)[1].lower()
-            archivos_comite_seguridad.append({
-                'nombre': archivo,
-                'tipo': tipo,
-                'ruta': os.path.join(ruta, archivo),
-            })
-    cur.close()
-    return archivos_comite_seguridad
+    return _get_files_for_rol(rol, 'Comite de Seguridad')
 
 def vulnerabilidades_2024(rol):
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT ruta_compartida FROM rutas WHERE rol_id = %s AND carpeta = 'Vulnerabilidades 2024'", (rol,))
-    carpeta_compartida = cur.fetchone()
-    archivos_vulnerabilidades_2024 = []
-    if carpeta_compartida:
-        ruta = carpeta_compartida[0]
-        for archivo in os.listdir(ruta):
-            if archivo.startswith("~") or archivo.startswith(".") or archivo.lower() == "thumbs.db":
-                continue
-            tipo = os.path.splitext(archivo)[1].lower()
-            archivos_vulnerabilidades_2024.append({
-                'nombre': archivo,
-                'tipo': tipo,
-                'ruta': os.path.join(ruta, archivo),
-            })
-    cur.close()
-    return archivos_vulnerabilidades_2024
+    return _get_files_for_rol(rol, 'Vulnerabilidades 2024')
 
 def vulnerabilidades_2025(rol):
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT ruta_compartida FROM rutas WHERE rol_id = %s AND carpeta = 'Vulnerabilidades 2025'", (rol,))
-    carpeta_compartida = cur.fetchone()
-    archivos_vulnerabilidades_2025 = []
-    if carpeta_compartida:
-        ruta = carpeta_compartida[0]
-        for archivo in os.listdir(ruta):
-            if archivo.startswith("~") or archivo.startswith(".") or archivo.lower() == "thumbs.db":
-                continue
-            tipo = os.path.splitext(archivo)[1].lower()
-            archivos_vulnerabilidades_2025.append({
-                'nombre': archivo,
-                'tipo': tipo,
-                'ruta': os.path.join(ruta, archivo),
-            })
-    cur.close()
-    return archivos_vulnerabilidades_2025
+    return _get_files_for_rol(rol, 'Vulnerabilidades 2025')
 
 def vulnerabilidades_ant(rol):
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT ruta_compartida FROM rutas WHERE rol_id = %s AND carpeta = 'Vulnerabilidades Anteriores'", (rol,))
-    carpeta_compartida = cur.fetchone()
-    archivos_vulnerabilidades_ant = []
-    if carpeta_compartida:
-        ruta = carpeta_compartida[0]
-        for archivo in os.listdir(ruta):
-            if archivo.startswith("~") or archivo.startswith(".") or archivo.lower() == "thumbs.db":
-                continue
-            tipo = os.path.splitext(archivo)[1].lower()
-            archivos_vulnerabilidades_ant.append({
-                'nombre': archivo,
-                'tipo': tipo,
-                'ruta': os.path.join(ruta, archivo),
-            })
-    cur.close()
-    return archivos_vulnerabilidades_ant
+    return _get_files_for_rol(rol, 'Vulnerabilidades Anteriores')
 
 def revision_seguridad_2021(rol):
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT ruta_compartida FROM rutas WHERE rol_id = %s AND carpeta = 'Revision Seguridad 2021'", (rol,))
-    carpeta_compartida = cur.fetchone()
-    archivos_revision_seguridad_2021 = []
-    if carpeta_compartida:
-        ruta = carpeta_compartida[0]
-        for archivo in os.listdir(ruta):
-            if archivo.startswith("~") or archivo.startswith(".") or archivo.lower() == "thumbs.db":
-                continue
-            tipo = os.path.splitext(archivo)[1].lower()
-            archivos_revision_seguridad_2021.append({
-                'nombre': archivo,
-                'tipo': tipo,
-                'ruta': os.path.join(ruta, archivo),
-            })
-    cur.close()
-    return archivos_revision_seguridad_2021
+    return _get_files_for_rol(rol, 'Revision Seguridad 2021')
 
 def revision_seguridad_2022(rol):
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT ruta_compartida FROM rutas WHERE rol_id = %s AND carpeta = 'Revision Seguridad 2022'", (rol,))
-    carpeta_compartida = cur.fetchone()
-    archivos_revision_seguridad_2022 = []
-    if carpeta_compartida:
-        ruta = carpeta_compartida[0]
-        for archivo in os.listdir(ruta):
-            if archivo.startswith("~") or archivo.startswith(".") or archivo.lower() == "thumbs.db":
-                continue
-            tipo = os.path.splitext(archivo)[1].lower()
-            archivos_revision_seguridad_2022.append({
-                'nombre': archivo,
-                'tipo': tipo,
-                'ruta': os.path.join(ruta, archivo),
-            })
-    cur.close()
-    return archivos_revision_seguridad_2022
+    return _get_files_for_rol(rol, 'Revision Seguridad 2022')
 
 def revision_seguridad_2023(rol):
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT ruta_compartida FROM rutas WHERE rol_id = %s AND carpeta = 'Revision Seguridad 2023'", (rol,))
-    carpeta_compartida = cur.fetchone()
-    archivos_revision_seguridad_2023 = []
-    if carpeta_compartida:
-        ruta = carpeta_compartida[0]
-        for archivo in os.listdir(ruta):
-            if archivo.startswith("~") or archivo.startswith(".") or archivo.lower() == "thumbs.db":
-                continue
-            tipo = os.path.splitext(archivo)[1].lower()
-            archivos_revision_seguridad_2023.append({
-                'nombre': archivo,
-                'tipo': tipo,
-                'ruta': os.path.join(ruta, archivo),
-            })
-    cur.close()
-    return archivos_revision_seguridad_2023
+    return _get_files_for_rol(rol, 'Revision Seguridad 2023')
 
 def revision_seguridad_2024(rol):
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT ruta_compartida FROM rutas WHERE rol_id = %s AND carpeta = 'Revision Seguridad 2024'", (rol,))
-    carpeta_compartida = cur.fetchone()
-    archivos_revision_seguridad_2024 = []
-    if carpeta_compartida:
-        ruta = carpeta_compartida[0]
-        for archivo in os.listdir(ruta):
-            if archivo.startswith("~") or archivo.startswith(".") or archivo.lower() == "thumbs.db":
-                continue
-            tipo = os.path.splitext(archivo)[1].lower()
-            archivos_revision_seguridad_2024.append({
-                'nombre': archivo,
-                'tipo': tipo,
-                'ruta': os.path.join(ruta, archivo),
-            })
-    cur.close()
-    return archivos_revision_seguridad_2024
+    return _get_files_for_rol(rol, 'Revision Seguridad 2024')
 
 
 
@@ -675,96 +359,16 @@ def sst(rol):
     return estructura if estructura else []
 
 def encuestas_2019(rol):
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT ruta_compartida FROM rutas WHERE rol_id = %s AND carpeta = 'Encuestas 2019'", (rol,))
-    carpeta_compartida = cur.fetchone()
-    archivos_encuestas_2019 = []
-    if carpeta_compartida:
-        ruta = carpeta_compartida[0]
-        for archivo in os.listdir(ruta):
-            if archivo.startswith("~") or archivo.startswith(".") or archivo.lower() == "thumbs.db":
-                continue
-            tipo = os.path.splitext(archivo)[1].lower()
-            archivos_encuestas_2019.append({
-                'nombre': archivo,
-                'tipo': tipo,
-                'ruta': os.path.join(ruta, archivo),
-            })
-    cur.close()
-    return archivos_encuestas_2019
+    return _get_files_for_rol(rol, 'Encuestas 2019')
 
 def encuestas_2020(rol):
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT ruta_compartida FROM rutas WHERE rol_id = %s AND carpeta = 'Encuestas 2020'", (rol,))
-    carpeta_compartida = cur.fetchone()
-    archivos_encuestas_2020 = []
-    if carpeta_compartida:
-        ruta = carpeta_compartida[0]
-        for archivo in os.listdir(ruta):
-            if archivo.startswith("~") or archivo.startswith(".") or archivo.lower() == "thumbs.db":
-                continue
-            tipo = os.path.splitext(archivo)[1].lower()
-            archivos_encuestas_2020.append({
-                'nombre': archivo,
-                'tipo': tipo,
-                'ruta': os.path.join(ruta, archivo),
-            })
-    cur.close()
-    return archivos_encuestas_2020
+    return _get_files_for_rol(rol, 'Encuestas 2020')
 
 def encuestas_2021(rol):
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT ruta_compartida FROM rutas WHERE rol_id = %s AND carpeta = 'Encuestas 2021'", (rol,))
-    carpeta_compartida = cur.fetchone()
-    archivos_encuestas_2021 = []
-    if carpeta_compartida:
-        ruta = carpeta_compartida[0]
-        for archivo in os.listdir(ruta):
-            if archivo.startswith("~") or archivo.startswith(".") or archivo.lower() == "thumbs.db":
-                continue
-            tipo = os.path.splitext(archivo)[1].lower()
-            archivos_encuestas_2021.append({
-                'nombre': archivo,
-                'tipo': tipo,
-                'ruta': os.path.join(ruta, archivo),
-            })
-    cur.close()
-    return archivos_encuestas_2021
+    return _get_files_for_rol(rol, 'Encuestas 2021')
 
 def sagrilaft(rol):
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT ruta_compartida FROM rutas WHERE rol_id = %s AND carpeta = 'Sagrilaft'", (rol,))
-    carpeta_compartida = cur.fetchone()
-    archivos_sagrilaft = []
-    if carpeta_compartida:
-        ruta = carpeta_compartida[0]
-        for archivo in os.listdir(ruta):
-            if archivo.startswith("~") or archivo.startswith(".") or archivo.lower() == "thumbs.db":
-                continue
-            tipo = os.path.splitext(archivo)[1].lower()
-            archivos_sagrilaft.append({
-                'nombre': archivo,
-                'tipo': tipo,
-                'ruta': os.path.join(ruta, archivo),
-            })
-    cur.close()
-    return archivos_sagrilaft
+    return _get_files_for_rol(rol, 'Sagrilaft')
 
 def ambiental(rol):
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT ruta_compartida FROM rutas WHERE rol_id = %s AND carpeta = 'Ambiental'", (rol,))
-    carpeta_compartida = cur.fetchone()
-    archivos_ambiental = []
-    if carpeta_compartida:
-        ruta = carpeta_compartida[0]
-        for archivo in os.listdir(ruta):
-            if archivo.startswith("~") or archivo.startswith(".") or archivo.lower() == "thumbs.db":
-                continue
-            tipo = os.path.splitext(archivo)[1].lower()
-            archivos_ambiental.append({
-                'nombre': archivo,
-                'tipo': tipo,
-                'ruta': os.path.join(ruta, archivo),
-            })
-    cur.close()
-    return archivos_ambiental
+    return _get_files_for_rol(rol, 'Ambiental')

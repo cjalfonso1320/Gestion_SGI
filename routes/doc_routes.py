@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, send_file, abort, request
+from flask import Blueprint, render_template, send_file, abort, request, session
 from flask_login import current_user
 import os
 from extension import mysql
@@ -6,19 +6,28 @@ from controllers.doc_controller import procedimientos, caracterizacion, formatos
 from controllers.doc_controller import auditorias_ifx, auditoria_integrum, auditoria_inter_servicios, ISECpoliticaContinuidad, ISECpoliticaProteccionDatos, ISECpoliticaSeguridadInf, comite_seguridad
 from controllers.doc_controller import vulnerabilidades_2024, vulnerabilidades_2025, vulnerabilidades_ant
 from controllers.doc_controller import revision_seguridad_2021, revision_seguridad_2022, revision_seguridad_2023, revision_seguridad_2024, sst, encuestas_2019, encuestas_2020, encuestas_2021, sagrilaft, ambiental
-from controllers.rol_controller import PROCESOS_ROL, ROL_IMAGES
+from controllers.rol_controller import PROCESOS_ROL, ROL_IMAGES, nombre_rol
 
 
 
 
 doc_bp = Blueprint('doc', __name__)
 
-@doc_bp.route('/documentacion')
-def documentacion():
-    def CONTEXTO():
-        rol = current_user.rol
+@doc_bp.route('/documentacion', defaults={'role_id': None})
+@doc_bp.route('/documentacion/<int:role_id>')
+def documentacion(role_id):
+    is_role_override = role_id is not None
+
+    if is_role_override:
+        session['selected_rol'] = role_id
+        rol = role_id
+    else:
+        rol = session.get('selected_rol', current_user.rol)
+
+    def CONTEXTO(rol_actual):
         procesos = PROCESOS_ROL.get(rol, [])
         imagen_rol = ROL_IMAGES.get(rol, 'imgs/user.png')
+        nombre_del_rol = nombre_rol(rol)
         archivos_procedimientos = procedimientos(rol)
         caracterizaciones = caracterizacion(rol)
         formatoDigital = formatos_digitales(rol)
@@ -69,6 +78,7 @@ def documentacion():
             archivos_ambiental = None
 
         return {
+            'nombre_rol_seleccionado': nombre_del_rol,
             'archivos_procedimientos': archivos_procedimientos,
             'caracterizaciones': caracterizaciones,
             'formatoDigital': formatoDigital,
@@ -101,11 +111,14 @@ def documentacion():
             'archivos_sagrilaft': archivos_sagrilaft,
             'archivos_ambiental': archivos_ambiental,
             'procesos': procesos,
-            'imagen_rol': imagen_rol
+            'imagen_rol': imagen_rol,
+            'rol_seleccionado': rol,
+            'is_especific_role': is_role_override,
+            'is_role_override': is_role_override
         }
     return render_template('users/documentacion.html', 
                            usuario=current_user, 
-                           **CONTEXTO())
+                           **CONTEXTO(rol))
 
 @doc_bp.route('/ver/<path:filepath>')
 def ver_documento(filepath):
@@ -205,4 +218,3 @@ def subir_documento():
         
     except Exception as e:
         return jsonify({'success': False, 'message': f'Error al subir el archivo: {str(e)}'})
-

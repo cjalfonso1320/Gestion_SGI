@@ -1,3 +1,4 @@
+{% if current_user.rol != 16 %}
 
 <div class="accordion" id="acordeonTabla">
     <div class="accordion-header" onclick="this.parentElement.classList.toggle('active')">
@@ -153,6 +154,7 @@
 </form>
     </div>
 </div>
+{% endif %}
 
 <table class="tabla-expandible">
     <thead>
