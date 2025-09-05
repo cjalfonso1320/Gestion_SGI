@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, jsonify, session
 from flask_login import current_user, login_required
 from controllers.rol_controller import PROCESOS_ROL, ROL_IMAGES, nombre_rol
 from controllers.matriz_controller import  lista_para_riesgos
-from controllers.riesgos_controller import guardar_riesgo, lista_riesgos
+from controllers.riesgos_controller import guardar_riesgo, lista_riesgos, modificar_riesgo
 
 mRiesgos_bp = Blueprint('mRiesgos', __name__)
 
@@ -80,3 +80,28 @@ def guardar_riesgos():
         'success': False,
         'message': 'Metodo no permitido'
     })
+
+@mRiesgos_bp.route('/actualizar_riesgo', methods=['POST'])
+@login_required
+def actualizar_riesgo():
+    try:
+        data = request.get_json()
+        riesgo_id = data.get('id')
+        columna = data.get('columna')
+        valor = data.get('valor')
+
+        if not all([riesgo_id, columna, valor is not None]):
+            return jsonify({
+                'success': False,
+                'message': 'Faltan Datos para la actualización'
+            }), 400
+        
+        modificar_riesgo(riesgo_id, columna, valor)
+        
+        return jsonify({
+            'success': True,
+            'message': 'Riesgo Actualizado Correctamente'
+        })
+    except Exception as e:
+        print(f"Error al actualizar riesgo: {e}")
+        return jsonify({'success': False, 'message': str(e)}), 500

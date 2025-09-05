@@ -1,4 +1,4 @@
-{% if current_user.rol != 16 %}
+{% if current_user.rol != 16 or not is_role_override %}
     <form id="form_incon_{{ proceso }}" method="post">
         <div class="form-grid-container">
             <input type="hidden" name="proceso" value="{{ proceso }}">

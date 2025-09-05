@@ -19,6 +19,14 @@ document.addEventListener('DOMContentLoaded', function(){
         if (tablaBody) {
             // Se añade el listener para expandir/colapsar filas
             tablaBody.addEventListener('click', handleRowClick);
+
+            // Se añade el listener para la EDICIÓN EN LÍNEA
+            tablaBody.addEventListener('dblclick', function(event) {
+                const cell = event.target;
+                if (cell.tagName === 'TD' && cell.dataset.column) {
+                    makeCellEditable(cell);
+                }
+            });
         }
     }
 
@@ -120,6 +128,62 @@ document.addEventListener('DOMContentLoaded', function(){
             detailsRow.classList.toggle('show');
             clickedRow.classList.toggle('expanded');
         }
+    }
+
+    /**
+     * Convierte una celda <td> en un <input> editable.
+     */
+    function makeCellEditable(cell) {
+        // Evita que se pueda editar si ya hay un input o es una celda no editable
+        if (cell.querySelector('input')) {
+            return;
+        }
+
+        const originalValue = cell.textContent.trim();
+        cell.innerHTML = `<input type="text" value="${originalValue}" class="edit-input" style="width: 100%; box-sizing: border-box;">`;
+        const input = cell.querySelector('input');
+        input.focus();
+        input.select();
+
+        const save = () => saveCellValue(cell, input.value, originalValue);
+
+        input.addEventListener('blur', save);
+        input.addEventListener('keyup', (event) => {
+            if (event.key === 'Enter') input.blur();
+            if (event.key === 'Escape') cell.textContent = originalValue;
+        });
+    }
+
+    /**
+     * Guarda el valor de una celda editada en la base de datos.
+     */
+    function saveCellValue(cell, newValue, originalValue) {
+        const row = cell.closest('tr');
+        if (!row || newValue === originalValue) {
+            cell.textContent = originalValue;
+            return;
+        }
+
+        const id = row.dataset.id;
+        const columna = cell.dataset.column;
+        cell.textContent = 'Guardando...';
+
+        fetch('/actualizar_riesgo', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id, columna, valor: newValue })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                cell.textContent = newValue;
+                showMessage(data.message, true);
+            } else {
+                cell.textContent = originalValue;
+                showMessage('Error al actualizar: ' + data.message, false);
+            }
+        })
+        .catch(error => console.error('Error de red:', error));
     }
 // ========================================================================
     // LÓGICA DE ENVÍO DE FORMULARIO Y ACTUALIZACIÓN DE UI

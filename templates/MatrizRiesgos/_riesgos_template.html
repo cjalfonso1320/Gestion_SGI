@@ -1,4 +1,4 @@
-{% if current_user.rol != 16 %}
+{% if current_user.rol != 16 or not is_role_override %}
 
 <div class="accordion" id="acordeonTabla">
     <div class="accordion-header" onclick="this.parentElement.classList.toggle('active')">
@@ -172,11 +172,11 @@
             <tr class="fila-principal" data-id="{{ riesgo.id }}">
                 <!-- Corregido: 'toggle-icon' -->
                 <td><span class="toggle-icon">+</span></td> 
-                <td>{{ riesgo.nombre_riesgo }}</td>
-                <td>{{ riesgo.nombre_activo }}</td>
-                <td>{{ riesgo.criticidad_riesgo_inherente }}</td>
-                <td>{{ riesgo.criticidad_riesgo_residual }}</td>
-                <td>{{ riesgo.opciones_manejo }}</td>
+                <td data-column="nombre_riesgo">{{ riesgo.nombre_riesgo }}</td>
+                <td data-column="nombre_activo">{{ riesgo.nombre_activo }}</td>
+                <td data-column="criticidad_riesgo_inherente">{{ riesgo.criticidad_riesgo_inherente }}</td>
+                <td data-column="criticidad_riesgo_residual">{{ riesgo.criticidad_riesgo_residual }}</td>
+                <td data-column="opciones_manejo">{{ riesgo.opciones_manejo }}</td>
             </tr>
             <tr class="fila-detalles">
                 <td colspan="6">
@@ -212,4 +212,3 @@
         {% endfor %}
     </tbody>
 </table>
-

@@ -43,3 +43,32 @@ def lista_riesgos(proceso):
     resultado = [dict(zip(column_names, row)) for row in cur.fetchall()]
     cur.close
     return resultado
+
+def modificar_riesgo(riesgo_id, columna, nuevo_valor):
+    """
+    Actualiza una celda específica de un riesgo en la base de datos.
+    """
+    # Lista blanca de columnas para evitar inyección SQL y limitar qué se puede editar.
+    columnas_permitidas = {
+        'nombre_riesgo': 'nombre_riesgo',
+        'nombre_activo': 'nombre_activo',
+        'criticidad_riesgo_inherente': 'criticidad_riesgo_inherente',
+        'criticidad_riesgo_residual': 'criticidad_riesgo_residual',
+        'opciones_manejo': 'opciones_manejo'
+        # Añade aquí otras columnas que quieras que sean editables desde la tabla.
+    }
+
+    if columna not in columnas_permitidas:
+        # Si la columna no está en nuestra lista, lanzamos un error para prevenir cambios no deseados.
+        raise ValueError(f"La columna '{columna}' no está permitida para actualización.")
+
+    db_columna = columnas_permitidas[columna]
+    
+    cur = mysql.connection.cursor()
+    # Usamos f-string de forma segura para el nombre de la columna (validado antes)
+    # y parámetros de consulta para los valores, previniendo inyección SQL.
+    sql = f"UPDATE matriz_riesgos SET `{db_columna}` = %s WHERE id = %s"
+    
+    cur.execute(sql, (nuevo_valor, riesgo_id))
+    mysql.connection.commit()
+    cur.close()

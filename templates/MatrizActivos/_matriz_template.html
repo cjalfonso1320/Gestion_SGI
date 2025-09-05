@@ -1,6 +1,6 @@
 <!-- Botón para volver a seleccionar rol -->
 
-{% if current_user.rol != 16 %}
+{% if current_user.rol != 16 or not is_role_override %}
 <div class="accordion" id="acordeonTabla">
     <div class="accordion-header" onclick="this.parentElement.classList.toggle('active')">
         Nuevo Activo                    <i class="fa-regular fa-square-plus"></i>
@@ -103,4 +103,3 @@
             {% endfor %}
         </tbody>
     </table>
-
