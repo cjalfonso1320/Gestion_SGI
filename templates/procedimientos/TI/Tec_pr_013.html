@@ -1,0 +1,213 @@
+{% extends 'home.html' %}
+{% block title %}Documentación{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/acordeon_doc.css') }}">
+<link href="{{ url_for('static', filename='css/procedimientos.css') }}" rel="stylesheet" />
+
+<div id="documento" style="display:none;">procedimientos/TI/Tec_pr_013.html</div>
+<div id="nombre_documento" style="display: none;">TEC-PR-013 Destrucción, Eliminación o Borrado Seguro de la Información
+</div>
+<h1>TEC-PR-013 Destrucción, Eliminación o Borrado Seguro de la Información</h1>
+{% for cambio in cambios %}
+{% if loop.first %}
+<h3>Version: {{cambio[3]}}</h3>
+{% endif %}
+{% endfor %}
+<br />
+<div class="doc-accordion">
+
+    <div class="doc-section" data-id="1">1. OBJETIVO</div>
+    <div class="doc-content" data-id="1">
+        <p>Establecer un procedimiento para la eliminación segura de información digital o física, garantizando que los
+            datos confidenciales y personales no sean recuperables tras su eliminación. Este proceso se realizará
+            conforme a las solicitudes realizadas por los clientes, en cumplimiento con los estándares de seguridad y
+            normativas aplicables.</p>
+    </div>
+
+    <div class="doc-section" data-id="2">2. ALCANCE</div>
+    <div class="doc-content" data-id="2">
+        <p>Este procedimiento aplica a toda la información almacenada en medios digitales y físicos de la organización
+            que deba eliminarse según las solicitudes de los clientes, involucrando a todas las áreas con acceso a dicha
+            información y a las partes responsables del proceso de eliminación.</p>
+    </div>
+
+    <div class="doc-section" data-id="3">3. RESPONSABLES</div>
+    <div class="doc-content" data-id="3">
+        <ul>
+            <li><b>Cliente:</b> Realizar la solicitud de eliminación mediante un correo electrónico, indicando los datos
+                específicos y las fechas de eliminación requeridas.</li>
+            <li><b>Líder de Proceso:</b> Validar la solicitud del cliente y crear una solicitud en GLPI dirigida al área
+                de TI, adjuntando el correo recibido y toda la información necesaria.</li>
+            <li><b>Área de TI:</b> Brindara la herramienta de eliminación o borrado de la información de acuerdo con la
+                solicitud registrada en GLPI y gestionara las pruebas para la confirmación del proceso de acuerdo a lo
+                requerido por el cliente.</li>
+            <li><b>Oficial de Seguridad de la Información:</b> Supervisar el cumplimiento de los procedimientos de
+                eliminación segura.</li>
+        </ul>
+    </div>
+
+    <div class="doc-section" data-id="4">4. DEFINICIONES</div>
+    <div class="doc-content" data-id="4">
+        <ul>
+            <li><b>Eliminación segura:</b> Proceso que garantiza que la información es destruida o removida de modo
+                irrecuperable.</li>
+            <li><b>GLPI:</b> Sistema de gestión de servicios de TI usado para registrar y hacer seguimiento a
+                solicitudes internas.</li>
+            <li><b>Solicitud de eliminación:</b> Petición formal enviada por los clientes a través de correo electrónico
+                para la eliminación de información, especificando los datos y fechas.</li>
+        </ul>
+    </div>
+
+    <div class="doc-section" data-id="5">5. DOCUMENTOS DE REFERENCIA</div>
+    <div class="doc-content" data-id="5">
+        <p>Requisitos del Cliente</p>
+    </div>
+
+    <div class="doc-section" data-id="6">6. DESCRIPCIÓN DEL PROCESO</div>
+    <div class="doc-content" data-id="6">
+        <div class="doc-subsection">6.1. Solicitud de Eliminación</div>
+        <div class="doc-subcontent">
+            <div class="doc-subsection">6.1.1. Recepción de la solicitud de la Eliminación</div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Líder de Proceso.</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> Correo Electrónico por parte del
+                        cliente.</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b> El cliente enviará un correo
+                        electrónico dirigido a Digicom donde especificará la siguiente información para la eliminación o
+                        borrado seguro:<br>
+                        • La información a eliminar.<br>
+                        • Las fechas de eliminación.<br>
+                        El líder de proceso que maneja la información validará el requerimiento y presentará una
+                        solicitud formal en GLPI al área de TI, solicitando la herramienta adecuada para efectuar el
+                        borrado seguro.
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">6.1.2. Validación de la Solicitud</div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Recurso Tecnológico</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> Solicitud GLPI.</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b> El área de TI revisará la
+                        solicitud en GLPI para verificar que cumpla con los requisitos de eliminación segura y las
+                        políticas internas. Seguido procede a instalar la aplicación necesaria para efectuar el borrado
+                        seguro de la información.</li>
+                </ul>
+            </div>
+        </div>
+        <div class="doc-subsection">6.2. Selección método de Eliminación</div>
+        <div class="doc-subcontent">
+            <ul>
+                <li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Líder de Proceso</li>
+                <li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> No Aplica</li>
+                <li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b> Se eliminara o borrara la información
+                    de acuerdo a lo solicitado por parte del cliente y de acuerdo con el formato que se encuentre la
+                    información:<br>
+                    • <b>Medios Digitales:</b><br>
+                    ✓ <i>Método de Sobreescritura Personalizado:</i> Permite al usuario definir cuántas veces desea
+                    sobrescribir los datos y con qué patrón. Este método es útil para adaptarse a diferentes niveles de
+                    seguridad.<br>
+                    ✓ <i>Método de Gutmann:</i> Sobrescribe los datos 35 veces usando un patrón específico diseñado para
+                    eliminar datos de discos duros antiguos. Es un método muy seguro, pero puede ser lento debido a la
+                    cantidad de pasadas.<br>
+                    • <b>Método de Sobrescritura de Pseudorrandom Data:</b> Realiza una sobrescritura con datos
+                    aleatorios generados por un algoritmo de generación de números pseudorrandom.<br>
+                    • <b>Medios Físicos:</b><br>
+                    ✓ <i>Trituración:</i> Uso de una trituradora de seguridad para destruir documentos.
+                </li>
+            </ul>
+        </div>
+        <div class="doc-subsection">6.3. Ejecución y Documentación de Borrado / Eliminación de la Información.</div>
+        <div class="doc-subcontent">
+            <ul>
+                <li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Recurso Tecnológico / Oficial De
+                    Backup / Líder de Proceso.</li>
+                <li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> GER-F-002 Acta / Formatos brindados por
+                    parte de los clientes.</li>
+                <li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b> El líder de proceso ejecutara el
+                    método de eliminación elegido, de acuerdo a lo solicitado por parte del cliente. Después del Borrado
+                    / Eliminación se procederá a realizar el registro en el formato GER-F-002 Acta indicando:<br>
+                    ✓ Fecha de eliminación.<br>
+                    ✓ Método utilizado.<br>
+                    ✓ Personal responsable de la eliminación.<br>
+                    Esta acta será diligenciada por el líder de proceso en conjunto con el analista de TI y el oficial
+                    de Backup después de haber terminado el proceso de Borrado / Eliminación.<br>
+                    <b>Nota:</b> Cuando los clientes envían sus propios formatos, estos serán diligenciados por el líder
+                    de proceso a cargo de la información.<br>
+                    <b>Nota 1:</b> En caso de que la información solicitada para ser borrada sea del respaldo de Backup
+                    el responsable de realizar el borrado es el oficial de Backup.
+                </li>
+            </ul>
+        </div>
+        <div class="doc-subsection">6.4. Verificación y Revisión.</div>
+        <div class="doc-subcontent">
+            <ul>
+                <li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Recurso Tecnológico / Oficial de
+                    Seguridad</li>
+                <li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> GLPI</li>
+                <li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b> El área de TI debe confirmar que los
+                    datos no son recuperables. Registrar en GLPI la finalización de la eliminación segura y enviar una
+                    notificación al líder de proceso.<br>
+                    El Oficial de Seguridad de la Información revisara los registros de eliminación para asegurar el
+                    cumplimiento del procedimiento.
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="doc-section" data-id="7">7. Consideraciones Especiales</div>
+    <div class="doc-content" data-id="7">
+        <p>Cualquier eliminación debe realizarse únicamente tras la autorización adecuada y la verificación de la
+            solicitud.<br>
+            Cumplimiento con la normativa aplicable de protección de datos personales y sectoriales.</p>
+    </div>
+
+    <div class="doc-section" data-id="8">8. CONTROL DE PROCEDIMIENTO</div>
+    <div class="doc-content" data-id="8">
+        <table>
+            <thead>
+                <tr>
+                    <th>Versión</th>
+                    <th>Elaborado</th>
+                    <th>Aprobado</th>
+                    <th>Fecha</th>
+                    <th>Descripción del Cambio</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cambio in cambios %}
+                <tr>
+                    <td>{{ cambio[2] }}</td>
+                    <td>{{ cambio[3] }}</td>
+                    <td>{{ cambio[5] }}</td>
+                    <td>{{ cambio[6] }}</td>
+                    <td>{{ cambio[7] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- Botón para abrir el modal -->
+<button class="btn btn-outline-primary" id="openModalBtn" style="margin-top: 20px;">Editar Secciones</button>
+<!-- El Modal -->
+<div class="modal" id="sectionModal">
+    <div class="modal-content">
+        <span class="close-button">×</span>
+        <h2>Selecciona y Edita una Sección</h2>
+        <label for="sectionSelector">Sección:</label>
+        <select id="sectionSelector">
+            <option value="">-- Selecciona una sección --</option>
+        </select>
+        <label for="sectionContent">Contenido:</label>
+        <textarea id="sectionContent" placeholder="El contenido de la sección aparecerá aquí..."></textarea>
+        <label for="sectionCambio">Descripcion del Cambio:</label>
+        <textarea id="sectionCambio" placeholder="Describe en palabras cortas el cambio realizado..."required></textarea>
+        <button class="btn btn-outline-primary" id="saveChangesBtn" style="margin-top: 15px;">Guardar Cambios</button>
+    </div>
+</div>
+<script src="{{ url_for('static', filename='js/jquery.min.js')}}"></script>
+<script src="{{ url_for('static', filename='js/acordeon_doc.js')}}"></script>
+<script src="{{ url_for('static', filename='js/edita_procedimiento.js')}}"></script>
+{% endblock %}

@@ -1,0 +1,351 @@
+{% extends 'home.html' %}
+{% block title %}Documentacion{% endblock %}
+{% block content %}
+<link href="{{ url_for('static', filename='css/acordeon_doc.css') }}" rel="stylesheet" />
+<link href="{{ url_for('static', filename='css/procedimientos.css') }}" rel="stylesheet" />
+
+<div id="documento" style="display:none;">procedimientos/HTML/PRO-PR-017  Radicación AV Villas.html</div>
+<div id="nombre_documento" style="display: none;">PRO-PR-017  Radicación AV Villas</div>
+<h1>PRO-PR-017  Radicación AV Villas</h1>
+{% for cambio in cambios %}
+{% if loop.first %}
+<h3>Version: {{cambio[3]}}</h3>
+{% endif %}
+{% endfor %}
+<br />
+<div class="doc-accordion">
+ <div class="doc-section" data-id="3">
+  3.   Verificar o diligenciar los siguientes Campos:
+ </div>
+ <div class="doc-content" data-id="3">
+  <p>
+   Tipo de crédito (libranza).
+Promesa de servicio (Normal).
+Convenio (Se verifica que el tipo de convenio que trae el físico sea el mismo del filtro. En caso contrario se debe dejar en rechazo por convenio errado)
+  </p>
+ </div>
+ <div class="doc-section" data-id="4">
+  4.  Información del solicitante:
+ </div>
+ <div class="doc-content" data-id="4">
+  <div class="doc-subsection">
+   6.4 DIGITALIZACIÓN DE LA DOCUMENTACIÓN
+  </div>
+  <div class="doc-subcontent">
+   <ul>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      RESPONSABLE:
+     </b>
+     Auxiliar y Analista de Procesos
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      REGISTRO:
+     </b>
+     No aplica
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      DESCRIPCIÓN:
+     </b>
+     Para este proceso contamos con dos scanner conectados a dos pc respectivamente. Se organizan previamente los documentos en el orden establecido según crédito.
+Ingresar programa SCANDALL PRO el icono se encuentra en escritorio de cada equipo
+Seleccionar configuración de digitalización el cual tiene que ser el perfil de Radicación y tipo compartido. Las imágenes quedan almacenadas en la siguiente ruta
+\\Servidor\Confidencial_Radicacion_AAAA_EXPEDIENTES
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Nota:
+     </b>
+     Si el funcionario no cuenta con el perfil de digitalización se debe solicitar al área de T.I la configuración.
+Seleccionar edición/formato y arreglar el nombre de carpeta (PCC O PCE)
+\Proceso Imágenes\expedientes\ (PCC O PCE Numero de cedula de cliente.
+Se verifica nuevamente los documentos estén en el orden correcto (Tapa, Sipla, Cedula, Anexos). Y que no haya ninguna inconsistencia que se halla pasado por recepción de documentos o en la radicación.
+Colocar los documentos en el escáner. (si son tarjetas realces los voucher se dejan de ultimas).
+Se digitaliza y se realiza una verificación (imágenes ilegibles, imágenes montadas y hojas en blanco)
+    </li>
+   </ul>
+  </div>
+  <div class="doc-subsection">
+   6.5. Envió de imágenes
+  </div>
+  <div class="doc-subcontent">
+   <div class="doc-subsubsection">
+    6.5.1 VERIFICACIÓN Y CARGUE DE imágenes A SHIKA
+   </div>
+   <div class="doc-subsubcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       RESPONSABLE:
+      </b>
+      Auxiliar y Analista de Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       REGISTRO:
+      </b>
+      No aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       DESCRIPCIÓN:
+      </b>
+      después de que las imágenes ya estén en la ruta establecida se procede con lo siguiente
+Se procede a ingresar a la ruta \\Servidor\Confidencial_Radicacion_AAAA\Proceso Imagenes\EXPEDIENTES en la cual se verifica las siguientes aspectos:
+Todos tengan PCC (número de cedula) en la cual se entra en la carpeta y se verifica que la primera imagen empiece por: 000A o 001A.
+Para las imágenes de las ciudades se ingresa al servidor de la ciudad correspondiente se busca la carpeta FLargas y copia las imágenes y se pegan en sus respectivas carpetas de acuerdo al día y horario la siguiente ruta: \\Servidor\Confidencial_Radicacion_AAAA\Proceso Imagenes\EXPEDIENTES_CIUDADES Al realizar la anterior verificación se proceden a enzipar las
+respectivas carpetas a través  de la siguiente forma :Entrar a la ruta: \\Servidor\Confidencial_Radicacion_AAAA\Proc_Imagenes_52
+Ingresamos al aplicativo IMG.BANCO.ADM y ejecutamos el aplicativo el cual genera una ventana la cual le damos en DIGICOM y luego OK y cerramos.
+Se verifica en la capeta del log de errores si hay alguna inconsistencia en la enzipada en la ruta: \\Servidor\Confidencial_Radicacion_AAAA\Proc_Imagenes_52
+Colocar imágenes de aplicativo de enzipar
+Al realizar lo anterior se  procede a https://200.14.232.175/HaciaBanco/Convenios/FuerzasLargas/Expedientes/  e ingresamos el número de la cedula del cliente y se da examinar y buscamos la ruta: \\Servidor\Confidencial_Radicacion_AAAA\Proceso Imagenes\EXPEDIENTES se ubican los números de Cedula de los expedientes Digitalizados según el mismo orden en que se digitalizaron y las ciudades según el orden del Excel. Se Selecciona o se suben únicamente las carpetas comprimidas y se procede a dar clic subir y se procede a verificar que haya quedado reflejado en la página. Estos archivos de borran de la página carex cada 30 minutos. (Si al momento de subir un expediente no aparece comprimido es porque hubo un error de tapa o cualquier tipo de inconsistencia. Esto garantiza que lo que se sube al Banco es porque esta correcto y lo que no es porque nuestras validaciones están bien)
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsubsection">
+    6.5.2 ARCHIVO DE EXPEDIENTES fisicos
+   </div>
+   <div class="doc-subsubcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       RESPONSABLE:
+      </b>
+      Auxiliar de Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       REGISTRO:
+      </b>
+      No aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       DESCRIPCIÓN:
+      </b>
+      El departamento de Radicación Av Villas cuenta con (12) archivadores repartidos de la siguiente manera:
+10 para archivar expedientes radicados.
+1 para archivar inconsistencias o no radicados y créditos radicados por Imágenes que aún no han llegado los físicos.
+Al realizar la actividad anterior se procede a archivar los expedientes en su orden consecutivo de stiker adjudicado por Digicom en su estante correspondiente ya sean radicados o rechazados
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsubsection">
+    6.5.3 RECEPCIÓN DE EXPEDIENTES DE CRÉDITOS RADICADOS- AUTOGESTION
+   </div>
+   <div class="doc-subsubcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       RESPONSABLE:
+      </b>
+      Auxiliar y Analista de Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       REGISTRO:
+      </b>
+      No aplica
+DESCRIPCION:
+Todos los expedientes físicos radicados por el área comercial llegan a más tardar a los (3) días después.
+Estos expedientes llegan en las tulas convenios que se recepcionan todos los días en la Sucursal de la sede Digicom.
+Estos llegan en tulas Azules debidamente marcadas con el nombre de Fuerzas largas.
+Después el departamento de convenios Av villas envían nuestras tulas por medio de nuestro mensajero en horas de la tarde.
+Cuando llegan a nuestro departamento. Se hace la respectiva validación de que vengan con precinto y se verifica que la información que envían se la misma que relacionan en el Excel. Que ellos mismo envían.
+Se consulta el número de CC del expediente en Aplicaciones del Banco y se realiza el control de expediente físico
+Una vez realizado el control se procede alimentar el archivo Planilla_Creditos_Autogestion
+Se incluye el expediente dentro de la bolsa que corresponde y se procede archivar según orden de fecha
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsubsection">
+    6.5.4 INFORMACION DE CIUDADES
+   </div>
+   <div class="doc-subsubcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       RESPONSABLE:
+      </b>
+      Analista de Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       REGISTRO:
+      </b>
+      No aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       DESCRIPCIÓN:
+      </b>
+      El anterior archivo se procede a guardar en cada uno de los servidores de las ciudades:
+Ingresamos a la carpeta de data/envíos y eliminar la carpeta que se encuentra ahí, luego ingresamos al Aplicativo y generamos el archivo:
+Vamos a la carpeta de data\envíos copiamos la carpeta y la pegamos en Cargas/ Servidor de Bogotá (Esta carpeta de Cargas debe estar vacía antes de hacer la descarga del informe de la ciudad
+     </li>
+    </ul>
+   </div>
+  </div>
+  <div class="doc-subsection">
+   6.7 GENERACIÓN DE INFORMES
+  </div>
+  <div class="doc-subcontent">
+   <div class="doc-subsubsection">
+    6.7.1 ADECUACIÓN Y REALIZACION DE INFORMES
+   </div>
+   <div class="doc-subsubcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       RESPONSABLE:
+      </b>
+      Analista de Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       REGISTRO:
+      </b>
+      No aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       DESCRIPCIÓN:
+      </b>
+      Se procede a ir a la ruta: \\Servidor\Confidencial_Radicacion_AAAA\Procesos\informesse verifica en los siguientes archivos:
+Validaciones: debe salir dentro del informe las columnas en blanco, en cada una de sus líneas. Si se presenta algún tipo de datos es porque hay inconsistencia dentro del consolidado.
+Créditos duplicados: debe aparecer en blanco las casillas de créditos duplicados.
+Seriales duplicados: debe aparecer en blanco las casillas de seriales duplicados.
+Al realizar la anterior verificación, se procede a ingresar en la carpeta con el nombre del mes y año actual en esta carpeta se realiza una copia al último archivo consolidado AAAAMMDDD y se cambia la fecha por la del día actual.
+Al ingresar al consolidado se procede a borrar las filas de este y se copia todas las filas del informe generado del aplicativo de Digicom. Al terminar con la anterior actividad se procede a verificar columna por columna que no presente errores
+     </li>
+    </ul>
+   </div>
+  </div>
+  <div class="doc-subsection">
+   6.8 ENVÍOS DE EXPEDIENTES, GARANTÍAS
+  </div>
+  <div class="doc-subcontent">
+   <div class="doc-subsubsection">
+    6.8.1 BUSQUEDA DE EXPEDIENTES
+   </div>
+   <div class="doc-subsubcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       RESPONSABLE:
+      </b>
+      Auxiliar de Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       REGISTRO:
+      </b>
+      No aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Ingresar a la ruta\\Servidor\Confidencial_Radicacion_AAAA\Procesos\pendientesSe procede a buscar las carpetas por fechas al encontrar la fecha correspondiente a la del día, se ingresa a la carpeta y se selecciona el archivo en Excel el cual tiene nombre envió expedientes, para el envío de expedientes y garantías, se procede a copiar y pegar en la ruta \\Servidor\Confidencial_Radicacion_AAAA\Procesos\envios Al ingresar al archivo de expedientes se filtra por el numero 1 ya que este número es el que corresponde a la ciudad de Bogotá se guarda los cambios y se cierra el Excel, se carga en el aplicativo el envío de expedientes y nuevamente se abre el Excel inicial y en la columna D, Fila 2 se ingresa el número de Precinto con el cual van hacer enviadas las garantías
+     </li>
+    </ul>
+   </div>
+  </div>
+  <div class="doc-subsection">
+   6.10 RECEPCION DE CUR
+  </div>
+  <div class="doc-subcontent">
+   <ul>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      RESPONSABLE:
+     </b>
+     Analista de Procesos
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      REGISTRO:
+     </b>
+     No aplica
+DESCRIPCION:
+Este tipo de archivo es entregado a través de correo electrónico por el analista del Banco.
+Se procede a ingresar al archivo en Excel y se debe separar las CUR por ciudades y se procede a enviar a cada ciudad sus CUR que les corresponda vía correo electrónico con asunto CUR URGENTE.
+En los archivos correspondientes se debe realizar el tipo de reclamo que presenta del expediente las cuales son:
+Digitalización
+Radicación
+Volver a Radicar
+Y se procede a realizar la actividad correspondiente, al realizar la radicación si no se puede radicar queda nuevamente como rechazado.
+Cuando se tiene todas las respuestas de las CUR tanto las de Bogotá como la de las ciudades se procede a enviar a dar respuesta de la CUR en su totalidad al responsable que envió la CUR.
+INDICADORES DE DESEMPEÑO
+CONTROL DEL PROCEDIMIENTO
+    </li>
+   </ul>
+  </div>
+ </div>
+</div>
+
+<!-- Botones y Modals para edición -->
+<button class="btn btn-outline-primary" id="openModalBtn" style="margin-top: 20px;">Editar Secciones</button>
+<div class="modal" id="sectionModal">
+    <div class="modal-content">
+        <span class="close-button">×</span>
+        <h2>Selecciona y Edita una Sección</h2>
+        <select id="sectionSelector"><option value="">-- Selecciona --</option></select>
+        <textarea id="sectionContent" placeholder="Contenido..."></textarea>
+        <textarea id="sectionCambio" placeholder="Descripción del cambio..." required></textarea>
+        <button class="btn btn-outline-primary" id="saveChangesBtn" style="margin-top: 15px;">Guardar Cambios</button>
+    </div>
+</div>
+<script src="{{ url_for('static', filename='js/jquery.min.js')}}"></script>
+<script src="{{ url_for('static', filename='js/acordeon_doc.js')}}"></script>
+<script src="{{ url_for('static', filename='js/edita_procedimiento.js')}}"></script>
+
+{% endblock %}

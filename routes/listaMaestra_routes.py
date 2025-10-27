@@ -8,11 +8,8 @@ lMaestra_bp = Blueprint('lMaestra', __name__)
 @lMaestra_bp.route('/Lista_Maestra')
 @login_required
 def Lista_Maestra():
-    rol = current_user.rol
-    procesos = PROCESOS_ROL.get(rol, [])
-    imagen_rol = ROL_IMAGES.get(rol, 'imgs/user.png')
     datos = lista_maestra()
-    return render_template('ListaMaestra/Lista_Maestra.html', usuario=current_user, procesos=procesos, datos_lista_maestra=datos, imagen_rol=imagen_rol)
+    return render_template('ListaMaestra/Lista_Maestra.html', usuario=current_user, datos_lista_maestra=datos)
 
 @lMaestra_bp.route('/guardaListaMaestra', methods=['POST'])
 @login_required

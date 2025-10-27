@@ -1,0 +1,104 @@
+{% extends 'home.html' %}
+{% block title %}Documentacion{% endblock %}
+{% block content %}
+<link href="{{ url_for('static', filename='css/acordeon_doc.css') }}" rel="stylesheet" />
+<link href="{{ url_for('static', filename='css/procedimientos.css') }}" rel="stylesheet" />
+
+<div id="documento" style="display:none;">procedimientos/HTML/PRO-PR-013 Impuestos Distritales Bancolombia.html</div>
+<div id="nombre_documento" style="display: none;">PRO-PR-013 Impuestos Distritales Bancolombia</div>
+<h1>PRO-PR-013 Impuestos Distritales Bancolombia</h1>
+{% for cambio in cambios %}
+{% if loop.first %}
+<h3>Version: {{cambio[3]}}</h3>
+{% endif %}
+{% endfor %}
+<br />
+<div class="doc-accordion">
+ <div class="doc-section" data-id="1">
+  1. En la barra superior en el menú movimiento abrimos la fecha de recaudo de la planilla, luego por el menú generación de archivos planos nos dirigimos a la opción consignación automática donde se despliega una ventana emergente donde ingresamos en el paso 1, donde la fecha de recaudo se coloca automática mente, para la fecha de traslado se debe da clic en el botón automático para que
+ </div>
+ <div class="doc-content" data-id="1">
+  <ul>
+   <li>
+    <i class="fa-regular fa-circle-check">
+    </i>
+    <b>
+     RESPONSABle:
+    </b>
+    Líder de procesos
+   </li>
+   <li>
+    <i class="fa-regular fa-circle-check">
+    </i>
+    <b>
+     REGISTRO:
+    </b>
+    no aplica
+   </li>
+   <li>
+    <i class="fa-regular fa-circle-check">
+    </i>
+    <b>
+     DESCRIPCIÓN:
+    </b>
+    Esta actividad se realiza por el aplicativo por el siguiente menú
+Control Envíos
+Control de documentos enviados
+Se ingresa la fecha inicial que debe ser el primer día hábil del mes y la fecha final que debe ser el último día hábil del mes
+Se selecciona el botón “Consolidado factura 2017”
+Indicando la ruta donde se situó el archivo generado.
+El archivo queda generado en la siguiente ruta: \\servidor\Confidencial_Id07_aaaa\Cintas_Aceptadas\Reportes Con el siguiente nombre “
+Consolidado_imp_20230801_20230831.dbf
+consolidado_imp_20230801_20230831_detalle.xls
+consolidado_imp_20230801_20230831_impuesto.xls
+Nota 1: Los archivos de Excel que se genera se comparan con los datos de las cintas.
+El archivo (.dbf) se envía al área de desarrollo para que genere la factura y la envió al banco.
+Revisión de actividades
+   </li>
+   <li>
+    <i class="fa-regular fa-circle-check">
+    </i>
+    <b>
+     RESPONSABle:
+    </b>
+    Líder de procesos
+   </li>
+   <li>
+    <i class="fa-regular fa-circle-check">
+    </i>
+    <b>
+     REGISTRO:
+    </b>
+    PRO-D-105 lista de chequeo impuestos distritales Bancolombia
+   </li>
+   <li>
+    <i class="fa-regular fa-circle-check">
+    </i>
+    <b>
+     DESCRIPCIÓN:
+    </b>
+    Diariamente el líder proceso para verificar y validar que cada actividad del proceso se realice debe diligenciar el formato PRO-D-105 Lista de Chequeo Impuestos Distritales Bancolombia, donde están las actividades que se debe realizar con el fin de tener un control y cumplir con los requisitos del cliente.
+INDICADORES DE DESEMPEÑO
+CONTROL DEL PROCEDIMIENTO
+   </li>
+  </ul>
+ </div>
+</div>
+
+<!-- Botones y Modals para edición -->
+<button class="btn btn-outline-primary" id="openModalBtn" style="margin-top: 20px;">Editar Secciones</button>
+<div class="modal" id="sectionModal">
+    <div class="modal-content">
+        <span class="close-button">×</span>
+        <h2>Selecciona y Edita una Sección</h2>
+        <select id="sectionSelector"><option value="">-- Selecciona --</option></select>
+        <textarea id="sectionContent" placeholder="Contenido..."></textarea>
+        <textarea id="sectionCambio" placeholder="Descripción del cambio..." required></textarea>
+        <button class="btn btn-outline-primary" id="saveChangesBtn" style="margin-top: 15px;">Guardar Cambios</button>
+    </div>
+</div>
+<script src="{{ url_for('static', filename='js/jquery.min.js')}}"></script>
+<script src="{{ url_for('static', filename='js/acordeon_doc.js')}}"></script>
+<script src="{{ url_for('static', filename='js/edita_procedimiento.js')}}"></script>
+
+{% endblock %}

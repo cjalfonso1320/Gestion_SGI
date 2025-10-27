@@ -1,0 +1,202 @@
+{% extends 'home.html' %}
+{% block title %}Documentacion{% endblock %}
+{% block content %}
+<link href="{{ url_for('static', filename='css/acordeon_doc.css') }}" rel="stylesheet" />
+<link href="{{ url_for('static', filename='css/procedimientos.css') }}" rel="stylesheet" />
+
+<div id="documento" style="display:none;">procedimientos/TI/Tec_pr_001.html</div>
+<div id="nombre_documento" style="display: none;">TEC-PR-001 REGISTRO, MONITOREO Y MANEJO DE LOGS</div>
+<h1>REGISTRO, MONITOREO Y MANEJO DE LOGS</h1>
+{% for cambio in cambios %}
+{% if loop.first %}
+<h3>Version: {{cambio[3]}}</h3>
+{% endif %}
+{% endfor %}
+<br />
+<div class="doc-accordion">
+    <div class="doc-section" data-id="1">1. OBJETIVO</div>
+    <div class="doc-content" data-id="1">
+        <p>Definir acciones que permitan a Digicom System Corporation S.A identificar violaciones a la política de
+            seguridad de la Información, verificando el uso correcto de los recursos informáticos.</p>
+    </div>
+    <div class="doc-section" data-id="2">2. ALCANCE</div>
+    <div class="doc-content" data-id="2">
+        <p>Se establecen los pasos necesarios para el manejo de los Logs de eventos de los recursos informáticos,en
+            cuanto a la definición, monitoreo, almacenaje y protección de los mismos de acuerdo con los requisitos de
+            negocio controlando los activos de información.</p>
+    </div>
+    <div class="doc-section" data-id="3">3. RESPONSABLES</div>
+    <div class="doc-content" data-id="3">
+        <p>de TI, Oficial de Seguridad y Dueño del activo de información.</p>
+    </div>
+    <div class="doc-section">4. DEFINICIONES</div>
+    <div class="doc-content">
+        <ul>
+            <li>
+                <i class="fa-regular fa-circle-check"></i><b>Log:</b> Registro oficial de eventos durante un periodo de
+                tiempo en particular. Es usado para
+                registrar
+                datos o información sobre quién, que, cuando, donde y por qué un evento ocurre para un dispositivo en
+                particular o aplicación. Queda alojado en un archivo.
+            </li>
+            <li>
+                <i class="fa-regular fa-circle-check"></i><b>Monitoreo:</b> Es una supervisión continua de una acción en
+                desarrollo. Es la observación del curso
+                de uno o más eventos para detectar eventuales anomalías.
+            </li>
+            <li>
+                <i class="fa-regular fa-circle-check"></i><b>Advertencias:</b> Cuando la capacidad de los servidores se
+                encuentra en el -15% de su capacidad.
+            </li>
+            <li>
+                <i class="fa-regular fa-circle-check"></i><b>Fallos:</b> Cuando la capacidad de los servidores se
+                encuentra en el -10% de su capacidad.
+            </li>
+        </ul>
+    </div>
+    <div class="doc-section" data-id="5">5. DOCUMENTOS DE REFERENCIA</div>
+    <div class="doc-content" data-id="5">
+        <p><i class="fa-regular fa-circle-check"></i> Política asociada al Cumplimiento de las Regulaciones</p>
+    </div>
+    <div class="doc-section" data-id="6">6. DESCRIPCIÓN DEL PROCESO</div>
+    <div class="doc-content" data-id="6">
+        <div class="doc-subsection">6.1. Registro De Logs</div>
+        <div class="doc-subcontent">
+            <ul>
+                <li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Auxiliar De T.I</li>
+                <li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> Servidores, Computadores y Dispositivos
+                    Activos De Comunicaciones.</li>
+                <li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b> Las actividades se registran
+                    automáticamente en los servidores, computadores y dispositivos activos de comunicaciones
+                    permanentemente.</li>
+            </ul>
+        </div>
+        <div class="doc-subsection">6.2. Monitoreo De Logs Del Sistema</div>
+        <div class="doc-subcontent">
+            <ul>
+                <li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Auxiliar De T.I - Oficial de Seguridad
+                </li>
+                <li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> Correos Electrónicos.</li>
+            </ul>
+            <div>
+                <p><i class="fa-regular fa-circle-check"></i><b>Descripción:</b> Se revisan las actividades y los
+                    eventos consignados en los Logs diariamente.</p>
+                <ul style="position: relative; left: 20px;">
+                    <li><i class="fa-solid fa-chevron-right"></i> Los eventos informativos se revisan cuando tienen
+                        respuesta a un evento crítico.</li>
+                    <li><i class="fa-solid fa-chevron-right"></i> Los eventos de advertencia se revisan y se les da
+                        tratamiento inmediato si es necesario. </li>
+                    <li><i class="fa-solid fa-chevron-right"></i> Los eventos críticos son analizados y tratados
+                        inmediatamente y enviados por correo electrónico; una vez clasificados el evento se comunicará
+                        inmediatamente al administrador de T.I</li>
+                    <li><i class="fa-solid fa-chevron-right"></i> El oficial de seguridad realizará el monitoreo
+                        periódicamente de los eventos presentados y generará el informe del respectivo monitoreo,
+                        informando a la dirección del SGI.</li>
+                </ul>
+            </div>
+        </div>
+        <div class="doc-subsection">6.3 Monitoreo de la Capacidad de los servidores.</div>
+        <div class="doc-subcontent">
+            <ul>
+                <li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Recurso Tecnológico</li>
+                <li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> Correo del Área TI y los informes
+                    generados por la aplicación PRTG.</li>
+                <li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b> La empresa utiliza la herramienta de
+                    software PRTG Network Monitor para el monitoreo de la capacidad de los servidores. Esta herramienta
+                    permite recibir alertas de advertencias y fallos relacionados con la capacidad, lo cual facilita la
+                    identificación oportuna de posibles problemas y la ejecución de acciones preventivas y
+                    correctivas.</li>
+                <li style="position: relative; left: 20px;"><i class="fa-solid fa-chevron-right"></i><b>Nota: </b>
+                    Además de generar alertas de advertencias y
+                    fallos, la herramienta PRTG Network Monitor permite analizar la capacidad actual de los
+                    servidores y proyectar su crecimiento. Esta funcionalidad es clave para la planificación de
+                    recursos, ya que ayuda al Área de TI a anticipar posibles necesidades de expansión o ajuste
+                    de capacidad con base en el uso y tendencias de crecimiento. De este modo, se garantiza una
+                    gestión proactiva y eficiente de los recursos tecnológicos de la organización.</li>
+            </ul>
+        </div>
+        <div class="doc-subsection">6.4. Manejo De Logs</div>
+        <div class="doc-subcontent">
+            <ul>
+                <li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Auxiliar De T.I</li>
+                <li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> No Aplica</li>
+                <li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b> Los Logs se conservarán con la
+                    protección necesaria para guardar la confidencialidad, disponibilidad e integridad de estos. Por
+                    tanto, no deberán ser de acceso diferente a los responsables de su manejo.
+                    Los Logs se mantendrán por dos meses dentro de los servidores, después de esto se reescribirán,
+                    teniendo en cuenta que se realizan copias de estos, al igual que los Logs que genera el aplicativo
+                </li>
+            </ul>
+        </div>
+        <div class="doc-subsection">6.5. Tiempos De Retención</div>
+        <div class="doc-subcontent">
+            <ul>
+                <li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Auxiliar De T.I</li>
+                <li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> No Aplica</li>
+                <li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b> Los Logs se mantendrán durante los
+                    siguientes tiempos:</li>
+                <div>
+                    <ul style="position: relative; left: 20px;">
+                        <li><i class="fa-solid fa-chevron-right"></i> De servidores 2 meses</li>
+                        <li><i class="fa-solid fa-chevron-right"></i> De los equipos de cómputo 5 meses</li>
+                        <li><i class="fa-solid fa-chevron-right"></i> De los equipos de comunicaciones el tiempo que
+                            permita el hardware del equipo</li>
+                    </ul>
+                </div>
+            </ul>
+        </div>
+    </div>
+    <div class="doc-section" data-id="7">7. INDICADORES DE DESEMPEÑO</div>
+    <div class="doc-content" data-id="7">
+        <p>No Aplica</p>
+    </div>
+    <div class="doc-section" data-id="8">8. CONTROL DEL PROCEDIMIENTO</div>
+    <div class="doc-content" data-id="8">
+        <table>
+            <thead>
+                <tr>
+                    <th>Versión</th>
+                    <th>Elaborado</th>
+                    <th>Aprobado</th>
+                    <th>Fecha</th>
+                    <th>Descripción del Cambio</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cambio in cambios %}
+                <tr>
+                    <td>{{ cambio[2] }}</td>
+                    <td>{{ cambio[3] }}</td>
+                    <td>{{ cambio[5] }}</td>
+                    <td>{{ cambio[6] }}</td>
+                    <td>{{ cambio[7] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- Botón para abrir el modal -->
+<button class="btn btn-outline-primary" id="openModalBtn" style="margin-top: 20px;">Editar Secciones</button>
+<!-- El Modal -->
+<div class="modal" id="sectionModal">
+    <div class="modal-content">
+        <span class="close-button">×</span>
+        <h2>Selecciona y Edita una Sección</h2>
+        <label for="sectionSelector">Sección:</label>
+        <select id="sectionSelector">
+            <option value="">-- Selecciona una sección --</option>
+        </select>
+        <label for="sectionContent">Contenido:</label>
+        <textarea id="sectionContent" placeholder="El contenido de la sección aparecerá aquí..."></textarea>
+        <label for="sectionCambio">Descripcion del Cambio:</label>
+        <textarea id="sectionCambio" placeholder="Describe en palabras cortas el cambio realizado..."
+            required></textarea>
+        <button class="btn btn-outline-primary" id="saveChangesBtn" style="margin-top: 15px;">Guardar Cambios</button>
+    </div>
+</div>
+<script src="{{ url_for('static', filename='js/jquery.min.js')}}"></script>
+<script src="{{ url_for('static', filename='js/acordeon_doc.js')}}"></script>
+<script src="{{ url_for('static', filename='js/edita_procedimiento.js')}}"></script>
+
+{% endblock %}

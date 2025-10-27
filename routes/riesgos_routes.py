@@ -21,7 +21,6 @@ def Matriz_Riesgos(role_id):
         rol = session.get('selected_rol', current_user.rol)
 
     nombre_del_rol = nombre_rol(rol)
-    imagen_rol = ROL_IMAGES.get(rol, 'imgs/user.png')
 
     if rol in [2, 4, 5, 6, 7, 10, 11, 12, 13]:
         riesgo_tipo = 'operacional'
@@ -38,7 +37,6 @@ def Matriz_Riesgos(role_id):
     else:
         activos = []
         datos_riesgos = []
-    procesos = PROCESOS_ROL.get(rol, [])
 
     return render_template(
         'MatrizRiesgos/Matriz_Riesgos.html',
@@ -50,8 +48,7 @@ def Matriz_Riesgos(role_id):
         activos=activos,
         datos_riesgos=datos_riesgos,
         riesgo=riesgo_tipo,
-        imagen_rol=imagen_rol,
-        procesos=procesos
+        nombre_rol=nombre_del_rol
     )
 
 @mRiesgos_bp.route('/guardar_riesgo', methods=['POST'])

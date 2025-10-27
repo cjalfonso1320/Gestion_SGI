@@ -1,0 +1,1979 @@
+{% extends 'home.html' %}
+{% block title %}Documentacion{% endblock %}
+{% block content %}
+<link href="{{ url_for('static', filename='css/acordeon_doc.css') }}" rel="stylesheet" />
+<link href="{{ url_for('static', filename='css/procedimientos.css') }}" rel="stylesheet" />
+<div id="documento" style="display:none;">procedimientos/Produccion/PRO-PR-012 Impuestos Departamentales
+    Bancolombia.html
+</div>
+<div id="nombre_documento" style="display: none;">PRO-PR-012 Impuestos Departamentales Bancolombia</div>
+<h1>PRO-PR-012 Impuestos Departamentales Bancolombia</h1>
+{% for cambio in cambios %}
+{% if loop.first %}
+<h3>Version: {{cambio[3]}}</h3>
+{% endif %}
+{% endfor %}
+<br />
+<div class="doc-accordion">
+    <div class="doc-section" data-id="1">
+        1. OBJETIVO
+    </div>
+    <div class="doc-content" data-id="1">
+        <p>
+            RTRYRRUR
+            cumplimiento al Sistema de Gestión Integrado
+        </p>
+    </div>
+    <div class="doc-section" data-id="2">
+        2. ALCANCE
+    </div>
+    <div class="doc-content" data-id="2">
+        <p>
+            Este procedimiento aplica a los servicios de Impuestos Departamentales recaudados por Bancolombia e
+            implementados por DIGICOM System Corporation S.A
+        </p>
+    </div>
+    <div class="doc-section" data-id="3">
+        3. RESPONSABLES
+    </div>
+    <div class="doc-content" data-id="3">
+        <p>
+            Gerente de Operaciones, jefe de proceso y Líder de Proceso, Auxiliar de Procesos, Digitador
+        </p>
+    </div>
+    <div class="doc-section" data-id="4">
+        4. DEFINICIONES
+    </div>
+    <div class="doc-content" data-id="4">
+        <p>
+            Archivo Plano: Archivo de datos que se utiliza para intercambio de información entre los diferentes
+            aplicativos. LOG bancario: Es el registro de las transacciones de una fecha de recaudo Precinto: Suncho de
+            seguridad numerado que una vez colocado en el medio de transporte de documentos o valores no puede ser
+            violentado ni roto excepto por el destinatario
+        </p>
+    </div>
+    <div class="doc-section" data-id="5">
+        5. DOCUMENTOS DE REFERENCIA
+    </div>
+    <div class="doc-content" data-id="5">
+        <p>
+            ➢ Acuerdo de servicios ➢ ISO 9001 ➢ ISO 27001 IMPUESTOS DEPARTAMENTALES BANCOLOMBIA
+        </p>
+    </div>
+    <div class="doc-section" data-id="6">
+        6. DESCRIPCIÓN DEL PROCESO
+    </div>
+    <div class="doc-content" data-id="6">
+        <div class="doc-subsection">
+            6.1. Recepción Información Bancaria
+        </div>
+        <div class="doc-subcontent">
+            <div class="doc-subsection">
+                6.1.1. Descargar Log
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Líder De Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No Aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        El banco coloca el log de recaudo en la siguiente ruta: \\SD\bancolombia\INPUT con el nombre
+                        cajaaaaammdd.txt, Este archivo aplica para las gobernaciones de Antioquia, Tolima, Huila y
+                        Boyacá.
+                        Se debe colocar en cada una de las gobernaciones en la siguiente ruta:
+                        \\SP\Confidencial_Ig07_XXXX\Ent_LogAch\t05\log
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img001.png')}}" />
+                        Se crea una carpeta con la fecha del log en cada Gobernación y se pega el log
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Nota:
+                        </b>
+                        En caso de no recibir el log se debe confirmar con el banco por medio de correo electrónico
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.1.2. Cargar Log
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Líder De Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No Aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Se ingresa al aplicativo Bancolombiagob.exe el cual se encuentra en la ruta:
+                        \\SP\Confidencial_Ig07_aaaa,
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img002.png')}}" />
+                        Se ingresa la gobernación,
+                        contraseña del usuario e ingresamos al menú del aplicativo: Cargue/log de caja, seleccionamos la
+                        fecha y la opción de cargue inicial, damos clic en el botón: cargar, el aplicativo nos muestra
+                        un
+                        letrero avisando que termino el proceso, damos clic en botón con forma de carpeta para salir de
+                        la
+                        ventana
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img003.png')}}" />
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Nota:
+                        </b>
+                        Para cambiar de gobernación sin salir del aplicativo ingresamos por el menú del aplicativo:
+                        Definiciones\cambio de gobernación seleccionamos la cual vamos a trabajar y damos clic en el
+                        botón:
+                        Aceptar
+                        Y se realiza el mismo proceso de cargue del log
+                        para
+                        las demás Gobernaciones Tolima, Boyacá, Huila
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img004.png')}}" />
+                        Después de haber cargado el log se procesa a realizar las ASOBANCARIAS
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.1.3. Generación Asobancaria
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Líder De Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No Aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Se ingresa al menú del aplicativo: Anexos\Asobancaria
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img005.png')}}" />
+                        Seleccionamos la fecha y procedemos a generar archivos por horario N y le damos procesar y
+                        salir,
+                        cada vez que se genere un archivo se debe apuntar el registro que genera la Asobancaria para
+                        saber
+                        el total de recaudo y se debe enviar al director para su respectivo control,
+                        <b>NOTA: </b>Se debe hacer la misma operación en las demás gobernaciones.
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img006.png')}}" />
+                        Se genera un archivo de la siguiente manera
+                        AR072aaaammdd.txt lo cual queda en la ruta:
+                        \\SP\Confidencial_Ig07_aaaa\Sal_informes\"Gobernacion"\aaaammdd
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img007.png')}}" />
+                        Únicamente se comprimen en
+                        formato
+                        punto Zip, este archivo se debe colocar en la ruta:
+                        \\SC\07_Procesos\aaaammdd\ArchivosGOB\INFORME DIARIO
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img008.png')}}" />
+                        Se procede actualizar la página de Digicom,
+                        realizado
+                        esto se envía correo al banco informando que se encuentra publicado el archivo.
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img009.png')}}" />
+                        <b>Nota 1:</b> el
+                        archivo
+                        de Asobancaria aplica solamente para las gobernaciones de Antioquia, Tolima, Huila y Boyacá,
+                        estos
+                        archivos deben ser enviados antes de las 8:00 de la mañana.
+                        <b>Nota 2:</b> Para la gobernación de
+                        Boyacá se
+                        debe subir también la Asobancaria en la siguiente ruta se debe crear la carpeta Boyacá ya que
+                        por
+                        este lado la Gobernación vera directamente el archivo a solicitud del Banco y debe ser enviada
+                        antes
+                        de las 7:00 a.m., se publica en la página y se le da aceptada y actualizar y se envía correo.
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img010.png')}}" />
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.1.4. Descarga De Imágenes
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Líder De Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No Aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        El banco coloca las imágenes de Antioquia, Tolima, Huila y Boyacá en la ruta:
+                        \\SC\bancolombia\imagenes,
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img011.png')}}" />
+                        Se seleccionan las imágenes con el nombre ANT_formulario_xxxxxx.tif,
+                        se
+                        hace lo mismo con cada gobernación. Estas imágenes se copian en la ruta: \\SP
+                        \Confidencial_Ig07_aaaa\Grabacion\Scan\"gobernacion"\aaaammdd\E1xx. Creamos la carpeta con la
+                        fecha
+                        de recaudo dentro de esta carpeta creamos otra carpeta y aun sin renombrarla colocamos las
+                        imágenes
+                        nos dirigimos a la siguiente ruta:
+                        \\SP\07_Descargas\GOBERNACIONES\RECAUDO_DIARIO\FECHA\ANTIOQUIA
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img012.png')}}" />
+                        Abrimos de cada gobernación la carpeta COBANCOLOMBIA_XXXXX.ZIP y seleccionamos las imágenes que
+                        hay
+                        y las pegamos en nuestra carpeta anterior que no está renombrada, estas imágenes son las de
+                        rechazo
+                        que el banco coloca en esta ruta y nos informan por correo. Luego de colocar estas imágenes le
+                        damos
+                        F2 y las renombramos para que el sistema las pueda leer, Se proceden a revisar las imágenes si
+                        están
+                        en buen estado (Giradas correctamente, y visibles) si no es el caso se procede a imprimir la
+                        imagen
+                        en cuestión y digitalizarla para poder continuar con el Proceso para la gobernación de Antioquia
+                        debemos cortar las imágenes que llegan en mitad de
+                        Debemos
+                        tener una aplicación GIMP 2 procesaos a girarla y acortar.
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img013.png')}}" />
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img014.png')}}" />
+                        Después de validar las imágenes me devuelvo a la carpeta que no ha sido renombrada y proceso a
+                        renombrarla con E101 por primera vez si nos hace falta imágenes y llegan después debemos crear
+                        otro
+                        lote ejemplo E102 y así sucesivamente.
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img015.png')}}" />
+                        Después de tener las carpetas loteadas me dirijo al
+                        aplicativo y cargo los lotes para que la información sea vista por los digitadores y procedan a
+                        indexar, grabar por primera y segunda grabación.
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.1.5 Proceso Santander
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        líder de Procesos Y Auxiliar Regional
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No Aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Nota:
+                        </b>
+                        para la gobernación de Santander A partir del 01 de junio 2023 no se procesará con imágenes de
+                        acuerdo con autorización del Banco. El log de Santander lo envía el BANCO por correo y llega un
+                        Excel de la siguiente manera
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img016.png')}}" />
+                        Seleccionamos el archivo y lo colocamos en la siguiente ruta:
+                        \\SP\Confidencial_Ig07_XXXX\Ent_LogAch\t68\Log\XXXXXX
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img017.png')}}" />
+                        Abrimos el Excel le damos archivo, guardar
+                        como, examinar, en el nombre del archivo le damos CAJAXXXXXX.cvs va los dos últimos números del
+                        año,
+                        mes y día y va en mayúscula, y en tipo le damos CSV (MS-DOS) (*.csv) y le damos guardar y
+                        cerramos
+                        el archivo nos dirigimos a la ruta donde está el archivo y nos refleja un documento de texto y
+                        le
+                        cambiamos la extensión por txt.
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img018.png')}}" />
+                        Luego en el aplicativo
+                        cargamos el log en cargue, log de caja,
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img019.png')}}" />
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img020.png')}}" />
+                        Luego cargue,
+                        Generar
+                        movto desde log Santander
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img021.png')}}" />
+                        Si por alguna causa se necesita remplazar el cargue inicial el
+                        programa le
+                        permite remplazarlo, esto se indica en una opción en donde el programa reporta que ya está
+                        cargado y
+                        según la elección puede remplazar la información.
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img022.png')}}" />
+                        Y procedemos a validar la información que este
+                        correcta en los siguientes pasos complementando primero, en caso de reflejar una inconsistencia
+                        será
+                        reportada al banco ellos validaran y será enviada la corrección.
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img023.png')}}" />
+                        Cuando ya hayamos validado todo y este correcto procesamos a realizar los informes:
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img024.png')}}" />
+                        Luego vamos a consulta log de caja y abrimos la fecha de
+                        recaudo a validar y comparar los valores con los informes que se reflejan en la siguiente ruta:
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img025.png')}}" />
+                        \\SP\Confidencial_Ig07_XXXX\Sal_informes\Santander\XXXXXX
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img026.png')}}" />
+                        Para esta Gobernación se abre el
+                        archivo
+                        de Excel XXXXXXXX DEFINITIVO.xlsx y se selecciona la columna VALOR DISTRIBUIR MUNICIPIO y se
+                        compara
+                        con el log caja en el aplicativo con la columna del 20%.
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img027.png')}}" />
+                        Al tener la fecha validada y correcta procedemos a zip los tres archivos en uno solo y lo
+                        colocamos
+                        en:
+                        \\SP\07_Procesos\XXXXXX\ArchivosGOB\DISTRIBUCION Y se envía correo al BANCO informando que el
+                        informe se encuentra publicado
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img028.png')}}" />
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.1.6. Recepción De Documentos Físicos
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        líder de Procesos Y Auxiliar Regional
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No Aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Se recibe la tula madre con precinto de seguridad y se verifica en la planilla que el número del
+                        precinto concuerde con el relacionado. Se firma la planilla y se entrega al funcionario del
+                        centro
+                        logístico del Banco. La tula madre es entregada a los funcionarios de Bancolombia quienes
+                        proceden a
+                        leer ante cámara y video el numero del precinto, luego rompen el precinto y sacan el contenido
+                        (tulas pequeñas por oficina). Luego se organizar las tulas en orden ascendente por número de
+                        oficina, se lee el precinto ante cámara y video de cada tula por oficina y se valida contra la
+                        lista
+                        enviada por el Banco, se destapada ante cámara, se saca el contenido y se verifica contra la
+                        tapa
+                        remitida por la oficina que la cantidad este completa. Se verifica el estado del documento que
+                        no
+                        presente alguna inconsistencia física (emendado, dañado, manchado, etc.) y en los casos
+                        pertinentes
+                        se lee ante cámara la inconsistencia física del documento
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Nota:
+                        </b>
+                        esta actividad aplica para las ciudades donde se reciben los formularios físicos. (Medellín,
+                        Ibagué,
+                        Bogotá) IMPUESTOS DEPARTAMENTALES BANCOLOMBIA
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="doc-subsection">
+            6.2. Digitalización Documentos
+        </div>
+        <div class="doc-subcontent">
+            <ul>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Responsable:
+                    </b>
+                    Líder De Procesos
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Registro:
+                    </b>
+                    No Aplica
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Descripción:
+                    </b>
+                    Los documentos remitidos por el banco el cual nos entregan en horas de la mañana se deben ordenar
+                    por gobernación, fecha de recaudo, se procede a escanear los formularios que nos hagan falta como
+                    imagen según los faltantes que tengamos en la ruta, loteado y procesado normalmente:
+                    \\SP\Confidencial_Ig07_aaaa\Grabacion\Scan\"gobernacion"\aaaammdd\E1xx.
+                    <img alt=""
+                        src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img029.png')}}" />
+                    Para la documentación de la
+                    Antioquia se deben ir ordenando los documentos físicos y día a día se debe enviar a Digicom
+                    Medellín, para la gobernación de Tolima se deben ir remitiendo a su respectiva ciudad para el
+                    control y archivo de esta documentación, para Huila y Boyacá se mantiene el control y proceso en
+                    Bogotá
+                </li>
+            </ul>
+        </div>
+        <div class="doc-subsection">
+            6.3. Captura De Información
+        </div>
+        <div class="doc-subcontent">
+            <div class="doc-subsection">
+                6.3.1. Indexación De Documentos
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Digitador
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No Aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Se ingresa al menú del aplicativo opción: Grabación\indexación. Luego de ser activados los lotes
+                        en
+                        el aplicativo como se evidencio en los pasos del 6.1.4 ya pasa a cargo los digitadores en
+                        procesar
+                        la información se comienza por la indexación de los formularios.
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img030.png')}}" />
+                        Se ingresa la fecha de recaudo, la gobernación, forma de pago, lote y damos clic en
+                        el
+                        botón: iniciar, se debe capturar tal cual está la información del documento el aplicativo nos
+                        pide
+                        los campos:
+                        <ul>
+                            <li>Formato</li>
+                            <li>Numero de formulario</li>
+                            <li>Placa</li>
+                            <li>Municipio de residencia</li>
+                            <li>Departamento de residencia</li>
+                        </ul>
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img031.png')}}" />
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Nota:
+                        </b>
+                        en el código de barras se puede verificar el código del municipio.
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.3.2. Captura Totalidad Campos Del Formulario
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Digitador
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        Pro-D-Ext- 019 Tabla DANE
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Para la grabación o captura total de los campos se ingresa al menú Grabación\grabación
+                        vehículos.
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img032.png')}}" />
+                        Seleccionamos la fecha y gobernación y damos clic en el botón: iniciar, se procede a grabar los
+                        campos por primera;
+                        <ul>
+                            <li>Número de formulario</li>
+                            <li>Año</li>
+                            <li>Cedula</li>
+                            <li>Municipio de residencia</li>
+                            <li>Departamento de residencia</li>
+                            <li>Placa</li>
+                            <li>Sistematización</li>
+                            <li>Valor pagado</li>
+                        </ul>
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img033.png')}}" />
+                        Para realizar la segunda grabación debemos habilitarla:
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img034.png')}}" />
+                        Le damos si y nuevamente vamos a grabación y grabación de vehículos.
+                        Para la Gobernación de Boyacá y tolima
+                        se debe grabar los campos del 20% y 80%
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img035.png')}}" />
+                        <b>Nota 1: </b>Esta captura se realiza por dos digitadores
+                        diferentes para asegurar la calidad de la grabación.
+                        <b>Nota 2:</b> Para esta labor se les suministra a
+                        los
+                        digitadores el formato PRO-D-EXT- 019 Tabla DANE en la cual se encuentran los códigos de los
+                        municipios requeridos para la indexación y grabación de los documentos
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.3.3. Validación
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Líder De Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No Aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Una vez finalizada la grabación de la documentación procedemos a verificar la calidad de la
+                        información, ingresamos por el menú: Grabación\cambio de estados.
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img036.png')}}" />
+                        En esta ventana seleccionamos
+                        la
+                        fecha de procesamiento y verificamos si queda información pendiente por indexar, grabar y
+                        validar,
+                        esto con el fin de verificar que tengamos la fecha cerrada en esta opción.
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img037.png')}}" />
+                        Para validar los formularios en captura documental ingresamos por el menú del
+                        aplicativo: Operaciones\revisión grabación 01 vs grabación 02.
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img038.png')}}" />
+                        En esta ventana nos muestra las
+                        diferencias que hay entre captura 1 y captura 2 dando opción si ninguna de las dos es correcta
+                        de
+                        ingresar el dato para corregir.
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img039.png')}}" />
+                        Una vez finalizado este procedimiento salimos de esta ventana e
+                        ingresamos por la opción: Operaciones\complementación
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img040.png')}}" />
+                        En
+                        esta
+                        ventana seleccionamos la fecha que estamos procesando en fecha inicial y fecha final y damos
+                        clic en
+                        el botón: cargar
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img041.png')}}" />
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.3.4. Informes Diarios (Faltantes)
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Líder De Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        Pro-D-086 Control Faltantes Definitivo
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Para generar el informe de faltantes ingresamos por el menú opción
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img042.png')}}" />
+                        Operaciones\revisión contra
+                        log
+                        seleccionamos la fecha inicial y la fecha final el aplicativo nos muestra el recaudo y
+                        seleccionamos
+                        la opción: faltantes y sobrantes, al instante la tabla nos muestra únicamente los formularios
+                        faltantes y los sobrantes si hay, estos se revisan para
+                        verificar que no corresponda a un faltante mal capturado, se debe verificar la cedula y el valor
+                        de
+                        coincidir se procede a realizar la corrección dando doble clic en el campo errado “formulario” y
+                        por
+                        ultimo damos clic en el botón: refrescar, salimos de la ventana y volvemos a ingresar a la misma
+                        para verificar que haya tomado los cambios en la parte inferior de la ventana hay 4 iconos del
+                        cual
+                        vamos a seleccionar el tercero de izquierda a derecha el cual tiene el nombre: Enviar a
+                        impresora
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img043.png')}}" />
+                        Informe este genera el archivo en la ruta: \\SP
+                        \Confidencial_Ig07_aaaa\Sal_informes\"Gobernacion"\aaaammdd con el nombre (01 Faltantes
+                        Sobrantes
+                        “Gobernación” aaaammdd HASTA aaaammdd).
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img044.png')}}" />
+                        Abrimos este archivo y procedemos a copiar la
+                        información
+                        según el formato del documento (PRO- D-086 Control faltantes Definitivo) el cual se encuentra en
+                        la
+                        ruta: \\SP\Confidencial_Ig07_aaaa\Procesos Bancolombia\varios\formatos gobernaciones bancolombia
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img045.png')}}" />
+                        Cada vez que van llegando los documentos se va eliminando
+                        el
+                        registro en el formato PRO-D-086. Los pendientes se dejan relacionados para su respectivo
+                        seguimiento ya cuando no llegan definitivamente se procesan según instrucción del banco con
+                        imagen o
+                        con datos del log
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img046.png')}}" />
+                        <b>NOTA:</b> Cuando tenemos faltantes de Antioquia y Tolima y se han validado que ya
+                        llegaron se solicitan a las ciudades por medio de correo, Los de Boyacá y Huila se validan con
+                        el
+                        físico en Bogotá, si no tenemos las imágenes o no ha llegado el físico y ya han pasando 3 días
+                        se
+                        deben solicitar al Banco ya sean las imágenes que nos envíen o la autorización para procesar la
+                        información con datos del log.
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="doc-subsection">
+            6.4. Validación De Información
+        </div>
+        <div class="doc-subcontent">
+            <div class="doc-subsection">
+                6.4.1. Cruzar Información Digitada Contra El Log Bancario E Indexación
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Líder De Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No Aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Para realizar esta validación es importante tener cerrada la fecha en indexación, grabación y
+                        validación una vez verificado esto ingresamos por el menú del aplicativo en la opción:
+                        Operaciones\revisión log vs indexación
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img047.png')}}" />
+                        Una vez abierta la
+                        ventana seleccionamos la fecha inicial y la fecha final y damos clic en la opción: solo
+                        inconsistencias, procedemos a revisar las inconsistencias indicadas una vez corregidas damos
+                        clic en
+                        el botón: refrescar. Estas opciones son iguales para revisión log vs indexación y revisión movto
+                        vs
+                        indexación.
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img048.png')}}" />
+                        IMPUESTOS DEPARTAMENTALES BANCOLOMBIA Cuando termina este proceso salimos de la
+                        ventana
+                        e ingresamos a la opción:
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img049.png')}}" />
+                        Operaciones\Validación Estructural en la ventana que sale ingresamos
+                        la
+                        fecha que se está trabajando y si nos sale inconsistencias procedemos a revisarlas y corregirlas
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img050.png')}}" />
+                        Luego vamos a consultas/cuadre de vehículos y validamos que los resultados sean los mismo y no
+                        haya
+                        diferencias, de lo contrario se deberá validar la información desde operaciones.
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img051.png')}}" />
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img052.png')}}" />
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.4.2. Errcaja O Correcciones
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Líder De Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No Aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Una vez realizada la validación y corrección de información procedemos a ingresar por el menú
+                        del
+                        aplicativo en la opción: Operaciones\Complementación.
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img053.png')}}" />
+                        Ingresamos la fecha inicial y final “fecha
+                        que
+                        se está trabajando” y damos clic en el botón: cargar.
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img054.png')}}" />
+                        Una vez finalizado cerramos la ventana e ingresamos nuevamente por el menú del aplicativo a la
+                        opción:
+                        Operaciones\revisión contra log.
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img055.png')}}" />
+                        Seleccionamos la fecha inicial y la fecha final el aplicativo
+                        nos
+                        muestra el recaudo y seleccionamos la opción: solo inconsistencias el cual procedemos a
+                        verificar
+                        una a una de acuerdo al error detectado en la columna de inconsistencia una vez finalizados
+                        damos
+                        clic: en refrescar salimos de la ventana y volvemos a ingresar a la misma para verificar que
+                        haya
+                        tomado los cambios en la parte inferior de la ventana hay 4 iconos del cual vamos a seleccionar
+                        el
+                        segundo de izquierda a derecha el cual tiene el nombre: archivo de correcciones para banco.
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img056.png')}}" />
+                        Este genera el archivo en la ruta:
+                        \\SP\Confidencial_Ig07_aaaa\Sal_informes\"Gobernacion"\aaaammdd con el nombre (Errcaja
+                        Correcciones
+                        Proveedor al Banco “Gobernación” aaaammdd HASTA aaaammdd)
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img057.png')}}" />
+                        Este archivo de correcciones debe ir
+                        junto
+                        con las imágenes a corregir y debe ser colocado en la siguiente ruta y publicado en la página
+                        Digicom y se envía correo informando que los informes están publicados.
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img058.png')}}" />
+                        Debemos tener en cuenta
+                        que
+                        al generar el archivo nos genera un consecutivo 01 cada vez que se genere un informe de la misma
+                        gobernación y de diferentes días de recaudo continua el consecutivo 02 – 03 - 04 y así
+                        sucesivamente
+                        cuando por error se genere un consecutivo de la misma fecha debemos eliminarlo en el aplicativo
+                        seleccionando la fecha y cambiando el consecutivo a cero o según el número que se haya generado.
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img059.png')}}" />
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.4.3. Definitivo
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Líder De Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No Aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Una vez el banco responde el correo de correcciones con el archivo diligenciado según
+                        corresponde o
+                        instrucción dada procedemos a guardar el archivo en la ruta:
+                        \\SP\Confidencial_Ig07_aaaa\Ent_LogAch\"Gobernacion"\CorErCaja\aaaammdd
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img060.png')}}" />
+                        Este archivo para poder
+                        cargarlo al sistema tiene que quedar con el nombre: Errcaja en formato .csv, de acuerdo con el
+                        consecutivo enviado en las correcciones (1,2,3…etc.) una vez realizado esto ingresamos al menú
+                        del
+                        aplicativo por la opción: Operaciones\Cargue y Aplicación Correcciones
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img061.png')}}" />
+                        Ahí se selecciona la fecha inicial y final e ingresamos el consecutivo del archivo
+                        en la
+                        casilla consecutivo de corrección, damos clic en el botón: carga y por último en la parte
+                        inferior
+                        de la ventana damos clic en el primer icono de izquierda a derecha con el nombre: realizar
+                        correcciones.
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img062.png')}}" />
+                        Una vez realizado este paso salimos e ingresamos por el menú del aplicativo en la
+                        opción: Operaciones\Complementación
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img063.png')}}" />
+                        Ingresamos la fecha inicial y final “fecha que se está
+                        trabajando” y damos clic en el botón: cargar
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img064.png')}}" />
+                        Una vez finalizado cerramos la ventana e ingresamos nuevamente
+                        SP\\Confidencial_Ig07_XXXX\Sal_informes\Antioquia\AAAMMDD allí encontraremos el
+                        ERRCAJAANTAAMMDDCN.TXT se comprime el archivo en formato. Zip y se envía Por correo electrónico
+                        a la
+                        persona encargada del banco, igualmente hay que publicar en la página de Digicom los archivos
+                        enviados.
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img065.png')}}" />
+                        Los archivos procesados anteriormente se deben publicar en la siguiente ruta:
+                        \\192.168.0.28\07_Procesos\20241017\ArchivosGOB\INCONSISTENCIAS
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img066.png')}}" />
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.4.4. Distribución
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Líder De Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No Aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        El banco responde el correo de definitivo adjuntando el log definitivo (CAJADEFANTaammdd.txt) el
+                        cual se coloca en la ruta: \\SP\Confidencial_Ig07_aaaa\Ent_LogAch\"gobernacion"\log\aaaammdd
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img067.png')}}" />
+                        Este
+                        archivo se carga en el aplicativo por el menú principal: Cargue\log de caja una vez sale la
+                        pantalla
+                        se selecciona la fecha y damos clic en la opción: Cargue definitivo y botón: cargue.
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img068.png')}}" />
+                        Una vez
+                        finalizado este proceso procedemos a verificar si cargo bien el log esto lo hacemos por el menú
+                        principal en la opción: Operaciones\revisión contra log
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img069.png')}}" />
+                        En la ventana que nos aparece seleccionamos: rango de fecha que se está trabajando y vamos
+                        seleccionando
+                        las opciones:
+                        <ul>
+                            <li>Movimiento Completo</li>
+                            <li>Solo Inconsistencias</li>
+                            <li>Inconsistencias Asobancaria</li>
+                            <li>Faltantes Sobrantes</li>
+                        </ul>
+                        Cuando seleccionamos estas opciones no debe aparecer ninguna inconsistencia
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img070.png')}}" />
+                        Una vez
+                        verificado esto procedemos a ingresar en la opción: Operaciones\Revisión Mtvo vs Indexación
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img071.png')}}" />
+                        Una vez realizado esto salimos y volvemos a ingresar para
+                        verificar que no queden inconsistencias, validado esto procedemos a ingresar por el menú
+                        principal
+                        del aplicativo en la opción: Consultas\Cuadre vehículos
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img072.png')}}" />
+                        En la ventana que sale ingresamos la
+                        fecha y
+                        verificamos que no se registre ninguna diferencia.
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img073.png')}}" />
+                        Si ese es el caso procedemos a generar la distribución dependiendo de la gobernación que se esté
+                        trabajando.
+                        Para la gobernación de Antioquia, Huila, Tolima y Boyacá ingresamos por el menú principal
+                        opción:
+                        Anexos\Distribución enviado por el proveedor al banco &lt;DF&amp;gt.
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img074.png')}}" />
+                        Seleccionamos la fecha y
+                        opción:
+                        Proceso Diario
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img075.png')}}" />
+                        “ Esta opción aplica solamente para días hábiles” si la fecha corresponde a un
+                        fin de
+                        semana con horario normal se procede a seleccionar la opción: Horario “N” día no hábil. y damos
+                        clic
+                        en el botón: Procesar.
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img076.png')}}" />
+                        El archivo queda en la ruta:
+                        \\SP\Confidencial_Ig07_XXX\Sal_informes\Gobrernacion\XXXXXX\Distribucion
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img077.png')}}" />
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Nota:
+                        </b>
+                        Para la gobernación de Antioquia Cuando el banco lo requiera la distribución por contingencia se
+                        debe generar el archivo, para esto en la ruta mencionada creamos una carpeta la cual debe tener
+                        el
+                        nombre de ORIGINAL y copiamos en esta el archivo de la distribución (DFaaaammdd” GOB” CN.txt)
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img078.png')}}" />
+                        IMPUESTOS DEPARTAMENTALES BANCOLOMBIA Una vez realizado esto procedemos a ingresar por el menú
+                        principal en la opción: Anexos\Conversión PAB a SAP (Antioquia)
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img079.png')}}" />
+                        En este ingresamos las fechas
+                        correspondientes y damos clic en el botón: procesar
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img080.png')}}" />
+                        Este archivo queda en la ruta:
+                        \\SP\Confidencial_Ig07_aaaa\Sal_informes\Antioquia\aaaammdd\definitivo con el nombre
+                        ANTaaaammdd.Txt.
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img081.png')}}" />
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Nota:
+                        </b>
+                        Para la gobernación de Tolima, Boyacá, Huila Cuando el banco lo requiera la distribución por
+                        contingencia se debe generar el archivo, para esto en la ruta a la distribución normalmente
+                        antes
+                        mencionada, Una vez realizado esto procedemos a ingresar por el menú principal en la opción:
+                        Anexos\Conversión contingencia Tolima.
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img082.png')}}" />
+                        Este archivo queda en la ruta:
+                        \\SP\Confidencial_Ig07_XXXX\Sal_informes\Gobernacion\aaaammdd\DefContigencia
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img083.png')}}" />
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.4.5. Validación De Informes
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Líder De Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No Aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Una vez generado los archivos de distribución se procede a ingresar por el menú de principal
+                        opción:
+                        Consultas\Log de caja y colocamos las fechas según los días de distribución ya sea uno solo o
+                        varios
+                        días según el cuadro de distribución.
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img084.png')}}" />
+                        Nos dirigimos a la ruta donde está la distribución:
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img085.png')}}" />
+                        Abrimos el Excel DFDistribución XXXXXXX_XXXXXX.xlsx
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img086.png')}}" />
+                        Para las
+                        Gobernaciones de Antioquia y Tolima se valida el valor total con el log de caja en la columna
+                        del
+                        20% y 80% y debe dar totales iguales.
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img087.png')}}" />
+                        Para las Gobernaciones de Huila y Boyacá se valida el valor total con el log de caja en la
+                        columna MOVIMIENTO TOTAL DIA
+                        LOG Y LA COLUMNA DE SISTEMATIZACION
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img088.png')}}" />
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.4.6. Calendario de Distribución
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Líder De Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        PRO-D-038 Calendario de distribución
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Este calendario de distribución tiene 2 funciones importantes ya que al generarlo nos refleja
+                        las
+                        fechas de DISTRIBUCIÓN de cada Gobernación y a su vez nos ayuda a llevar un registro de los
+                        archivos
+                        enviados al Banco de cada Gobernación. Y se genera de la siguiente manera cada mes: Vamos al
+                        aplicativo en consultas/Calendario Traslados.
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img089.png')}}" />
+                        Nos refleja una pantalla donde en fecha inicial y final colocamos el mes a Distribuir y le damos
+                        General Reporte
+                        Excel y salir. Este proceso se realiza para todas las Gobernaciones, Antioquia, Boyacá, Huila,
+                        Tolima y Santander.
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img090.png')}}" />
+                        Nos dirigimos a la ruta que nos arroja
+                        \\SP\Confidencial_Ig07_XXXX\gobernac\XXXXXXXX\20241031
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img091.png')}}" />
+                        Abrimos cada calendario y procesamos a
+                        validar cada día ejemplo se valida el primer día y se cuentan 20 días calendario y así
+                        sucesivamente
+                        con todo el mes hay que tener en cuenta que si al contar los 20 días este cae un sábado, domingo
+                        o
+                        día festivo pasara automáticamente a un día hábil y se cambiara la fecha en el calendario hay
+                        días
+                        que se distribuyen solos como hay días que van dos o tres fechas a la vez.
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img092.png')}}" />
+                        En la siguiente ruta encontramos un Excel donde va relacionado y especificado por
+                        gobernación los días de distribución. Lo abrimos y realizamos el cambio cada mes actual por
+                        gobernación y este archivo lo enviamos al Banco por correo.
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img093.png')}}" />
+                        Luego vamos a la siguiente ruta y
+                        abrimos el calendario de distribución. \\SP\Confidencial_Ig07_XXXX\Sal informes\Procesos
+                        Bancolombia\varios\formatos gobernaciones Bancolombia
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img094.png')}}" />
+                        Creamos una copia del anterior, dejamos toda la información en blanco y procedemos a copiar por
+                        gobernación las fechas de distribución.
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img095.png')}}" />
+                        Cada vez que enviemos correcciones, definitivos y distribución al
+                        banco
+                        relacionamos en el calendario el informe que enviamos y cada vez que el banco envié respuesta de
+                        la
+                        distribución colocamos la fecha de cargué con éxito. Aquí voy
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.4.7. Informe Municipio Sin Cuenta
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Líder De Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Este informe se genera únicamente cuando se está haciendo la verificación de validación
+                        estructural
+                        y nos sale esta inconsistencia, para generar este archivo ingresamos por el menú principal
+                        opción:
+                        Anexo\157 Municipios sin cuenta Para Traslado, en la ventana que sale ingresamos la fecha y
+                        damos
+                        clic en procesar.
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img096.png')}}" />
+                        Una vez nos muestra la ruta en la ventana damos clic en el botón: Generar
+                        reporte
+                        Excel el archivo generado queda en la ruta:
+                        \\SP\Confidencial_Ig07_aaaa\Sal_informes\"Gobernacion"\aaaammdd con el nombre: 157 Informe
+                        Municipios Sin Cuenta para Traslado Gobernación “Gobernación”_aaaammdd.xlsx abrimos este archivo
+                        y
+                        procedemos a copiar la información de este en un correo para el banco el cual nos confirmara los
+                        datos de las cuentas solicitadas, una vez el banco responde este correo se reenvía a el
+                        Ingeniero
+                        para que aplique los datos y podamos continuar con el proceso.
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img097.png')}}" />
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img098.png')}}" />
+                        Cuando el ingeniero actualiza la cuenta debemos ir a operaciones//complementar//validación
+                        estructural y no nos debe aparecer el sin cuenta y procedemos a continuar con el proceso
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.4.8. Generación Cartas
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Líder De Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Este informe se genera únicamente para la gobernación de Tolima, una vez generada la
+                        distribución de
+                        esta gobernación procedemos a ingresar por el menú principal opción: Anexos\Informe entrega a
+                        gobernación
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img099.png')}}" />
+                        En la ventana que nos sale en la fecha inicial y
+                        final se coloca la misma fecha de recaudo y en la cinco días de plazo de entrega a la
+                        gobernación
+                        del Tolima, no quiere decir que tenga que entregarse ese mismo día si tiene fechas cerradas se
+                        pueden enviar por adelantad, damos clic en el botón: procesar el archivo queda en la ruta:
+                        \\SP\Confidencial_Ig07_aaaa\Sal_informes\Tolima\aaaammdd\CartaEntrega
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img100.png')}}" />
+                        Nos dirigimos a abrir la
+                        carta
+                        validamos cantidad y fecha y la colocamos en el servidor de Ibague (tolima) en la siguiente
+                        ruta:
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img101.png')}}" />
+                        Se envía correo a la persona encarda de IBAGUE-TOLIMA informando que la carta se encuentra en su
+                        respectiva ruta para que valide, compare la cantidad y el valor de lo que se va a enviar, Cuando
+                        se
+                        realice la entrega de la carta la gobernación deberá enviar la planilla con fecha de recibido y
+                        firmada, la persona encargada digitalizara la imagen y enviara el físico para Bogotá para
+                        realizar
+                        su respetiva entrega anual con los formularios.
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.4.9. Informes Diarios Recibidos y Faltantes
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Líder De Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        PRO-D-165 Informe de Documentos Recibidos PRO-D-164 Informe de Faltantes Físicos
+                    </li>
+                </ul>
+                <div class="doc-subsection">
+                    6.4.9.1 Informes Diarios recibidos:
+                </div>
+                <div class="doc-subcontent">
+                    <ul>
+                        <li>
+                            <i class="fa-regular fa-circle-check">
+                            </i>
+                            <b>
+                                Descripción:
+                            </b>
+                            Cuando la persona encargada de entregar el físico de Gobernaciones que llega en la tula o es
+                            enviado
+                            por ciudades Digicom que no corresponden a sus procesos, se procede a seleccionarlo por
+                            Gobernación
+                            y ordenarlo por fecha y oficina, para las Gobernaciones de Antioquia y Tolima se envían los
+                            formularios para que cada persona encargada los descargue más los formularios que les llegan
+                            a ellos
+                            en tula o enviado por otras ciudades y generen un informe de recibidos que será enviado por
+                            correo.
+                            Para las Gobernaciones de Huila y Boyacá se procesa en Bogotá de la siguiente manera: Vamos
+                            al
+                            aplicativo/anexos/Recepción copias individuales Código de Barras/
+                            <img alt=""
+                                src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img102.png')}}" />
+                            Se despliega una ventana
+                            donde en
+                            fecha inicial y final se coloca el día, mes y año de las fechas recibidas Se procede a
+                            descargar por
+                            código de barras y/o número de formulario en la opción manual en caso de que el código de
+                            barras no
+                            sea legible. Una vez finalizado el descargue de todos los documentos se genera el informe de
+                            recibidos en el aplicativo//recepción de copias//relación copias recibidas//fecha inicial y
+                            fecha
+                            final del día actual y Procesar.
+                            <img alt=""
+                                src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img103.png')}}" />
+                            El informe generado se refleja en la siguiente ruta: SP\Confidencial_Ig07_XXXX\Sal
+                            informes\Gobernación\XXXXXXX
+                            Después de
+                            generar el informe de recibidos de Boyacá y Huila y de recibir por correo los de Antioquia y
+                            Tolima
+                            procedemos abrir cada informe y copiar la información en cada informe Real General de cada
+                            gobernación que se encuentra en la siguiente ruta. \\SP\Confidencial_Ig07_XXXX\Sal
+                            informes\informe
+                            documentos recibidos\gobernación
+                            <img alt=""
+                                src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img104.png')}}" />
+                            Abrimos el archivo y procedemos a copiar la información del
+                            informe
+                            realizado de recibidos a diario, en la columna B se continua con el consecutivo y en la
+                            columna F se
+                            cambia la fecha por la del día anterior, pero esto solo aplica para las gobernaciones de
+                            Antioquia,
+                            Boyacá y Huila, la de Tolima llega con la fecha actual ya que este informe se debe
+                            actualizar con
+                            los recibidos del día anterior enviado por correo. Luego seleccionamos la columna C//formato
+                            condicional//reglas para resaltar celdas//ventana de duplicados// se validad y no debe salir
+                            duplicados en caso de salir se valida la información y se genera o se solicita nuevamente el
+                            informe. Guardar cambios y enviar todos en un mismo correo al BANCO.
+                            <img alt=""
+                                src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img105.png')}}" />
+                        </li>
+                    </ul>
+                </div>
+                <div class="doc-subsection">
+                    6.4.9.2 Informes Diarios faltantes (Departamentales)
+                </div>
+                <div class="doc-subcontent">
+                    <ul>
+                        <li>
+                            <i class="fa-regular fa-circle-check">
+                            </i>
+                            <b>
+                                Descripción:
+                            </b>
+                            Para la realización de este informe igual esperamos los informes de faltantes de las
+                            ciudades de
+                            Antioquia y Tolima por correo. Para Boyacá y Huila se generan en el aplicativo//recepción de
+                            copias//relación copia faltantes//
+                            <img alt=""
+                                src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img106.png')}}" />
+                            Nos refleja una ventana donde en fecha inicial colocamos
+                            la del
+                            mes actual del primer día, según si ya se cerrado el anterior mes. En fecha final se
+                            colocará la
+                            fecha contando tres días hacia atrás (No incluyendo el día que se envía el informe). Ejemplo
+                            si hoy
+                            es 25 se cuenta a partir del 24-23-22 y hasta esta fecha relacionaremos los faltantes// le
+                            damos
+                            procesar//informe Excel//salir.
+                            <img alt=""
+                                src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img107.png')}}" />
+                            El informe generado se refleja en la siguiente ruta:
+                            \\SP\Confidencial_Ig07_XXXX\Sal_informes\Huila\XXXXXXXX
+                            <img alt=""
+                                src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img108.png')}}" />
+                            Después de generar el informe de faltantes de Boyacá y Huila y de recibir por correo los de
+                            Antioquia y Tolima procedemos abrir cada informe y copiar la información en cada informe
+                            Real
+                            General de cada gobernación que se encuentra en la siguiente ruta.
+                            \\SP\\Confidencial_Ig07_XXXX\Sal_informes\informe documentos pendientes\\gobernación\REAL
+                            256
+                            Informe Copias Faltantes GOBERNACIÓN (003).xlsx Actualizamos la información en el informe
+                            desde el
+                            mes actual hasta los 3 días hábiles según las Sobre este mismo informe se tomarán cinco días
+                            atrás
+                            para la validación de los faltantes que realizara directamente el banco con las oficinas
+                            para la
+                            recuperación de estos documentos y esta información se adjuntara al correo. Y así
+                            sucesivamente con
+                            todas las Gobernaciones.
+                            <img alt=""
+                                src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img109.png')}}" />
+                            NOTA: Para este informe de faltantes se debe realizar todos los 21
+                            de cada
+                            mes el cierre de los faltantes del mes pasado ejemplo el 21 de octubre se debe cerrar el mes
+                            de
+                            septiembre del 01 al 30 y al día siguiente se genera el informe de faltantes de cada
+                            Gobernación ya
+                            con el mes actual del 01 de octubre hasta el tercer día hábil. Procedemos a cerrar el mes
+                            anterior
+                            validamos la fecha de los faltantes y miramos si se procesó con imagen o con datos del log,
+                            según la
+                            información en la casilla I colocamos la descripción.
+                            <img alt=""
+                                src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img110.png')}}" />
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="doc-subsection">
+                6.4.10. Informes Mensuales
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Líder De Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Los informes mensuales se deben generar cuando ya tengamos el mes cerrado, no debe quedar nada
+                        pendiente ni definitivos, ni distribuciones ni mucho menos documentos sobrantes o fuera de log,
+                        Estos informes aplica para todas las Gobernaciones (Antioquia, Tolima, Boyacá, Huila y
+                        Santander). Y
+                        se tiene un plazo de (nueve) 9 días hábiles del mes siguiente del recaudo. NOTA: PARA LA
+                        GOBERNACION
+                        DE ANTIOQUIA POR EL MOMENTO SE ESTA GENERANDO EL INFORME EN OTRO APLICATIVO BancolombiagoG.exe
+                        YA
+                        QUE POR SOLICITUD DEL BANCO SE DEBEN GENERAR ESTOS INFORMES DIFERENTES A LAS DEMAS
+                        GOBERNACIONES,
+                        PERO SE PROCEDE A REALIZAR LOS MISMOS PASOS SOLO QUE CAMBIAN EL NOMBRE DE LOS INFORMES Y EL
+                        ORDEN
+                        INTERNO, YA HAY QUE ESPERAR SI DECIDEN PARA TODAS LAS GOBERNACIONES LA MISMA ESTRUCTURA Y SE
+                        PROCEDE
+                        A REALIZAR EL CAMBIO DE LOS PASOS EN EL PROCEDIMIENTO. Una vez cerrado el mes vamos al
+                        aplicativo//operaciones//revisión contra el log//
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img111.png')}}" />
+                        En la ventana que no arroja colocamos en la
+                        fecha
+                        inicial el primer día del mes y en fecha final la última del mes, esto con el fin de validar que
+                        la
+                        información haya sido descargada de manera correcta y no haya quedado nada sin procesar y todo
+                        refleje en negro, en caso de que haya una fecha o una inconsistencia nos damos cuenta por que la
+                        fecha se reflejara en rojo, validamos la fecha y las inconsistencias, por lo generar cuando se
+                        refleja en rojo es porque no se descargó el definitivo corregido enviado por el banco y
+                        procedemos a
+                        descargar de manera correcta la información, complementamos y ya debe salir bien, de lo
+                        contrario se
+                        debe validar bien si es error de Digicom o del Banco.
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img112.png')}}" />
+                        Después de tener la información correcta realizamos: operaciones//complementación//
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img113.png')}}" />
+                        En la ventana que
+                        nos arroja igual el rango de fechas del mes y cargar, Nos arrojan un total de registros que
+                        deben
+                        ser iguales a los registros del log, valor total, valor neto que también deben ser iguales y el
+                        20%
+                        Y 80%. Anotamos el total de registros y el valor total ya que este será validado más adelante.
+
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img114.png')}}" />
+                        Luego vamos a: consultas//movimiento general//
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img115.png')}}" />
+                        Y le damos
+                        la fecha del mes a generar y validamos movimiento con log de caja y nos deben dar los mismos
+                        registros tomado del dato anterior.
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img116.png')}}" />
+                        Luego vamos a anexos y generamos tres archivos: //02 General de
+                        Recaudo Diario Gobernación //02 NVO Informe General de Recaudo Vehículos //99 Resumen Mensual.
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img117.png')}}" />
+                        Cada uno
+                        de los informes se refleja en su respectiva gobernación en la última fecha del mes generado. Los
+                        informes 02 general y 02 NVO se reflejan en el primer día del mes generado se cortan y se pegan
+                        junto con el informe 99 resumen mensual en una carpeta nueva, vamos al aplicativo en
+                        consultas//log
+                        caja// y seleccionamos la fecha del mes completo y validamos junto con los informes:
+                        <ul>
+                            <li>Valor total departamento 80%.</li>
+                            <li>Valor total municipio 20%</li>
+                            <li>Valor sistematización</li>
+                            <li>Valor total de pago.</li>
+                        </ul>
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img118.png')}}" />
+                        Una vez validado se zipean los tres archivos en uno solo
+                        y se
+                        renombre la carpeta (INFORMES MENSUALES LA GOBERNACION Y EL MES) y se colocan en la página
+                        Digicom y
+                        se envía correo al Banco informando que el informe ya se encuentra publicado
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.4.11. Indicadores de Gestión
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Líder De Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        GER-D-001 INDICADOR DE GESTIÓN DE PRODUCCIÓN
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Una vez cerradas todas las fechas del mes se procede a generar el indicador GER-D- 001 Indicador
+                        de
+                        Gestión de producción -Departamentales.xlsx el cual está ubicado en la ruta:
+                        \\SP\Confidencial_Ig07_aaaa\Procesos Bancolombia\INDICADORES Y TAB CONTROL.
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img119.png')}}" />
+                        Se procede a sumar la cantidad de informes enviados al mes al banco
+                        como:
+                        <ul>
+                            <li>Las Asobancarias.</li>
+                            <li>Los informes de documentos Recibidos.</li>
+                            <li>Los informes de documentos Faltantes.</li>
+                            <li>Los informes correspondientes a correcciones definitivos y distribuciones,
+                                (Antioquia, Boyacá, Tolima, Huila).</li>
+                            <li>Los informes de Santander.</li>
+                            <li>Los informes Mensuales de cada Gobernación.</li>
+                            <li>Los informes de inconsistencias Mensuales de cada Gobernación.</li>
+                        </ul>
+                        Se coloca el total en el indicador y
+                        debe dar un 100% cuando no es porque se cometió algún error de no enviar un informe a tiempo y
+                        en análisis se hace la descripción.
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img120.png')}}" />
+                        Dentro de los indicadores también se reportan PQR, Productos no
+                        Conformes, Incidentes. Una vez realizado esto se reporta por correo al SGI para su respectiva
+                        validación, actualización y publicación. IMPUESTOS DEPARTAMENTALES BANCOLOMBIA
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="doc-subsection">
+            6.5. Alistamiento Y Entrega De Documentación Física
+        </div>
+        <div class="doc-subcontent">
+            <div class="doc-subsection">
+                6.5.1. Ordenamiento Y Remisión De Documentos A Digicom Bogotá
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Líder de Proceso Y Auxiliar Regionales
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No Aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Una vez recopilada toda la documentación del recaudo nacional, enviada por el Banco a las sedes
+                        DIGICOM centralizadoras (Medellín, Ibagué), Los originales del formulario “copia Banco” deben
+                        venir
+                        ordenadas alfabéticamente por “Municipio de Residencia” del declarante, fecha de recaudo y
+                        código de
+                        oficina (Ver sello recibido). La sede informara por medio de correo el envió de la documentación
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.5.2. Conformación De Paquetes = Control De Numeración Cajas Y Paquetes
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Líder y Auxiliar De Procesos
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        PRO-F-009 Entrega Física
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Cuando tengamos el físico completo de los meses o del año completo enviado por las sucursales de
+                        Digicom, Medellín (Antioquia) y Ibague (Tolima), más las Gobernaciones que se procesa en Bogotá,
+                        Tunja (Boyacá) y Neiva (Huila). Se debe organizar de la siguiente manera: Se empieza por la
+                        capital
+                        del departamento ejemplo: Medellín (Antioquia) Ibague (Tolima) Tunja (Boyacá) Neiva (Huila) Se
+                        organiza por mes, fecha y numero de oficina, luego de tener los meses organizados o el año
+                        completo
+                        procedemos a organizar los demás municipios por orden alfabético de la A a la Z, con el mismo
+                        orden,
+                        fecha y oficina. Una vez organizado todo el movimiento de cada Gobernación procedemos a pasar
+                        los
+                        documentos por el lector: Vamos al aplicativo//Recepción de copias//Entrega documentos Banco
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img121.png')}}" />
+                        En la ventana que nos refleja le damos las fechas de los meses
+                        que vamos a ingresar desde el primer día hasta el último ejemplo 01-01-2024 al 31-12-2024. Damos
+                        clic en códigos de barras y procedemos a pasar el lector por el código de barras de los
+                        documentos,
+                        cuando el lector no lee los códigos de barras hay una opción de un icono que tiene una manito y
+                        lo
+                        podemos ingresar manual.
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img122.png')}}" />
+                        Una vez ingresemos todos los documentos por lector vamos al
+                        aplicativo//Recepción de Copias//Faltante Entrega de Documentos//
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img123.png')}}" />
+                        Nos refleja una pantalla donde colocamos fecha inicia y final del año procesado, y le
+                        damos establecer imágenes faltantes que es el icono de abajo hay nos reflejan los faltantes, si
+                        salen faltantes se validan y se buscan contra el físico o se imprime la imagen en caso de que no
+                        haya llegado y sea autorizado por el banco procesar con imagen o datos del log.
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img124.png')}}" />
+                        Nos dirigimos a la
+                        ruta que nos refleja y validamos los faltantes:
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img125.png')}}" />
+                        Una vez validado todos los faltantes y que todo el
+                        movimiento este completo se procede a generar el informe de envió y relación de los documentos
+                        para
+                        el BANCO. Aplicativo// Recepción de Copias//Informe Entrega de Cajas Físicos
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img126.png')}}" />
+                        Nos refleja una pantalla le damos fecha inicial y fecha final y le damos
+                        procesar nos dirigimos a la ruta que nos refleja: recordemos que este informe se refleja en la
+                        última fecha del día final.
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img127.png')}}" />
+                        Hacemos una copia del informe este con el fin que en la primera copia
+                        ordenemos primer el departamento por ejemplo Medellín o según la gobernación, luego abrimos el
+                        otro
+                        eliminamos Medellín o según la gobernación, y ordenamos por los demás municipios de la A a la Z,
+                        con
+                        fecha y oficina. Cuando tengamos todo ordenado procedemos a validar el orden del físico con el
+                        orden
+                        del informe y debe coincidir los formularios. Procedemos hacer la entrega física de los
+                        documentos
+                        de forma ordenada en paquetes y en cajas. Según el tamaño de las bolsas para empaca vamos
+                        enumerando
+                        el paquete y la caja con una tapa y así mismo vamos relacionando en el informe.
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img128.png')}}" />
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img129.png')}}" />
+                        Debemos tener en cuenta que al relacionar la información en la tapa debe
+                        coincidir con la caja, el paquete, la fecha y la oficina que se está empacando. Cuando se estén
+                        haciendo los paquetes de los municipios de la A a la Z cada municipio debe ir en su respectiva
+                        bolsa
+                        y tapa sellado. Cuando se termine el proceso de paqueteo y de encajar se envía el reporte al
+                        banco
+                        por correo para que ellos validen que la información enviada sea correcta y Banco dará las
+                        instrucciones de la entrega
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.5.3. Consulta Y Verificación De La Información
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Líder Y Auxiliar De Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No Aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Por el menú del aplicativo en la opción: Consultas/Formulario Log Imagen
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img130.png')}}" />
+                        Aparece la ventana en la
+                        cual permite consultar datos que no aparecen en el formulario de impuesto vehículos, por carecer
+                        de
+                        sello o estar ilegible; al digitar el número de formulario en la casilla autoadhesivo, el
+                        aplicativo
+                        indica la información suficiente para complementar datos como:
+                        <ul>
+                            <li>Fecha de recibido</li>
+                            <li>Código oficina recaudadora</li>
+                            <li>Municipio</li>
+                            <li>Valor, etc.</li>
+                        </ul>
+                        <img alt=""
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img131.png')}}" />
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="doc-subsection">
+            6.6. Backup
+        </div>
+        <div class="doc-subcontent">
+            <ul>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Responsable:
+                    </b>
+                    líder de Procesos
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Registro:
+                    </b>
+                    No Aplica
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Descripción:
+                    </b>
+                    Se ingresa al icono Correobackup.exe que se encuentra ubicado en el servidor//Confidencial07_xxxx//
+                    CorreoBackup.exe. Le damos doble clic y nos arroja la siguiente pantalla,
+                    <img alt=""
+                        src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img132.png')}}" />
+                    Le damos copiar y nos refleja una pantalla negrita y esperamos, luego nos refleja la siguiente
+                    pantalla y le damos
+                    aceptar.
+                    <img alt=""
+                        src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-012/img133.png')}}" />
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="doc-section" data-id="7">
+        7. INDICADORES DE DESEMPEÑO
+    </div>
+    <div class="doc-content" data-id="7">
+    </div>
+    <div class="doc-section" data-id="8">
+        8. CONTROL DEL PROCEDIMIENTO
+    </div>
+    <div class="doc-content" data-id="8">
+        <table>
+            <thead>
+                <tr>
+                    <th>Versión</th>
+                    <th>Elaborado</th>
+                    <th>Aprobado</th>
+                    <th>Fecha</th>
+                    <th>Descripción del Cambio</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cambio in cambios %}
+                <tr>
+                    <td>{{ cambio[2] }}</td>
+                    <td>{{ cambio[3] }}</td>
+                    <td>{{ cambio[5] }}</td>
+                    <td>{{ cambio[6] }}</td>
+                    <td>{{ cambio[7] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- Botón para abrir el modal -->
+<button class="btn btn-outline-primary" id="openModalBtn" style="margin-top: 20px;">Editar Secciones</button>
+<!-- El Modal -->
+<div class="modal" id="sectionModal">
+    <div class="modal-content">
+        <span class="close-button">×</span>
+        <h2>Selecciona y Edita una Sección</h2>
+        <label for="sectionSelector">Sección:</label>
+        <select id="sectionSelector">
+            <option value="">-- Selecciona una sección --</option>
+        </select>
+        <label for="sectionContent">Contenido:</label>
+        <textarea id="sectionContent" placeholder="El contenido de la sección aparecerá aquí..."></textarea>
+        <label for="sectionCambio">Descripcion del Cambio:</label>
+        <textarea id="sectionCambio" placeholder="Describe en palabras cortas el cambio realizado..."
+            required=""></textarea>
+        <button class="btn btn-outline-primary" id="saveChangesBtn" style="margin-top: 15px;">Guardar Cambios</button>
+    </div>
+</div>
+<script src="{{ url_for('static', filename='js/jquery.min.js')}}"></script>
+<script src="{{ url_for('static', filename='js/acordeon_doc.js')}}"></script>
+<script src="{{ url_for('static', filename='js/edita_procedimiento.js')}}"></script>
+
+{% endblock %}

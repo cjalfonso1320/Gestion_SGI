@@ -1,0 +1,86 @@
+{% extends 'home.html' %}
+{% block title %}Documentacion{% endblock %}
+{% block content %}
+<link href="{{ url_for('static', filename='css/acordeon_doc.css') }}" rel="stylesheet" />
+<link href="{{ url_for('static', filename='css/procedimientos.css') }}" rel="stylesheet" />
+
+<div id="documento" style="display:none;">procedimientos/HTML/PRO-PR-035 Desembargos AV Villas.html</div>
+<div id="nombre_documento" style="display: none;">PRO-PR-035 Desembargos AV Villas</div>
+<h1>PRO-PR-035 Desembargos AV Villas</h1>
+{% for cambio in cambios %}
+{% if loop.first %}
+<h3>Version: {{cambio[3]}}</h3>
+{% endif %}
+{% endfor %}
+<br />
+<div class="doc-accordion">
+ <div class="doc-section" data-id="8">
+  8. Descarga Facturación
+ </div>
+ <div class="doc-content" data-id="8">
+  <div class="doc-subsection">
+   8.1 Realización Facturación
+  </div>
+  <div class="doc-subcontent">
+   <ul>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Responsable:
+     </b>
+     Líder Proceso
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Registro:
+     </b>
+     Excel
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Descripción:
+     </b>
+     Una vez se descarga el archivo de facturación, nos dirigimos al servidor \\servidor\Confidencial_Desembargos52_2024\procesos\facturas, se procede a dar clic en la carpeta procesos, clic en la carpeta facturas, allí se podrá visualizar 4 archivos en Excel, estos son los archivos que se descargaron del aplicativo al momento de generar la facturación del mes. Por favor tener en cuenta que no solo se debe generar la facturación del mes, sino, la facturación a corte del mes anterior, como se explica en Aspectos a tener en cuenta. Lo archivos de Excel deben ser de la siguiente manera: Para coactivos hay un archivo de detalles y otro de totales, para ejecutivo de igual forma.
+Aspectos a tener en cuenta,
+La facturación se hace mensual, pero el corte que reporta el Banco son unos días antes de terminar el mes, es decir, que se debe hacer la facturación de los días que faltan para terminar el mes y otra facturación del mes siguiente al corte que indica en Banco.
+Ejemplo.
+Mes diciembre:  El mes de diciembre el banco nos dice que se debe hacer la facturación del 25 al 31 de diciembre,
+Mes Enero:  Ya en el mes de enero se procesará los días según la instrucción del banco la cual fue del 1 al 25 de enero.
+- Desembargos_factura_detalles_20241201_20241224_coactivos
+- Desembargos_factura_totales_20241201_20241224_coactivos
+- Desembargos_factura_detalles_20241201_20241224_ejecutivos
+- Desembargos_factura_totales_20241201_20241224_ejecutivos
+Primero se deben abrir los archivos detalles tanto de coactivo como ejecutivo y se debe verificar que se descargó la facturación con las fechas correspondientes, después se procede a revisar los totales tanto de coactivos como de ejecutivos, allí se debe colocar una fórmula (=SUMA(H2:H18)- (=+H19*H20), en la columna total, una vez se coloca la formula, se procede a dar clic en autosuma, allí va a mostrar el valor de la facturación total, la cual establecerá el costo que se enviará al banco. El costo o la tarifa que se cobrará en la facturación la establece el banco con el contratista
+    </li>
+   </ul>
+  </div>
+ </div>
+ <div class="doc-section" data-id="9">
+  9. CONTROL DEL PROCEDIMIENTO
+ </div>
+ <div class="doc-content" data-id="9">
+ </div>
+</div>
+
+<!-- Botones y Modals para edición -->
+<button class="btn btn-outline-primary" id="openModalBtn" style="margin-top: 20px;">Editar Secciones</button>
+<div class="modal" id="sectionModal">
+    <div class="modal-content">
+        <span class="close-button">×</span>
+        <h2>Selecciona y Edita una Sección</h2>
+        <select id="sectionSelector"><option value="">-- Selecciona --</option></select>
+        <textarea id="sectionContent" placeholder="Contenido..."></textarea>
+        <textarea id="sectionCambio" placeholder="Descripción del cambio..." required></textarea>
+        <button class="btn btn-outline-primary" id="saveChangesBtn" style="margin-top: 15px;">Guardar Cambios</button>
+    </div>
+</div>
+<script src="{{ url_for('static', filename='js/jquery.min.js')}}"></script>
+<script src="{{ url_for('static', filename='js/acordeon_doc.js')}}"></script>
+<script src="{{ url_for('static', filename='js/edita_procedimiento.js')}}"></script>
+
+{% endblock %}

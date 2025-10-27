@@ -1,0 +1,714 @@
+{% extends 'home.html' %}
+{% block title %}Documentacion{% endblock %}
+{% block content %}
+<link href="{{ url_for('static', filename='css/acordeon_doc.css') }}" rel="stylesheet" />
+<link href="{{ url_for('static', filename='css/procedimientos.css') }}" rel="stylesheet" />
+
+<div id="documento" style="display:none;">procedimientos/HTML/PRO-PR-010 Impuestos Distritales Av Villas.html</div>
+<div id="nombre_documento" style="display: none;">PRO-PR-010 Impuestos Distritales Av Villas</div>
+<h1>PRO-PR-010 Impuestos Distritales Av Villas</h1>
+{% for cambio in cambios %}
+{% if loop.first %}
+<h3>Version: {{cambio[3]}}</h3>
+{% endif %}
+{% endfor %}
+<br />
+<div class="doc-accordion">
+ <div class="doc-section" data-id="1">
+  1. Objetivo
+ </div>
+ <div class="doc-content" data-id="1">
+ </div>
+ <div class="doc-section" data-id="2">
+  2. Alcance
+ </div>
+ <div class="doc-content" data-id="2">
+ </div>
+ <div class="doc-section" data-id="3">
+  3. Responsables
+ </div>
+ <div class="doc-content" data-id="3">
+ </div>
+ <div class="doc-section" data-id="4">
+  4. Definiciones
+ </div>
+ <div class="doc-content" data-id="4">
+ </div>
+ <div class="doc-section" data-id="5">
+  5. Documentos De Referencia
+ </div>
+ <div class="doc-content" data-id="5">
+ </div>
+ <div class="doc-section" data-id="6">
+  6. Descripción Del Proceso
+ </div>
+ <div class="doc-content" data-id="6">
+  <div class="doc-subsection">
+   6.1 Descarga Log Bancario
+  </div>
+  <div class="doc-subcontent">
+  </div>
+  <div class="doc-subsection">
+   6.2 Carga Log Bancario
+  </div>
+  <div class="doc-subcontent">
+  </div>
+  <div class="doc-subsection">
+   6.3 Descarga Imágenes
+  </div>
+  <div class="doc-subcontent">
+  </div>
+  <div class="doc-subsection">
+   6.4 Indexacion De Imágenes
+  </div>
+  <div class="doc-subcontent">
+  </div>
+  <div class="doc-subsection">
+   6.5 Validacion Y Generacion De Inconsistencias (Faltantes, Errores Caja)
+  </div>
+  <div class="doc-subcontent">
+  </div>
+  <div class="doc-subsection">
+   6.6 Descarga De Archivos
+  </div>
+  <div class="doc-subcontent">
+   <div class="doc-subsection">
+    6.6.1. Descarga Pse
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.6.2. Descarga Pago Tarjeta De Credito
+   </div>
+   <div class="doc-subcontent">
+   </div>
+  </div>
+  <div class="doc-subsection">
+   6.7 Generacion De Medios Magneticos
+  </div>
+  <div class="doc-subcontent">
+  </div>
+  <div class="doc-subsection">
+   6.8 Generacion De Consignacion Diaria
+  </div>
+  <div class="doc-subcontent">
+  </div>
+  <div class="doc-subsection">
+   6.9 Generacion De Consignacion Semanal
+  </div>
+  <div class="doc-subcontent">
+  </div>
+  <div class="doc-subsection">
+   6.10. Firma De Archivos
+  </div>
+  <div class="doc-subcontent">
+  </div>
+  <div class="doc-subsection">
+   6.11 Transmision De Medios Magneticos
+  </div>
+  <div class="doc-subcontent">
+  </div>
+  <div class="doc-subsection">
+   6.12 Generacion Saltos De Adhesivo
+  </div>
+  <div class="doc-subcontent">
+  </div>
+  <div class="doc-subsection">
+   6.13 Publicacion De Imágenes E Index De Las Fechas
+  </div>
+  <div class="doc-subcontent">
+  </div>
+  <div class="doc-subsection">
+   6.14 Facturacion
+  </div>
+  <div class="doc-subcontent">
+  </div>
+  <div class="doc-subsection">
+   6.15 Recepcion Documental
+  </div>
+  <div class="doc-subcontent">
+  </div>
+  <div class="doc-subsection">
+   6.16 Verificacion De Camaras
+  </div>
+  <div class="doc-subcontent">
+  </div>
+  <div class="doc-subsection">
+   6.17 Mesa De Control
+  </div>
+  <div class="doc-subcontent">
+  </div>
+ </div>
+ <div class="doc-section" data-id="7">
+  7. Indicadores De Desempeño
+ </div>
+ <div class="doc-content" data-id="7">
+ </div>
+ <div class="doc-section" data-id="8">
+  8. Control Del Procedimiento
+ </div>
+ <div class="doc-content" data-id="8">
+  <p>
+   COPI A CONTROLADA Código: PRO-PR-010 Página 1 de 29 15/12/2021 IMPUESTOS DISTRITALES AV VILLAS
+  </p>
+ </div>
+ <div class="doc-section" data-id="1">
+  1. OBJETIVO
+ </div>
+ <div class="doc-content" data-id="1">
+  <p>
+   Procesar integralmente los formularios de Impuestos distritales recaudados por la entidad Bancaria y dar cumplimiento al Sistema de Gestión
+  </p>
+ </div>
+ <div class="doc-section" data-id="2">
+  2. ALCANCE
+ </div>
+ <div class="doc-content" data-id="2">
+  <p>
+   Este procedimiento aplica a los servicios de Impuestos Distritales Av. Villas, implementados por Digicom System Corporation S.A
+  </p>
+ </div>
+ <div class="doc-section" data-id="3">
+  3. RESPONSABLES
+ </div>
+ <div class="doc-content" data-id="3">
+  <p>
+   Gerente de operaciones, Director de proceso, Líder de proceso, Auxiliar de procesos y Digitador
+  </p>
+ </div>
+ <div class="doc-section" data-id="4">
+  4. DEFINICIONES
+ </div>
+ <div class="doc-content" data-id="4">
+  <p>
+   • Archivo Plano: Archivo de datos que se utiliza para intercambio de información entre las diferentes aplicaciones. • Cantar: Dar lectura en voz alta frente a cámaras de audio y video del contenido en las tulas o sobres recibidos del cliente. • Log bancario: Es el registro de las transacciones de una fecha de recaudo. • Precinto: Suncho de seguridad numerado que una vez colocado en el medio de transporte de documentos o valores no puede ser violentado ni roto excepto por el destinatario. • Tula: Empaque en material de lona que permite el transporte seguro de documentos
+  </p>
+ </div>
+ <div class="doc-section" data-id="5">
+  5. DOCUMENTOS DE REFERENCIA
+ </div>
+ <div class="doc-content" data-id="5">
+  <p>
+   ➢ Resolución SHD-000167 26 de octubre de 2018 ➢ Acuerdo de servicios
+  </p>
+ </div>
+ <div class="doc-section" data-id="6">
+  6. DESCRIPCIÓN DEL PROCESO
+ </div>
+ <div class="doc-content" data-id="6">
+  <div class="doc-subsection">
+   6.1 DESCARGA LOG BANCARIO
+  </div>
+  <div class="doc-subcontent">
+   <ul>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      RESPONSABLE:
+     </b>
+     Líder de proceso. RESGISTRO: No aplica
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      DESCRIPCIÓN:
+     </b>
+     Procedemos a ingresar a la ruta de Shicka “https://200.14.232.175/” ingresamos con usuario y clave: COPI A CONTROLADA Código: PRO-PR-010 Página 2 de 29 15/12/2021 IMPUESTOS DISTRITALES AV VILLAS El usuario con el que se debe ingresar es el: DIgicom_01, y la clave establecida para el usuario. Ingresamos por el menú: desde banco\convenios\impuestos distritales se procede a descargar los archivos (recaudo_anulados.aaaammdd y recaudo_normal.aaaammdd) correspondiente a la Por defecto estos archivos quedan en la ruta; C:\Users\Usuario\Downloads, los cortamos y los debemos pegar en la ruta: \\ServidorAv\Confidencial_Id52_aaaa\data\52\aaaammdd creando la carpeta de la fecha. Para acceder a la información debemos utilizar el aplicativo WinPT el programa se encuentra en el escritorio del líder del proceso, se activa dando clic en el buscador y en la barra de trabajo de Windows lo buscamos y damos clic derecho para desplegar el menú (1) seleccionamos la opción File Manager la cual nos abre una ventana (2) 1. 2. A continuación, debemos arrastrar los archivos a la ventana que nos abrió el WinPT “ver imagen anterior (2)” una vez se tengan los archivos en esta ventana procedemos a seleccionarlos damos clic derecho sobre ellos y damos la opción DecrypT (3), va abrir una ventana donde solicita la clave ya establecida entre el Banco y Digicom (4) 3. 4. Los archivos descomprimidos los deja en la misma ruta donde están los originales. COPI A CONTROLADA Código: PRO-PR-010 Página 3 de 29 15/12/2021 IMPUESTOS DISTRITALES AV VILLAS
+    </li>
+   </ul>
+  </div>
+  <div class="doc-subsection">
+   6.2 CARGA LOG BANCARIO
+  </div>
+  <div class="doc-subcontent">
+   <ul>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      RESPONSABLE:
+     </b>
+     Líder de proceso. RESGISTRO: PRO-D-023 Control Cintas Impuestos Distritales AV Villas
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      DESCRIPCIÓN:
+     </b>
+     Procedemos abrir el aplicativo jid_BB_16.137E anexos desde excel el cual se encuentra en la ruta: \\ServidorAv\Confidencial_Id52_aaaa este aplicativo nos solicita clave “es la misma con la que ingresamos a Windows”, procedemos a crear la fecha por el menú principal: movimiento/ fecha de movimiento O dar clic en la carpeta amarrilla, donde nos solicita activar la fecha de recaudo que se va a trabajar. El sistema nos pide confirmar 2 veces la creación de la fecha, ingresamos por el menú del aplicativo a la opción: bancos\log bancario, en la ventana que nos arroja damos clic en el botón: cargar log, copiar a csv. Declaraciones y (Fact, rop y cupones) El total de registros que trae el log bancario se deben registrar en el formato PRO-D-023 Control Cintas Impuestos Distritales AV Villas en la hoja control cintas donde inicialmente se relacionan fecha de recaudo, cantidad de documentos y valor total. COPI A CONTROLADA Código: PRO-PR-010 Página 4 de 29 15/12/2021 IMPUESTOS DISTRITALES AV VILLAS
+    </li>
+   </ul>
+  </div>
+  <div class="doc-subsection">
+   6.3 DESCARGA IMÁGENES
+  </div>
+  <div class="doc-subcontent">
+   <ul>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      RESPONSABLE:
+     </b>
+     Líder de proceso y/o Auxiliar de Proceso RESGISTRO: No aplica
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      DESCRIPCIÓN:
+     </b>
+     Ingresamos al aplicativo FileZilla el cual debe tener configurada la ruta de Shikha, ingresamos por el gestor de sitios y seleccionamos el usuario. Una vez seleccionado el aplicativo nos arroja una ventana, donde solicita usuario DIgicom_01 y la clave ya establecida, abrimos la carpeta desde usuario, convenios e Impuestos Distritales por ultimo organizamos los archivos por última modificación. Una vez organizamos debemos seleccionar los archivos que correspondan a la fecha de recaudo con horario normal y los horarios adicionales que se procesen con esa fecha, damos clic derecho y en descargar. Estos archivos quedan guardados según la configuración. Los archivos siempre vienen encriptados, por ese motivo debemos realizar los mismos pasos de la actividad 6.1 Descarga de log para poder acceder a la información, Las imágenes desencriptadas quedan ubicadas en la carpeta de Descargas, luego de esto se llevan las imágenes a la ruta \\ServidorAv\Confidencial_Id52_aaaa\indexglobal para realizar la indexación y posterior validación en el aplicativo jid_BB_16.137E anexos desde excel
+    </li>
+   </ul>
+  </div>
+  <div class="doc-subsection">
+   6.4 INDEXACION DE IMÁGENES
+  </div>
+  <div class="doc-subcontent">
+   <ul>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      RESPONSABLE:
+     </b>
+     Líder de proceso, auxiliar de proceso o Digitador. RESGISTRO: No aplica. COPI A CONTROLADA Código: PRO-PR-010 Página 5 de 29 15/12/2021 IMPUESTOS DISTRITALES AV VILLAS
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      DESCRIPCIÓN:
+     </b>
+     Para poder realizar la indexación de imágenes debemos colocar todas las imágenes en la siguiente ruta: \\ServidorAv\Confidencial_Id52_aaaa\indexglobal, se deben colocar las imágenes que se descargaron (ver actividad 6.3 Descarga Imágenes) igualmente se debe revisar si hay imágenes ubicadas en la ruta: \\ServidorAv\Confidencial_Id52_aaaa\index\aaaammdd ya que a veces el personal de la noche digitaliza la documentación física que llega a nuestras instalaciones en esa ruta, una vez colocadas todas las imágenes las debemos seleccionar y renombrar. Por el aplicativo ingresamos a la fecha correspondiente y seleccionamos en el menú la opción: Indexación\Global\carga En la ventana que nos aparece damos clic en el botón cargar imágenes, el aplicativo va reconociendo el código de barras y capturando la información que esta legible, en ocasiones cuando se repiten las imágenes debemos confirmar si queremos remplazar las imágenes o no, una vez termina este proceso debemos capturar manualmente las imágenes que están pendientes, esto lo realizamos por el menú principal en la opción: Indexación\Global\Indexar Global (1). muestra una ventana donde se debe realizar la captura de la siguiente información: Numero de referencia, pago total (2). 1. 2. Una vez finalizada la captura de las imágenes ingresamos nuevamente Indexación\Global\carga el cual nos muestra una ventana, en esta se tiene que verificar los contadores de pendientes o abiertas (3), si llegaran a existir imágenes abiertas tenemos que dar clic en el botón: liberar, e indexar estas imágenes, con el fin de que no queden imágenes pendientes y la información este procesada en su totalidad, igualmente hay que validar los botones: ver ilegibles, ver sobrantes que no contengan COPI A CONTROLADA Código: PRO-PR-010 Página 6 de 29 15/12/2021 IMPUESTOS DISTRITALES AV VILLAS información, una vez finalizada estas revisiones y que no queden imágenes pendientes por indexar se debe dar clic en el botón: pasar imágenes a procesadas. 3. En la ruta: \\ServidorAv\Confidencial_Id52_aaaa\indexglobal se debe verificar que no se encuentren imágenes, si es el caso que se encuentren imágenes se debe revisar, si no tiene ninguna inconsistencia (fuera de línea, imagen ilegible, etc.) se deben renombrar y volver a indexar, no deben quedar imágenes en esta ruta después de dar la opción en el aplicativo de mover imágenes procesadas
+    </li>
+   </ul>
+  </div>
+  <div class="doc-subsection">
+   6.5 VALIDACION Y GENERACION DE INCONSISTENCIAS (FALTANTES, ERRORES CAJA)
+  </div>
+  <div class="doc-subcontent">
+   <ul>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      RESPONSABLE:
+     </b>
+     Líder de proceso, auxiliar de proceso. RESGISTRO: No aplica
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      DESCRIPCIÓN:
+     </b>
+     Para generar faltantes se debe tener todas las imágenes indexadas, ingresamos por el menú del aplicativo en la opción: Bancos\log bancario (1) en la ventana que nos muestra debemos dar clic en el botón: generar cruce de validaciones (2) 1. 2. Esta acción genera archivos en la ruta:\\ServidorAv\Confidencial_Id52_aaaa\data\52\aaaammdd únicamente se va a tener en cuenta el archivo: cruce_log_davi.xls donde mostrara si hay inconsistencias y el tipo a las que corresponde (Diferencia de valor, faltantes, revisar vigencia, etc.) se deben verificar las inconsistencias que salgan y arreglarlas en dado caso. Para verificar las diferencias debemos ingresar por el menú principal en la opción: grabación\preliquidados\visor de imágenes. COPI A CONTROLADA Código: PRO-PR-010 Página 7 de 29 15/12/2021 IMPUESTOS DISTRITALES AV VILLAS En la ventana que nos muestra se debe consultar la inconsistencia a revisar y realizar el respectivo ajuste al error, se debe verificar siempre que la imagen corresponde al registro, (se revisa el número de adhesivo y numero de referencia) si la imagen no coincide con el registro se debe eliminar para procesar la imagen correcta. Para la inconsistencia en valor se debe modificar según corresponda, se debe validar la información del timbre contra las fechas de pago del documento. Para los documentos que nos registran faltantes se debe validar la documentación física si el documento físico esta se digitaliza e indexa y el canal donde envían las imágenes. Para validar por el canal o Filezilla se debe realizar la consulta por el icono buscar archivos (binoculares) el cual nos muestra una ventana donde se debe realizar la validación por fecha y oficina “para realizar la consulta por oficina se debe realizar con la palabra OFI mas el código de la misma. Ejemplo OFI0601 Si en la parte inferior de la pantalla muestra archivos los descargamos y realizamos los pasos de la actividad 6.2 descargar imágenes. Se debe generar nuevamente el informe de inconsistencias, al momento de generar el informe las inconsistencias y faltantes son reales se debe enviar correo a COPI A CONTROLADA Código: PRO-PR-010 Página 8 de 29 15/12/2021 IMPUESTOS DISTRITALES AV VILLAS ConveniosSoporteOperativo@bancoavvillas.com.co, adjuntando el reporte y el soporte de la imagen del documento
+    </li>
+   </ul>
+  </div>
+  <div class="doc-subsection">
+   6.6 DESCARGA DE ARCHIVOS
+  </div>
+  <div class="doc-subcontent">
+   <div class="doc-subsection">
+    6.6.1. DESCARGA PSE
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       RESPONSABLE:
+      </b>
+      Líder de proceso. RESGISTRO: No aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       DESCRIPCIÓN:
+      </b>
+      Consultamos la página: https://ui.pse.com.co/ui/ diligenciamos el usuario y clave asignados, ingresar por la opción: archivos\conciliatorios pagos PSE SHD (1), seleccionar la fecha de recaudo en las dos casillas de consultas, clic en consultar, en la parte inferior muestra si hay archivo (2), donde se debe dar clic sobre el nombre y automáticamente este se descarga, en la carpeta de descargas del equipo queda el archivo, se procede a cortar y pegar en la ruta: \\ServidorAv\Confidencial_Id52_aaaa\data\52\aaaammdd\envios 1. 2
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Nota:
+      </b>
+      cuando no se presenten archivo se debe notificar al banco por medio de correo electrónico que no se presentaron pagos PSE
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.6.2. DESCARGA PAGO TARJETA DE CREDITO
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       RESPONSABLE:
+      </b>
+      Líder de proceso. RESGISTRO: No aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       DESCRIPCIÓN:
+      </b>
+      Debemos Ingresar a Shikha con el usuario Digicom_003 la clave ya establecida por el Banco y Digicom, en la ruta desde banco\convenios\secretdistrCerdibanco buscamos el archivo correspondiente a la fecha de recaudo y dar clic, automáticamente el archivo se descarga, en la carpeta de descargas del equipo queda el archivo mencionado el cual se procede a cortar y pegar en la ruta: \\ServidorAv\Confidencial_Id52_aaaa\data\52\aaaammdd\envios COPI A CONTROLADA Código: PRO-PR-010 Página 9 de 29 15/12/2021 IMPUESTOS DISTRITALES AV VILLAS
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Nota:
+      </b>
+      cuando no se presenten archivo se debe notificar al banco por medio de correo electrónico que no se presentaron pagos con tarjeta de crédito
+     </li>
+    </ul>
+   </div>
+  </div>
+  <div class="doc-subsection">
+   6.7 GENERACION DE MEDIOS MAGNETICOS
+  </div>
+  <div class="doc-subcontent">
+   <ul>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      RESPONSABLE:
+     </b>
+     Líder de proceso. RESGISTRO: PRO-D-023 Control Cintas Impuestos Distritales AV Villas PRO-F-EXT- 016 Anexo 11 COPI A CONTROLADA Código: PRO-PR-010 Página 10 de 29 15/12/2021 IMPUESTOS DISTRITALES AV VILLAS
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      DESCRIPCIÓN:
+     </b>
+     Una vez realizada las validaciones correspondientes y descargadas la información procedemos a generar y alistar los medios magnéticos, abrimos el archivo PRO-D-023 Control Cintas Impuestos Distritales AV Villas.xlsx el cual se encuentra en la ruta: \\ServidorAv\Confidencial_Id52_aaaaa\Procesos Distritales Avvillas en este archivo encontramos los consecutivos de los medios magnéticos, para generar los medios magnéticos correspondientes a declaraciones y facturas ingresamos por el aplicativo en el menú principal en la opción: generación de archivos planos\preliquidados 2017 En la ventana que nos aparece debemos seleccionar la secuencia del medio magnético el cual se encuentra en el formato PRO-D-023 Control Cintas Impuestos Distritales AV Villas., seleccionamos la modalidad (16 Declaraciones, 22 Facturas) del medio que corresponde, Damos clic en el botón cargar archivo, el cual nos muestra una ventana para buscar la ruta donde se encuentran los archivos para la generación (log_davi_Declaraciones.csv, log_davi_fact_rop_cupones.csv) los cuales se encuentran en la ruta: \\ServidorAv\Confidencial_Id52_aaaa\data\52\aaaammdd Seleccionamos el archivo que corresponde y damos clic en el botón: validar contra log banco, seguido del botón: generar plano 2017, este nos arroja una ventana con las planillas PRO-F-EXT- COPI A CONTROLADA Código: PRO-PR-010 Página 11 de 29 15/12/2021 IMPUESTOS DISTRITALES AV VILLAS 016 Anexo 11 para la documentación física la cual podemos generarla inmediatamente o guardar el PDF para después imprimir (Únicamente se debe imprimir las planillas del medio magnético de Declaraciones) cerramos la vista previa y el archivo generado queda en la ruta: \\ServidorAv\Confidencial_Id52_aaaa\data\52\aaaammdd\envios, se debe diligenciar el archivo PRO-D-023 Control Cintas Impuestos Distritales AV Villas con la cantidad y valor de los medios magnéticos generados “Declaraciones y Facturas” los medios magnéticos de: Pagos ATH (electrónicos) , Tarjeta de Débito y Tarjeta de Crédito se verifica el consecutivo contra el archivo PRO-D-023 Control Cintas Impuestos Distritales AV Villas y se diligencia el valor y cantidad, adicionalmente se deben cargar estos archivos por el aplicativo los cuales lo realizaremos copiando los archivos mencionados en la ruta: \\ServidorAv\Confidencial_Id52_aaaa\pagos electrónicos, los archivos PSE se dejan en la carpeta carga PSE, el archivo de crédito se deja en la carpeta Línea Crédito, y el archivo de ATH (electrónicos) se deja por fuera de las carpetas. Pagos ATH (Electrónicos): En el aplicativo por el menú principal la opción: bancos\ pagos electrónicos en la ventana que nos arroja ingresamos el consecutivo y realizamos la carga del archivo electrónico Tarjeta Debito: En el aplicativo por el menú principal la opción: bancos\ pagos PSE en la ventana que nos arroja ingresamos el consecutivo y realizamos la carga del archivo PSE COPI A CONTROLADA Código: PRO-PR-010 Página 12 de 29 15/12/2021 IMPUESTOS DISTRITALES AV VILLAS Tarjeta Crédito: En el aplicativo por el menú principal la opción: bancos\ pagos en línea de crédito en la ventana que nos arroja ingresamos el consecutivo y realizamos la carga del archivo crédito
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Nota:
+     </b>
+     todos los archivos TXT de Declaraciones, Facturas, Tarjeta Debito, Tarjeta Crédito y Pagos ATH ( Electrónicos) los cuales fueron guardado en ruta: \\ServidorAv\Confidencial_Id52_aaaa\data\52\aaaammdd\envios se deben comprimir en formato .zip Hay dos tipos de medios magnéticos que no se generan frecuentemente (anulados, generados), para realizar estos medios magnéticos se debe ingresar por el aplicativo menú principal en la opción: Herramientas\ generación de Stikers, el cual muestra una ventana, en ella debemos seleccionar la opción que corresponda. Generados: Para la creación de nuevos adhesivos por oficina y jornada de recaudo. Anulados: Anular adhesivos específicos o la totalidad de adhesivos de una oficina Anulados: para la generación del medio magnético correspondiente anulados se valida el archivo recaudo_anulados.aaaammdd, el cual descargamos en la actividad 6.1 DESCARGA LOG BANCARIO, En la ventana que nos muestra el aplicativo seleccionamos la opción anulados, colocamos el consecutivo que corresponde el cual se encuentra en el formato PRO-D-023 Control Cintas Impuestos Distritales AV Villas y procedemos a dar clic en el botón cargar desde archivo plano solo sticker, el cual nos muestra una ventana para seleccionar la ruta donde se encuentra el archivo de anulados COPI A CONTROLADA Código: PRO-PR-010 Página 13 de 29 15/12/2021 IMPUESTOS DISTRITALES AV VILLAS En el cuerpo de la ventana nos aparecerá el registro de los anulados, el cual se debe verificar contra el archivo para verificar que los registros coincidan, por ultimo debemos colocar la fecha de asignación la cual corresponde al día de recaudo que estamos trabajando y damos clic en el botón generar Ver 2017, el archivo generado queda en la ruta, \\ServidorAv\Confidencial_Id52_aaaa\adhesivos, este archivo se comprime en formato .zip y se envía por correo electrónico al banco para su validación y aprobación con el título: Cinta Adhesivos Anulados Confidencial, una vez aprobado el archivo se debe copiar en la siguiente ruta \\ServidorAv\Confidencial_Id52_aaaa\cintas_aceptadas. Generados: Este medio magnético se genera cuando el banco envía comunicado o correo sobre la apertura de oficinas, se genera seleccionando la opción de generados, y procedemos a diligenciar los campos según corresponden; ➢ Consecutivo: este dato se obtiene del formato PRO-D-023 Control Cintas Impuestos Distritales AV Villas ➢ Digite la oficina a la que le desea generar sticker: ➢ Digite el código de cajero al que le desea generar sticker: depende del tipo de horario (1) para normal (2) para extendido ➢ Generar sticker desde: siempre se coloca 1 si es creación de oficina ➢ Digite la cantidad de sticker que desea generar: siempre se coloca 999.999 si es creación de oficina Una vez diligenciado esos campos se da clic en el botón incluir, En el cuerpo de la ventana aparece el registro de los generados, por ultimo debemos colocar la el botón generar Ver 2017, el archivo generado queda en la ruta, \\ServidorAv\Confidencial_Id52_aaaa\adhesivos, este archivo se debe comprimir en formato .zip y enviarlo por correo electrónico al banco para su validación y aprobación con el título: Cinta Adhesivos Generados Confidencial. Una vez aprobado el archivo se debe copiar en la ruta \\ServidorAv\Confidencial_Id52_aaaa\cintas_aceptadas. COPI A CONTROLADA Código: PRO-PR-010 Página 14 de 29 15/12/2021 IMPUESTOS DISTRITALES AV VILLAS
+    </li>
+   </ul>
+  </div>
+  <div class="doc-subsection">
+   6.8 GENERACION DE CONSIGNACION DIARIA
+  </div>
+  <div class="doc-subcontent">
+   <ul>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      RESPONSABLE:
+     </b>
+     Líder de proceso. RESGISTRO: PRO-D-023 Control Cintas Impuestos Distritales AV Villas, PRO-D-EXT-041 Formato Digicom
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      DESCRIPCIÓN:
+     </b>
+     Para generar la consignación se debe tener cargada toda la información de los medios magnéticos en el Sistema “Actividad generación de medios magnéticos” en el formato PRO-D-023 Control Cintas Impuestos Distritales AV Villas, se encuentra la pestaña distribución la cual debe tener diligenciado los valores de los medios magnéticos y consecutivo. Por el menú principal del aplicativo en la opción: generación de archivos planos\consignación automática El sistema muestra una ventana, la cual se debe diligenciar con el consecutivo correspondiente, damos clic en el botón actualizar (1), seguido el botón generar 2017 cuando termina el sistema arroja una ventana en la cual damos clic en aceptar (2) 1. 2. En la segunda parte de la ventana procedemos a ingresar la fecha y damos clic en el botón abrir (3), el cual nos muestra una ventana donde verificamos el valor total (4) contra el dato que tenemos en el archivo PRO-D-023 Control Cintas Impuestos Distritales AV Villas, COPI A CONTROLADA Código: PRO-PR-010 Página 15 de 29 15/12/2021 IMPUESTOS DISTRITALES AV VILLAS 3. 4. Dar clic en regresar, clic en combinatoria esta acción genera el archivo consigna2014.CSV en la ruta: \\ServidorAv\Confidencial_Id52_aaaa\combina, en esta ruta está el archivo MODELO CONSIGNACIONES 2021.doc el cual abrimos, por la pestaña correspondencia opción: seleccionar destinatarios\ usar una lista existente… con esta acción el documento nos muestra una ventana la cual nos solicita el archivo a cargar, debemos ir donde está ubicado el archivo consigna2014.CSV y seleccionarlo, acto seguido damos clic en la opción; vista previa de resultados, con esto el modelo de consignaciones queda diligenciado con la información correspondiente a la fecha que se está procesando la cual se debe verificar contra el formato PRO- D-023 Control Cintas Impuestos Distritales AV Villas, este archivo debemos guardarlo como PDF en la ruta: \\ServidorAv\Confidencial_Id52_aaaa\data\52\aaaammdd\consigna con el nombre Consignación_aaaammdd.pdf. La consignación se debe enviar por correo electrónico el asunto: Consignación Distritales (dd) de (mes) de (aaaa)-Confidencial- detallando las cantidades de cada impuesto y el valor total, se adjunta el archivo PDF correspondiente Una vez generada la consignación, procedemos a diligenciar el archivo PRO-D-EXT-041 Formato Distritales Avvillas COPI A CONTROLADA Código: PRO-PR-010 Página 16 de 29 15/12/2021 IMPUESTOS DISTRITALES AV VILLAS Este documento se diligencia con la información del archivo cuadre_consignac.xls el cual se encuentra en la ruta: \\ServidorAv\Confidencial_Id52_aaaa\data\52\aaaammdd\consigna este archivo se debe colocar las columnas que tienen las cantidades delante de los valores, y después organizarlos por la columna d (PSE), la información se copia de acuerdo a su tipo de recaudo (Declaraciones, facturas, PSE, electrónico y crédito). La segunda parte del archivo se diligencia con los consecutivos de los medios magnéticos que se van a transmitir según el formato PRO-D-023 Control Cintas Impuestos Distritales AV Villas Una vez diligenciado este archivo se procede a enviar al banco para la autorización de los medios magnéticos, con asunto: Formato Digicom recaudo del (dd) de (Mes) de (aaaa) -Confidencial- se adjunta el archivo “PRO-D-EXT-041 Formato Digicom aaaa.xlsx”
+    </li>
+   </ul>
+  </div>
+  <div class="doc-subsection">
+   6.9 GENERACION DE CONSIGNACION SEMANAL
+  </div>
+  <div class="doc-subcontent">
+   <ul>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      RESPONSABLE:
+     </b>
+     Líder de proceso. RESGISTRO: PRO-D-023 Control Cintas Impuestos Distritales AV Villas, PRO-D-EXT-041 Formato Digicom. DESCRIPCION: Todos los días jueves se debe enviar al banco el medio magnético correspondiente a las consignaciones que se trasladan durante la semana (el traslado de dineros es realizado por el banco) para generar este archivo se ingresa por el mismo menú que al generar las consignaciones en la tercera parte de la pantalla ingresamos el rango de fechas que corresponde y damos clic en el botón: integrada 2017 este asigna el consecutivo automáticamente. COPI A CONTROLADA Código: PRO-PR-010 Página 17 de 29 15/12/2021 IMPUESTOS DISTRITALES AV VILLAS El archivo generado queda en la ruta: \\ServidorAv\Confidencial_Id52_aaaa\consigna\integrados el cual se debe modificar el consecutivo por el que corresponda (validar el archivo PRO-D-EXT-041 Formato Digicom aaaa.xlsx) tanto interna como externamente, este archivo se debe enviar por correo con la información correspondiente de las fechas enviadas esta información se saca de formato PRO-D-023 Control Cintas Impuestos Distritales AV Villas, Este correo se debe enviar con copia a ConveniosSoporteOperativo@bancoavvillas.com.co, y se transmite únicamente con autorización del banco
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Nota:
+     </b>
+     el banco envía físicamente las consignaciones correspondientes al archivo semanal a transmitir se debe validar que la consignación tenga los sellos correspondientes para realizar él envió a la SHD. COPI A CONTROLADA Código: PRO-PR-010 Página 18 de 29 15/12/2021 IMPUESTOS DISTRITALES AV VILLAS
+    </li>
+   </ul>
+  </div>
+ </div>
+ <div class="doc-section" data-id="1">
+  1. Los archivos se deben cifrar con la extensión. Zip y se deben cifrar con clave
+ </div>
+ <div class="doc-content" data-id="1">
+ </div>
+ <div class="doc-section" data-id="2">
+  2. Abrir el aplicativo de Certicamara ubicado en el escritorio del equipo del líder de proceso
+ </div>
+ <div class="doc-content" data-id="2">
+ </div>
+ <div class="doc-section" data-id="3">
+  3. Luego procedemos a seleccionar la opción firmar documento
+ </div>
+ <div class="doc-content" data-id="3">
+ </div>
+ <div class="doc-section" data-id="4">
+  4. Se busca el archivo se carga
+ </div>
+ <div class="doc-content" data-id="4">
+ </div>
+ <div class="doc-section" data-id="5">
+  5. Seleccionar la opción firmar y aceptar
+ </div>
+ <div class="doc-content" data-id="5">
+  <p>
+   COPI A CONTROLADA Código: PRO-PR-010 Página 19 de 29 15/12/2021 IMPUESTOS DISTRITALES AV VILLAS
+  </p>
+ </div>
+ <div class="doc-section" data-id="6">
+  6. Muestra una ventana para ingresar la clave asignada
+ </div>
+ <div class="doc-content" data-id="6">
+ </div>
+ <div class="doc-section" data-id="7">
+  7. Aparece una ventana emergente indicando que los archivos fueron firmados exitosamente
+ </div>
+ <div class="doc-content" data-id="7">
+  <div class="doc-subsection">
+   6.11 TRANSMISION DE MEDIOS MAGNETICOS
+  </div>
+  <div class="doc-subcontent">
+   <ul>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      RESPONSABLE:
+     </b>
+     Líder de proceso. RESGISTRO: No aplica. DESCRIPCION: Una vez recibido confirmación por parte del banco para realizar las transmisiones vía correo electrónico procedemos a ingresar al explorador google Chrome, ingresamos a la página: https://oficinavirtual.shd.gov.co/Recepcion/loadFiles seleccionamos el banco correspondiente Ingresamos el usuario: supervisor1.procesos-avv@digicomsys.com.co ingresamos la clave: en la ventana que nos muestran seleccionamos la opción: reportar información\ subir archivos COPI A CONTROLADA Código: PRO-PR-010 Página 20 de 29 15/12/2021 IMPUESTOS DISTRITALES AV VILLAS Seleccionamos el tipo de archivo y buscamos los archivos con formato .p7z correspondiente al tipo seleccionado en la ruta: \\ServidorAv\Confidencial_Id52_aaaa\data\52\aaaammdd\envios y damos clic en enviar. Si la transmisión es correcta nos muestra la secuencia del archivo con la que fue aceptada y de igual manera el resultado de la transmisión. Una vez finalizada la transmisión de todos los archivos procedemos a descargar los PDF de aceptación lo cual lo vamos a realizar por la opción: consultas\ consultar resultados COPI A CONTROLADA Código: PRO-PR-010 Página 21 de 29 15/12/2021 IMPUESTOS DISTRITALES AV VILLAS Esto nos muestra la pantalla para realizar la consulta, la cual se debe organizar por fecha de envió para poder validar los archivos que se transmitieron, una vez tenemos los del día damos clic en cada archivo “PDF” para descargar el aceptado. Los archivos quedan en la carpeta de descargas del equipo y se deben renombrar con los consecutivos correspondientes, enviar por correo al banco los archivos con copia a ConveniosSoporteOperativo@bancoavvillas.com.co y dejar los PDF en la ruta: \\ServidorAv\Confidencial_Id52_aaaa\data\52\aaaammdd\envios
+    </li>
+   </ul>
+  </div>
+  <div class="doc-subsection">
+   6.12 GENERACION SALTOS DE ADHESIVO
+  </div>
+  <div class="doc-subcontent">
+   <ul>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      RESPONSABLE:
+     </b>
+     Líder de proceso y/o Auxiliar de Procesos RESGISTRO: No aplica. DESCRIPCION: Una vez trasmitidas las cintas y aprobadas procedemos a cargar los medios magnéticos “Declaraciones y Facturas” al aplicativo por el menú principal opción: control de envíos\ control de documentos enviados, en la ventana que nos aparece le damos clic en el botón: cargar de planos 2017 COPI A CONTROLADA Código: PRO-PR-010 Página 22 de 29 15/12/2021 IMPUESTOS DISTRITALES AV VILLAS Solicita la ruta donde se encuentran los archivos la cual es: \\ServidorAv\Confidencial_Id52_aaaa\data\52\aaaammdd\envios, seleccionamos los archivos .Txt que comienzan con las secuencias (5216XXXXXX, 5222XXXXXX) uno por uno, una vez finalizada la carga se procede a ingresar en los rangos de fechas para la generación de saltos de adhesivos, la fecha inicial debe ser desde el 01 de Enero de 2017 hasta la fecha de recaudo que se cargó a la aplicación y damos clic en el botón: reporte de no utilizados y duplicados, se debe tomar desde el año 2017 hasta la fecha vigente. Los archivos generados quedan en la ruta: \\ServidorAv\Confidencial_Id52_aaaa\cintas_aceptadas\reportes se deben revisar los archivos saltos y duplicados los cuales siempre deben estar vacíos si hay información se tiene que verificar, si son reales o si falto algún medio magnético por cargar se debe realizar la notificación al banco para validar los salto de adhesivos
+    </li>
+   </ul>
+  </div>
+  <div class="doc-subsection">
+   6.13 PUBLICACION DE imágenes E INDEX DE LAS FECHAS
+  </div>
+  <div class="doc-subcontent">
+   <ul>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      RESPONSABLE:
+     </b>
+     Líder de proceso. RESGISTRO: PRO-D-023 Control Cintas Impuestos Distritales AV Villas. DESCRIPCION: Una vez cerrada las fechas en términos de imágenes y transmitidos los medios magnéticos procedemos a generar las imágenes con su correspondiente índex para publicación la Herramientas\ facturación en la ventana que nos aparece ingresamos la fecha de recaudo que se quiere generar en los rangos fecha inicial y final, damos clic en el botón: integrar rango a visor de imgs una vez finalizado este proceso damos clic en el botón: llaves avvillas. COPI A CONTROLADA Código: PRO-PR-010 Página 23 de 29 15/12/2021 IMPUESTOS DISTRITALES AV VILLAS Las imágenes generadas quedan en la ruta: \\ServidorAv\Confidencial_Id52_aaaa\visorimgs\datos\aaaammdd las cuales se debe validar la cantidad generadas contra la cantidad de archivos transmitidos en el medio magnético de declaraciones registrado en el formato PRO-D-023 Control Cintas Impuestos Distritales AV Villas, en esta carpeta queda un archivo llamado index.dat el cual se debe validar la cantidad de registros que coincida contra las imágenes, esta carpeta se encripta en archivo .Zip. una vez terminado esto se debe ingresar a la página: https://www.digicom.com.co/Bancos_Web/Sistema/Inicio.aspx?ReturnUrl=%2fBANCOS_WEB con el usuario y clave ya establecida por el cliente
+    </li>
+   </ul>
+  </div>
+  <div class="doc-subsection">
+   6.14 FACTURACION
+  </div>
+  <div class="doc-subcontent">
+   <ul>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      RESPONSABLE:
+     </b>
+     Líder de proceso. RESGISTRO: PRO-D-023 Control Cintas Impuestos Distritales AV Villas. DESCRIPCION: Una vez finalizado el mes y trasmitido todos los medios magnéticos correspondientes ingresamos por el aplicativo en el menú principal seleccionamos la opción: Control de envíos\ control de documentos enviados, en la parte inferior ingresamos el rango del mes que se va a facturar y seleccionamos el botón: consolidada factura 2017 Los archivos generados (consolidado_imp_aaaammdd_ aaaammdd _detalle.xls, consolidado_imp_ aaaammdd _ _impuesto.xls, Consolidado_imp_ aaaammdd _ aaaammdd.dbf) quedan en la ruta: \\ServidorAv\Confidencial_Id52_aaaa\cintas_aceptadas\reportes estos archivos se copian y pegan en la ruta: \\ServidorAv\Confidencial_Id52_aaaa\Procesos Distritales Avvillas\Facturación\aaaa\NN Mes abrimos la carpeta del mes anterior y copiamos el formato de pre factura al mes que vamos a COPI A CONTROLADA Código: PRO-PR-010 Página 24 de 29 15/12/2021 IMPUESTOS DISTRITALES AV VILLAS generar, abrimos el archivo detalle y copiamos la información en el archivo de pre factura ajustamos el rango de fechas y verificamos la información generada contra el archivo de PRO-D-023 Control Cintas Impuestos Distritales AV Villas, el cual debe coincidir en las cantidades, el banco envía por correo electrónico la pre factura para verificar datos contra los que nosotros generamos se verifica y se confirma por la misma vía enviando el archivo de pre factura generado, una vez confirmado estos datos se envía correo al ingeniero de sistemas (dcabrera@digicomsys.com.co) con copia a los correos Dcantor@digicomsys.com.co y jmcm@digicom.com.co los archivos generados por el aplicativo
+    </li>
+   </ul>
+  </div>
+  <div class="doc-subsection">
+   6.15 RECEPCION DOCUMENTAL
+  </div>
+  <div class="doc-subcontent">
+   <ul>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      RESPONSABLE:
+     </b>
+     Auxiliar de proceso. RESGISTRO: No aplica. DESCRIPCION: Recibir los documentos de impuestos distritales remitidos por el Banco, mediante tulas. Estas se organizan en orden de menor a mayor por número de Oficina. Se procede a cantar las tulas ante cámaras, mencionando de manera clara la oficina que remite la tula, el número de precinto, la fecha de recaudo, el convenio al cual pertenecen y la cantidad de documentos enviados; al desocupar la tula se muestra ante cámara y se canta como tula vacía lo cual certifica que no hay más documentos al interior de la tula Al terminar se realiza la devolución de las tulas vacías a la empresa de mensajería encargada de realizar la distribución de las mismas
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Nota:
+     </b>
+     Durante el proceso de apertura de tulas, es posible que lleguen documentos que no pertenecen al proceso o que pertenecen a otra ciudad de Digicom. Estos documentos se cantan ante cámara como documento mal remitido mencionando claramente la oficina que los envía y se entregan al líder de proceso para que realice el proceso correspondiente
+    </li>
+   </ul>
+  </div>
+  <div class="doc-subsection">
+   6.16 VERIFICACION DE CAMARAS
+  </div>
+  <div class="doc-subcontent">
+   <ul>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      RESPONSABLE:
+     </b>
+     Área de TI
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      REGISTRO:
+     </b>
+     PRO-F-045 Control de pruebas de audio y video DESCRIPCION: Las pruebas de audio y video son realizadas diariamente por el personal encargado (auxiliar o líder de proceso), solicitando mediante el system center al área de TI la revisión de la grabación del audio y video de tulas. La persona que realice el canto de tula se acerca al área de monitoreo de cámaras para que el funcionario de T.I. permita realizar la verificación donde se verifica si está grabando el audio y video esto lo realizan retrocediendo unos minutos en el video que está dejando realizado la cámara
+    </li>
+   </ul>
+  </div>
+  <div class="doc-subsection">
+   6.17 MESA DE CONTROL
+  </div>
+  <div class="doc-subcontent">
+   <ul>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      RESPONSABLE:
+     </b>
+     Auxiliar de Procesos
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      REGISTRO:
+     </b>
+     No aplica. COPI A CONTROLADA Código: PRO-PR-010 Página 25 de 29 15/12/2021 IMPUESTOS DISTRITALES AV VILLAS DESCRIPCION: la documentación física se recibe del área de canto y se procede a revisar si contiene inconsistencias, se verifica si el documento trae firma, nombre y cedula del contribuyente, que el número de referencia corresponda al timbrado, una vez realizada estas validaciones se procede a organizar por oficina, consecutivo de adhesivo y por fecha, tipo de horario
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Nota:
+     </b>
+     En caso de presentar inconsistencia se debe informar al banco por correo electrónico y esperar instrucción del banco para la continuación del proceso. Ingresamos al aplicativo por el menú principal en la opción: control de envíos\ descarga de documentos enviados Se diligencia los campos de fecha de movimiento, código a validar (tipo de documento), numero de cinta, se quita la marcación de la casilla de lectura de SSP y se procede a realizar la descarga de la documentación, una vez terminado de pasar los documentos se debe generar el informe de faltantes por el botón copiar a Excel, el cual nos deja los archivos generados en la ruta; \\ServidorAv\Confidencial_Id52_aaaa\cintas_aceptadas\reportes, estos archivos se deben validar que no quede pendiente ningún documento. Una vez revisado este archivo se procede a realizar el alistamiento para entrega a la SHD. Nota 1°: si se llega a presentar faltantes físicos se debe notificar al banco por correo electrónico para que el banco gestione con la oficina e intentar detectar el paradero del documento si no es posible el banco debe autorizar y enviar los denuncios correspondientes para la entrega de la documentación física ante la SDH. Nota 2°: si el documento se extravía en las instalaciones de Digicom se debe informar al banco de la pérdida del documento para que autoricen la generación de los denuncios, una vez autorizado se debe proceder a presentar el denuncio en la página de internet www.policia.gov.co, una vez generado enviar al banco para su respectivo tramite, el banco envía físicamente los archivos físicos correspondientes para realizar la entrega ante la SHD. Los documentos se deben organizar por su tipología (Predial, vehículo, etc.) oficina y horario. Por el aplicativo al momento de la generación de medios magnéticos (Ver actividad 6.9) se genera la planilla de relación de documentos, y se debe imprimir el aceptado de la transmisión del medio magnético correspondiente con su respectiva copia para acuse de recibido, esta documentación se debe dejar en el área de operaciones donde se debe diligenciar la planilla de control de envió de documentación. COPI A CONTROLADA Código: PRO-PR-010 Página 26 de 29 15/12/2021 IMPUESTOS DISTRITALES AV VILLAS Nota 3°: la entrega de documentación para la SHD se debe realizar al octavo día después de aceptado el medio magnético (Días hábiles). En el área de operaciones queda el acuse de recibido de la documentación por la entrega de los documentos en la SHD el cual debe ser digitalizado y renombrado como anexo 11, igualmente a los 4 días hábiles la SHD envía un aceptado de los documentos físicos el cual se renombra como: Aceptado Cinta, igualmente cuando se reciba el aceptado de las consignaciones se digitaliza y renombra como: Anexo 09. Estos archivos deben ser publicado en la Página de Digicom (ver actividad 6.14)
+    </li>
+   </ul>
+  </div>
+ </div>
+ <div class="doc-section" data-id="1">
+  1. Estando en el programa ScandAll PRO se selecciona el menú “digitalizar”
+ </div>
+ <div class="doc-content" data-id="1">
+ </div>
+ <div class="doc-section" data-id="2">
+  2. Ir al menú Configuraciones de digitalizaciones
+ </div>
+ <div class="doc-content" data-id="2">
+ </div>
+ <div class="doc-section" data-id="3">
+  3. Donde nos arroja una ventana en el cual se selecciona la ruta donde van a quedar las
+ </div>
+ <div class="doc-content" data-id="3">
+  <p>
+   imágenes Servidor\confidendial_id52_aaaa\índexgolbal COPI A CONTROLADA Código: PRO-PR-010 Página 27 de 29 15/12/2021 IMPUESTOS DISTRITALES AV VILLAS
+  </p>
+ </div>
+ <div class="doc-section" data-id="4">
+  4. En la opción regla del nombre se abre una ventana donde ingresamos como se van a llamar
+ </div>
+ <div class="doc-content" data-id="4">
+  <p>
+   los archivos
+  </p>
+ </div>
+ <div class="doc-section" data-id="5">
+  5. En la opción iniciar con se digita el número de consecutivo por el que va a iniciar los archivos
+ </div>
+ <div class="doc-content" data-id="5">
+  <p>
+   y en la opción cadena de caracteres el nombre
+  </p>
+ </div>
+ <div class="doc-section" data-id="6">
+  6. Las imágenes deberán quedar guardas en \\servidor\Confidencial_Id52_aaaa\indexGlobal,
+ </div>
+ <div class="doc-content" data-id="6">
+ </div>
+ <div class="doc-section" data-id="7">
+  7. INDICADORES DE DESEMPEÑO
+ </div>
+ <div class="doc-content" data-id="7">
+  <p>
+   MEDIDO RESPONSABLE INDICADOR FRECUENCIA POR/MEDIO REVISIÓN Σ Entrega de doc. físicos - Σ Doc. físicos Director de entregados fuera de tiempos *100 Líder De Mensual procesos ------------------------------------------------------- Proceso Σ Entrega de doc. Físicos Σ Total cintas enviadas - Σ cintas rechazadas Director de ------------------------------------------------------- *100 Líder De Mensual procesos Proceso Σ Total citas enviadas COPI A CONTROLADA Código: PRO-PR-010 Página 28 de 29 15/12/2021 IMPUESTOS DISTRITALES AV VILLAS
+  </p>
+ </div>
+ <div class="doc-section" data-id="8">
+  8. CONTROL DEL PROCEDIMIENTO
+ </div>
+ <div class="doc-content" data-id="8">
+  <p>
+   VER. ELABORADO REVISADO APROBADO FECHA DE MODIFICACIÓN No. APROBACIÓN REALIZADA Director Se realiza actualización Supervisor de Supervisor 10 Comercial y 26/11/2018 general del proceso de proceso del SGI procedimiento. Se realiza actualización Coordinador Analista del Coordinador 11 29/10/2019 general del de Procesos SGI de Procesos procedimiento. Coordinador Analista del Coordinador Se actualizó la ruta del 12 15/12/2021 de Procesos SGI de Procesos sitio seguro. COPI A CONTROLADA Código: PRO-PR-010 Página 29 de 29 15/12/2021
+  </p>
+ </div>
+</div>
+
+<!-- Botón para abrir el modal -->
+<button class="btn btn-outline-primary" id="openModalBtn" style="margin-top: 20px;">Editar Secciones</button>
+<!-- El Modal -->
+<div class="modal" id="sectionModal">
+    <div class="modal-content">
+        <span class="close-button">×</span>
+        <h2>Selecciona y Edita una Sección</h2>
+        <label for="sectionSelector">Sección:</label>
+        <select id="sectionSelector">
+            <option value="">-- Selecciona una sección --</option>
+        </select>
+        <label for="sectionContent">Contenido:</label>
+        <textarea id="sectionContent" placeholder="El contenido de la sección aparecerá aquí..."></textarea>
+        <label for="sectionCambio">Descripcion del Cambio:</label>
+        <textarea id="sectionCambio" placeholder="Describe en palabras cortas el cambio realizado..."
+            required></textarea>
+        <button class="btn btn-outline-primary" id="saveChangesBtn" style="margin-top: 15px;">Guardar Cambios</button>
+    </div>
+</div>
+<script src="{{ url_for('static', filename='js/jquery.min.js')}}"></script>
+<script src="{{ url_for('static', filename='js/acordeon_doc.js')}}"></script>
+<script src="{{ url_for('static', filename='js/edita_procedimiento.js')}}"></script>
+
+{% endblock %}

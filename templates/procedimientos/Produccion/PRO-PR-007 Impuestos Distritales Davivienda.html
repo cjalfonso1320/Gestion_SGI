@@ -1,0 +1,1823 @@
+{% extends 'home.html' %}
+{% block title %}Documentacion{% endblock %}
+{% block content %}
+<link href="{{ url_for('static', filename='css/acordeon_doc.css') }}" rel="stylesheet" />
+<link href="{{ url_for('static', filename='css/procedimientos.css') }}" rel="stylesheet" />
+
+<div id="documento" style="display:none;">procedimientos/HTML/PRO-PR-007 Impuestos Distritales Davivienda.html</div>
+<div id="nombre_documento" style="display: none;">PRO-PR-007 Impuestos Distritales Davivienda</div>
+<h1>PRO-PR-007 Impuestos Distritales Davivienda</h1>
+{% for cambio in cambios %}
+{% if loop.first %}
+<h3>Version: {{cambio[3]}}</h3>
+{% endif %}
+{% endfor %}
+<br />
+<div class="doc-accordion">
+     <div class="doc-section" data-id="1">
+          1. OBJETIVO
+     </div>
+     <div class="doc-content" data-id="1">
+          <p>
+               Describir las actividades con las cuales se procesa integralmente las declaraciones, facturas, cupones y
+               recibos oficiales de pago de Impuestos Distritales recaudados por el Banco Davivienda. Dar cumplimiento
+               al Sistema de Gestión Integrado.
+          </p>
+     </div>
+     <div class="doc-section" data-id="2">
+          2. ALCANCE
+     </div>
+     <div class="doc-content" data-id="2">
+          <p>
+               Este procedimiento aplica a los servicios de Impuestos Distritales, implementados por Digicom System
+               Corporación S.A.
+          </p>
+     </div>
+     <div class="doc-section" data-id="3">
+          3. RESPONSABLES
+     </div>
+     <div class="doc-content" data-id="3">
+          <p>
+               Gerente de operaciones, director de proceso, Líder de proceso, Analista de procesos y Digitador </p>
+     </div>
+     <div class="doc-section" data-id="4">
+          4. DEFINICIONES
+     </div>
+     <div class="doc-content" data-id="4">
+          <p>
+               <b>Adhesivo:</b> Es una secuencia de 14 caracteres que describen el código del Banco, la oficina
+               recaudadora, el
+               cajero autorizado por la SHD, el consecutivo y el digito de verificación, convirtiéndose en la llave de
+               búsqueda en nuestra aplicación.
+
+               <b>Archivo Plano:</b> Archivo de datos que se utiliza para intercambio de información entre las
+               diferentes
+               aplicaciones.
+
+               <b>Conciliación:</b> Depuración de diferencias entre lo reportado en medios magnéticos contra lo
+               consignado por
+               fecha de recaudo.
+
+               <b>LOG bancario:</b> Es el registro de las transacciones de una fecha de recaudo.
+
+          </p>
+     </div>
+     <div class="doc-section" data-id="5">
+          5. DOCUMENTOS DE REFERENCIA
+     </div>
+     <div class="doc-content" data-id="5">
+          <p>
+          <ul>
+               <li>Resolución No. SDH-000429</li>
+               <li>Documento Técnico Anexo No. 1 de la resolución No SDH-000429</li>
+               <li>Acuerdo de servicios</li>
+          </ul>
+          </p>
+     </div>
+     <div class="doc-section" data-id="6">
+          6. DESCRIPCION DEL PROCESO
+     </div>
+     <div class="doc-content" data-id="6">
+          <div class="doc-subsection">6.1.1 Proceso de imagenes VPN</div>
+          <div class="doc-subcontent">
+               <ul>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Auxiliar de proceso</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> No aplica</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b>
+                         Se ingresa Servidor canal/Digicom/ImpDist Cont/Imágenes a las carpetas de la fecha, se debe
+                         verificar el Excel que corresponda con la cantidad de imágenes,
+                         <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img001.png')}}"
+                              alt="">
+                         Al verificar las carpetas las copiamos al Servidor Canal/Confidencial_ig51 xxxx/VPN se ingresa
+                         a la fecha creamos una carpeta que diga Dis y se pegan.
+                         <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img002.png')}}"
+                              alt="">
+                         Ingresamos al Aplicativo y se realiza el proceso de selección.
+                         <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img003.png')}}"
+                              alt="">
+                         Se ingresa al servidor canal/confidencial_Ig51_xxxx/vpnscan/a la fecha correspondiente, en la
+                         carpeta Dis encontraremos las imágenes seleccionadas por el sistema DAVIVEHICULO, en la carpeta
+                         para lotear son las imágenes que el sistema no reconoció y tenemos que hacerle la selección.
+                         (Planillas se encarpetan y las blancas se le hace otro proceso que si tienen alguna imagen de
+                         Distritales al respaldo).
+
+                         Luego de realizar el proceso se pegan las imágenes en Índex global y se sube el Log Bancario.
+                         Para poder realizar el proceso de las 3:00 a.m. se les informa a los digitadores que se debe
+                         indexar lo que no se reconoció por código de barras.
+                    </li>
+               </ul>
+          </div>
+          <div class="doc-subsection">6.1.2 Recepcion y Cargue de Log</div>
+          <div class="doc-subcontent">
+               <div class="doc-subsection">6.1.2.1 Decargar log Bancario</div>
+               <div class="doc-subcontent">
+                    <ul>
+                         <li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Analista de proceso</li>
+                         <li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> No aplica</li>
+                         <li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b>
+                              : El log bancario se recibe por medio de correo electrónico con nombre recadist.dat se
+                              verifica que sea la fecha que va a procesar, se debe copiar y pegar en la siguiente ruta:
+                              Servidor/confidencial_Id51_xxxx/data/51/crearcarpeta/aaaammdd.
+                              <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img004.png')}}"
+                                   alt="">
+                              <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img005.png')}}"
+                                   alt="">
+                              Luego nos vamos para el aplicativo y cargamos el Log Bancario:
+                              Servidorproducción/confidencial_id51_xxxx/jid_BB/aaaammdd/Bancos/Log Bancario/cargar log
+                              banco.
+                              <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img006.png')}}"
+                                   alt="">
+                              <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img007.png')}}"
+                                   alt="">
+                         </li>
+                    </ul>
+               </div>
+               <div class="doc-subsection">6.1.2.2 Descargar archivos Pagos PSE</div>
+               <div class="doc-subcontent">
+                    <ul>
+                         <li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Analista de proceso</li>
+                         <li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> No aplica</li>
+                         <li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b>
+                              Se ingresa a la página https:/ui.pse.com.co/ui/, esta información se debe descargar todos
+                              los días hábiles antes de las 8:00 a.m. son cuatro archivos, Pagos débito, pagos créditos,
+                              Pagos debito otros bancos y publicidad exterior.
+                              <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img008.png')}}"
+                                   alt="">
+                              <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img009.png')}}"
+                                   alt="">
+                              <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img010.png')}}"
+                                   alt="">
+                              Ingresamos fecha correspondiente y le damos consultar, damos clic en cada archivo y así lo
+                              descargamos.
+                              <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img011.png')}}"
+                                   alt="">
+                              <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img012.png')}}"
+                                   alt="">
+                              Una vez descargados los PSE se procede a descargar el de Transacciones este llega con
+                              información rechazadas, fallidas y aceptadas en la columna de estado, se eliminan las
+                              fallidas y rechazadas y se guarda el archivo solo con las aceptadas.
+                              <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img013.png')}}"
+                                   alt="">
+                              Vamos a la carpeta descargas revisamos los archivos que correspondan a la fecha de
+                              movimiento se comprimen los PSE con el de transacciones y se cambia con el nombre de
+                              PAGOS_PSE_DD_MM_AAAA se le da cortar y se pega en el servidor
+                              producción/51_procesos/dd_mm_aaaa/ para que el Banco lo pueda visualizar.
+                         </li>
+                    </ul>
+               </div>
+          </div>
+          <div class="doc-subsection">6.1.3 Descargue de las imagenes e indexacion</div>
+          <div class="doc-subcontent">
+               <ul>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Analista de proceso</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> No aplica</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b>
+                         Después de realiza todo el proceso de la tula y el cargue de las imágenes que son las que
+                         quedan en Índex Global procedemos a la indexación:
+                         <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img014.png')}}"
+                              alt="">
+                         Vamos al aplicativo/indexación/global/carga.
+                         <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img015.png')}}"
+                              alt="">
+                         Luego les damos cargar imágenes.
+                         <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img016.png')}}"
+                              alt="">
+                    </li>
+               </ul>
+          </div>
+          <div class="doc-subsection">
+               6.2. Captura de información
+          </div>
+          <div class="doc-subcontent">
+               <ul>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Digitador, Analista de proceso
+                    </li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> No aplica</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b>
+                         Después de que la persona encargada carga las imágenes los digitadores deben ingresar al
+                         aplicativo, fecha de movimiento/indexación/global/indexador-global/asignar imagen.
+                         <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img017.png')}}"
+                              alt="">
+                         Se capturan los siguientes campos:
+                         <ol>
+                              <li>Referencia</li>
+                              <li>TP valor a pagar</li>
+                         </ol>
+                         No se debe digitar la imagen si esta ilegible o agregar información incorrecta y pasar a la
+                         siguiente imagen, la imagen no digitada deberá ser revisada por el líder proceso porque quedo
+                         en el índex global sin indexar ya que puede ser una inconsistencia. Para el caso de las
+                         declaraciones sobrantes no se debe capturar información del adhesivo. Esta labor corresponde al
+                         líder del proceso.
+                         <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img018.png')}}"
+                              alt="">
+                         Luego de terminar de ingresar el número de formulario y el valor correspondiente al día de
+                         recaudo le damos guardar y así sucesivamente con las demás imágenes si sale unos por indexar y
+                         sale un aviso indicando desea reemplazar este archivo tenemos que verificar los datos incluidos
+                         y si está bien le damos si, hasta que el sistema le arroje que ya no hay más imágenes
+                         disponibles y le damos aceptar.
+                         <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img019.png')}}"
+                              alt="">
+
+                    </li>
+               </ul>
+               <div class="doc-subsection">
+                    6.2.1. Validación
+               </div>
+               <div class="doc-subcontent">
+                    <div class="doc-subsection">
+                         6.2.1.1. Realizar el cruce de lo grabado vs el log
+                    </div>
+                    <div class="doc-subcontent">
+                         <ul>
+                              <li>
+                                   <i class="fa-regular fa-circle-check">
+                                   </i>
+                                   <b>
+                                        Responsable:
+                                   </b>
+                                   Analista de Proceso
+                              </li>
+                              <li>
+                                   <i class="fa-regular fa-circle-check">
+                                   </i>
+                                   <b>
+                                        Registro:
+                                   </b>
+                                   Bean call center Davivienda
+                              </li>
+                              <li>
+                                   <i class="fa-regular fa-circle-check">
+                                   </i>
+                                   <b>
+                                        Descripción:
+                                   </b>
+                                   Antes de realizar el cruce de validación se revisa en el aplicativo las opciones:
+                                   Menú/indexación/cargar imágenes/ver ilegibles/ver sobrantes y liberar
+                                   Una vez realizada esta actividad procedemos a identificar las inconsistencias.
+                                   <ol>
+                                        <li> Ilegible: La información de documento en la imagen no es clara se debe de
+                                             reportar al área
+                                             de Call Center para su anotación en el formato Bean manejado por esa área.
+                                        </li>
+                                        <li>Sobrantes: Son documentos que no vienen registrados en el log y se debe
+                                             informar al Banco
+                                             y reportada, al área de Call Center para su anotación en el formato Bean
+                                             manejado por esa
+                                             área.</li>
+                                        <li>Liberar: Son documentos que el digitador empezó a indexar, pero no termino,
+                                             se debe pasar
+                                             nuevamente a grabación.</li>
+                                   </ol>
+                                   <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img020.png')}}"
+                                        alt="">
+
+
+                                   Ingresamos al aplicativo y generamos el cruce de validación de la siguiente forma:
+                                   Menú/bancos/log bancario/cruce de validaciones.
+                                   <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img021.png')}}"
+                                        alt="">
+                                   Este se guarda automáticamente en la siguiente ruta:
+                                   \\servidorproduccion\confidencial_id51_xxxx\data\51\aaaammdd
+                                   Se debe enviar un correo electrónico al Banco y a la oficina correspondiente
+                                   informando
+                                   sobre las inconsistencias presentadas como:
+                                   <ol>
+                                        <li>Diferencia de valor</li>
+                                        <li>Sobrantes</li>
+                                        <li>Declaraciones con fecha vencida</li>
+                                        <li>Referencia Duplicada.</li>
+                                   </ol>
+                                   Se debe realizar el reporte al Call Center para generar el reporte para enviar al
+                                   banco
+                              </li>
+                         </ul>
+                    </div>
+                    <div class="doc-subsection">
+                         6.2.2.2 Respuesta a inconsistencias por parte del Banco
+                    </div>
+                    <div class="doc-subcontent">
+                         <ul>
+                              <li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Analista de proceso</li>
+                              <li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> Correo Electrónico</li>
+                              <li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b>
+                                   El Banco envía un correo informando que se debe realizar según la inconsistencia
+                                   reportada por Digicom se procede a realizar las funciones teniendo en cuenta que
+                                   también aplica el tiempo de las autorizaciones y transmisiones para evitar
+                                   inconvenientes y evitar la extemporaneidad de lo reportado. En caso de que el Banco
+                                   no reporte a tiempo las inconsistencias y al realizar los procedimientos se detecta
+                                   una extemporaneidad será informado de una vez al Banco por medio de correo lo
+                                   sucedido será responsabilidad del Banco.
+                              </li>
+                         </ul>
+                    </div>
+               </div>
+
+          </div>
+          <div class="doc-subsection">
+               6.3. Generar cintas magnéticas
+          </div>
+          <div class="doc-subcontent">
+               <div class="doc-subsection">
+                    6.3.1. Validar la información
+               </div>
+               <div class="doc-subcontent">
+                    <ul>
+                         <li>
+                              <i class="fa-regular fa-circle-check">
+                              </i>
+                              <b>
+                                   Responsable:
+                              </b>
+                              Analista del proceso
+                         </li>
+                         <li>
+                              <i class="fa-regular fa-circle-check">
+                              </i>
+                              <b>
+                                   Registro:
+                              </b>
+                              PRO-D-080 Estado De Proceso
+                         </li>
+                         <li>
+                              <i class="fa-regular fa-circle-check">
+                              </i>
+                              <b>
+                                   Descripción:
+                              </b>
+                              Después de hacer el cruce de validaciones y verifiquemos que no tenemos ninguna
+                              inconsistencia procedemos a generar los archivos para la generación de las cintas
+                              magnéticas.
+                              Aplicativo/fecha de recaudo/Bancos/Log Bancario/copiar a CSV Declaraciones y (fact, rop y
+                              cupones). Y copiar log a Excel.
+                              <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img022.png')}}"
+                                   alt="">
+                              Este procedimiento se guarda automáticamente en la siguiente ruta:
+                              Servidorproduccion/confidencial_id51_xxxx/data/51/aaaammdd.
+                              <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img023.png')}}"
+                                   alt="">
+                              Ahora debemos crear una carpeta en servidor producción/distritales/aceptados
+                              diarios/Hoy/mes/Fecha de recaudo/ hay dejamos las cintas que se generan para transmitir.
+                              <b>Nota 1:</b> Se debe diligenciar el formato PRO-D-080 Estado De Proceso para llevar el
+                              control
+                              de los consecutivos de las cintas. (Se adjunta formato)
+                         </li>
+                    </ul>
+               </div>
+               <div class="doc-subsection">
+                    6.3.2. Generación de medios magnéticos
+               </div>
+               <div class="doc-subcontent">
+                    <ul>
+                         <li>
+                              <i class="fa-regular fa-circle-check">
+                              </i>
+                              <b>
+                                   Responsable:
+                              </b>
+                              Analista del proceso
+                         </li>
+                         <li>
+                              <i class="fa-regular fa-circle-check">
+                              </i>
+                              <b>
+                                   Registro:
+                              </b>
+                              No Aplica
+                         </li>
+                         <li>
+                              <i class="fa-regular fa-circle-check">
+                              </i>
+                              <b>
+                                   Descripción:
+                              </b>
+                              Una vez terminadas las validaciones a través del aplicativo, se debe generar la cinta
+                              magnética de:
+                              <ol>
+                                   <li>Declaraciones.</li>
+                                   <li>Facturas, Cupones y Recibos oficiales de Pago.</li>
+                                   <li>Pagos Electrónicos.</li>
+                                   <li>PSE (Debito-Crédito).</li>
+                                   <li>Adhesivos Anulados</li>
+                                   <li>Adhesivos Generados.</li>
+                                   <li>Consignaciones Semanales.</li>
+                              </ol>
+                              Cada una de ellas se debe generar de la siguiente manera:
+                         </li>
+                    </ul>
+                    <div class="doc-subsection">
+                         6.3.2.1. Las Declaraciones y Facturas, Cupones y recibos Oficiales de Pago
+                    </div>
+                    <div class="doc-subcontent">
+                         <ul>
+                              <li>
+                                   <i class="fa-regular fa-circle-check">
+                                   </i>
+                                   <b>
+                                        Responsable:
+                                   </b>
+                                   Analista del proceso
+                              </li>
+                              <li>
+                                   <i class="fa-regular fa-circle-check">
+                                   </i>
+                                   <b>
+                                        Registro:
+                                   </b>
+                                   No Aplica
+                              </li>
+                              <li>
+                                   <i class="fa-regular fa-circle-check">
+                                   </i>
+                                   <b>
+                                        Descripción:
+                                   </b>
+                                   Se generan desde el aplicativo:
+                                   Se generan desde el aplicativo:
+                                   Fecha de recaudo/Generación de Archivos Planos/Preliquidados 2017/ ingresar
+                                   consecutivo de la cinta/declaraciones o facturas (depende del archivo que se va a
+                                   cargar) clic en carga CSV que se encuentra en la ruta data/51/fecha de recaudo
+                                   <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img024.png')}}"
+                                        alt="">
+                                   Luego de realizar esta función damos clic en el botón validar contra el log, debe
+                                   salir cero (0) diferencias, si sale referencias o sticker repetidos se debe validar y
+                                   corregir el archivo CSV.
+                                   <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img025.png')}}"
+                                        alt="">
+                                   Si el archivo sale bien procedemos a generar en el botón Genera plano 2017.
+                                   <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img026.png')}}"
+                                        alt="">
+                                   Estos archivos quedan en la siguiente ruta:
+                                   Servidorproducción/confidencial_id51_xxxx/data/51/aaaammdd/envíos, cogemos los dos
+                                   archivos y los pegamos en la carpeta que se creó anteriormente en Aceptados diarios.
+                              </li>
+                         </ul>
+                    </div>
+                    <div class="doc-subsection">
+                         6.3.2.2. Los Pagos Electrónicos
+                    </div>
+                    <div class="doc-subcontent">
+                         <ul>
+                              <li>
+                                   <i class="fa-regular fa-circle-check">
+                                   </i>
+                                   <b>
+                                        Responsable:
+                                   </b>
+                                   Analista del proceso
+                              </li>
+                              <li>
+                                   <i class="fa-regular fa-circle-check">
+                                   </i>
+                                   <b>
+                                        Registro:
+                                   </b>
+                                   PRO-D-080 Estado de Proceso
+                              </li>
+                              <li>
+                                   <i class="fa-regular fa-circle-check">
+                                   </i>
+                                   <b>
+                                        Descripción:
+                                   </b>
+                                   El log de estos Pagos Electrónicos llega por correo electrónico (512000XXXX.txt), se
+                                   debe
+                                   descargar de una vez en la carpeta de Aceptados diarios se revisa la fecha que
+                                   corresponda
+                                   al recaudo diario, se cambia el consecutivo por Digicom y se toman los datos de
+                                   cuantos
+                                   documentos son y el valor se colocaran en el formato PRO-D-080 Estado de Proceso
+                                   <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img027.png')}}"
+                                        alt="">
+                                   Para saber el total de documentos nos dirigimos a la última línea del archivo y desde
+                                   la
+                                   columna 12 hacia atrás tomamos los datos y para el valor desde la columna 15 hacia
+                                   adelante
+                                   <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img028.png')}}"
+                                        alt="">
+                              </li>
+                         </ul>
+                    </div>
+                    <div class="doc-subsection">
+                         6.3.2.3. Pagos PSE (Debito-Crédito)
+                    </div>
+                    <div class="doc-subcontent">
+                         <ul>
+                              <li>
+                                   <i class="fa-regular fa-circle-check">
+                                   </i>
+                                   <b>
+                                        Responsable:
+                                   </b>
+                                   Analista del proceso
+                              </li>
+                              <li>
+                                   <i class="fa-regular fa-circle-check">
+                                   </i>
+                                   <b>
+                                        Registro:
+                                   </b>
+                                   PRO-D-080 Estado de Proceso
+                              </li>
+                              <li>
+                                   <i class="fa-regular fa-circle-check">
+                                   </i>
+                                   <b>
+                                        Descripción:
+                                   </b>
+                                   Estos archivos son los que se descargaron según numeral (6.1.3.2) los colocamos en la
+                                   carpeta Aceptados diarios, cambiamos los consecutivos por Digicom y se toma
+                                   igualmente el
+                                   total de documentos y el valor como el numeral (6.4.2.2) y se colocan en el formato
+                                   PRO-D-080 Estado de Proceso
+                              </li>
+                         </ul>
+                    </div>
+                    <div class="doc-subsection">
+                         6.3.2.4. Adhesivos Anulados y Generados
+                    </div>
+                    <div class="doc-subcontent">
+                         <ul>
+                              <li>
+                                   <i class="fa-regular fa-circle-check">
+                                   </i>
+                                   <b>
+                                        Responsable:
+                                   </b>
+                                   Analista del proceso
+                              </li>
+                              <li>
+                                   <i class="fa-regular fa-circle-check">
+                                   </i>
+                                   <b>
+                                        Registro:
+                                   </b>
+                                   PRO-D-080 Estado de Proceso
+                              </li>
+                              <li>
+                                   <i class="fa-regular fa-circle-check">
+                                   </i>
+                                   <b>
+                                        Descripción:
+                                   </b>
+                                   Estos archivos de Anulados y Generados los envían por medio de correo electrónico
+                                   (5100XXXXAD.dat) y los descargamos en la siguiente ruta:
+                                   Servidor Producción/Confidencial_id51_xxxx/Distritales/Adhesivos Anulados y
+                                   Generados/Nueva carpeta. No olvidar cambiar el consecutivo según corresponda en el
+                                   formato
+                                   PRO-D-080 Estado de Proceso.
+                                   Para generar el archivo se realiza de la siguiente manera
+                                   Nos vamos al aplicativo/Herramientas/Generación de sticker/Anulados o Generados/y
+                                   procedemos a ingresar los datos según los campos, luego le damos incluir/fecha de
+                                   asignación/Generar ver 2017.
+                                   <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img029.png')}}"
+                                        alt="">
+                                   El archivo queda generado en la siguiente ruta Servidor
+                                   producción/confidencial_id51_2025
+                                   adhesivos se copian y se pegan en la carpeta de las cintas para transmitir
+                              </li>
+                         </ul>
+                    </div>
+                    <div class="doc-subsection">
+                         6.3.2.5. Consignaciones (semanal)
+                    </div>
+                    <div class="doc-subcontent">
+                         <ul>
+                              <li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Analista de proceso</li>
+                              <li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> No aplica</li>
+                              <li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b>
+                                   Estas consignaciones se generan cada ocho días con las consignaciones diarias que
+                                   correspondan a esa semana se cuenta el día de recaudo once días seguidos y es la que
+                                   corresponde a esa semana veremos más adelante la información.
+                              </li>
+                         </ul>
+                    </div>
+               </div>
+          </div>
+          <div class="doc-subsection">
+               6.4. Transmisión de cintas magnéticas
+          </div>
+          <div class="doc-subcontent">
+               <div class="doc-subsection">
+                    6.4.1 Solución de aprobación de medios magnéticos
+               </div>
+               <div class="doc-subcontent">
+                    <ul>
+                         <li>
+                              <i class="fa-regular fa-circle-check">
+                              </i>
+                              <b>
+                                   Responsable:
+                              </b>
+                              Analista de Proceso
+                         </li>
+                         <li>
+                              <i class="fa-regular fa-circle-check">
+                              </i>
+                              <b>
+                                   Registro:
+                              </b>
+                              PRO-D-076 autorización cintas adhesivos Generados y Anulados.
+                              PRO-D-077 autorización cintas
+                              PRO-D-080 Estado de Proceso
+                         </li>
+                         <li>
+                              <i class="fa-regular fa-circle-check">
+                              </i>
+                              <b>
+                                   Descripción:
+                              </b>
+                              Después de realizar todas las validaciones en indexación, grabación, inconsistencias, y
+                              descargar todos los archivos y el cuadro de Estado de Proceso formato PRO-D-080 Estado de
+                              Proceso verificamos la información de este contra la información que está en la carpeta de
+                              Aceptados diarios, luego procedemos a realizar la autorización de las cintas nos dirigimos
+                              al Estado de Procesos, nos dirigimos a la siguiente ruta:
+                              Servidor producción/confidencial_id51_XXXX/Distritales/Autorización cintas/
+                              Autorizacion_cintas_dd_mm_aaaa
+                              <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img030.png')}}"
+                                   alt="">
+                              Hay un Excel para cada una Declaraciones, Anulados y Generados. Vamos copiando la
+                              información al formato PRO-D-077 autorización cintas y verificando a la vez los archivos
+                              del Cuadro contra la autorización y así sucesivamente con los demás archivos teniendo
+                              encuentra el cambio del número de las cintas y fecha correspondientes al recaudo
+                              <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img031.png')}}"
+                                   alt="">
+                              Para los Anulados y Generados tomamos los datos que se generaron según numeral (6.4.2.4) y
+                              vamos copiando la información al formato PRO-D-076 autorización cintas adhesivos anulados.
+                              <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img032.png')}}"
+                                   alt="">
+                              Estos archivos los convertimos a Zip. Se copian y se pegan en el servidor canal, después
+                              se sube a la página Digicom y se envía correo informando al Banco que ya está la
+                              autorización en la página
+                         </li>
+                    </ul>
+                    <div class="doc-subsection">
+                         6.4.1.1. Aprobación de transmisión de medios magnéticos
+                    </div>
+                    <div class="doc-subcontent">
+                         <ul>
+                              <li>
+                                   <i class="fa-regular fa-circle-check">
+                                   </i>
+                                   <b>
+                                        Responsable:
+                                   </b>
+                                   Banco
+                              </li>
+                              <li>
+                                   <i class="fa-regular fa-circle-check">
+                                   </i>
+                                   <b>
+                                        Registro:
+                                   </b>
+                                   Pagina Digicom
+                              </li>
+                              <li>
+                                   <i class="fa-regular fa-circle-check">
+                                   </i>
+                                   <b>
+                                        Descripción:
+                                   </b>
+                                   El Banco después de recibir la información validan las cifras con su información y al
+                                   estar bien dan un aceptado donde queda con color verde por el mismo medio de la
+                                   página
+                              </li>
+                         </ul>
+                    </div>
+                    <div class="doc-subsection">
+                         6.4.1.2. Firma de los medios magnéticos
+                    </div>
+                    <div class="doc-subcontent">
+                         <ul>
+                              <li>
+                                   <i class="fa-regular fa-circle-check">
+                                   </i>
+                                   <b>
+                                        Responsable:
+                                   </b>
+                                   Analista de Proceso
+                              </li>
+                              <li>
+                                   <i class="fa-regular fa-circle-check">
+                                   </i>
+                                   <b>
+                                        Registro:
+                                   </b>
+                                   CERTIFIRMA
+                              </li>
+                              <li>
+                                   <i class="fa-regular fa-circle-check">
+                                   </i>
+                                   <b>
+                                        Descripción:
+                                   </b>
+                                   Después de que Banco envía el aceptado de la autorización de las cintas nos dirigimos
+                                   a la
+                                   carpeta de Aceptados diarios donde tenemos todos los archivos y volvemos a hacer una
+                                   última verificación contra el cuadro de Estado de Procesos.
+                                   Los archivos para transmitir se convierten en Zip, Después de convertirlos todos los
+                                   seleccionamos y los firmamos de la siguiente manera damos clic
+                                   derecho/certifirma/firmar
+                                   <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img033.png')}}"
+                                        alt="">
+                                   <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img034.png')}}"
+                                        alt="">
+                                   <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img035.png')}}"
+                                        alt="">
+                              </li>
+                         </ul>
+                    </div>
+                    <div class="doc-subsection">
+                         6.4.1.3. Transmisión
+                    </div>
+                    <div class="doc-subcontent">
+                         <ul>
+                              <li>
+                                   <i class="fa-regular fa-circle-check">
+                                   </i>
+                                   <b>
+                                        Responsable:
+                                   </b>
+                                   Analista de Proceso
+                              </li>
+                              <li>
+                                   <i class="fa-regular fa-circle-check">
+                                   </i>
+                                   <b>
+                                        Registro:
+                                   </b>
+                                   Pagina SHD
+                              </li>
+                              <li>
+                                   <i class="fa-regular fa-circle-check">
+                                   </i>
+                                   <b>
+                                        Descripción:
+                                   </b>
+                                   Después de validado, Enzipado y firmado procedemos a subir las cintas a la Página de
+                                   SHD.
+                                   https:/oficinavirtual.shd.gov.co/Recepción/inicio.
+                                   Seleccionamos el Banco correspondiente, nombre de usuario y clave.
+                                   <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img036.png')}}"
+                                        alt="">
+                                   Luego de ingresar le damos reportar/subir archivos/tipo de archivo/se selecciona el
+                                   archivo según nombre/seleccionar archivo/ nos lleva a la ruta donde creamos la
+                                   carpeta de
+                                   Aceptados Diarios y seleccionamos el archivo según el tipo de cinta/lo seleccionamos
+                                   le
+                                   damos abrir/enviar.
+                                   <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img037.png')}}"
+                                        alt="">
+                                   <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img038.png')}}"
+                                        alt="">
+                                   Después de subir todos los archivos procedemos a verificar el estado de cada cinta
+                                   en:
+                                   Consultas/consultar resultados/fecha de envió/y en la columna Resultado nos informa
+                                   el
+                                   estado de la cinta/ ya sea Aceptado o Rechazado/al lado de esta columna nos muestra
+                                   el
+                                   PDF/ le damos Clic y podemos ver el resultado/estos archivos quedan en la carpeta de
+                                   descargas/los seleccionamos/le damos cortar/ y lo pegamos en la carpeta de Aceptados
+                                   Diarios/los verificamos contra el Estado de Procesos/lo renombramos/con el número de
+                                   la
+                                   cinta correspondiente/cogemos todos los archivos los Enzipar/lo renombramos
+                                   así/Aceptados_magneticos_aaaammdd.zip/este archivo lo colocamos en el
+                                   Servidor canal/51_procesos/fecha/Archivos/Distritales
+                                   <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img039.png')}}"
+                                        alt="">
+                              </li>
+                         </ul>
+                    </div>
+               </div>
+
+               <div class="doc-subsection">
+                    6.4.2. Gestión de Rechazos de Medios Magnéticos
+               </div>
+               <div class="doc-subcontent">
+                    <ul>
+                         <li>
+                              <i class="fa-regular fa-circle-check">
+                              </i>
+                              <b>
+                                   Responsable:
+                              </b>
+                              Analista de Proceso
+                         </li>
+                         <li>
+                              <i class="fa-regular fa-circle-check">
+                              </i>
+                              <b>
+                                   Registro:
+                              </b>
+                              Correo Electrónico
+                         </li>
+                         <li>
+                              <i class="fa-regular fa-circle-check">
+                              </i>
+                              <b>
+                                   Descripción:
+                              </b>
+                              Para el caso de los rechazos, se verifica el motivo se realiza el ajuste en caso de que
+                              sea error humano se procede al desarrollo de todo el proceso normalmente y la Información
+                              queda internamente. Pero si el caso es por error de una mala información o un archivo no
+                              correspondiente se le informa al Banco para que validen la información del rechazo y
+                              esperar respuesta para volver a validar y subir la información. Pero si el error es de la
+                              Página de SHD igualmente se le informa al Banco y esperar la respuesta para validar.
+
+                         </li>
+                         <li>
+                              <i class="fa-regular fa-circle-check">
+                              </i>
+                              <b>
+                                   Nota:
+                              </b>
+                              Las autorizaciones de las cintas para que el Banco valide deben ser enviadas antes de las
+                              10:30 a.m. tan pronto validen la información procedemos a subir las cintas antes de 12:00
+                              p.m. por si se presenta un rechazo poder hacer la validación y el respectivo correctivo
+                              para un límite de tiempo antes de las 2:00 p.m. En los días de vencimiento es hasta las
+                              4:00 p.m. pero teniendo en cuenta que hay cintas que no se deben subir después de las 2:00
+                              p.m. ya que puede generar una extemporaneidad en este Caso los PAGOS ELECTRONICOS (VER
+                              RESOLUCION)
+                         </li>
+                    </ul>
+               </div>
+               <div class="doc-subsection">
+                    6.4.2.1. Requerimientos
+               </div>
+               <div class="doc-subcontent">
+                    <ul>
+                         <li>
+                              <i class="fa-regular fa-circle-check">
+                              </i>
+                              <b>
+                                   Responsable:
+                              </b>
+                              Analista de Proceso
+                         </li>
+                         <li>
+                              <i class="fa-regular fa-circle-check">
+                              </i>
+                              <b>
+                                   Registro:
+                              </b>
+                              Correo Electrónico
+                         </li>
+                         <li>
+                              <i class="fa-regular fa-circle-check">
+                              </i>
+                              <b>
+                                   Descripción:
+                              </b>
+                              Son aquellos que el banco envía a procesar y pertenecen a fechas anteriores se debe tener
+                              mucho cuidado al hacer esta clase de procesos ya que son requerimientos en el cual no se
+                              debe tener error, El Banco envía los respectivos datos para proceder a realizar el
+                              requerimiento, para este se debe hacer una copia al archivo de declaraciones o facturas
+                              según el documento a procesar e ingresar los datos y generar los archivos como una fecha
+                              normal y generar cinta aparte, se debe tener en cuenta y solicitar al Banco si la
+                              consignación se genera dentro de la fecha correspondiente a las consignaciones de la
+                              semana o ira aparte. De igual manera se envía autorización del requerimiento y estar
+                              atento a la respuesta
+                         </li>
+                    </ul>
+               </div>
+               <div class="doc-subsection">
+                    6.5.1. Generar consignaciones
+               </div>
+               <div class="doc-subcontent">
+                    <div class="doc-subsection">
+                         6.5.1.1. Cargar medios magnéticos
+                    </div>
+                    <div class="doc-subcontent">
+                         <ul>
+                              <li>
+                                   <i class="fa-regular fa-circle-check">
+                                   </i>
+                                   <b>
+                                        Responsable:
+                                   </b>
+                                   Analista de Proceso
+                              </li>
+                              <li>
+                                   <i class="fa-regular fa-circle-check">
+                                   </i>
+                                   <b>
+                                        Registro:
+                                   </b>
+                                   No Aplica
+                              </li>
+                              <li>
+                                   <i class="fa-regular fa-circle-check">
+                                   </i>
+                                   <b>
+                                        Descripción:
+                                   </b>
+                                   Después de que todos los medios magnéticos estén aceptados y no hayan generado ningún
+                                   error procedemos a cargarlos en el aplicativo de la siguiente manera:
+                                   <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img040.png')}}"
+                                        alt="">
+                                   Nos dirigimos a la carpeta /Confidencial_id51_aaaa/Distritales/Aceptados
+                                   diarios/hoy/fecha/ y empezamos a seleccionar los archivos de txt. Y los cargamos así:
+                                   <ol>
+                                        <li>Los Anulados, las declaraciones y las facturas las copeamos en la carpeta de
+                                             cintas
+                                             aceptadas.</li>
+                                        <li>Los PSE Débito y Crédito los colocamos en las carpetas PSE en cintas
+                                             aceptadas.</li>
+                                        <li>Los Electrónicos los pegamos en la carpeta de Electrónicos en cintas
+                                             aceptadas.</li>
+                                   </ol>
+                                   Luego nos dirigimos al Aplicativo/Fecha a cargar/Control de envíos/control de
+                                   documentos
+                                   enviados/aquí cargamos las declaraciones, las facturas y los pagos electrónicos.
+                                   <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img041.png')}}"
+                                        alt="">
+                                   Los PSE (Debito-Crédito) nos dirigimos a cargarlos en el Aplicativo/Fecha de
+                                   carga/Control
+                                   de envíos/Control de registro PSE enviados/
+                                   <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img042.png')}}"
+                                        alt="">
+                                   Luego de cargarlos en el aplicativo solo seleccionamos los archivos de PSE Débito,
+                                   Crédito
+                                   y Electrónicos y los pegamos en la carpeta confidencial_id51_XXXX/Pagos
+                                   Electrónicos/y
+                                   desplazamos los archivos a las carpetas correspondientes dejando por fuera de la
+                                   carpeta
+                                   los Pagos Electrónicos que los necesitaremos más adelante para cargarlos y proceder
+                                   con la
+                                   consignación
+                                   <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img043.png')}}"
+                                        alt="">
+                                   Después de realizar está función nos dirigimos a cargar los archivos en
+                                   Aplicativo/Bancos/Pagos electrónicos-pagos PSE-Pagos en línea Crédito/. Debemos
+                                   ingresar
+                                   el número de la cinta correspondiente a la fecha de carga. En solo los pagos
+                                   Electrónicos
+                                   el sistema me solicita el archivo que está en la carpeta de Pagos Electrónicos el que
+                                   quedo por fuera
+                                   <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img044.png')}}"
+                                        alt="">
+                              </li>
+                         </ul>
+                    </div>
+                    <div class="doc-subsection">
+                         6.5.1.2. Generar Consignación
+                    </div>
+                    <div class="doc-subcontent">
+                         <ul>
+                              <li>
+                                   <i class="fa-regular fa-circle-check">
+                                   </i>
+                                   <b>
+                                        Responsable:
+                                   </b>
+                                   Analista de Proceso
+                              </li>
+                              <li>
+                                   <i class="fa-regular fa-circle-check">
+                                   </i>
+                                   <b>
+                                        Registro:
+                                   </b>
+                                   PRO-D-078 Cuadre de consignación.
+                                   PRO-F-EXT- 012 Anexo 9
+                              </li>
+                              <li>
+                                   <i class="fa-regular fa-circle-check">
+                                   </i>
+                                   <b>
+                                        Descripción:
+                                   </b>
+                                   Para realizar el siguiente proceso debemos tener todas las cintas cargadas en el
+                                   aplicativo como se explicó anteriormente. Luego vamos al aplicativo/Generación de
+                                   Archivos
+                                   Planos/ Consignación Automática.
+                                   <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img045.png')}}"
+                                        alt="">
+                                   Luego, nos arroja una ventana donde nos indican tres pasos: Utilizaremos los dos
+                                   primeros
+                                   para este proceso el tercer paso se utiliza en el numeral (6.4.4.3.)
+                                   PASO UNO: Ingresamos la fecha del día anterior, la fecha del día normal y
+                                   automáticamente
+                                   el sistema arroja el consecutivo de la consignación y le damos Actualizar y Generar
+                                   2017.
+                                   Nos arroja una ruta donde podemos consultar la consignación:
+                                   Servidorproducción/Confidencial_id51_XXXX/Data/51/DDMMAAAA/Consigna.
+                                   En esta ruta nos queda el archivo PRO-D-078 Cuadre de consignación. Donde se refleja
+                                   la
+                                   consignación de la fecha.
+                                   <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img046.png')}}"
+                                        alt="">
+                                   PASO DOS: Ingresamos la fecha de recaudo/Abrir y nos refleja los valores por separado
+                                   de
+                                   cada uno de los impuestos recaudados.
+                                   <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img047.png')}}"
+                                        alt="">
+                                   Nos dirigimos a la ruta que arrojo en el paso uno y comparamos los valores uno por
+                                   uno,
+                                   verificando también el consecutivo de la consignación.
+                                   La consignación debe salir en cero para seguir con los pasos, en caso de que salga
+                                   diferencia se debe verificar nuevamente el cargue de las cintas en el aplicativo y
+                                   volver
+                                   a proceder la información.
+                                   <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img048.png')}}"
+                                        alt="">
+                                   Luego de hacer la revisión y que la consignación este perfecta la realizamos así: En
+                                   el
+                                   paso dos le damos Combinatoria nos arroja una ventana indicando un archivo llamado
+                                   consigna2014.csv que lo encontramos en la ruta /Confidencial_id51_XXX/Combina.
+                                   Nos dirigimos a la siguiente ruta y creamos una carpeta para el soporte de la
+                                   consignación
+                                   Confidencial_id51_xxxx/Distritales/Consignaciones/ddmm/Nueva carpeta/Fecha de
+                                   consignación. luego abrimos el modelo en Word de la consignación que se encuentra en
+                                   la
+                                   ruta Confidencial_id51_XXX/Combina. le damos correspondencia/seleccionar
+                                   destinatario,
+                                   usar una lista existente y nos vamos a la ruta /Confidencial_id51_XXX/Combina. y
+                                   seleccionamos el excel que se genero le damos abrir y en la parte de arriba le damos
+                                   comprobación de errores verificamos que los datos estén correctos como el
+                                   consecutivo, los
+                                   valores, el total en número y en letra en el cual se genera en el formato PRO-F-EXT-
+                                   012
+                                   Anexo 9 y se guarda en Word y en pdf
+                                   <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img049.png')}}"
+                                        alt="">
+                              </li>
+                         </ul>
+                    </div>
+                    <div class="doc-subsection">
+                         6.5.1.3. Generar Consignación PSE
+                    </div>
+                    <div class="doc-subcontent">
+                         <ul>
+                              <li>
+                                   <i class="fa-regular fa-circle-check">
+                                   </i>
+                                   <b>
+                                        Responsable:
+                                   </b>
+                                   Analista de Proceso
+                              </li>
+                              <li>
+                                   <i class="fa-regular fa-circle-check">
+                                   </i>
+                                   <b>
+                                        Registro:
+                                   </b>
+                                   PRO-D-078 Cuadre de consignación.
+                                   PRO-F-EXT- 012 Anexo 9
+                                   Descripción. Se realiza el mismo proceso de las consignaciones normales, lo único que
+                                   cambia es que después de realizar el paso uno y paso dos del numeral 6.4.4.2 se le da
+                                   en
+                                   el icono PSE luego se validan los valores que deben de ser igual al de PRO-D-078
+                                   Cuadre de
+                                   consignación en la pestaña cuadre_diario_pse debito-informe.
+                                   <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img050.png')}}"
+                                        alt="">
+                                   <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img051.png')}}"
+                                        alt="">
+                                   Para los pse cuando se abre este cuadro con los valores, en la parte que dice fec_con
+                                   le
+                                   damos doble clic y se pone la misma fecha de recaudo, Luego de hacer la revisión y
+                                   que la
+                                   consignación este perfecta la realizamos así: En el paso dos le damos Combinatoria
+                                   nos
+                                   arroja una ventana indicando un archivo llamado consigna2014pse.csv que lo
+                                   encontramos en
+                                   la ruta /Confidencial_id51_XXX/Combina.
+                                   en la siguiente ruta Confidencial_id51_xxxx/Distritales/Consignaciones/ddmm/Nueva
+                                   carpeta/Fecha de consignación. Que es donde se encuentra la consignación normal,
+                                   abrimos
+                                   el modelo en Word de la consignación pse que se encuentra en la ruta
+                                   Confidencial_id51_XXX/Combina. le damos correspondencia/seleccionar destinatario,
+                                   usar una
+                                   lista existente y nos vamos a la ruta /Confidencial_id51_XXX/Combina. y seleccionamos
+                                   el
+                                   excel que se generó le damos abrir y en la parte de arriba le damos comprobación de
+                                   errores verificamos que los datos estén correctos como el consecutivo, los valores,
+                                   el
+                                   total en número y en letra en el cual se genera en el formato PRO-F-EXT- 012 Anexo 9
+                                   y se
+                                   guarda en Word y en pdf
+                              </li>
+                         </ul>
+                    </div>
+                    <div class="doc-subsection">
+                         6.5.1.3 Generar Consignacion PSE
+                    </div>
+                    <div class="doc-subcontent">
+                         <ul>
+                              <li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Analista de proceso</li>
+                              <li><i class="fa-regular fa-circle-check"></i><b>Registro:</b>
+                                   <ol>
+                                        <li>PRO-D-078 Cuadre de consignación. </li>
+                                        <li>PRO-F-EXT- 012 Anexo 9</li>
+                                   </ol>
+                              </li>
+                              <li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b>
+                                   Se realiza el mismo proceso de las consignaciones normales, lo único que cambia es
+                                   que después de realizar el paso uno y paso dos del numeral 6.4.4.2 se le da en el
+                                   icono PSE luego se validan los valores que deben de ser igual al de PRO-D-078 Cuadre
+                                   de consignación en la pestaña cuadre_diario_pse debito-informe.
+                                   <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img052.png')}}"
+                                        alt="">
+                                   <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img053.png')}}"
+                                        alt="">
+                                   Para los pse cuando se abre este cuadro con los valores, en la parte que dice fec_con
+                                   le damos doble clic y se pone la misma fecha de recaudo, Luego de hacer la revisión y
+                                   que la consignación este perfecta la realizamos así: En el paso dos le damos
+                                   Combinatoria nos arroja una ventana indicando un archivo llamado consigna2014pse.csv
+                                   que lo encontramos en la ruta /Confidencial_id51_XXX/Combina.
+                                   en la siguiente ruta Confidencial_id51_xxxx/Distritales/Consignaciones/ddmm/Nueva
+                                   carpeta/Fecha de consignación. Que es donde se encuentra la consignación normal,
+                                   abrimos el modelo en Word de la consignación pse que se encuentra en la ruta
+                                   Confidencial_id51_XXX/Combina. le damos correspondencia/seleccionar destinatario,
+                                   usar una lista existente y nos vamos a la ruta /Confidencial_id51_XXX/Combina. y
+                                   seleccionamos el excel que se generó le damos abrir y en la parte de arriba le damos
+                                   comprobación de errores verificamos que los datos estén correctos como el
+                                   consecutivo, los valores, el total en número y en letra en el cual se genera en el
+                                   formato PRO-F-EXT- 012 Anexo 9 y se guarda en Word y en pdf.
+                              </li>
+                         </ul>
+                    </div>
+                    <div class="doc-subsection">
+                         6.5.1.4 Generacion Archivo Plano Consignacion
+                    </div>
+                    <div class="doc-subcontent">
+                         <ul>
+                              <li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Analista de proceso</li>
+                              <li><i class="fa-regular fa-circle-check"></i><b>Registro:</b>
+                                   <ol>
+                                        <li>CERTIFIRMA Pagina SHD</li>
+                                        <li>PRO-D-170 autorización Cintas consignación</li>
+                                   </ol>
+                              </li>
+                              <li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b>
+                                   Este archivo es el de Generar las consignaciones semanales, contando doce días
+                                   después de la fecha de recaudo y que son subidas a la página todos los viernes antes
+                                   de mediodía, para las consignaciones de los PSE también se transmiten los viernes con
+                                   las normales con la diferencia que las fechas de consignación no son doce días si no
+                                   el mismo día del recaudo, las consignaciones normales se deben enviar al Banco
+                                   Occidente para su respectiva firma el día martes.
+                                   <b>Paso 3: </b>Ingresamos al menú principal generación de archivos planos/
+                                   consignacion automatica /fecha inicial y fecha final el sistema nos arroja el
+                                   consecutivo y damos clic al botón integrada 2024, el archivo plano se genera en la
+                                   ruta \\servidor producción\confidencial_id51_XXXX\consigna\integrados encriptamos el
+                                   archivo plano lo firmamos por la aplicación certifirma y lo transmitimos por la
+                                   página de la shd.
+                                   <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img054.png')}}"
+                                        alt="">
+                                   Este mismo procedimiento se realiza para las consignaciones de los PSE pero en el
+                                   paso 3 se le pone la fecha inicial, fecha final y antes de darle clic en integrada
+                                   2024 se le da clic en el cuadro PSE como se muestra en la imagen.
+                                   <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img055.png')}}"
+                                        alt="">
+                                   Nos dirigimos a la ruta que arroja Confidencial_id51_XXXX/Consigna/integrados/y los
+                                   copiamos pegamos en la carpeta creada en Aceptados diarios/los Enzipar/lo firmamos/y
+                                   se transmite en la página de SHD.
+
+                                   Una vez realizados los archivos planos se debe de publicar en la página web el
+                                   archivo de autorización cinta consignaciones PRO-D-170 Autorización Cintas
+                                   consignación
+
+
+                              </li>
+                         </ul>
+                    </div>
+               </div>
+
+          </div>
+          <div class="doc-subsection">
+               6.6. Saltos de adhesivos
+          </div>
+          <div class="doc-subcontent">
+               <ul>
+                    <li>
+                         <i class="fa-regular fa-circle-check">
+                         </i>
+                         <b>
+                              Responsable:
+                         </b>
+                         Analista de Proceso
+                    </li>
+                    <li>
+                         <i class="fa-regular fa-circle-check">
+                         </i>
+                         <b>
+                              Registro:
+                         </b>
+                         Correo Electrónico
+                    </li>
+                    <li>
+                         <i class="fa-regular fa-circle-check">
+                         </i>
+                         <b>
+                              Descripción:
+                         </b>
+                         Este informe saltos de adhesivos son los que por algún motivo no están reportados en las bases
+                         y sigue su consecutivo normalmente sin ser utilizado. Se genera por medio del
+                         aplicativo/control de envíos/control de documentos enviados/fecha inicial (2022-01-01) /fecha
+                         final (recaudo)/reporte de no utilizados y duplicados/.
+                         <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img056.png')}}"
+                              alt="">
+                         Luego nos dirigimos a la ruta Confidencial_id51_XXXX/Cintas Aceptadas/Reportes. Abrimos el
+                         archivo y debe salir en blanco si sale con adhesivos relacionados verificamos que realmente sea
+                         un salto y lo reportamos al Banco por medio de un correo
+                    </li>
+               </ul>
+          </div>
+          <div class="doc-subsection">
+               6.6. Generar Informes
+          </div>
+          <div class="doc-subcontent">
+               <div class="doc-subsection">
+                    6.6.1 Generación de Factura
+               </div>
+               <div class="doc-subcontent">
+                    <ul>
+                         <li>
+                              <i class="fa-regular fa-circle-check">
+                              </i>
+                              <b>
+                                   Responsable:
+                              </b>
+                              Analista de procesos
+                         </li>
+                         <li>
+                              <i class="fa-regular fa-circle-check">
+                              </i>
+                              <b>
+                                   Registro:
+                              </b>
+                              No Aplica
+                         </li>
+                         <li>
+                              <i class="fa-regular fa-circle-check">
+                              </i>
+                              <b>
+                                   Descripción:
+                              </b>
+                              Se debe generar una FACTURA con todos los datos generados en un mes en este caso el corte
+                              va del 21 del mes anterior al 20 del mes actual.
+                              Se genera en el aplicativo/herramientas/facturación/fecha inicial/fecha final/factura/
+                              <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img057.png')}}"
+                                   alt="">
+                              Nos dirigimos a la ruta Confidencial_id51_XXXX/Procesos/facturas/este archivo lo abrimos y
+                              empezamos a seleccionar cada uno y compararlo y pegar los datos según factura del mes
+                              anterior/ creando una carpeta en Confidencial_id51_XXXX/Distritales/Facturación, empezamos
+                              a reemplazar los datos.
+                              <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img058.png')}}"
+                                   alt="">
+                              <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img059.png')}}"
+                                   alt="">
+                              Después de realizarla y que quede bien cuadrada se envía al Banco un correo de información
+                              que la factura ya está en la página
+                         </li>
+                    </ul>
+               </div>
+               <div class="doc-subsection">
+                    6.6.2. Reporte de Anomalías
+               </div>
+               <div class="doc-subcontent">
+                    <ul>
+                         <li>
+                              <i class="fa-regular fa-circle-check">
+                              </i>
+                              <b>
+                                   Responsable:
+                              </b>
+                              Analista de procesos
+                         </li>
+                         <li>
+                              <i class="fa-regular fa-circle-check">
+                              </i>
+                              <b>
+                                   Registro:
+                              </b>
+                              No Aplica
+                         </li>
+                         <li>
+                              <i class="fa-regular fa-circle-check">
+                              </i>
+                              <b>
+                                   Descripción:
+                              </b>
+                              Este archivo se genera en el aplicativo/inconsistencias/reporte de anomalías/fecha
+                              inicial/fecha final/Generar. Nos dirigimos a la ruta
+                              Confidencial_id51_XXXX/Inconsistencia/Anomalías/ Enzipar el archivo y lo subimos a la
+                              página enviamos correo al Banco
+                              <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img060.png')}}"
+                                   alt="">
+                         </li>
+                    </ul>
+               </div>
+               <div class="doc-subsection">
+                    6.6.3. Informe de Cifras
+               </div>
+               <div class="doc-subcontent">
+                    <ul>
+                         <li>
+                              <i class="fa-regular fa-circle-check">
+                              </i>
+                              <b>
+                                   Responsable:
+                              </b>
+                              Analista de procesos
+                         </li>
+                         <li>
+                              <i class="fa-regular fa-circle-check">
+                              </i>
+                              <b>
+                                   Registro:
+                              </b>
+                              No Aplica
+                         </li>
+                         <li>
+                              <i class="fa-regular fa-circle-check">
+                              </i>
+                              <b>
+                                   Descripción:
+                              </b>
+                              Nos dirigimos al aplicativo/control de envíos/Control de documentos
+                              enviados/fechas/informe de cifras/ nos dirigimos a la ruta Confidencial_id51_XXX/Cintas
+                              Aceptadas/Reportes/Cifras/ Enzipar el archivo enviamos correo al Banco informando que el
+                              archivo ya está en página
+                              <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img061.png')}}"
+                                   alt="">
+                         </li>
+                    </ul>
+               </div>
+               <div class="doc-subsection">
+                    6.6.4. Procesados
+               </div>
+               <div class="doc-subcontent">
+                    <ul>
+                         <li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Analista de proceso</li>
+                         <li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> No aplica</li>
+                         <li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b>
+                              Nos dirigimos al aplicativo/control de envíos/Control de documentos
+                              enviados/fechas/informe de CSV de registros procesados Fac, Dec, Pse, anulados/ nos
+                              dirigimos a la ruta Confidencial_id51_XXX/Cintas Aceptadas/Reportes/Cifras/Enzipar el
+                              archivo enviamos correo al Banco informando que el archivo ya está en página.
+                              <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img062.png')}}"
+                                   alt="">
+                         </li>
+                    </ul>
+               </div>
+          </div>
+          <div class="doc-subsection">
+               6.7. Pliego de cargos
+          </div>
+          <div class="doc-subcontent">
+               <ul>
+                    <li>
+                         <i class="fa-regular fa-circle-check">
+                         </i>
+                         <b>
+                              Responsable:
+                         </b>
+                         director de Procesos,
+                    </li>
+                    <li>
+                         <i class="fa-regular fa-circle-check">
+                         </i>
+                         <b>
+                              Registro:
+                         </b>
+                         No Aplica
+                    </li>
+                    <li>
+                         <i class="fa-regular fa-circle-check">
+                         </i>
+                         <b>
+                              Descripción:
+                         </b>
+                         El banco envía por medio de correo electrónico dos archivos de extemporaneidad.
+                         Archivo extemporaneidad, el banco relaciona en informe las cintas magnéticas que se enviaron
+                         fuera de la fecha establecida.
+                         <b>Nota 1:</b> Este archivo se presenta por problemas con el sistema.
+                         <b>Nota 2:</b> Se debe enviar a la secretaria de hacienda distrital un cd; este debe contener
+                         el
+                         informe argumentando la extemporaneidad.
+                         <b>Nota 3:</b> Este mismo informe se debe presentar anual.
+                         <b>Nota 4:</b> El banco envía archivo y el responsable de la respuesta es el coordinador
+                         encargado en
+                         compañía del director de procesos
+                    </li>
+               </ul>
+          </div>
+          <div class="doc-subsection">
+               6.8. Seguimiento del Proceso
+          </div>
+          <div class="doc-subcontent">
+               <ul>
+                    <li>
+                         <i class="fa-regular fa-circle-check">
+                         </i>
+                         <b>
+                              Responsable:
+                         </b>
+                         Analista de Procesos,
+                    </li>
+                    <li>
+                         <i class="fa-regular fa-circle-check">
+                         </i>
+                         <b>
+                              Registro:
+                         </b>
+                         PRO-D-098 Lista de Chequeo
+                    </li>
+                    <li>
+                         <i class="fa-regular fa-circle-check">
+                         </i>
+                         <b>
+                              Descripción:
+                         </b>
+                         Se diligencia el formato PRO-D-098 Lista de Chequeo a medida que se desarrollan las actividades
+                         y así verificar que el proceso se desarrolle conforme
+                         <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img063.png')}}"
+                              alt="">
+                    </li>
+               </ul>
+          </div>
+          <div class="doc-subsection">6.9. Conceptos Varios</div>
+          <div class="doc-subcontent">
+               <ul>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Analista de proceso</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> Correo Electrónico</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b>
+                         Para empezar con el proceso de conceptos varios de vemos descargar 4 archivos que llegan por
+                         parte del cliente.
+                    </li>
+               </ul>
+               <div class="doc-subsection">
+                    6.9.1 Descargar Log
+               </div>
+               <div class="doc-subcontent">
+                    <ul>
+                         <li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Analista de proceso</li>
+                         <li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> No aplica</li>
+                         <li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b>
+                              Una vez descargados del correo se procede a validar la información que estos archivos
+                              contengan
+                              los datos para procesar. Si los archivos están en blanco procedemos a eliminarlos, si
+                              viene con
+                              datos procedemos al punto 6.9.2
+                         </li>
+                    </ul>
+               </div>
+               <div class="doc-subsection">
+                    6.9.2 Cargar Log en el aplicativo
+               </div>
+               <div class="doc-subcontent">
+                    <ul>
+                         <li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Analista de proceso</li>
+                         <li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> No aplica</li>
+                         <li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b>
+                              Para poder realizar el cargue de log en el aplicativo de vemos primero el validar cual es
+                              el
+                              tipo de concepto al que pertenece, estos archivos vienen nombrados con un código para su
+                              identificación:
+                              <ol>
+                                   <li>SHD: Consumo a la cerveza-Transferencia</li>
+                                   <li>2403: Consumo a la cerveza</li>
+                                   <li>2684: Plusvalía</li>
+                                   <li>2627: Registro y anotación.</li>
+                              </ol>
+                              Una vez se identifiquen los tipos de conceptos procedemos a abrir el aplicativo para
+                              cargar los
+                              archivos de acuerdo con su codificación.
+                         </li>
+                    </ul>
+               </div>
+               <div class="doc-subsection">
+                    6.9.3 Cargue de imagenes
+               </div>
+               <div class="doc-subcontent">
+                    <ul>
+                         <li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Analista de proceso</li>
+                         <li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> No aplica</li>
+                         <li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b>
+                              Al ingresar al aplicativo entramos en la pestaña CONSULTA, Visualizar log, convenios Plus
+                              y por
+                              último efectivo, esto nos mostrara una ventana donde procedemos en la pestaña de fecha se
+                              coloca tanto en fecha inicial como fecha final la misma fecha que corresponde al recaudo.
+                              Una vez esto nos debe aparecer el registro de las imágenes ya cargadas en la fecha
+                              correspondiente.
+                              <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img064.png')}}"
+                                   alt="">
+                              Cuando carguen los registros de las imágenes procedemos a revisar a que oficina pertenece
+                              cada
+                              uno de los registros para eso debemos ir al servidor VPN,
+                              192.168.70.151\Confidencial_VPN\VPNSCAN\fecha de recaudo, luego buscamos el numero de la
+                              oficia
+                              el cual nos mostró el registro. Abrimos la carpeta para identificar la imagen
+                              correspondiente a
+                              los conceptos, las imágenes deben ser únicamente de la ciudad de Bogota en el cuadro de
+                              departamento.
+                              <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img065.png')}}"
+                                   alt="">
+                              Después de haber identificado las imágenes procedemos a copiarlas y pegarla en la
+                              siguiente
+                              carpeta \\192.168.70.171\Confidencial_Id51_ConcVarios2025\grabacion\Scan\C2403 (Debemos
+                              ingresar a la carpeta según su código de concepto) una vez dentro de la carpeta, se crea
+                              otra
+                              carpeta y la nombramos con la fecha del recaudo dentro de esta carpeta se crea otra
+                              carpeta y
+                              la nombramos E101 y colocamos todas las imágenes para su indexación en el lote creado.
+                              <b>Nota: </b>Se nombrará E102 cuando la totalidad de los registros lleguen en fechas
+                              diferentes.
+                         </li>
+                    </ul>
+               </div>
+               <div class="doc-subsection">
+                    6.9.4 Indexacion
+               </div>
+               <div class="doc-subcontent">
+                    <ul>
+                         <li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Analista de proceso</li>
+                         <li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> Aplicativo</li>
+                         <li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b>
+                              Una vez las imágenes estén en el lote procedemos a abrir el aplicativo para empezar a
+                              indexar
+                              las imágenes. Ponemos la fecha del recaudo y el tipo de concepto.
+                              <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img066.png')}}"
+                                   alt="">
+                              Nota: En caso de que no cargue la imagen debemos verificar peso de la imagen tipo de
+                              formato y
+                              ajustarlo para que el aplicativo reconozca la imagen.
+                         </li>
+                    </ul>
+               </div>
+               <div class="doc-subsection">
+                    6.9.5 Digitacion
+               </div>
+               <div class="doc-subcontent">
+                    <ul>
+                         <li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Analista de proceso</li>
+                         <li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> Aplicativo</li>
+                         <li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b>
+                              Una vez indexada y cargada la imagen procedemos a digitalizar los siguientes campos:
+                              <ol>
+                                   <li>Forma de Pago: E</li>
+                                   <li>Formato: 1</li>
+                                   <li>Lote: 1</li>
+                                   <li>Oficina: Campo Inactivo</li>
+                              </ol>
+                              <b>Nota: </b>en estos campos siempre irán con los mismos datos.
+                              Formulario: se coloca el número de radicación este proceso se realiza doble vez ya que el
+                              aplicativo hace una validación.
+
+                              Valor: el dato a digitar es el de la casilla 24. (El aplicativo siempre pondrá la imagen
+                              en
+                              este campo)
+
+                              Una vez realizado este proceso queda indexado la imagen.
+
+                              <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img067.png')}}"
+                                   alt="">
+                              <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img068.png')}}"
+                                   alt="">
+                         </li>
+                    </ul>
+               </div>
+               <div class="doc-subsection">
+                    6.9.6 Grabacion
+               </div>
+               <div class="doc-subcontent">
+                    <ul>
+                         <li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Analista de proceso</li>
+                         <li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> Aplicativo</li>
+                         <li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b>
+                              Después de haber indexado las imágenes seguimos con la grabación de las imágenes volvemos
+                              al
+                              aplicativo por la pestaña grabación, se abre la ventana donde se dará inicio del proceso,
+                              se
+                              pone la fecha del recaudo y se diligencian los siguientes campos:
+
+                              Numero de Talón: Corresponde al número de radicado
+                              Referencia 1: Numero de Identidad
+                              Valor total: el dato a digitar es el de la casilla 24. (El aplicativo siempre pondrá la
+                              imagen
+                              en este campo)
+
+                              <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img069.png')}}"
+                                   alt="">
+                              <ol>
+                                   <li>Después de realizar la primera grabación se realiza una segunda grabación
+                                        ingresamos a
+                                        la pestaña grabación, habilitar segunda grabación, esta opción nos dirige a una
+                                        venta
+                                        donde ponemos la fecha de recaudo y damos clic en el icono de carpeta y aceptar.
+                                        Aparece la misma ventana de la grabación 1 diligenciamos los mismos datos y
+                                        continuamos.</li>
+                                   <li>Una vez grabadas todas las imágenes estas quedan guardadas en la siguiente ruta,
+                                        \\192.168.70.171\Confidencial_Id51_ConcVarios2025\grabacion\Imgs\c2403 mas la
+                                        fecha
+                                        de recaudo, se modificara la ultima carpeta dependiendo al tipo de concepto.
+                                   </li>
+                                   <li>Estas imágenes la copiamos y las lleva a la ruta que genera el informe. </li>
+                              </ol>
+                         </li>
+                    </ul>
+               </div>
+               <div class="doc-subsection">
+                    6.9.7 Validacion
+               </div>
+               <div class="doc-subcontent">
+                    <ul>
+                         <li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Analista de proceso</li>
+                         <li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> Aplicativo</li>
+                         <li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b>
+                              Ingresamos al aplicativo y en la pestaña operaciones se despliega las opciones y damos
+                              clic en
+                              las primeras 5 opciones y en cada una de ellas realiza una operación diferente.
+
+                              <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img070.png')}}"
+                                   alt="">
+                              <ol>
+                                   <li>1. Revisión Grabación 01 vs 02
+
+                                        En esta ventana validamos la grabación 1 vs 2
+                                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img071.png')}}"
+                                             alt="">
+                                   </li>
+                                   <li>2. Revisión Log vs Indexación
+
+                                        Validamos que la información que nos llego en el log sea igual a la que
+                                        indexamos y
+                                        no presente inconsistencias.
+                                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img072.png')}}"
+                                             alt="">
+                                   </li>
+                                   <li>3. Revisión Grabación vs Indexación.
+
+                                        Validamos que la información que se grabo sea igual a la que indexamos y no
+                                        presente
+                                        inconsistencias.
+                                   </li>
+                                   <li>
+                                        4. Complementación.
+
+                                        Para complementación ponemos la fecha de inicio del mes hasta la fecha del día
+                                        del
+                                        recaudo damos clic en cargar y la totalidad de los registros leídos debe de ser
+                                        igual
+                                        a la de total registros del log.
+                                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img073.png')}}"
+                                             alt="">
+                                   </li>
+                                   <li>
+                                        5. Revisión Grabación vs Log.
+
+                                        Validamos que la información que grabamos se igual a la del log y no presente
+                                        mensaje
+                                        de erro o diferencias.
+                                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img074.png')}}"
+                                             alt="">
+                                   </li>
+                              </ol>
+                              <b>Nota: </b>En caso de encontrar diferencias de valor se reportan por el BEAN.
+                         </li>
+                    </ul>
+               </div>
+               <div class="doc-subsection">
+                    6.9.8 Genracion de informes
+               </div>
+               <div class="doc-subcontent">
+                    <ul>
+                         <li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Analista de proceso</li>
+                         <li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> No aplica</li>
+                         <li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b>
+                              Después de realizar las validaciones correspondientes nos dirigimos al aplicativo por la
+                              pestaña informes y luego en la opción informe general y ponemos la fecha del día de
+                              recaudo
+                              tanto en fecha inicial como final, damos clic en exportar y nos arroja la ruta en donde
+                              queda
+                              guardado el informe.
+                              \\192.168.70.171\Confidencial_Id51_ConcVarios2025\Sal_informes\consumo
+                              cerveza nacional\20250516, la ruta puede cambiar dependiendo al concepto.
+                              <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img075.png')}}"
+                                   alt="">
+                              Se valida que los datos del informe coincidan contra la imagen indexada y gravada que no
+                              queden
+                              diferencias.
+                         </li>
+                    </ul>
+               </div>
+               <div class="doc-subsection">
+                    6.9.9 Publicación de informes a la SDH
+               </div>
+               <div class="doc-subcontent">
+                    <ul>
+                         <li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Analista de proceso</li>
+                         <li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> No aplica</li>
+                         <li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b>
+                              Se comprime loa imagen y después se comprime el informe generando dos archivos punto ZIP.
+                              Se procede a ingresa a la siguiente ruta
+                              \\192.168.0.28\51_Procesos\20250516\Archivos\CONCEPTOS_VARIOS una vez hay ponemos los dos
+                              archivos comprimidos en la carpeta con la fecha de recaudo. Luego actualizamos la pagina.
+                              <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-007/img076.png')}}"
+                                   alt="">
+                              Una vez actualizada la página verificamos que se encuentren los botones en color verde.
+                         </li>
+                    </ul>
+               </div>
+          </div>
+     </div>
+     <div class="doc-section" data-id="7">
+          7. Entrega Física
+     </div>
+     <div class="doc-content" data-id="7">
+          <ul>
+               <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                         Responsable:
+                    </b>
+                    Analista de procesos
+               </li>
+               <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                         Registro:
+                    </b>
+                    N/A
+               </li>
+               <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                         Descripción:
+                    </b>
+                    se realizan dos entregas mensuales que son del recaudo del 01 al 15 la entrega se realiza dentro de
+                    los 5 días siguientes, y del 16 al 31 los primero 5 días del mes siguiente.
+                    Antes de realizar la entrega se revisa que tenga el sello correspondiente y que la información
+                    enviada en el informe sea la misma que se entregue en físico.
+                    Una vez se hayan revisado los físicos se realiza una carta para la secretaria distrital de hacienda
+                    con la información de los conceptos varios de cada quince días
+               </li>
+               <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                         Nota:
+                    </b>
+                    Para los conceptos de Plusvalía y Registro anotación se realizan las entregas mensuales dentro de
+                    los primeros cinco días del mes siguiente
+               </li>
+          </ul>
+     </div>
+     <div class="doc-section" data-id="8">
+          8. INDICADORES
+     </div>
+     <div class="doc-content" data-id="8">
+     </div>
+     <div class="doc-section" data-id="9">
+          9. CONTROL DEL PROCEDIMIENTO
+     </div>
+     <div class="doc-content" data-id="9">
+          <table>
+               <thead>
+                    <tr>
+                         <th>Versión</th>
+                         <th>Elaborado</th>
+                         <th>Aprobado</th>
+                         <th>Fecha</th>
+                         <th>Descripción del Cambio</th>
+                    </tr>
+               </thead>
+               <tbody>
+                    {% for cambio in cambios %}
+                    <tr>
+                         <td>{{ cambio[2] }}</td>
+                         <td>{{ cambio[3] }}</td>
+                         <td>{{ cambio[5] }}</td>
+                         <td>{{ cambio[6] }}</td>
+                         <td>{{ cambio[7] }}</td>
+                    </tr>
+                    {% endfor %}
+               </tbody>
+          </table>
+     </div>
+</div>
+
+<!-- Botones y Modals para edición -->
+<button class="btn btn-outline-primary" id="openModalBtn" style="margin-top: 20px;">Editar Secciones</button>
+<div class="modal" id="sectionModal">
+     <div class="modal-content">
+          <span class="close-button">×</span>
+          <h2>Selecciona y Edita una Sección</h2>
+          <select id="sectionSelector">
+               <option value="">-- Selecciona --</option>
+          </select>
+          <textarea id="sectionContent" placeholder="Contenido..."></textarea>
+          <textarea id="sectionCambio" placeholder="Descripción del cambio..." required></textarea>
+          <button class="btn btn-outline-primary" id="saveChangesBtn" style="margin-top: 15px;">Guardar Cambios</button>
+     </div>
+</div>
+<script src="{{ url_for('static', filename='js/jquery.min.js')}}"></script>
+<script src="{{ url_for('static', filename='js/acordeon_doc.js')}}"></script>
+<script src="{{ url_for('static', filename='js/edita_procedimiento.js')}}"></script>
+
+{% endblock %}

@@ -1,0 +1,2225 @@
+{% extends 'home.html' %}
+{% block title %}Documentacion{% endblock %}
+{% block content %}
+<link href="{{ url_for('static', filename='css/acordeon_doc.css') }}" rel="stylesheet" />
+<link href="{{ url_for('static', filename='css/procedimientos.css') }}" rel="stylesheet" />
+
+<div id="documento" style="display:none;">procedimientos/HTML/PRO-PR-026 Impuestos Nacionales y Tributos Aduaneros
+    Occidente.html</div>
+<div id="nombre_documento" style="display: none;">PRO-PR-026 Impuestos Nacionales y Tributos Aduaneros Occidente</div>
+<h1>PRO-PR-026 Impuestos Nacionales y Tributos Aduaneros Occidente</h1>
+{% for cambio in cambios %}
+{% if loop.first %}
+<h3>Version: {{cambio[3]}}</h3>
+{% endif %}
+{% endfor %}
+<br />
+<div class="doc-accordion">
+    <div class="doc-section" data-id="1">
+        1. OBJETIVO
+    </div>
+    <div class="doc-content" data-id="1">
+        <p>
+            Procesar y Administrar los Impuestos Nacionales recaudados y pactados con Banco de Occidente y dar
+            cumplimiento al Sistema de Gestión Integrado
+        </p>
+    </div>
+    <div class="doc-section" data-id="2">
+        2. ALCANCE
+    </div>
+    <div class="doc-content" data-id="2">
+        <p>
+            Este procedimiento aplica a los servicios de Impuestos Nacionales banco de occidente implementados por
+            Digicom System Corporation S. A
+        </p>
+    </div>
+    <div class="doc-section" data-id="3">
+        3. RESPONSABLES
+    </div>
+    <div class="doc-content" data-id="3">
+        <p>
+            Director de Operaciones, Líder de procesos, Auxiliares de proceso y Digitador
+        </p>
+    </div>
+    <div class="doc-section" data-id="4">
+        4. DEFINICIONES
+    </div>
+    <div class="doc-content" data-id="4">
+        <p>
+            Autoadhesivo: Es un soporte de texto o imágenes impresas o xerografiadas sobre una lámina de vinilo o papel
+            cuya parte posterior se ha dispuesto de una fina capa de adhesivo. Archivo Plano: Archivo de datos que se
+            utiliza para intercambio de información entre las diferentes aplicaciones. Cantar: Dar lectura en voz alta
+            frente a cámaras de audio y video del contenido en las tulas o sobres recibidos del cliente. FTP: (File
+            Transfer Protocol) es un protocolo de transferencia de archivos entre sistemas conectados a una red TCP
+            (Protocolo de Control de Transmisión) basado en la arquitectura cliente-servidor, de manera que desde un
+            equipo cliente nos podemos conectar a un servidor para descargar archivos desde él o para enviarle nuestros
+            propios archivos independientemente del sistema operativo utilizado en cada equipo. LOG bancario: Es el
+            registro de las transacciones de una fecha de recaudo. Precinto: Suncho de seguridad numerado que una vez
+            colocado en el medio de transporte de documentos o valores no puede ser violentado ni roto excepto por el
+            destinatario. Tula: Empaque en material de lona que permite el transporte seguro de documentos
+        </p>
+    </div>
+    <div class="doc-section" data-id="5">
+        5. DOCUMENTOS DE REFERENCIA
+    </div>
+    <div class="doc-content" data-id="5">
+        <ul>
+            <li><i class="fa-regular fa-circle-check"></i> Resolución 1188 de 2007 de la DIAN</li>
+            <li><i class="fa-regular fa-circle-check"></i> Resolución 478 de 2000 de la DIAN</li>
+            <li><i class="fa-regular fa-circle-check"></i> Memorando 561 septiembre 23 de 2008 de la DIAN</li>
+            <li><i class="fa-regular fa-circle-check"></i> Resolución 436 del 24 de agosto de 2010. 13/11/2024 IMPUESTOS
+                NACIONALES Y TRIBUTOS ADUANEROS OCCIDENTE</li>
+        </ul>
+    </div>
+    <div class="doc-section" data-id="6">
+        6. Descripción Del Proceso De Formularios Litográficos
+    </div>
+    <div class="doc-content" data-id="6">
+        <div class="doc-subsection">
+            6.1. Recepción De Información Bancaria
+        </div>
+        <div class="doc-subcontent">
+            <div class="doc-subsection">
+                6.1.1. Recepción Y Descarga De Log Bancario
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Líder De Proceso / Auxiliar De Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No Aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        El log bancario se descarga desde el canal dedicado con el banco el cual se encuentra en la
+                        ruta: \\ServidorOcc\Confidencial_Nacionales23_aaaa\Canal el log viene con el nombre
+                        A021.lst.pgp, el Banco lo coloca en la ruta Sitio remoto/externo/digicom
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img001.png')}}"
+                            alt="">
+                        Los archivos del log bancario se sitúan en el Servidor en la carpeta
+                        Servidor\Confidencial_In23_aaaa /data/aaammmdd Para descomprimir el Log y las imágenes enviadas
+                        por el Banco se utiliza la herramienta WinPT la cual se encuentra en el escritorio del equipo
+                        del líder de proceso.
+                        Con el mouse clic derecho, salen las opciones de esta herramienta, se da la opción File Manager
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img002.png')}}"
+                            alt="">
+                        Se copia el archivo en la ventana que aparece, nuevamente con clic derecho del mouse se da la
+                        opción Decrypt, en el cual solicita una contraseña.
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img003.png')}}"
+                            alt="">
+                        Esta contraseña la tiene el Líder del proceso.
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img004.png')}}"
+                            alt="">
+                        <b>Nota 1:</b> Se debe verificar que el programa FileZilla esté funcionando en el ServidorOcc al
+                        cual debemos ingresar por escritorio remoto y verificamos que esté conectado al usuario
+                        Occidente, este proceso se debe realizar por lo menos cada 2 horas para refrescar el aplicativo.
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img005.png')}}"
+                            alt="">
+                        <b>Nota 2:</b> el archivo A021.lst.pgp debe llegar entre las 9:00 p.m. y 10:00 p.m. de la noche
+                        del día, si el archivo no llega por el canal se debe solicitar al funcionario del banco
+                        correspondiente.
+                        <b>Nota 3:</b> El archivo A021.lst se debe renombrar de la siguiente forma 0dd.lst donde dd es
+                        el día de recaudo
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.1.1.2 Carga Log Bancario
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Líder De Proceso / Auxiliar De Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No Aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Se ingresa al aplicativo IN_23.exe el cual se encuentra en el
+                        \\servidor\Confidencial_Aplic_in23aaaa, se ingresa contraseña del usuario
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img006.png')}}"
+                            alt="">
+                        hacer la respectiva activación de la fecha de movimiento por el aplicativo en el siguiente menú:
+                        Botón administración acto seguido procedemos a dar clic estado fecha de movimiento.
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img007.png')}}"
+                            alt="">
+                        Para hacer la respectiva activación se debe registrar la fecha de recaudo en fecha de proceso
+                        aaaa/mm/dd, damos la opción activar y luego damos aceptar
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img008.png')}}"
+                            alt="">
+                        Menú principal opción: Procesos banco/Carga archivo de caja diario botón: cargar
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img009.png')}}"
+                            alt="">
+                        el aplicativo muestra un mensaje indicando que se finalizó el proceso, clic en botón: salir,
+                        ingresar nuevamente al menú principal Procesos banco\ver archivo de caja de la fecha
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img010.png')}}"
+                            alt="">
+                        clic en el botón: Enviar archivo de caja a Excel, el archivo queda en el servidor:
+                        \\ServidorOcc\Confidencial_Nacionales23_aaaa\23\procesos_23\informes\aaaammdd.
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img011.png')}}"
+                            alt="">
+
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.1.2. Recepción De Imágenes
+            </div>
+            <div class="doc-subcontent">
+            </div>
+            <div class="doc-subsection">
+                6.1.2.1 Descargar Imágenes
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Líder De Proceso / Auxiliar De Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No Aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Ingresar al canal dedicado ubicado en la ruta: Servidor
+                        producción\Confidencial_Nacionales23_aaaa\Canal seleccionamos todos los archivos que estén con
+                        la misma fecha de modificación y se descargan, luego con la herramienta WinPT se descomprimen
+                        para poder trabajarlas. Ver actividad 6.1.1
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Nota:
+                        </b>
+                        se debe verificar que el programa FileZilla esté funcionando en el ServidorOcc al cual debemos
+                        ingresar por escritorio remoto y verificamos que esté conectado al usuario Occidente, este
+                        proceso se debe realizar por lo menos cada 2 horas para refrescar el aplicativo
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.1.2.2 Cargar Logs Caja
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Líder De Proceso / Auxiliar De Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No Aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Este proceso se realiza para que al momento de descargar los físicos que llegaron de Bogotá,
+                        realice el cruce Código de Barras Vrs Log Bancario. Se ingresa al aplicativo IN_23.exe
+                        ingresamos al menú principal opción: Procesos Banco/Registro de llegada de físicos por lector de
+                        código de barras en el campo de Rango de fechas colocar la fecha que se está procesando, dar
+                        clic en el botón: Cargar Logs de caja, nos muestra la cantidad de registros que vienen en el log
+                        de caja.
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img012.png')}}"
+                            alt="">
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.1.2.3 Pasar Imágenes Al Servidor
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Líder De Proceso / Auxiliar De Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No Aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Después de descomprimir las imágenes (ver actividad 6.1.2.1) se debe verificar que no hallan
+                        imágenes en blanco, archivos multi página, ni archivos en formatos diferentes a TIFF. Para el
+                        caso de las imágenes que llegan en blanco, mal digitalizadas, estas se proceden a eliminarlos.
+                        Ingresar al programa Img_Banco23.exe el cual se encuentra en la ruta:
+                        \\Servidor\Confidencial_Nacionales23_aaaa\23\procesos_23\ProcesoOccidente\Img_Banco07\bin\
+                        Debug, opción: Archivo/Imágenes Zip dar clic en el botón: aceptar, "este procedimiento se
+                        realiza para que me separe los archivos multi página", las imágenes resultantes quedan en la
+                        ruta: C:\example\extract\aaaammdd\TOT_IMG_IND
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img013.png')}}"
+                            alt="">
+                        Para los archivos que viene diferentes a TIFF se debe seleccionar todos los archivos con las
+                        extensiones diferentes dar clic derecho seleccionamos la opción combinar archivos en un único
+                        PDF, el archivo generado se abre y dar en la opción guardar como, examinar y en tipo seleccionar
+                        la opción Archivos TIFF (*.TIFF) una vez realizado esto dar clic en el botón guardar. una vez
+                        verificadas todas las imágenes y se encuentren en formato .TIFF se procede a cortar las imágenes
+                        y copiarlas en la ruta: \\ServidorOcc\Confidencial_Nacionales23_aaaa\23\index_Global
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.1.3 Recepción De Tulas
+            </div>
+            <div class="doc-subcontent">
+            </div>
+            <div class="doc-subsection">
+                6.1.3.1 Recibir Tula Que Contiene Documentos
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Auxiliar De Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No Aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        El banco envía en una tula sellada, la cual contiene la documentación de impuestos Nacionales y
+                        tributos Aduaneros. Esta tula debe ser recogida por el mensajero de Digicom en las instalaciones
+                        del banco en el horario asignado
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Nota:
+                        </b>
+                        el horario para recoger la tula es entre las 10:00 a.m. y 12:00 a.m. de la mañana. Adicional se
+                        recoge tula los viernes en la noche cuando cae lunes festivo
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.1.3.2. Organización De Tula
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Auxiliar De Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No Aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Una vez llegue la tula madre se procede a realizar el de destape, esta tula contiene las tulas
+                        de cada oficina, estas tulas se deben organizar en forma ascendente por código de oficinas
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.1.3.3. Verificación De Cámaras
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Auxiliar De Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        Pro-F-045 Control De Pruebas De Audio Y Video
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> Validar que la cámara se encuentre encendida y
+                                que el sonido esté funcionando correctamente.</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Realizar una prueba de audio y video, se
+                                diligencia el formato PRO-F-045 Control de Pruebas de Audio y Video.</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Si la prueba es efectiva se procede a cantar,
+                                de lo contrario se debe solicitar soporte a T. I.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.1.3.4. Verificar Los Documentos Contenidos En Los Paquetes
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No Aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Se procede a cantar las tulas ante cámaras, mencionando de manera clara la oficina que remite la
+                        tula, el número de precinto, la fecha de recaudo, el convenio al cual pertenecen y la cantidad
+                        de documentos enviados; los cuales deben coincidir con la tapa que remite cada oficina, si se
+                        presenta diferencia se deja realiza la claridad de la diferencia ante cámara, al desocupar la
+                        tula, se muestra ante cámara y se canta como tula vacía, lo cual certifica que no hay más
+                        documentos al interior de la tula, Al momento que se esté realizando la apertura de tulas se
+                        detecta:
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> Tulas sin Precinto.</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Autoadhesivos y formularios deteriorados o en
+                                mal estado.</li>
+                        </ul>
+                        Se informa ante cámara la inconsistencia que se encontró, Al terminar se realiza la devolución
+                        de las tulas vacías al banco
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Nota:
+                        </b>
+                        Durante el proceso de apertura de tulas, es posible que lleguen documentos que no pertenecen al
+                        proceso, estos documentos se cantan ante cámara como documento mal remitido mencionando
+                        claramente la oficina que los envía y se entregan al líder de proceso para que realice el
+                        proceso correspondiente
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.1.4 Control Documental
+            </div>
+            <div class="doc-subcontent">
+            </div>
+            <div class="doc-subsection">
+                6.1.4.1. Revisar Los Documentos
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Auxiliar De Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No Aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        una vez terminado el proceso de cantado de tulas los documentos de impuestos nacionales se deben
+                        organizar por: 
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> Oficina</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Fecha de Recaudo</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Documentos doble código de barras (XML)</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Documentos Litográfico</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Tipo de impuesto (490, 500, 510, 690)</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.1.4.2. Pasar Los Documentos Por El Lector De Código De Barras
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Auxiliar De Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No Aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Se empieza a pasar por el lector de código de barras los autoadhesivos de los documentos
+                        litográficos en el aplicativo IN_23.exe en el menú principal opción: Procesos Banco\Registro de
+                        llegada de físicos por lector de código de barras,
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img014.png')}}"/>
+                        se asigna la fecha en el campo "fecha de
+                        recaudo a descargar", nos ubicamos en el campo "código de barras stiker" y comenzamos a hacer la
+                        descarga de los formularios litográficos por medio de la lectora de código de barras. Para los formularios XML se realiza el
+                        mismo proceso, pero nos ubicamos en el campo “Código de Barras del Formulario” y realizamos la
+                        descarga correspondiente. 
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img015.png')}}"/>
+                        Esta actividad es realizada para controlar faltantes y verificar
+                        totales de los formularios originales 
+                        <b>Nota 1:</b> Tener en cuenta al momento de estar realizando la
+                        descarga por lector de barras: El aplicativo avisa cuando un formulario no está en log, o no es
+                        XML, estos formularios se separan y se pasan al líder de procesos (se debe anotar en su tapa
+                        respectiva cuando se saca un documento y el caso específico). 
+                        <b>Nota 2:</b> Hay documentos que al
+                        pasar por lector presenta el mensaje "la fecha original es diferente a la fecha reportada.
+                        aaaammdd desea continuar" se debe informar al líder del proceso para que valide la información e
+                        indique con qué fecha se da ingreso
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.1.4.3. Revisión Y Carga De Inconsistencias
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Auxiliar De Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        Pro-F-005 Tabla De Inconsistencias
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Los documentos físicos se deben revisar uno a uno con el fin de identificar las posibles
+                        inconsistencias en la recepción del impuesto teniendo en cuenta los siguientes campos: 
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> Año</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Periodo</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Concepto</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Administración</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Nombre o Razón Social</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Que sean documentos originales</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Para el caso del formulario litográfico verificar que la leyenda transversal sea “litográfico”</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Sello de impuestos legible (en el campo destinado para tal fin) y que corresponda a la fecha de recaudo y jornada, Verificar Pago total: Igual a “0” sin pago. Pago total Mayor a “0” con pago.</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Actividad económica</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Firma del contribuyente, contador o revisor fiscal para el caso de las declaraciones, en el caso de pagos como 490 o 690 no es inconsistencia que falte la firma</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Adhesivo en campo destinado para este fin y que se encuentre en buen estado</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Se debe verificar que ningún campo numérico este en blanco, mínimo debe contener el número cero “0”.</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Documentos con deterioro</li>
+                        </ul>
+                        una vez se termina
+                        de revisar los documentos se procede a ingresar los registros al aplicativo IN_23.exe las
+                        inconsistencias encontradas por el menú principal: Inconsistencias\Registro de inconsistencias
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img016.png')}}"/>
+                        ingresamos el adhesivo en la casilla número de stiker o el número de formulario en la casilla
+                        número de formulario del XML lateral y seleccionamos el botón: adicionar Stiker o adicionar XML
+                        el registro nos aparece en la tabla y en el campo inconsistencia reportamos el código
+                        diligenciado en el documento PRO-F-005 Tabla de Inconsistencias, una vez terminado de ingresar
+                        todas las inconsistencias en el campo rango de fechas desde hasta diligenciamos la fecha más
+                        antigua a la más reciente y seleccionamos el botón: inconsistencias x rango de fechas el informe
+                        generado queda en la ruta: \\ServidorOcc\Confidencial_in23_aaaa\Inconsistencias\envios 
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img017.png')}}"/>
+                        para
+                        revisar las inconsistencias del resto del país ingresamos por el aplicativo IN_23 en el menú
+                        principal opción: Occidente\revisión de formulario por imágenes 
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img018.png')}}"/>
+                        se da clic en el botón: asignar imagen si la imagen tiene
+                        inconsistencia se da clic en el botón: incluir y se asigna la inconsistencia correspondiente
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img019.png')}}"/>
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.1.4.4. Certificar Documentos Físicos
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Auxiliar De Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No Aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Si algún documento no cumple con lo establecido anteriormente se debe certificar el documento al
+                        respaldo. Certificar es describir la novedad que presenta el documento con una leyenda en la
+                        parte posterior del documento, (estas leyendas se encuentran especificadas en el documento
+                        PRO-F-006 Leyendas para Certificación Impuestos Nacionales, anexo a la certificación se debe
+                        colocar el sello legible con la fecha de recaudo y forma de pago correcta y se debe incluir el
+                        nombre completo de la persona autorizada por el banco
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Nota:
+                        </b>
+                        las inconsistencias detectadas se deben enviar al banco para que le coloquen el sello y la firma
+                        ya que ellos son los únicos autorizados para realizar esto. 
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img020.png')}}"/>
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.1.4.5. Reportar Inconsistencias Documentos Físicos
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Auxiliar De Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No Aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Después de realizada la certificación y carga de inconsistencias de cada documento se debe
+                        ingresar las inconsistencias en el aplicativo y generar el Informe de Inconsistencia Diarias, y
+                        enviar el archivo por correo. Por el menú Inconsistencias/Registro de inconsistencias
+                        dependiendo el tipo de formulario si es litográfico se ingresa el número de adhesivo, si el
+                        formulario es XML se ingresa el número de formulario.
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img021.png')}}"/>
+                        Para exportar y generar el informe en la
+                        parte inferior derecha se da el rango de la fecha y se da clic en inconsistencias x rango de
+                        fechas archivo se genera en la ruta \\Servidor\Confidencial_in23_aaaa\Inconsistencias\envios y
+                        el nombre del archivo es InconDias_aaaammdd_aaaammdd
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Nota:
+                        </b>
+                        Este archivo se debe enviar diariamente y se consolida para enviar cada 03 días 13/11/2024
+                        IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS OCCIDENTE
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.1.4.6. Reporte De Documentos Faltantes Físico
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Auxiliar De Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No Aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Después de que los documentos se pasan por el lector de código de barras debemos generar el
+                        archivo “faltantes_aaaammdd_aaaammdd”, el cual se genera en el aplicativo IN_23.exe, menú
+                        principal en la opción: Procesos banco\Registro de llegada de físicos por lector de código de
+                        barras casilla rango de fechas desde hasta con la fecha de recaudo trabajada, le damos clic en
+                        el botón: faltantes el cual deja el archivo en la ruta:
+                        \\ServidorOcc\Confidencial_Nacionales23_aaaa\23\procesos_23\Faltantes_Fisicos revisamos y
+                        depuramos el archivo generado contra la documentación física, una vez realizada esta actividad
+                        se procede a enviar un correo con los faltantes al funcionario del banco
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img022.png')}}"/>
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.1.4.7. Generación De Formatos Para Entrega De Documentos
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Auxiliar De Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No Aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Para generar estas planillas de entrega, ingresamos al aplicativo IN_23 se ingresa la 
+                        fecha que vamos a generar en emenu principal opcion: Informes\Formatos de entrega de documentos
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img023.png')}}"/>
+                        se diligencia los campos: desde hasta con la fecha de recaudo y vamos seleccionando los botones
+                        (ciudades) a generar por intervalo vamos dando clic o seleccionando el tipo de documento
+                        (nacionales, aduanas) para nacionales seleccionamos la opción todos, se debe ir guardando los
+                        archivos en la ruta:
+                        \\ServidorOcc\Confidencial_in23_aaaa\data\23\aaaammdd\Formatos Pdf, una vez terminada la
+                        generación ingresamos a la ruta mencionada y validamos el contenido del archivo
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img024.png')}}"/>
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.1.5 Indexación
+            </div>
+            <div class="doc-subcontent">
+            </div>
+            <div class="doc-subsection">
+                6.1.5.1. Carga De Imágenes Índex Global
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Auxiliar De Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No Aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Una vez se encuentren las imágenes en la carpeta índex global, se realiza la carga ingresando al
+                        aplicativo IN_23.exe, en la fecha del día y se selecciona en el menú principal la opción:
+                        Grabación/indexador global/carga, dar clic en el botón: Cargar nuevas imágenes, aceptar y salir.
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img025.png')}}"/>
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img026.png')}}"/>
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.1.5.2. Captura Global Automática
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Auxiliar De Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No Aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Realizada la carga de imágenes por el índex global se procede a realizar una captura automática
+                        por el aplicativo IN_23.exe, en la fecha de recaudo, se selecciona en el menú principal la
+                        opción: Grabación/indexador global/indexador.
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img027.png')}}"/>
+                        Dar clic en el recuadro de Solo automático y paso
+                        seguido clic en el botón: Asignar imagen, una vez terminado este proceso se da clic en botón:
+                        Desmarcar documentos no leídos para grabación manual, esto con el fin de realizar la captura
+                        manual de los documentos que no reconoció el aplicativo
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img028.png')}}"/>
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.1.5.3. Carga De Imágenes
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Auxiliar De Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No Aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Una vez terminada la captura global, se realiza la carga de imágenes ingresando al aplicativo
+                        IN_23.exe, en la fecha de recaudo y se selecciona en el menú principal la opción:
+                        Grabación/cargar imágenes a indexar, seleccionar botón: cargar nuevas. 
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img029.png')}}"/>
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Nota:
+                        </b>
+                        se debe realizar la carga en el adicional 5 de la fecha de recaudo para indexar las aduanas
+                        bajadas por internet (500), para cargar documentos XML se procede a colocar la imagen en la
+                        siguiente ruta: \\ServidorOcc\Confidencial_Nacionales23_aaaa\23\index_xml\aaaamm una vez
+                        realizado esto se procede a realizar la carga por el aplicativo de nacionales en el menú
+                        principal opción: Grabación/carga de imágenes a indexar XML botón: Cargar nuevas imágenes,
+                        aceptar, salir
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.1.5.4. Captura De Información
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Auxiliar De Proceso / Digitador
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No Aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Para realizar la captura de los documentos litográficos se ingresa por el aplicativo de
+                        nacionales en el menú principal opción: Grabación/indexador automático se da clic en el botón:
+                        Asignar imagen y se procede a capturar los siguientes campos: 
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> Tipo de formulario</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Número de autoadhesivo</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Fecha de recaudo</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Pre impreso</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Número de formulario</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Año (solo para los formularios 210)</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Pago total</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Concepto para los formularios 490 y 690.</li>
+                        </ul>         
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img030.png')}}"/>         
+                        Para indexar formularios doble código de barras se ingresa por
+                        el menú principal opción: Grabación/indexador automático XML se da clic en el botón: asignar
+                        imagen y se procede a capturar los campos: 
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> Número de formulario</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Tipo de formulario</li>
+                        </ul>
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img031.png')}}"/>
+                         Según la calidad de la imagen da
+                        alguna de las opciones: (Procesar: siempre que la imagen este legible y en óptimas condiciones,
+                        Ilegible: si vienen mal escaneadas o si no tiene buena calidad, Sobrante; para las imágenes que
+                        no vienen en el log, el cual el aplicativo arroja un mensaje, es muy importante revisar muy bien
+                        el número capturado que concuerde con la imagen antes de dar esta opción.)
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Nota:
+                        </b>
+                        Se validan las imágenes que no fueron indexadas (rechazadas) por los digitadores para establecer
+                        que el motivo de rechazo sea el correcto y se debe asegurar el procesamiento de cada una de
+                        ellas
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.1.5.5. Generar Informe Diario De Faltantes Reales
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Líder De Proceso / Auxiliar De Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No Aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Para generar faltantes se necesita haber indexado la totalidad de las imágenes recibidas, se
+                        ingresa al aplicativo IN_23.exe por el menú de iconos "Ver registros Indexados" damos clic en el
+                        botón: Faltantes recaudo el cual nos genera el archivo recaudobco_faltantes.xls el cual queda en
+                        la ruta: \\ServidorOcc\Confidencial_Nacionales23_aaaa\23\procesos_23\informes\aaaammdd, se
+                        verifica los registros del archivo contra la documentación física, se envía por correo
+                        electrónico al banco para recuperar las imágenes faltantes. 
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img032.png')}}"/>
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.1.5.6. Reporte De Documentos Con Inconsistencias
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Líder De Proceso / Auxiliar De Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No Aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Una vez realizada la totalidad de la indexación procedemos a verificar si hay documentación con
+                        algún tipo de inconsistencias (fuera de línea, trocados, sin adhesivos, marca de agua). Estas
+                        novedades las podemos verificar por el aplicativo IN_23.exe en el menú principal opción:
+                        Grabación\indexador global\carga el cual nos muestra una pantalla donde podemos verificar los
+                        contadores los cuales deberían estar en 0, damos clic en el botón: copiar imágenes sobrantes a
+                        subdirectorio, si hay imágenes con inconsistencia el aplicativo las deja en la ruta:
+                        \\ServidorOcc\Confidencial_Nacionales23_aaaa\23\index_Global\Sobrante. Para realizar la
+                        validación de estas imágenes tenemos que verificar los datos del documento contra el log
+                        bancario el cual lo encontramos en la ruta:
+                        \\ServidorOcc\Confidencial_Nacionales23_aaaa\23\procesos_23\informes\aaaammdd con el nombre
+                        cajaaaaammdd.xsl, se realiza búsqueda de: 
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> Número de formulario.</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Número de adhesivo (si lo tiene).</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Nit.</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Valor.</li>
+                        </ul>
+                        Si encontramos coincidencias con estos datos en el log se procede a
+                        reportar la inconsistencia correspondiente. 
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> Trocado: se encuentra Nit del contribuyente y valor, pero no coincide el número de formulario.</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Fuera de línea: no se encuentra ningún dato.</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Sin adhesivo: se encuentra el número de formulario y tiene adhesivo en el log bancario.</li>
+                        </ul>
+                        estas inconsistencias se reportan al banco por medio de correo electrónico 
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img033.png')}}"/>
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.1.6 Grabación
+            </div>
+            <div class="doc-subcontent">
+            </div>
+            <div class="doc-subsection">
+                6.1.6.1. Capturar Campo A Campo La Información De Los Formularios
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Digitador
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No Aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Para realizar la captura de los documentos se ingresa por el aplicativo de nacionales, se
+                        ingresa la fecha de recaudo y se selección el menú principal en la opción: Grabación/ imágenes
+                        automáticas opción: nacionales o aduanas. Sale una pantalla donde damos clic en el botón:
+                        Asignar registró.
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img034.png')}}"/>
+                        Se debe capturar campo a campo la información contenida en los documentos, la
+                        imagen es asignada aleatoriamente por el sistema. 
+                        <b>Nota 1: </b>No se debe digitar la imagen cuando es
+                        ilegible, la imagen no digitada es revisada por el Líder del proceso. 
+                        <b>Nota 2: </b>La segunda captura se realiza por un usuario diferente a quien hizo la primera captura
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.1.6.2. Inconsistencias Generadas Durante La Digitación
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Auxiliar De Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No Aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Las imágenes no digitadas son revisadas luego de terminar la grabación por el encargado del
+                        proceso, se verifica el motivo por el cual no fueron grabadas y según su inconsistencia se busca
+                        el físico y se reemplazan la imagen.
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.1.6.3. Validar Capturas
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Auxiliar De Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No Aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Para realizar la validación se realiza por el aplicativo de nacionales ingresar a la fecha de
+                        recaudo y seleccionar el icono Comparación Automática.
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img035.png')}}"/>
+                        Se selecciona el tipo de formulario que
+                        se desea validar y clic en iniciar validación, nos muestra una imagen con los campos a comparar
+                        y verificar y seleccionar cual dato es el correcto
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img036.png')}}"/>
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Nota:
+                        </b>
+                        Si las dos capturas no coinciden a la registrada en la imagen, se debe capturar la información
+                        correcta. Si la información no es legible se marca “Campo legible”, sí tiene alguna duda le da
+                        la opción: Omitir información la cual pasaría a revisión por él encargado del proceso
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.1.7 Generar Archivos
+            </div>
+            <div class="doc-subcontent">
+            </div>
+            <div class="doc-subsection">
+                6.1.7.1. Generar Informes Duplicados
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Auxiliar De Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No Aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Una vez cargado el archivo A021 (log bancario) se genera un archivo de documentos duplicados en
+                        la ruta:
+                        \\ServidorOcc\Confidencial_Nacionales23_aaaa\23\procesos_23\informes\aaaammdd\recaudobco_
+                        formulario al cual se debe arreglar márgenes letra etc. Y se envía al banco por correo
+                        electrónico
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.1.7.3. Adhesivos Anulados
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Líder De Proceso / Auxiliar De Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No Aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Para generar el salto de adhesivos se ingresa por el menú Generación archivos planos&gt; Carga
+                        de cintas aceptadas por la opción Informe saltos de adhesivos aceptados en cinta o anulados,
+                        previamente se debe dar el rango de fechas a generar, actualmente el Banco de Occidente solicita
+                        la generación de este informe mensualmente. El archivo generado queda en la ruta
+                        \\Servidor\Confidencial_in23_aaaa\procesos, y queda con el nombre
+                        rangos_en_logbanco_aaaammdd_aaaammdd se envía por correo al Banco para su respectiva aprobación.
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img037.png')}}"/>
+                        Luego de la aprobación del Banco la cual se realiza también por correo donde informan cuales son
+                        los adhesivos que se deben anular, con esta información ingresamos. 
+                        El aplicativo menú principal en la opción: Grabación\Captura de Documentos Anulados
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img038.png')}}"/>
+                        se diligencia las casillas oficina,
+                        cajero, consecutivo desde y consecutivo hasta con el número de adhesivo que se va a anular. Si
+                        llega haber más de un adhesivo de la misma oficina para anular estos tienen que ser consecutivos
+                        y en la casilla consecutivo desde se diligencia con el primer número consecutivo y en la casilla
+                        consecutivo hasta con el último número de consecutivo, se debe verificar la cantidad que se va a
+                        anular con la casilla: Cantidad.
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img039.png')}}"/>
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.1.7.4. Informe 1188
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Líder De Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No Aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Se genera el archivo por el aplicativo IN_23.exe por el menú principal en la opción:
+                        informes\informe de recaudos y consignaciones 1188,
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img040.png')}}"/>
+                        en el campo rango de fecha se ingresa el
+                        periodo a generar y se le da clic en el botón: aceptar, el archivo generado queda en la ruta:
+                        \\ServidorOcc\Confidencial_in23_aaaa\procesos\reportes con el nombre Inf_1188, abrimos el
+                        archivo y en la pestaña 2VEZSALDOS se debe ir diligenciando las columnas datos1188 y consignado
+                        y validar que las cantidades coinciden con lo reportado al Banco. En la pestaña 2VEZ se
+                        encuentra discriminado el recaudo del mes por fecha, horario, tipo de formulario, concepto,
+                        cantidad de y valores por tipo de documento, este es con el que cuadra el Banco el cual debe
+                        coincidir con la información que tiene Digicom.
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img041.png')}}"/>
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img042.png')}}"/>
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Nota:
+                        </b>
+                        una vez verificado el archivo se envía al banco para su validación y control, este informe el
+                        banco lo genera para presentación a la Dian, pero debe estar la información comparada entre Digicom-Banco
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.1.7.5. Facturación
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Líder De Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No Aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        La facturación se debe realizar una vez generado los medios magnaticos de todo el mes, se genera
+                        por el aplicativo en la opción de: herramientas/facturación 
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img043.png')}}"/>
+                        ingresamos las fechas en el campo de rango de fechas desde hasta y
+                        damos clic en generar factura una vez generado los archivos damos clic en el botón: Reporte Occidente
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img044.png')}}"/>
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Nota:
+                        </b>
+                        para occidente el rango de fecha debe ser un mes comprendido hasta corte del día 25 se envía al
+                        banco el archivo Reporte facturas Occidente_aaaammdd hasta aaaammdd el cual esta generado en la
+                        ruta: \\ServidorOcc\Confidencial_in23_aaaa\procesos\factura\aaaa con el fin de cuadrar la
+                        factura antes de ser generada, La factura debe ser enviada al banco al 5 día del mes
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.1.8 Generar Archivos
+            </div>
+            <div class="doc-subcontent">
+            </div>
+            <div class="doc-subsection">
+                6.1.8.1. Revisar Grabación Y Cierre De Fechas
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Líder De Proceso / Auxiliar De Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No Aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Para la generación de cintas es de importancia tener grabado toda la información y no tener
+                        ninguna inconsistencia por resolver esto se verifica por el aplicativo de nacionales en el icono
+                        ver registros indexados, se generan los archivos de los botones: Faltantes recaudo, sobrantes
+                        recaudo, reportes de diferencias y formularios duplicados 
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img045.png')}}"/>
+                        Los cuales quedan en la siguiente ruta:
+                        \\Servidor\Confidencial_Nacionales23_aaaa\23\procesos_23 informes\aaaammdd con los siguientes
+                        nombres recaudobco_faltantes.xls, recaudobco_sobrantes.xls, diferenciasvslog.xls estos archivos
+                        deben estar en 0, si contienen algún error se tiene que validar la información y el porqué de la
+                        inconsistencia, estas inconsistencias pueden ser por valor o porque es un sobrante, para lo cual
+                        se debe validar con el documento físico y con el reporte que envía el Banco de inconsistencias,
+                        si el error es nuestro se procede a corregir, si es error de la Oficina solo se valida y se deja
+                        como lo requiere el Banco. Se debe haber ajustado las inconsistencias presentadas en el log
+                        bancario, el banco reporta por correo (modificación duplicados) registros duplicados anulados o
+                        con valor diferente el cual debe ser depurado en el sistema por el aplicativo en el menú
+                        principal opción: Occidente\gestión de duplicados, por esta opción se modifican las
+                        inconsistencias que el Banco requiere, si existe un formulario duplicado y es real, o por el
+                        contrario si se debe eliminar, cuando existen dos o más adhesivos mal reportados en el Log
+                        Bancario, cuando existen dos documentos reportados con diferente valor, también si existen
+                        documentos que se deben eliminar del sistema, estos son las inconsistencias que más se presentan
+                        y se requiere modificación en el sistema
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img046.png')}}"/>
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.1.8.2. Diferencias Contables
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Líder De Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No Aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Las diferencias contables son las que tienen que ver con los valores, el campo de concepto, los
+                        sobrantes y faltantes, estas se deben reportar por correo electrónico al banco en el momento que
+                        sean detectadas para que al momento de realizar los archivos finales como son la consignación y
+                        en los medios magnéticos, no se tengan diferencias. Cuando se detectan estas diferencias se debe
+                        validar que exista respuesta por parte del Banco. Estas diferencias se debieron haber reportado
+                        con anterioridad (ver 6.1.8.1)
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.1.8.3. Validar Log Y Log Adicional 05
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Líder De Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No Aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Se generan los informes por el aplicativo de nacionales en el icono ver Registros indexados, se
+                        da clic en el icono con la forma de hoja Excel 
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img047.png')}}"/>
+                        este informe queda generado en la ruta:
+                        \\ServidorOcc\Confidencial_Nacionales23_aaaa\23\procesos_23\informes\aaaammdd con el nombre
+                        log.xls y log_error.xls, se debe revisar el archivo log_error.xls el cual debe estar vacíos si
+                        presenta error se deben corregir por el aplicativo en el menú principal opción:
+                        Grabación\Imágenes\ver índex Digicom con imagen. 
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img048.png')}}"/>
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img049.png')}}"/>
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Nota:
+                        </b>
+                        para generar el log adicional 5 se debe ingresar a la fecha escogiendo el adicional, se debe
+                        aplicar el procedimiento ya mencionado
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.1.8.4. Generar Archivo Cruce Web Y Web Full
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Líder De Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        PRO-F-029 Cruce Web Full
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Una vez hechas las validaciones anteriores se debe revalidar la información por el aplicativo
+                        IN_23.exe en el icono ver registros indexados, damos clic derecho en el icono del candado y clic
+                        al botón: para quitar marcas de validación, salimos al menú principal del aplicativo e
+                        ingresamos por el icono comparación automática y volvemos a validar (la validación inicial se
+                        encuentra en el numeral 6.1.6.3) 
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img050.png')}}"/>
+                        Terminado este proceso generamos una malla por el menú principal opción; Generación de archivos
+                        planos/generación automática de tapas damos clic en el botón: Malla.
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img051.png')}}"/>
+                        Terminado esto ingresamos
+                        nuevamente por el menú principal opción: Procesos banco\ver archivo de caja de la fecha, damos
+                        clic en el botón: reporte web.
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img052.png')}}"/>
+                        Los archivos generados quedan en la ruta:
+                        \\Servidor\Confidencial_Nacionales23_aaaa\23\procesos_23\informes\aaaammdd procedemos a
+                        verificar el archivo PRO-F-029 crucewebfull.xlsx por el aplicativo IN_23.exe, en el menú
+                        principal opción: Grabación/imágenes/ver índex Digicom con imagen le damos clic en el botón:
+                        filtro desde TXT, nos dirigimos a la ruta:
+                        \\ServidorOcc\Confidencial_Nacionales23_aaaa\23\procesos_23\informes\aaaammdd Seleccionamos el
+                        archivo CruceWebfull_adhesivos.txt y procedemos a verificar los errores generados en el archivo
+                        los cuales se validan directamente contra las imágenes.
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img053.png')}}"/>
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Nota:
+                        </b>
+                        Este proceso se realiza en el momento de generar la consignación y/o medio magnéticos, pero se
+                        debe volver a generar y asegurarnos de que no existan nuevas inconsistencias
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.1.8.5. Revisar Y Cargar Formularios Inconsistencias
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Líder De Proceso / Auxiliar De Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        PRO-F-029 Crucewebfull
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Los números de formularios registrados en el archivo PRO-F-029 Crucewebfull correspondientes a
+                        las aduanas que no se dejan modificar desde la indexación se proceden a corregir por el
+                        aplicativo IN_52.exe en el menú principal opción: Herramientas/registros de stiker con
+                        formularios errados, en el cual ingresamos el número de adhesivo y creamos el registro con el
+                        número de formulario correcto una vez terminado damos clic en salir.
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img054.png')}}"/>
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.1.8.6. Validar Cinta Magnética
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Líder De Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No Aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Por el aplicativo IN_23.exe ingresar al menú principal en la opción: Generación de archivos
+                        planos\Validación de cinta,
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img055.png')}}"/>
+                        ingresamos la fecha de recaudo que estamos procesando en la casilla
+                        de rango de fechas y damos clic en el botón: aceptar, en este se observa los diferentes errores
+                        que pueden ser causa de rechazo de la cinta magnética. Se debe ir a las capturas y corregir
+                        según el error comparando contra la imagen; esto se realiza a través del aplicativo IN_23.exe en
+                        las opciones de indexación o grabación
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.1.8.7. Generar Consignación
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Líder De Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No Aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Una vez revisado el cruce web full procedemos a realizar la consignación, se ingresa al
+                        aplicativo IN_23.exe menú principal opción: Informes\reporte de consignación Res. 0478
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img056.png')}}"/>
+                        Se diligencia la casilla: fecha
+                        de recaudo aaaa/mm/dd con la fecha que vamos a procesar y se marca la casilla Generar desde
+                        índex Digicom; se procede a dar clic en Procesar. Después que arroje los valores y el total, se
+                        hace la verificación con el archivo de caja de la fecha que se está procesando en el cual que
+                        quitan los pagos con TIDIS y los pagos con concepto 44, también teniendo en cuanta si en la
+                        fecha procesada hubieron registros duplicados y si se tuvieron que eliminar. Después de la
+                        validación que los valores coincidan se da clic en Aceptar, con el archivo que se genera se
+                        procede a encriptarlo y enviarlo por correo electrónico al banco .
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img057.png')}}"/>
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.1.8.8. Generación De Cintas Magnéticas
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Líder De Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        PRO-D-EXT-006 Planilla Control Lectura Medios
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Revisado los pasos anteriores se procede a revalidar nuevamente y se generan tapas por el
+                        aplicativo IN_23.exe menú principal en la opción: Generación de archivos planos/generación
+                        automática de tapas, 
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img058.png')}}"/>
+                        se va seleccionando el tipo de tapas a generar (nacionales “grandes u
+                        otros”, aduanas) una vez generada la primera planilla 
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img059.png')}}"/>
+                        se vuelve a ingresar al menú principal del
+                        aplicativo en la opción: Validación de cinta realizamos la consulta por el rango de fechas
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img060.png')}}"/>
+                        volvemos al menú principal opción: Generación de archivos planos/generación archivos planos por tipo 
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img061.png')}}"/>
+                        se selecciona el tipo de producto de acuerdo a las tapas generadas y se coloca la fecha de entrega y se seleccionan
+                        los tipos de productos a generar (el consecutivo o número de cinta lo genera automáticamente,
+                        pero se debe verificar que sea el consecutivo correcto contra las cintas enviadas el día
+                        anterior). 
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img062.png')}}"/>
+                        los archivos generados para envió quedan en la ruta:
+                        \\ServidorOcc\Confidencial_in23_aaaa\procesos\controlcintas\Dian\aaaammdd. para generar la
+                        planilla de envió a la Dian se ingresa por el menú principal opción: Administración\control de
+                        cintas llenamos la casilla filtro por fecha de envío y damos clic en el botón: generar planilla
+                        control de lectura 
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img063.png')}}"/>
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img064.png')}}"/>
+                        La planilla, que es un formato externo PRO-D-EXT-006 planilla control lectura medios, queda en la ruta:
+                        \\Servidor\Confidencial_in23_aaaa\procesos\controlcintas\planillas de envió el archivo generado
+                        se copia con el medio magnético y se envía por correo electrónico al banco.
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.1.8.9. Actualizar Control Cintas
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Líder De Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No Aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        El aplicativo va llevando un historial de las cintas generadas el cual se debe ir alimentando
+                        con los aceptados del medio magnético los cuales se guardan en la ruta:
+                        \\ServidorOcc\Confidencial_in23_aaaa\procesos\controlcintas\Aceptacion, primero se actualizan
+                        las cintas aceptadas por el menú Administración&gt; Control cintas Actualizar aceptadas
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img065.png')}}"/>
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img066.png')}}"/>
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.1.8.10. Carga Cintas Aceptadas
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Líder De Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No Aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Una vez aceptados los medios magnéticos debemos cargar los archivos al aplicativo IN_52.exe para
+                        eso debemos renombrar las carpetas generadas en la ruta:
+                        \\Servidor\Confidencial_In23_aaaa\procesos\CintasEnviadas (carpetas A de aduanas -G de grandes
+                        -O de otros) las cuales deberían quedar renombradas de la forma xxxxxx_aaaammdd_Aceptada,estos
+                        archivos se crean a medida que se generan las cintas una vez realizado este paso procedemos a
+                        ingresar al aplicativo por el menú principal opción: Generación de Archivos Planos\carga de
+                        cintas aceptadas 
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img067.png')}}"/>
+                        En el campo fecha de movimiento ingresamos la fecha del medio magnético
+                        aceptado seleccionamos la modalidad del mismo y en el campo número de cinta ingresamos el
+                        consecutivo del medio magnético, por ultimo damos clic en el botón: Cargar plano 
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img068.png')}}"/>
+                        13/11/2024
+                        IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS OCCIDENTE
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.1.9 Conformación De Paquetes
+            </div>
+            <div class="doc-subcontent">
+            </div>
+            <div class="doc-subsection">
+                6.1.9.1. Organizar Los Documentos Y Pasar Por Lector
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Auxiliar De Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No Aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Los documentos se encuentran en el área de documentación, procedemos a organizarlos por orden de
+                        oficina e intercalar la documentación con inconsistencias y que llegaron después de ser
+                        validadas por el Banco, luego se procede a separar la documentación. Los formularios se deben
+                        organizar siguiendo las siguientes especificaciones: 
+                        <b>Litográficos: </b>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> Fecha de recaudo</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Tipo de impuesto</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Organizar autoadhesivo en orden ascendente</li>
+                        </ul>
+                        <b>Código de barras laterales (XML)</b>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> Fecha de recaudo</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Tipo de impuesto</li>
+                        </ul>                        
+                        Una vez organizada la fecha a enviar, de documentos con doble
+                        código de barras, ingresar al aplicativo in_23.exe, en la barra de menú desplegamos la opción
+                        informe\formato de entrega de documentos XML manual, en la ventana abierta digitar número de
+                        planilla, digitar tipo de documento, asignar ciudad respectiva a enviar y empezar a pasar por el
+                        lector en orden los impuestos, se generan planillas de 200 documentos. 
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img069.png')}}"/>                       Al terminar dar clic en la opción faltantes, generar
+                        el archivo envioXML_faltantes.xls en la ruta
+                        \\Servidor\confidencial_nacionales23_aaaa\23\procesos_23\informes\aaaammdd, buscar los
+                        formularios que faltan e incluirlos en su respectivo paquete. Luego cuando la fecha ya está
+                        completa dar clic en la opción “generar” e imprimir los formato envío de documentos físicos
+                        tributarios y aduanero, en este caso para formularios con doble código de barras. 
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.1.9.2. Generar Listas De Punteo
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Auxiliar De Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No Aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Para el caso de litográficos tanto aduanas como nacionales que llegan de Bogotá: ingresar al
+                        aplicativo IN_23.exe, en el menú principal opción: Informes\Formato de entrega de documentos
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img070.png')}}"/>
+                        se
+                        diligencia los campos: desde hasta, fecha de entrega con la fecha de recaudo seleccionamos el
+                        tipo de impuesto (nacionales, aduanas), para nacionales damos clic en todos y no generar PDF y
+                        botón: generar, seleccionamos la opción de imprimir y escogemos la impresora PDF estos archivos
+                        los guardamos en la ruta: \\ServidorOcc\Confidencial_in23_aaaa\data\23\aaaammdd\Formatos Pdf,
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img071.png')}}"/>
+                        imprimimos el archivo y se puntea contra los físicos con el fin de verificar que se encuentran
+                        todos y en el mismo orden del listado, se debe contar al terminar el punteo para confirmar que,
+                        si tengan la misma cantidad, estas planillas se debe enviar al Banco para la respectiva firma.
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.1.9.3. Organizar Los Envíos
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Auxiliar De Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        PRO-F-008 Totales Por Tipo De Formulario
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Una vez conformado todos los paquetes y realizado las respectivas validaciones (conteo de
+                        documentos) procedemos a diligenciar el archivo PRO-F-008 Totales por tipo de formulario el cual
+                        contiene los totales de documentos y paquetes que se envían a la Dian, a este archivo se le debe
+                        colocar la fecha de entrega
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.1.9.4. Reporte Perdida de Documentos
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Responsable: </b>Auxiliar de procesos</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Registro: </b>: Pro-F-008 Totales Por Tipo De Formulario</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Descripción: </b>
+                        <p>En caso de pérdida de documentos el Banco se encarga de generar el denuncio y los soportes de este. Los soportes son los siguientes:</p>
+                        <ul>
+                            <li><i class="fa-solid fa-circle-check"></i> Carta del Banco (original y copia)</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Fotocopia del documento perdido debidamente certificado con nombre y cedula del Líder de cargo</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Denuncio por perdida</li>
+                            <li><i class="fa-solid fa-circle-check"></i> Planilla de envío. Se debe publicar la imagen del Denuncio por perdida en remplazo del formulario para dejar la evidencia.</li>
+                        </ul>
+                        <p><b>Nota:</b> se debe realizar la respectiva validación de información de la carta y denuncio con el documento.</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="doc-subsection">
+            6.2. Generación De Informes Publicación Planillas Pagina Digicom
+        </div>
+        <div class="doc-subcontent">
+            <ul>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Responsable:
+                    </b>
+                    Auxiliar De Proceso
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Registro:
+                    </b>
+                    No Aplica
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        DESCRIPCIÓN:
+                    </b>
+                    Las planillas que se radican en la DIAN, llegan y se valida que estén completas y firmadas por el
+                    funcionario de la DIAN, luego se digitalizan y se publican en la página de Digicom para la
+                    respectiva consulta del Banco.
+                </li>
+            </ul>
+        </div>
+        <div class="doc-subsection">
+            6.3. Generación Backup
+        </div>
+        <div class="doc-subcontent">
+            <ul>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Responsable:
+                    </b>
+                    Líder De Proceso
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Registro:
+                    </b>
+                    No Aplica
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Descripción:
+                    </b>
+                    Se ingresa por el aplicativo por la opción Administración Backup movimiento,
+                    <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img072.png')}}"/>
+                    Luego ingresa el rango de fecha y Aceptar
+                    <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img073.png')}}"/>
+                    El archivo queda en la ruta: C:\backupbackup_movimiento, al archivo que se genera
+                    se copia en el servidor en la ruta: Servidor\Confidencial_in23_aaaa\scanbackup_movimiento
+                </li>
+            </ul>
+        </div>
+        <div class="doc-subsection">
+            6.4. Informe 1187
+        </div>
+        <div class="doc-subcontent">
+            <ul>
+                <li><i class="fa-regular fa-circle-check"></i><b>Responsable: </b>Líder de Proceso</li>
+                <li><i class="fa-regular fa-circle-check"></i><b>Registro: </b>No Aplica</li>
+                <li><i class="fa-regular fa-circle-check"></i><b>Descripción: </b>
+                    Diariamente el banco envía un correo con los pagos electrónicos para cargarlos al 
+                    sistema de la fecha que se va a procesar para la generación del informe 1187, por lo tanto el archivo 
+                    .txt que se recibe, debe colocarse en la ruta
+                    \\192.168.70.125\Confidencial_in23_2021\data\23\AAAAMMDD. En el aplicativo se ingresa por la 
+                    opción grabación\carga de pagos electrónicos:
+                    <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img074.png')}}"/>
+                    En la ventana se da clic en la opción 1.Carga de pagos electrónicos y seleccionamos el archivo que 
+                    guardamos anteriormente en la misma ruta. Después damos clic en la opción 2.Grabar pago en la 
+                    fecha de movimiento. Luego se ingresa en el aplicativo en la opción informes para realizar la nueva 
+                    consignación del efectivo y los pagos electrónicos por la opción: 
+                    <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img075.png')}}"/>
+                    Cuando se haya generado la nueva consignación se debe ingresar en el aplicativo en la opción: 
+                    <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img076.png')}}"/>
+                    En la nueva ventana se escribe la fecha que se está procesando y la buscamos; es importante 
+                    verificar que el número de consecutivo de la fecha sea el más reciente para que contenga los 
+                    cambios realizados con la adición de los pagos electrónicos. Una vez encontrada la fecha y 
+                    detectado el consecutivo más reciente se da clic en ver y nos abrirá la siguiente ventana:
+                    <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img077.png')}}"/>
+                    En la columna Numsecc se debe ingresar los números de polígrafos enviados por el banco que se 
+                    encuentran en el cuerpo del correo enviado o en el archivo de polígrafos en libro de Excel. Después 
+                    de ingresar los datos y que coincidan los valores, damos clic en Generar R1187 para la creación del 
+                    archivo base que será cargado en el prevalidador para confirmar que no tenga errores.
+                    <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img078.png')}}"/>
+                    Se abre el aplicativo Img_Banco07 y procedemos a cargar en archivo ppal_XXX.csv que creamos 
+                    anteriormente cuando se ingresaron los consecutivos de los polígrafos y presionamos aceptar para 
+                    la creación del archivo XML que se guarda en la carpeta de la fecha procesada en la ruta 
+                    \\192.168.70.125\Confidencial_in23_2021\procesos\r1187. Una vez creado el archivo, abrimos el 
+                    prevalidador Dian en la ruta 
+                    \\192.168.70.125\Confidencial_Nacionales23_2021\Prevalidador_F1187v1-1.0.0-20_rc13, se debe 
+                    habilitar la edición del archivo para poder ingresar las opciones de cargar del archivo XML que 
+                    creamos.
+                    <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img079.png')}}"/>
+                    Entramos por la opción señalada para ingresar al formato y vamos a complementos de la cinta 
+                    opciones del Excel para poder cargar el archivo XML:
+                    <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img080.png')}}"/>
+                    Iniciamos cargando el archivo XML, después validamos la información de la lista desplegable 
+                    señalada donde podamos verificar que las secuencias y valores del consolidado de secuencias sea 
+                    correcto en comparación con lo enviado por el banco en el archivo de polígrafos. Y por último 
+                    generamos XML desde el prevalidador ya que con esto aseguramos que no haya errores.
+                    <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-026/img081.png')}}"/>
+                    Se diligencian lo datos del cuadro anterior con el l año en curso, numero de envío según el 
+                    consecutivo que se lleve fecha inicial y final que es la fecha que se está procesando y se da clic en 
+                    el botón de Generar XML y el archivo que resultante de este proceso y que queda en la ruta 
+                    \\192.168.70.125\Confidencial_Nacionales23_2021\Prevalidador_F1187v1-1.0.0-20_rc13\Salida, se 
+                    debe comprimir como ZIP y se copia el archivo en el servidor 192.168.0.28 en procesos23 en la 
+                    fecha actual y posteriormente se reporta por correo la publicación en la página de Digicom.
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="doc-section" data-id="7">
+        7. INDICADORES DE DESEMPEÑO
+    </div>
+    <div class="doc-content" data-id="7">
+        <p>
+            MEDIDO RESPONSABLE INDICADOR FRECUENCIA POR/MEDIO REVISIÓN Σ Total citas enviadas – Σ Cintas rechazas *100
+            Líder de Director de Mensual ----------------------------------- procesos procesos Σ Total citas enviadas
+        </p>
+    </div>
+    <div class="doc-section" data-id="8">
+        8. CONTROL DEL PROCEDIMIENTO
+    </div>
+    <div class="doc-content" data-id="8">
+        <table>
+            <thead>
+                <tr>
+                    <th>Versión</th>
+                    <th>Elaborado</th>
+                    <th>Aprobado</th>
+                    <th>Fecha</th>
+                    <th>Descripción del Cambio</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cambio in cambios %}
+                <tr>
+                    <td>{{ cambio[2] }}</td>
+                    <td>{{ cambio[3] }}</td>
+                    <td>{{ cambio[5] }}</td>
+                    <td>{{ cambio[6] }}</td>
+                    <td>{{ cambio[7] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Botón para abrir el modal -->
+<button class="btn btn-outline-primary" id="openModalBtn" style="margin-top: 20px;">Editar Secciones</button>
+<!-- El Modal -->
+<div class="modal" id="sectionModal">
+    <div class="modal-content">
+        <span class="close-button">×</span>
+        <h2>Selecciona y Edita una Sección</h2>
+        <label for="sectionSelector">Sección:</label>
+        <select id="sectionSelector">
+            <option value="">-- Selecciona una sección --</option>
+        </select>
+        <label for="sectionContent">Contenido:</label>
+        <textarea id="sectionContent" placeholder="El contenido de la sección aparecerá aquí..."></textarea>
+        <label for="sectionCambio">Descripcion del Cambio:</label>
+        <textarea id="sectionCambio" placeholder="Describe en palabras cortas el cambio realizado..."
+            required></textarea>
+        <button class="btn btn-outline-primary" id="saveChangesBtn" style="margin-top: 15px;">Guardar Cambios</button>
+    </div>
+</div>
+<script src="{{ url_for('static', filename='js/jquery.min.js')}}"></script>
+<script src="{{ url_for('static', filename='js/acordeon_doc.js')}}"></script>
+<script src="{{ url_for('static', filename='js/edita_procedimiento.js')}}"></script>
+
+{% endblock %}

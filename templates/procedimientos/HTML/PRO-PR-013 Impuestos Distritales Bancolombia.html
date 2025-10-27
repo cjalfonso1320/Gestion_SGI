@@ -1,0 +1,640 @@
+{% extends 'home.html' %}
+{% block title %}Documentacion{% endblock %}
+{% block content %}
+<link href="{{ url_for('static', filename='css/acordeon_doc.css') }}" rel="stylesheet" />
+<link href="{{ url_for('static', filename='css/procedimientos.css') }}" rel="stylesheet" />
+
+<div id="documento" style="display:none;">procedimientos/HTML/PRO-PR-013 Impuestos Distritales Bancolombia.html</div>
+<div id="nombre_documento" style="display: none;">PRO-PR-013 Impuestos Distritales Bancolombia</div>
+<h1>PRO-PR-013 Impuestos Distritales Bancolombia</h1>
+{% for cambio in cambios %}
+{% if loop.first %}
+<h3>Version: {{cambio[3]}}</h3>
+{% endif %}
+{% endfor %}
+<br />
+<div class="doc-accordion">
+ <div class="doc-section" data-id="1">
+  1. OBJETIVO
+ </div>
+ <div class="doc-content" data-id="1">
+  <p>
+   Procesar integralmente los impuestos distritales recaudos por Bancolombia y dar cumplimiento al sistema de gestión integrado
+  </p>
+ </div>
+ <div class="doc-section" data-id="2">
+  2. ALCANCE
+ </div>
+ <div class="doc-content" data-id="2">
+  <p>
+   Este procedimiento aplica a los servicios de impuestos distritales implementados por Digicom System Corporation S.A
+  </p>
+ </div>
+ <div class="doc-section" data-id="3">
+  3. RESPONSABLES
+ </div>
+ <div class="doc-content" data-id="3">
+  <p>
+   Gerente de operaciones, director de procesos, jefe de Procesos, Líder de procesos, Auxiliar de procesos y Digitador
+  </p>
+ </div>
+ <div class="doc-section" data-id="4">
+  4. DEFINICIONES
+ </div>
+ <div class="doc-content" data-id="4">
+  <p>
+   • Archivo Plano: Archivo de datos que se utiliza para intercambio de información entre las diferentes aplicaciones. • LOG bancario: Es el registro de las transacciones de una fecha de recaudo remitido por el banco. • Página Web: es un gran espacio documental organizado, dedicado al intercambio de información
+  </p>
+ </div>
+ <div class="doc-section" data-id="5">
+  5. DOCUMENTOS DE REFERENCIA
+ </div>
+ <div class="doc-content" data-id="5">
+  <p>
+   ➢ Acuerdo de servicios. ➢ Norma NTC ISO 9001 ➢ Resolución SHD 167 26 de octubre de 2018
+  </p>
+ </div>
+ <div class="doc-section" data-id="6">
+  6. DESCRIPCIÓN DEL PROCESO
+ </div>
+ <div class="doc-content" data-id="6">
+ </div>
+ <div class="doc-section" data-id="1">
+  1. Luego ingresamos al aplicativo que se encuentra ubicado en el servidor asignado
+ </div>
+ <div class="doc-content" data-id="1">
+  <p>
+   \\servidor\Confidencial_Id07_aaaa\jid_07.exe e ingresamos usuario y contraseña 27/11/2023 9 IMPUESTOS DISTRITALES BANCOLOMBIA
+  </p>
+ </div>
+ <div class="doc-section" data-id="2">
+  2. En la barra superior del aplicativo, en la pestaña Movimiento ingresamos la fecha que
+ </div>
+ <div class="doc-content" data-id="2">
+  <p>
+   vamos a procesas, aaaammdd
+  </p>
+ </div>
+ <div class="doc-section" data-id="3">
+  3. nos dirigimos en la barra superior en la pestaña Bancos opción Carga log Bancolombia
+ </div>
+ <div class="doc-content" data-id="3">
+  <p>
+   nos arroja una ventana donde ingresamos la fecha que vamos a procesar aaaammdd y seleccionamos el botón Cargar. ‘ Nota 1: Cuando el aplicativo ya finalizo el proceso arroja el mensaje que se cargó correctamente. Nota 2: En el caso que el log no se encuentre disponible en el canal del servidor se debe realizar la solicitud al banco por correo electrónico primera hora
+  </p>
+ </div>
+ <div class="doc-section" data-id="1">
+  1. Estando en el programa ScandAll PRO se selecciona el menú “digitalizar”
+ </div>
+ <div class="doc-content" data-id="1">
+  <p>
+   27/11/2023 9 IMPUESTOS DISTRITALES BANCOLOMBIA
+  </p>
+ </div>
+ <div class="doc-section" data-id="2">
+  2. Nos dirigimos al menú Configuraciones de digitalizaciones
+ </div>
+ <div class="doc-content" data-id="2">
+ </div>
+ <div class="doc-section" data-id="3">
+  3. Donde nos arroja una ventana en el cual se selecciona la ruta donde van a quedar las
+ </div>
+ <div class="doc-content" data-id="3">
+  <p>
+   imágenes Servidor\confidendial_id07_aaaa\índex\digitalización\aaaammdd
+  </p>
+ </div>
+ <div class="doc-section" data-id="4">
+  4. En la opción regla del nombre se abre una ventana donde ingresamos como se van a llamar
+ </div>
+ <div class="doc-content" data-id="4">
+  <p>
+   los archivos
+  </p>
+ </div>
+ <div class="doc-section" data-id="5">
+  5. En la opción iniciar con se digita el número de consecutivo por el que va a iniciar los archivos
+ </div>
+ <div class="doc-content" data-id="5">
+  <p>
+   y en la opción cadena de caracteres el nombre 27/11/2023 9 IMPUESTOS DISTRITALES BANCOLOMBIA
+  </p>
+ </div>
+ <div class="doc-section" data-id="6">
+  6. Las imágenes deberán quedar guardas en
+ </div>
+ <div class="doc-content" data-id="6">
+  <p>
+   \\servidor\Confidencial_Id07_aaaa\index\aaaammdd, donde se deben crear las carpetas por Nota 1: Para colocar el nombre de los archivos se recomienda hacerlo con la inicial de cada persona y para el consecutivo se debe iniciar desde 1 si es el mismo día. Nota 2: Si el banco envía los siguientes tipos de impuestos que corresponden a facturas cupones y rops (400 500 800) igual se deben digitalizar, pero aclarando en el formato PRO F 023 Relación Oficina ctdad documentos Distritales Bancolombia. en la sucursal la cantidad que llegaron
+  </p>
+ </div>
+ <div class="doc-section" data-id="1">
+  1. ingresamos al aplicativo por la siguiente ruta
+ </div>
+ <div class="doc-content" data-id="1">
+  <p>
+   • Indexación • Cargar imágenes • Se le da clic en el botón cargar imágenes 27/11/2023 9 IMPUESTOS DISTRITALES BANCOLOMBIA
+  </p>
+ </div>
+ <div class="doc-section" data-id="1">
+  1. Generación de archivos planos
+ </div>
+ <div class="doc-content" data-id="1">
+  <p>
+   2 Pre liquidados 2017 3 Se ingresa el número de secuencia del medio magnético. 27/11/2023 9 IMPUESTOS DISTRITALES BANCOLOMBIA
+  </p>
+ </div>
+ <div class="doc-section" data-id="4">
+  4. Se selecciona “16” si corresponde a declaraciones o “22” si corresponde a facturas
+ </div>
+ <div class="doc-content" data-id="4">
+  <p>
+   cupones rops
+  </p>
+ </div>
+ <div class="doc-section" data-id="5">
+  5. Con el botón carga de archivo CSV el abre una ventana para cargar los archivos de
+ </div>
+ <div class="doc-content" data-id="5">
+  <p>
+   declaraciones o facturas generados al inicio de esta actividad, los cuales están situados en la ruta \\servidor\Confidencial_Id07_aaaa\data\07\aaaammdd
+  </p>
+ </div>
+ <div class="doc-section" data-id="6">
+  6. Una vez cargados lo archivos al aplicativo se selecciona el botón “genera plano 2017”
+ </div>
+ <div class="doc-content" data-id="6">
+  <ul>
+   <li>
+    <i class="fa-regular fa-circle-check">
+    </i>
+    <b>
+     Nota:
+    </b>
+    Al generar el medio magnetico este nos genera el formato PRO-F-EXT- 016 Anexo 11, el cual se guarda en la siguiente ruta \\servidor\Confidencial_Id07_aaaa\data\07\aaaammdd, con el nombre PLANILLA_PRE.pdf
+   </li>
+  </ul>
+ </div>
+ <div class="doc-section" data-id="7">
+  7. crea el archivo en formato texto plano con la secuencia, El cual queda situado en la ruta:
+ </div>
+ <div class="doc-content" data-id="7">
+  <p>
+   \\servidor\Confidencial_Id07_aaaa\data\07\aaaammdd\envios. Código banco 07 00 0 0 0 0 S e c u e n c i a Tipo Cinta (16 Declaraciones, 22 Facturas)
+  </p>
+ </div>
+ <div class="doc-section" data-id="8">
+  8. Los archivos se deben cifrar en con la extensión. Zip y se deben cifrar con clave
+ </div>
+ <div class="doc-content" data-id="8">
+  <p>
+   27/11/2023 9 IMPUESTOS DISTRITALES BANCOLOMBIA
+  </p>
+ </div>
+ <div class="doc-section" data-id="9">
+  9. abrir el aplicativo de Certicamara ubicado en el escritorio del equipo del líder de proceso
+ </div>
+ <div class="doc-content" data-id="9">
+ </div>
+ <div class="doc-section" data-id="10">
+  10. Luego procedemos a seleccionar la opción firmar documento
+ </div>
+ <div class="doc-content" data-id="10">
+ </div>
+ <div class="doc-section" data-id="11">
+  11. se busca el archivo se carga
+ </div>
+ <div class="doc-content" data-id="11">
+ </div>
+ <div class="doc-section" data-id="12">
+  12. seleccionamos la opción firmar y aceptar
+ </div>
+ <div class="doc-content" data-id="12">
+  <p>
+   27/11/2023 9 IMPUESTOS DISTRITALES BANCOLOMBIA
+  </p>
+ </div>
+ <div class="doc-section" data-id="13">
+  13. Muestra una ventana para ingresar la clave asignada
+ </div>
+ <div class="doc-content" data-id="13">
+ </div>
+ <div class="doc-section" data-id="14">
+  14. Aparece una ventana emergente indicando que los archivos fueron firmados exitosamente
+ </div>
+ <div class="doc-content" data-id="14">
+ </div>
+ <div class="doc-section" data-id="15">
+  15. Luego los archivos que se encuentran firmados los procedemos a subir a la página del distrito
+ </div>
+ <div class="doc-content" data-id="15">
+  <p>
+   https://oficinavirtual.shd.gov.co/Recepcion/login.html donde nos solicita el banco, usuario y contraseña 27/11/2023 9 IMPUESTOS DISTRITALES BANCOLOMBIA
+  </p>
+ </div>
+ <div class="doc-section" data-id="16">
+  16. ingresado a la página seleccionamos
+ </div>
+ <div class="doc-content" data-id="16">
+  <p>
+   a. Reporte de información b. subir archivos c. Seleccionamos el tipo de archivo declaraciones o facturas. d. Se carga el tipo de archivo seleccionado el cual debe estar cifrado con Certifirma. 27/11/2023 9 IMPUESTOS DISTRITALES BANCOLOMBIA e. se selecciona enviar e indica un mensaje notificando que el archivo se envió exitosamente
+  </p>
+ </div>
+ <div class="doc-section" data-id="17">
+  17. Una vez la cinta se encuentra en estado aceptado se procede a descargar el reporte de la
+ </div>
+ <div class="doc-content" data-id="17">
+  <p>
+   cinta en la cinta (pdf)
+  </p>
+ </div>
+ <div class="doc-section" data-id="18">
+  18. Seleccionar consultas – consultar resultados se organiza por fecha de envió el cual
+ </div>
+ <div class="doc-content" data-id="18">
+  <p>
+   muestra el icono reporte el cual en la columna de resulto indica si el archivo fue aceptado o rechazo. el cual se valida con el PDF con la información procesada. Nota 1: este proceso debe realizar con los Declaraciones y facturas. Nota 2: la página dela secretaria de hacienda distrital notifica por medio de correo electrónico el estado en el cual se encuentra el medio magnético (Aceptado o rechazado)
+  </p>
+ </div>
+ <div class="doc-section" data-id="1">
+  1. Los medios magnéticos se deben convertir a (. Zip) así como se muestra en la imagen
+ </div>
+ <div class="doc-content" data-id="1">
+  <p>
+   27/11/2023 9 IMPUESTOS DISTRITALES BANCOLOMBIA
+  </p>
+ </div>
+ <div class="doc-section" data-id="2">
+  2. Luego se sitúan en el servidor de la página web de Digicom de la ruta de la página
+ </div>
+ <div class="doc-content" data-id="2">
+  <p>
+   \\servidorWeb\07_Procesos\aaaammdd\ArchivosDIS\CINTAS SUGERIDOS
+  </p>
+ </div>
+ <div class="doc-section" data-id="3">
+  3. Se procede a realizar la carga en la página web de Digicom
+ </div>
+ <div class="doc-content" data-id="3">
+  <p>
+   http://www.digicom.com.co/bancos_web/Sistema/Inicio.aspx, donde la página solicita usuario y contraseña
+  </p>
+ </div>
+ <div class="doc-section" data-id="4">
+  4. Se da clic en el menú de Distritales/ descargas
+ </div>
+ <div class="doc-content" data-id="4">
+ </div>
+ <div class="doc-section" data-id="5">
+  5. Se selecciona la fecha a realizar el cargue de archivos y aceptar, en el cual se visualiza los
+ </div>
+ <div class="doc-content" data-id="5">
+  <p>
+   archivos situada en la pagina por último, enviamos correo de confirmación a los funcionarios del banco que los archivos se encuentran situados en la página. 27/11/2023 9 IMPUESTOS DISTRITALES BANCOLOMBIA
+  </p>
+ </div>
+ <div class="doc-section" data-id="1">
+  1. Control envíos
+ </div>
+ <div class="doc-content" data-id="1">
+ </div>
+ <div class="doc-section" data-id="2">
+  2. Control de documentos enviados
+ </div>
+ <div class="doc-content" data-id="2">
+ </div>
+ <div class="doc-section" data-id="3">
+  3. Carga planos 2017
+ </div>
+ <div class="doc-content" data-id="3">
+ </div>
+ <div class="doc-section" data-id="4">
+  4. buscar la cinta que se va a integrar (Las cintas se encuentran en la ruta
+ </div>
+ <div class="doc-content" data-id="4">
+  <p>
+   \\192.168.70.141\Confidencial_Id07_2018\Cintas_Aceptadas\0716000000.txt) 27/11/2023 9 IMPUESTOS DISTRITALES BANCOLOMBIA
+  </p>
+ </div>
+ <div class="doc-section" data-id="1">
+  1. Control envíos
+ </div>
+ <div class="doc-content" data-id="1">
+ </div>
+ <div class="doc-section" data-id="2">
+  2. Control de documentos enviados, en la fecha inicial siempre se va a digitar 20140102 y en
+ </div>
+ <div class="doc-content" data-id="2">
+  <p>
+   la fecha final se digita la última fecha de recaudo
+  </p>
+ </div>
+ <div class="doc-section" data-id="3">
+  3. Se le da clic en “reporte de no utilizados y duplicados”
+ </div>
+ <div class="doc-content" data-id="3">
+  <p>
+   27/11/2023 9 IMPUESTOS DISTRITALES BANCOLOMBIA
+  </p>
+ </div>
+ <div class="doc-section" data-id="4">
+  4. El archivo queda generado en la siguiente ruta:
+ </div>
+ <div class="doc-content" data-id="4">
+  <p>
+   \\servidor\Confidencial_Id07_aaaa\data\07\aaaammdd en el formato PRO-D-050 Reporte Consolidado de Saltos de Adhesivos este archivo se comprime se guarda en la ruta de la página \\servidorWeb\07_Procesos\aaammdd\ArchivosDIS\SALTOS DE ADHESIVOS se actualiza la
+  </p>
+ </div>
+ <div class="doc-section" data-id="1">
+  1. Bancos
+ </div>
+ <div class="doc-content" data-id="1">
+ </div>
+ <div class="doc-section" data-id="2">
+  2. Log bancario
+ </div>
+ <div class="doc-content" data-id="2">
+ </div>
+ <div class="doc-section" data-id="3">
+  3. Generar cruce de validaciones
+ </div>
+ <div class="doc-content" data-id="3">
+ </div>
+ <div class="doc-section" data-id="4">
+  4. Aceptar
+ </div>
+ <div class="doc-content" data-id="4">
+  <p>
+   El archivo se genera en la siguiente ruta \\servidor\Confidencial_Id07_aaaa\data\07\aaaammdd 27/11/2023 9 IMPUESTOS DISTRITALES BANCOLOMBIA Con el nombre “PRO D 045 Cuadre diario de Faltantes físicos”, este archivo se comprime y se guarda en la ruta de la página \\servidor\07_Procesos\aaaammdd\ArchivosDIS\FALTANTES y se envía correo de confirmación al banco
+  </p>
+ </div>
+ <div class="doc-section" data-id="2">
+  2. se crea un archivo en Excel y una carpeta con las imágenes en la siguiente ruta:
+ </div>
+ <div class="doc-content" data-id="2">
+  <p>
+   \\servidor\Confidencial_Id07_aaaa\data\07\aaaammdd El archivo en Excel queda con el nombre “PRO D 044 Cuadre de inconsistencias Distritales Bancolombia aaaammdd.xlsx” y la carpeta con las imágenes “Imgs_aaaammdd_aaaammdd” estos dos archivos se comprimen en un solo archivo con el nombre del Excel y se suben a la página Web en su correspondiente fecha de recaudo y se envía correo e confirmación al banco. \\Servidor Web \07_Procesos\aaaammdd\ArchivosDIS\INCONSISTENCIAS Luego se actualiza la página por el link http://www.digicom.com.co/Bancos_Web/ donde se ingresa usuario y contraseña asignados ver actividad 6.9. 27/11/2023 9 IMPUESTOS DISTRITALES BANCOLOMBIA Luego se selecciona el menú distrital en la opción descargar y se selecciona la fecha y se envía correo electrónico de confirmación
+  </p>
+ </div>
+ <div class="doc-section" data-id="1">
+  1. Control envíos
+ </div>
+ <div class="doc-content" data-id="1">
+ </div>
+ <div class="doc-section" data-id="2">
+  2. Descarga de documentos enviados
+ </div>
+ <div class="doc-content" data-id="2">
+ </div>
+ <div class="doc-section" data-id="3">
+  3. se ingresa la fecha de movimiento y fecha de recaudo
+ </div>
+ <div class="doc-content" data-id="3">
+ </div>
+ <div class="doc-section" data-id="4">
+  4. se ingresa el número secuencia de la cinta
+ </div>
+ <div class="doc-content" data-id="4">
+ </div>
+ <div class="doc-section" data-id="5">
+  5. se ingresa el código a validar (el código a validar son el tercer y cuarto digito del número de
+ </div>
+ <div class="doc-content" data-id="5">
+  <ul>
+   <li>
+    <i class="fa-regular fa-circle-check">
+    </i>
+    <b>
+     Nota:
+    </b>
+    cada vez que se pase un código diferente de impuesto se debe cambiar el código en el código a validar por el impuesto que se vaya a procesar
+   </li>
+  </ul>
+ </div>
+ <div class="doc-section" data-id="6">
+  6. cuando esta pasado por lector la totalidad de la fecha de recaudo se selecciona la opción
+ </div>
+ <div class="doc-content" data-id="6">
+  <p>
+   “copiar a Excel”. 27/11/2023 9 IMPUESTOS DISTRITALES BANCOLOMBIA
+  </p>
+ </div>
+ <div class="doc-section" data-id="7">
+  7. Este genera un archivo en la siguiente ruta:
+ </div>
+ <div class="doc-content" data-id="7">
+  <ul>
+   <li>
+    <i class="fa-regular fa-circle-check">
+    </i>
+    <b>
+     Nota:
+    </b>
+    los archivos que generan, no debe haber documentos faltantes, si hay se notifica al banco y ellos envía los anexo 5, 6(PRO-F-EXT- 003 Anexo, PRO-F-EXT- 008 Anexo 6) diligenciados y el denuncio para procesar como si fuera el físico
+   </li>
+  </ul>
+ </div>
+ <div class="doc-section" data-id="1">
+  1. El banco envía por correo electrónico un archivo de los anulados por fecha de recaudo (PRO
+ </div>
+ <div class="doc-content" data-id="1">
+  <p>
+   D EXT 013 Anulación de adhesivos)
+  </p>
+ </div>
+ <div class="doc-section" data-id="2">
+  2. El cual se guarda en la siguiente ruta: \\servidor\Confidencial_Id07_aaaa\Procesos
+ </div>
+ <div class="doc-content" data-id="2">
+  <p>
+   Bancolombia\Recaudo aaaa\Adhesivos
+  </p>
+ </div>
+ <div class="doc-section" data-id="3">
+  3. Este archivo se abre y se le realizan las siguientes modificaciones
+ </div>
+ <div class="doc-content" data-id="3">
+  <p>
+   a. Se eliminan los títulos b. Se le agrega el 0 del código del banco c. Se elimina la columna de la oficina 27/11/2023 9 IMPUESTOS DISTRITALES BANCOLOMBIA
+  </p>
+ </div>
+ <div class="doc-section" data-id="4">
+  4. Se guarda en la siguiente ruta \\servidor\Confidencial_Id07_aaaa\Procesos
+ </div>
+ <div class="doc-content" data-id="4">
+  <p>
+   Bancolombia\Recaudo aaaa\Adhesivos\anula\aaaa la extensión (.csv)
+  </p>
+ </div>
+ <div class="doc-section" data-id="5">
+  5. Se procede a generar el plano por medio del aplicativo siguiendo los siguientes pasos
+ </div>
+ <div class="doc-content" data-id="5">
+ </div>
+ <div class="doc-section" data-id="6">
+  6. Herramientas
+ </div>
+ <div class="doc-content" data-id="6">
+ </div>
+ <div class="doc-section" data-id="7">
+  7. Generación de Stickers
+ </div>
+ <div class="doc-content" data-id="7">
+ </div>
+ <div class="doc-section" data-id="8">
+  8. Se selecciona la opción “anulados” Se ingresa el consecutivo de envió para saber el
+ </div>
+ <div class="doc-content" data-id="8">
+  <p>
+   consecutivo de envió nos dirigimos a la siguiente ruta \\servidor\Confidencial_Id07_aaaa\Adhesivos organizamos los archivos por nombre de archivo los cuales se ingresa el siguiente consecutivo
+  </p>
+ </div>
+ <div class="doc-section" data-id="9">
+  9. Se selecciona el botón “Carga desde archivo plano solo sticker” donde se selecciona el
+ </div>
+ <div class="doc-content" data-id="9">
+  <p>
+   archivo modificado remitido por el banco
+  </p>
+ </div>
+ <div class="doc-section" data-id="10">
+  10. se digita la fecha de asignación que debe ser el día actual
+ </div>
+ <div class="doc-content" data-id="10">
+  <p>
+   27/11/2023 9 IMPUESTOS DISTRITALES BANCOLOMBIA
+  </p>
+ </div>
+ <div class="doc-section" data-id="11">
+  11. el archivo plano queda generado en la siguiente ruta
+ </div>
+ <div class="doc-content" data-id="11">
+  <p>
+   \\servidor\Confidencial_Id07_aaaa\Adhesivos con el nombre “07000000AD.txt”
+  </p>
+ </div>
+ <div class="doc-section" data-id="12">
+  12. Este archivo se comprime en (Zip) se firma por certicamara y se sube a la página de la SHD
+ </div>
+ <div class="doc-content" data-id="12">
+  <p>
+   Nota 1: Ver actividad 6.9. subir los medios magnéticos a la web Nota 2: Ver actividad 6.7. generación de medios magnéticos. en la parte donde se firman los archivos
+  </p>
+ </div>
+ <div class="doc-section" data-id="1">
+  1. En la barra superior en el menú movimiento abrimos la fecha de recaudo de la planilla, luego por
+ </div>
+ <div class="doc-content" data-id="1">
+  <p>
+   el menú generación de archivos planos nos dirigimos a la opción consignación automática donde se despliega una ventana emergente donde ingresamos en el paso 1, donde la fecha de recaudo se coloca automática mente, para la fecha de traslado se debe da clic en el botón automático para que traiga el día en el cual se debe trasladar los fondos, el No consecutivo se digita el que se encuentra en el formato PRO-F-EXT- 012 Anexo 9, damos clic en generar 2017. Este proceso se realiza con cada fecha de recaudo. 27/11/2023 9 IMPUESTOS DISTRITALES BANCOLOMBIA
+  </p>
+ </div>
+ <div class="doc-section" data-id="2">
+  2. En el paso 2 digitamos la fecha de recaudo de la planilla y damos clic en abrir donde se
+ </div>
+ <div class="doc-content" data-id="2">
+  <p>
+   despliega otra subventana emergente donde digitamos los valores de cada concepto que se encuentran en el formato PRO-F-EXT- 012 Anexo 9 luego este proceso se realiza con cada
+  </p>
+ </div>
+ <div class="doc-section" data-id="3">
+  3. Luego en el paso 3 digitamos el rango de las fechas que se procesaron en el paso 2 y
+ </div>
+ <div class="doc-content" data-id="3">
+  <p>
+   seleccionamos la opción Integrada 2017 27/11/2023 9 IMPUESTOS DISTRITALES BANCOLOMBIA esta opción crea un archivo en .txt en la ruta del servidor \\servidor\Confidencial_Id07_aaaa\consigna\integrados, este archivo se comprime y se firma digitalmente para subirlo a la página del distrito
+  </p>
+ </div>
+ <div class="doc-section" data-id="1">
+  1. Control Envíos
+ </div>
+ <div class="doc-content" data-id="1">
+ </div>
+ <div class="doc-section" data-id="2">
+  2. Control de documentos enviados
+ </div>
+ <div class="doc-content" data-id="2">
+ </div>
+ <div class="doc-section" data-id="3">
+  3. Se ingresa la fecha inicial que debe ser el primer día hábil del mes y la fecha final que debe
+ </div>
+ <div class="doc-content" data-id="3">
+  <p>
+   ser el último día hábil del mes
+  </p>
+ </div>
+ <div class="doc-section" data-id="4">
+  4. Se selecciona el botón “Consolidado factura 2017”
+ </div>
+ <div class="doc-content" data-id="4">
+ </div>
+ <div class="doc-section" data-id="5">
+  5. Indicando la ruta donde se situó el archivo generado
+ </div>
+ <div class="doc-content" data-id="5">
+  <p>
+   27/11/2023 9 IMPUESTOS DISTRITALES BANCOLOMBIA
+  </p>
+ </div>
+ <div class="doc-section" data-id="6">
+  6. El archivo queda generado en la siguiente ruta:
+ </div>
+ <div class="doc-content" data-id="6">
+  <div class="doc-subsection">
+   6.9 Revisión de actividades
+  </div>
+  <div class="doc-subcontent">
+   <ul>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      RESPONSABLE:
+     </b>
+     Líder de procesos
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      REGISTRO:
+     </b>
+     PRO-D-105 lista de chequeo impuestos distritales Bancolombia
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      DESCRIPCIÓN:
+     </b>
+     Diariamente el líder proceso para verificar y validar que cada actividad del proceso se realice debe diligenciar el formato PRO-D-105 Lista de Chequeo Impuestos Distritales Bancolombia, donde están las actividades que se debe realizar con el fin de tener un control y cumplir con los requisitos del cliente. 27/11/2023 9 IMPUESTOS DISTRITALES BANCOLOMBIA 7 INDICADORES DE DESEMPEÑO MEDIDO RESPONSABLE INDICADOR FRECUENCIA POR/MEDIO REVISIÓN Σ Entrega de doc. físicos - Σ Doc. físicos Director de entregados fuera de tiempos *100 Líder De Mensual procesos ------------------------------------------------------- Proceso Σ Entrega de doc. Físicos Σ Entrega de doc. físicos - Σ Doc. físicos entregados fuera de tiempos *100 Líder De Director de Mensual procesos ------------------------------------------------------- Proceso Σ Entrega de doc. Físicos 8 CONTROL DEL PROCEDIMIENTO VER. ELABORADO REVISADO APROBADO FECHA DE MODIFICACIÓN REALIZADA No. APROBACIÓN Se realiza eliminación de las actividades 6.4.3 – Analista de Analista de 21 Analista SGI 29/09/2020 6.4.4 – 6.4.5, ya que por proceso proceso instrucción del banco no se utilizan. Analista de Analista de 22 Director SGI 10/08/2023 Actualización general. proceso proceso Analista de Director 23 Director SGI 27/11/2023 Actualización general. proceso SGI 27/11/2023 9
+    </li>
+   </ul>
+  </div>
+ </div>
+</div>
+
+<!-- Botón para abrir el modal -->
+<button class="btn btn-outline-primary" id="openModalBtn" style="margin-top: 20px;">Editar Secciones</button>
+<!-- El Modal -->
+<div class="modal" id="sectionModal">
+    <div class="modal-content">
+        <span class="close-button">×</span>
+        <h2>Selecciona y Edita una Sección</h2>
+        <label for="sectionSelector">Sección:</label>
+        <select id="sectionSelector">
+            <option value="">-- Selecciona una sección --</option>
+        </select>
+        <label for="sectionContent">Contenido:</label>
+        <textarea id="sectionContent" placeholder="El contenido de la sección aparecerá aquí..."></textarea>
+        <label for="sectionCambio">Descripcion del Cambio:</label>
+        <textarea id="sectionCambio" placeholder="Describe en palabras cortas el cambio realizado..."
+            required></textarea>
+        <button class="btn btn-outline-primary" id="saveChangesBtn" style="margin-top: 15px;">Guardar Cambios</button>
+    </div>
+</div>
+<script src="{{ url_for('static', filename='js/jquery.min.js')}}"></script>
+<script src="{{ url_for('static', filename='js/acordeon_doc.js')}}"></script>
+<script src="{{ url_for('static', filename='js/edita_procedimiento.js')}}"></script>
+
+{% endblock %}

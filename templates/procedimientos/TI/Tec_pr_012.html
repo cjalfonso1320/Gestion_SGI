@@ -1,0 +1,151 @@
+{% extends 'home.html' %}
+{% block title %}Documentación{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/acordeon_doc.css') }}">
+<link href="{{ url_for('static', filename='css/procedimientos.css') }}" rel="stylesheet" />
+
+<div id="documento" style="display:none;">procedimientos/TI/Tec_pr_012.html</div>
+<div id="nombre_documento" style="display: none;">TEC-PR-012 Manejo de medios removibles</div>
+<h1>TEC-PR-012 Manejo de medios removibles</h1>
+{% for cambio in cambios %}
+{% if loop.first %}
+<h3>Version: {{cambio[3]}}</h3>
+{% endif %}
+{% endfor %}
+<br />
+<div class="doc-accordion">
+    <div class="doc-section" data-id="1">1. OBJETIVO</div>
+    <div class="doc-content" data-id="1">
+        <p>Orientar a los colaboradores de Digicom System Corporation S.A. con respecto al uso y manejo de los
+            medios removibles con información de la organización, brindándoles las orientaciones necesarias para su
+            uso adecuado, previniendo riesgos de fuga y perdida de información, evitando la generación de incidentes
+            que generen afectaciones en la confidencialidad, disponibilidad e integridad de la información de Digicom
+            System Corporation S.A que se aloje en estos medios. </p>
+    </div>
+
+    <div class="doc-section" data-id="2">2. ALCANCE</div>
+    <div class="doc-content" data-id="2">
+        <p>Este procedimiento aplica para toda la organización </p>
+    </div>
+
+    <div class="doc-section" data-id="3">3. RESPONSABLES</div>
+    <div class="doc-content" data-id="3">
+        <p>Recurso Tecnológico y Sistema de Gestion Integrado. </p>
+    </div>
+
+    <div class="doc-section" data-id="4">4. DEFINICIONES</div>
+    <div class="doc-content" data-id="4">
+        <p>Medio Removible: es cualquier componente extraíble de hardware que sea usado para el almacenamiento de
+            información; los medios removibles incluyen cintas, discos duros removibles, CDs, DVDs y unidades
+            de almacenamiento USB, entre otras. </p>
+    </div>
+
+    <div class="doc-section" data-id="5">5. DOCUMENTOS DE REFERENCIA</div>
+    <div class="doc-content" data-id="5">
+        <p>Guía técnica colombiana GTC-ISO-IEC 27002. • Ley 1581 de 2012 </p>
+    </div>
+    <div class="doc-section" data-id="6">6. DESCRIPCION DEL PROCESO</div>
+    <div class="doc-content" data-id="6">
+        <div class="doc-subsection">6.1. Registro de solicitud</div>
+        <div class="doc-subcontent">
+            <ul>
+                <li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Recurso Tecnológico</li>
+                <li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> TEC-D-009 Solicitud soporte o
+                    mantenimiento</li>
+                <li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b> Se
+                    realiza a través de una solicitud de soporte por medio de correo electrónico Registrar en el Asunto:
+                    Autorización manejo medio Removible y en Descripción relacionar la información en el cual se debe
+                    detallar la información que se va a guarda en el medio removible. Se informa al área de SGI por
+                    correo
+                    sobre la solicitud. </li>
+            </ul>
+        </div>
+
+        <div class="doc-subsection">6.2. Revisar la Solicitud</div>
+        <div class="doc-subcontent">
+            <ul>
+                <li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Sistema de Gestión Integrado</li>
+                <li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> No aplica</li>
+                <li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b> El encargado de la gestión de
+                    Incidentes de seguridad de la información recibe la solicitud, y se revisa la información
+                    diligenciada. ¿Se aprueba la solicitud? Si: pasa a la actividad 6.3. No: Se informa las
+                    causas por las cuales no se gestiona la solicitud y pasa a la actividad 6.4. </li>
+            </ul>
+        </div>
+
+        <div class="doc-subsection">6.3. Gestionar la Solicitud para el cifrado</div>
+        <div class="doc-subcontent">
+            <ul>
+                <li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Recurso Tecnológico</li>
+                <li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> correo Electrónico</li>
+                <li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b> Recurso Tecnológico recibirá
+                    la solicitud y procede a realizar el cifrado del medio de almacenamiento.</li>
+            </ul>
+        </div>
+        <div class="doc-subsection">6.4. Cierre de solicitud</div>
+        <div class="doc-subcontent">
+            <ul>
+                <li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Sistema de Gestión Integrado</li>
+                <li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> No Aplica</li>
+                <li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b> El encargado de la gestión de
+                    Incidentes de seguridad de la información registra las acciones adelantadas y cierra la solicitud.
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="doc-section" data-id="7">7. INDICADORES DE DESEMPEÑO/div>
+        <div class="doc-content" data-id="7">
+            <p>No Aplica </p>
+        </div>
+
+        <div class="doc-section" data-id="8">8. CONTROL DEL PROCEDIMIENTO</div>
+        <div class="doc-content" data-id="8">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Versión</th>
+                        <th>Elaborado</th>
+                        <th>Aprobado</th>
+                        <th>Fecha</th>
+                        <th>Descripción del Cambio</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cambio in cambios %}
+                    <tr>
+                        <td>{{ cambio[2] }}</td>
+                        <td>{{ cambio[3] }}</td>
+                        <td>{{ cambio[5] }}</td>
+                        <td>{{ cambio[6] }}</td>
+                        <td>{{ cambio[7] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- Botón para abrir el modal -->
+<button class="btn btn-outline-primary" id="openModalBtn" style="margin-top: 20px;">Editar Secciones</button>
+<!-- El Modal -->
+<div class="modal" id="sectionModal">
+    <div class="modal-content">
+        <span class="close-button">×</span>
+        <h2>Selecciona y Edita una Sección</h2>
+        <label for="sectionSelector">Sección:</label>
+        <select id="sectionSelector">
+            <option value="">-- Selecciona una sección --</option>
+        </select>
+        <label for="sectionContent">Contenido:</label>
+        <textarea id="sectionContent" placeholder="El contenido de la sección aparecerá aquí..."></textarea>
+        <label for="sectionCambio">Descripcion del Cambio:</label>
+        <textarea id="sectionCambio" placeholder="Describe en palabras cortas el cambio realizado..." required></textarea>
+        <button class="btn btn-outline-primary" id="saveChangesBtn" style="margin-top: 15px;">Guardar
+            Cambios</button>
+    </div>
+</div>
+<script src="{{ url_for('static', filename='js/jquery.min.js')}}"></script>
+<script src="{{ url_for('static', filename='js/acordeon_doc.js')}}"></script>
+<script src="{{ url_for('static', filename='js/edita_procedimiento.js')}}"></script>
+{% endblock %}

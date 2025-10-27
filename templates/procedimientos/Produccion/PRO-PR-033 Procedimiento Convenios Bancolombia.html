@@ -1,0 +1,1392 @@
+{% extends 'home.html' %}
+{% block title %}Documentacion{% endblock %}
+{% block content %}
+<link href="{{ url_for('static', filename='css/acordeon_doc.css') }}" rel="stylesheet" />
+<link href="{{ url_for('static', filename='css/procedimientos.css') }}" rel="stylesheet" />
+
+<div id="documento" style="display:none;">procedimientos/Produccion/PRO-PR-033 Procedimiento Convenios Bancolombia.html</div>
+<div id="nombre_documento" style="display: none;">PRO-PR-033 Procedimiento Convenios Bancolombia</div>
+<h1>PRO-PR-033 Procedimiento Convenios Bancolombia</h1>
+{% for cambio in cambios %}
+{% if loop.first %}
+<h3>Version: {{cambio[3]}}</h3>
+{% endif %}
+{% endfor %}
+<br />
+<div class="doc-accordion">
+    <div class="doc-section" data-id="1">
+        1. OBJETIVO
+    </div>
+    <div class="doc-content" data-id="1">
+        <p>
+            Procesar, validar y administrar la información de los Convenios de Bancolombia cumpliendo con los
+            lineamientos del Sistema de Gestión Integrado, con el firme propósito de satisfacer las necesidades del
+            cliente
+        </p>
+    </div>
+    <div class="doc-section" data-id="2">
+        2. ALCANCE
+    </div>
+    <div class="doc-content" data-id="2">
+        <p>
+            Este procedimiento aplica a los Convenios de recaudos de Bancolombia, para el procesamiento de la
+            información
+        </p>
+    </div>
+    <div class="doc-section" data-id="3">
+        3. RESPONSABLES
+    </div>
+    <div class="doc-content" data-id="3">
+        <p>
+            Gerente de Operaciones, Director de Procesos, Líder de procesos, Auxiliar de Procesos, Digitador
+        </p>
+    </div>
+    <div class="doc-section" data-id="4">
+        4. DEFINICIONES
+    </div>
+    <div class="doc-content" data-id="4">
+        <p>
+            • Log Bancario o Documento .TXT: Registro de las transacciones de una fecha de recaudo, capturado desde las
+            cajas del banco a nivel nacional. • Página Web: Espacio documental organizado dedicado al intercambio de
+            información. • Label o Sticker: Adhesivo con numeración única que se impone al documento para su posterior
+            procesamiento. • SAI o Clave de Transacción: Número único proporcionado por el banco que posee cada registro
+            incluido en el Log bancario. Este número consta de 13 dígitos, seguidos de la pablara “SAI- “, cabe resaltar
+            que la clave de transacción no se debe repetir en la misma fecha de recaudo
+        </p>
+    </div>
+    <div class="doc-section" data-id="5">
+        5. DOCUMENTOS DE REFERENCIA
+    </div>
+    <div class="doc-content" data-id="5">
+        <p>
+            • Acuerdo de servicios. • Norma NTC-ISO-9001, 27001
+        </p>
+    </div>
+    <div class="doc-section" data-id="6">
+        6. DESCRIPCIÓN DEL PROCESO
+    </div>
+    <div class="doc-content" data-id="6">
+        <div class="doc-subsection">
+            6.1 Recepción y organización de información física y magnética
+        </div>
+        <div class="doc-subcontent">
+            <ul>
+                <li><i class="fa-regular fa-circle-check"></i><b>Responsable: </b>Auxiliar de procesos, Líder de Proceso
+                </li>
+                <li><i class="fa-regular fa-circle-check"></i><b>Registro: </b>PRO-D-EXT - 111 MATRIZ DE CAMPOS
+                    OBLIGATORIOS</li>
+                <li><i class="fa-regular fa-circle-check"></i><b>Descripción: </b>
+                    Recibir la documentación de los 46 convenios autorizados por Bancolombia, los cuales
+                    requieren recepción, clasificación, organización, imposición de adhesivos, digitalización,
+                    grabación,
+                    validación de captura de información y de documentación repetida, actualización de SAI, publicación
+                    de imágenes en el sitio Web, generación de reportes, empaque y entrega de documentos físicos.
+                    *Para determinar que convenios se procesan en Digicom, verificar en la tabla de “PRO-D-EXT - 111
+                    MATRIZ DE CAMPOS OBLIGATORIOS” encontrado en formato Excel en la ruta:
+                    \\Servidor_Producción\Confidencial_Recaudos07_AAAA\Procesos_Recaudos\ANS.
+                    Los documentos que hayan llegado a las instalaciones que Digicom, que no hagan parte de esa
+                    matriz, se realiza su respectiva devolución.
+                </li>
+            </ul>
+        </div>
+        <div class="doc-subsection">
+            6.2. Carga de Log bancario
+        </div>
+        <div class="doc-subcontent">
+            <div class="doc-subsection">
+                6.2.1 Descargar Log bancario
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Auxiliar de Proceso / Líder de proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        Acuerdo de Servicios
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        El banco envía Log de recaudo por medio de correo electrónico,
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-033/img001.png')}}"
+                            alt="">
+                        En la siguiente ruta: \\Servidor_Producción\Confidencial_Recaudos07_AAAA\regdata se debe de
+                        crear una carpeta cuyo nombre será la fecha de recaudo del documento.txt
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-033/img002.png')}}"
+                            alt="">
+                        Posteriormente se descarga el documento.txt enviado por el banco y se guarda en la carpeta con
+                        la fecha de recaudo correspondiente.
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-033/img003.png')}}"
+                            alt="">
+                        <b>Nota 1:</b> En caso de no recibir el correo se le debe notificar al banco para realizar el
+                        envío del mismo.
+                        <b>Nota 2:</b> En caso de que se presente alguna caída en el correo electrónico, el documento
+                        .txt será enviado a través del sitio web
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.2.2. Cargar Log bancario
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Auxiliar de Proceso / Líder de proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Para hacer la respectiva carga de Log debemos ingresar por el aplicativo Convenios_Bancos.exe,
+                        el cual se encuentra por la siguiente ruta: \\Servidor_Producción
+                        \Confidencial_Recaudos07_AAAA\Convenios_Bancos\bin\Debug, se ingresa contraseña del usuario.
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-033/img004.png')}}"
+                            alt="">
+                        Posteriormente se ingresa al aplicativo, ingresamos a la opción:
+                        Archivo/Carga_Archivos/Log_Bancario
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-033/img005.png')}}"
+                            alt="">
+                        Para cargar la carpeta creada con la fecha de recaudo, en el recuadro siguiente se selecciona la
+                        opción “…” y en el menú que se despliega se selecciona la fecha de recaudo.
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-033/img006.png')}}"
+                            alt="">
+                        Se selecciona el documento .txt a cargar y posteriormente se da clic en el botón Aceptar. El
+                        aplicativo muestra un aviso emergente “terminó de verificar datos”, el cual indica que terminó
+                        el proceso, dar clic en el botón aceptar
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.2.3. Consultas en el aplicativo Convenios_Bancos.exe:
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>Para validar archivos cargados, abrir la opción: archivos\informes\log
+                        bancarios\consulta_archivos_cargados.</li>
+                    <li>Consultar por referencia, valor, oficina, fecha, ingresar a: archivos\informes\log
+                        bancarios\informe_log_bancario.
+                    </li>
+                    <li>Consultar referencias grabadas en el aplicativo, como referencia 1, referencia 3, valor
+                        total, fecha, oficina, convenio, ingresar a:
+                        archivos\informes\log_bancarios\consulta_grabacion_interna.
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="doc-subsection">
+            6.3. Preparación Documental
+        </div>
+        <div class="doc-subcontent">
+            <div class="doc-subsection">
+                6.3.1. Recepción de documentos físicos
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Auxiliar de Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Recibir los documentos de recaudos remitidos por el banco por medio de una tula.
+                        La cual llega sellada con un precinto, la tula debe ser abierta en el área de Convenios
+                        Bancolombia,
+                        el precinto de la tula debe ser cantado ante cámara y las bolsas correspondientes a cada
+                        sucursal del banco deben ser organizadas
+                        por código de oficina de mayor a menor. Se procede a cantar la tula ante cámara, mencionando de
+                        manera clara el código de la oficina que remite la bolsa,
+                        si la bolsa contiene precinto, se debe cantar el número de precinto, la fecha de recaudo, el
+                        convenio al cual pertenecen, y la cantidad de documentos enviados;
+                        al vaciar la tula, se debe cantar como tula vacía, y se muestra ante cámara, esto con el
+                        objetivo de certificar que no quedan más documentos en el interior de la tula.
+                        Este procedimiento se lleva a cabo de la misma manera en cada ciudad en la cual se reciben los
+                        convenios.
+                        <b>Nota:</b> Durante el proceso de apertura de tulas, es posible que lleguen documentos que no
+                        pertenecen a este proceso o que pertenecen a
+                        una ciudad de destino distinta. Estos documentos se cantan ante cámara como documentos mal
+                        remitidos, mencionando claramente la oficina que
+                        los envía, y se entrega al líder del proceso para que realice su devolución correspondiente.
+                    </li>
+                </ul>
+                <div class="doc-subsection">
+                    6.3.2.1. Devoluciones:
+                </div>
+                <div class="doc-subcontent">
+                    <ul>
+                        <li><i class="fa-regular fa-circle-check"></i><b>Responsable: </b>Auxiliar de procesos, Líder de
+                            Proceso</li>
+                        <li><i class="fa-regular fa-circle-check"></i><b>Registro: </b>PRO-D-150 Devoluciónes
+                            Bancolombia FLUJO ERRADO-CUSTODIA</li>
+                        <li><i class="fa-regular fa-circle-check"></i><b>Descripción: </b>
+                            Después de clasificados los documentos, se separan aquellos que no hacen parte del
+                            proceso, las devoluciones se dividen en tres tipos: Flujo Errado, Custodia y Cuentas AFC.
+
+                            Las devoluciones por Flujo Errado consisten en todos los documentos que no hacen parte de la
+                            matriz de convenios de Digicom, sean: Convenios que no se manejan en el proceso, documentos
+                            mal remitidos como aperturas de cuentas, solicitudes de créditos, entre otros.
+
+                            Los documentos pertenecientes a Custodia consisten en todos los documentos sobrantes,
+                            documentos rotos, documentos mal impresos, planillas erradas, copias de convenios, solo
+                            timbres,
+                            solo códigos de barras.
+
+                            Los documentos pertenecientes a Cuentas AFC o en su defecto Convenio 8664, son documentos
+                            de consignación, estos documentos contienen la leyenda explícita de “Cuenta AFC” y se envían
+                            directamente a al Proveedor IQ.
+
+                            Estos documentos se ordenan por número de oficina y se envían una vez a la semana,
+                            directamente
+                            a Iron Mountain, y se diligencia formato de entrega PRO-D-150 Devoluciónes Bancolombia FLUJO
+                            ERRADO-CUSTODIA ubicado en: \\Servidor_Producción\Confidencial_
+                            Recaudos07_AAAA\Entregas
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="doc-subsection">
+                6.3.2 Clasificación
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Auxiliar de Proceso / Líder de Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        PRO-D-151 Reporte Inconsistencias Fisica Convenios -Bancolombia
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Luego de la apertura y lectura de los documentos, se deben organizar los convenios por número de
+                        convenio y fecha de recaudo.
+                        Para realizar la identificación del número de convenio, si el documento presenta timbre, este se
+                        revisa y se compara la información del documento:
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-033/img007.png')}}"
+                            alt="">
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Nota:
+                        </b>
+                        En caso de que la información entre el timbre y el documento no coincida, se entrega al líder de
+                        proceso para que reporte la inconsistencia respectiva.
+                        En formatos que tienen código de barras (EAN), la información se reparte así: Número de EAN que
+                        es la identificación del convenio, número de referencia del documento, valor total, fecha
+                        oportuna de pago o fecha de generación del documento:
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-033/img008.png')}}"
+                            alt="">
+                        Después de identificado el EAN, se ubica el convenio usando la Matriz de Campos Obligatorios,
+                        ubicado en la ruta:
+                        \\Servidor_Producción\Confidencial_Recaudos07_AAAA\Procesos_Recaudos\ANS
+                        En caso de que el documento no presente código de barras ni timbre, se puede consultar su
+                        convenio en el aplicativo Convenios_Bancos.exe, en el menú:
+                        archivo/informes/Log_Bancarios/Informe_Log_Bancario y/o Informe_Log_Bancario_Conv.
+                        En la primera opción, digitar al menos dos campos representativos:
+                        <ul>
+                            <li>Valor</li>
+                            <li>Fecha</li>
+                            <li>Referencia</li>
+                            <li>Oficina</li>
+                            <li> Convenio</li>
+                        </ul>
+                        En cambio, en la última opción (Informe_Log_Bancario_Conv) digitar el Ean encontrado para
+                        conocer el número de convenio.
+                        Después de clasificado los documentos se empacan en bolsas transparentes y estas se marcan con
+                        el número de convenio y la fecha de recaudo,
+                        ejemplo: 20043 – 02 Enero 2024 y posteriormente se organizan los paquetes de menor a mayor
+                        convenio y menor a mayor fecha de recaudo
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="doc-subsection">
+            6.4 Numeración
+        </div>
+        <div class="doc-subcontent">
+            <div class="doc-subsection">
+                6.4.1 Adhesivos para documentos (Sticker)
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Auxiliar de Proceso / Líder de Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        PRO-D-159 Control Impresión de Adhesivos
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Cada documento perteneciente a Convenios requiere de un adhesivo que contiene una numeración que
+                        debe ser única para cada documento (no se debe repetir entre convenios). Para la creación de
+                        estos adhesivos se utiliza el programa de ZebraDesigner 3. Las medidas de este sticker son de
+                        67.04 mm de ancho x 15.00 mm de altura, estos adhesivos contienen el número y el nombre del
+                        convenio y el código de barras con su respectiva numeración, que consta de 9 dígitos:
+                        Los primeros dos dígitos consisten en el código del banco
+                        (07); el número siguiente la ciudad que recibió el documento y los seis dígitos siguientes es la
+                        secuencia de la impresión. Los Números de las ciudades son los siguientes:
+                        <ul>
+                            <li>Bogotá</li>
+                            <li>Barranquilla</li>
+                            <li>Bucaramanga</li>
+                            <li>Cali</li>
+                            <li>Cartagena</li>
+                            <li>Manizales</li>
+                            <li>Medellín</li>
+                            <li>Pereira</li>
+                            <li>Ibagué</li>
+                        </ul>
+                        <b>Nota:</b> Para mayor control de la impresión de adhesivos, la única ciudad que imprime
+                        adhesivos es
+                        Bogotá, de ahí se distribuyen los adhesivos a las ciudades respectivas.
+                        Teniendo esta información en cuenta, los adhesivos son así:
+                        <img
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-033/img009.png')}}">
+                        Las plantillas se encuentran en la siguiente ruta:
+                        \\Servidor_Producción\Confidencial_Recaudos07_AAAA\Procesos_Recaudos\BANCOLOMBIA
+                        \CIUDADES Ahí mismo se despliegan 9 carpetas, una por cada ciudad.
+                        Para evitar que se repita la secuencia de numeración de cada adhesivo y tener un control de la
+                        cantidad y la fecha de impresión/ envío de adhesivos se diligencia el formato PRO-D-159 Control
+                        Impresión de Adhesivos, se diligencian los siguientes campos:
+                        <ul>
+                            <li>Fecha </li>
+                            <li>Convenio </li>
+                            <li>Ciudad </li>
+                            <li>Nombre convenio</li>
+                            <li>Consecutivo inicia</li>
+                            <li>Consecutivo final</li>
+                            <li>Cantidad Impresa</li>
+                            <li>Nombre de quien imprime</li>
+                        </ul>
+                        Este archivo se encuentra en la siguiente ruta:
+                        \\Servidor_Producción\Confidencial_Recaudos07_AAAA\Procesos_Recaudos\BANCOLOMBIA
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.4.2 Adhesivos para Envío (Paquetes)
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Auxiliar de Proceso / Líder de Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        PRO-D-159 Control Impresión de Adhesivos
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Después de revisado y organizado cada paquete por convenio, se le coloca un adhesivo, el cual se
+                        utiliza para realizar seguimiento y control de la cantidad de paquetes enviado por convenio.
+                        Este adhesivo consta de 13 dígitos: Los primeros dos dígitos consisten con el número del banco
+                        (07); el número de la ciudad que envía el documento (véase 6.3.1); año vigente; cinco dígitos
+                        para el número del convenio, y tres dígitos siguientes son la numeración. De acuerdo con esta
+                        información, los adhesivos son así:
+                        <img
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-033/img010.png')}}">
+                        Las plantillas se encuentran en la siguiente ruta:
+                        \\Servidor_Producción\Confidencial_Recaudos07_AAAA\Procesos_Recaudos\BANCOLOMBIA\ADHESIVOS
+                        ENVÍO
+                        Ahí mismo se despliegan 9 carpetas, una por cada ciudad.
+                        Para evitar que se repita la
+                        numeración, se diligencia el formato PRO-D-159 Control Impresión de Adhesivos
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.4.3 Imposición de Adhesivos
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Responsable: </b>Auxiliar de procesos, Líder de
+                        Proceso</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Registro: </b>:No Aplica</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Descripción: </b>
+                        Preparar los convenios para digitalización: organizar por convenio, fecha y tamaño,
+                        posteriormente colocar el adhesivo correspondiente al convenio.
+                        Colocar el adhesivo en la parte superior derecha del documento, de no haber espacio allí, por
+                        motivos
+                        de que se tapa información, buscar un espacio en blanco del documento, en última opción colocar
+                        el adhesivo en vertical.
+                        Para organización y control, colocar los convenios en bolsas plásticas y marcar con número de
+                        convenio y fecha de recaudo.
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="doc-subsection">
+            6.5. Digitalización de imágenes
+        </div>
+        <div class="doc-subcontent">
+            <div class="doc-subsection">
+                6.5.1. Digitalización Imágenes de Bogotá
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Auxiliar de Proceso / Líder de Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Esta actividad aplica para todos los convenios. Extraer imágenes de los documentos físicos, por
+                        medio de scanner, de tal manera que sean copia del original. Las imágenes deben tener estas
+                        características:
+                        <ul>
+                            <li>Imágenes en Blanco y Negro.</li>
+                            <li>Formato .tif.</li>
+                            <li>Resolución 300 pp</li>
+                            <li>Peso entre 15 kb y 250 kb.</li>
+                        </ul>
+                        Digitalizar las imágenes en la ruta (Únicamente para Bogotá):
+                        \\Servidor_Produccion\Confidencial_Recaudos07_AAAA\scan\ (Número de convenio) \aaaammdd\EF\HN.
+                        Renombrar las imágenes con el código de convenio (5 dígitos), la ciudad de digitalización, el
+                        mes y el día de la digitalización (mmdd) consecutivo automático que genera el scanner. Ejemplo:
+                        <img
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-033/img011.png')}}">
+                        <b>
+                            Nota 1:
+                        </b>
+                        Esta información se sube a la base de datos, por lo tanto, no se deben de modificar, mover ni
+                        eliminar, debido a que generan conflicto en el aplicativo de convenios.
+                        <b>Nota 2:</b> Digitalizar imágenes a blanco y negro, no se deben digitalizar a color ni a escala de grises debido a que el
+                        peso aumenta y no pueden visualizar ni subir al sitio web. 
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.5.2. Digitalización de Imágenes de Ciudades.
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Responsable: </b>Auxiliar de procesos, Líder de Proceso</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Registro: </b></li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Descripción: </b>
+                        Para tener un control acerca de las imágenes que envía ciudades, después del 
+                        proceso de imposición de adhesivos y clasificación de los documentos, las personas encargadas en 
+                        las distintas ciudades digitalizan las imágenes en la siguiente ruta: 
+                        \\Servidor_Producción\Confidencial_Recaudos07_2024\Procesos_Recaudos\Imagenes Ciudades. 
+                        Allí van a encontrar carpetas nombradas con el número de convenio
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-033/img012.png')}}">
+                        Ingresan a la carpeta correspondiente al número de convenio a digitalizar, crean una carpeta con la 
+                        fecha de recaudo y allí se digitalizan las imágenes que deben ser nombradas de acuerdo con el 
+                        punto 6.3.4. 
+                        <b>Nota:</b> Si al momento de crear la carpeta con la fecha de recaudo, se encuentra ya una carpeta 
+                        existente, pegar las imágenes en esa misma carpeta. (Por ejemplo, en la imagen anexada, se 
+                        encuentran imágenes de Medellín, Cali y Bucaramanga)
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-033/img013.png')}}">
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="doc-subsection">
+            6.6. Carga de Imágenes
+        </div>
+        <div class="doc-subcontent">
+            <div class="doc-subsection">
+                6.6.1. Traspaso de Imágenes de ciudades
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Auxiliar de Proceso / Líder de Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Antes de realizar la carga de imágenes, se deben de pasar las imágenes de ciudades que se
+                        encuentran en la ruta:
+                        \\Servidor_Producción\Confidencial_Recaudos07_2024\Procesos_Recaudos\Imagenes Ciudades. a la
+                        carpeta “Scan”, que se encuentra ubicada en:
+                        \\Servidor_Produccion\Confidencial_Recaudos07_AAAA\scan\ (Número de convenio) \aaaammdd\EF\HN.
+                        Para esto, se abre la carpeta “Imágenes ciudades”, y se ingresa a cada convenio, posteriormente
+                        se abren las carpetas creadas con las fechas de recaudo, (en este caso carpeta 101 con fecha de
+                        recaudo del 20240723) 
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-033/img014.png')}}">
+                        Se cortan las imágenes y se pasan a la “Scan” allí se ingresa al convenio
+                        y a la fecha de recaudo correspondiente, seguido de la carpeta “EF”, se crea una carpeta “HN” y
+                        se pegan las imágenes
+                        <b>
+                            Nota:
+                        </b>
+                        En caso de que la carpeta HN ya se encuentre creada, se crea la carpeta HN1, y si esta ya se
+                        encuentra, se crea una con el número de la siguiente secuencia. (En este caso, como las carpetas
+                        “HN” y “HN1” ya fueron creadas, se crea la carpeta “HN2” y se pegan las imágenes) 
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-033/img015.png')}}">
+                        Después de realizar este paso, se debe de eliminar la carpeta
+                        de la fecha de recaudo que se encontraba en “Imágenes ciudades”. 
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-033/img016.png')}}">
+                        <b>Nota 2:</b> Dejar las carpetas de
+                        convenios vacías (Así como en la imagen anterior), esto con el propósito de evitar atrasos en la
+                        búsqueda de las imágenes de las ciudades. 
+                        <b>Nota 3:</b> Después de realizada la carga de imágenes, al
+                        momento de digitalizar nuevamente se debe crear una carpeta “HN” diferente
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.6.2. Carga de imágenes en el aplicativo.
+            </div>
+            <div class="doc-subcontent">
+                Se ingresa al aplicativo Convenios_Bancos.exe, y se ingresa a la opción 
+                Archivo/Carga_Archivos/Imágenes_Banco. 
+                Existen tres opciones para realizar la carga de imágenes:
+                    <ul>
+                        <li><b>Cargar por rango de fechas todos los convenios:</b> Se coloca el rango de fechas a cargar
+                            y se da clic en Cargar_Info.
+                            <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-033/img017.png')}}">
+                        </li>
+                        <li><b>Cargar por lote de imágenes:</b> Después de que abre el cuadro de la carga de Imágenes, 
+                            dar clic en los tres puntos (…), allí se abre un recuadro con la carpeta “SCAN” y se selecciona 
+                            el convenio y la fecha que se desea cargar, dar clic en EF (Efectivo) y escoger el HN (Horario 
+                            Normal) y dar aceptar
+                            <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-033/img018.png')}}">
+                        </li>
+                        <li><b>Cargar por convenio:</b> Digitar el número de convenio, y luego asignar el rango de fechas a 
+                            cargar. 
+                            <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-033/img019.png')}}">
+                            </li>
+                    </ul>
+            </div>
+        </div>
+        <div class="doc-subsection">
+            6.7. Grabación
+        </div>
+        <div class="doc-subcontent">
+            <ul>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Responsable:
+                    </b>
+                    Digitador
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Registro:
+                    </b>
+                    PRO-D-EXT - 111 MATRIZ DE CAMPOS OBLIGATORIOS
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Descripción:
+                    </b>
+                    Ingresar al aplicativo Convenios_Bancos.exe, dar clic en Captura_1, aparece una ventana y digitar
+                    los siguientes datos de acuerdo con las características de cada convenio: 
+                        <ul>
+                            <li><b>Tipo_Imp (Número de convenio):</b> seleccionar el número de convenio.</li>
+                            <li><b>Tipo_Pago:</b> Siempre Efectivo.</li>
+                            <li><b>Referencia_1:</b> Revisar matriz de campos obligatorios</li>
+                            <li><b>Cod_Barras o Referencia_3:</b> Número de Adhesivo (Incluir siempre en 0)</li>
+                            <li><b>Cod_Barras_2:</b> Digitar Número de adhesivo nuevamente.</li>
+                            <li><b>Valor_Total:</b> Digitar dos veces el valor total.</li>
+                            <li><b>Oficina:</b> La oficina indicada en el timbre, en caso de no encontrar ninguna, grabar como
+                                oficina “1”. </li>
+                        </ul>
+                    En el aplicativo, al digitar la Referencia_1, esta cruza contra el log y
+                    automáticamente hace el llamado de los campos: valor, oficina y horario. El Cod_Barras que es el
+                    adhesivo, lo reconoce automáticamente el aplicativo, si hay campos que no reconoce el aplicativo,
+                    realizar doble captura. Tener en cuenta PRO-D-EXT - 111 MATRIZ DE CAMPOS OBLIGATORIOS para revisar
+                    que referencia se debe de tomar. Al digitar, se pueden observar varias inconsistencias, al
+                    presentarse una, dar en la función F2, la cual permite omitir la planilla a grabar, de acuerdo con
+                    el error evidenciado, en la pestaña abierta, digitar el código de la inconsistencia y aceptar. Estos
+                    códigos son: 
+                        <ul>
+                            <li>01 - Imagen Recortada</li>
+                            <li>02 – Sin Referencia</li>
+                            <li>03 – Sin valor</li>
+                            <li>05 – Sin detalles o
+                                anexos</li>
+                            <li>06 – Convenio diferente</li>
+                            <li>07 – Código de barras ilegible</li>
+                            <li>09 – Referencia 3 repetida</li>
+                            <li>10 – Referencia 3 ciudad inválida</li>
+                            <li> 00 – No especifica error</li>
+                        </ul>
+                    <b>Nota 1:</b> Si en el documento no se encuentra algún campo de grabación especificado
+                    anteriormente, omitir y reportar como inconsistencia
+                </li>
+            </ul>
+        </div>
+        <div class="doc-subsection">
+            6.8. Validación
+        </div>
+        <div class="doc-subcontent">
+            <div class="doc-subsection">
+                6.8.1. Revisar imágenes abiertas
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Auxiliar de Proceso / Líder de Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Ingresar al aplicativo Convenios_Bancos.exe, dirigirse a la opción Archivo/Estado_Grab. 
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-033/img020.png')}}">
+                        Se abre
+                        un recuadro, y seleccionar el rango de fechas que se envió a cargar, dar clic en aceptar, para
+                        revisar si existen imágenes abiertas, la primera línea de información aparecen en amarillo: 
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-033/img021.png')}}">
+                        Se
+                        purga la información dando clic en el botón: 
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-033/img022.png')}}">
+                        Y se
+                        graban nuevamente las imágenes abiertas. 
+                        <b>Nota 1:</b> Para revisar que convenios hay que grabar, en
+                        la opción de Estado_Grab seleccionar el rango de fechas cargadas, dar clic en aceptar y
+                        posteriormente en Exportar. 
+                        El archivo generado se encuentra en la ruta:
+                        \\Servidor_Produccion\Confidencial_Recaudos07_AAAA\ArchivosSalida\INFORMES\RPT_XLS abrir la
+                        carpeta de la fecha de generado el archivo (Fecha actual) y abrir el archivo Rpt_Xls.CSV
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-033/img023.png')}}">
+                        Eliminar la línea 2 y 3 del informe generado. 
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-033/img024.png')}}">
+                        Posteriormente en el campo de Faltantes, generar
+                        una fórmula +B2-C2-D2 y correr la fórmula. 
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-033/img025.png')}}">
+                        Posteriormente filtrar y en el campo Faltantes Se elimina el registro en 0, los documentos que
+                        queden pendientes, son los convenios pendientes por grabar.
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-033/img026.png')}}">
+                        Se graban y se verifican. 
+                        <b>Nota 2:</b> Para saber que no hay documentos pendientes por grabación, se ingresa al aplicativo en la opción
+                        de Estado_Grab / Seleccionar el rango de fechas cargada, y al dar clic en aceptar, no debe de
+                        salir documentos en amarillo
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-033/img027.png')}}">
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.8.2. Revisar imágenes omitidas
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Auxiliar de Proceso / Líder de Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Validar por qué motivo se omitió la imagen, en el aplicativo, ingresar a la opción
+                        Archivo/Informes/Img_Omitidas 
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-033/img028.png')}}">
+                        Ingresar fecha de
+                        recaudo y convenio, y ahí aparece la imagen del documento y el motivo por el cual el digitador
+                        la omitió. Se revisa y en el aplicativo da la opción de Grabar_Img o Eliminar_Img
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.8.3. Revisar sobrantes
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Auxiliar de Proceso / Líder de Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        PRO-F-162 Reporte de Sobrantes Reales
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Ingresar al aplicativo Convenios_Bancos.exe, dirigirse a la opción Archivo/Informes/Cuadres En
+                        fecha de recaudo, se selecciona el rango de fechas que se envió a grabación; en tipo de impuesto
+                        se selecciona la opción 0 - Todos; en tipo de pago siempre en efectivo y en tipo de reporte se
+                        genera el reporte de sobrantes. Esta opción permite comparar la información del Log enviado por
+                        el cliente con las capturas realizadas. Hay que tener en cuenta que en esta validación se pueden
+                        encontrar: diferencias en valor, sobrantes, referencias erradas. 
+                        Esta herramienta trae columnas con la información de las imágenes grabadas
+                        que presentan error, más las columnas con la fecha, valor y oficina de la referencia errada. En
+                        este aplicativo permite modificar la referencia errada; si se presenta la necesidad de mover un
+                        documento a otra fecha de recaudo u a otro convenio se puede realizar. Se corrigen los errores y
+                        diferencias, dejando únicamente los sobrantes reales. A medida que se van encontrando sobrantes
+                        reales, se va llenando el formato PRO-F-162 Reporte de Sobrantes Reales el cual se encuentra
+                        ubicado en la ruta:
+                        \\Servidor_Produccion\Confidencial_Recaudos07_AAAA\Procesos_Recaudos\Sobrantes, allá se crea una
+                        carpeta donde se adjunta el archivo y las imágenes de los documentos sobrantes. 
+                        Estas imágenes
+                        se consiguen en la opción de Archivo/Informes/Cuadres/Copiar_Img_F 
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-033/img029.png')}}">
+                        Las imágenes quedan en la
+                        siguiente Ruta: C:\Rpt_Xls\Imagenes\Sobrante\07
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.8.4. Revisar Repetidos
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Auxiliar de Proceso / Líder de Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        PRO-F-161 Reporte de Repetidos Reales
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Posteriormente se revisan los documentos sobrantes, se revisan los documentos que quedaron
+                        repetidos (aquellos documentos donde se repite referencia y valor) esto de identificar que los
+                        documentos que aparezcan en esta opción sean repetidos reales. Ingresar al aplicativo
+                        Convenios_Bancos.exe, dirigirse a la opción Archivo/Informes/Reg_Repetidos 
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-033/img030.png')}}">
+                        Seleccionar el mismo rango de fechas el cual se envío a
+                        grabación, en tipo de impuesto se seleccionan 0- Todos y en tipo de pago siempre Efectivo;
+                        validar las referencias que aparecen. Esta herramienta permite revisar las imágenes, eliminarlas
+                        y grabarlas nuevamente (en caso de que haya sido error de grabación). Cuando se presentan
+                        repetidos reales, se llena el Excel PRO-F-161 Reporte de Repetidos Reales que se encuentra en la
+                        ruta: \\Servidor_Produccion\Confidencial_Recaudos07_AAAA\Procesos_Recaudos\Sobrantes En ese
+                        cuadro se completa con el Número de referencia, el convenio, fecha de recaudo, valor total, Cod
+                        de Barras y la Oficina
+                        <b>
+                            Nota:
+                        </b>
+                        Para realizar este tipo de validación se discrimina la fecha de recaudo y se selecciona el
+                        convenio a validar y ahí se selecciona el documento y posteriormente se Elimina o se Graba
+                        nuevamente
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.8.5. Trasmisión Imágenes – Generar Visor
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Auxiliar de Proceso / Líder de Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Al realizar la grabación, si la información de la imagen concuerda con lo digitado, las imágenes
+                        se suben en línea al sitio web, de lo contrario, se realiza la actividad de manera manual,
+                        generando el visor de imágenes y publicación en sitio web, así: Después de realizar las
+                        validaciones de omitidos, sobrantes y repetidos, se ingresa al aplicativo Convenios_Bancos.exe
+                        Seleccionar Archivo/Visor/Generar_Visor: 
+                            <ul>
+                                <li>Diligenciar el rango de fechas enviadas a grabación y
+                                    el convenio a validar.</li>
+                                <li>Al dar clic en Aceptar trae los documentos pendientes por subir al
+                                    sitio web.
+                                    <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-033/img031.png')}}">
+                                </li>
+                                <li>Dar clic en Verificar (recuadro gris)
+                                    en esta opción valida referencias incompletas o inexistentes, documentos cuya oficina o valor es
+                                    diferente al del Log, los registros así, toman color amarillo, se valida este tipo de
+                                    inconsistencias y corregir en la opción archivo/informe/informe_grabacion Los registros con
+                                    oficina 1 que en Log no se encuentran, toman color amarillo
+                                    <b>
+                                        Nota:
+                                    </b> Los únicos documentos que deben salir en amarillo, son los que aparecen sobrantes.
+                                    También
+                                    valida registros en los cuales una imagen ha sido movida y/o no está disponible toman color
+                                    rojo, validar la disponibilidad de imagen en la ruta:
+                                    \\Servidor_Produccion\Confidencial_Recaudos07_AAAA\scan convenio, fecha y lote respectivo. Si un
+                                    registro de adhesivo no tiene 9 dígitos o está en blanco, o una referencia en blanco también es
+                                    una inconsistencia mostrada en rojo. Si una referencia con la misma información ya se subió al
+                                    sitio web, de haber registros allí. De existir registros así, en el detallado toman color
+                                    aguamarina. En caso de esto, se le da clic en Verificar (el recuadro aguamarina) y volver a dar
+                                    clic en Verificar (Recuadro Gris)
+                                </li>
+                                <li>Dar clic en Oficina, trae las oficinas cuya referencia,
+                                    valor y fecha coincida con el Log.</li>
+                                <li>Volver a dar clic en Verificar y corroborar que las
+                                    imágenes en amarillo sean sobrantes reales. (En caso de que no existan imágenes en amarillo
+                                    proseguir)</li>
+                                <li>Dar clic en Generar_CD, aquí las imágenes suben a página web y simultáneamente
+                                    genera un visor, para ser quemado en DVD, guardado en la ruta:
+                                    \\Servidor_Produccion\Confidencial_conv07_AAAA\ DVD <b>Renombrado así:</b> consecutivo_convenio
+                                    <b>Ejemplo:</b> 49180_52079</li>
+                                <li>Finalmente generado el visor de CD, el aplicativo muestra una alerta de
+                                    culminación.</li>
+                                <li>De requerir generar un nuevo visor de CD, dar clic en la opción iniciar CD, y
+                                    repetir los pasos de esta actividad</li>
+                            </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.8.6. Revisión de Sai. 
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Responsable: </b>Auxiliar de procesos, Líder de Proceso</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Registro: </b> No Aplica</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Descripción: </b>
+                        Posterior se genera el visor y se modifican las oficinas que quedan grabadas con 1, 
+                        se hace la actualización de SAI; el SAI es la clave de transacción que cada documento posee y que 
+                        le permite identificarse más fácilmente, este SAI se puede repetir entre fechas de recaudo, pero no 
+                        puede repetirse en la misma fecha de recaudo. 
+                        Al momento de realizar la grabación, el SAI es asignado automáticamente, pero en algunos casos 
+                        no lo toma, por ende, nos dirigimos al aplicativo Convenios_Bancos.exe, vamos a la opción 
+                        Archivos/Informes/Reg.SITE
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-033/img032.png')}}">
+                        Posteriormente, en el recaudo que se abre, se colocan las fechas de recaudo que se enviaron a 
+                        grabación, en tipo de convenio se selecciona 0 – todos y en tipo de pago, siempre Efectivo. Dar clic 
+                        en Aceptar y salen los documentos que tienen pendiente el número de SAI, se da clic en Actualizar 
+                        SAI.
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-033/img033.png')}}">
+                        Los únicos documentos que deben aparecer en esa opción, son los sobrantes reales. Como el 
+                        documento no se encuentra en el Log, no tiene asignado un Número de Sai, por ende se dejan ahí. 
+                        <b>Nota 1:</b> En caso de que el documento no sea sobrante y aparezca sin SAI, se debe modificar manual 
+                        desde la opción de Informe_Grabacion, se llena el campo de fecha de recaudo, el número de 
+                        convenio del documento y tipo de pago (siempre en efectivo) y posteriormente se selecciona el 
+                        documento y se le agrega el número de SAI que se encuentra en el Log, se le da clic en Guardar y 
+                        nuevamente se actualiza el SAI. Repetir el proceso hasta que no aparezca ningún documento o los 
+                        documentos que se encuentren sean sobrantes reales. 
+                        Luego de que los documentos fueron revisados, se le da clic en Duplicados SAI, si llegan a 
+                        presentarse documentos en dicha opción, se revisan los documentos relacionados. 
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="doc-subsection">
+            6.9. Generación de Informes
+        </div>
+        <div class="doc-subcontent">
+            <ul>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Responsable:
+                    </b>
+                    Auxiliar de Proceso / Líder de Proceso
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Registro:
+                    </b>
+                    No aplica
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Descripción:
+                    </b>
+                    Luego de realizar las validaciones, se genera el informe final, el cual se envía al banco, para
+                    realizar esto nos dirigimos al aplicativo Convenios_Bancos.exe, luego nos dirigimos a la opción
+                    Archivos/Informes/Cuadres, en el recuadro que se abre, se coloca el rango de fechas con el cual se
+                    va a realizar el informe. Para establecer este rango se revisa el mes donde se encuentran las
+                    últimas faltantes reales presentadas. En este caso, como presentamos documentos faltantes reales del
+                    mes de Junio, el informe se genera desde el 01 de Junio al día generado el informe, en este caso 09
+                    de Agosto. En tipo de Impuesto, se seleccionan todos, en tipo de pago, siempre efectivo, en tipo de
+                    reporte se deja en blanco y se selecciona Informe_DG, automática va a generar el informe solicitado.
+                    <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-033/img034.png')}}">
+                    Después de que el archivo se haya generado, se ubica en la siguiente ruta:
+                    \\Servidor_Produccion\Confidencial_Recaudos07_AAAA\ArchivosSalida\INFORMES\07_INFORME \(dia en que
+                    se genera el informe) \Planos Ahí encontramos un TXT, estos documentos se renombran REC_DG_(Fecha y
+                    hora de generado el informe)
+                    <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-033/img035.png')}}">
+                    Luego de generado el
+                    informe, se abre el informe en Excel (para esto hay dos opciones, por arrastre o directamente desde
+                    el Excel) y ahí mismo se despliega el informe, en la columna D, o la ReferenciaPpal1, se deja en
+                    número: 
+                    <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-033/img036.png')}}">
+                    Después de realizado ese paso, se realiza una tabla dinámica en donde: Filas, ubicamos la
+                    fecha efectiva; en columnas, ubicamos el EstadoConciliacion y en Valores, seleccionamos la
+                    ReferenciaPpal1, le damos clic derecho, configuración campo de valor y la resumimos por Recuento
+                    Quedando así: 
+                    <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-033/img037.png')}}">
+                    Se pasa la tabla a Valores y posteriormente se eliminan las tres primeras filas, se
+                    selecciona el recuadro y se selecciona Tabla, vamos a un informe inmediatamente anterior, y buscamos
+                    la columna F (Total Log) se copia, se pega en la tabla actual, y se va completando con los
+                    documentos que se cargaron en el Log. 
+                    Para saber esto
+                    nos dirigimos al aplicativo: Convenios_Bancos.exe,
+                    archivos/Informes/Log_Bancario/Consultar_Archivos_Cargados se selecciona la fecha que se cargó, en
+                    este caso la 2024/08/08, clic en Aceptar y automáticamente sale la cantidad. 
+                    <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-033/img038.png')}}">
+                    Después de agregada la
+                    cantidad de documentos que aparecen en el Log de la fecha más reciente, en la parte de los totales,
+                    se agrega la siguiente formula: =subtotales (9;b2:b…) 
+                    <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-033/img039.png')}}">
+                    Se guarda el documento en Excel, y se deja con
+                    el mismo nombre y se hace una carpeta comprimida .zip, el documento .txt y el Excel generados,
+                    quedando así: 
+                    <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-033/img040.png')}}">
+                    Después se debe subir el documento al
+                    sitio web, realizando la siguiente ruta: Convenios/subir/carga 
+                    <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-033/img041.png')}}">
+                    Posteriormente sale un recuadro, y en
+                    seleccionar se abre la opción de Convenios, se selecciona esa opción y posteriormente en Elegir
+                    Archivo se abre un recuadro en el cual se debe seleccionar el documento a publicar (importante que
+                    el documento esté en .zip) se le da doble clic y posteriormente se da clic en Aceptar y se espera la
+                    notificación que indica que la publicación quedó exitosa:
+                    <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-033/img042.png')}}">
+                    Después de que el archivo fue publicado (aquí mismo se publican las imágenes de los
+                    documentos sobrantes presentados) se envía correo al banco, donde se adjunta la tabla dinámica que
+                    realizamos anteriormente, la cantidad de documentos sobrantes, y la fecha de los faltantes
+                    actualizados; así mismo adjuntamos el archivo Excel que enviamos, el correo se envía con Asunto:
+                    Reporte exitosos, sobrantes y faltantes (Fecha del día presente, en este caso del 2024-08-09)
+                    Convenios Bancolombia
+                </li>
+            </ul>
+        </div>
+        <div class="doc-subsection">
+            6.9. Reporte Exitosos y Faltantes Ciudades:
+        </div>
+        <div class="doc-subcontent">
+            <ul>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Responsable:
+                    </b>
+                    Auxiliar de Proceso / Líder de Proceso
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Registro:
+                    </b>
+                    No aplica
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Descripción:
+                    </b>
+                    Posterior se envía el informe al banco, tomamos el Excel que realizamos en el punto anterior, lo
+                    copiamos y lo pegamos en la ruta:
+                    \\Servidor_Produccion\Confidencial_Recaudos07_AAAA\Procesos_Recaudos\Reporte Faltantes y se pega,
+                    allí mismo le cambiamos el nombre, por Reporte Exitosos – falta(fecha del día presente, en este caso
+                    20240809) se abre el Excel, y se elimina la primera hoja creada en el punto anterior En la hoja
+                    restante, nos ubicamos en la columna G, y agregamos una columna, la cual llamaremos “Regional”,
+                    luego nos dirigimos a la siguiente ruta:
+                    \\Servidor_Produccion\Confidencial_Recaudos07_AAAA\Procesos_Recaudos\ANS y abrimos el archivo Tabla
+                    de oficinas Bancolombia 2023-06-23, nos dirigimos al Reporte de Exitosos y en la casilla G1
+                    realizamos la siguiente fórmula: =BuscarV[(Casilla F2);
+                    <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-033/img043.png')}}">
+                    Posteriormente nos dirigimos a la Tabla de
+                    Oficinas previamente abierta, y seleccionamos toda la columna B hasta la F, 
+                    <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-033/img044.png')}}">
+                    Agregamos el “;” (punto y coma) y colocamos el número 5, otro “;” (punto y
+                    coma) y en la lista desplegable que aparece, seleccionamos la que diga “Falso” Al seleccionar la
+                    opción de “Falso”, 
+                    <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-033/img045.png')}}">
+                    aparece la seccional donde el documento puede llegar de acuerdo con el número de
+                    sucursal indicado, corremos la fórmula por toda la columna G, y la fórmula nos debe de quedar así:
+                    <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-033/img046.png')}}">
+                    Después de que se corre la fórmula por toda la columna, necesitamos pasar esos datos a valores, por
+                    lo cual, copiamos la columna G y la pegamos en valores. Cuando la fórmula está completa,
+                    seleccionamos todo el documento y lo convertimos a tabla, (se recomienda separar por colores los
+                    estados de la documentación Exitoso, faltante y sobrante) y les realizamos una tabla dinámica, para
+                    segmentar mejor la información. Cuando ya seleccionamos la opción de tabla dinámica, en el campo de
+                    Filas vamos primero a seleccionar el campo de Regional y No de Convenio; en el campo de Columnas,
+                    agregamos el campo de EstadoConciliacion y en el campo de valores, agregamos la ReferenciaPpal1 y la
+                    resumimos en recuento. 
+                    <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-033/img047.png')}}">
+                    Luego, en la opción de “Analizar
+                    tabla dinámica”, damos clic en Insertar Segmentación de Datos, y los campos a segmentar van a ser
+                    NoConvenio y FechaEfectiva; 
+                    <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-033/img048.png')}}">
+                    Ubicamos las segmentaciones nuevas y quedando el informe final así:
+                    <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-033/img049.png')}}">
+                    Guardamos el documento; este documento va dirigido a
+                    las ciudades que manejamos dentro de CONVENIOS BANCOLOMBIA (Fecha de generado en informe, en este
+                    caso 2024-08-09” ahí modificamos las fechas de recaudos encontradas en el informe y los faltantes
+                    actualizados, adjuntamos el archivo de Reportes en Excel y lo enviamos. Sobre este archivo se
+                    realiza el proceso de envío y la revisión de faltantes reales
+                </li>
+            </ul>
+        </div>
+        <div class="doc-subsection">
+            6.10 Proceso de Envío y revisión de Faltantes.
+        </div>
+        <div class="doc-subcontent">
+            <div class="doc-subsection">
+                6.10.1. Proceso de Envío. 
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Responsable: </b>Auxiliar de procesos, Líder de Proceso</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Registro: </b> PRO-D-100 Formato entrega convenios Bancolombia; PRO-D-EXT - 112 MATRIZ DE 
+                        DEVOLUCIONES E INCONSISTENCIAS</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Descripción: </b>
+                        En las horas de la mañana, se realiza el proceso de envío, este se realiza con los 
+                        documentos que ya se encuentran Exitosos y se envían a cada cliente solicitado, para enviar un 
+                        paquete es necesario que se realice la clasificación de Número de Convenio y Fecha de Recaudo. 
+
+                        Para realizar el envío, se revisan los documentos en el reporte realizado el día anterior, se verifican 
+                        que los documentos se encuentren Exitosos y que el número de adhesivo se encuentre correcto, 
+                        para que este proceso sea más optimo, se recomienda revisar fecha por fecha del convenio por 
+                        enviar, y después de que todas las fechas del convenio determinado hayan sido revisadas, se realiza 
+                        un paquete donde se incluye cada fecha de recaudo con el documento determinado, se imprime una 
+                        tapa específica para cada documento, y se realiza el paquete, todos los convenios se deben enviar 
+                        en una bolsa resellable, y después se le coloca el adhesivo de envío y se llena la planilla de envío. 
+
+                        La periodicidad del envío depende de cada ciudad. En casos como Bogotá y Cali, el envío se realiza 
+                        entre 3 a 5 veces a la semana.
+
+                        Detallando lo mencionado anteriormente, se toman los documentos que el día anterior se enviaron 
+                        a Grabación (Ver punto 6.7) los cuales están debidamente clasificados, abrimos el documento 
+                        “Reporte Exitosos - faltaAAAAMMDD” (el documento más reciente), y empezamos con la 
+                        validación. Se filtra la tabla en el campo “NoConvenio”, “fechaEfectiva” y “CentroDigitalizacion” 
+                        y se revisa que el documento se encuentre Exitoso y que el adhesivo se encuentre correctamente 
+                        grabado, si el documento en ambos casos está bien, se cierra la bolsa que incluye esa fecha de 
+                        Recaudo y se repite el proceso con las demás fechas. 
+
+                        <b>Nota:</b> Si el documento se encuentra Sobrante NO debe de ser enviado hasta que el banco envíe 
+                        una respuesta sobre ese documento, en el caso en que el documento se encuentre faltante, se 
+                        entrega el documento al Analista para que este realice la revisión, y en caso de que el Número de 
+                        Adhesivo quedó mal grabado, se entrega el documento al analista para que este haga la corrección.
+
+                        Después de que se revisaron todas las fechas de recaudo del convenio determinado, se procede a 
+                        hacer la tapa de envío, estas tapas se encuentran en la siguiente ruta: 
+                        \\Servidor_Produccion\Confidencial_Recaudos07_AAAA\Entregas, se toma el PDF <b>PRO-D-100 Formato entrega convenios Bancolombia</b> se imprime la tapa y se llena la información, en estas 
+                        tapas se relaciona la siguiente información: 
+                            <ul>
+                                <li>Número de Convenio (Ejemplo: 100)</li>
+                                <li>Nombre de Convenio (Ejemplo: Protección Fondo de Cesantías)</li>
+                                <li>Destino: Para saber el destino tenemos que consultar esta matriz PRO-D-EXT - 112 MATRIZ DE DEVOLUCIONES E INCONSISTENCIAS
+                                    Que se encuentra en la siguiente 
+                                    ruta:\\Servidor_Produccion\Confidencial_Recaudos07_AAAA\Procesos
+                                    _Recaudos\Formatos SGI</li>
+                                <li>Fecha de Recaudo (o fechas de recaudo a enviar)</li>
+                                <li>Fecha de envío</li>
+                                <li>Cantidad de documentos (Agregar documentos totales y cantidad de 
+                                    paquetes)</li>
+                            </ul>
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-033/img050.png')}}">
+                        Posterior se tienen todos los paquetes, se van a colocar los adhesivos de envío relacionados en el 
+                        punto 6.4.2. Se agrega un adhesivo por cada paquete, de acuerdo con su convenio. Y procedemos 
+                        a llenar el formato de entrega PRO-D-100 Formato entrega convenios Bancolombia que se 
+                        encuentra en la siguiente ruta: \\Servidor_Produccion\Confidencial_Recaudos07_AAAA\Entregas
+                        En ese formato vamos a relacionar las fechas de recaudo, con una X (equis) señalamos que 
+                        convenios van a ser enviados, relacionamos la cantidad de bolsas por paquetes a enviar (si se envían 
+                        4 fechas de recaudo, son 4 paquetes para enviar); la cantidad total de documentos; y en el ultimo 
+                        campo vamos a relacionar el adhesivo de envío que se le pegó al paquete. Luego de que todo está 
+                        relacionado, vamos a colocar en la parte final el No de precinto. 
+
+                        <b>Nota:</b> Para hacer el envío de los documentos se envían en una bolsa de Digicom junto al respectivo 
+                        precinto, el único que puede enviar bolsas sin precinto es Cali. 
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-033/img051.png')}}">
+                        Se imprimen dos copias de este documento, se adjunta con el paquete de envío, y se le entregan al 
+                        mensajero para que el las entregue en el centro de correspondencia indicado.
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.10.2. Revisión de Documentos faltantes.
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Responsable: </b>Auxiliar de procesos, Líder de Proceso</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Registro: </b></li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Descripción: </b>
+                        Posteriormente se realiza el envío, se van a revisar las faltantes, para eso, diariamente 
+                        el banco envía imágenes en la ruta: \\192.168.0.139\ConveniosBancol, esto con el propósito de 
+                        después de 7 días calendario aproximadamente, realizar la revisión de faltantes, estas imágenes se 
+                        toman en dos ocasiones, en la tarde-noche (entre las 5 y las 6 pm) y en la mañana (entre las 8 y 10 
+                        am). Para esto accedemos a la ruta indicada y cortamos todas las imágenes:
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-033/img052.png')}}">
+                        Las imágenes vienen renombradas con: Número de secuencia de transmisión + Número de sucursal 
+                        + Fecha y hora de transmisión. 
+                        Estas imágenes se envían a la siguiente carpeta: 
+                        \\Servidor_Produccion\Confidencial_Recaudos07_AAAA\Procesos_Recaudos\Imagenes Banco\día 
+                        presente (siguiendo el ejemplo de la fecha que manejamos en el documento sería 20240809), esto 
+                        lo hacemos para cuando se presenten las faltantes en físico, revisar si existe la imagen y procesar a 
+                        imagen, en caso de que no exista la imagen, o la imagen esté borrosa, ilegible o no corresponda, se 
+                        considerará como faltante real.
+
+                        Para hacer el proceso de revisión de faltantes, vamos a contar 7 días calendario de caída, en caso 
+                        de la fecha del 20240809 de agosto, se revisaría el 20240802, para esto nos dirigimos al documento 
+                        “Reporte Exitosos – falta(día presente)” y lo filtramos por fecha efectiva y por estado de 
+                        conciliación.
+
+                        De acuerdo con la cantidad de documentos que salgan, se revisarán en la carpeta de Imágenes 
+                        Banco, para esto nos dirigimos a la ruta: \\Servidor_Produccion\Confidencial_Recaudos07_AAAA\Procesos_Recaudos\Imagenes 
+                        Banco\(fecha a revisar) y en la opción “Buscar” escribimos “SUC” y el número de sucursal (siempre 
+                        colocar 4 dígitos, ejemplo SUC0035)
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-033/img053.png')}}">
+                        Se revisa la imagen, si esta coincide con la información reportada como faltante, se imprime y se 
+                        procesa común y corriente. En caso de que el documento no se encuentre o el documento no 
+                        coincida con lo reportado, se hace caso omiso y se mantiene la faltante real. 
+
+                        El banco posteriormente envía por correo imágenes faltantes para procesar, y en caso de que el 
+                        banco no encuentre las imágenes, envían certificados.                         
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    <div class="doc-section" data-id="7">
+        7. Indicadores de Desempeño:
+    </div>
+    <div class="doc-content" data-id="7">
+        <ul>
+            <li>
+                <i class="fa-regular fa-circle-check">
+                </i>
+                <b>
+                    Registro:
+                </b>
+                GER-D-001 Indicador - Convenios AAAA FÓRMULA Σ Total Informes enviados - Informes enviados fuera de
+                tiempo --------------------------------------------- *100 Σ Total informes enviados FÓRMULA Σ Paquetes
+                enviados- Σ Paquetes enviados fuera de tiempos -------------------------------------------------------
+                *100 Σ Paquetes enviados FÓRMULA Σ Imágenes publicadas- Σ imágenes publicadas fuera de tiempos
+                ------------------------------------------------------- *100 Σ imágenes publicadas
+            </li>
+        </ul>
+    </div>
+    <div class="doc-section" data-id="8">
+        8. Control de Proceso:
+    </div>
+    <div class="doc-content" data-id="8">
+        <table>
+            <thead>
+                <tr>
+                    <th>Versión</th>
+                    <th>Elaborado</th>
+                    <th>Aprobado</th>
+                    <th>Fecha</th>
+                    <th>Descripción del Cambio</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cambio in cambios %}
+                <tr>
+                    <td>{{ cambio[2] }}</td>
+                    <td>{{ cambio[3] }}</td>
+                    <td>{{ cambio[5] }}</td>
+                    <td>{{ cambio[6] }}</td>
+                    <td>{{ cambio[7] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Botón para abrir el modal -->
+<button class="btn btn-outline-primary" id="openModalBtn" style="margin-top: 20px;">Editar Secciones</button>
+<!-- El Modal -->
+<div class="modal" id="sectionModal">
+    <div class="modal-content">
+        <span class="close-button">×</span>
+        <h2>Selecciona y Edita una Sección</h2>
+        <label for="sectionSelector">Sección:</label>
+        <select id="sectionSelector">
+            <option value="">-- Selecciona una sección --</option>
+        </select>
+        <label for="sectionContent">Contenido:</label>
+        <textarea id="sectionContent" placeholder="El contenido de la sección aparecerá aquí..."></textarea>
+        <label for="sectionCambio">Descripcion del Cambio:</label>
+        <textarea id="sectionCambio" placeholder="Describe en palabras cortas el cambio realizado..."
+            required></textarea>
+        <button class="btn btn-outline-primary" id="saveChangesBtn" style="margin-top: 15px;">Guardar Cambios</button>
+    </div>
+</div>
+<script src="{{ url_for('static', filename='js/jquery.min.js')}}"></script>
+<script src="{{ url_for('static', filename='js/acordeon_doc.js')}}"></script>
+<script src="{{ url_for('static', filename='js/edita_procedimiento.js')}}"></script>
+
+{% endblock %}

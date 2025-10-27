@@ -1,0 +1,797 @@
+{% extends 'home.html' %}
+{% block title %}Documentacion{% endblock %}
+{% block content %}
+<link href="{{ url_for('static', filename='css/acordeon_doc.css') }}" rel="stylesheet" />
+<link href="{{ url_for('static', filename='css/procedimientos.css') }}" rel="stylesheet" />
+
+<div id="documento" style="display:none;">procedimientos/HTML/PRO-PR-036 Embargos AV Villas.html</div>
+<div id="nombre_documento" style="display: none;">PRO-PR-036 Embargos AV Villas</div>
+<h1>PRO-PR-036 Embargos AV Villas</h1>
+{% for cambio in cambios %}
+{% if loop.first %}
+<h3>Version: {{cambio[3]}}</h3>
+{% endif %}
+{% endfor %}
+<br />
+<div class="doc-accordion">
+ <div class="doc-section" data-id="6">
+  6. DESCRIPCIÓN DEL PROCESO
+ </div>
+ <div class="doc-content" data-id="6">
+  <div class="doc-subsection">
+   6.1 Descargar Archivos del Banco
+  </div>
+  <div class="doc-subcontent">
+  </div>
+  <div class="doc-subsection">
+   6.2 Descargar
+  </div>
+  <div class="doc-subcontent">
+   <div class="doc-subsubsection">
+    6.2.1 Buscamos la ruta para colocar los archivos
+   </div>
+   <div class="doc-subsubcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Líder del proceso
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      N/A
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Una vez se descargan los archivos, se colocan en el servidor
+\\Servidor\Confidencial_embargos\PDFS\aaaammdd\COACTIVOS
+\\Servidor\Confidencial_embargos\PDFS\aaaammdd\EJECUTIVOS, cuando los archivos se descargan del banco vienen en pdf tanto coactivo como ejecutivo, estos archivos se colocan en la carpeta pdf, en su respectiva fecha.
+Des encriptar archivos enviados por el banco
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Líder del proceso
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      N/A
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Extrae las imágenes que llegan en el archivo plano que se descargan encriptadas por parte del Banco, para realizar la desencriptación utilizamos la llave WinPT herramienta especificada por el área de recurso tecnológico. Abrimos la ventana donde se encuentra el archivo, ejecutamos WinPT luego nos paramos en el archivo y con clic sostenido lo arrastramos a la venta de WinPT. Luego de este proceso la aplicación nos pide la llave de des encriptación la cual es enviada por el banco vía correo electrónico.
+Extraer imágenes.
+Desencriptar y poner clave del Banco.
+Archivo ya desencriptado
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Líder del proceso
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      N/A
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Después de haber desencriptado los archivos deberán aparecer un archivo comprimido para luego extraer la información en una carpeta descomprimida para empezar con su proceso. Donde podemos verificar la cantidad de imágenes que llegaron por parte del Banco.
+Descomprimir
+Extraído.
+Convertir PDF a TIF
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Líder del proceso
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      N/A
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Se ponen los PDF en la siguiente ruta C:\Users\acardenas\Desktop\Nuevacarpeta, para pasarlos por la aplicación KOFAX y convertirlos en TIF, para esto luego de abrir la aplicación nos paramos en la pestaña procesamiento avanzado, convertir lotes, seleccionar todo, luego procedemos a configurar el tamaño de las imágenes en 300 pixeles y convertir en TIF.
+C:\Users\acardenas\Desktop\Nueva carpeta     Ruta donde se ponen los PDF temporalmente
+Kofax
+Aplicación Kofax.
+Entramos por procesamiento avanzado, convertir lotes, seleccionar todo, dar configuración 300 pixeles y convertir
+Seleccionamos todo
+Configuración del escáner, debe estar en 300 píxeles
+C:\Users\acardenas\Desktop\Nueva carpeta ruta donde quedan los tif temporalmente
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsubsection">
+    6.4.1 Colocar Imágenes en el servidor
+   </div>
+   <div class="doc-subsubcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Líder del proceso
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      N/A
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Una vez convertidos los oficios de PDF a TIF, pasamos los TIF a la carpeta  imágenes en su respectiva fecha que se encuentra en el servidor \\servidor\Confidencial_embargos\Imagenes\aaaammdd,
+Carpeta fecha
+Imágenes listas.
+Cargue de imágenes al aplicativo
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Líder del proceso
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      N/A
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Una vez hecho esto, abrimos el aplicativo de EMBARGOS con su respectivo usuario y contraseña \\servidor\Confidencial_embargos, en la pestaña herramientas damos clic, y en la opción carga de imágenes nos aparecerá una ventana emergente en la cual diligenciamos en el campo Fecha asignada, con la fecha que se va a trabajar después damos clic en el botón carga de imágenes
+     </li>
+    </ul>
+   </div>
+  </div>
+  <div class="doc-subsection">
+   6.7 Capturas de imágenes
+  </div>
+  <div class="doc-subcontent">
+   <div class="doc-subsubsection">
+    6.7.1 Campos para digitar
+   </div>
+   <div class="doc-subsubcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Digitadores
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      Aplicativo Digicom
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Se capturarán los campos especificados por el cliente, para los oficios Coactivos serán los siguientes campos:
+Ciudad (Cd Dane)
+Nombre del ente
+No. De oficio
+Tipo de id demandante
+No ID demandante
+Nombre del demandante
+Nombre del funcionario que firma
+Cargo del funcionario que firma
+Dependencia del área de quien firma el oficio
+Dirección del ente
+Correo Electrónico del ente
+TP Identificación del demandado
+No identificación del demandado
+Digito de verificación (DV)
+Nombre del demandado
+Valor de embargo
+Radicado
+Para los oficios Ejecutivos serán los siguientes campos:
+Ciudad (Cd Dane)
+Nombre del ente
+No. De oficio
+No de radicado
+Tipo de proceso
+Tipo de id demandante
+No id demandante
+Nombre del demandante
+Nombre del funcionario que firma
+Cargo del funcionario que firma
+Dependencia del área de quien firma el oficio
+Dirección del ente
+Correo Electrónico del ente
+TP Identificación del demandado
+No identificación del demandado
+Digito de verificación (DV)
+Nombre del demandado
+Valor de embargo
+Procedimiento Oficios OCRS
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Analista, Auxiliar de Proceso
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      Documento generado por el aplicativo documento PDF
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Cuando los digitadores estén realizando la captura, les va a salir oficios que traen más de 11 demandados, estos oficios no se deben capturar completamente, ellos deben diligenciar la primera información y enviarlos como OCRS, en el campo deben colocar S si es OCRS, una vez los digitadores envíen estos oficios como OCRS revisamos en el aplicativo y estos se identifican en la parte que dice Cap PDFOCR, también se identifican porque están en estado 6  para que los analistas o auxiliares realicen los análisis de los documentos.
+Para empezar a realizar las capturas de los oficios OCRS, nos dirigimos a la pestaña Embargos, damos clic en captura de detalles desde OCR-PDF, se despliega una ventana en la cual vamos asignar y nos muestra el ID del OCR que se va a realizar, una vez asignado el OCR, Vamos a dar clic en Abrir PDF.
+Captura por Digitadores.
+Captura de Oficios OCR
+Procedimiento Oficios OCRS
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Analista, Auxiliar de Proceso
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      Conversión a Excel
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Se realiza el análisis del documento verificando que sea un embargo, tener en cuenta que el embargo viene con un valor límite de embargo, una vez realizado el análisis procedemos a convertir el documento de PDF a un formato en Excel para proceder a trabajar y editar
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Nota:
+      </b>
+      Una vez abierto el documento PDF, se verifica si es un OCR, ya que trae un listado donde se identifican varios demandados, tener en cuenta que un OCRS se realiza si trae más de 12 demandados.
+Para la conversión del documento se realizará las siguientes acciones:
+Damos clic en Inicio
+Excel
+Se despliega la ventana, a la cual le damos clic en Intervalo, colocamos las hojas desde donde se encuentra el OCR, en este caso el listado está entre la hoja 2 y 3
+Después, damos clic en configuración,
+Allí se despliega la siguiente ventana de opciones
+Damos clic en buscar una hoja por página
+Damos clic en por documento y por último aceptar
+Una vez se realiza este proceso, nos arroja el archivo en Excel.
+Modificación para carga de oficios OCRS
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Analista, Auxiliar de Proceso
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      N/A
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Una vez descargado el Excel procedemos a modificarlo de acuerdo a la estructura establecido por el cliente y para la lectura clara del aplicativo, las columnas del Excel deben ir en el siguiente orden:
+Tipo de Documento
+Numero de Documento
+Digito de verificación
+Nombre del demandado o (a quien se le realiza el desembargo)
+Valor de embargo
+Número de expediente, Resolución, Proceso, Mandamiento de pago, tener en cuenta que, si el oficio tiene, por ejemplo, resolución y proceso, van separados con espacio.
+Nota 1: En la columna tipo de documento debemos poner manualmente la inicial del tipo de documento en letra mayúscula de la siguiente manera, cedula C, nit N, tarjeta de identidad TI, cedula de extranjería CE, pasaporte P.
+Nota 2: De acuerdo a la estructura procedemos a eliminar las columnas sobrantes y crear la columna valor de embargo, tener en cuenta que para los oficios de desembargos no tenemos valores procedemos a llenar las celdas de la columna con el valor 999.
+Nota 3: Para la columna 6 números de expediente de acuerdo a la información generada en el oficio procederemos a llenar las celdas con los datos que allí vienen y de acuerdo a la estructura estos datos deben ir separados por espacios.
+Así quedaría el OCR, una vez modificado de acuerdo a su estructura
+Carga de Archivos Modificados
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Analista, Auxiliar de Proceso
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      Aplicativo
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Una vez tengamos el OCR bien estructurado, lo seleccionamos, le damos copiar y nos dirigimos de nuevo al aplicativo y en la pestaña cargar desde portapapeles damos clic para que el aplicativo cargue la información estructurada, una vez realizada esta acción en la misma ventana procedemos a dar clic en el botón Grabar detalles.
+Validación (Segunda Captura)
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Digitadores
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      Aplicativo
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      La validación es una segunda captura, se hace con el fin de reducir errores y que la información sea más eficiente, tener en cuenta que al momento de realizar la validación ya vienen campos llenos de la primera captura, es decir, se debe validar si la información de la captura está correcta, si no está correcta el digitador la cambia y coloca la que sea correcta. Para ingresar a validar, dar clic en la pestaña Embargos, clic en validación, y se procede a realizar la validación respectiva.
+Comparación de Oficios
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Líder, Analista, Auxiliar de Proceso
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      Aplicativo
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Se realiza el análisis y la comparación de la captura de la información realizada por los digitadores esto con el fin de que la información concuerde con la que fue grabada de las imágenes TIF. Ingresamos al aplicativo y en la pestaña Embargos damos clic en Comparación de oficios en la venta emergente ponemos la fecha en la cual vamos a trabajar “fecha actual” aaaammdd, esto remite a la ventana donde procederemos a realizaremos las comparaciones y el análisis correspondientes de las capturas, una vez en las ventana daremos inicio dando clic en el icono superior de imagen, esto nos muestra en la ventana de comparación el archivo a comparar, en el cuadro Nombre campo procedemos a revisar que las capturas contenga los mismos datos que la imagen y procedemos a escoger la casilla de captura  que sea correcta.
+Una vez realizado el análisis y haber elegido la captura correcta damos clic en el boto cerrar comparación
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Nota:
+      </b>
+      Terminada la comparación se verifica que los estados queden en 12 (novedades) y 17 (oficio terminado). En caso de que los estados no estén en 12 y 17 se debe revisar en qué estado esta y realizar el proceso de análisis para corregir
+     </li>
+    </ul>
+   </div>
+  </div>
+  <div class="doc-subsection">
+   7.2 Informe Final
+  </div>
+  <div class="doc-subcontent">
+   <ul>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Responsable:
+     </b>
+     Líder de Proceso
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Registro:
+     </b>
+     Informe
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Descripción:
+     </b>
+     Después de haber generado los archivos procedemos a iniciar la creación del informe de acuerdo a las especificaciones cliente, nos dirigimos al servidor de la ruta especificada o asignada para el proceso damos clic en el acceso directo del servidor e ingresamos a la carpeta Confidencia_Embargos_aaaa, ubicamos la carpeta envíos ingresamos y damos clic en la carpeta con la fecha que estamos trabajando “Fecha actual”, de forma paralela en la misma ruta Confidencia_Embargos_aaaa ingresamos a la carpeta PDF ingresamos y damos clic en la carpeta con la fecha que estamos trabajando “Fecha actual”, esto para realizar la comparación y el análisis de que la cantidad de PDF sea Igual a la de las imágenes procesadas en el aplicativo
+    </li>
+   </ul>
+  </div>
+  <div class="doc-subsection">
+   7.3 Error en cantidades PDF VS Imágenes (TIF)
+  </div>
+  <div class="doc-subcontent">
+   <ul>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Responsable:
+     </b>
+     Líder de Proceso
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Registro:
+     </b>
+     N/A
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Descripción:
+     </b>
+     Cuando la cantidad de imágenes y oficios no cuadran, puede ser por varios factores, se deben revisar los estados en el aplicativo, tener en cuenta que el estado debe estar en 12 y 17, si algún oficio no está en ese estado es porque algún documento falta por terminar de procesar, éste sería una causa, otro puede ser, cuando una novedad no está bien procesada, o se realizó un mal movimiento (cuando dictan novedades, y no se realizaron adecuadamente), para poder solucionar este problema debemos revisar movimientos(pdf) contra aplicativo. Otro método es realizar la comparación de imágenes tif que se están procesando contra las imágenes PDF que se descargaron del banco, ya que las del banco son las reales, allí nos podríamos dar cuenta que faltó por procesar, o que movimiento se hizo mal. Para realizar este proceso, nos dirigimos al servidor \\servidor\Confidencial_embargosaaaammdd, damos clic en la carpeta pdfembargos, en la carpeta 1 colocamos las imágenes tif que se han procesado en la fecha que se está trabajando, en la carpeta 2 colocamos los pdf que llegaron del banco, esto con el fin de realizar una comparación y poder identificar por qué la cantidad de imágenes no ha sido correcto, o que se hizo mal, después de haber colocado las imágenes y los pdf en la carpeta 1 y 2, nos dirigimos de nuevo al servidor y damos clic en el aplicativo pdfcarpetas, luego damos clic en comparar carpetas, luego se desplegará una ventana donde nos muestra que va a realizar la comparación de la carpeta 1 contra la carpeta 2, luego se da clic en el icono de carpeta amarilla que se encuentra en la parte inferior derecha
+    </li>
+   </ul>
+  </div>
+  <div class="doc-subsection">
+   7.4 Procesar la información para realizar el informe
+  </div>
+  <div class="doc-subcontent">
+   <ul>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Responsable:
+     </b>
+     Líder de Proceso
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Registro:
+     </b>
+     Informe
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Descripción:
+     </b>
+     Una vez que hemos realizado las comparaciones y la información y los datos cuadran procedemos a organizar la información para esto renombramos las carpetas Coactivos y Ejecutivos de la siguiente forma EMBARGOS_COACTIVOS_20250115, EMBARGOS_EJECUTIVOS_20250115, después de haber renombrado las carpetas procedemos a comprimirlas en archivo. Zip para su envió al Banco
+    </li>
+   </ul>
+  </div>
+  <div class="doc-subsection">
+   7.5 Revisar Excel
+  </div>
+  <div class="doc-subcontent">
+   <ul>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Responsable:
+     </b>
+     Líder de Proceso
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Registro:
+     </b>
+     Informe
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Descripción:
+     </b>
+     Procedemos a revisar las configuraciones y que los datos estén completos en el Excel de la siguiente manera:
+El archivo final que se debe revisar, se deben revisar todas las columnas,
+Que los nombres de los entes, estén correctos
+No debe haber columnas vacías
+Se debe borrar la información que esté en la columna observaciones, solo se deja lo que venga con números de radicado y duplicados.
+En la columna nombre de imagen, Seleccionamos la información y miramos cuantos registros tiene este archivo de Excel, los cuales son 112 como podemos ver en la parte de abajo.
+Para realizar la operación de revisar procedemos a filtrar el archivo de Excel revisando columna por columna que no se encuentren campos vacíos, que los nombres de los entes estén escritos de acuerdo a las especificaciones del Banco, que las fechas estén correctas a la fecha en la cual estamos trabajando, que el tipo de documento coincida con la columna número de documento, que las direcciones estén escritas correctamente (Ej. Av. Cll – deben ir de la siguiente forma Avenida, Calle, Carrera, etc.).
+Para los campos de correo que no contengan información en la imagen dentro de la aplicativo se procede a poner NO REGISTRA, esto dará a entender que en el documento no se encuentra esta información, para los campos numéricos procederemos a poner el código 999.
+Nota1: Estas validaciones la realizaremos dentro del aplicativo con número de ID, en la opción de consulta para verificar que la imagen proporcionada por el cliente este correctamente capturada, cualquier cambio se realizara en la tabla de Excel de acuerdo a lo evidenciado en la imagen
+    </li>
+   </ul>
+  </div>
+  <div class="doc-subsection">
+   7.6 Campos especiales del Excel
+  </div>
+  <div class="doc-subcontent">
+   <ul>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Responsable:
+     </b>
+     Líder de Proceso
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Registro:
+     </b>
+     Informe
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Descripción:
+     </b>
+     Para la columna Nombre de la Imagen seleccionamos todos los registros, tomamos apunte del dato de recuento que aparece en la parte inferior derecha de la hoja de Excel que pertenecen a los registros de las imágenes procesadas, procedemos a copiarlos en una hoja nueva de Excel en el mismo libro, la información copiada en la nueva hoja procedemos a ir a la pestaña datos clic en quitar duplicados y allí nos arrojara el número de oficios que se enviaran al Banco. Apuntamos estos datos que se registraran en el archivo cuadre especificación numeral (7.4 control de envíos).
+Una vez realizada las actividades nos dirigimos a la carpeta activos y procedemos a renombrar los archivos de Excel que ya se han analizado y revisado tanto para coactivos como para ejecutivos. De la siguiente forma:
+Como podemos ver en la imagen apuntamos los registros del reconteo.
+Nota 1: Este procedimiento se debe hacer tanto con el archivo COACTIVO como EJECUTIVO, Una vez se convierte el archivo txt en Excel de coactivos y ejecutivos, se revisa que la información esté correcta y se sacan los REGISTROS y OFICIOS de cada archivo. Esto se hace porque los datos que se sacan del Excel se deben enviar al Banco.
+Nota 2: Se puede observar que en los archivos de Excel va la información en el nombre del archivo, los oficios y los registros
+    </li>
+   </ul>
+  </div>
+  <div class="doc-subsection">
+   7.7 Cuadre Digicom
+  </div>
+  <div class="doc-subcontent">
+   <ul>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Responsable:
+     </b>
+     Líder de Proceso
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Registro:
+     </b>
+     PRO-D-166 CUADRE DE NOVEDADES DIGICOM
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Descripción:
+     </b>
+     Una vez realizadas las novedades procedemos a realizar el cuadre de información el cual debe consolidar antes de enviar la información al banco para esto procedemos abrir el formato cuadre PRO-D-166 CUADRE DE NOVEDADES DIGICOM, procedemos a llenar la información correspondiente a cada columna.
+Para realizar el cuadre de la información, se cruza la información de novedad contra PDF e Imágenes cargadas.
+Nota 1: Hay que tener en cuenta que algunos de los PDF durante el proceso pueden pasar de Coactivos a Ejecutivos los cual revisaremos en la carpeta donde se encuentran los PDF.
+Nota 2: Para pasar la información de novedades a cuadre primero contamos los documentos divididos por oficios, a la cantidad total descontaremos menos un oficio que sería el original procesado fuera de los que se dividen, el resto de las novedades se totalizan y se escribe la cantidad de acuerdo a cada columna de la tabla cuadre. Tener en cuenta que en la columna VALIDACION OFICIOS DEVUELTOS, debe dar siempre COINCIDE, esto significa que el cuadre está correcto y coincide con las novedades procesadas
+    </li>
+   </ul>
+  </div>
+  <div class="doc-subsection">
+   7.8 Subir Archivos a la Plataforma del Banco
+  </div>
+  <div class="doc-subcontent">
+   <ul>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Responsable:
+     </b>
+     Líder Proceso
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Registro:
+     </b>
+     Aplicativo Banco
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Descripción:
+     </b>
+     Para ingresar a la plataforma del banco lo hacemos por medio de la URL http://200.14.232.182, procedemos con el registro de usuario y contraseña (El usuario y contraseña será brindado por el banco) al ingresar damos clic en la carpeta inicio en la siguiente ventana damos clic en la carpeta HACIAUSUARIO, en la siguiente ventana abrimos la carpeta AHORROSYCTACTE, una vez dentro de esta carpeta procedemos a dar clic en el botón cargar que se encuentra en la parte superior de la ventana, esto abrirá una ventana de explorador para ubicar los documentos dentro del servidor una vez ubicados en la carpeta envíos dentro de la fecha que se está procesando seleccionamos los cinco archivos encriptados damos clic al botón abrir y los archivos automáticamente se subirán a la plataforma
+    </li>
+   </ul>
+  </div>
+  <div class="doc-subsection">
+   7.9 Facturación
+  </div>
+  <div class="doc-subcontent">
+   <ul>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Responsable:
+     </b>
+     Líder Proceso
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Registro:
+     </b>
+     Excel
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Descripción:
+     </b>
+     Se hace con el fin de que el banco y el cliente compare los datos para así pasar la cuenta de cobro de los oficios y detalles trabajados durante el mes, para su realización, el banco nos indica hasta que fecha de corte se hace la facturación, tener en cuenta que es mensual. Para descargar este archivo, nos dirigimos al aplicativo, damos clic en herramientas y clic en archivos de facturación, una vez desplegado el cuadro, colocamos de que fecha a que fecha de hará la facturación y damos clic en generar. Luego de haber generado el archivo, nos dirigimos a el servidor \\servidor\Confidencial_embargosddmmaaaa\procesos\facturas, damos clic en la carpeta procesos y clic en facturas, allí está ubicado el archivo que el aplicativo genera para el proceso de facturación
+    </li>
+   </ul>
+  </div>
+  <div class="doc-subsection">
+   8.1 Realización Facturación
+  </div>
+  <div class="doc-subcontent">
+   <ul>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Responsable:
+     </b>
+     Líder Proceso
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Registro:
+     </b>
+     Excel
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Descripción:
+     </b>
+     Una vez se descarga el archivo de facturación, nos dirigimos al servidor \\servidor\Confidencial_Embargos52_2024\procesos\facturas, se procede a dar clic en la carpeta procesos, clic en la carpeta facturas, allí se podrá visualizar 4 archivos en Excel, estos son los archivos que se descargaron del aplicativo al momento de generar la facturación del mes. Por favor tener en cuenta que no solo se debe generar la facturación del mes, sino, la facturación a corte del mes anterior, como se explica en Aspectos a tener en cuenta. Lo archivos de Excel deben ser de la siguiente manera: Para coactivos hay un archivo de detalles y otro de totales, para ejecutivo de igual forma.
+Aspectos a tener en cuenta,
+La facturación se hace mensual, pero el corte que reporta el Banco son unos días antes de terminar el mes, es decir, que se debe hacer la facturación de los días que faltan para terminar el mes y otra facturación del mes siguiente al corte que indica en Banco.
+Ejemplo.
+Mes diciembre:  El mes de diciembre el banco nos dice que se debe hacer la facturación del 25 al 31 de diciembre,
+Mes Enero:  Ya en el mes de enero se procesará los días según la instrucción del banco la cual fue del 1 al 25 de enero.
+- Embargos_factura_detalles_20241201_20241224_coactivos
+- Embargos_factura_totales_20241201_20241224_coactivos
+- Embargos_factura_detalles_20241201_20241224_ejecutivos
+- Embargos_factura_totales_20241201_20241224_ejecutivos
+Primero se deben abrir los archivos detalles tanto de coactivo como ejecutivo y se debe verificar que se descargó la facturación con las fechas correspondientes, después se procede a revisar los totales tanto de coactivos como de ejecutivos, allí se debe colocar una fórmula (=SUMA(H2:H18)- (=+H19*H20), en la columna total, una vez se coloca la formula, se procede a dar clic en autosuma, allí va a mostrar el valor de la facturación total, la cual establecerá el costo que se enviará al banco. El costo o la tarifa que se cobrará en la facturación la establece el banco con el contratista
+    </li>
+   </ul>
+  </div>
+ </div>
+ <div class="doc-section" data-id="9">
+  9. CONTROL DEL PROCEDIMIENTO
+ </div>
+ <div class="doc-content" data-id="9">
+ </div>
+</div>
+
+<!-- Botones y Modals para edición -->
+<button class="btn btn-outline-primary" id="openModalBtn" style="margin-top: 20px;">Editar Secciones</button>
+<div class="modal" id="sectionModal">
+    <div class="modal-content">
+        <span class="close-button">×</span>
+        <h2>Selecciona y Edita una Sección</h2>
+        <select id="sectionSelector"><option value="">-- Selecciona --</option></select>
+        <textarea id="sectionContent" placeholder="Contenido..."></textarea>
+        <textarea id="sectionCambio" placeholder="Descripción del cambio..." required></textarea>
+        <button class="btn btn-outline-primary" id="saveChangesBtn" style="margin-top: 15px;">Guardar Cambios</button>
+    </div>
+</div>
+<script src="{{ url_for('static', filename='js/jquery.min.js')}}"></script>
+<script src="{{ url_for('static', filename='js/acordeon_doc.js')}}"></script>
+<script src="{{ url_for('static', filename='js/edita_procedimiento.js')}}"></script>
+
+{% endblock %}

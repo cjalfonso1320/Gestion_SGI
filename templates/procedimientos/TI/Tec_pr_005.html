@@ -1,0 +1,301 @@
+{% extends 'home.html' %}
+{% block title %}Documentación{% endblock %}
+{% block content %}
+<link href="{{ url_for('static', filename='css/acordeon_doc.css') }}" rel="stylesheet"/>
+<link href="{{ url_for('static', filename='css/procedimientos.css') }}" rel="stylesheet">
+<div id="documento" style="display:none;">procedimientos/TI/Tec_pr_005.html</div>
+<div id="nombre_documento" style="display: none;">TEC-PR-005 Alistamiento de Equipos</div>
+<h1>TEC-PR-005 Alistamiento de Equipos</h1>
+{% for cambio in cambios %}
+{% if loop.first %}
+<h3>Version: {{cambio[3]}}</h3>
+{% endif %}
+{% endfor %}
+<br/>
+<div class="doc-accordion">
+<div class="doc-section" data-id="1">1. OBJETIVO</div>
+<div class="doc-content" data-id="1"><p>Dar a conocer las actividades a desarrollar en el alistamiento de los equipos de cómputo y otros
+            que<br/>intervienen en la prestación del servicio de DIGICOM SYSTEM </p></div>
+<div class="doc-section" data-id="2">2. ALCANCE</div>
+<div class="doc-content" data-id="2">
+<p>Este procedimiento aplica para todos los equipos de cómputo y otros que se requieran para
+            el<br/>funcionamiento de los procesos de la empresa en cada una de las sedes.</p>
+</div>
+<div class="doc-section" data-id="3">3. RESPONSABLES</div>
+<div class="doc-content" data-id="3">
+<p>Administrador de T.I., Analista de T.I., Auxiliar de T.I. y el Oficial de Seguridad</p>
+</div>
+<div class="doc-section" data-id="4">4. DEFINICIONES</div>
+<div class="doc-content" data-id="4">
+<ul>
+<li><b>Alistamiento:</b> conjunto de pasos de forma técnica y metódica que se realizan en los equipos</li>
+<li><b>Equipos:</b> dispositivo electrónico que acepta datos de entrada, los procesa, la almacena y los
+                emite como salida para su interpretación.</li>
+<li><b>Servidores:</b> es un equipo informático que forma parte de una red y provee servicios a otros
+                equipos cliente</li>
+<li><b>PC:</b> computadora</li>
+</ul>
+</div>
+<div class="doc-section" data-id="5">5. DOCUMENTOS DE REFERENCIA</div>
+<div class="doc-content" data-id="5">
+<p>No Aplica</p>
+</div>
+<div class="doc-section" data-id="6">6. DESCRIPCIÓN DEL PROCESO</div>
+<div class="doc-content" data-id="6">
+<div class="doc-subsection">6.1. Registro Del Equipo</div>
+<div class="doc-subcontent">
+<ul>
+<li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Administrador de T-I y Auxiliar de T-I
+                </li>
+<li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> Orden de compra y TEC-F-002 Ficha General
+                    Hardware y Software</li>
+<li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b> Se recibe el equipo y se revisan las
+                    especificaciones técnicas vs la orden de compra.<br/>
+                    Se registrar abriendo la hoja de vida TEC-F-002 Ficha General Hardware y Software copiando los
+                    seriales, se da la Placa en el inventario, para los PC se documenta en el aplicativo del GLPI.<br/>
+                    Se archiva la orden de compra para la garantía.
+                </li>
+</ul>
+</div>
+<div class="doc-subsection">6.2. Alistamiento de Servidores</div>
+<div class="doc-subcontent">
+<div class="doc-subsection">6.2.1. Alistamiento Básico Servidor</div>
+<div class="doc-subcontent">
+<ul>
+<li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Auxiliar de T-I</li>
+<li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> TEC-D-021 Check list – Servidores
+                        Físicos, TEC-F-002 Ficha General Hardware y Software</li>
+<li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b> Se realiza el alistamiento
+                        por:<br/>
+                        • Tipo de servidor<br/>
+                        • Servicios<br/>
+                        • Puertos<br/>
+                        De acuerdo con lo que está registrado en la lista de chequeo TEC-D-021 Check list Página 2.<br/>
+                        Se registra en la hoja de vida del servidor TEC-F-002 Ficha General Hardware y Software.<br/>
+<b>Nota:</b> Para las máquinas virtuales se utiliza la imagen preconfigurada de alistamiento.
+                    </li>
+</ul>
+</div>
+<div class="doc-subsection">6.2.2. Revisión Roles y Servicios</div>
+<div class="doc-subcontent">
+<ul>
+<li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Auxiliar de T-I</li>
+<li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> Políticas implementadas en la GPO -
+                        DA</li>
+<li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b> Se revisan los roles y servicios
+                        del proceso al cual fue asignado.</li>
+</ul>
+</div>
+<div class="doc-subsection">6.2.3. Servidores y Computadores</div>
+<div class="doc-subcontent">
+<ul>
+<li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Auxiliar de T-I</li>
+<li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> Políticas implementadas en la GPO -
+                        DA</li>
+<li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b> Se revisan los roles y servicios
+                        del proceso al cual fue asignado.</li>
+</ul>
+</div>
+<div class="doc-subsection">6.2.4. Equipos De Comunicación</div>
+<div class="doc-subcontent">
+<ul>
+<li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Auxiliar de T-I, Oficial de
+                        Seguridad</li>
+<li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> TEC-IN-001 Instructivo aseguramiento
+                        de equipos activos, TEC-IN-002 Instructivo de aseguramiento de equipos, TEC-F-010 Check list
+                        Equipos Servidores, TEC-F-011 Check list Equipos Activos</li>
+<li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b> Para firewall y switches, se
+                        utiliza el documento aseguramiento de equipos activos.<br/>
+                        Verificada y registrada por el Oficial de Seguridad. los cuales realiza según las listas de
+                        chequeo TEC-F-010 Check list Equipos Servidores, TEC-F-011 Check list Equipos Activos, basándose
+                        en los instructivos TEC-IN-001 Instructivo aseguramiento de equipos activos TEC-IN-002
+                        Instructivo de aseguramiento de equipos.
+                    </li>
+</ul>
+</div>
+<div class="doc-subsection">6.2.5. Revisión Final Y Entrega De Producción</div>
+<div class="doc-subcontent">
+<ul>
+<li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Auxiliar de T-I, Administrador de
+                        TI</li>
+<li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> No aplica</li>
+<li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b> Después de su debida revisión y
+                        documentación pasa a producción.</li>
+</ul>
+</div>
+</div>
+<div class="doc-subsection">6.3. Alistamiento de PC</div>
+<div class="doc-subcontent">
+<div class="doc-subsection">6.3.1. Alistamiento Básico De PC</div>
+<div class="doc-subcontent">
+<ul>
+<li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Auxiliar de T-I</li>
+<li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> Base de datos GPLI.</li>
+<li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b> Se realiza el alistamiento
+                        por:<br/>
+                        • Formateo<br/>
+                        • Particiones<br/>
+                        • Bitlocker<br/>
+                        • Vacuna<br/>
+                        • Instalación básica del sistema operativo<br/>
+                        Se documenta en la base de datos del aplicativo del GLPI.
+                    </li>
+</ul>
+</div>
+<div class="doc-subsection">6.3.2. Auditoria De Seguridad</div>
+<div class="doc-subcontent">
+<ul>
+<li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Oficial de seguridad</li>
+<li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> SGI-D-018 Seguridad</li>
+<li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b> Se revisa los accesos a los medios
+                        externos, los cuales deben encontrarse deshabilitados y desconectados según lista de chequeo
+                        SGI-D-018 Seguridad.</li>
+</ul>
+</div>
+<div class="doc-subsection">6.3.3. Instalación De Programas</div>
+<div class="doc-subcontent">
+<ul>
+<li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Área de Recurso Tecnológico.</li>
+<li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> Base de Datos GLPI</li>
+<li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b> Se realiza según el manual
+                        TEC-MA-004 Check list equipos:<br/>
+                        • Producción<br/>
+                        ➢ Coordinador/Supervisor<br/>
+                        ➢ Digitador/Analista/Auxiliar<br/>
+                        ➢ Estado Habilitado:<br/>
+<b>Usuario COORDINADOR</b><br/>
+                        • General: GPO<br/>
+                        • Active Desktop: Directiva Active Desktop<br/>
+                        • Componentes de Windows/Explorador de archivos: Solicitar credenciales para instalaciones<br/>
+                        • Menú inicio y barra de tareas: Agregar cierre de sesión al menú Inicio, Agregar la casilla
+                        “Ejecutar en otro espacio de memoria” al cuadro de diálogo Ejecutar<br/>
+                        • Panel de Control/Agregar o Quitar programas: Asistente de Windows<br/>
+                        • Panel de Control/ Personalización: Habilitar protector de pantalla<br/>
+<b>Usuario DIGITADOR</b><br/>
+                        • General: GPO<br/>
+                        • Active Desktop: Directiva Active Desktop<br/>
+                        • Componentes de Windows/Explorador de archivos: Mostrar el diálogo de confirmación al eliminar
+                        archivos<br/>
+                        • Componentes de Windows/Internet Explorer/Características de Seguridad/Protección de
+                        Almacenamiento en caché de objetos: Procesos de Internet Explorer<br/>
+                        • Componentes de Windows/Internet Explorer/Características de Seguridad/Restricciones de
+                        seguridad de ventanas con scripts: Procesos de Internet Explorer<br/>
+                        • Menú inicio y barra de tareas: Agregar cierre de sesión al menú Inicio<br/>
+                        • Panel de Control/ Personalización: Habilitar protector de pantalla<br/>
+                        • Sistema/Administración de energía: Solicitar contraseña al reanudar tras hibernación o
+                        suspensión<br/>
+                        • Administración<br/>
+                        • TI
+                    </li>
+</ul>
+</div>
+<div class="doc-subsection">6.3.4. Visto Bueno</div>
+<div class="doc-subcontent">
+<ul>
+<li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Oficial de seguridad</li>
+<li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> No aplica</li>
+<li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b> Pasa a producción al proceso al
+                        cual fue asignado.</li>
+</ul>
+</div>
+<div class="doc-subsection">6.3.5. Formateo Del Equipo</div>
+<div class="doc-subcontent">
+<ul>
+<li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Auxiliar De T-I</li>
+<li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> No Aplica</li>
+<li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b> ver actividad 6.3.1.</li>
+</ul>
+</div>
+</div>
+<div class="doc-subsection">6.4. Monitoreo y Control</div>
+<div class="doc-subcontent">
+<div class="doc-subsection">6.4.1. Validación De Configuración vs Hoja De Vida De Los Equipos</div>
+<div class="doc-subcontent">
+<ul>
+<li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Oficial de seguridad</li>
+<li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> SGI-D-018 Seguridad</li>
+<li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b> El monitoreo de seguridad a la
+                        configuración de los equipos se realiza cada 2 meses aproximadamente a todas las áreas de
+                        operación y administración y se registra en el formato SGI-D-018 Seguridad, esto con el fin de
+                        que los equipos queden bajo las políticas de seguridad de la información de Digicom SYS.</li>
+</ul>
+</div>
+<div class="doc-subsection">6.4.2. Documenta Los Hallazgos</div>
+<div class="doc-subcontent">
+<ul>
+<li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Oficial de Seguridad</li>
+<li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> SGI-D-021 Informe de Revisión</li>
+<li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b> Se elabora un informe de los
+                        hallazgos encontrados en la revisión periódica a los equipos para documentarlo y gestionar desde
+                        seguridad o TI según corresponda lo correspondiente a mantener actualizada la documentación y
+                        que exista coherencia entre los registros, lo configurado y entregado en equipos a las
+                        áreas.<br/>
+<b>Nota:</b> Se debe informar por medio un Ticket de Servicio o correo electrónico sobre las
+                        novedades encontradas.
+                    </li>
+</ul>
+</div>
+<div class="doc-subsection">6.4.3. Seguimiento y Control</div>
+<div class="doc-subcontent">
+<ul>
+<li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Auxiliar de T.I</li>
+<li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> No aplica</li>
+<li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b> Se da contestación al Ticket o el
+                        correo electrónico al realizar las respectivas actualizaciones, y al recibir el visto bueno del
+                        Oficial de Seguridad se da cierre al caso.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="doc-section" data-id="7">7. INDICADORES DE DESEMPEÑO</div>
+<div class="doc-content" data-id="7">
+<p>No Aplica</p>
+</div>
+<div class="doc-section" data-id="8">8. CONTROL DEL PROCEDIMIENTO</div>
+<div class="doc-content" data-id="8">
+<table>
+<thead>
+<tr>
+<th>Versión</th>
+<th>Elaborado</th>
+<th>Aprobado</th>
+<th>Fecha</th>
+<th>Descripción del Cambio</th>
+</tr>
+</thead>
+<tbody>
+                {% for cambio in cambios %}
+                <tr>
+<td>{{ cambio[2] }}</td>
+<td>{{ cambio[3] }}</td>
+<td>{{ cambio[5] }}</td>
+<td>{{ cambio[6] }}</td>
+<td>{{ cambio[7] }}</td>
+</tr>
+                {% endfor %}
+            </tbody>
+</table>
+</div>
+</div>
+<!-- Botón para abrir el modal -->
+<button class="btn btn-outline-primary" id="openModalBtn" style="margin-top: 20px;">Editar Secciones</button>
+<!-- El Modal -->
+<div class="modal" id="sectionModal">
+<div class="modal-content">
+<span class="close-button">×</span>
+<h2>Selecciona y Edita una Sección</h2>
+<label for="sectionSelector">Sección:</label>
+<select id="sectionSelector">
+<option value="">-- Selecciona una sección --</option>
+</select>
+<label for="sectionContent">Contenido:</label>
+<textarea id="sectionContent" placeholder="El contenido de la sección aparecerá aquí..."></textarea>
+<label for="sectionCambio">Descripcion del Cambio:</label>
+<textarea id="sectionCambio" placeholder="Describe en palabras cortas el cambio realizado..." required=""></textarea>
+<button class="btn btn-outline-primary" id="saveChangesBtn" style="margin-top: 15px;">Guardar Cambios</button>
+</div>
+</div>
+<script src="{{ url_for('static', filename='js/jquery.min.js')}}"></script>
+<script src="{{ url_for('static', filename='js/acordeon_doc.js')}}"></script>
+<script src="{{ url_for('static', filename='js/edita_procedimiento.js')}}"></script>
+{% endblock %}</link>

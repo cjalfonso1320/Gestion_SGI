@@ -1,0 +1,341 @@
+{% extends 'home.html' %}
+{% block title %}Documentacion{% endblock %}
+{% block content %}
+<link href="{{ url_for('static', filename='css/acordeon_doc.css') }}" rel="stylesheet" />
+<link href="{{ url_for('static', filename='css/procedimientos.css') }}" rel="stylesheet" />
+
+<div id="documento" style="display:none;">procedimientos/HTML/PRO-PR-011 Impuestos Departamentales Davivienda.html</div>
+<div id="nombre_documento" style="display: none;">PRO-PR-011 Impuestos Departamentales Davivienda</div>
+<h1>PRO-PR-011 Impuestos Departamentales Davivienda</h1>
+{% for cambio in cambios %}
+{% if loop.first %}
+<h3>Version: {{cambio[3]}}</h3>
+{% endif %}
+{% endfor %}
+<br />
+<div class="doc-accordion">
+ <div class="doc-section" data-id="1">
+  1. Objetivo
+ </div>
+ <div class="doc-content" data-id="1">
+ </div>
+ <div class="doc-section" data-id="2">
+  2. Alcance
+ </div>
+ <div class="doc-content" data-id="2">
+ </div>
+ <div class="doc-section" data-id="3">
+  3. Responsables
+ </div>
+ <div class="doc-content" data-id="3">
+ </div>
+ <div class="doc-section" data-id="4">
+  4. Definiciones
+ </div>
+ <div class="doc-content" data-id="4">
+ </div>
+ <div class="doc-section" data-id="5">
+  5. Documentos de referencia
+ </div>
+ <div class="doc-content" data-id="5">
+ </div>
+ <div class="doc-section" data-id="6">
+  6. Desarrollo del proceso
+ </div>
+ <div class="doc-content" data-id="6">
+  <div class="doc-subsection">
+   6.1 proceso magnético
+  </div>
+  <div class="doc-subcontent">
+   <div class="doc-subsection">
+    6.1.1 Descarga y clasificación de Imágenes
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.1.2 Loteo e indexación de Imágenes
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.1.3 Grabación De Imágenes
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.1.4 Validación: Grabación 1 Vs Grabación 2.
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.1.5 Limpiar Tablas (Indexación Vs Grabación)
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.1.6 Descarga de Log bancario Efectivo
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.1.7 Descarga de Log Extractos Comercios (Tarjeta)
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.1.8 Generación Informe de faltantes para realizar búsqueda
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.1.9 Búsqueda De Imágenes Faltantes.
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.1.10 Informe Gestión De Llamadas y faltantes.
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.1.11 Complementación
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.1.12 Revisión Grabación Vs Log
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.1.13 Validación Estructural
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.1.14 Descargue y Cargue Pagos Electrónicos (PSE)
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.1.15 Descargue Respuestas ACH/PSE.
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.1.16 Cuadre Recaudo Tarjeta De Crédito.
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.1.17 Cargue Base De Grabación.
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.1.18 Reporte De Inconsistencias Sobre El Recaudo al Banco
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.1.19 Generación De Informes
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.1.20 Cargue De Informes A La Página De Digicom
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.1.21 Programación De Pagos En El Portal Empresarial
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.1.22 Descarga Ach De los pagos programados en el portal empresarial.
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.1.23 Cargue De Respuestas Ach de los pagos al aplicativo.
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.1.24 Generación Sabanas E Informes 117 Y 160
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.1.25 Generación, envío de cartas a municipios Departamentales Davivienda, Consolidado de
+   </div>
+   <div class="doc-subcontent">
+    <p>
+     Sabanas y cargue de imágenes uno a uno a la web.
+    </p>
+   </div>
+   <div class="doc-subsection">
+    6.1.26 Generación Informe De Extractos.
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.1.27 Quemado De CD’s
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.1.28 Informes Mensual Cifras totales y Por Oficinas, Proyección Mensual De Recaudo y
+   </div>
+   <div class="doc-subcontent">
+    <p>
+     Consolidado de Inconsistencias.
+    </p>
+   </div>
+   <div class="doc-subsection">
+    6.1.29 Generación Informes Indicadores
+   </div>
+   <div class="doc-subcontent">
+   </div>
+  </div>
+ </div>
+ <div class="doc-section" data-id="7">
+  7. Indicadores de desempeño
+ </div>
+ <div class="doc-content" data-id="7">
+ </div>
+ <div class="doc-section" data-id="8">
+  8. Control del procedimiento
+ </div>
+ <div class="doc-content" data-id="8">
+  <p>
+   31/01/2022 K IMPUESTOS DEPARTAMENTALES DAVIVIENDA
+  </p>
+ </div>
+ <div class="doc-section" data-id="1">
+  1. Objetivo
+ </div>
+ <div class="doc-content" data-id="1">
+  <p>
+   Procesar y Administrar los Impuestos Departamentales recaudados y pactados con Banco Davivienda y dar cumplimiento al Sistema de Gestión Integrado
+  </p>
+ </div>
+ <div class="doc-section" data-id="2">
+  2. Alcance
+ </div>
+ <div class="doc-content" data-id="2">
+  <p>
+   Este procedimiento aplica los servicios de Impuestos Departamentales del banco Davivienda, implementados por Digicom System Corporation S. A
+  </p>
+ </div>
+ <div class="doc-section" data-id="3">
+  3. Responsables
+ </div>
+ <div class="doc-content" data-id="3">
+  <p>
+   Gerente de procesos, Director de procesos, Coordinador de procesos, Analista de Procesos, Auxiliar de proceso y Digitador
+  </p>
+ </div>
+ <div class="doc-section" data-id="4">
+  4. Definiciones
+ </div>
+ <div class="doc-content" data-id="4">
+  <p>
+   Archivo Plano: Archivo de datos que se utiliza para intercambio de información entre las diferentes aplicaciones. Conciliación: Registro consolidado de transacciones por convenio. FTP: (File Transfer Protocol) es un protocolo de transferencia de archivos entre sistemas conectados a una red TCP (Protocolo de Control de Transmisión) basado en la arquitectura cliente-servidor, de manera que desde un equipo cliente nos podemos conectar a un servidor para descargar archivos desde él o para enviarle nuestros propios archivos independientemente del sistema operativo utilizado en cada equipo. LOG bancario: Es el registro de las transacciones de una fecha de recaudo. Precinto: Zuncho de seguridad numerado que una vez colocado en el medio de transporte de documentos o valores no puede ser violentado ni roto excepto por el destinatario. Tula: Empaque en material de lona que permite el transporte seguro de documentos. Servidor Pagina Web: Donde se publica la información para que la página web deje ver y consultar información. Servidor canal Ftp: Donde el banco hace la trasmisión de la información| (imágenes y log bancarios). Servidor Proceso: Donde se hace el desarrollo de la operación
+  </p>
+ </div>
+ <div class="doc-section" data-id="5">
+  5. Documentos de referencia
+ </div>
+ <div class="doc-content" data-id="5">
+  <p>
+   ➢ Acuerdo de servicios. 31/01/2022 K IMPUESTOS DEPARTAMENTALES DAVIVIENDA
+  </p>
+ </div>
+ <div class="doc-section" data-id="6">
+  6. Desarrollo del proceso
+ </div>
+ <div class="doc-content" data-id="6">
+ </div>
+ <div class="doc-section" data-id="1">
+  1. RESUMEN MENSUAL DE RECAUDO
+ </div>
+ <div class="doc-content" data-id="1">
+  <p>
+   • Se debe generar a más tardar el día 25 del mes siguiente. • Es necesario tener la base de datos cargada de cada gobernación. En el aplicativo ir al menú Anexos Especiales, luego en la ventana dar clic en la opción Informe Gerencial Acumulado. PRO-D-EXT- 014 Resumen Mensual Recaudo Impuestos Departamentales 31/01/2022 K IMPUESTOS DEPARTAMENTALES DAVIVIENDA El aplicativo despliega una ventana donde se debe dar el rango de las fechas que se necesita el informe y la opción exportar, El informe queda en la ruta \\ServidorProceso\Confidencial_Ig51_AAAA\Sal_informes\Resumen\aaaamm El archivo se comprime a formato. Zip y se exporta a la página de Digicom en la última fecha hábil del mes a entregar en el ítem BOGOTA. 31/01/2022 K IMPUESTOS DEPARTAMENTALES DAVIVIENDA CONSOLIDADO DE INCONSISTENCIAS El consolidado de PRO-D-EXT- 026 Informe inconsistencias es la recopilación de todos los correos enviados por los líderes del proceso de impuestos Departamentales reportando las inconsistencias y falta de código PRO-D-EXT- 019 Tabla DANE presentadas en el mes a entregar. Una vez unificados los correos se deben organizar por fecha de recaudo. Es de aclarar que en una pestaña deben ir inconsistencias y en otro código DANE: El archivo se comprime a formato. Zip y se exporta a la página de Digicom en la última fecha hábil del mes a entregar en el ítem BOGOTA. El nombre del archivo es consolidado_incons_deptales_aaaammdd 31/01/2022 K IMPUESTOS DEPARTAMENTALES DAVIVIENDA Informe De Oficinas: Consolidado Recaudo Impuestos Departamentales: Este informe se generar sin tener la base cargada, la información es tomada de log ´s cargados. Solo se debe tener claro el periodo que debemos generar. Proyección. Este informe se generar sin tener la base cargada, pues la información es tomada de log ´s cargados. Solo se debe tener claro el periodo que va a generar
+  </p>
+ </div>
+ <div class="doc-section" data-id="1">
+  1. Numero de caja
+ </div>
+ <div class="doc-content" data-id="1">
+ </div>
+ <div class="doc-section" data-id="2">
+  2. Número o código de paquete o carpeta
+ </div>
+ <div class="doc-content" data-id="2">
+ </div>
+ <div class="doc-section" data-id="3">
+  3. Gobernación que contiene
+ </div>
+ <div class="doc-content" data-id="3">
+ </div>
+ <div class="doc-section" data-id="4">
+  4. Primera fecha del paquete y última fecha del paquete
+ </div>
+ <div class="doc-content" data-id="4">
+  <p>
+   Para tener en cuenta: • No puede ir empacado en un mismo paquete dos gobernaciones. • La fecha inicial de cada paquete debe ser la fecha consecutiva de la bolsa inmediatamente anterior. • El sticker consecutivo de paquetes es diferente al sticker consecutivo de cajas Adhesivos cajas Adhesivos paquetes Falta la imagen de un adhesivo 31/01/2022 K IMPUESTOS DEPARTAMENTALES DAVIVIENDA Una vez relacionadas cajas y las bolsas en el PRO-D-EXT- 034 Formato paquetes Memory se procede a crear una carpeta con el nombre de impuesto departamentales mes seguido del nombre del mes, en el cual se va a hacer la entrega; luego se crea por cada gobernación una carpeta donde se deben incluir el PRO-D-EXT- 011 Informe Gestión Documentos de cada gobernación. Ubicados en la dirección \\ServidorProceso\Confidencial_Ig51_aaaa\Sal_informes\Memory corp\aaaa\EnvioMemory Corp_aaaa_Mes. Creadas las carpetas se comprime el archivo en. Zip y se exportan los archivos a la página de 31/01/2022 K IMPUESTOS DEPARTAMENTALES DAVIVIENDA Se envía correo al Banco al analista encargado informando con print de la carga de los archivos y la cantidad de cajas a recoger para que en la gestión realizada por el Banco tengan en cuenta el medio de trasporte para la cantidad de cajas a entregar. Es de aclarar que cada entrega debe contener según el acuerdo con el banco (50 cajas) y la periodicidad es de cada dos meses. Una vez el analista ha verificado la entrega gestiona ante la empresa custodia y envía correo a entrega por el Banco se debe generar dos CDs (copia – original ) que contengan las planillas de por cada gobernación y el formato de paquetes. El cual debe ser entregado al momento de la recepción de las cajas por la empresa custodia y el otro debe ser enviado al Banco cuando hayan recogido las cajas. En el momento de la recepción la empresa custodia debe escanear uno a uno el adhesivo de cada caja. Una vez terminado la cantidad de cajas debe coincidir con los enviados en el correo al analista. La empresa custodia entregara un listado donde se relacionara cada caja junto con el soporte de recibido, este soporte se debe escanea y enviar la imagen en el correo donde el analista aprobó la entrega
+  </p>
+ </div>
+ <div class="doc-section" data-id="1">
+  1. Un CD con las imágenes de los formularios del recaudo mensual
+ </div>
+ <div class="doc-content" data-id="1">
+  <p>
+   Los CDs deben ser entregados al banco, antes del 25 de cada mes
+  </p>
+ </div>
+ <div class="doc-section" data-id="7">
+  7. Indicadores de desempeño
+ </div>
+ <div class="doc-content" data-id="7">
+  <p>
+   MEDIDO RESPONSABLE INDICADOR FRECUENCIA POR/MEDIO REVISIÓN Σ Total Informes enviados – *100 Líder de Gerente de Informes enviados fuera de tiempo Mensual Proceso Operaciones ------------------------------------------------------- Σ Total informes enviados
+  </p>
+ </div>
+ <div class="doc-section" data-id="8">
+  8. Control del procedimiento
+ </div>
+ <div class="doc-content" data-id="8">
+  <p>
+   VER. FECHA ELABORADO REVISADO APROBADO MODIFICACION REALIZADA No. APROBACION Coordinador Analista del Coordinador 23 29/10/2020 Se actualizo la actividad 6.2.2 de proceso SGI de proceso Coordinador Analista del Coordinador Se realizó una actualización 24 22/11/2021 de proceso SGI de proceso general. Coordinador Director del Director de 25 31/01/2022 Se actualizó la actividad 6.1.22. de proceso SGI proceso 31/01/2022
+  </p>
+ </div>
+</div>
+
+<!-- Botón para abrir el modal -->
+<button class="btn btn-outline-primary" id="openModalBtn" style="margin-top: 20px;">Editar Secciones</button>
+<!-- El Modal -->
+<div class="modal" id="sectionModal">
+    <div class="modal-content">
+        <span class="close-button">×</span>
+        <h2>Selecciona y Edita una Sección</h2>
+        <label for="sectionSelector">Sección:</label>
+        <select id="sectionSelector">
+            <option value="">-- Selecciona una sección --</option>
+        </select>
+        <label for="sectionContent">Contenido:</label>
+        <textarea id="sectionContent" placeholder="El contenido de la sección aparecerá aquí..."></textarea>
+        <label for="sectionCambio">Descripcion del Cambio:</label>
+        <textarea id="sectionCambio" placeholder="Describe en palabras cortas el cambio realizado..."
+            required></textarea>
+        <button class="btn btn-outline-primary" id="saveChangesBtn" style="margin-top: 15px;">Guardar Cambios</button>
+    </div>
+</div>
+<script src="{{ url_for('static', filename='js/jquery.min.js')}}"></script>
+<script src="{{ url_for('static', filename='js/acordeon_doc.js')}}"></script>
+<script src="{{ url_for('static', filename='js/edita_procedimiento.js')}}"></script>
+
+{% endblock %}

@@ -1,0 +1,1240 @@
+{% extends 'home.html' %}
+{% block title %}Documentacion{% endblock %}
+{% block content %}
+<link href="{{ url_for('static', filename='css/acordeon_doc.css') }}" rel="stylesheet" />
+<link href="{{ url_for('static', filename='css/procedimientos.css') }}" rel="stylesheet" />
+
+<div id="documento" style="display:none;">procedimientos/HTML/PRO-PR-028 Impuestos Nacionales y Tributos Aduaneros Itau.html</div>
+<div id="nombre_documento" style="display: none;">PRO-PR-028 Impuestos Nacionales y Tributos Aduaneros Itau</div>
+<h1>PRO-PR-028 Impuestos Nacionales y Tributos Aduaneros Itau</h1>
+{% for cambio in cambios %}
+{% if loop.first %}
+<h3>Version: {{cambio[3]}}</h3>
+{% endif %}
+{% endfor %}
+<br />
+<div class="doc-accordion">
+ <div class="doc-section" data-id="1">
+  1. OBJETIVO
+ </div>
+ <div class="doc-content" data-id="1">
+ </div>
+ <div class="doc-section" data-id="2">
+  2. ALCANCE
+ </div>
+ <div class="doc-content" data-id="2">
+ </div>
+ <div class="doc-section" data-id="3">
+  3. RESPONSABLES
+ </div>
+ <div class="doc-content" data-id="3">
+ </div>
+ <div class="doc-section" data-id="4">
+  4. DEFINICIONES
+ </div>
+ <div class="doc-content" data-id="4">
+ </div>
+ <div class="doc-section" data-id="5">
+  5. DOCUMENTOS DE REFERENCIA
+ </div>
+ <div class="doc-content" data-id="5">
+ </div>
+ <div class="doc-section" data-id="6">
+  6. Descripción Del Proceso
+ </div>
+ <div class="doc-content" data-id="6">
+  <div class="doc-subsection">
+   6.1. Recepción de información bancaria
+  </div>
+  <div class="doc-subcontent">
+   <div class="doc-subsection">
+    6.1.1. Recepción Del Log
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.1.2. Carga Log Bancario
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.1.3. Recepción De Imágenes
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.1.4. Pasar Imágenes Al Servidor
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.1.5. Recepción De Tulas
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.1.5.1. Organización De Las Tulas
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.1.5.2. Verificación De Cámaras
+   </div>
+   <div class="doc-subcontent">
+   </div>
+  </div>
+  <div class="doc-subsection">
+   6.2. Control Documental
+  </div>
+  <div class="doc-subcontent">
+   <div class="doc-subsection">
+    6.2.1. Revisar Los Documentos
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.2.2. Pasar Los Documentos Por El Lector De Código De Barras
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.2.3. Revisión Y Reporte De Inconsistencias.
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.2.4. Certificar Documentos Físicos
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.2.5. Reporte De Documentos Faltantes Físicos
+   </div>
+   <div class="doc-subcontent">
+   </div>
+  </div>
+  <div class="doc-subsection">
+   6.3. Captura de Información
+  </div>
+  <div class="doc-subcontent">
+   <div class="doc-subsection">
+    6.3.1. Indexación
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.3.1.1. Carga De Imágenes Índex Global
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.3.1.2. Captura Global Automática
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.3.1.3. Carga De Imágenes
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.3.1.4. Integración Imágenes Provenientes De Las Ciudades
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.3.1.5. Generar Informe Diario De Faltantes Reales
+   </div>
+   <div class="doc-subcontent">
+    <p>
+     13/11/2024 IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS ITAU
+    </p>
+   </div>
+   <div class="doc-subsection">
+    6.3.1.6. Reporte De Documentos Con Inconsistencia Magnética
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.3.2. Grabación
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.3.2.1. Capturar Campo A Campo La Información De Los Formularios
+   </div>
+   <div class="doc-subcontent">
+   </div>
+  </div>
+  <div class="doc-subsection">
+   6.4. Generación de Informes
+  </div>
+  <div class="doc-subcontent">
+   <div class="doc-subsection">
+    6.4.1. Generar Informe Diario De Recaudo
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.4.2. Informe De Cifras Iniciales
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.4.3. Informe 1740
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.4.4. Adhesivos Anulados
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.4.5. Informe 1188
+   </div>
+   <div class="doc-subcontent">
+   </div>
+  </div>
+  <div class="doc-subsection">
+   6.5. Medios Magnéticos.
+  </div>
+  <div class="doc-subcontent">
+   <div class="doc-subsection">
+    6.5.1. Revisar Grabación Y Cierre De Fechas
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.5.2. Diferencias Contables
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.5.3. Validar Log Y Log Adicional 5
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.5.4. Generar Archivo Cruce Web Y Cruce Web Full
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.5.5. Revisar Y Cargar Formularios Inconsistentes
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.5.6. Validar Cinta Magnética
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.5.7. Generación Consignación
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.5.8. Generación De Cintas Magnéticas
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.5.9. Actualización Control Datos Cintas
+   </div>
+   <div class="doc-subcontent">
+   </div>
+  </div>
+  <div class="doc-subsection">
+   6.6 Informe 1187
+  </div>
+  <div class="doc-subcontent">
+  </div>
+  <div class="doc-subsection">
+   6.7 Conformación Documental
+  </div>
+  <div class="doc-subcontent">
+   <div class="doc-subsection">
+    6.7.1 Organizar Los Documentos
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.7.1.1 Generar Listas De Punteo
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.7.1.2 Organizar Los Envíos
+   </div>
+   <div class="doc-subcontent">
+   </div>
+  </div>
+  <div class="doc-subsection">
+   6.8 Generación de 1096
+  </div>
+  <div class="doc-subcontent">
+   <div class="doc-subsection">
+    6.8.1 Recibir Archivo Plano
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.8.2 Generar Cruces
+   </div>
+   <div class="doc-subcontent">
+    <p>
+     13/11/2024 IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS ITAU
+    </p>
+   </div>
+   <div class="doc-subsection">
+    6.8.3 Cruce Informe 1096
+   </div>
+   <div class="doc-subcontent">
+   </div>
+  </div>
+  <div class="doc-subsection">
+   6.9 Transmisión de Aduanas.
+  </div>
+  <div class="doc-subcontent">
+   <div class="doc-subsection">
+    6.9.1 Transmisión
+   </div>
+   <div class="doc-subcontent">
+   </div>
+  </div>
+ </div>
+ <div class="doc-section" data-id="1">
+  1. OBJETIVO
+ </div>
+ <div class="doc-content" data-id="1">
+  <p>
+   Procesar y Administrar los Impuestos Nacionales recaudados y pactados con Banco Itaú y dar cumplimiento al Sistema de Gestión Integrado
+  </p>
+ </div>
+ <div class="doc-section" data-id="2">
+  2. ALCANCE
+ </div>
+ <div class="doc-content" data-id="2">
+  <p>
+   Este procedimiento aplica a los servicios de Impuestos Nacionales Itaú implementados por Digicom System Corporation S. A
+  </p>
+ </div>
+ <div class="doc-section" data-id="3">
+  3. RESPONSABLES
+ </div>
+ <div class="doc-content" data-id="3">
+  <p>
+   Gerente de Operaciones, Director de Procesos, Líder de procesos, Auxiliares de Proceso y Digitador
+  </p>
+ </div>
+ <div class="doc-section" data-id="4">
+  4. DEFINICIONES
+ </div>
+ <div class="doc-content" data-id="4">
+  <p>
+    Autoadhesivo: Es un soporte de texto o imágenes impresas o xerografiadas sobre una lámina de vinilo o papel cuya parte posterior se ha dispuesto de una fina capa de adhesivo.  Archivo Plano: Archivo de datos que se utiliza para intercambio de información entre las diferentes aplicaciones.  Cantar: Dar lectura en voz alta frente a cámaras de audio y video, del contenido en las tulas o sobres recibidos del cliente.  FTP: (File Transfer Protocol) es un protocolo de transferencia de archivos entre sistemas conectados a una red TCP (Protocolo de Control de Transmisión) basado en la arquitectura cliente-servidor, de manera que desde un equipo cliente nos podemos conectar a un servidor para descargar archivos desde él o para enviarle nuestros propios archivos independientemente del sistema operativo utilizado en cada equipo.  Log Bancario: Es el registro de las transacciones de una fecha de recaudo.  Página Web: Es un gran espacio documental organizado dedicado al intercambio de información.  Precinto: Suncho de seguridad numerado que una vez colocado en el medio de transporte de documentos o valores no puede ser violentado ni roto excepto por el destinatario.  RUT: Registro Único Tributario.  Tula: Empaque en material de lona que permite el transporte seguro de documentos.  Servidor canal: 192.168.0.29  Servidor proceso: 192.168.70.178
+  </p>
+ </div>
+ <div class="doc-section" data-id="5">
+  5. DOCUMENTOS DE REFERENCIA
+ </div>
+ <div class="doc-content" data-id="5">
+  <p>
+    Resolución 1188 de 2007 de la DIAN  Resolución 478 de 2000 de la DIAN  Memorando 561 septiembre 23 de 2008 de la DIAN  Resolución 436 del 24 de agosto de 2010. 13/11/2024 IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS ITAU
+  </p>
+ </div>
+ <div class="doc-section" data-id="6">
+  6. Descripción Del Proceso
+ </div>
+ <div class="doc-content" data-id="6">
+  <div class="doc-subsection">
+   6.1. Recepción de información bancaria
+  </div>
+  <div class="doc-subcontent">
+   <div class="doc-subsection">
+    6.1.1. Recepción Del Log
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Líder De Procesos – Auxiliar De Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No Aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      El banco coloca el log de recaudo en el canal servidorcanal\Digicom_Itau\NACIONALES\ENTRADA, se copia el archivo con el nombre dd-mm- aaaa nacional. Se deja el archivo en la ruta: Servidorproceso\Confidencial_in06_aaaa\data\06\aaaammdd, se debe renombrar el archivo con el nombre: ejemplo: Año-Mes-Día. Luego se deja un archivo servidor procesos\Confidencial_in06_aaaa\data\06\aaaa mmdd y se crea una carpeta XML y allí se pega el archivo 1740, después en la ruta servidor proceso\Confidencial_in06_aaaa\Pagos Electrónicos se deja el archivo psedian06.aaaammdd
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.1.2. Carga Log Bancario
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Líder De Procesos – Auxiliar De Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No Aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Se ingresa al aplicativo IN_06.exe el cual se encuentra en la ruta servidor procesos\Confidencial_Aplic_In06_aaaa, se ingresa contraseña del usuario, vamos al menú del aplicativo: Movimiento/fecha de movimiento digitamos la fecha y damos clic en el botón: aceptar. También podemos ingresar la fecha por el menú de imágenes la carpeta amarrilla. 13/11/2024 IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS ITAU Regresamos al menú principal opción: Itau/Cargar log banco botón: cargar, el aplicativo nos muestra un aviso donde termino el proceso, damos clic en botón: salir
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.1.3. Recepción De Imágenes
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Líder De Procesos – Auxiliar De Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No Aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Ingresamos al Canal servidor canal \Digicom Itau\NACIONALES\ENTRADA seleccionamos todos los archivos que estén con la misma fecha de modificación, damos clic derecho y lo pegamos en descargas, procedemos a comprimirlos las imágenes y vamos a la ruta servidorproceso\Confidencial_Nacionales06_aaaa\06\Img_Banco07\bin\Debug y utilizamos este aplicativo para descomprimir las imágenes Img_Banco07, estas imágenes quedan en la ruta: C:\example\extract\aaaammdd, 13/11/2024 IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS ITAU
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.1.4. Pasar Imágenes Al Servidor
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Líder De Procesos – Auxiliar De Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No Aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      seleccionamos las imágenes y las pegamos en la ruta servidor procesos\Confidencial_Nacionales06_aaaa\06\index_Global 13/11/2024 IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS ITAU
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.1.5. Recepción De Tulas
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Auxiliar De Procesos – Área De T.I
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No Aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      El banco envía en una tula con el recaudo que contiene: tulas por oficinas las cuales vienen selladas con un precinto, el cual se canta y se destapa ante la cámara, por oficina que contienen documentos de impuestos nacionales y aduaneros
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.1.5.1. Organización De Las Tulas
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Auxiliar De Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No Aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Se procede a organizar en forma ascendente las tulas por oficina de menor a mayor, por orden de oficina
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.1.5.2. Verificación De Cámaras
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Auxiliar De Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      PRO F-045 Control De Pruebas De Audio Y Video
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Se deben seguir los siguientes pasos en el área de lectura de tulas.  Realizar prueba de audio y video.  Al terminar la prueba se procede a revisar el equipo de monitoreo, verificar la efectividad de la prueba tanto de audio como de video.  Si la prueba es efectiva se procede a cantar de lo contrario se debe solicitar soporte a área de T.I.  Verificar en el cuarto de monitorea la calidad y efectividad de la grabación, dejando como soporte en el Formato PRO-F-045 el registro de la persona que realiza la prueba
+     </li>
+    </ul>
+   </div>
+  </div>
+  <div class="doc-subsection">
+   6.2. Control Documental
+  </div>
+  <div class="doc-subcontent">
+   <div class="doc-subsection">
+    6.2.1. Revisar Los Documentos
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Auxiliar De Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No Aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      En el área de producción procedemos a realizar la separación de los documentos litográficos de los XML según el orden ya establecido al momento de iniciar el proceso de lectura, cuando la oficina contiene documentos litográficos se deja la planilla original; si hay formularios XML se genera la planilla manual en el orden de lectura con el lector de código de barras
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.2.2. Pasar Los Documentos Por El Lector De Código De Barras
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Auxiliar De Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No Aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Se empieza a pasar por el lector de código de barras los autoadhesivos de los documentos litográficos en el aplicativo IN_06.exe en el menú principal opción: Procesos bancos\registro de llegada físicos por lector de código de barras, se asigna la fecha en el campo "fecha de recaudo a descargar", nos ubicamos en el campo "código de barras Sticker" y comenzamos hacer la descarga de los formularios litográficos. 13/11/2024 IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS ITAU Para los formularios XML se realiza el mismo proceso, pero nos ubicamos en el campo “Código de Barras del Formulario” y realizamos la descarga correspondiente. Nota 1: Tener en cuenta al momento de estar realizando la descarga por lector de barras: El aplicativo avisa cuando un formulario no está en log, o no es XML, estos formularios se separan y se dejan con el supervisor a cargo (se debe anotar en su tapa respectiva cuando se saca un documento y el caso específico). Nota 2: Hay documentos que al pasar por lector presenta el mensaje "la fecha original es diferente a la fecha reportada. aaaammdd desea continuar" se debe informar al Líder del proceso. 13/11/2024 IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS ITAU
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.2.3. Revisión Y Reporte De Inconsistencias
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Auxiliar De Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      Reporte de Inconsistencias
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Los documentos físicos se deben revisar uno a uno con el fin de identificar las posibles inconsistencias en la recepción del impuesto teniendo en cuenta los siguientes campos:  Año  Periodo.  Concepto.  Administración.  Nombre o Razón Social.  Sello de impuestos legible (en el campo destinado para tal fin) y que corresponda a la fecha de recaudo y jornada, Verificar Pago total: Igual a “0” sin pago. Pago total Mayor a “0” con pago.  Actividad Económica.  Firma del contribuyente, contador o revisor fiscal.  Adhesivo en campo destinado para este fin y que se encuentre en buen estado.  Documentos con deterioro Sí se encuentran inconsistencias se debe diligenciar en aplicativo: botón inconsistencias\registro de inconsistencias\fecha de movimiento_aaaammdd/ número de formulario o adhesivo\adicionar. El informe generado se encuentra en la ruta servidorproceso\Confidencial_in06_aaaa\Inconsistencias\envios\consolidado de certificaciones semanal_aaaammdd. 13/11/2024 IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS ITAU Nota 1: En caso del que el documento llegue con centavos se debe reportar la inconsistencia e informar al Líder del Proceso. Nota 2: Verificar que ningún campo numérico este en blanco, mínimo debe contener el número “0”. 13/11/2024 IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS ITAU Nota 2: Verificar que el documento no tenga marca de agua a excepción de la palabra litográfico e igualmente que no tenga sello digital. Nota 3: Las ciudades envían por correo electrónico, todas las inconsistencias encontradas en la encargada de reportar las inconsistencias al banco
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.2.4. Certificar Documentos Físicos
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Auxiliar De Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No Aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Si algún documento no cumple con lo establecido anteriormente, se debe certificar al respaldo de forma establecida. Certificar es describir la novedad que presenta el documento, con una leyenda en la parte posterior del mismo, certificando solo la inconsistencia que le aplica. De igual manera se debe colocar el sello legible, con la fecha de recaudo y forma de pago correcta e incluir el nombre completo de la persona autorizada que certifica el documento. Tipo de Certificación Forma de Pago y Fecha Tipo de Certificación: Forma de Pago Certificamos sello CON PAGO del día 12 Certificamos sello CON PAGO. de Noviembre de 2015 Nombre Completo de quien certifica 1 Nombre Completo de quien certifica 2  Colocar el Sello Correcto  Colocar el Sello Correcto Tipo de Certificación: Adhesivo Roto Tipo de Certificación: Adhesivo Cubre Casilla 980 Certificamos Adhesivo Numero Certificamos casilla 980 por valor de 07237350755721. $109.000. 3 Nombre Completo de quien certifica 4 Nombre Completo de quien certifica  NO Colocar el Sello  NO Colocar el Sello
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.2.5. Reporte De Documentos Faltantes Físicos
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Auxiliar De Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      PRO-D-145 Faltantes Físicos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Después de que los documentos se pasan por el lector de código de barras debemos generar el archivo “faltantes_aaaammdd_aaaammdd”, el cual se genera en el aplicativo IN_06.exe, menú principal en la opción: Procesos bancos\registro de llegada físicos por lector de código de barras “desde hasta con la fecha de recaudo trabajada”, le damos clic en el botón: faltantes el cual deja el archivo en la ruta: Servidorproceso\Confidencial_Nacionales06_aaaa\06\procesos_06\Faltantes_Fisicos revisamos y 13/11/2024 IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS ITAU depuramos el archivo generado contra la documentación física, una vez realizada esta actividad se procede a enviar un correo con los faltantes a las ciudades con el formato PRO-D-145 Faltantes Físicos. De acuerdo a los días de caída de cada oficina, si el faltante es real a esa fecha, entonces se hace el reporte por correo al banco. 13/11/2024 IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS ITAU
+     </li>
+    </ul>
+   </div>
+  </div>
+ </div>
+ <div class="doc-section" data-id="1">
+  1. Número de formulario
+ </div>
+ <div class="doc-content" data-id="1">
+ </div>
+ <div class="doc-section" data-id="2">
+  2. número de adhesivo (si lo tiene)
+ </div>
+ <div class="doc-content" data-id="2">
+ </div>
+ <div class="doc-section" data-id="3">
+  3. Nit
+ </div>
+ <div class="doc-content" data-id="3">
+ </div>
+ <div class="doc-section" data-id="4">
+  4. Valor
+ </div>
+ <div class="doc-content" data-id="4">
+  <div class="doc-subsection">
+   6.4. Generación de Informes
+  </div>
+  <div class="doc-subcontent">
+   <div class="doc-subsection">
+    6.4.1. Generar Informe Diario De Recaudo
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Líder de Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No Aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Para generar este informe es importante tener depurada la información que ha llegado (Faltantes, Sobrantes, Diferencias en valor, duplicados), ingresamos al aplicativo IN_06.exe entramos en la fecha del día a trabajar, menú principal en la opción: Itau\Reportes contables botón: reporte de recaudo diario inicial 2020 los archivos generados quedan en la ruta Servidorproceso\Confidencial_Nacionales06_aaaa\06\procesos_06\informes\aaaammdd seleccionamos y abrimos el archivo Reporte de recaudo diario_aaaa aaaammdd se desprotege el archivo y procedemos a invertir la información dejando en primer lugar el horario extendió seguido del horario normal, revisar las formula de los totales que estén sumando los valores del horario normal
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.4.2. Informe De Cifras Iniciales
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Líder De Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      Informe actualizado Cuadre Contable 13/11/2024 IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS ITAU Informe Reporte de recaudo diario
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Se genera el archivo por el aplicativo IN_06.exe entramos en la fecha del recaudo, menú principal en la opción: Itau/Reporte contable/reporte de recaudo diario inicial 2020 el archivo se genera en la ruta: Servidorproceso\Confidencial_Nacionales06_aaaa\06\procesos_06\informes\aaaammdd\reportes, aaaammdd_InfoDiario-actualizado Cuadre Contable se valida el valor total contra el log de recaudo, de igual manera se comparan los valores Reporte de Recaudo Diario. Estos 2 archivos se deben comprimir con el nombre " IRD-06_01_aaaaammdd" y dejarlos en el Servidorcanal\Digicom_Itau\NACIONALES\SALIDA
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.4.3. Adhesivos Anulados
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Líder de Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      PRO-F-EXT- 018 Acta de Anulación
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      El banco envía PRO-F-EXT-018 Acta de Anulación en las tulas junto con los documentos, los cuales se separan y se le entregan al Líder de Procesos, Se deben anular en el aplicativo únicamente las actas que llegan en original y que tienen los adhesivos pegados en el acta, o como anexos, también se debe tener en cuenta que solo se anulan si los adhesivos tienen el número 1 y 2, Si llegan fotocopias no se anulan y se envían al banco, si el acta no trae los adhesivos pegado no se anula y se devuelven al banco. Para realizar la anulación de los adhesivos recibidos en las actas ingresamos al aplicativo menú principal en la opción: Grabación\Captura de Documentos Anulados se diligencia las casillas oficina, cajero, consecutivo desde y consecutivo hasta con el número de adhesivo que se va a anular. Si llega haber más de un adhesivo de la misma oficina para anular estos tienen que ser consecutivos y en la casilla consecutivo desde se diligencia con el primer número consecutivo y en la casilla 13/11/2024 IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS ITAU consecutivo hasta con el último número de consecutivo, se debe verificar la cantidad que se va anular antes de dar clic al botón: anular
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.4.4. Informe 1188
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Líder de Proceso
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No Aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Se genera el archivo por el aplicativo IN_06.exe por el menú principal en la opción: informes\informe de recaudos y consignaciones 1188, en el campo rango de fecha se ingresa el periodo a generar y se le da clic en el botón aceptar, el archivo generado queda en la ruta: Servidor proceso\Confidencial_in06_aaaa\procesos\reportes con el nombre Inf_1188,abrimos el archivo y en la pestaña 2 “VEZSALDOS” se debe ir diligenciando las columnas datos1188 realizando una sumatoria entre el valor de recaudo normal más el recaudo adicional del día anterior que corresponda a la consignación realizada para ese día de recaudo y en la columna consignado se diligencia con el valor del archivo enviado al banco “Relacion_envios_Res_0478_aaaammdd” para validar si las cantidades coinciden con lo reportado, la columna de diferencias no debería contener diferencias si se llegara a presentar se debe validar si la fecha de recaudo presento documentos con forma de pago Tidis si es así se debe colocar una columna con esta información y realizar nuevamente la validación para verificar que la diferencia queda en 0. En la hoja 2vez se debe separar la forma de pago dejando en hojas separadas la forma E “efectivo” y la forma T “tidis”
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Nota:
+      </b>
+      este informe se debe generar cada mes con la información del mes anterior, enviarlo al banco para ir validando esta información
+     </li>
+    </ul>
+   </div>
+  </div>
+ </div>
+ <div class="doc-section" data-id="1">
+  1. El archivo Cruce web es un informe donde relaciona los errores contables (son diferencias
+ </div>
+ <div class="doc-content" data-id="1">
+  <p>
+   de dineros). El archivo Cruce web full es un informe donde se relaciona errores de grabación (Captura)
+  </p>
+ </div>
+ <div class="doc-section" data-id="2">
+  2. Este proceso se realiza en el momento de generar la consignación y/o medio magnéticos,
+ </div>
+ <div class="doc-content" data-id="2">
+  <div class="doc-subsection">
+   6.6 Informe 1187
+  </div>
+  <div class="doc-subcontent">
+   <ul>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Responsable:
+     </b>
+     Líder de Proceso
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Registro:
+     </b>
+     No Aplica
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Descripción:
+     </b>
+     El banco por medio de correo electrónico envían los polígrafos, se copian y se pegan en la ruta \\servidorproceso\Confidencial_in06_2021\procesos\Poligrafos se crea una carpeta de la fecha a realizar, se renombran los polígrafos con el número de cuenta, luego se ingresa a la ruta \\servidorproceso\Confidencial_Aplic_In06_2021 aplicativo IN_06 se da clic en más informes/reporte 1187, se ingresa la fecha de recaudo dar clic en buscar y clic en ver, luego en cada pdf generado colocar en el espacio vacío el número de secuencia del polígrafo teniendo en cuenta la 13/11/2024 IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS ITAU Luego se da clic en generar R1187, el archivo generado se encuentra en la ruta \\servidorproceso\Confidencial_in06_2021\procesos\r1187\xxxx.xx.xx_xxx luego en la ruta \\servidorproceso\Confidencial_Nacionales06_2021\06\Img_Banco07\bin\Debug/Img_Banco07 ejecutar/reportes/informe_1187 seleccionamos el archivo Excel detalle_xxx y le damos clic en aceptar, en la ruta \\servidorproceso\Confidencial_in06_2021\procesos\r1187\xxxx.xx.xx_xxx se genera un XML Dmuisca_xxxxxxxxxxxxxxxxxxxxx.xml, luego en el Prevalidador_F1187v1-1.0.0-20_rc13 se carga el XML y se genera otro XML con la fecha de recaudo, la fecha de consignación y el consecutivo para realizar su debida trasmisión, después se envía por correo electrónico al banco para su validación y su transmisión por la página de la Dian
+    </li>
+   </ul>
+  </div>
+  <div class="doc-subsection">
+   6.7 Conformación Documental
+  </div>
+  <div class="doc-subcontent">
+   <div class="doc-subsection">
+    6.7.1 Organizar Los Documentos
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Auxiliar de Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No Aplica 13/11/2024 IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS ITAU
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Los documentos se encuentran en el área de documentación, ahí procedemos a organizarlos por orden de oficina e intercalar la documentación con inconsistencias, se hace una última verificación de inconsistencias, una vez terminada procedemos a separar la documentación. Formularios se deben organizar siguiendo las siguientes especificaciones:  Litográficos  Fecha de recaudo  Tipo de impuesto  Orden de oficina  Organizar autoadhesivo en orden ascendente.  Código de barras laterales (XML)  Fecha de recaudo  Orden de oficina  Tipo de impuesto
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Nota:
+      </b>
+      Los documentos XML se pasan por el lector de código de barras y se generan las planillas “Formatos de envío para la DIAN”
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.7.1.1 Generar Listas De Punteo
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Auxiliar de Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No Aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Litográficos Para el caso de litográficos tanto aduanas como nacionales que llegan a Bogotá: ingresar al aplicativo IN_06.exe, en el menú principal opción: Informes\Formato de entrega de documentos se diligencia los campos: desde hasta, fecha de entrega con la fecha de recaudo seleccionamos el tipo de impuesto (nacionales, aduanas), para nacionales damos clic en todos y no generar PDF y botón: generar, seleccionamos la opción de imprimir y escogemos la impresora PDF estos archivos los guardamos en la ruta: Servidorproceso\Confidencial_Nacionales06_aaaa\06\procesos_06\Ciudades\aaaammdd, imprimimos el archivo y se puntea contra los físicos con el fin de verificar que se encuentran todos y en el mismo orden del listado, se debe contar al terminar el punteo para confirmar que si tengan la misma cantidad. 13/11/2024 IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS ITAU Doble Código de Barras Para los formularios XML ingresamos al aplicativo IN_06.exe, en el menú principal opción: Informes\Formato de entrega de documentos XML manual, asignamos consecutivo en la casilla número de envió de planilla, ingresamos el tipo de impuesto en la casilla tipo documento y procedemos a escoger la ciudad, nos ubicamos en la casilla número de preimpreso y comenzamos a descargar. Una vez terminado cada paquete conformado por 200 documentos damos clic en el botón: generar seleccionamos la opción de imprimir, después de terminar de puntear la totalidad de los documentos verificamos que estén en el orden de la planilla. Una vez terminado de pasar todos los documentos damos clic en el botón: faltantes este nos genera el archivo envioxml_faltantes.xls en la ruta: Servidorproceso\Confidencial_Nacionales06_aaaa\06\procesos_06\informes\aaaammdd este archivo se verifica para saber si quedo pendiente algún documento por pasar
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.7.1.2 Organizar Los Envíos
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Auxiliar de Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      PRO-F-008 Totales por tipo de formulario
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Una vez conformado todos los paquetes y realizado las respectivas validaciones (conteo de documentos) procedemos a diligenciar el archivo PRO-F-008 Totales por tipo de formulario el cual contiene los totales de documentos y paquetes que se envían a la Dian, a este archivo se le debe colocar la fecha de entrega y se procede a empacar en bolsas para su respectiva entrega. Para los documentos de ciudades que llegan a Bogotá se genera sus respectivas planillas (actividad antes mencionada) y se organiza por ciudad al momento de realizar el alistamiento se debe colocar formato (administraciones o administraciones XML) que se encuentra en la ruta: Servidorproceso\Confidencial_Nacionales06_aaaa\06\procesos_06\Documentacion\Paqueteo. Se procede a guardar en las bolsas por tipo de documento (litográficos, XML) estos paquetes a su vez se guardan en las bolsas de interservicios se sellan con cinta y se les coloca las respectivas guías lo cual se descargan en la página de interservicios y se imprimen, se colocan en su respectiva ciudad con las planillas correspondientes y estos paquetes se le entregan al funcionario de interservicios. 13/11/2024 IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS ITAU
+     </li>
+    </ul>
+   </div>
+  </div>
+  <div class="doc-subsection">
+   6.8 Generación de 1096
+  </div>
+  <div class="doc-subcontent">
+   <div class="doc-subsection">
+    6.8.1 Recibir Archivo Plano
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Líder de Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No Aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      las ciudades envía por correo electrónico los archivos de radicación, Se copia el archivo en la ruta: Servidorproceso\Confidencial_in06_aaaa\procesos\recfisicos , Se descomprime y con el Archivo Plano Radicado (.DAT) hacemos la carga al aplicativo IN_06.exe menú principal opción: Informes\Control radicación de documentos 1096, Control radicación de documentos 1096XML. En la ventana realizamos los respectivos cargues en los siguientes botones: Cargar 1096, en esta ventana abrimos el archivo de radicación para realizar la carga. Y Recargar pendientes desde archivo 1096 cargado
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Nota:
+      </b>
+      Solo en el caso de los litográficos debemos actualizar los registros indexados, en el menú principal opción Informes\Log consolidado, Ingresamos un rango de fecha y damos clic en el botón integrar movimiento
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.8.2 Generar Cruces
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Líder de Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No Aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Una vez cargados los archivos en el aplicativo , ingresamos un rango de fecha en las casillas desde hasta de la parte superior de la ventana damos clic en el botón: filtrar y cuando nos 13/11/2024 IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS ITAU muestre una fecha que solicitamos en el recuadro damos clic en el botón: Exportar todos el cual genera el archivo “todos” en la siguiente ruta: Servidorproceso\Confidencial_Nacionales06_aaaa\06\procesos_06\varios, para los litográficos y para los XML
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.8.3 Cruce Informe 1096
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Líder de Procesos – Auxiliar de Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No Aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Después de generados, se debe diligenciar el archivo "Consolidado_dd al dd_Mes_aaaa.xlsx" con la información de los archivos "Todos y files_xml_todos_xml.xls.", se guarda en la ruta: Servidorproceso\Confidencial_Nacionales06_aaaa\06\procesos_06\varios. Este se genera cuando los registros de archivo plano cruzan con el Log Digicom, cuando el cruce esta correcto se confirma que estos registros se entregaron y fueron radicados (recibidos y firmados) por la DIAN
+     </li>
+    </ul>
+   </div>
+  </div>
+  <div class="doc-subsection">
+   6.9 Transmisión de Aduanas
+  </div>
+  <div class="doc-subcontent">
+   <div class="doc-subsection">
+    6.9.1 Transmisión
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Líder de Procesos – Auxiliar de Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No Aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      El proceso inicia abriendo el aplicativo de aduanas Param_Url.exe ingresando a las claves asignadas para SIGLO XXI. Luego recibimos los archivos por el canal Itau \\servidorcanal\Digicom_Itau\ADUANAS\ENTRADA con nombre 06211020Sxxxxxxxx 13/11/2024 IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS ITAU Lo cual son descargados en la ruta C:\ENVIO_XXI\06\ORIGEN. Luego se da en el aplicativo star para que sean transformados los archivos 06211020Sxxxxxxxx en java para poder trasmitirlos a la DIAN en la página:https://importaciones6.dian.gov.co/sigloxxi/comun/default.htm. Se debe realizar un cuadre cada dos horas, la persona encargada del banco nos envía el archivo Informe01 con el cual se realiza un cruce con la base de datos de aplicativo de aduanas transmitidas para verificar que todas las aduanas presentadas al banco sean transmitidas, si se encuentran diferencias en el cuadre de los archivos se procede a verificar si realmente quedo hecha la trasmisión de la aduana 13/11/2024 IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS ITAU
+     </li>
+    </ul>
+   </div>
+  </div>
+  <div class="doc-subsection">
+   6.10 Generar Backup
+  </div>
+  <div class="doc-subcontent">
+   <ul>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Responsable:
+     </b>
+     Auxiliar de Procesos
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Registro:
+     </b>
+     No Aplica. 13/11/2024 IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS ITAU
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Descripción:
+     </b>
+     La generación del Backup de correo electrónico se realiza el día viernes al finalizar la jornada laboral. 7 INDICADORES DE DESEMPEÑO MEDIDO RESPONSABLE INDICADOR FRECUENCIA POR/MEDIO REVISIÓN Σ Documentos Entregados – Σ Documentos Extemporáneos Líder de Director de Mensual --------------------------------------------- proceso Procesos Σ Doc. Entregados Σ Total citas enviadas – Σ Cintas rechazas Líder de Director de Mensual -------------------------------------- proceso Procesos Σ Total citas enviadas Σ Transmisión de aduanas – Σ Transmisión de aduanas fuera de tiempos Líder de Director de Mensual ------------------------------------------------------- proceso Procesos Σ Transmisión de aduanas Σ Total Informes enviados – Informes enviados fuera de tiempo Líder de Director de Mensual ------------------------------------------------- proceso Procesos Σ Total informes enviados 13/11/2024 IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS ITAU 8 CONTROL DEL PROCEDIMIENTO VER. FECHA MODIFICACION ELABORADO REVISADO APROBADO No. APROBACION REALIZADA Analista de Coordinador Coordinador 20/10/2021 Creación 00 proceso de Procesos SGI Analista de Director del Se incluyo la actividad 01 Jefe del SGI 3/06/2022 proceso SGI 6.6 informe 1187 Analista de Oficial de Director del Actualización General 02 13/11/2024 proceso Seguridad SGI del Procedimiento 13/11/2024
+    </li>
+   </ul>
+  </div>
+ </div>
+</div>
+
+<!-- Botón para abrir el modal -->
+<button class="btn btn-outline-primary" id="openModalBtn" style="margin-top: 20px;">Editar Secciones</button>
+<!-- El Modal -->
+<div class="modal" id="sectionModal">
+    <div class="modal-content">
+        <span class="close-button">×</span>
+        <h2>Selecciona y Edita una Sección</h2>
+        <label for="sectionSelector">Sección:</label>
+        <select id="sectionSelector">
+            <option value="">-- Selecciona una sección --</option>
+        </select>
+        <label for="sectionContent">Contenido:</label>
+        <textarea id="sectionContent" placeholder="El contenido de la sección aparecerá aquí..."></textarea>
+        <label for="sectionCambio">Descripcion del Cambio:</label>
+        <textarea id="sectionCambio" placeholder="Describe en palabras cortas el cambio realizado..."
+            required></textarea>
+        <button class="btn btn-outline-primary" id="saveChangesBtn" style="margin-top: 15px;">Guardar Cambios</button>
+    </div>
+</div>
+<script src="{{ url_for('static', filename='js/jquery.min.js')}}"></script>
+<script src="{{ url_for('static', filename='js/acordeon_doc.js')}}"></script>
+<script src="{{ url_for('static', filename='js/edita_procedimiento.js')}}"></script>
+
+{% endblock %}

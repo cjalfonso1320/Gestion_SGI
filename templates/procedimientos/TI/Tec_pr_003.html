@@ -1,0 +1,258 @@
+{% extends 'home.html' %}
+{% block title %}Documentación{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/acordeon_doc.css') }}">
+<link href="{{ url_for('static', filename='css/procedimientos.css') }}" rel="stylesheet" />
+
+<div id="documento" style="display:none;">procedimientos/TI/Tec_pr_003.html</div>
+<div id="nombre_documento" style="display: none;">TEC-PR-003 Copias de Respaldo</div>
+<h1>TEC-PR-003 Copias de Respaldo</h1>
+{% for cambio in cambios %}
+{% if loop.first %}
+<h3>Version: {{cambio[3]}}</h3>
+{% endif %}
+{% endfor %}
+<br />
+<div class="doc-accordion">
+
+    <div class="doc-section" data-id="1">1. OBJETIVO</div>
+    <div class="doc-content" data-id="1">
+        <p>Establecer las actividades relacionadas con el procedimiento de creación de copias de seguridad de
+            la información procesada del cliente para dar cumplimiento del Sistema de Gestión Integrado </p>
+    </div>
+
+    <div class="doc-section" data-id="2">2. ALCANCE</div>
+    <div class="doc-content" data-id="2">
+        <p>Este procedimiento aplica a los datos capturados del cliente, correos del proceso, imágenes e información
+            interna </p>
+    </div>
+
+    <div class="doc-section" data-id="3">3. RESPONSABLES</div>
+    <div class="doc-content" data-id="3">
+        <p>Personal del Proceso Recurso tecnológico, Oficial de Backup, Lideres de proceso y Oficial de seguridad
+            informática </p>
+    </div>
+
+    <div class="doc-section" data-id="4">4. DEFINICIONES</div>
+    <div class="doc-content" data-id="4">
+        <p><b>Copias de Seguridad:</b> Permite guardar con seguridad los datos procesados o entregados, con fin de
+            protegerlos de riesgos potenciales </p>
+    </div>
+
+    <div class="doc-section" data-id="5">5. DOCUMENTOS DE REFERENCIA</div>
+    <div class="doc-content" data-id="5">
+        <p>Requisitos del Cliente </p>
+    </div>
+
+    <div class="doc-section" data-id="6">6. DESCRIPCIÓN DEL PROCESO</div>
+    <div class="doc-content" data-id="6">
+        <div class="doc-subsection">6.1. Realización de Copia de Seguridad</div>
+
+        <div class="doc-subcontent">
+            <div class="doc-subsection">6.1.1. Ingreso Al Aplicativo</div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Oficial De Backup</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> Correo De La Herramienta De Backup
+                    </li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b> La consola Cell Manager de la
+                        aplicación Data Protector Manager se encuentra en una maquina asignada. Por este aplicativo se
+                        hace la programación de las copias, se estableció que se efectuaran copias de seguridad diarias
+                        (de lunes a viernes), semanales y mensuales las dos primeras se reciclan periódicamente y las
+                        mensuales se conservan como backup. Esto para las bases de datos y archivos del proceso.
+                        <br>
+                        Para las máquinas virtuales se ejecuta mediante replicación a la sede Soledad que actualiza la
+                        copia cada 15 minutos.
+                        <br>
+                        El último fin de semana de cada mes se efectuarán los Backups mensuales,de bases de datos y
+                        archivos de las aplicaciones. Incluye los logs de aplicaciones, carpetas y backups de
+                        dispositivos (Switches, routers y firewalls) y DVR'S (según procedimiento y acuerdo de
+                        servicio).
+                    </li>
+                </ul>
+            </div>
+
+            <div class="doc-subsection">6.1.2. Programación y Realización De Backup</div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Oficial De Backup</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> Reporte Herramienta De Backup</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b> El funcionamiento es automático de
+                        acuerdo a la programación. (Incremental: diario o semanal y Totales: mensuales) La aplicación
+                        envía un correo con el informe diario del resultado de las tareas a T.I. Este contiene la
+                        información acerca del inicio, sucesos, duración y errores que se presentan en la ejecución de
+                        tareas
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="doc-subsection">6.2. Revisión De La Copia De Seguridad</div>
+        <div class="doc-subcontent">
+            <ul>
+                <li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Oficial De Backup</li>
+                <li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> No Aplica</li>
+                <li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b> Se debe revisar el informe que se
+                    archiva en la ruta:\\192.168.40.146Confidencial_TI\Formatos Gestion T-I\Copias De Seguridad\Reportes
+                    Data Protector
+                    De acuerdo a este informe se revisarán las causas de las inconsistencias para generar las tareas
+                    nuevamente y lograr efectuarlas exitosamente. </li>
+            </ul>
+        </div>
+        <div class="doc-subsection">6.3. Almacenamiento De Copias De Seguridad</div>
+        <div class="doc-subcontent">
+            <ul>
+                <li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Oficial De Backup</li>
+                <li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> No Aplica</li>
+                <li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b> Los cartuchos activos se mantienen
+                    en los dispositivos de Backup que a su vez están en los centros de cómputo de las sedes Las cintas
+                    se
+                    almacenan en el sitio de custodia aislado con alarma y cámara.</li>
+            </ul>
+        </div>
+        <div class="doc-subsection">6.4. Restauración De los Datos</div>
+        <div class="doc-subcontent">
+            <div class="doc-subsection">6.4.1. Solicitud De Clientes</div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Líder De Proceso Y Director De
+                        Procesos</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> No Aplica</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b> El líder del proceso o
+                        Director de procesos solicita por medio de un Ticket de Servicio los datos a restaurar al
+                        Oficial
+                        de Backup</li>
+                </ul>
+            </div>
+
+            <div class="doc-subsection">6.4.2. Generación De Restauración De Copias De Seguridad</div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Oficial De Backup</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> Tec-D-013 restauración De Copias De
+                        Seguridad</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b> Se
+                        registra en el formato el nombre del solicitante, área y fecha de solicitud, se procede a su
+                        restauración, Registrar en el formato los datos de restauración: datos a restaurar y la fecha
+                        de entrega </li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="doc-subsection">6.5. Tiempo De Conservación</div>
+        <div class="doc-subcontent">
+            <ul>
+                <li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Oficial De Backup</li>
+                <li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> No Aplica</li>
+                <li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b> El tiempo de conservación se debe
+                    tener en
+                    cuenta según los acuerdos de servicios, los contratos y la experiencia en el manejo de dicha
+                    información. </li>
+            </ul>
+        </div>
+
+        <div class="doc-subsection">6.6. Entrega De Backup Al Cliente</div>
+        <div class="doc-subcontent">
+            <ul>
+                <li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Líder De Proceso</li>
+                <li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> No Aplica</li>
+                <li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b> En cumplimiento de los acuerdos de
+                    servicio con los clientes se realiza la entrega de la información. </li>
+            </ul>
+        </div>
+
+        <div class="doc-subsection">6.7. Backup De Contingencia</div>
+        <div class="doc-subcontent">
+            <ul>
+                <li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Líder De Proceso</li>
+                <li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> No Aplica</li>
+                <li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b> El líder del proceso debe realizar
+                    una copia semanal de todas las carpetas y tablas necesarias para el funcionamiento del aplicativo
+                    según
+                    política de carpetas y se guarda localmente en los equipos asignados al líder. </li>
+            </ul>
+        </div>
+
+        <div class="doc-subsection">6.8. Backup De Correo</div>
+        <div class="doc-subcontent">
+            <ul>
+                <li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Colaboradores Con Cuenta De Correo
+                </li>
+                <li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> No Aplica</li>
+                <li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b> Los funcionarios deben abrir el
+                    software que está en el equipo asignado a cada uno, en C:\CorreoBackup y ejecutar CorreoBackup El
+                    aplicativo guarda la copia en la ruta \\192.168.0.141\BackupCorreo. </li>
+            </ul>
+        </div>
+        <div class="doc-subsection">6.9. Pruebas De Restauración De Datos</div>
+        <div class="doc-subcontent">
+            <ul>
+                <li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Oficial De Backup y Oficial de
+                    Seguridad Informatica</li>
+                <li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> TEC-D-015 Pruebas de Restauracion Copias
+                    de Seguirdad</li>
+                <li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b> Se realiza un programación tomando
+                    aleatoreamente un proceso, estas pruebas se realizan cada 3 meses. Se registra en el formato y se
+                    deja como evidencia de la restauración un acta donde se puestra el paso a paso.
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="doc-section" data-id="7">7. INDICADORES DE DESEMPEÑO</div>
+    <div class="doc-content" data-id="7">
+        <p>No Aplica </p>
+    </div>
+
+    <div class="doc-section" data-id="8">8. Control De Procedimiento
+
+    </div>
+    <div class="doc-content">
+        <table>
+            <thead>
+                <tr>
+                    <th>Versión</th>
+                    <th>Elaborado</th>
+                    <th>Aprobado</th>
+                    <th>Fecha</th>
+                    <th>Descripción del Cambio</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cambio in cambios %}
+                <tr>
+                    <td>{{ cambio[2] }}</td>
+                    <td>{{ cambio[3] }}</td>
+                    <td>{{ cambio[5] }}</td>
+                    <td>{{ cambio[6] }}</td>
+                    <td>{{ cambio[7] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
+</div>
+<!-- Botón para abrir el modal -->
+<button class="btn btn-outline-primary" id="openModalBtn" style="margin-top: 20px;">Editar Secciones</button>
+<!-- El Modal -->
+<div class="modal" id="sectionModal">
+    <div class="modal-content">
+        <span class="close-button">×</span>
+        <h2>Selecciona y Edita una Sección</h2>
+        <label for="sectionSelector">Sección:</label>
+        <select id="sectionSelector">
+            <option value="">-- Selecciona una sección --</option>
+        </select>
+        <label for="sectionContent">Contenido:</label>
+        <textarea id="sectionContent" placeholder="El contenido de la sección aparecerá aquí..."></textarea>
+        <label for="sectionCambio">Descripcion del Cambio:</label>
+        <textarea id="sectionCambio" placeholder="Describe en palabras cortas el cambio realizado..." required></textarea>
+        <button class="btn btn-outline-primary" id="saveChangesBtn" style="margin-top: 15px;">Guardar Cambios</button>
+    </div>
+</div>
+<script src="{{ url_for('static', filename='js/jquery.min.js')}}"></script>
+<script src="{{ url_for('static', filename='js/acordeon_doc.js')}}"></script>
+<script src="{{ url_for('static', filename='js/edita_procedimiento.js')}}"></script>
+{% endblock %}

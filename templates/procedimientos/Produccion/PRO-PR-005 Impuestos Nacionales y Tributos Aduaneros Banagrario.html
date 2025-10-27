@@ -1,0 +1,1018 @@
+{% extends 'home.html' %}
+{% block title %}Documentacion{% endblock %}
+{% block content %}
+<link href="{{ url_for('static', filename='css/acordeon_doc.css') }}" rel="stylesheet" />
+<link href="{{ url_for('static', filename='css/procedimientos.css') }}" rel="stylesheet" />
+<style>
+    ol {
+        counter-reset: paso;
+    }
+
+    .pasos {
+        margin-bottom: 20px;
+        list-style: none;
+    }
+
+    .pasos::before {
+        counter-increment: paso;
+        content: "Paso " counter(paso) ": ";
+        font-weight: bold;
+        color: #2980b9;
+    }
+
+    .screenshot {
+        border: 1px solid #ccc;
+        padding: 10px;
+        background-color: #f9f9f9;
+        margin-top: 10px;
+    }
+</style>
+
+<div id="documento" style="display:none;">procedimientos/HTML/PRO-PR-005 Impuestos Nacionales y Tributos Aduaneros
+    Banagrario.html</div>
+<div id="nombre_documento" style="display: none;">PRO-PR-005 Impuestos Nacionales y Tributos Aduaneros Banagrario</div>
+<h1>PRO-PR-005 Impuestos Nacionales y Tributos Aduaneros Banagrario</h1>
+{% for cambio in cambios %}
+{% if loop.first %}
+<h3>Version: {{cambio[3]}}</h3>
+{% endif %}
+{% endfor %}
+<br />
+<div class="doc-accordion">
+    <div class="doc-section" data-id="1">
+        1. OBJETIVO
+    </div>
+    <div class="doc-content" data-id="1">
+        <p>
+            Procesar integralmente y Administrar la información de los formularios de Impuestos nacionales y tributos
+            aduaneros, recaudos por el Banco Agrario S.A. dentro del Marco General del Sistema de Gestión, norma ISO
+            9001
+        </p>
+    </div>
+    <div class="doc-section" data-id="2">
+        2. ALCANCE
+    </div>
+    <div class="doc-content" data-id="2">
+        <p>
+            Este procedimiento aplica a los servicios de Impuestos y Aduanas Nacionales de Banagrario Implementados por
+            Digicom Sistema Corporation S. A
+        </p>
+    </div>
+    <div class="doc-section" data-id="3">
+        3. RESPONSABLES
+    </div>
+    <div class="doc-content" data-id="3">
+        <p>
+        <ul>
+            <li>
+                <i class="fa-regular fa-circle-check"></i> Gerente de Operaciones
+            </li>
+            <li>
+                <i class="fa-regular fa-circle-check"></i> Director
+            </li>
+            <li>
+                <i class="fa-regular fa-circle-check"></i> Líder de procesos
+            </li>
+            <li>
+                <i class="fa-regular fa-circle-check"></i> Auxiliar de procesos
+            </li>
+            <li>
+                <i class="fa-regular fa-circle-check"></i> Digitador
+            </li>
+        </ul>
+        </p>
+    </div>
+    <div class="doc-section" data-id="4">
+        4. DEFINICIONES
+    </div>
+    <div class="doc-content" data-id="4">
+        <p>
+        <p>
+            <strong>F.T.P: (File Transfer Protocol)</strong>
+        </p>
+        <ul>
+            <li>
+                <i class="fa-regular fa-circle-check"></i> Es un protocolo de transferencia de archivos entre sistemas
+                conectados a una red TCP (Protocolo de Control de Transmisión) basado en la arquitectura
+                cliente-servidor.
+            </li>
+            <li>
+                <i class="fa-regular fa-circle-check"></i> Permite que desde un equipo cliente nos podamos conectar a un
+                servidor para descargar archivos desde él o para enviarle nuestros propios archivos.
+            </li>
+            <li>
+                <i class="fa-regular fa-circle-check"></i> Es independiente del sistema operativo utilizado en cada
+                equipo.
+            </li>
+        </ul>
+        <p>
+            <strong>Autoadhesivo:</strong>
+        </p>
+        <ul>
+            <li>
+                <i class="fa-regular fa-circle-check"></i> Es un soporte de texto o imágenes impresas o serigrafiadas
+                sobre una lámina de vinilo o papel.
+            </li>
+            <li>
+                <i class="fa-regular fa-circle-check"></i> En la parte posterior se ha dispuesto de una fina capa de
+                adhesivo.
+            </li>
+        </ul>
+        </p>
+    </div>
+    <div class="doc-section" data-id="5">
+        5. DOCUMENTOS DE REFERENCIA
+    </div>
+    <div class="doc-content" data-id="5">
+        <p>
+        <ul>
+            <li>
+                <i class="fa-regular fa-circle-check"></i> Resolución 478 de 2000 de la DIAN
+            </li>
+            <li>
+                <i class="fa-regular fa-circle-check"></i> Resolución 1188 de 2007 de la DIAN
+            </li>
+            <li>
+                <i class="fa-regular fa-circle-check"></i> Memorando 561 Sep. 23 de 2008
+            </li>
+            <li>
+                <i class="fa-regular fa-circle-check"></i> Acuerdo de Servicio
+            </li>
+        </ul>
+        </p>
+    </div>
+    <div class="doc-section" data-id="6">
+        6. DESCRIPCIÓN DEL PROCESO
+    </div>
+    <div class="doc-content" data-id="6">
+        <div class="doc-subsection">
+            6.1. Recepción Información Bancaria
+        </div>
+        <div class="doc-subcontent">
+            <div class="doc-subsection">
+                6.1.1. Descargar Log Bancario
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Líder de proceso / Auxiliar de
+                        Procesos</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> No aplica</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b> Descargar del sitio seguro del
+                        banco (https://vpnssl.bancoagrario.gov.co/sslvpn/login/login-salida) los archivos
+                        d_muisca0000001.arb, d_muisca000001.xml, digicom-aaaa-.xlsx, los cuales conforman el log
+                        bancario, en caso de que hubiese pagos electrónicos se descarga el archivo
+                        transacciones-aaaa-.txt.
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-005/img001.png')}}"
+                            alt="Descarga Log Bancario">
+                        Dichos archivos deben quedar en la fecha correspondiente al día del recaudo. Servidor
+                        producción\Confidencial_Nacionales40_AAAA\40\procesos_40\Procesos_Agrario\Imagenes para
+                        Procesar\AAMMDD.
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.1.2. Cargar Log Bancario
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Líder de proceso</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> No aplica</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b>
+                        <ol type="a" style="list-style-type: lower-alpha;">
+                            <li>Abrir aplicativo: <br>
+                                <code>Servidor Producción\Confidencial_Aplic_In40_AAAA\jin_40</code>
+                            </li>
+                            <li>Se abre la fecha que se va a procesar en el aplicativo, para que quede registrada en el
+                                data: <br>
+                                <code>Servidor Producción\Confidencial_In40_aaaa\data\40</code>
+                                <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-005/img002.png')}}"
+                                    alt="Carga Log Bancario">
+                            </li>
+                    </li>
+                    <li>Convertir el archivo XML a Excel en el programa: <br>
+                        <code>Servidor Producción\Confidencial_In40_AAAA\Img_Banco07\Img_Banco07\bin\Debug\Img_Banco07</code>
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-005/img003.png')}}"
+                            alt="Carga Log Bancario">
+                    </li>
+                    <li>Se copian los archivos que se descargaron de la página del banco y se pegan en el data de la
+                        fecha que se va a procesar. Los archivos son:
+                        <ol type="1">
+                            <li>Archivo convertido a Excel del XML.</li>
+                            <li>Transacciones.</li>
+                            <li>Archivo <code>DIGICOMAAMMDD</code>, al cual se le debe cambiar el nombre y dejar solo
+                                <code>DDMM</code>.
+                            </li>
+                        </ol>
+                    </li>
+                    <li>Copiar el archivo <code>Dmuisca_00ARB</code> en:
+                        <ul>
+                            <li><code>Servidor Producción\Confidencial_Nacionales40_aaaa\40\procesos_40\LOG_ARC DMUISCA\Integrado</code>
+                            </li>
+                            <li><code>Servidor Producción\Confidencial_Nacionales40_aaaa\40\procesos_40\LOG_ARC DMUISCA\AAMM</code>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>Copiar el archivo <code>DIGICOMAAMMDD</code> en:
+                        <code>Servidor Producción\Confidencial_Nacionales40_AAAA\40\procesos_40\LOG-BANCARIO\AAMM</code><br>
+                        Al cual se le debe sacar una copia y dejar con el nombre <code>MMDD</code>.
+                    </li>
+                    <li>Luego procedemos a cargar el log en el aplicativo aplicando los siguientes pasos:</li>
+                    <ol>
+                        <li class="pasos">
+                            Abrir el aplicativo y seleccionar la fecha de movimiento.<br>
+                            <div class="screenshot"><img
+                                    src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-005/img004.png')}}"
+                                    alt="Carga Log Bancario"></div>
+                        </li>
+                        <li class="pasos">
+                            Navegar al menú principal y seleccionar "Cargar logs".<br>
+                            <div class="screenshot"><img
+                                    src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-005/img005.png')}}"
+                                    alt="Carga Log Bancario"></div>
+                        </li>
+                        <li class="pasos">
+                            Ingresar el rango de fechas y seleccionar el método de carga.<br>
+                            <div class="screenshot"><img
+                                    src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-005/img006.png')}}"
+                                    alt="Carga Log Bancario"></div>
+                        </li>
+                        <li class="pasos">
+                            Verificar las transacciones bancarias cargadas.<br>
+                            <div class="screenshot"><img
+                                    src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-005/img007.png')}}"
+                                    alt="Carga Log Bancario"></div>
+                        </li>
+                        <li class="pasos">
+                            Marcar si el log es obsoleto y generar reportes.<br>
+                            <div class="screenshot"><img
+                                    src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-005/img008.png')}}"
+                                    alt="Carga Log Bancario"></div>
+                        </li>
+                        <li class="pasos">
+                            Acceder al explorador de archivos y verificar los documentos cargados.<br>
+                            <div class="screenshot"><img
+                                    src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-005/img009.png')}}"
+                                    alt="Carga Log Bancario"></div>
+                        </li>
+                    </ol>
+                    <b>Nota: </b>para el paso F hay que integrar el al archivo Dmuisca_00ARB que se encuentra en:
+                    Servidor Producción \Confidencial_Nacionales40_aaaa\40\procesos_40\LOG_ARC DMUISCA\Integrado
+                    <ol start="7" type="a" style="list-style-type: upper-alpha;">
+                        <li class="pasos">
+                            En el menú de <strong>Impuestos Nacionales</strong>, seleccionar la opción <em>Log caja</em>
+                            dentro de la categoría <em>Agravio</em>.<br>
+                            <div class="screenshot"><img
+                                    src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-005/img010.png')}}"
+                                    alt="Carga Log Bancario"></div>
+                        </li>
+                        <li>
+                            En la interfaz del sistema, completar los campos requeridos y utilizar los botones indicados
+                            para cargar los logs.<br>
+                            Acciones destacadas:
+                            <ul>
+                                <li class="pasos">Ingresar <strong>Cantidad</strong>, <strong>Log Caja Banco</strong>,
+                                    <strong>Log Captura</strong>, y <strong>Sumatoria Valores</strong>.
+                                </li>
+                                <li class="pasos">Presionar <strong>Cargar Logs desde Descarga Integrada</strong>.</li>
+                                <li class="pasos">Presionar <strong>Cargar Logs FECHADINAMICA</strong>.</li>
+                                <li class="pasos">Presionar <strong>carga Mit. Dinámica_.csv</strong>.</li>
+                            </ul>
+                            <div class="screenshot"><img
+                                    src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-005/img011.png')}}"
+                                    alt="Carga Log Bancario"></div>
+                        </li>
+                    </ol>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="doc-subsection">
+            6.2. Recepción de Imágenes
+        </div>
+        <div class="doc-subcontent">
+            <div class="doc-subsection">
+                6.2.1. Descarga de Imágenes
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            RESPONSABLE:
+                        </b>
+                        Auxiliar de procesos
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            REGISTRO:
+                        </b>
+                        No aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            DESCRIPCIÓN:
+                        </b>
+                        Descargar del sitio seguro del banco:
+                        (https://vpnssl.bancoagrario.gov.co/sslvpn/Login/Login-salida) los archivos Zip por fecha de
+                        recaudo (ImagenesDIAN_AAMMDD)
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.2.2. Clasificar Imágenes
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            RESPONSABLE:
+                        </b>
+                        Auxiliar de procesos
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            REGISTRO:
+                        </b>
+                        No aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            DESCRIPCIÓN:
+                        </b>
+                        Una vez descargadas las imágenes se deben dejar en su fecha de recaudo, luego hacer su
+                        respectiva división según el programa establecido:
+                        ServidorProducción\Confidencial_In40_aaaa\Img_Banco07\Img_Banco07\bin\Debug\Img_Banco07 .
+                        Realizada la división de las imagines quedan en la siguiente ruta:
+                        C:\example\extract\AAMMDD\TOT_IMG_IND. Las cuales se deben clasificar en litográficas y XML para
+                        su respectiva indexación. 28/10/2019 IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANAGRARIO
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.2.3. Reportar inconsistencias de imágenes
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            RESPONSABLE:
+                        </b>
+                        Líder de procesos
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            REGISTRO:
+                        </b>
+                        PRO-D-016 Informe de inconsistencias por oficina
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            DESCRIPCIÓN:
+                        </b>
+                        Reportar al banco por correo electrónico las imágenes con inconsistencias de documentos sin
+                        sellos, documentos de otras fechas de recaudo, documentos ilegibles y documentos sin firma
+                        (declaraciones). Entre otros en el formato PRO-D-016 Informe de inconsistencias por oficina el
+                        cual se debe guardar en la ruta \\Servidor
+                        Producción\Confidencial_Nacionales40__aaaa/40/procesos_40/Procesos_Agrario/Inconsistencias
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.2.4. Integración de imágenes
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            RESPONSABLE:
+                        </b>
+                        Auxiliar de procesos
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            REGISTRO:
+                        </b>
+                        No aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            DESCRIPCIÓN:
+                        </b>
+                        Integrar las imágenes por fecha de recaudo en la carpeta denominada índex para los documentos
+                        litográficos; e index_xml para los documentos XML, en la siguiente ruta: Servidor
+                        Producción\Confidencial_Nacionales40_aaaa\40\índex Servidor
+                        Producción\Confidencial_Nacionales40_aaaa\40\index_xml De igual manera se deben integrar al
+                        aplicativo las imágenes para la indexación en: por el menú grabación\carga de imágenes a
+                        indexar. IIMAGENES LITOGRAFICAS IMÁGENES XML 28/10/2019 IMPUESTOS NACIONALES Y TRIBUTOS
+                        ADUANEROS BANAGRARIO
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="doc-subsection">
+            6.3. Control
+        </div>
+        <div class="doc-subcontent">
+            <div class="doc-subsection">
+                6.3.1. Verificar tipos de formularios
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            RESPONSABLE:
+                        </b>
+                        Auxiliar de procesos
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            REGISTRO:
+                        </b>
+                        No aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            DESCRIPCIÓN:
+                        </b>
+                         No se deben recibir documentos con marca de agua, únicamente con previa autorización del
+                        Banco.  Para los formularios 350 se debe verificar con el Banco el trámite a realizar con los
+                        mismos.  Todas las declaraciones deben venir firmadas.  Para formularios 300, 490,
+                        importaciones y otros, el campo año gravable debe contener un año superior a 1989: pero el año
+                        del preimpreso debe corresponder al año en curso o al inmediatamente anterior. Si se presenta
+                        una inconsistencia se debe informar al banco para el trámite con los mismos. 28/10/2019
+                        IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANAGRARIO
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">6.3.2. Generar Faltantes, Sobrantes, Duplicados y Diferencias de Valor</div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Auxiliar de proceso</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> PRO-D-017 Control Cuadro de
+                        Documentos Faltantes Banco Agrario</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b> Para generar faltantes se necesita
+                        haber indexado la totalidad de las imágenes recibidas por día de recaudo, se debe verificar que
+                        no existan sobrantes, formularios duplicados y diferencias de valor. Por el icono ver registro
+                        indexados las opciones:
+                        <ol>
+                            <li>Faltantes recaudos.</li>
+                            <li>Validaciones.</li>
+                            <li>Sobrantes de recaudo.</li>
+                            <li>Reporte de Diferencia.</li>
+                            <li>Formularios duplicados</li>
+                        </ol>
+                        Al realizar dicho procedimiento arroja las respectivas diferencias en la siguiente ruta:
+                        Servidor Producción\Confidencial_Nacionales40_AAAA\40\procesos_40\Informes\AAMMDD
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-005/img012.png')}}"
+                            alt="">
+                        Si existen diferencias en fecha de recaudo se debe revisar el sello de la imagen y verificar si
+                        existe certificación alguna, si existe diferencia en valor PT se envía la imagen al banco para
+                        corroborar la información, el cual indicara el paso a seguir con el tipo de inconsistencia
+                        presentada.
+
+                        Una vez verificados los faltantes reales, se debe integrar la información en el formato
+                        PRO-D-017 Control Cuadro de Documentos Faltantes Banco Agrario que se encuentra ubicado en:
+                        ServidorProducción\Confidencial_Nacionales40__aaaa/40/procesos_40/Procesos_Agrario/Formatos de
+                        calidad
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="doc-subsection">
+            6.4. Consignación
+        </div>
+        <div class="doc-subcontent">
+            <div class="doc-subsection">6.4.1. Clasificar la Información para la Generación de la Consignación</div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Líder de proceso</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Registro:</b>
+                        <ol>
+                            <li>PRO-D-014 Cuadre de consignación. </li>
+                            <li>PRO-F-039 Conceptos Formulario Impuestos Nacionales. </li>
+                        </ol>
+
+                    </li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b>
+                        Para la elaboración de la consignación se deben generar los archivos cuadre490_electronicos.xls
+                        cuadreproductos490.xls, cuadrediferencias490.xls, y cuadreproductosdetalle en la siguiente
+                        dirección: Servidor\Confidencial_In40_AAAA\Aplic_In40\jin40.
+                        <ol type="a">
+                            <li>Apertura de Fecha
+                                <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-005/img013.png')}}"
+                                    alt="">
+                            </li>
+                            <li>Agrario/Descarga de sticker en log integrado
+                                <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-005/img014.png')}}"
+                                    alt="">
+                            </li>
+                            <li>Rango de fechas, Descarga desde Index y Salir
+                                <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-005/img015.png')}}"
+                                    alt="">
+                            </li>
+                            <li>Agrario/log caja
+                                <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-005/img016.png')}}"
+                                    alt="">
+                            </li>
+                            <li>Borrar todo, cargar Logs desde Descarga Integrada
+                                <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-005/img017.png')}}"
+                                    alt="">
+                            </li>
+                            <li>Agrario/Descrga de sticker en log integrado, rango de fechas, Reporte cuadre diario 490
+                                <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-005/img018.png')}}"
+                                    alt="">
+                            </li>
+                        </ol>
+                        Después de haber realizado todo lo anterior se generan unos reportes en la siguiente ruta:
+                        Servidor\Confidencial_In40_AAAA\log_agra, abrimos Excel cuadre productos detalle, este lo
+                        comparamos con el log de la fecha para verificar las diferencias en concepto, luego abrimos
+                        Excel cuadrediferncias490 allí quedan las diferencias de valor y anulados, Se pasa la
+                        información del archivo cuadreproductos490.xls y cuadrediferencias490.xls al formato PRO-D-014
+                        Cuadre de consignación según el orden de los conceptos contemplados en el documento PRO-F-039
+                        Conceptos Formulario Impuestos Nacionales. Verificando previamente el orden solicitado por el
+                        banco (Aduanas, gravamen, 110-210-300-350-490). Dicho formato se encuentra ubicado en:
+                        ServidorProducción\Confidencial_Nacionales40__aaaa/40/procesos_40/Procesos_Agrario/Formatos de
+                        calidad.
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">6.4.2. Generar Carta de Consignación</div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Líder de proceso</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> PRO-D-EXT-003 Recaudo</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b>
+                        Para generar carta de consignación: abrir el aplicativo menú Agrario, consignación Agrario,
+                        fecha de movimiento la cual vamos a generar, la fecha de presentación se coloca teniendo en
+                        cuenta que esta se presenta al sexto día y por último se da en la opción procesar desde log
+                        agrario DESCARGA Res 478, Se genera el formato PRO-D-EXT-003 Recaudo de consignación en formato
+                        pdf, se comprime el archivo cuadre de consignación junto con la carta de consignación y los
+                        respectivos anexos si los hay, se realiza envió por medio del sitio seguro del banco.
+                        https://acceso.bancoagrario.gov.co/sslvpn/Login/Login
+                        Una vez generado el informe por l aplicación este queda guardado en la ruta Servidor
+                        Producción\Confidencial_Aplic_In40_AAAA\jin_40\AAMMDD\Agrario\Consignacion Agrario
+                        <ol type="a">
+                            <li><img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-005/img019.png')}}"
+                                    alt=""></li>
+                            <li><img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-005/img020.png')}}"
+                                    alt=""></li>
+                        </ol>
+                        Traslado de consignacion al sitio seguro Banco
+                        <ol type="a">
+                            <li><img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-005/img021.png')}}"
+                                    alt=""></li>
+                            <li><img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-005/img022.png')}}"
+                                    alt=""></li>
+                            <li><img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-005/img023.png')}}"
+                                    alt=""></li>
+                            <li><img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-005/img024.png')}}"
+                                    alt=""></li>
+                        </ol>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="doc-subsection">
+            6.5. Captura de Información
+        </div>
+        <div class="doc-subcontent">
+            <div class="doc-subsection">6.5.1. Digitación</div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Digitador</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> No aplica</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b> Capturar campo a campo la
+                        información contenida en los formularios desde la imagen asignada
+                        aleatoriamente por el sistema, en primera y segunda captura.
+                        No se debe digitar la imagen cuando es ilegible y pasa a la siguiente imagen. La imagen no
+                        digitada es revisada por el responsable del proceso.
+                        A través del correo electrónico se reportan las imágenes ilegibles por fecha de recaudo.
+                        El banco envía nuevamente las imágenes y se recepcionan para ser procesadas.
+                        <b>Nota 1:</b> La segunda captura es realizada por un digitador diferente a quien hizo la
+                        primera
+                        captura.
+                        <b>Nota 2:</b> Los documentos XML no tienen captura
+                        Se ingresa al aplicativo de impuestos nacionales por el menú Grabación\Captura de documentos
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-005/img025.png')}}"
+                            alt="">
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">6.5.2. Validación</div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Validar Capturas</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> No aplica</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b>
+                        DESCRIPCIÓN: En el aplicativo in_40.exe se presiona el icono comparación automática ubicado en
+                        la parte lateral izquierda del aplicativo, se escoge el tipo de formulario a validar, clic en
+                        iniciar validación, nos muestra una imagen con los campos a comparar y verificar cual dato es el
+                        correcto.
+
+                        <b>Nota 1:</b> Si en las dos capturas por el digitador A o B, la información no corresponde a la
+                        registrada con la de la imagen, hay una tercera fila (nueva información) donde se escribe la
+                        información correcta según la imagen.
+                        <b>Nota 2:</b> Si la información no es legible se marca “campo ilegible”, sí tiene alguna duda
+                        le da
+                        omitir información la cual pasaría a revisión por él dueño del proceso
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-005/img026.png')}}"
+                            alt="">
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="doc-subsection">
+            6.6. Generación de Cinta
+        </div>
+        <div class="doc-subcontent">
+            <div class="doc-subsection">6.6.1. Generar Reportes y Validar Cintas</div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Líder de proceso</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> No aplica</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b>Se necesita que toda la información
+                        se encuentre completa, indexada, digitada y validada, que no existan formularios inexactos
+                        (Formularios con formato diferente al correspondiente). Se verifica la cantidad de documentos,
+                        valor y se compara contra la información indexada, en caso que se encuentren diferencias se
+                        verifica la información registro por registro y se corrige.
+                        Se detectan formularios con grabación parcial o campos en blanco o incompletos y formularios sin
+                        código Dirección seccional.
+                        <ol type="A">
+                            <li>En el aplicativo in_40.exe en la barra de menú se despliega la opción generación de
+                                archivos planos - validación de cintas – se digita la fecha a validar cinta, esta debe
+                                quedar en blanco
+                                <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-005/img027.png')}}"
+                                    alt="">
+                            </li>
+                            <li>Se despliega la opción generación de archivos planos\ validación de numero de
+                                formularios se genera y se le da aceptar.
+                                <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-005/img028.png')}}"
+                                    alt="">
+                            </li>
+                            <li>Se despliega la opción generación de archivos planos\ validación de fórmulas, se le da
+                                procesar, se le da salir.
+                                <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-005/img029.png')}}"
+                                    alt="">
+                            </li>
+                        </ol>
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">6.6.2. Generar Tapas</div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Líder de proceso</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> No aplica</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b>
+                        En el aplicativo in_40.exe en la barra de menús se despliega la opción generación de archivos
+                        planos\ generación automática de tapas, se le indica otros, se da la opción en el botón Aceptar
+                        y salir
+                        <ol type="A">
+                            <li><img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-005/img030.png')}}"
+                                    alt=""></li>
+                            <li><img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-005/img031.png')}}"
+                                    alt=""></li>
+                        </ol>
+                        <b>Nota:</b> Para generar los archivos planos se debe volver a generar las tapas. Esta activad
+                        se debe realizar por tipo de contribuyente.
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">6.6.3. Generar Archivos Planos por Tipo</div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Líder de proceso</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> No aplica</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b>
+                        Luego vamos a generación de archivos planos\generación de archivos planos por tipo.
+                        Digitamos la fecha de la jornada normal, se cambia el consecutivo ya que aparecerá el que se
+                        genera primero, Se genera la cinta con su consecutivo correspondiente, se diligencia la fecha de
+                        entrega es decir el día que está generando los ftp, se selecciona los documentos a enviar, le
+                        damos aceptar y le hacemos clic en cuadro que dice generando tipo: ns, nn, nv, nr, np, nu, nx,
+                        nf, ny, nz, nj, nk, nb.
+                        Sale la opción procesando, le damos aceptar y salir.
+                        Hacemos el mismo proceso para grandes y aduanas.
+                        Vamos a la ruta donde se generaron los archivos ftp: \\Servidor
+                        producción\.\confidencial_nacionales40_aaaa\40\procesos_40\envios\aaaammdd\envios\_ns_nn_nv_nr_np_nu_nx_nf_ny_nz_nj_nk_nb_ng_ne_nm_nt\ftp\nacionales_2\lst
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-005/img032.png')}}"
+                            alt="">
+                        <b>Nota 1:</b>
+                        • Grandes es Modalidad 1.
+                        • Otros es Modalidad 2.
+                        • Aduanas es Modalidad 3.
+
+                        <b>Nota 2: </b>El plazo máximo para la entrega de las cintas es de 7 días hábiles, se recomienda
+                        hacer
+                        él envió el QUINTO día por si se presenta algún cambio, inconveniente o rechazo poder realizar
+                        los ajustes necesarios y no tener extemporaneidades.
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">6.6.4. Enviar Archivos FTPS (Cintas)</div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Líder de proceso</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> PRO-D-EXT-004 Presentación
+                        electrónica planilla de lectura magnética</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b>
+                        Las cintas se deben transmitir por medio del canal FTPS de la DIAN para que sean leídas, se debe
+                        trasmitir al banco el archivo PRO-D-EXT-004Presentación electrónica planilla de lectura
+                        magnética.xls con la información de todas las cintas enviadas y enviar por el sitio seguro un
+                        comprimido con todas las relaciones de envío de cintas al banco para que este realice su
+                        respectivo cuadre. En la planilla donde está la columna de modalidad de debe diligenciar así:
+                        Para los
+                        <ol>
+                            <li>Grandes es Modalidad 1.</li>
+                            <li>Otros es Modalidad 2.</li>
+                            <li>Aduanas es Modalidad 3.</li>
+                        </ol>
+                        Para el caso de Agrario los medios magnéticos se ubican en el disco C en una carpeta con el
+                        nombre de CINTAS con la fecha en la cual se va a dar lectura a los mismos; y posteriormente se
+                        trasladan al ftp de la DIAN.
+                        <ol type="A">
+                            <li>Conectar
+                                <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-005/img033.png')}}"
+                                    alt="">
+                            </li>
+                            <li>Ingreso a WS_FTP PRO
+                                <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-005/img034.png')}}"
+                                    alt="">
+                            </li>
+                            <li>Traslado de archivos
+                                <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-005/img035.png')}}"
+                                    alt="">
+                            </li>
+                        </ol>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="doc-subsection">
+            6.7. Reportar Autoadhesivos Anulados
+        </div>
+        <div class="doc-subcontent">
+            <ul>
+                <li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Lider de proceso</li>
+                <li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> PRO-D-021 Ultimo utilizado día Banagrario
+                </li>
+                <li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b>
+                    El Banco envía Actas de Anulación de Adhesivos las cuales se ingresan al aplicativo para ser
+                    anulados y son reportados a la DIAN en FTP. Por el menú Grabación\Captura documentos anulados.
+
+                    Se debe tener en cuenta:
+
+                    - Fecha de anulación.
+
+                    - Verificar sí en ese día la oficina recaudo impuestos, de lo contrario pasar al siguiente día, y
+                    así sucesivamente hasta cuando se pueda relacionar. Una vez incorporado los anulados el aplicativo
+                    arroja un informe en: Servidor producción\Confidencial_In40_2018\procesos, esta información debe ser
+                    incorporada en el formato PRO-D-021 Ultimo utilizado día Banagrario que está la ruta
+                    ServidorProducción\Confidencial_Nacionales40__aaaa/40/procesos_40/Procesos_Agrario/Formatos de
+                    calidad, y posteriormente se envía por correo electrónico al Banco.
+                    <ol type="A">
+                        <li><img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-005/img036.png')}}"
+                                alt=""></li>
+                        <li><img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-005/img037.png')}}"
+                                alt=""></li>
+                    </ol>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="doc-subsection">
+            6.8. Inconsistencia
+        </div>
+        <div class="doc-subcontent">
+            <ul>
+                <li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Auxiliar de proceso</li>
+                <li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> PRO-F-036 Tabla de Inconsistencias
+                    Banagrario</li>
+                <li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b>
+                    Se debe verificar los campos de responsabilidad del Banco en las imágenes de los formularios
+                    litográficos de Impuestos y Aduanas Nacionales, en el cual se pueden consultar en el formato
+                    PRO-F-036 Tabla de Inconsistencias Banagrario en:
+                    ServidorProducción\Confidencial_Nacionales40__aaaa/40/procesos_40/Procesos_Agrario/Formatos de
+                    calidad
+                    <ol>
+                        <li>Año Gravable</li>
+                        <li>Concepto </li>
+                        <li>Periodo</li>
+                        <li>Código Administración</li>
+                        <li>Nombre o Razón Social </li>
+                        <li>Número de Identificación tributaria</li>
+                        <li>Actividad económica</li>
+                        <li>Firma Contribuyente o Contador.</li>
+                        <li>Autoadhesivo.</li>
+                        <li>Total Pagado.</li>
+                        <li>Sello con o sin pago</li>
+                        <li>Fecha de recaudo. </li>
+                        <li>Diferencia en valor</li>
+                        <li>Diferencia en concepto</li>
+                        <li>Campos en Blanco.</li>
+                    </ol>
+                    Para los documentos XML se deben verificar:
+                    <ol>
+                        <li>Sello con o sin pago</li>
+                        <li>Fecha de recaudo. </li>
+                        <li>Firma contribuyente o contador.</li>
+                        <li>Imagen mutilada o ilegible.</li>
+                    </ol>
+                    <b>Nota 1:</b> Este informe se debe enviar al Banco en un consolidado mensual, y presentar con su
+                    respectiva imagen.
+                </li>
+            </ul>
+        </div>
+
+        <div class="doc-subsection">
+            6.9. Generación de Informes
+        </div>
+        <div class="doc-subcontent">
+            <div class="doc-subsection">6.9.1. Generar Formatos de Entrega</div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Auxiliar de proceso</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> No aplica</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b>
+                        Generar formatos de entrega de documentos físicos para las administraciones de la DIAN en PDF.
+
+                        Al día siguiente del envío de las cintas se deben generar los formatos de entrega para cada una
+                        de las direcciones seccionales de la DIAN. Teniendo en cuenta que estos deben generarse por tipo
+                        de contribuyente: OTROS, GRANDES Y ADUANAS y enviar en pdf por sitio seguro al banco.
+                        Este procedimiento se realiza para documentos litográficos como XML.
+
+                        Ingresar al aplicativo in_40.exe, en la barra de menús desplegamos la opción informes\formato de
+                        entrega de documentos para litográficos y si la fecha a enviar es pequeña usar la opción
+                        informes\formato de entrega de documentos XML automático para XML, en los dos casos se digita la
+                        fecha de recaudo que se va a enviar y la del siguiente día hábil normal, para que el aplicativo
+                        reconozca los documentos de jornada adicional, también se marca las ciudades a enviar, el tipo
+                        de documentos nacionales o aduanas y se da clic en generar, aparece los formatos de envió de
+                        documentos físicos tributarios y aduaneros; en los litográficos va relacionado el número de
+                        formulario y de adhesivo, en los XML sale relacionado únicamente el número de formulario, se
+                        imprimen.
+                        <ol type="A">
+                            <li>Litograficos
+                                <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-005/img038.png')}}"
+                                    alt="">
+                            </li>
+                            <li>XML
+                                <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-005/img039.png')}}"
+                                    alt="">
+                            </li>
+                        </ol>
+                        Los PDF generados deben ser guardados en:
+                        ServidorProducción\Confidencial_Nacionales40__aaaa/40/procesos_40/Procesos_Agrario/FORMATOS.
+                        Posteriormente se deben cargar en la página del banco por la opción entrada, mismo procedimiento
+                        que se realiza con la consignación.
+                        https://acceso.bancoagrario.gov.co/sslvpn/Login/Login
+
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">6.9.2. Generación de Informe 1188</div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Líder de proceso</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> PRO-D-019 Informe 1188 Banagrario
+                    </li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b> Verificar antes de generar los
+                        archivos que los valores y cantidad de documentos coincidan con los datos enviados por el banco,
+                        si no coinciden los datos realizar el análisis hasta establecer la diferencia.
+                        Verificar que todos los documentos estén indexados para luego generar el informe desde el
+                        aplicativo, revisar los saldos, valores diarios y enviar el informe a través del correo
+                        electrónico.
+                        Ingresar al aplicativo in_40.exe, en la barra de menús desplegamos la opción informes\ informe
+                        de recaudos y consignaciones1188, digitamos el periodo correspondiente al mes el cual se va a
+                        enviar, dar la opción aceptar, se genera un archivo consolidado que el banco solicita para
+                        validaciones, en la siguiente ruta:
+                        \\Servidor\confidencial_nacionales40_aaaa\40\procesos_32\r1510 llamado inf_1188resu.xls.
+                        Realizar validaciones de totales contra lo que se recaudó diariamente. Este es un consolidado
+                        mensual que incluye XML, litográficos y pagos electrónicos, el cual se debe copiar en el formato
+                        PRO-D-019 Informe 1188 Banagrario el cual se encuentra en la ruta Servidor
+                        Producción/Confidencial_Nacionales40_aaaa/40/procesos_40/procesos_Agrario/Formatos de Calidad. Y
+                        se notifica al banco sobre el archivo para que realicen las validaciones.
+                        <ol type="A">
+                            <li><img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-005/img040.png')}}"
+                                    alt=""></li>
+                            <li><img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-005/img041.png')}}"
+                                    alt=""></li>
+                        </ol>
+                        El informe 1188 se debe enviar los 5 primeros días hábiles de cada mes.
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="doc-subsection">
+            6.10. Lista de Chequeo
+        </div>
+        <div class="doc-subcontent">
+            <ul>
+                <li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Líder de procesos y auxiliar de
+                    procesos</li>
+                <li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> PRO-D-097 Lista de chequeo Agrario</li>
+                <li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b>
+                    Una vez realizadas todas las actividades se debe diligenciar el formato PRO-D-097 Lista de chequeo
+                    Agrario de acuerdo a lo ejecutado en el día, y así tener mayor control frente a las
+                    responsabilidades a cumplir.
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="doc-section" data-id="7">
+        7. INDICADORES DE DESEMPEÑO
+    </div>
+    <div class="doc-content" data-id="7">
+        <p>
+            MEDIDO RESPONSABLE INDICADOR FRECUENCIA POR/MEDIO REVISIÓN Σ Formularios Digitados – Errores De Digitación
+            *100 Líder De Líder de Mensual ----------------------------------- Proceso Proceso Σ Formularios Digitados Σ
+            Total citas enviadas – Σ cintas Rechazadas Líder De Líder de *100 Mensual ----------------------------------
+            Proceso Proceso Σ Total citas enviadas
+        </p>
+    </div>
+    <div class="doc-section" data-id="8">
+        8. CONTROL DEL PROCEDIMIENTO
+    </div>
+    <div class="doc-content" data-id="8">
+        <table>
+            <thead>
+                <tr>
+                    <th>Versión</th>
+                    <th>Elaborado</th>
+                    <th>Aprobado</th>
+                    <th>Fecha</th>
+                    <th>Descripción del Cambio</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cambio in cambios %}
+                <tr>
+                    <td>{{ cambio[2] }}</td>
+                    <td>{{ cambio[3] }}</td>
+                    <td>{{ cambio[5] }}</td>
+                    <td>{{ cambio[6] }}</td>
+                    <td>{{ cambio[7] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Botón para abrir el modal -->
+<button class="btn btn-outline-primary" id="openModalBtn" style="margin-top: 20px;">Editar Secciones</button>
+<!-- El Modal -->
+<div class="modal" id="sectionModal">
+    <div class="modal-content">
+        <span class="close-button">×</span>
+        <h2>Selecciona y Edita una Sección</h2>
+        <label for="sectionSelector">Sección:</label>
+        <select id="sectionSelector">
+            <option value="">-- Selecciona una sección --</option>
+        </select>
+        <label for="sectionContent">Contenido:</label>
+        <textarea id="sectionContent" placeholder="El contenido de la sección aparecerá aquí..."></textarea>
+        <label for="sectionCambio">Descripcion del Cambio:</label>
+        <textarea id="sectionCambio" placeholder="Describe en palabras cortas el cambio realizado..."
+            required></textarea>
+        <button class="btn btn-outline-primary" id="saveChangesBtn" style="margin-top: 15px;">Guardar Cambios</button>
+    </div>
+</div>
+<script src="{{ url_for('static', filename='js/jquery.min.js')}}"></script>
+<script src="{{ url_for('static', filename='js/acordeon_doc.js')}}"></script>
+<script src="{{ url_for('static', filename='js/edita_procedimiento.js')}}"></script>
+
+{% endblock %}

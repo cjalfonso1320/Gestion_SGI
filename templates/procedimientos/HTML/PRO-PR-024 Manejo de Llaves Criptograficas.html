@@ -1,0 +1,298 @@
+{% extends 'home.html' %}
+{% block title %}Documentacion{% endblock %}
+{% block content %}
+<link href="{{ url_for('static', filename='css/acordeon_doc.css') }}" rel="stylesheet" />
+<link href="{{ url_for('static', filename='css/procedimientos.css') }}" rel="stylesheet" />
+
+<div id="documento" style="display:none;">procedimientos/HTML/PRO-PR-024 Manejo de Llaves Criptograficas.html</div>
+<div id="nombre_documento" style="display: none;">PRO-PR-024 Manejo de Llaves Criptograficas</div>
+<h1>PRO-PR-024 Manejo de Llaves Criptograficas</h1>
+{% for cambio in cambios %}
+{% if loop.first %}
+<h3>Version: {{cambio[3]}}</h3>
+{% endif %}
+{% endfor %}
+<br />
+<div class="doc-accordion">
+ <div class="doc-section" data-id="1">
+  1. Objetivo
+ </div>
+ <div class="doc-content" data-id="1">
+ </div>
+ <div class="doc-section" data-id="2">
+  2. Alcance
+ </div>
+ <div class="doc-content" data-id="2">
+ </div>
+ <div class="doc-section" data-id="3">
+  3. Responsables
+ </div>
+ <div class="doc-content" data-id="3">
+ </div>
+ <div class="doc-section" data-id="4">
+  4. Definiciones
+ </div>
+ <div class="doc-content" data-id="4">
+ </div>
+ <div class="doc-section" data-id="5">
+  5. Documentos de referencia
+ </div>
+ <div class="doc-content" data-id="5">
+ </div>
+ <div class="doc-section" data-id="6">
+  6. Descripción del proceso
+ </div>
+ <div class="doc-content" data-id="6">
+  <div class="doc-subsection">
+   6.1. Recomendaciones para el buen uso
+  </div>
+  <div class="doc-subcontent">
+  </div>
+  <div class="doc-subsection">
+   6.2. Entrega de llaves criptográficas
+  </div>
+  <div class="doc-subcontent">
+  </div>
+  <div class="doc-subsection">
+   6.3. Uso llave criptográfica
+  </div>
+  <div class="doc-subcontent">
+  </div>
+  <div class="doc-subsection">
+   6.4. Protección
+  </div>
+  <div class="doc-subcontent">
+  </div>
+ </div>
+ <div class="doc-section" data-id="7">
+  7. Indicadores de desempeño
+ </div>
+ <div class="doc-content" data-id="7">
+ </div>
+ <div class="doc-section" data-id="8">
+  8. Control del procedimiento
+ </div>
+ <div class="doc-content" data-id="8">
+  <p>
+   30/11/2019 MANEJO DE LLAVES CRIPTOGRÁFICAS
+  </p>
+ </div>
+ <div class="doc-section" data-id="1">
+  1. OBJETIVO
+ </div>
+ <div class="doc-content" data-id="1">
+  <p>
+   Proteger la confidencialidad, autenticidad o integridad de la información de nuestros clientes procesada en
+  </p>
+ </div>
+ <div class="doc-section" data-id="2">
+  2. ALCANCE
+ </div>
+ <div class="doc-content" data-id="2">
+  <p>
+   Este procedimiento aplica a los procesos que, por solicitud de nuestros clientes, realicen transmisiones de su información
+  </p>
+ </div>
+ <div class="doc-section" data-id="3">
+  3. RESPONSABLES
+ </div>
+ <div class="doc-content" data-id="3">
+  <p>
+   Directores de procesos, Líder de Proceso, Administración de T.I. Oficial de Seguridad de la información
+  </p>
+ </div>
+ <div class="doc-section" data-id="4">
+  4. DEFINICIONES
+ </div>
+ <div class="doc-content" data-id="4">
+  <p>
+   Token: es un dispositivo electrónico que se le da a un usuario autorizado de un servicio computarizado para facilitar el proceso de autenticación, genera una clave aleatoria e irrepetible de 6 dígitos que cambia cada 60 segundos. USB – Certifirma: Es un aplicativo desarrollado por Certicamara, en donde los usuarios ingresan para realizar los procesos de firma de documentos en diferentes formatos ej. (Doc., jpg, PDF)
+  </p>
+ </div>
+ <div class="doc-section" data-id="5">
+  5. DOCUMENTOS DE REFERENCIA
+ </div>
+ <div class="doc-content" data-id="5">
+  <p>
+    ISO 27001
+  </p>
+ </div>
+ <div class="doc-section" data-id="6">
+  6. DESCRIPCIÓN DEL PROCESO
+ </div>
+ <div class="doc-content" data-id="6">
+  <div class="doc-subsection">
+   6.1. Recomendaciones para el buen Uso
+  </div>
+  <div class="doc-subcontent">
+   <ul>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Responsable:
+     </b>
+     Líder de Proceso
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Registro:
+     </b>
+     No Aplica
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Descripción:
+     </b>
+     Se deben tener las siguientes recomendaciones:  El certificado digital es personal e intransferible.  El dispositivo Token debe estar almacenado de forma segura.  No permita que otras personas tengan acceso al dispositivo Token o USB-certifirma.  El dispositivo USB-certifirma se debe utilizar únicamente para firmar digitalmente mensajes de datos y no almacenar ningún tipo de información.  Si extravía o pierde el control de su dispositivo Certifirma; solicite inmediatamente en la línea de Certicamara la revocación del certificado al siguiente número telefónico: 7442727 Opción. 1 en Bogotá.  No digite la clave, más de tres veces de manera errada, esto bloqueará el Token. 30/11/2019 MANEJO DE LLAVES CRIPTOGRÁFICAS
+    </li>
+   </ul>
+  </div>
+  <div class="doc-subsection">
+   6.2. Entrega de Llaves criptográficas
+  </div>
+  <div class="doc-subcontent">
+   <ul>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Responsable:
+     </b>
+     Cliente / Administrador de T.I
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Registro:
+     </b>
+     Acta de Entrega
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Descripción:
+     </b>
+     Los líderes de procesos que manejan llaves criptográficas, reciben los dispositivos y firman el acta correspondiente. Al firmar el acta son informados de las responsabilidades que adquieren y se les informa sobre el buen manejo de los dispositivos
+    </li>
+   </ul>
+  </div>
+  <div class="doc-subsection">
+   6.3. Uso llave Criptográfica
+  </div>
+  <div class="doc-subcontent">
+   <ul>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Responsable:
+     </b>
+     Líder de Proceso
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Registro:
+     </b>
+     No Aplica
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Descripción:
+     </b>
+     Los dispositivos Token o USB-Certifirma se usan para facilitar el proceso de autenticación y generar firmas, en los procesos. USB-Certifirma: Se utiliza para firmar los medios magnéticos de impuestos distritales. Para realizar esta firma se debe ingresa la USB-Certifirma abrir el aplicativo de Certicamara, se busca el archivo se carga, se le da la contraseña y el mismo aplicativo crea uno nuevo archivo con la firma. Cada vez que se firma un documento solicita la contraseña que fue asignada por el administrador de T.I IMPORTANTE: No olvidar la clave del certificado digital almacenado en el Token; la clave únicamente puede ser cambiada por el suscriptor del certificado CERTICÁMARA S.A, no almacena ni asigna la clave, por tanto, su olvido implica la revocación del certificado digital asociado y la emisión de un nuevo certificado digital a cargo del solicitante Token: se utilizan para cargar los pagos al portal de los bancos y descargar las respuestas de los pagos
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Nota:
+     </b>
+     Cuanto mayor sea el número de bits de información en la clave, mayor es el número de combinaciones que debe probar un atacante que use la pura fuerza bruta
+    </li>
+   </ul>
+  </div>
+  <div class="doc-subsection">
+   6.4. Protección
+  </div>
+  <div class="doc-subcontent">
+   <ul>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Responsable:
+     </b>
+     Líder de Proceso
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Registro:
+     </b>
+     No Aplica
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Descripción:
+     </b>
+     Los dispositivos Token o USB-Certicamara deben almacenarse en sitios seguros (Cajas de seguridad) y monitoreado con el CCTV, cuando no se estén usando en el proceso indicado. 30/11/2019 MANEJO DE LLAVES CRIPTOGRÁFICAS
+    </li>
+   </ul>
+  </div>
+ </div>
+ <div class="doc-section" data-id="7">
+  7. INDICADORES DE DESEMPEÑO
+ </div>
+ <div class="doc-content" data-id="7">
+  <p>
+   No Aplica
+  </p>
+ </div>
+ <div class="doc-section" data-id="8">
+  8. CONTROL DEL PROCEDIMIENTO
+ </div>
+ <div class="doc-content" data-id="8">
+  <p>
+   VER. FECHA DE MODIFICACIÓN ELABORADO REVISADO APROBADO No. APROBACIÓN REALIZADA Oficial de Director comercial Coordinadora Se realiza creación del 1 Seguridad y del SGI de calidad 02/03/2018 procedimiento. Analista del Director comercial Analista del Se realiza actualización 2 SGI y del SGI SGI 30/11/2019 general del procedimiento 30/11/2019
+  </p>
+ </div>
+</div>
+
+<!-- Botón para abrir el modal -->
+<button class="btn btn-outline-primary" id="openModalBtn" style="margin-top: 20px;">Editar Secciones</button>
+<!-- El Modal -->
+<div class="modal" id="sectionModal">
+    <div class="modal-content">
+        <span class="close-button">×</span>
+        <h2>Selecciona y Edita una Sección</h2>
+        <label for="sectionSelector">Sección:</label>
+        <select id="sectionSelector">
+            <option value="">-- Selecciona una sección --</option>
+        </select>
+        <label for="sectionContent">Contenido:</label>
+        <textarea id="sectionContent" placeholder="El contenido de la sección aparecerá aquí..."></textarea>
+        <label for="sectionCambio">Descripcion del Cambio:</label>
+        <textarea id="sectionCambio" placeholder="Describe en palabras cortas el cambio realizado..."
+            required></textarea>
+        <button class="btn btn-outline-primary" id="saveChangesBtn" style="margin-top: 15px;">Guardar Cambios</button>
+    </div>
+</div>
+<script src="{{ url_for('static', filename='js/jquery.min.js')}}"></script>
+<script src="{{ url_for('static', filename='js/acordeon_doc.js')}}"></script>
+<script src="{{ url_for('static', filename='js/edita_procedimiento.js')}}"></script>
+
+{% endblock %}

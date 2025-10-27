@@ -1,0 +1,328 @@
+{% extends 'home.html' %}
+{% block title %}Documentación{% endblock %}
+{% block content %}
+<link href="{{ url_for('static', filename='css/acordeon_doc.css') }}" rel="stylesheet"/>
+<link href="{{ url_for('static', filename='css/procedimientos.css') }}" rel="stylesheet"/>
+<div id="documento" style="display:none;">procedimientos/TI/Tec_pr_002.html</div>
+<div id="nombre_documento" style="display: none;">TEC-PR-002 Soporte Técnico</div>
+<h1>TEC-PR-002 Soporte Técnico</h1>
+{% for cambio in cambios %}
+{% if loop.first %}
+<h3>Version: {{cambio[3]}}</h3>
+{% endif %}
+{% endfor %}
+<br/>
+<div class="doc-accordion">
+<div class="doc-section" data-id="1">1. OBJETIVO</div>
+<div class="doc-content" data-id="1"><p>Dar a conocer las actividades a desarrollar para solicitar mantenimiento o soporte para los equipos
+            de cómputo y otros que intervienen en la prestación del servicio
+            de DIGICOM SYSTEM CORPORATION S.A</p></div>
+<div class="doc-section" data-id="2">2. ALCANCE</div>
+<div class="doc-content" data-id="2">
+<p>Este procedimiento aplica para los soportes y mantenimientos aplicados a todos los equipos de cómputo y
+            otros que afectan el proceso de la empresa en cada una de sus sedes.</p>
+</div>
+<div class="doc-section" data-id="3">3. RESPONSABLES</div>
+<div class="doc-content" data-id="3">
+<p>Administrador de T-I, Analista de T-I, Auxiliar de T-I, Líder de proceso.</p>
+</div>
+<div class="doc-section" data-id="4">4. DEFINICIONES</div>
+<div class="doc-content" data-id="4">
+<ul>
+<li><i class="fa-regular fa-circle-check"></i><b>Mantenimiento preventivo: </b>Revisión periódica de
+                aspectos de hardware y/o Software de un equipo de
+                cómputo para mantener un desempeño fiable ayudando a reducir los tiempos que pueden generarse por
+                mantenimientos correctivos, previniendo o mitigando las consecuencias de posibles fallos. Esta tarea
+                incluye acciones como cambio de piezas desgastadas u otros.</li>
+<li><i class="fa-regular fa-circle-check"></i><b>Mantenimiento Correctivo: </b>Revisión no
+                planificada de un equipo o Software a causa de un fallo no esperado o desempeño lento poco
+                fiable. Esta actividad agrupa acciones como: configuración, instalación en el caso de Software
+                o cambios, o ajuste de piezas en el caso de hardware.</li>
+</ul>
+</div>
+<div class="doc-section" data-id="5">5. DOCUMENTOS DE REFERENCIA</div>
+<div class="doc-content" data-id="5">
+<p>No Aplica.</p>
+</div>
+<div class="doc-section" data-id="6">6. DESCRIPCIÓN DEL PROCESO</div>
+<div class="doc-content" data-id="6">
+<div class="doc-subsection">6.1 Solicitud de Soporte</div>
+<div class="doc-subcontent">
+<div class="doc-subsection">6.1.1. Recibir Solicitud De Soporte Por Parte De Los Usuarios De Equipos</div>
+<div class="doc-subcontent">
+<ul>
+<li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Área administrativa y Líder de
+                        proceso.</li>
+<li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> No aplica.</li>
+<li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b> Comprobar que el origen de la
+                        falla amerite el soporte. Nota: En caso de requerir el acceso a una página en
+                        internet se remite un ticket de solicitud y el área de TI solicita aprobación al Oficial de
+                        Seguridad.</li>
+</ul>
+</div>
+<div class="doc-subsection">6.1.2. La solicitud al área de Tecnología de la Información</div>
+<div class="doc-subcontent">
+<ul>
+<li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Director de Procesos, Lideres de
+                        Procesos. </li>
+<li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> No aplica. </li>
+<li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b> Estas solicitudes se hacen al área
+                        de T.I a través de un ticket de solicitud por medio de la página del GLPI Autenticación - GLPI.
+                    </li>
+</ul>
+</div>
+<div class="doc-subsection">6.1.3 Registros solicitudes GLPI</div>
+<div class="doc-subcontent">
+<ul>
+<li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Auxiliar de T.I.</li>
+<li><i class="fa-regular fa-circle-check"></i><b>Registro:</b>TEC-D-009 Solicitud Soporte o
+                        Mantenimiento.</li>
+<li><i class="fa-regular fa-circle-check"></i><b>Descripción:Para el área de Recurso Tecnológico los
+                            servicios solicitados por medio de la página de GLPI son
+                            de
+                            alta prioridad, los cuales se dejan registro en el formato TEC-D-009 Solicitud Soporte o
+                            Mantenimiento. </b></li>
+</ul>
+</div>
+</div>
+<div class="doc-subsection">6.2. Análisis de computador y realizar el soporte según el dictamen.</div>
+<div class="doc-subcontent">
+<ul>
+<li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Auxiliar de T.I.</li>
+<li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> No aplica.</li>
+<li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b>Según análisis, si se puede
+                    corregir inmediatamente se realiza,
+                    <div>
+<ul style="position: relative; left: 20px;">
+<li><i class="fa-solid fa-chevron-right"></i>Instalación se pide autorización.</li>
+<li><i class="fa-solid fa-chevron-right"></i>Reemplazo de una parte
+                                si hay en inventario se efectúa el reemplazo y si no se solicita para su cambio</li>
+</ul>
+</div>
+                    El desarrollo de
+                    las actividades de soporte estará bajo la supervisión del administrador de TI
+                    <div>
+<ul style="position: relative; left: 20px;">
+<li><i class="fa-solid fa-chevron-right"></i><b>Nota 1:</b> El tiempo
+                                estimado por el área de recurso tecnológico para atender las solicitudes requeridas está
+                                en el rango
+                                de 1 a 4 días hábiles, según la naturaleza de la solicitud.</li>
+<li><i class="fa-solid fa-chevron-right"></i><b>Nota 2:</b> Se debe dar de baja los equipos
+                                que presenten daños irreparables según el análisis de la revisión o por su obsolescencia
+                                deba ser
+                                retirado. </li>
+</ul>
+</div>
+</li>
+</ul>
+<div class="doc-subsection">6.2.1 Realizar las pruebas al equipo para garantizar su funcionamiento. Se hace
+                entrega al usuario.</div>
+<div class="doc-subcontent">
+<ul>
+<li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Auxiliar T-I</li>
+<li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> No aplica.</li>
+<li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b> El registro de los
+                        cambios
+                        de hardware y software de los equipos queda documentado en el aplicativo del GLPI.</li>
+</ul>
+</div>
+</div>
+<div class="doc-subsection">6.3. Instalación de Aplicaciones</div>
+<div class="doc-subcontent">
+<div class="doc-subsection">6.3.1 Realizar la instalación.</div>
+<div class="doc-subcontent">
+<ul>
+<li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Auxiliar de T.I.</li>
+<li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> Base de Datos GLPI.</li>
+<li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b> Para la instalación de software en
+                        equipos y usuarios restringidos, se debe realizar el respectivo ajuste en la política de
+                        seguridad física y lógica. Para instalar un nuevo equipo se requiere documentar dentro del
+                        aplicativo del GLPI los datos del equipo, Ficha General Hardware y Software y ser incluido en el
+                        programa de mantenimiento preventivo.</li>
+</ul>
+</div>
+<div class="doc-subsection">6.3.2. Entrega del equipo intervenido.</div>
+<div class="doc-subcontent">
+<ul>
+<li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Auxiliar de T-I y Líder de
+                        proceso.</li>
+<li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> TEC-D-017 Matriz de Roles vs
+                        Privilegios.</li>
+<li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b> El líder del proceso junto con el
+                        funcionario de T.I., revisaran que el equipo intervenido se entrega con el cumplimiento de lo
+                        establecido en la Matriz de Roles vs Privilegios, según el rol que desempeña el funcionario
+                        adjudicatario del equipo. </li>
+</ul>
+</div>
+</div>
+<div class="doc-subsection">6.4 Mantenimiento Preventivo</div>
+<div class="doc-subcontent">
+<ul>
+<li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Auxiliar de T-I.</li>
+<li><i class="fa-regular fa-circle-check"></i><b>Registro:</b>
+<ul style="position: relative; left: 20px;">
+<li><i class="fa-solid fa-chevron-right"></i> GER-F-003 Cronograma</li>
+<li><i class="fa-solid fa-chevron-right"></i> TEC-F-001 Evidencia De Mantenimiento Preventivo
+                            Ejecución Mantenimiento de Equipos. </li>
+<li><i class="fa-solid fa-chevron-right"></i> TEC-F-007 Mantenimiento preventivo planta
+                            Electicas</li>
+<li><i class="fa-solid fa-chevron-right"></i> TEC-F-012 Mantenimiento Preventivo Servidores</li>
+<li><i class="fa-solid fa-chevron-right"></i> TEC-F-013 Evidencia De Mantenimiento Preventivo
+                            impresoras, aires acondicionados, Ups, Otros
+                            dispositivos.</li>
+</ul>
+</li>
+<li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b> Se realiza el mantenimiento preventivo
+                    a los equipos, a las plantas eléctricas, UPS, escáner, aires acondicionados, impresoras y demás
+                    dispositivos, según el programa de mantenimientos registrado en el formato GER-F-003 Cronograma.
+                    dejando como evidencia el reporte de la ejecución de los mantenimientos en los formatos descritos
+                    anteriormente. Para los equipos se realiza una programación de mantenimiento, que consta de limpieza
+                    y ajuste.
+                    <div>
+<ul style="position: relative; left: 20px;">
+<li><i class="fa-solid fa-chevron-right"></i>Anual: Para PC, Servidores, Escáner, Impresoras
+                                y aires acondicionados.</li>
+<li><i class="fa-solid fa-chevron-right"></i>Anual: Plantas y UPS.</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="doc-subsection">6.5 Revision Periodica de Plantas Electricas, Ups y Centro de computo</div>
+<div class="doc-subcontent">
+<div class="doc-subsection">6.5.1. Realización de inspección periódica</div>
+<div class="doc-subcontent">
+<ul>
+<li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Auxiliar de T.I.</li>
+<li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> TEC-F-007 Mantenimiento
+                        preventivo planta eléctrica.</li>
+<li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b>Registrar revisión periódica en el
+                        formato TEC-F-007 Mantenimiento preventivo planta eléctrico correspondiente siguiendo las
+                        instrucciones relacionadas:
+                        <div>
+<ul style="position: relative; left: 20px;">
+<li><i class="fa-solid fa-chevron-right"></i><b>Mensual: </b>Nivel de
+                                    aceite y combustible.</li>
+<li><i class="fa-solid fa-chevron-right"></i><b>Semanal: </b>2 veces por semana
+                                    miércoles y sábado para nivel de agua.</li>
+<li><i class="fa-solid fa-chevron-right"></i><b>UPS: </b>apagar, prender y verificar el
+                                    tiempo de carga (mensualmente). </li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="doc-subsection">6.5.2. Pruebas de Planta Eléctrica.</div>
+<div class="doc-subcontent">
+<ul>
+<li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Auxiliar de T.I.</li>
+<li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> TEC-F-007 Mantenimiento
+                        preventivo planta eléctrica.</li>
+<li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b> Se realizará mensualmente una
+                        prueba del funcionamiento eléctrico dejando evidencia en el reporte TEC-F-007 Mantenimiento
+                        preventivo planta eléctrica :
+                        <div>
+<ul style="position: relative; left: 20px;">
+<li><i class="fa-solid fa-chevron-right"></i>Bajar taco general.</li>
+<li><i class="fa-solid fa-chevron-right"></i>Comprobar que la transferencia funcione.
+                                </li>
+<li><i class="fa-solid fa-chevron-right"></i>Que la UPS entre y la planta arranque.</li>
+<li><i class="fa-solid fa-chevron-right"></i>Apagar la planta y verificar que el fluido
+                                    eléctrico se normalice.</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="doc-subsection">6.5.3 Revisión física del Centro de Cómputo.</div>
+<div class="doc-subcontent">
+<ul>
+<li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Oficial de Seguridad.</li>
+<li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> TEC-F-008 Lista de chequeo centro de
+                        cómputo.</li>
+<li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b> Se realizará la revisión de los
+                        centros de cómputo cada 6 meses siguiendo los parámetros de la TEC-F-008 Lista de chequeo Centro
+                        de Cómputo. Si se encuentra en la revisión alguna vulnerabilidad, se deja registrada y se
+                        informa
+                        al área correspondiente para tomar las medidas necesarias de su eliminación. Según el plan de
+                        acción dispuesto se debe revisar nuevamente el centro de cómputo, para verificar que la solución
+                        sea efectiva. </li>
+</ul>
+</div>
+</div>
+<div class="doc-subsection">6.6 Equipos Dados De Baja</div>
+<div class="doc-subcontent">
+<ul>
+<li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Auxiliar de T.I.</li>
+<li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> TEC-F-005 Equipos dados de baja.</li>
+<li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b> Se realiza el debido diagnóstico del
+                    equipo,
+                    identificando los problemas y remplazándolo inmediato si es necesario. Se traslada el quipo
+                    dañado a la bodega y se hace destrucción de la hoja de vida. Se llena el debido registro TEC-F-005
+                    Equipos dados de baja del dispositivo y se retira de control de inventario.</li>
+</ul>
+</div>
+<div class="doc-subsection">6.7 Destrucción de Medios de Almacenamiento</div>
+<div class="doc-subcontent">
+<ul>
+<li><i class="fa-regular fa-circle-check"></i><b>Responsable:</b> Auxiliar de T.I., Oficial de Seguridad
+                </li>
+<li><i class="fa-regular fa-circle-check"></i><b>Registro:</b> GER-F-002 Actas</li>
+<li><i class="fa-regular fa-circle-check"></i><b>Descripción:</b> Se realiza el debido diagnóstico del
+                    medio de almacenamiento y se traslada al area de T.I para hacer la destruccion fisica, se deja como
+                    evidencia un acta firmada por el Auxiliar de T.I y el Oficial de Seguridad.</li>
+</ul>
+</div>
+</div>
+<div class="doc-section" data-id="7">7. INDICADORES DE DESEMPEÑO</div>
+<div class="doc-content" data-id="7">
+<p>Enlace a indicadores</p>
+</div>
+<div class="doc-section" data-id="8">8. CONTROL DEL PROCEDIMIENTO</div>
+<div class="doc-content" data-id="8">
+<table>
+<thead>
+<tr>
+<th>Versión</th>
+<th>Elaborado</th>
+<th>Aprobado</th>
+<th>Fecha</th>
+<th>Descripción del Cambio</th>
+</tr>
+</thead>
+<tbody>
+                {% for cambio in cambios %}
+                <tr>
+<td>{{ cambio[2] }}</td>
+<td>{{ cambio[3] }}</td>
+<td>{{ cambio[5] }}</td>
+<td>{{ cambio[6] }}</td>
+<td>{{ cambio[7] }}</td>
+</tr>
+                {% endfor %}
+            </tbody>
+</table>
+</div>
+</div>
+<!-- Botón para abrir el modal -->
+<button class="btn btn-outline-primary" id="openModalBtn" style="margin-top: 20px;">Editar Secciones</button>
+<!-- El Modal -->
+<div class="modal" id="sectionModal">
+<div class="modal-content">
+<span class="close-button">×</span>
+<h2>Selecciona y Edita una Sección</h2>
+<label for="sectionSelector">Sección:</label>
+<select id="sectionSelector">
+<option value="">-- Selecciona una sección --</option>
+</select>
+<label for="sectionContent">Contenido:</label>
+<textarea id="sectionContent" placeholder="El contenido de la sección aparecerá aquí..."></textarea>
+<label for="sectionCambio">Descripcion del Cambio:</label>
+<textarea id="sectionCambio" placeholder="Describe en palabras cortas el cambio realizado..." required=""></textarea>
+<button class="btn btn-outline-primary" id="saveChangesBtn" style="margin-top: 15px;">Guardar Cambios</button>
+</div>
+</div>
+<script src="{{ url_for('static', filename='js/jquery.min.js')}}"></script>
+<script src="{{ url_for('static', filename='js/acordeon_doc.js')}}"></script>
+<script src="{{ url_for('static', filename='js/edita_procedimiento.js')}}"></script>
+{% endblock %}

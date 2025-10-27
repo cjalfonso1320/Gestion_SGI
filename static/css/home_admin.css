@@ -1231,3 +1231,52 @@ background: linear-gradient(0deg, rgba(255,27,0,1) 0%, rgba(251,75,2,1) 100%);
     font-size: 1.2rem;
   }
 }
+
+    .custom-modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.6);
+        justify-content: center;
+        align-items: center;
+    }
+
+    .custom-modal-content {
+        background: #18183a;
+        color: #fff;
+        padding: 32px 24px;
+        border-radius: 10px;
+        min-width: 320px;
+        max-width: 90vw;
+        position: relative;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+
+    .custom-modal-close {
+        position: absolute;
+        top: 12px;
+        right: 16px;
+        font-size: 2rem;
+        color: #fff;
+        cursor: pointer;
+    }
+
+    @keyframes parpadea {
+
+        0%,
+        100% {
+            opacity: 1;
+        }
+
+        50% {
+            opacity: 0;
+        }
+    }
+
+    .parpadea {
+        animation: parpadea 1s infinite;
+    }

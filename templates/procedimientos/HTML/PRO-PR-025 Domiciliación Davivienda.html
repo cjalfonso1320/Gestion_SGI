@@ -1,0 +1,270 @@
+{% extends 'home.html' %}
+{% block title %}Documentacion{% endblock %}
+{% block content %}
+<link href="{{ url_for('static', filename='css/acordeon_doc.css') }}" rel="stylesheet" />
+<link href="{{ url_for('static', filename='css/procedimientos.css') }}" rel="stylesheet" />
+
+<div id="documento" style="display:none;">procedimientos/HTML/PRO-PR-025 Domiciliación Davivienda.html</div>
+<div id="nombre_documento" style="display: none;">PRO-PR-025 Domiciliación Davivienda</div>
+<h1>PRO-PR-025 Domiciliación Davivienda</h1>
+{% for cambio in cambios %}
+{% if loop.first %}
+<h3>Version: {{cambio[3]}}</h3>
+{% endif %}
+{% endfor %}
+<br />
+<div class="doc-accordion">
+ <div class="doc-section" data-id="1">
+  1. OBJETIVO
+ </div>
+ <div class="doc-content" data-id="1">
+  <p>
+   Procesar el pago de los servicios de la factura de la Empresa de Acueducto Alcantarillado (agua y aseo) de acuerdo a lo establecido por el cliente y dar cumplimiento al Sistema de Gestión Integrado
+  </p>
+ </div>
+ <div class="doc-section" data-id="2">
+  2. ALCANCE
+ </div>
+ <div class="doc-content" data-id="2">
+  <p>
+   El procedimiento aplica al procesamiento de pago de los servicios consignados en la factura de la Empresa de Acueducto y Alcantarillado (agua y aseo) implementados por Digicom
+  </p>
+ </div>
+ <div class="doc-section" data-id="3">
+  3. RESPONSABLES
+ </div>
+ <div class="doc-content" data-id="3">
+  <p>
+   Gerente de Operaciones, Director de Procesos, Líder de procesos
+  </p>
+ </div>
+ <div class="doc-section" data-id="4">
+  4. DEFINICIONES
+ </div>
+ <div class="doc-content" data-id="4">
+  <p>
+    Domiciliaciones Banco: Contiene los clientes que han solicitado domiciliación de pago de los servicios a través de la página del Banco. Cargue de la información diaria del archivo “dom-acti.AA-MM-DD.out” se carga diariamente en la página de Digicom: \\SERVIDOR\51_Descargas\RECAUDO_DIARIO\aaaammdd\MIS PAGOS AUTOMATICOS\COBOGOTA_DD.zip Nuevos y retiros de clientes bancos en la base de domiciliación. Archivo generado por el Banco y colocado en la web DIGICOM.  Respuestas Portafolio: Cargue, validación de la información de respuestas portafolio “DOMI AAAAMMDD.xlsx”  Pagos Ciclos XX: Cargue, validación de los pagos realizados diariamente dependiendo ciclo de proceso “PAGO CICLO B3 DDMARAAAA.xls” Consultas de Información  Utilidades para el seguimiento y control del proceso:  Procesos a Realizar: Control diario para establecer ciclos a procesar  Ciclos Cargados: Seguimiento a la información enviada por la EAAB  Ciclos Encabezado: Consulta del Control totales y fechas de cada ciclo  Ciclos Detalle: Consulta de detalle de referencias específicas (Numero de factura, Cuenta Contrato) de facturación EAAB  Domiciliaciones Cargadas: Consulta de las actualizaciones diarias de los clientes que domicilian el servicio  Domiciliaciones Detalle: Consulta especifica de un cliente.  Movimientos  Revisión Retiros: Permite la validación y generación de reportes de las novedades presentadas en los archivos de domiciliación diarios, genera reporte de las cuentas contrato a actualizar celular, informe de retiros, nuevos y actualización para domiciliación.  Actualización de Ciclos Maestro: cruce de la información de clientes domiciliados y Archivo histórico de facturación para establecer la cuenta contrato y el ciclo al cual pertenece el servicio domiciliado C OPIA CONTROLADA Código: PRO-PR-025 Versión: 06 Página 1 de 22 02/11/2021 DOMICILIACION DAVIVIENDA  Informes  Base de Proceso: Informe Excel, clientes activos, retiros y eliminados por doble creación  Base Eliminados: Informe Histórico de los retiros realizados doble la base de clientes de domiciliación.  Calendario. Informe de seguimiento de las fechas para la ejecución de intentos de cobro.  Cargue CTO: Generación de los Informes CTO diario y Portafolio de Recaudo  Débitos Ciclos Inf 10: Reporte del seguimiento de los descuentos realizados intento 01 al intento 03 dependiendo de los vencimientos de los ciclos.  Plano Pago Ciclo: Archivo para realizar el cargue del descuento por pago de la factura.  SMS: Informe para la notificación a clientes de los descuentos a realizar a su cuenta, rechazos por saldo, devoluciones por factura cancelada.  Excel Ciclos Detalle: Informe en Excel de la información del detalle de facturas enviada por la EAAB, según ciclo de facturación
+  </p>
+ </div>
+ <div class="doc-section" data-id="5">
+  5. DOCUMENTOS DE REFERENCIA
+ </div>
+ <div class="doc-content" data-id="5">
+  <p>
+    Acuerdos de Servicios.  ISO 9001:2015
+  </p>
+ </div>
+ <div class="doc-section" data-id="6">
+  6. DESCRIPCIÓN DEL PROCESO
+ </div>
+ <div class="doc-content" data-id="6">
+ </div>
+ <div class="doc-section" data-id="1">
+  1. Cargue de la base de domiciliación del Banco, proceso diario
+ </div>
+ <div class="doc-content" data-id="1">
+ </div>
+ <div class="doc-section" data-id="2">
+  2. Revisión de retiros
+ </div>
+ <div class="doc-content" data-id="2">
+ </div>
+ <div class="doc-section" data-id="3">
+  3. Actualización de Ciclos
+ </div>
+ <div class="doc-content" data-id="3">
+ </div>
+ <div class="doc-section" data-id="4">
+  4. Informe de la Base de proceso
+ </div>
+ <div class="doc-content" data-id="4">
+ </div>
+ <div class="doc-section" data-id="5">
+  5. Informe base de Eliminación
+ </div>
+ <div class="doc-content" data-id="5">
+ </div>
+ <div class="doc-section" data-id="6">
+  6. Generación de Calendario
+ </div>
+ <div class="doc-content" data-id="6">
+ </div>
+ <div class="doc-section" data-id="7">
+  7. Comprimir Informes y envío a la Web
+ </div>
+ <div class="doc-content" data-id="7">
+  <p>
+    Proceso después de la revisión del Base por parte del Banco
+  </p>
+ </div>
+ <div class="doc-section" data-id="1">
+  1. Actualización de la Base de Domiciliación Teléfonos (todos los jueves)
+ </div>
+ <div class="doc-content" data-id="1">
+  <p>
+    Proceso Rechazos PSP
+  </p>
+ </div>
+ <div class="doc-section" data-id="1">
+  1. Cuando Redaban reporte Rechazos se debe ejecutar este proceso, esta información llega
+ </div>
+ <div class="doc-content" data-id="1">
+  <p>
+   vía correo electrónico. C OPIA CONTROLADA Código: PRO-PR-025 Versión: 06 Página 2 de 22 02/11/2021 DOMICILIACION DAVIVIENDA  Cargue ciclos EAAB, cada que llegue información por correo de la EAAB
+  </p>
+ </div>
+ <div class="doc-section" data-id="1">
+  1. Cargue de Ciclos
+ </div>
+ <div class="doc-content" data-id="1">
+ </div>
+ <div class="doc-section" data-id="2">
+  2. Informe Excel Ciclos detalle
+ </div>
+ <div class="doc-content" data-id="2">
+ </div>
+ <div class="doc-section" data-id="3">
+  3. Cargue web
+ </div>
+ <div class="doc-content" data-id="3">
+  <p>
+    Generación Débitos
+  </p>
+ </div>
+ <div class="doc-section" data-id="1">
+  1. Diariamente se debe revisar la generación de débitos dependiendo la fecha oportuna de
+ </div>
+ <div class="doc-content" data-id="1">
+  <p>
+   pago de la factura.  Backup
+  </p>
+ </div>
+ <div class="doc-section" data-id="1">
+  1. Una vez terminado el proceso diario se debe ejecutar la opción de Backup
+ </div>
+ <div class="doc-content" data-id="1">
+  <div class="doc-subsection">
+   6.2. Desarrollo del Proceso:
+  </div>
+  <div class="doc-subcontent">
+  </div>
+  <div class="doc-subsection">
+   4.1 Base de Proceso:
+  </div>
+  <div class="doc-subcontent">
+   <p>
+    Se debe colocar como parámetro de fecha la fecha del proceso (Fecha Hoy) C OPIA CONTROLADA Código: PRO-PR-025 Versión: 06 Página 7 de 22 02/11/2021 DOMICILIACION DAVIVIENDA Genera un informe con 3 pestañas, en donde se relacionan los cambios a la Base de acuerdo a las novedades reportadas en el archivo dom-acti.AA-MM-DD.out, de éste procedimiento se genera el informe PRO-D-092 01 Informe_Eliminación_diaria_aaaammdd
+   </p>
+  </div>
+  <div class="doc-subsection">
+   4.2 Base de Eliminación:
+  </div>
+  <div class="doc-subcontent">
+   <p>
+    Una vez seleccionada las fechas, se debe generar el informe PRO-D-093 0 Base proceso Domiciliaciones_aaaammdd, oprimiendo el botón con el título de Exportar. Paso 4.3 - Generación de Informe de Actualización de Teléfonos: Los días jueves se debe generar el Informe de Actualización de teléfonos. La fecha es la del día del proceso (hoy). C OPIA CONTROLADA Código: PRO-PR-025 Versión: 06 Página 8 de 22 02/11/2021 DOMICILIACION DAVIVIENDA
+   </p>
+  </div>
+ </div>
+ <div class="doc-section" data-id="1">
+  1. Cargue Respuestas Portafolio
+ </div>
+ <div class="doc-content" data-id="1">
+ </div>
+ <div class="doc-section" data-id="2">
+  2. Cargue Pago de Ciclos
+ </div>
+ <div class="doc-content" data-id="2">
+ </div>
+ <div class="doc-section" data-id="3">
+  3. Informe CTO
+ </div>
+ <div class="doc-content" data-id="3">
+ </div>
+ <div class="doc-section" data-id="4">
+  4. Débitos Ciclos
+ </div>
+ <div class="doc-content" data-id="4">
+ </div>
+ <div class="doc-section" data-id="5">
+  5. Plano Pago Ciclos
+ </div>
+ <div class="doc-content" data-id="5">
+ </div>
+ <div class="doc-section" data-id="6">
+  6. SMS
+ </div>
+ <div class="doc-content" data-id="6">
+ </div>
+ <div class="doc-section" data-id="7">
+  7. Comprimir y enviar a la Web
+ </div>
+ <div class="doc-content" data-id="7">
+  <ul>
+   <li>
+    <i class="fa-regular fa-circle-check">
+    </i>
+    <b>
+     Nota:
+    </b>
+    La totalidad de los Informes generados se encuentran en la ruta: \\SERVIDOR \Confidencial_Dom51_aaaa\Sal_informes\acueducto\AAAAMMDD Paso 16: Por último, se deben COMPRIMIR Y CARGAR EN LA WEB los diferentes informes generados. C OPIA CONTROLADA Código: PRO-PR-025 Versión: 06 Página 20 de 22 02/11/2021 DOMICILIACION DAVIVIENDA
+   </li>
+   <li>
+    <i class="fa-regular fa-circle-check">
+    </i>
+    <b>
+     Nota:
+    </b>
+    No olvidar que se debe modificar en el aplicativo la opción de los archivos a cargar: Paso 17: Se carga en la página DIGICOM los archivos generados, se pulsa la opción ARCHIVO /DESCARGAR, se activa la fecha de hoy y ACEPTAR
+   </li>
+  </ul>
+ </div>
+ <div class="doc-section" data-id="7">
+  7. ANEXOS
+ </div>
+ <div class="doc-content" data-id="7">
+  <p>
+   No aplica
+  </p>
+ </div>
+ <div class="doc-section" data-id="8">
+  8. INDICADORES DE DESEMPEÑO
+ </div>
+ <div class="doc-content" data-id="8">
+  <p>
+   No aplica
+  </p>
+ </div>
+ <div class="doc-section" data-id="9">
+  9. CONTROL DEL PROCEDIMIENTO
+ </div>
+ <div class="doc-content" data-id="9">
+  <p>
+   Ver. Fecha de Modificación Elaborado Revisado Aprobado N° Aprobación realizada Supervisor de Gerente de Se Actualizo la 4 Analista del SGI 27/08/2019 proceso operaciones actividad 6.2.1 Se Actualizo la Coordinador de Gerente de 5 Analista del SGI 9/10/2019 actividad 6.2.1 y proceso operaciones 6.2.5 Se Actualizo la Supervisor de Gerente de actividad 6.2.1 6 Director del SGI 2/12/2021 proceso operaciones incluyendo una nueva validación. C OPIA CONTROLADA Código: PRO-PR-025 Versión: 06 Página 22 de 22 02/11/2021
+  </p>
+ </div>
+</div>
+
+<!-- Botón para abrir el modal -->
+<button class="btn btn-outline-primary" id="openModalBtn" style="margin-top: 20px;">Editar Secciones</button>
+<!-- El Modal -->
+<div class="modal" id="sectionModal">
+    <div class="modal-content">
+        <span class="close-button">×</span>
+        <h2>Selecciona y Edita una Sección</h2>
+        <label for="sectionSelector">Sección:</label>
+        <select id="sectionSelector">
+            <option value="">-- Selecciona una sección --</option>
+        </select>
+        <label for="sectionContent">Contenido:</label>
+        <textarea id="sectionContent" placeholder="El contenido de la sección aparecerá aquí..."></textarea>
+        <label for="sectionCambio">Descripcion del Cambio:</label>
+        <textarea id="sectionCambio" placeholder="Describe en palabras cortas el cambio realizado..."
+            required></textarea>
+        <button class="btn btn-outline-primary" id="saveChangesBtn" style="margin-top: 15px;">Guardar Cambios</button>
+    </div>
+</div>
+<script src="{{ url_for('static', filename='js/jquery.min.js')}}"></script>
+<script src="{{ url_for('static', filename='js/acordeon_doc.js')}}"></script>
+<script src="{{ url_for('static', filename='js/edita_procedimiento.js')}}"></script>
+
+{% endblock %}

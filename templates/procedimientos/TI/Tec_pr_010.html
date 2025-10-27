@@ -1,0 +1,241 @@
+{% extends 'home.html' %}
+{% block title %}Documentación{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/acordeon_doc.css') }}">
+<link href="{{ url_for('static', filename='css/procedimientos.css') }}" rel="stylesheet" />
+
+<div id="documento" style="display:none;">procedimientos/TI/Tec_pr_010.html</div>
+<div id="nombre_documento" style="display: none;">TEC-PR-010 Gestión de Redes</div>
+<h1>TEC-PR-010 Gestión de Redes</h1>
+{% for cambio in cambios %}
+{% if loop.first %}
+<h3>Version: {{cambio[3]}}</h3>
+{% endif %}
+{% endfor %}
+<br />
+<div class="doc-accordion">
+
+    <div class="doc-section" data-id="1">1. OBJETIVO</div>
+    <div class="doc-content" data-id="1">
+        <p>Dar a conocer los mecanismos de gestión de redes, su control y la gestión de ellos.<br></p>
+    </div>
+
+    <div class="doc-section" data-id="2">2. ALCANCE</div>
+    <div class="doc-content" data-id="2">
+        <p>Este procedimiento aplica para los funcionarios que por la naturaleza de su labor administran y
+            gestión<br>los recursos de la red.<br></p>
+    </div>
+
+    <div class="doc-section" data-id="3">3. RESPONSABLES:</div>
+    <div class="doc-content" data-id="3">
+        <p>Recuso Tecnológico, Oficial de seguridad de la información.<br></p>
+    </div>
+
+    <div class="doc-section" data-id="4">4. DEFINICIONES</div>
+    <div class="doc-content" data-id="4">
+        <p>RED : Es un conjunto de equipos conectados a un servidor por medio de cables, señales, ondas o<br>cualquier
+            otro método de transporte de datos, que comparten información (archivos), recursos (CD-<br>ROM, impresoras,
+            etc.), servicios (acceso a Internet, e-mail, Chat), etc. incrementando la eficiencia<br>y productividad de
+            las empresas.<br>MECANISMOS DE SEGURIDAD: Un mecanismo de seguridad informática es una técnica
+            o<br>herramienta que se utiliza para fortalecer la confidencialidad, integridad y/o la disponibilidad de
+            un<br>sistema informático.<br>IP: Dirección de transito<br></p>
+    </div>
+
+    <div class="doc-section" data-id="5">5. DOCUMENTOS DE REFERENCIA</div>
+    <div class="doc-content" data-id="5">
+        <p>No Aplica<br></p>
+    </div>
+
+    <div class="doc-section" data-id="6">6. DESCRIPCION DEL PROCESO</div>
+    <div class="doc-content" data-id="6">
+        <div class="doc-subsection">6.1.1. Mantenimiento De Red</div>
+        <div class="doc-subcontent">
+            <p>Responsable: Recurso Tecnológico<br>Registro: No aplica<br>Descripción: Programar los mantenimientos al
+                comienzo del año, teniendo en cuenta no detener la<br>normal operación de la compañía. (Domingo)<br>Se
+                informa a las áreas de producción sobre el mantenimiento o intervención en la red vía
+                correo<br>electrónico e información verbal teniendo en cuenta posibles operaciones o procesos que
+                implique<br>la red.<br>Código: TEC-PR-010<br>Versión: 06<br>Página 2 de 7<br>COPIA
+                CONTROLADA<br>23/11/2019<br>USO INTERNO<br>GESTIÓN DE REDES<br>El contratista procederá a documentar el
+                ingreso y la actividad realizada en la bitácora del centro de<br>cómputo.<br>Las actividades responderán
+                a las requeridas y contratadas por el área de T.I. (mantenimiento de<br>Swichts, Routers y Firewalls;
+                organización de cableado, etc.)<br>Para el caso de solución de requerimientos relacionados con la red se
+                procederá a evaluar su<br>criticidad y de acuerdo a esta se realiza el ajuste correspondiente. Si es
+                algo relacionado con el<br>centro de cómputo se procede a registrar en la bitácora la actividad
+                realizada<br></p>
+        </div>
+
+        <div class="doc-subsection">6.1.2. Administración De Direcciones IP</div>
+        <div class="doc-subcontent">
+            <p>Responsable: Recurso Tecnológico<br>Registro: TEC-D-023 Segmentación Red Digicom<br>TEC-PR-005
+                Alistamiento de equipos<br>Descripción: Se revisa en la Segmentación de Red que se encuentra en la
+                siguiente ruta:<br>\\192.168.0.4\Confidencial_TI\Formatos Gestión T-I\Control de inventarios\ y se
+                verifica la<br>disponibilidad de la dirección I.P. registrando en el formato TEC-D-023 Segmentación Red
+                Digicom<br>la información relacionada con esa dirección IP.<br>Se deberá controlar los accesos no
+                autorizado a los puntos de red mediante listas de control de<br>acceso.<br></p>
+        </div>
+
+        <div class="doc-subsection">6.2.1. Antivirus</div>
+        <div class="doc-subcontent">
+            <p>Responsable: Recurso Tecnológico<br>Registro: No aplica<br>Descripción: Se realiza la instalación de los
+                antivirus a los equipos y servidores de la compañía una<br>vez cuando se conecte a la red se realiza las
+                actualizaciones correspondientes.<br>En la consola de antivirus se configura las actualizaciones de
+                bases de datos.<br>Se programa el tiempo de escaneo los cuales son: en equipos el día viernes a las 3 pm
+                de cada<br>semana y en los servidores los sábados a las 6 pm.<br>Perfiles de clientes de antivirus
+                son:<br> Clientes: restringir los medios de acceso externo al equipo.<br> Producción: Digitador,
+                analista, supervisor y coordinadores<br> Administrativos:<br> Escáner: permitir a los usuarios
+                autorizados. Cuenta con puertos USB libre para conexión<br>de impresoras, escáner y pistolas.<br>
+                Servidores para 32 bits: acceso a toda la red<br> Servidores para 64 bits: acceso a toda la red<br>
+                T.I: acceso a toda la red<br>Código: TEC-PR-010<br>Versión: 06<br>Página 3 de 7<br>COPIA
+                CONTROLADA<br>23/11/2019<br>USO INTERNO<br>GESTIÓN DE REDES<br>Cuando un usuario requiere, envía
+                información a los clientes, se remite correo al ingeniero de<br>seguridad para autorizar y se realiza la
+                tarea con el apoyo del Área de TI.<br></p>
+        </div>
+
+        <div class="doc-subsection">6.2.2. Servicios De Red</div>
+        <div class="doc-subcontent">
+            <p>Responsable: Recurso Tecnológico<br>Registro: No aplica<br>Descripción: El área de T.I. gestiona los
+                servicios de red que se requieren para cada uno de los<br>diferentes clientes; estos servicios son:<br>
+                Internet<br> Correo<br> Webmail<br> FTP, FTPS<br> VPN<br> Carpetas compartidas<br> Monitoreo de
+                cámaras<br> Sitio Web de descarga de imágenes<br> Impresoras<br> Teléfonos I.P.<br> Página web<br>
+                Administración de Sistema de acceso electrónico<br> Conectividad<br></p>
+        </div>
+
+        <div class="doc-subsection">6.2.3. Firewall</div>
+        <div class="doc-subcontent">
+            <p>Responsable: Recurso Tecnológico<br>Registro: Correo Plataforma Firewall<br>TEC-IN-001 Instructivo de
+                aseguramiento de equipos activos.<br>TEC-PR-011 Administración de Firewall<br>Descripción: Digicom
+                asegura que sus comunicaciones o perímetros externos estén protegidos por<br>firewalls SOPHOS dispuestos
+                en cada una de las 2 sedes principales.<br>Se configura con las reglas básicas de seguridad planteada en
+                el TEC-IN-001 Instructivo de<br>aseguramiento de equipos activos. Aplicando la regla (Any Any)<br>
+                Administra<br> VLAN<br> Entrada y salida de Internet<br> Comunicación entre sedes<br> Conexión de
+                clientes y enlaces seguros<br> IP públicas y privadas<br> VPN<br>Esta actividad se especifica en el
+                procedimiento:<br>\\192.168.0.4\Confidencial_Sistema_de_Gestion_Integrado\DOCUMENTACION\Recurso<br>Tecnológico\Procedimientos\TEC-PR-011
+                Administración de Firewall.pdf<br>Código: TEC-PR-010<br>Versión: 06<br>Página 4 de 7<br>COPIA
+                CONTROLADA<br>23/11/2019<br>USO INTERNO<br>GESTIÓN DE REDES<br></p>
+        </div>
+
+        <div class="doc-subsection">6.2.4. Switches</div>
+        <div class="doc-subcontent">
+            <p>Responsable: Recurso Tecnológico<br>Registro: TEC-D-006 Hoja de Vida,<br>TEC-D-023 Segmentación Red
+                Digicom<br>Descripción: Disponemos de Switches HP1920 capa 3 en cada sede debidamente
+                configurado<br>Administrado por el Grupo de T-I se crean y administran las VLAN´s<br>En la creación de
+                usuarios el Auxiliar de TI Comunicaciones configura según el TEC-PR-004 se<br>configura el
+                equipo.<br>Cada cliente cuenta o pertenecen a una VLAN según el proceso.<br>En caso de necesidad por la
+                producción se remite correo. Ver TEC-PR-002.<br>Se realiza auditoria.<br>Se realizan control de puertos,
+                porque se tienen listas de MAC permitidas registradas en TEC-D-023<br>Segmentación Red Digicom. Al
+                conectar un equipo con una MAC diferente a las registradas bloquea<br>el acceso.<br></p>
+        </div>
+
+        <div class="doc-subsection">6.2.5. Wsus</div>
+        <div class="doc-subcontent">
+            <p>Responsable: Analista de TI<br>Registro: Herramienta de gestión WSUS<br>Descripción: Se encuentra
+                instalado en un servidor por cada sede, y configurado para correr las<br>actualizaciones a las 3 a.m.
+                los días viernes de cada semana.<br>La consola de la aplicación configurada envía un informe con los
+                equipos que necesitan correr las<br>actualizaciones.<br>Servidores:<br>Se detectan y se descargan las
+                actualizaciones en WSUS, luego se aprueban para ser actualizadas<br>en el servidor de pruebas y se
+                verifica que no existan bloqueos en el sistema. Se instala y se da<br>reinicio manual para subirlo en el
+                servidor (Printscreen: carpeta) y así realizar el despliegue masivo<br>en los servidores quedando
+                actualizado.<br>Se realiza el despliegue de las actualizaciones en el servidor de prueba y se mantiene
+                un informe de<br>esto, cada segunda semana del mes.<br></p>
+        </div>
+
+        <div class="doc-subsection">6.3. Separación En Las Redes</div>
+        <div class="doc-subcontent">
+            <p>Responsable: Recuso Tecnológico y Oficial de seguridad de la información<br>Registro: SGI-PO-001 Política
+                de Seguridad de la Información. Numeral 9.4 Acceso a Carpetas<br>Descripción: Los usuarios de la red se
+                encuentran separados por grupos de acuerdo al producto<br>que correspondan.<br>Los aplicativos
+                misionales solo son accedidos por los grupos previamente predefinidos y exclusivos<br>de los
+                productos.<br>Crear y asignar permisos requeridos para la ejecución de los productos de la siguiente
+                manera:<br>Código: TEC-PR-010<br>Versión: 06<br>Página 5 de 7<br>COPIA CONTROLADA<br>23/11/2019<br>USO
+                INTERNO<br>GESTIÓN DE REDES<br> Cada producto debe tener sus debidos permisos y restricción a los demás
+                productos y<br>procesos en la red.<br> En las carpetas compartidas debe tener accesos restringidos en
+                cada una de ellas ver<br>procedimiento.<br>Se debe capacitar sobre el buen manejo de las carpetas cada
+                proceso nuevo ver política PO-012<br>Política de Manejo y buen uso de carpetas compartidas<br>El Oficial
+                de seguridad verifica los accesos a la red de cada equipo de la compañía informando
+                las<br>irregularidades al área de T.I. para su debida adecuación.<br></p>
+        </div>
+
+        <div class="doc-subsection">6.4.1. Vía Web</div>
+        <div class="doc-subcontent">
+            <p>Responsable: Recuso Tecnológico<br>Registro: No aplica<br>Descripción: La administración del sitio web en
+                cuanto a su espacio y seguridad en los productos<br>de los clientes los cuales presentan flujo de
+                información vía web se realiza por parte del área de T.I.<br>realizando revisiones del tamaño de
+                almacenamiento de los sitios donde se intercambia la<br>información<br></p>
+        </div>
+
+        <div class="doc-subsection">6.4.2. Protección De Mensajería Electrónica</div>
+        <div class="doc-subcontent">
+            <p>Responsable: Recuso Tecnológico<br>Registro: No aplica<br>Descripción: La organización cuenta con su
+                propio servidor de correos permitiendo controlar el<br>envío y recepción de información.<br>Servidor de
+                correos:<br>Se crea una cuenta de correos según los procedimientos TEC-PR-002 y el TEC-PR-004<br>
+                Protege<br> Controla spam<br> Cierra IP sospechosas<br></p>
+        </div>
+
+        <div class="doc-subsection">6.4.3. Acuerdos Sobre Transferencia De Información</div>
+        <div class="doc-subcontent">
+            <p>Responsable: Recuso Tecnológico<br>Registro: No aplica<br>Descripción: Todas las conexiones externas con
+                los clientes deberán ser configuradas con los<br>parámetros de seguridad de ellos y deberán contar con
+                registro de esto.<br>Código: TEC-PR-010<br>Versión: 06<br>Página 6 de 7<br>COPIA
+                CONTROLADA<br>23/11/2019<br>USO INTERNO<br>GESTIÓN DE REDES<br></p>
+        </div>
+
+        <div class="doc-subsection">6.5. Actualización De Acuerdo De Servicio</div>
+        <div class="doc-subcontent">
+            <p>Responsable: Recuso Tecnológico<br>Registro: No aplica<br>Descripción: Se realizan los ajustes necesarios
+                de acuerdo a los requerimientos externos o internos.<br></p>
+        </div>
+    </div>
+
+    <div class="doc-section" data-id="7">7. INDICADORES DE DESEMPEÑO</div>
+    <div class="doc-content" data-id="7">
+        <p>No Aplica<br></p>
+    </div>
+
+    <div class="doc-section" data-id="8">8. Control Del Procedimiento</div>
+    <div class="doc-content" data-id="8">
+        <table>
+            <thead>
+                <tr>
+                    <th>Versión</th>
+                    <th>Elaborado</th>
+                    <th>Aprobado</th>
+                    <th>Fecha</th>
+                    <th>Descripción del Cambio</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cambio in cambios %}
+                <tr>
+                    <td>{{ cambio[2] }}</td>
+                    <td>{{ cambio[3] }}</td>
+                    <td>{{ cambio[5] }}</td>
+                    <td>{{ cambio[6] }}</td>
+                    <td>{{ cambio[7] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- Botón para abrir el modal -->
+<button class="btn btn-outline-primary" id="openModalBtn" style="margin-top: 20px;">Editar Secciones</button>
+<!-- El Modal -->
+<div class="modal" id="sectionModal">
+    <div class="modal-content">
+        <span class="close-button">×</span>
+        <h2>Selecciona y Edita una Sección</h2>
+        <label for="sectionSelector">Sección:</label>
+        <select id="sectionSelector">
+            <option value="">-- Selecciona una sección --</option>
+        </select>
+        <label for="sectionContent">Contenido:</label>
+        <textarea id="sectionContent" placeholder="El contenido de la sección aparecerá aquí..."></textarea>
+        <label for="sectionCambio">Descripcion del Cambio:</label>
+        <textarea id="sectionCambio" placeholder="Describe en palabras cortas el cambio realizado..." required></textarea>
+        <button class="btn btn-outline-primary" id="saveChangesBtn" style="margin-top: 15px;">Guardar Cambios</button>
+    </div>
+</div>
+<script src="{{ url_for('static', filename='js/jquery.min.js')}}"></script>
+<script src="{{ url_for('static', filename='js/acordeon_doc.js')}}"></script>
+<script src="{{ url_for('static', filename='js/edita_procedimiento.js')}}"></script>
+{% endblock %}

@@ -1,0 +1,1658 @@
+{% extends 'home.html' %}
+{% block title %}Documentacion{% endblock %}
+{% block content %}
+<link href="{{ url_for('static', filename='css/acordeon_doc.css') }}" rel="stylesheet" />
+<link href="{{ url_for('static', filename='css/procedimientos.css') }}" rel="stylesheet" />
+
+<div id="documento" style="display:none;">procedimientos/HTML/PRO-PR-019 Impuestos Nacionales y Tributos Aduaneros de Davivienda.html</div>
+<div id="nombre_documento" style="display: none;">PRO-PR-019 Impuestos Nacionales y Tributos Aduaneros de Davivienda</div>
+<h1>PRO-PR-019 Impuestos Nacionales y Tributos Aduaneros de Davivienda</h1>
+{% for cambio in cambios %}
+{% if loop.first %}
+<h3>Version: {{cambio[3]}}</h3>
+{% endif %}
+{% endfor %}
+<br />
+<div class="doc-accordion">
+ <div class="doc-section" data-id="1">
+  1.	Verificar que las tulas sean de color gris o Azul Aguamarina
+ </div>
+ <div class="doc-content" data-id="1">
+ </div>
+ <div class="doc-section" data-id="2">
+  2.	El auxiliar debe indicar la fecha de recepción de tula y horario de tula
+ </div>
+ <div class="doc-content" data-id="2">
+ </div>
+ <div class="doc-section" data-id="3">
+  3.	Cantar el número de precinto y mostrar ante cámara
+ </div>
+ <div class="doc-content" data-id="3">
+ </div>
+ <div class="doc-section" data-id="4">
+  4.	Se prosigue a cortar el precinto y se extrae los expedientes de la tula en su totalidad y evidencia que la tula está vacía ante la cámara
+ </div>
+ <div class="doc-content" data-id="4">
+  <p>
+   Con los expedientes remitiditos en las tulas se deben cantar y ordenar de la siguiente manera:
+  </p>
+ </div>
+ <div class="doc-section" data-id="1">
+  1.	Con el formato PRO-F-EXT- 031 Tapa de Envío de Documentos remitida del Banco se verifica la cantidad de expedientes sean acordes al físico, si la cantidad no coincide se deja registro en el formato PRO-F-EXT- 031 Tapa de Envío de Documentos y ante cámara
+ </div>
+ <div class="doc-content" data-id="1">
+ </div>
+ <div class="doc-section" data-id="2">
+  2.	El orden que se deben cantar los expedientes es:
+ </div>
+ <div class="doc-content" data-id="2">
+  <p>
+   •	Identificación del asesor
+•	Cantidad de expedientes
+•	Cédula del cliente
+•	Cantidad de documentos
+  </p>
+ </div>
+ <div class="doc-section" data-id="3">
+  3.	Se da por finalizado el canto de tula y proceden a verificación documental
+ </div>
+ <div class="doc-content" data-id="3">
+  <div class="doc-subsection">
+   6.2. Digitalización e indexación
+  </div>
+  <div class="doc-subcontent">
+   <div class="doc-subsubsection">
+    6.2.1 Se elabora imágenes de documentos
+   </div>
+   <div class="doc-subsubcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Auxiliar de Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Los documento a digitalizar se procesan por el aplicativo scandall pro se configura el perfil y se comienza a pasar las imágenes las cuales van quedando en la ruta: \\SERVIDOR\confidencial_nacionales51_aaaa\51\index_global para su respectivo proceso
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsubsection">
+    6.2.2 Carga de imágenes global
+   </div>
+   <div class="doc-subsubcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Auxiliar de Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Una vez se encuentren las imágenes en la carpeta índex global, se realiza la carga ingresando al aplicativo de nacionales, en la fecha de recaudo y se selecciona en el menú principal la opción: grabación/indexador global/carga, dar clic en el botón: cargar nuevas imágenes, aceptar y salir
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsubsection">
+    6.2.3 Captura global automática
+   </div>
+   <div class="doc-subsubcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Digitador, Auxiliar de Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Realizada la carga de imágenes por el índex global se procede a realizar una captura automática por el aplicativo de nacionales, en la fecha de recaudo, se selecciona en el menú principal la opción: grabación/indexador global/indexador, se da clic en el recuadro de solo automático y paso seguido clic en el botón: asignar imagen, una vez terminado este proceso se da clic en botón: desmarcar documentos no leídos para grabación manual, esto con el fin de realizar la captura manual de los documentos que no reconoció el aplicativo
+Si al finalizar la captura automática quedan imágenes pendientes por capturar se deben realizar manualmente por la misma ruta, únicamente se van asignando manualmente las imágenes y se captura el número de formulario, dependiendo de la imagen se da una de las 3 opciones que presenta el aplicativo (procesar: siempre que la imagen este legible y en óptimas condiciones, ilegible: si vienen mal escaneadas o si no tiene buena calidad, sobrante; para las imágenes que no vienen en el log, el cual el aplicativo arroja un mensaje, es muy importante revisar muy bien el número capturado que concuerde con la imagen antes de dar esta opción.)
+     </li>
+    </ul>
+   </div>
+  </div>
+  <div class="doc-subsection">
+   6.3 Pasar por lector de código de barras
+  </div>
+  <div class="doc-subcontent">
+   <div class="doc-subsubsection">
+    6.3.1 Pasar los documentos por el lector de código
+   </div>
+   <div class="doc-subsubcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Auxiliar de Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Para  poder comenzar el proceso de descarga por código de barras se debe cagar el log de caja, se debe pasar por el lector de código de barras los autoadhesivos de los documentos litográficos en el aplicativo de nacionales, en el menú principal opción: Davivienda/descarga de stikers en el log, en el campo; fecha de recaudo a descargar, ir asignando la fecha de recaudo que se está procesando, se comienza a pasar los documentos, en caso de no ser leído el código de barras o el adhesivo se debe proceder activar la casilla manual dando clic para capturar de forma manual, una vez terminado se debe desactivar la opción manual. En este proceso se deben identificar los documentos que no pertenecen a la fecha, los duplicados y los documentos que no aparecen en el log del banco, los cuales se deben separar y entregar al Líder encargado para su debido proceso.
+Nota 1: los documentos litográficos se pasan por la casilla código de barras stikers y los formularios XML se pasan por la casilla código lateral formulario.
+Nota 2: aplica para las ciudades donde digicom tiene presencia.
+Nota 3: en las ciudades deben general el archivo recibidos_aaaammdd_aaaammdd.dbf al terminar de pasar los documentos por el código de barras
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsubsection">
+    6.3.2 Actualizar tabla descarga de documentos
+   </div>
+   <div class="doc-subsubcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Auxiliar de Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Se descarga los archivos enviados por ciudades en la ruta:
+\\SERVIDOR\confidencial_in51_aaaa\cajabcsc se ingresa al aplicativo de nacionales por el menú principal en la opción: Davivienda/descarga de sticker en log damos clic en el botón importar de recibidos el cual nos muestra una ventana para buscar el archivo descargado del correo, damos aceptar mostrándonos la cantidad de documentos que actualizo
+     </li>
+    </ul>
+   </div>
+  </div>
+  <div class="doc-subsection">
+   6.4 Gestión de Recuperación
+  </div>
+  <div class="doc-subcontent">
+   <div class="doc-subsubsection">
+    6.4.1 Denuncio
+   </div>
+   <div class="doc-subsubcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Auxiliar de Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Se ingresa a la ruta:
+\\SERVIDOR\confidencial_in51_aaaa\procesos\reportes\faltante_fisico_imagen\DENUNCIO, se abre el archivo EXCEL DETALLADO y se diligencia con los datos de los documentos reportados para denuncio, se imprimen dos copias de la carta según la ciudad , se solicita a la persona encargada la planilla de envió correspondiente (pro-d-ext-039 formatos de envió para la dian.pdf) para el proceso se imprimen dos copias, se imprime una copia de la imagen correspondiente al documento solicitado, al respaldo de esta imagen se debe imprimir la certificación que se encuentra en el archivo LEYENDA AL RESPALDO 490 correspondientemente diligenciado con los datos de documento por último se imprime el reporte que se encuentra en \\SERVIDOR\Confidencial_in51_AAAA\procesos\reportes\FALTANTE_FISICO_IMAGEN\DENUNCIO-\DENUNCIOS_AAAA con el nombre . Se envían los archivos mencionados al banco para su respectiva firma
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsubsection">
+    6.4.2 publicación de imágenes
+   </div>
+   <div class="doc-subsubcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Auxiliar De Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No Aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Se ingresa al aplicativo de nacionales abrimos la fecha de recaudo la cual vamos a subir las imágenes, para cargar las imágenes, ingresamos por el menú principal en la opción: DAVIVIENDA, y se da clic en la opción ENVIO DE TIFS A FILENET y le damos aceptar automáticamente el aplicativo copia la imágenes en la siguiente ruta: \\SERVIOR\DIGICOM\DIGICOM\FILENET\
+     </li>
+    </ul>
+   </div>
+  </div>
+  <div class="doc-subsection">
+   6.5 Control documental
+  </div>
+  <div class="doc-subcontent">
+   <div class="doc-subsubsection">
+    6.5.1 Revisar los documentos
+   </div>
+   <div class="doc-subsubcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Auxiliar de Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Los documentos físicos se deben revisar uno a uno con el fin de identificar las posibles inconsistencias en la recepción del impuesto teniendo en cuenta los siguientes campos:
+Litográficos:
+Año.
+Periodo.
+Concepto.
+Administración.
+Nombre o razón social.
+Sello de impuestos legible (en el campo destinado para tal fin) y que corresponda a la
+Actividad económica.
+Firma del contribuyente, contador o revisor fiscal.
+Adhesivo en campo destinado para este fin y que se encuentre en buen estado.
+Documentos con deterioro.
+Nota 1: En caso del que el documento llegue con centavos se debe reportar la inconsistencia y pasar al Líder a cargo.
+Doble código de barras
+Firmas.
+Sello de impuestos legible (en el campo destinado para tal fin) y que corresponda a la fecha de recaudo y jornada, verificar pago total: igual a “0” sin pago. Pago total mayor a “0” con pago.
+Actividad económica.
+Documentos con deterioro.
+Nota 3: en caso del que el documento llegue con centavos se debe reportar la inconsistencia y pasar al Líder a cargo.
+Nota 4: verificar que ningún campo numérico este en blanco, mínimo debe contener el número “0”.
+Nota 5: aplica para las ciudades donde Digicom tiene presencia
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsubsection">
+    6.5.2 Instrucciones para certificar
+   </div>
+   <div class="doc-subsubcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Auxiliar de procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Al momento de realizar certificaciones tener en cuenta estos preforma:
+Sello errado con pago (siendo el correcto sin pago): debe colocar el sello correcto acompañado de la leyenda “certificamos que este documento fue recibido sin pago, y colocar el nombre de la persona que lo certifica”.
+Sello errado sin pago (siendo el correcto con pago): debe colocar el sello correcto acompañado de la leyenda “certificamos que este documento fue recibido con pago, y colocar el nombre de la persona que lo certifica”.
+Sello con fecha errada: debe colocarse el sello con la fecha correcta acompañada de la leyenda “certificamos sello con fecha de recaudo dd/mm/aaaa”, y la persona que certifica debe escribir nombre y apellido claro.
+Sello ilegible: debe colocarse nuevamente el sello con la información legible y solo amerita cuando, la fecha de recepción y/o recibido con o sin pago no son legibles igualmente debe acompañarse con nombre y apellido claro.
+Adhesivos: debe certificarse el número de adhesivo, cuando el código de barras no puede ser leído (lector óptico) por fisura o rompimiento de este, o cuando queda de forma incompleta en el formulario, igualmente debe acompañarse con nombre y apellido claro, no requiere la colocación del sello de recepción.
+Adhesivo cubre casilla 980: debe certificarse el valor registrado en esta casilla así: “certificamos que este documento fue recibido por valor de $$$$” acompañado con nombre y apellido claro, no requiere la colocación del sello de recepción.
+Finalizando el proceso de certificación de cada zona se separa por tipo de concepto y adhesivo (litográfico), dejándolo en su orden correspondiente para ser entregado al área de paqueteo y envió
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsubsection">
+    6.5.3 Certificar documento físico
+   </div>
+   <div class="doc-subsubcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Auxiliar de procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Si algún documento no cumple con lo establecido anteriormente se debe certificar el documento al respaldo manteniendo el siguiente orden.
+Certificación de zonas: se reciben las zonas en su respectivo paquete por orden alfabético y separadas litográficas de doble código de barra (XML).
+se procede a trabajar las zonas organizadas por oficina, contando el número de documentos que la conforman se verifica contra la tapa, verificando las siguientes inconsistencias:
+documento: mal impreso (afectando el valor total), espacios en blanco (valores, razón social, administración, actividad económica, año a declarar, periodo), manchado o sucio, roto o en mal estado, firma del contribuyente, valores en centavos y sin sello.
+adhesivo: cuando queda de forma incompleta en el formulario, roto o con fisuras.
+sello: fecha, horario, forma de pago (según la fecha de recaudo que se está trabajando)
+Certificación para Bogotá: se recibe por orden de oficina realizando el mismo procedimiento de certificación en zonas
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Nota:
+      </b>
+      se separa por XML, litográfico (adhesivo) y por tipo de formulario. (210,300,310,315,490,500,690)
+     </li>
+    </ul>
+   </div>
+  </div>
+  <div class="doc-subsection">
+   6.6 Captura de información
+  </div>
+  <div class="doc-subcontent">
+   <div class="doc-subsubsection">
+    6.6.1 Capturar campo a campo la información de los formularios
+   </div>
+   <div class="doc-subsubcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Digitador, Auxiliar de Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Para realizar la captura de los documentos se ingresa por el aplicativo de nacionales, se ingresa la fecha de recaudo y se selecciona el icono de captura de documentos, también se puede ingresar por el menú principal en la opción: grabación/ imágenes automáticas opción nacionales y aduanas. Sale una pantalla donde damos clic en el botón: asignar registró, se debe capturar campo a campo la información contenida en los documentos, la imagen es asignada aleatoriamente por el sistema en primera y segunda captura. No se debe digitar la imagen cuando es ilegible, se asigna una nueva imagen, la imagen no digitada es revisada por el responsable del proceso
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Nota:
+      </b>
+      la segunda captura se realiza por un usuario diferente a quien hizo la primera captura
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsubsection">
+    6.6.2 Inconsistencias generadas durante la digitación
+   </div>
+   <div class="doc-subsubcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Auxiliar de Procesos, Líder de Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No Aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Las imágenes no digitadas son revisadas por el líder del proceso luego de terminar la grabación, se verifica el motivo por el cual no fueron grabadas y según su inconsistencia se busca el físico y se reemplazan las imágenes. Para los documentos que no contienen información sensible, se debe informar al banco para que nos den respuesta al caso
+     </li>
+    </ul>
+   </div>
+  </div>
+  <div class="doc-subsection">
+   6.7 Generación de informes diarios
+  </div>
+  <div class="doc-subcontent">
+   <div class="doc-subsubsection">
+    6.7.1 Adhesivos anulados
+   </div>
+   <div class="doc-subsubcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Líder de Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No Aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Se deben anular en el aplicativo los adhesivos reportados por el banco, se ingresa al aplicativo de nacionales por el menú principal opción: grabación\captura de documentos anulados, se relaciona el número de adhesivo que se va a anular, desde y hasta, si es más de un adhesivo tienen que ser consecutivo, para anular más de uno en una sola línea. De lo contrario se debe utilizar una línea para anular cada adhesivo
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsubsection">
+    6.7.2 Descargar log bancario y archivos
+   </div>
+   <div class="doc-subsubcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Auxiliar de Procesos, Líder de Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No Aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Se debe confirmar que los log dian001, dian002, 7707212489984_aaaammdd y el archivo de transacciones.txt (este archivo se descarga de la pagina de ACH).  Se encuentren en la siguiente ruta: \\SERVIDOR\confidencial_in51_aaaa\data\51\aaaammdd
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsubsection">
+    6.7.3 reporte anulados reversados
+   </div>
+   <div class="doc-subsubcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Auxiliar de Procesos, Líder de Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      En caso de que el banco solicite anular el documento se debe borrar la información que este capturada en el aplicativo de nacionales e ingresar al menú principal opción: Davivienda/log caja se consulta el adhesivo y damos clic en el botón: anular sticker por último se debe ingresar al menú grabación captura de documentos anulados y anular el adhesivo.
+Para los adhesivos anulados reversados, el banco envía el archivo adhdian_aaaammdd del día anterior el cual contiene la información de los adhesivos utilizados, fabricados, acusados, anulados y reversados, de este informe se toman los anulados y se ingresan manualmente al sistema por la opción grabación y luego captura documentos anulados, los reversados se envía correo a las oficinas solicitando información de este adhesivo, si es anulado la sucursal debe ingresar al sistema del banco y anularlos de lo contrario deben informar que sucedió con el sticker. La información de los adhesivos y su estado se relacionan en el reporte anulado reversados
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Nota:
+      </b>
+      se debe utilizar el correo preforma enviado por el banco para este tipo de inconsistencias y se adjunta la imagen
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsubsection">
+    6.7.4 Carga pagos electrónicos
+   </div>
+   <div class="doc-subsubcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Líder de Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Se ingresa al aplicativo de nacionales en el menú principal por la opción: grabación/carga pagos electrónicos se da clic en el botón: carga pagos electrónicos luego damos clic en el botón: grabar pagos en la fecha de movimiento seguidamente el botón: salir. “esta información el aplicativo la toma del archivo DIAN002.txt
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsubsection">
+    6.7.5 Cruce De Electrónicos
+   </div>
+   <div class="doc-subsubcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Líder de Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No Aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Se ingresa al aplicativo de nacionales en el menú principal por la opción: Davivienda/cruce de electrónicos por el recuadro de transacciones dar clic en el botón pasar pendientes a electrónicos si llegan transacciones, en el recuadro electrónicos se da clic en el botón: generar conciliación PSE seguidamente el botón: salir. Esta información es cruzada entre el archivo DIAN002 remitido por el banco y el archivo de TRANSACCIONES el cual es descargado desde la página de ACH
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsubsection">
+    6.7.6 Informe conciliación PSE
+   </div>
+   <div class="doc-subsubcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Líder de Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      PRO-D-043-EXT Conciliación PSE
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      El informe conciliación pse queda en la siguiente ruta \\SERVIDOR
+\confidencial_nacionales51_aaaa\51\procesos_51\informes\aaaammdd y se llama PRO-D-043-EXT Conciliación PSE, dentro de este informe hay una columna que se llama validaciones, se presentan tres opciones ad, st y las filas en blanco
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsubsection">
+    6.7.7 Transacciones rechazadas
+   </div>
+   <div class="doc-subsubcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Líder de Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Ad, estas filas se rellenan de verde y son las transacciones que se adicionaron a los pagos electrónicos.
+St, estas filas se rellenan de rojo y son aquellas que están rechazadas en el archivo de electrónicos y deben ser incluidas o retiradas del archivo de electrónicos de acuerdo a instrucción escrita del banco. Para retirar las transacciones rechazadas por el banco, en el recuadro electrónicos se ubica el cursor en los cuadros ubicados en la parte izquierda y se hace clic sobre el dato que se debe retirar. Para adicionar las transacciones autorizadas por el banco en el recuadro donde aparecen las transacciones rechazadas se coloca en el campo de validación la letra p, para ubicar esta transacción en la parte derecha del recuadro aparece una opción de buscar por cus, este dato (el cus) lo envía el banco, cuando se ubicaron todas las transacciones y se marcaron en el campo de validación, se oprime la opción generar Excel de interface, el archivo que se genera se llama rechazos_electronicos_ok, la ruta es:
+\\SERVIDOR\confidencial_nacionales51_aaaa\51\procesos_51\informes\aaaammdd, que son los registros  que se adicionaran al archivo que envía la Dian. Eventualmente el banco envía transacciones atípicas las cuales se deben incluir en las cifras, para este caso el banco envía el cus, se ubica en el recuadro de rechazos en la parte de validación se coloca la letra P y se oprime la opción pasar pendientes a electrónicos
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsubsection">
+    6.7.8 Archivo PSE transmisión DIAN
+   </div>
+   <div class="doc-subsubcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Líder de Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Se debe descargar el archivo de la página de ACH de transmisión a la Dian llamado dmuisca_0101286 el cual corresponde al recaudo de electrónicos del día anterior, a este archivo se le adicionan los rechazos que el banco haya autorizado adicionar. Por el aplicativo img_banco07, que se encuentra en la ruta: \\SERVIDOR\confidencial_in51_aaaa\img_banco07\bin\debug se ejecuta la operación dando clic en la opción: archivo, luego pse_51, en el primer recuadro que aparece se coloca el archivo descargado (dmuisca_0101286) y en el segundo recuadro el archivo generado por el programa de rechazos (rechazos_electronicos_ok) luego aceptar este archivo queda en la ruta asignada por el Líder en el momento de colocar el archivo enviado por el banco.
+Este archivo se coloca en la página de digicom y se envía correo informando de su publicación, se deben publicar antes de las 9:00 a.m
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Nota:
+      </b>
+      para la transmisión de estos archivos se debe ingresar a la página de la DIAN y realizar la transmisión antes de las 10:00 a.m
+     </li>
+    </ul>
+   </div>
+  </div>
+  <div class="doc-subsection">
+   6.8 Generación de Cintas
+  </div>
+  <div class="doc-subcontent">
+   <div class="doc-subsubsection">
+    6.8.1 Revisar grabación y cierre de fechas
+   </div>
+   <div class="doc-subsubcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Líder de Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Para la generación de cintas es de importancia tener grabado toda la información incluyendo los formularios TIDIS litograficos que se hayan recaudado en la fecha a generar y no tener ninguna inconsistencia por resolver esto se verifica por el aplicativo de nacionales en el icono ver registros indexados, se generan los archivos de los botones: faltantes recaudo, sobrantes recaudo, reportes de diferencias y formularios duplicados los cuales quedan en la siguiente ruta: \\SERVIDOR\confidencial_nacionales51_aaaa\51\procesos_51\informes\aaaammdd  con los siguientes nombres recaudobco_faltantes.xls, recaudobco_sobrantes.xls, diferenciasvslog.xls formulariosduplicados.xls estos archivos deben estar en 0 si contienen algún error se tiene que validar la información y el porqué de la inconsistencia
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Nota:
+      </b>
+      De haber documento TIDIS litográficos se deben indexar y grabar para su procesamiento
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsubsection">
+    6.8.2 Validar log y log adicional 05
+   </div>
+   <div class="doc-subsubcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      líder de Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Se genera el informe por el aplicativo de nacionales en el icono ver registros indexados, se da clic en el icono con la forma de hoja Excel este informe queda generado en la ruta \\SERVIDOR\confidencial_nacionales51_aaaa\51\procesos_51\informes\aaaammdd con el nombre log.xls y log_error.xls se valida los registros en el archivo log_error.xls
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Nota:
+      </b>
+      para generar el log adicional 5 se debe ingresar a la fecha escogiendo el adicional
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsubsection">
+    6.8.3 Generar y puntear cruce davi
+   </div>
+   <div class="doc-subsubcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Líder de Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      PRO-D-111 Cruce log davi
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Una vez hechas las validaciones anteriores se debe revalidar la información por el aplicativo de nacionales en el icono ver registros indexados, damos clic derecho en el icono del candado y clic al botón: si para quitar marcas de validación, salimos al menú principal del aplicativo e ingresamos por el icono comparación automática y volvemos a validar terminado este proceso generamos una malla por el menú principal opción; generación de archivos planos/generación automática de tapas  damos clic en el botón: malla terminado esto ingresamos nuevamente por el menú principal opción davivienda/log caja botón: cruce el informe generado queda en la ruta: \\SERVIDOR\confidencial_nacionales51_aaaa\51\procesos_51\informes\aaaammdd, con el nombre PRO-D-111 Cruce log davi  se imprime el archivo generado ”cruce log davi” y procedemos a verificar los registros reportados por el aplicativo de nacionales, en el menú principal opción: grabación/imágenes/ver indexdigicom con imagen se da clic en el botón: filtro desde txt vamos a la ruta:
+\\SERVIDOR\confidencial_nacionales51_aaaa\51\procesos_51\informes\aaaammdd, y procedemos a verificar los errores generados en el archivo
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsubsection">
+    6.8.4 cargar formularios inconsistencias
+   </div>
+   <div class="doc-subsubcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Líder de Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Ingresar al aplicativo de nacionales por la opción: herramientas/registros de stickers con formularios errados cargamos el archivo formularios_inconsistentes.xls por el botón: carga Excel con ajustes
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsubsection">
+    6.8.5 Generar y validar validación de cinta
+   </div>
+   <div class="doc-subsubcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Líder de Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      En el aplicativo de nacionales se ingresa al menú principal por la opción: generación de archivos planos/validación de cintas se ingresa el rango de fecha la cual se va a generar se le da aceptar y se revisa las inconsistencias que nos muestra en la pantalla
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsubsection">
+    6.8.6 generar cintas
+   </div>
+   <div class="doc-subsubcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Líder de Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Revisado los pasos anteriores se procede a revalidar nuevamente y se generan tapas por el aplicativo de nacionales en la opción: generación de archivos planos/generación automática de tapas, se va seleccionando el tipo de tapas a generar (nacionales “grandes u otros”,  aduanas) una vez generada la primera tapa se vuelve a ingresar al menú principal del aplicativo en la opción: generación de archivos planos/validación cintas, generación de archivos planos/generación archivos planos por tipo se selecciona el tipo de producto de acuerdo a las tapas generadas, se coloca la fecha de recaudo según el horario y se coloca la fecha de entrega y se seleccionan los tipos de productos a generar (el consecutivo o número de cinta lo genera automáticamente pero se debe verificar que sea el consecutivo correcto) los archivos generados quedan en la ruta: \\SERVIDOR\confidencial_nacionales51_aaaa\51\procesos_51\envios\aaaammdd.
+1.
+2.
+3
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsubsection">
+    6.8.7 generación de planilla de lectura
+   </div>
+   <div class="doc-subsubcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Líder de Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      PRO-D-046-EXT Planilla control lectura
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Se ingresa al aplicativo de nacionales en la opción: Administración/control cintas en filtro por fecha de envió se ingresa la fecha en la cual se va a presentar las cintas se da clic en filtrar, se revisa que los archivos no se encuentren en 0. Y seguido se da clic en generar PRO-D-046-EXT Planilla control lectura la cual queda generada en la ruta
+\\SERVIDOR\Confidencial_In51_aaaa\procesos\controlcintas\planillas de Envió, esta planilla se le publica al banco en la página de DIGICOM
+     </li>
+    </ul>
+   </div>
+  </div>
+  <div class="doc-subsection">
+   6.9 Generación cuadre cifras
+  </div>
+  <div class="doc-subcontent">
+   <div class="doc-subsubsection">
+    6.9.1 cifras iniciales
+   </div>
+   <div class="doc-subsubcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Líder de Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      PRO-D-112 Informe Riqueza
+PRO-D-EXT-037 Reporte de recaudo diario
+PRO-D-044-EXT Detallado
+PRO-D-036-EXT Cuadre contable
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Este informe lo solicita el banco para enviarlo a la Dian, para reportar las cifras aproximadas recaudadas el día anterior.
+Se ingresa al aplicativo de nacionales en la ruta: \\SERVIDOR\confidencial_aplic_in51_aaaa se ingresa a la fecha del día hábil anterior, ingresamos al menú principal por la opción: Davivienda/reportes en Excel damos clic en el botón: reporte contable inicial y botón: aceptar, acto seguido damos clic en el botón: reporte de recaudo diario inicial y botón: aceptar por ultimo clic en el botón: salir, en este proceso se está generando el archivo:
+PRO-D-036-EXT Cuadre contable,   PRO-D-044-EXT Detallado, PRO-D-EXT-037 Reporte de recaudo diario del reporte contable se extrae el Excel detallado_aaaammdd, que se envía al banco para el cuadre diario
+los informes quedan en la ruta:
+\\Servidor\confidencial_nacionales51_aaaa\51\procesos_51\informes\aaaammdd\reportes Además de estos archivos se envía un reporte llamado PRO-D-112 Informe riqueza que sale de la generación del archivo cajadavi.xls todos los conceptos 25 que corresponden a este concepto.
+Se comprimen y se colocan en la página de Digicom ates de las 9:30 a.m
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsubsection">
+    6.9.1.1. Validación timbre, duplicados y sobrantes
+   </div>
+   <div class="doc-subsubcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      líder de Proceso
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      N/A
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Esta actividad de validaciones consiste en revisar las siguientes inconsistencias antes de comenzar a realizar los cuadres de las cifras iniciales:
+Timbre: validar que los valores registrados por la oficina coincidan con los de la imagen del formulario
+Duplicados: validar que en el log bancario no contengan referencias duplicadas de la misma oficina
+Sobrantes: validar las imágenes que el aplicativo no procese ya sean por estar ilegibles, se debe verificar que realmente no se hayan recaudado en la caja y remitir la inconsistencia a la oficina y a operaciones cash para tomar decisiones de incluir o excluir de las cifras iniciales
+     </li>
+    </ul>
+   </div>
+  </div>
+  <div class="doc-subsection">
+   6.10 Transmisión de aduanas
+  </div>
+  <div class="doc-subcontent">
+   <div class="doc-subsubsection">
+    6.10.1 Transmisión
+   </div>
+   <div class="doc-subsubcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Auxiliar de Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      El proceso inicia abriendo el aplicativo de aduanas Param_Url.exe ingresando a las claves asignadas para SIGLO XXI. Luego recibimos los correos con archivos dianadu, los cuales son descargados en la ruta c:\envio_xxi\51\origen. Luego se da en el aplicativo star para que sean transformados los archivos dianadu en dava para poder trasmitirlos a la DIAN en la página: https://importaciones6.dian.gov.co/sigloxxi/comun/default.htm.
+Se debe realizar un cuadre cada dos horas, la persona encargada del banco nos envía el archivo dian001 con el cual se realiza un cruce con la base de datos de aplicativo de aduanas transmitidas para verificar que todas las aduanas presentadas al banco sean transmitidas, si se encuentran diferencias en el cuadre de los archivos se procede a verificar si realmente quedo hecha la trasmisión de la aduana
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Nota:
+      </b>
+      el líder del proceso se encarga de revisar si durante el día las oficina remitieron formularios 690 recibido con TIDIS, y enviárselo al auxiliar encargado para ser transmitidos en la pagina de SIGLO XXI
+     </li>
+    </ul>
+   </div>
+  </div>
+  <div class="doc-subsection">
+   6.11 Conformación de paquetes de documentos físico y entrega la DIAN
+  </div>
+  <div class="doc-subcontent">
+   <div class="doc-subsubsection">
+    6.11.1 Organizar los documentos
+   </div>
+   <div class="doc-subsubcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Auxiliar de procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      PRO-D-EXT-039 formatos de envió para la DIAN
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      los formularios se deben organizar siguiendo las siguientes especificaciones:
+litográficos:
+Tipo de impuesto
+Organizar por oficina en orden ascendente
+Organizar autoadhesivo en orden ascendente.
+Código de barra lateral (XML):
+Tipo de impuesto
+Organizar por oficina en orden ascendente
+Nota 1: Los documentos XML se pasan por el lector de código de barras y se generan las planillas PRO-D-EXT-039 formatos de envió para la DIAN por la opción: informes\formato de entrega de documentos_xml_manual.
+Nota 2: Esta actividad se realiza en las ciudades de Digicom
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsubsection">
+    6.11.2 Generar listas de verificación
+   </div>
+   <div class="doc-subsubcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Auxiliar de Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      PRO-D-EXT-039 formatos de envió para la DIAN
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Para el caso de litográficos (aduanas y nacionales) que llegan a Bogotá: ingresamos al aplicativo de nacionales por el menú principal en la opción: informes\formato de entrega de documentos, se genera el formato PRO-D-EXT-039 formatos de envió para la DIAN de verificación se imprimen y se puntea contra los físicos con el fin de verificar que se encuentran todos en el mismo orden del listado, también se guardan los archivos con el nombre del tipo y ciudad, para el caso de Bogotá en la ruta: \\SERVIDOR\confidencial_in51_aaaa\data\51\aaaammdd\formatospdf para ciudades en la ruta:
+\\SERVIDOR\confidencial_in51_aaaa\data\51\aaaammdd\formatospdf\ciudades
+Nota 1: El listado generado desde el aplicativo solo relaciona 200 documentos máximo.
+Nota 2: Los documentos se empacan en bolsas por tipo de documento.
+Nota 3: Esta actividad se realiza en las ciudades de Digicom
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsubsection">
+    6.11.3 Organizar los envíos
+   </div>
+   <div class="doc-subsubcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Auxiliar de Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      PRO-F-008 totales por tipo de formulario
+PRO-D-061 relación de envíos de formularios físicos a la DIAN
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Se debe organizar los envíos por cada una de las direcciones seccionales Dian a nivel nacional.
+Enviar los paquetes conformados a las oficinas centralizadoras del banco en las ciudades con dirección seccional DIAN. En Bogotá dejar listos los paquetes con los documentos originales para ser entregados a la DIAN con la planilla totales por tipo de formulario, que donde se relaciona la cantidad de formularios a entregar a la DIAN por tipo.
+Nota 1: Los documentos físicos de otras ciudades son entregados por la empresa de mensajería.
+Nota 2: El formato PRO-F-008 Totales por tipo de formulario solo aplica para Bogotá.
+Nota 3: Los paquetes generados se deben relacionar en el archivo PRO-D-061 relación de envíos de formularios físicos a la DIAN
+Nota 4: Esta actividad se realizan en las ciudades de Digicom
+     </li>
+    </ul>
+   </div>
+  </div>
+  <div class="doc-subsection">
+   6.12 Informe cruce informe 1096 Davivienda
+  </div>
+  <div class="doc-subcontent">
+   <div class="doc-subsubsection">
+    6.12.1 Recibir archivo plano
+   </div>
+   <div class="doc-subsubcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Auxiliar de Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No Aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Se ingresan las planillas en el aplicativo por el consecutivo de cada planilla y ciudad ingresando la fecha del sello que coloca la DIAN al momento de recibir los documentos físicos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Nota:
+      </b>
+      solo en el caso de los litográficos debemos actualizar los registros indexados, por el menú principal opción: informes/opción log consolidado, ingresamos un rango de fecha y damos clic en el botón: integrar movimiento
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsubsection">
+    6.12.2 Generar cruces
+   </div>
+   <div class="doc-subsubcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Auxiliar de Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No Aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Después de cargar las planillas en el aplicativo , ingresamos un rango de fecha en la ventana damos clic en el botón: filtrar y cuando nos muestre una fecha que solicitamos damos clic en el botón: exportar todos el cual genera el archivo “todos” en la siguiente ruta: \\SERVIDOR\confidencial_in51_aaaa\logs para los litográficos y para los XML en la ruta: \\SERVIDOR\confidencial_in51_aaaa\files_xml este archivo es generado en un libro Excel y de los registros obtenidos procedemos a realizar los informes del cruce informe 1096
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsubsection">
+    6.12.3 Cruce informe 1096
+   </div>
+   <div class="doc-subsubcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Auxiliar de procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No Aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Después de generados los archivo quedan en la siguiente ruta: \\SERVIDOR\Confidencial_nacionales51_AAAA\51\procesos_51\varios este se genera cuando los registros de archivo plano cruzan con el log Digicom, cuando el cruce esta correcto se confirma que estos  registros se entregaron y fueron radicados (recibidos y firmados) por la DIAN
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsubsection">
+    6.12.4 Control registros sin leer Dian
+   </div>
+   <div class="doc-subsubcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Auxiliar de Procesos, Líder de Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No Aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Control registros sin leer Dian se realiza en una misma hoja de Excel tanto los litográficos y XML, cuando los registros del archivo plano no cruzan con el log Digicom. Procedemos a revisar con la planilla física y manualmente colocamos la fecha que presenta el registro en la planilla
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Nota:
+      </b>
+      cuando el archivo no cruza es porque la Dian no ha leído los registros o no los ha recibido para su radicación, para validar se verifica con el archivo sin cruce y las planillas de entrega física
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsubsection">
+    6.12.5 Control de extemporáneos de entrega documentos físicos
+   </div>
+   <div class="doc-subsubcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Auxiliar de Procesos, Líder de Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      PRO-D-114 Informe t20 informes 1096
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Este se genera del PRO-D-114 Informe t20 informes 1096 verificando fechas de entrega o de radicación, si los registros se entregaron fuera de la fecha de vencimiento (10 días hábiles después de la fecha de recaudo), se deben registrar en este informe, verificamos contra las planillas físicas cuales son físicos reales y se realiza seguimiento y se justifica porque se presentó extemporáneo el documento. Si no es físico real anotamos la observación que el documento se entregó a tiempo a la Dian, pero no lo borramos del informe
+     </li>
+    </ul>
+   </div>
+  </div>
+  <div class="doc-subsection">
+   6.13 Back up
+  </div>
+  <div class="doc-subcontent">
+   <ul>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Responsable:
+     </b>
+     Auxiliar de Procesos, Líder de Procesos
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Registro:
+     </b>
+     No aplica
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Descripción:
+     </b>
+     Se debe realizar back up semanalmente. El back up del correo se realiza por el programa uranium backup el cual se encuentra en el escritorio
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Nota:
+     </b>
+     las personas que tienen correo electrónico debe asegurar que se esté realizando el back up del mismo
+    </li>
+   </ul>
+  </div>
+  <div class="doc-subsection">
+   6.14 Generación File net
+  </div>
+  <div class="doc-subcontent">
+   <div class="doc-subsubsection">
+    6.14.1 imágenes web
+   </div>
+   <div class="doc-subsubcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Líder de Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Se debe ingresar al aplicativo el cual se encuentra en la siguiente ruta: \\SERVIDOR\Confidencial_Aplic_In51_aaaa_ IN_51, se ingresa la fecha de recaudo a copiar las imágenes y se ingresa por el menú principal por la opción de Davivienda y se da clic en envió de tifs a file net,
+     </li>
+    </ul>
+   </div>
+  </div>
+  <div class="doc-subsection">
+   6.16 Formularios TIDIS
+  </div>
+  <div class="doc-subcontent">
+   <div class="doc-subsubsection">
+    6.16.1 CARGA IMÁGENES
+   </div>
+   <div class="doc-subsubcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Líder de proceso
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      no aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      se toman las imágenes del correo enviado por las oficinas que recaudaron formularios con TIDIS, se crea la fecha de la siguiente manera:
+Se ingresa la fecha de recaudo de los formularios y se da abrir
+Después se copian la imágenes enviadas por la oficina en la siguiente ruta: SERVIDOR\Confidencial_Nacionales51_aaaa\51\procesos_51\index_tidis\aaaammdd esta imágenes deben quedan en .TIF, se procede a realizar la carga de la siguiente manera:
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsubsection">
+    6.16.2 indexaciones TIDIS
+   </div>
+   <div class="doc-subsubcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Líder de proceso
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      se le da en asignar imagen y se capturan los siguientes datos formulario, hash, nit, concepto, valor, fecha límite, oficina, horario de la siguiente manera
+Numero de Formulario:
+Hash
+NIT del contribuyente
+Concepto
+En el valor hay que agregarle dos ceros de más para cuando se genere el XML salga valor correcto
+Sucursal
+Horario (1 para Horario normal y 2 Para horario adicional)
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Nota:
+      </b>
+      Este proceso se debe realizar doble vez para comparar la información capturada
+     </li>
+    </ul>
+   </div>
+  </div>
+  <div class="doc-subsection">
+   6.17 Informe 1187
+  </div>
+  <div class="doc-subcontent">
+   <ul>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Responsable:
+     </b>
+     Líder de Proceso
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Registro:
+     </b>
+     No Aplica
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Descripción:
+     </b>
+     El banco por medio de correo electrónico envían los polígrafos, se copian y se pegan en la ruta \\SERVIDOR\Confidencial_in51_AAAA\procesos\Archivos_Dian\TRANSMISIONES\Formato 050\MES\DD  se crea una carpeta de la fecha a realizar, luego se ingresa a la ruta \\servidorproceso\Confidencial_Aplic_In51_2021 aplicativo IN_51
+Se da clic en  más informes/reporte 1187, se ingresa la fecha de recaudo dar clic en buscar se ingresa el mes y el día seguido se da clic en cargar Excels Davivienda, el aplicativo carga automáticamente los Excel y coloca automáticamente los números de operación que vienen en los polígrafos.
+Luego se da clic en generar R1187, el archivo generado se encuentra en la ruta \\servidorproceso\Confidencial_in51_2021\procesos\r1187\xxxx.xx.xx_xxx luego en la ruta \\servidorproceso\Confidencial_In51_2021\Img_Banco07\bin\Debug ejecutar/reportes/informe_1187  seleccionamos el archivo Excel ppal__xxx y le damos clic en aceptar,  en la ruta \\servidorproceso\Confidencial_in51_2021\procesos\r1187\xxxx.xx.xx_xxx se genera un XML Dmuisca_xxxxxxxxxxxxxxxxxxxxx.xml, luego en el Prevalidador_F1187v1-1.0.0-20_rc13 se carga el XML y se genera el archivo xml con la fecha de recaudo, la fecha de consignación y el consecutivo para realizar su debida trasmisión, después se publica en la página web de DIGICOM para su validación y su transmisión por la página de la Dian
+INDICADORES DE DESEMPEÑO
+CONTROL DEL PROCEDIMIENTO
+    </li>
+   </ul>
+  </div>
+ </div>
+</div>
+
+<!-- Botones y Modals para edición -->
+<button class="btn btn-outline-primary" id="openModalBtn" style="margin-top: 20px;">Editar Secciones</button>
+<div class="modal" id="sectionModal">
+    <div class="modal-content">
+        <span class="close-button">×</span>
+        <h2>Selecciona y Edita una Sección</h2>
+        <select id="sectionSelector"><option value="">-- Selecciona --</option></select>
+        <textarea id="sectionContent" placeholder="Contenido..."></textarea>
+        <textarea id="sectionCambio" placeholder="Descripción del cambio..." required></textarea>
+        <button class="btn btn-outline-primary" id="saveChangesBtn" style="margin-top: 15px;">Guardar Cambios</button>
+    </div>
+</div>
+<script src="{{ url_for('static', filename='js/jquery.min.js')}}"></script>
+<script src="{{ url_for('static', filename='js/acordeon_doc.js')}}"></script>
+<script src="{{ url_for('static', filename='js/edita_procedimiento.js')}}"></script>
+
+{% endblock %}

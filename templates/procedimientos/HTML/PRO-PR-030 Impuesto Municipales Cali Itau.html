@@ -1,0 +1,585 @@
+{% extends 'home.html' %}
+{% block title %}Documentacion{% endblock %}
+{% block content %}
+<link href="{{ url_for('static', filename='css/acordeon_doc.css') }}" rel="stylesheet" />
+<link href="{{ url_for('static', filename='css/procedimientos.css') }}" rel="stylesheet" />
+
+<div id="documento" style="display:none;">procedimientos/HTML/PRO-PR-030 Impuesto Municipales Cali Itau.html</div>
+<div id="nombre_documento" style="display: none;">PRO-PR-030 Impuesto Municipales Cali Itau</div>
+<h1>PRO-PR-030 Impuesto Municipales Cali Itau</h1>
+{% for cambio in cambios %}
+{% if loop.first %}
+<h3>Version: {{cambio[3]}}</h3>
+{% endif %}
+{% endfor %}
+<br />
+<div class="doc-accordion">
+ <div class="doc-section" data-id="1">
+  1. OBJETIVO
+ </div>
+ <div class="doc-content" data-id="1">
+ </div>
+ <div class="doc-section" data-id="2">
+  2. ALCANCE
+ </div>
+ <div class="doc-content" data-id="2">
+ </div>
+ <div class="doc-section" data-id="3">
+  3. RESPONSABLES
+ </div>
+ <div class="doc-content" data-id="3">
+ </div>
+ <div class="doc-section" data-id="4">
+  4. DEFINICIONES
+ </div>
+ <div class="doc-content" data-id="4">
+ </div>
+ <div class="doc-section" data-id="5">
+  5. DOCUMENTOS DE REFERENCIA
+ </div>
+ <div class="doc-content" data-id="5">
+ </div>
+ <div class="doc-section" data-id="6">
+  6. Descripción del proceso
+ </div>
+ <div class="doc-content" data-id="6">
+  <div class="doc-subsection">
+   6.1 Descarga log bancario
+  </div>
+  <div class="doc-subcontent">
+  </div>
+  <div class="doc-subsection">
+   6.2 Carga log bancario
+  </div>
+  <div class="doc-subcontent">
+  </div>
+  <div class="doc-subsection">
+   6.3 Descarga imágenes
+  </div>
+  <div class="doc-subcontent">
+  </div>
+  <div class="doc-subsection">
+   6.4 Recepción documental
+  </div>
+  <div class="doc-subcontent">
+  </div>
+  <div class="doc-subsection">
+   6.5 Verificación de cámaras
+  </div>
+  <div class="doc-subcontent">
+  </div>
+  <div class="doc-subsection">
+   6.6 Mesa de control
+  </div>
+  <div class="doc-subcontent">
+  </div>
+  <div class="doc-subsection">
+   6.7. Digitalización documentos
+  </div>
+  <div class="doc-subcontent">
+  </div>
+  <div class="doc-subsection">
+   6.9 Grabación de imágenes
+  </div>
+  <div class="doc-subcontent">
+  </div>
+  <div class="doc-subsection">
+   6.10 Validación y generación de inconsistencias (faltantes, errores caja)
+  </div>
+  <div class="doc-subcontent">
+  </div>
+  <div class="doc-subsection">
+   6.13 Generación informes
+  </div>
+  <div class="doc-subcontent">
+  </div>
+  <div class="doc-subsection">
+   6.14 publicación de informes, imágenes e índex de las fechas
+  </div>
+  <div class="doc-subcontent">
+  </div>
+ </div>
+ <div class="doc-section" data-id="7">
+  7. INDICADORES DE DESEMPEÑO
+ </div>
+ <div class="doc-content" data-id="7">
+ </div>
+ <div class="doc-section" data-id="8">
+  8. CONTROL DEL PROCEDIMIENTO
+ </div>
+ <div class="doc-content" data-id="8">
+  <p>
+   20/10/2021 IMPUESTOS DEPARTAMENTALES ITAU
+  </p>
+ </div>
+ <div class="doc-section" data-id="1">
+  1. OBJETIVO
+ </div>
+ <div class="doc-content" data-id="1">
+  <p>
+   Procesar integralmente los formularios de Impuestos Departamentales recaudados y pactados con la entidad Bancaria y dar cumplimiento al Sistema de Gestión
+  </p>
+ </div>
+ <div class="doc-section" data-id="2">
+  2. ALCANCE
+ </div>
+ <div class="doc-content" data-id="2">
+  <p>
+   Este procedimiento aplica a los servicios de Impuestos Departamentales Itau (Cali), implementados por
+  </p>
+ </div>
+ <div class="doc-section" data-id="3">
+  3. RESPONSABLES
+ </div>
+ <div class="doc-content" data-id="3">
+  <p>
+   Gerente de operaciones, Director de proceso, Líder de proceso, Auxiliar de procesos y Digitador
+  </p>
+ </div>
+ <div class="doc-section" data-id="4">
+  4. DEFINICIONES
+ </div>
+ <div class="doc-content" data-id="4">
+  <p>
+    FTP: es un protocolo de transferencia de archivos entre sistemas conectados a una red TCP (protocolo de control de transmisión) basado en la arquitectura cliente-servidor, de manera que desde un equipo cliente nos podemos conectar a un servidor para descargar archivos desde el o para enviarle nuestros propios archivos independientemente del sistema operativo utilizado en cada equipo.  Archivo Plano: archivo de datos que se utiliza para el intercambio de información entre las diferentes aplicaciones.  Conciliación: registro consolidado de transacciones por convenios.  Log Bancario: es el registro de las transacciones de una fecha de recaudo.  Precinto: Zuncho de seguridad numerado que una vez colocado en el medio de transporte de documentos o valores no puede ser violentado ni roto excepto por el destinatario.  Tula: empaque en material de lona que permite el transporte seguro de documentos.  Servidorproceso: 192.168.70.137  Servidorcanal: 192.168.40.127
+  </p>
+ </div>
+ <div class="doc-section" data-id="5">
+  5. DOCUMENTOS DE REFERENCIA
+ </div>
+ <div class="doc-content" data-id="5">
+  <p>
+    Anexo técnico N 2 “recaudo con código de ventanilla, con validación de web service”  Acuerdo de servicios
+  </p>
+ </div>
+ <div class="doc-section" data-id="6">
+  6. Descripción del proceso
+ </div>
+ <div class="doc-content" data-id="6">
+  <div class="doc-subsection">
+   6.1 Descarga log bancario
+  </div>
+  <div class="doc-subcontent">
+   <ul>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Responsable:
+     </b>
+     Líder de proceso, Auxiliar de procesos
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Registro:
+     </b>
+     No aplica
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Descripción:
+     </b>
+     Procedemos a ingresar a la ruta de Servidorcanal\Digicom_Itau\GOBERNACIONES\ENTRADA copiamos en archivo y lo pegamos en la ruta: Servidorproceso\\Confidencial_ImCali06_2020\Ent_LogAch\C9999\log\aaaammdd
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Nota:
+     </b>
+     para la gobernación de Tolima el archivo se debe renombrar y dejar en formato .csv
+    </li>
+   </ul>
+  </div>
+  <div class="doc-subsection">
+   6.2 Carga log bancario
+  </div>
+  <div class="doc-subcontent">
+   <ul>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Responsable:
+     </b>
+     Líder de proceso, auxiliar de procesos
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Registro:
+     </b>
+     No aplica
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Descripción:
+     </b>
+     Procedemos abrir los aplicativo el cual se encuentra en la ruta: Servidorproceso\Confidencial_ImCali06_aaaa “ITAUMUNICALIC” este aplicativo nos solicita el municipio a la que deseamos ingresar (cali) y la clave del usuario Aplicativo Cali Para realizar la carga de log ingresamos por el menú en la opción: Cargue\log\caja (ver imagen 3) en la ventana que nos genera seleccionamos la fecha de movimiento que vamos a trabajar y procedemos a dar clic en el botón: Cargar, el sistema nos muestra la cantidad de registros que contiene el log bancario y salimos de la ventana dando clic en el icono de la carpeta (ver imagen 4). 20/10/2021 IMPUESTOS DEPARTAMENTALES ITAU 3. 4
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Nota:
+     </b>
+     Si por alguna razón el log bancario queda mal cargado el sistema nos permite eliminar la información cargada, esto lo realizamos por el menú en la opción: Cargue/eliminar un día del log\caja, nos muestra una ventana parecida al cargue la única diferencia es que el botón: eliminar el sistema nos pide confirmar la eliminación del log y nos muestra la cantidad que elimino
+    </li>
+   </ul>
+  </div>
+  <div class="doc-subsection">
+   6.3 Descarga imágenes
+  </div>
+  <div class="doc-subcontent">
+   <ul>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Responsable:
+     </b>
+     Líder de proceso, auxiliar de procesos
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Registro:
+     </b>
+     No Aplica
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Descripción:
+     </b>
+     para descargar las imágenes se debe ingresar al servidor, procedemos a ingresar a la ruta; \\servidorcanal\Digicom_Itau\GOBERNACIONES\ENTRADA seleccionamos las imágenes que se encuentran en la carpeta se copian y se pegan en la ruta \\192.168.70.137\Confidencial_ImCali06_2020\grabacion\scan\c9999\aaaammdd\E1cc. 20/10/2021 IMPUESTOS DEPARTAMENTALES ITAU
+    </li>
+   </ul>
+  </div>
+  <div class="doc-subsection">
+   6.4 Recepción documental
+  </div>
+  <div class="doc-subcontent">
+   <ul>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Responsable:
+     </b>
+     Auxiliar de proceso
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Registro:
+     </b>
+     No aplica
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Descripción:
+     </b>
+     Recibir los documentos de impuestos departamentales remitidos por el Banco, mediante tulas. Estas se organizan en orden de menor a mayor por número de Oficina. Se procede a cantar las tulas ante cámaras, mencionando de manera clara la oficina que remite la tula, el número de precinto, la fecha de recaudo, el convenio al cual pertenecen y la cantidad de documentos enviados; al desocupar la tula se muestra ante cámara y se canta como tula vacía lo cual certifica que no hay más documentos al interior de la tula Al terminar se realiza la devolución de las tulas vacías a la empresa de mensajería encargada de realizar la distribución de las mismas
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Nota:
+     </b>
+     Durante el proceso de apertura de tulas, es posible que lleguen documentos que no pertenecen al proceso o que pertenecen a otra ciudad de Digicom. Estos documentos se cantan ante cámara como documento mal remitido mencionando claramente la oficina que los envía y se entregan al líder de proceso para que realice el proceso correspondiente
+    </li>
+   </ul>
+  </div>
+  <div class="doc-subsection">
+   6.5 Verificación de cámaras
+  </div>
+  <div class="doc-subcontent">
+   <ul>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Responsable:
+     </b>
+     Área de TI
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Registro:
+     </b>
+     PRO-F-045 Control de pruebas de audio y video
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Descripción:
+     </b>
+     Las pruebas de audio y video son realizadas diariamente por el personal encargado (auxiliar o líder de proceso), solicitando mediante el system center al área de TI la revisión de la grabación del audio y video de tulas. La persona que realice el canto de tula se acerca al área de monitoreo de cámaras para que el funcionario de T.I. permita realizar la verificación donde se verifica si está grabando el audio y video esto lo realizan retrocediendo unos minutos en el video que está dejando realizado la cámara
+    </li>
+   </ul>
+  </div>
+  <div class="doc-subsection">
+   6.6 Mesa de control
+  </div>
+  <div class="doc-subcontent">
+   <ul>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Responsable:
+     </b>
+     Auxiliar de Procesos
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Registro:
+     </b>
+     No aplica
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Descripción:
+     </b>
+     la documentación física se recibe del área de canto y se procede a revisar si contiene inconsistencias, se verifica si el documento trae firma, nombre y cedula del contribuyente, que el número de referencia corresponda al timbrado, el timbre puesto por el banco este en el lugar indicado por el documento, una vez realizada estas validaciones se procede a organizar por oficina y por 20/10/2021 IMPUESTOS DEPARTAMENTALES ITAU Formulario de Cali - ReteIca Formulario Ica Para la entrega de estos formularios se debe tener en cuenta que Bogotá se envía mensualmente a la gobernación Cali donde se presenta con 1 cds correspondientes a las imágenes del mes y su respectivo consolidado con la información capturada
+    </li>
+   </ul>
+  </div>
+ </div>
+ <div class="doc-section" data-id="1">
+  1. Estando en el programa ScandAll PRO se selecciona el menú “digitalizar”
+ </div>
+ <div class="doc-content" data-id="1">
+  <p>
+   20/10/2021 IMPUESTOS DEPARTAMENTALES ITAU
+  </p>
+ </div>
+ <div class="doc-section" data-id="2">
+  2. Ir al menú Configuraciones de digitalizaciones
+ </div>
+ <div class="doc-content" data-id="2">
+ </div>
+ <div class="doc-section" data-id="3">
+  3. Donde nos arroja una ventana en el cual se selecciona la ruta donde van a quedar las
+ </div>
+ <div class="doc-content" data-id="3">
+  <p>
+   imágenes
+  </p>
+ </div>
+ <div class="doc-section" data-id="4">
+  4. En la opción regla del nombre se abre una ventana donde ingresamos como se van a llamar
+ </div>
+ <div class="doc-content" data-id="4">
+  <p>
+   los archivos
+  </p>
+ </div>
+ <div class="doc-section" data-id="5">
+  5. En la opción iniciar con se digita el número de consecutivo por el que va a iniciar los archivos
+ </div>
+ <div class="doc-content" data-id="5">
+  <div class="doc-subsection">
+   6.9 Grabación de imágenes
+  </div>
+  <div class="doc-subcontent">
+   <ul>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Responsable:
+     </b>
+     Líder de proceso, auxiliar de proceso o Digitador
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Registro:
+     </b>
+     No aplica
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Descripción:
+     </b>
+     una vez indexados los documentos ingresamos por el aplicativo la opción en el menú: Grabación\ grabación convenios 20/10/2021 IMPUESTOS DEPARTAMENTALES ITAU En la pantalla que nos aparece en la parte superior se debe ingresar la fecha de recaudo y seleccionar el municipio correspondiente Cali) damos clic en el botón Iniciar y automáticamente nos aparece la imagen, en la parte inferior de la pantalla están los campos a capturar:  Numero de identificación (si se escribe mal debe capturarse 2 veces)  Numero de formulario  Valor a pagar Damos clic en el icono del disquete y el sigue asignando automáticamente las imágenes, en la parte inferior derecha de la ventana podemos saber cuántas imágenes quedan pendientes por grabar
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Nota:
+     </b>
+     se debe capturar la información tal cual está en el documento técnico, la captura realizada es dual y esta se realiza por dos personas diferentes
+    </li>
+   </ul>
+  </div>
+  <div class="doc-subsection">
+   6.10 Validación y generación de inconsistencias (faltantes, errores caja)
+  </div>
+  <div class="doc-subcontent">
+   <ul>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Responsable:
+     </b>
+     Líder de proceso, auxiliar de proceso
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Registro:
+     </b>
+     No aplica
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Descripción:
+     </b>
+     para realizar la validación de la información se debe tener todo indexado y grabado, esto lo revisamos por el aplicativo en la opción del menú: Grabación\ estado general del proceso. 20/10/2021 IMPUESTOS DEPARTAMENTALES ITAU En la pantalla que nos aparece consultamos la fecha que estamos procesando y él nos registra el estado en el que esta la fecha por sus respectivo municipio Una vez validado esto se procede a realizar la validación de la grabación esto se realiza por el menú: operaciones\ revisión grabación 01 vs 02 En esta pantalla se nos va a mostrar la diferencia entre los datos capturados, se debe verificar contra la imagen y corregir según el campo que este correcto Una vez validada la información procedemos a realizar la validación de indexación contra log por el menú en la opción: operaciones\ Revisión log vs indexación. 20/10/2021 IMPUESTOS DEPARTAMENTALES ITAU En la pantalla que nos aparece seleccionamos la fecha de recaudo la cual estamos procesando y damos clic en la opción solo inconsistencias, el sistema nos muestra si tenemos diferencias en lo capturado en la indexación contra el log, estos formularios quedaran marcados con rojo y en la casilla inconsistencia nos mostrara la inconsistencia que tiene el formulario, para corregir esta situación se da clic en la inconsistencia y este nos muestra la pantalla para capturar nuevamente el documento y finalizada las correcciones damos clic en refrescar para que no aparezcan más. Una vez finalizada la revisión de estos campos procedemos a realizar la complementación por el menú en la opción: Operaciones\ complementación, en esta pantalla ingresamos la fecha que recaudo que estamos procesando tanto en fecha inicial como final y procedemos a dar clic en el botón cargar, esto sirve para ajustar la fecha si hay documentos entre fechas, integrar los datos indexados y validados. Una vez terminamos de realizar la complementación se procede a revisar la grabación contra la indexación por el menú en la opción: Operaciones\ Revisión grabación vs indexación. 20/10/2021 IMPUESTOS DEPARTAMENTALES ITAU En la pantalla que nos aparece seleccionamos la fecha de recaudo la cual estamos procesando y damos clic en la opción solo inconsistencias, el sistema nos muestra si tenemos diferencias en lo capturado en la indexación contra el log, estos formularios quedaran marcados con rojo y en la casilla inconsistencia nos mostrara la inconsistencia que tiene el formulario, para corregir esta situación se da clic en la casilla autoadhesivo y este nos muestra la pantalla para capturar nuevamente el documento y finalizada las correcciones damos clic en refrescar para que no aparezcan más. Una vez finalizado esto procedemos a realizar la validación de grabación vs log por el menú en la opción: operaciones\ Revisión grabación vs log En la pantalla que nos aparece seleccionamos la fecha de recaudo la cual estamos procesando y damos clic en las opciones solo inconsistencias, solo faltantes sobrantes, Errores asobancaria, en ninguna de las opciones debería mostrarnos errores, pero si se llagan a presentar estas quedan en 20/10/2021 IMPUESTOS DEPARTAMENTALES ITAU rojo y se puede ver el error en la casilla mensaje, para corregir el error presentado se da clic en autoadhesivo y nos muestra la pantalla para capturar nuevamente la información del documento. Finalizadas las validaciones procedemos a verificar los errores estructurales por el menú en la opción: operaciones\ validación estructural En la pantalla que nos aparece ingresamos la fecha de recaudo que estamos procesando y el sistema nos muestra los documentos que tienen problema de estructura, para revisar estas inconsistencias se debe tener en cuenta el tipo de error ya que se debe corregir por la indexación o grabación dependiendo de la inconsistencia mostrada
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Nota:
+     </b>
+     Este archivo se envía por correo al banco y se debe esperar la respuesta del banco, si se llega la fecha del traslado de fondos y el banco envía la cuenta se debe volver a realizar la complementación del movimiento si por el contrario no han enviado respuesta el sistema envía los fondos a una cuenta determinada asignada por el banco. Por último, se realiza la validación de valores por el menú en la opción: operaciones cuadre de valores. En la pantalla que nos muestra seleccionamos la fecha de recaudo que estamos trabajando en ser 0 siempre y cuando no encuentra novedad en valores. 20/10/2021 IMPUESTOS DEPARTAMENTALES ITAU
+    </li>
+   </ul>
+  </div>
+  <div class="doc-subsection">
+   6.13 Generación informes
+  </div>
+  <div class="doc-subcontent">
+   <ul>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Responsable:
+     </b>
+     Líder de proceso
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Registro:
+     </b>
+     No aplica
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Descripción:
+     </b>
+     una vez realizada todas las validaciones y verificada la integridad de la fecha procedemos a generar los informes Cali: Informe nota crédito pago efectivo: este informe se genera por el menú en la opción informes, nota crédito pago efectivo, en la pantalla que nos muestra debemos seleccionar la fecha de recaudo y dar clic en el botón cargar, el informe generado queda en la ruta: \\servidorproceso\Confidencial_ImCali06_2020\grabacion\scan\c9999\aaaammdd\E1cc.  este informe se debe validar contra el log bancario en totalidad de registros y valores. Planilla de control de recaudo: este informe se genera por el menú en la opción: informes, planilla de control recaudo en la pantalla que nos muestra debemos seleccionar la fecha de recaudo y dar clic en el botón cargar, el informe generado queda en la ruta: \\servidorproceso \Confidencial_ImCali06_2020\grabacion\scan\c9999\aaaammdd\E1cc.  este informe se debe validar contra el log bancario en totalidad de registros y valores. Informe sucursal cali (ica-reteica): este informe se genera por el menú en la opción: informes, informe sucursal Cali en la pantalla que nos muestra debemos seleccionar la fecha de recaudo en la casilla de fecha inicial y dar clic en el botón exportar, el informe generado queda en la ruta: \\ servidorproceso\Confidencial_ImCali06_2020\grabacion\scan\c9999\aaaammdd\E1cc.  este informe se debe validar contra el log bancario en totalidad de registros y valores.  Informe Emcali: este informe se genera por el menú en la opción: informe, informe Emcali en la pantalla que nos muestra debemos seleccionar la fecha de recaudo en la casilla de 20/10/2021 IMPUESTOS DEPARTAMENTALES ITAU servidorproceso\Confidencial_ImCali06_2020\grabacion\scan\c9999\aaaammdd\E1cc.  este informe se debe validar contra el log bancario en totalidad de registros y valores
+    </li>
+   </ul>
+  </div>
+  <div class="doc-subsection">
+   6.14 publicación de informes, imágenes e índex de las fechas
+  </div>
+  <div class="doc-subcontent">
+   <ul>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Responsable:
+     </b>
+     Líder de proceso
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Registro:
+     </b>
+     No Aplica
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Descripción:
+     </b>
+     Una vez cerrada las fechas en términos de imágenes y generados los archivos correspondientes procedemos a generar las imágenes con su correspondiente índex para publicación, esto lo realizamos por el aplicativo Las imágenes y los archivos generados quedan en la ruta: \\servidorproceso \Confidencial_Convenios06_2020\ArchivosSalida\INFORMES\06”\aaaammdd, Los informes generados se deben comprimir en un solo archivos .zip, Una vez terminado esto se debe ingresar al canal: \\servidorcanal\Digicom_Itau\GOBERNACIONES\SALIDA Una vez se tenga el zip de los archivos listo se envía por correo a municipales
+    </li>
+   </ul>
+  </div>
+ </div>
+ <div class="doc-section" data-id="7">
+  7. INDICADORES DE DESEMPEÑO
+ </div>
+ <div class="doc-content" data-id="7">
+  <p>
+   MEDIDO RESPONSABLE INDICADOR FRECUENCIA POR/MEDIO REVISIÓN Σ Total Informes enviados- Informes enviados fuera de tiempo Líder de Gerente de Mensual ------------------------------------------------------- *100 procesos Operaciones Σ Total informes enviados
+  </p>
+ </div>
+ <div class="doc-section" data-id="8">
+  8. CONTROL DEL PROCEDIMIENTO
+ </div>
+ <div class="doc-content" data-id="8">
+  <p>
+   VER. No. ELABORADO REVISADO APROBADO APROBACION REALIZADA Analista de Coordinador Coordinador Creación del 0 20/10/2021 procesos SGI de procesos procedimiento 20/10/2021
+  </p>
+ </div>
+</div>
+
+<!-- Botón para abrir el modal -->
+<button class="btn btn-outline-primary" id="openModalBtn" style="margin-top: 20px;">Editar Secciones</button>
+<!-- El Modal -->
+<div class="modal" id="sectionModal">
+    <div class="modal-content">
+        <span class="close-button">×</span>
+        <h2>Selecciona y Edita una Sección</h2>
+        <label for="sectionSelector">Sección:</label>
+        <select id="sectionSelector">
+            <option value="">-- Selecciona una sección --</option>
+        </select>
+        <label for="sectionContent">Contenido:</label>
+        <textarea id="sectionContent" placeholder="El contenido de la sección aparecerá aquí..."></textarea>
+        <label for="sectionCambio">Descripcion del Cambio:</label>
+        <textarea id="sectionCambio" placeholder="Describe en palabras cortas el cambio realizado..."
+            required></textarea>
+        <button class="btn btn-outline-primary" id="saveChangesBtn" style="margin-top: 15px;">Guardar Cambios</button>
+    </div>
+</div>
+<script src="{{ url_for('static', filename='js/jquery.min.js')}}"></script>
+<script src="{{ url_for('static', filename='js/acordeon_doc.js')}}"></script>
+<script src="{{ url_for('static', filename='js/edita_procedimiento.js')}}"></script>
+
+{% endblock %}

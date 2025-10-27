@@ -1,0 +1,788 @@
+{% extends 'home.html' %}
+{% block title %}Documentacion{% endblock %}
+{% block content %}
+<link href="{{ url_for('static', filename='css/acordeon_doc.css') }}" rel="stylesheet" />
+<link href="{{ url_for('static', filename='css/procedimientos.css') }}" rel="stylesheet" />
+
+<div id="documento" style="display:none;">procedimientos/HTML/PRO-PR-002 Digitación  Información de clientes Complementación del Activo Pasivo.html</div>
+<div id="nombre_documento" style="display: none;">PRO-PR-002 Digitación  Información de clientes Complementación del Activo Pasivo</div>
+<h1>PRO-PR-002 Digitación  Información de clientes Complementación del Activo Pasivo</h1>
+{% for cambio in cambios %}
+{% if loop.first %}
+<h3>Version: {{cambio[3]}}</h3>
+{% endif %}
+{% endfor %}
+<br />
+<div class="doc-accordion">
+ <div class="doc-section" data-id="1">
+  1. OBJETIVO
+ </div>
+ <div class="doc-content" data-id="1">
+ </div>
+ <div class="doc-section" data-id="2">
+  2. ALCANCE
+ </div>
+ <div class="doc-content" data-id="2">
+ </div>
+ <div class="doc-section" data-id="3">
+  3. RESPONSABLES
+ </div>
+ <div class="doc-content" data-id="3">
+ </div>
+ <div class="doc-section" data-id="5">
+  5. DOCUMENTOS DE REFERENCIA
+ </div>
+ <div class="doc-content" data-id="5">
+ </div>
+ <div class="doc-section" data-id="6">
+  6. DESCRIPCIÓN DEL PROCESO
+ </div>
+ <div class="doc-content" data-id="6">
+  <div class="doc-subsection">
+   6.1. ACCESO A LA PLATAFORMA
+  </div>
+  <div class="doc-subcontent">
+  </div>
+  <div class="doc-subsection">
+   6.2. COMPLEMENTACION DEL PASIVO
+  </div>
+  <div class="doc-subcontent">
+   <div class="doc-subsection">
+    6.2.1. Canales o medios de intercambio de información
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.2.2. Recepción, transformación y cargue de Información
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.2.3. Digitación de la información
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.2.4. Validación de la información:
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.2.5. Manejo de software
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.2.6. Generación de archivos de salida
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.2.7. Entrega final del producto
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.2.8. Generación de informes
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.2.9. Backup
+   </div>
+   <div class="doc-subcontent">
+   </div>
+  </div>
+  <div class="doc-subsection">
+   6.3. COMPLEMENTACION ACTIVO
+  </div>
+  <div class="doc-subcontent">
+   <div class="doc-subsection">
+    6.3.1. Recepción, transformación y cargue de información
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.3.2. Digitación de información
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.3.3. Validación de información
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.3.4. Análisis de casos
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.3.5. Verificación devoluciones complementación
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.3.6. Manejo de software
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.3.7. Registro y seguimiento
+   </div>
+   <div class="doc-subcontent">
+    <p>
+     29/11/2023 Digitación Información de clientes Complementación del Activo Pasivo
+    </p>
+   </div>
+   <div class="doc-subsection">
+    6.3.8. Generación y envío de archivos de salida
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.3.9. Envío de créditos
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.3.10. Eliminación de la información
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.3.11. Complementación manual
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.3.12. Verificación de devoluciones
+   </div>
+   <div class="doc-subcontent">
+   </div>
+  </div>
+  <div class="doc-subsection">
+   6.4. NOMINAS MASIVAS
+  </div>
+  <div class="doc-subcontent">
+   <div class="doc-subsection">
+    6.4.1. Recepción y cargue de información
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.4.2. Digitación
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.4.3. Validación de información
+   </div>
+   <div class="doc-subcontent">
+   </div>
+  </div>
+ </div>
+ <div class="doc-section" data-id="7">
+  7. ANEXOS
+ </div>
+ <div class="doc-content" data-id="7">
+ </div>
+ <div class="doc-section" data-id="8">
+  8. INDICADORES DE DESEMPEÑO
+ </div>
+ <div class="doc-content" data-id="8">
+ </div>
+ <div class="doc-section" data-id="9">
+  9. CONTROL DEL PROCEDIMIENTO
+ </div>
+ <div class="doc-content" data-id="9">
+  <p>
+   29/11/2023 Digitación Información de clientes Complementación del Activo Pasivo
+  </p>
+ </div>
+ <div class="doc-section" data-id="1">
+  1. OBJETIVO
+ </div>
+ <div class="doc-content" data-id="1">
+  <p>
+   Procesar documentos digitalizados con información de clientes y complementar para actualizar la base de datos del Banco en cumplimiento del Sistema de Gestión Integrado
+  </p>
+ </div>
+ <div class="doc-section" data-id="2">
+  2. ALCANCE
+ </div>
+ <div class="doc-content" data-id="2">
+  <p>
+   El procedimiento aplica a los servicios de complementación, implementados por la empresa, para atender el registro y actualización de base de datos de clientes a entidades Bancarias
+  </p>
+ </div>
+ <div class="doc-section" data-id="3">
+  3. RESPONSABLES
+ </div>
+ <div class="doc-content" data-id="3">
+  <p>
+   Gerente de Operaciones, Director de Procesos, Líder de procesos, Analista de Complementación, Auxiliar de Procesos y Digitador
+  </p>
+ </div>
+ <div class="doc-section" data-id="4">
+  4. DEFINICIONES
+ </div>
+ <div class="doc-content" data-id="4">
+  <p>
+   Archivo Plano: Archivo de datos que se utiliza para intercambio de información entre diferentes aplicaciones. Webservice: (Servicio Web) Infraestructura independiente de lenguaje y plataforma para comunicación, aplicación desacoplada e ínter operable sobre una Internet. ENT O ENX: Archivo plano que contiene la información de entrada al proceso de complementación, si es ENT el origen es una transacción por el Webservice, si es ENX es por medio de un archivo XML de contingencia SAL o SAX: Archivo plano que contiene la información de salida del proceso de complementación, si es SAL el origen es una transacción por el Webservice, si es SAX es por medio de un archivo XML de contingencia XML: sigla en inglés de Extensible Markup Lenguaje («lenguaje de marcas extensible»), En el proceso de complementación se utiliza para intercambiar la información de entrada y de salida en el proceso de contingencia. FTP: (File Transfer Protocoló) es un protocolo de transferencia de archivos entre sistemas conectados a una red TCP (Protocolo de Control de Transmisión) basado en la arquitectura cliente-servidor, de manera que desde un equipo cliente nos podemos conectar a un servidor para descargar archivos desde él o para enviarle nuestros propios archivos independientemente del sistema operativo utilizado en cada equipo. 29/11/2023 Digitación Información de clientes Complementación del Activo Pasivo Casos: Archivo de información asociado con un archivo de imagen
+  </p>
+ </div>
+ <div class="doc-section" data-id="5">
+  5. DOCUMENTOS DE REFERENCIA
+ </div>
+ <div class="doc-content" data-id="5">
+  <p>
+   Cláusulas del Contrato. Acuerdos de Servicios. Propuestas de Servicios. Manual gestión de solicitudes e incidentes Complementación Digicom
+  </p>
+ </div>
+ <div class="doc-section" data-id="6">
+  6. DESCRIPCIÓN DEL PROCESO
+ </div>
+ <div class="doc-content" data-id="6">
+  <div class="doc-subsection">
+   6.1. ACCESO A LA PLATAFORMA
+  </div>
+  <div class="doc-subcontent">
+   <div class="doc-subsection">
+    6.1.1. Canales o medios de intercambio de información
+   </div>
+   <div class="doc-subcontent">
+   </div>
+  </div>
+  <div class="doc-subsection">
+   6.2. COMPLEMENTACION DEL PASIVO
+  </div>
+  <div class="doc-subcontent">
+   <div class="doc-subsection">
+    6.2.1. Canales o medios de intercambio de información
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.2.1.1. Recepción y envío de resultados
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       RESPONSABLE:
+      </b>
+      Cliente
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       REGISTRO:
+      </b>
+      PRO-D-EXT-047 Acuerdo de servicios DESCRIPCION: El banco provee un canal dedicado configurado y administrado directamente por el banco para el intercambio de información vía FTP (transmisión de imágenes y archivos del activo) y consumo de WebService (envío de datos complementados), de acuerdo con lo establecido en el contrato. El banco provee un sitio seguro a través de internet para recibir y enviar imágenes y archivos planos encriptados del pasivo. 29/11/2023 Digitación Información de clientes Complementación del Activo Pasivo
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.2.2. Recepción, transformación y cargue de Información
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.2.2.1. Recepción de casos
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       RESPONSABLE:
+      </b>
+      Líder de proceso
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       REGISTRO:
+      </b>
+      No Aplica DESCRIPCION: El ingreso de los casos queda registrado en el Log y se evidencia en el formato. Nota 1: En la recepción de casos se utiliza el visor de imágenes para: la primera, segunda grabación y el análisis, como herramienta configurada que permite navegar por las imágenes para ir verificando la información registrada por los usuarios detectando además errores en las grabaciones y análisis mencionados. Esta herramienta permite el desplazamiento y acceso a las carpetas de las imágenes autorizadas para el rol Digitador y Líder dentro del aplicativo
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.2.2.2. Transformación de los casos ingresados
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       RESPONSABLE:
+      </b>
+      Líder de proceso
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       REGISTRO:
+      </b>
+      No Aplica DESCRIPCION: Los casos que ingresan por WS se transforman automáticamente quedando con la extensión .ENT. Cuando los archivos ingresan vía FTP es necesario activar un motor de transformación de los archivos XML desde el servidor en donde se encuentran alojados quedando con la extensión .ENX. En la ruta \\SERVIDORFTP\CompartidaAvvillas\CompartidaEnts_Contingencia\ se debe hacer validacion diaria de la existencia de archivos XML si evidenciamos que existen es necesario convertirlos a archivo plano. Para convertirlos a plano usamos el motor XMLaTXT.exe que se encuentra en la ruta “\\SERVIDORAPLICACIONES\aplicativo pasivo\MonitorXmltoTXT\” Este debe estar direccionado a \\SERVIDORFTP\CompartidaAvvillas\CompartidaEnts_Contingencia\ 29/11/2023 Digitación Información de clientes Complementación del Activo Pasivo Cuando termina el proceso de conversión buscamos los archivos en la ruta dentro del servidor v:\\Ingreso_archivos_contingencia, estos van a quedar con extensión .ENX, los cortamos y los pegamos en la ruta de archivos de entrada de pasivo \\SERVIDORAPLICACIONES\aplicativo pasivo\entradas pasivo\, estos al ser cargados quedaran con extensión .PRX. 29/11/2023 Digitación Información de clientes Complementación del Activo Pasivo
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.2.2.3. Cargue de información
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       RESPONSABLE:
+      </b>
+      Líder de proceso
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       REGISTRO:
+      </b>
+      No Aplica. DESCRIPCION: Activar motor de carga que se encuentra en el servidor en donde ingresaron los archivos y las imágenes y en donde se va a realizar la carga, para asociar información con imagen
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.2.3. Digitación de la información
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.2.3.1. Captura de información
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       RESPONSABLE:
+      </b>
+      Digitador
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       REGISTRO:
+      </b>
+      No Aplica DESCRIPCION: Capturar la información de los formularios en primera y segunda captura. Para ingresar al módulo de captura o anexos se ingresa por el siguiente menú: 29/11/2023 Digitación Información de clientes Complementación del Activo Pasivo En la pantalla de captura o anexos se hace clic en el icono abrir Al hacer clic en este icono el sistema asignara un formulario o un anexo del caso al usuario para poder iniciar la captura. Los campos de los formularios o anexos son suministrados por el cliente, por lo que su orden puede variar y no ser consecutivo. Posterior a la carga de un formulario se procede a escoger, entre 6 posibles formatos que se encuentran en la parte superior derecha, el que se visualice en la imagen. Si el formato evidenciado es una Actualización (2 columnas) y se evidencia en la columna de la derecha datos como OK, LA MISMA, POR DEFINIR, IGUAL, = ETC es decir, información que no corresponda a un diligenciamiento lógico, los campos deben viajar en blanco sin causal. 29/11/2023 Digitación Información de clientes Complementación del Activo Pasivo Para el proceso de grabación todos los campos incluyen una ayuda específica acerca de la grabación y recomendaciones a tener en cuenta de acuerdo a las características de cada campo Cuando ya finaliza la captura de la totalidad de los campos se procede a grabar esta información presionando el botón “GRABAR”
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.2.4. Validación de la información:
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.2.4.1. Validar capturas
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       RESPONSABLE:
+      </b>
+      Auxiliar de proceso
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       REGISTRO:
+      </b>
+      No Aplicar DESCRIPCION: Se validan las diferencias entre la primera y segunda captura, confirmando contra la imagen. Si la información no coincide con ninguna de las capturas el auxiliar debe ingresar la información correcta. El proceso de validación es el filtro del envío de la información posterior a las capturas de los formularios. Cuando las 2 capturas finalizan, la aplicación realiza una búsqueda detallada de las diferencias que se encuentren en los campos. El proceso inicia de igual manera que las capturas. El Validador tiene creado un usuario y así mismo asignado un password para el ingreso. La pantalla de acceso es igual en los 2 procesos. 29/11/2023 Digitación Información de clientes Complementación del Activo Pasivo Seguido del ingreso, se procede a abrir los casos que presentan inconsistencia en las 2 capturas desde el botón “ABRIR”. Posterior a esto, se carga la imagen y se dispone a realizar la comparación teniendo en cuenta que se debe dar clic en el botón “COMPARAR” para así verificar si este documento presenta campos por validar. Si en el momento de realizar este evento sale el mensaje “FIN DE COMPARACION”, esto significa que el formulario no tuvo campos para validar. De lo contrario lo que se presenta son los campos que están por verificar. El validador debe basarse en la imagen para escoger la opción correcta. He aquí algunos ejemplos. 29/11/2023 Digitación Información de clientes Complementación del Activo Pasivo Después de que se escoge la opción correctamente ingresada, la aplicación realiza una pregunta de verificación para así estar aún más seguros de que la información escogida sea la correcta. Sin embargo, se puede dar el caso de que ninguna de las 2 capturas sea la correcta, por lo que el validador tiene la opción de ingresar la información, dando clic en el botón “NUEVA INFORMACIÓN”. 29/11/2023 Digitación Información de clientes Complementación del Activo Pasivo Allí se habilita la opción para ingresar o buscar en un listado, dependiendo del campo, la información correcta. Cuando ya finaliza el proceso de verificación de todos los campos, la aplicación envía un mensaje de carácter informativo para que el validador sepa que la comparación de ese caso ya culminó. Cuando esto ocurre, el paso a seguir es la generación del archivo a enviar al cliente con la información digitada en las capturas y corregida en la validación. INCONSISTENCIAS Posterior a la finalización y envío de los casos ya capturados y validados al cliente, se esperan posibles devoluciones por inconsistencias, las cuales pueden volver a ser complementados o reenviados siguiendo el mismo procedimiento ya mencionado
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.2.5. Manejo de software
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.2.5.1. Manejo u operación de software
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       RESPONSABLE:
+      </b>
+      Líder de proceso, digitador, Auxiliar de proceso 29/11/2023 Digitación Información de clientes Complementación del Activo Pasivo
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       REGISTRO:
+      </b>
+      No Aplica DESCRIPCION: • Ingreso al aplicativo • Ingresar usuario y contraseña: Dependiendo del nivel que el usuario tenga se activaran o desactivaran las opciones del menú. Los diferentes niveles de usuarios son: El nivel Inactivo hace que el usuario no pueda ingresar al sistema El nivel Transcriptor le permite ingresar al usuario únicamente a los formularios de doble captura, a la primera o a la segunda. El nivel Analista le permite ingresar al usuario únicamente a los formularios de captura por analista. El nivel Administrador le permite utilizar las herramientas de administración y revisión de cualquier formulario
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.2.6. Generación de archivos de salida
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.2.6.1. Generación de archivos de salida
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       RESPONSABLE:
+      </b>
+      Líder de proceso
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       REGISTRO:
+      </b>
+      No Aplica DESCRIPCION: En tiempo real terminado la validación el Sistema genera archivos tipo SAX o SAL dependiendo del tipo de ingreso (FTP o WS) por medio del robot generador de archivos de salida
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.2.7. Entrega final del producto
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.2.7.1. Envío archivos de salida: Líder de proceso
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       REGISTRO:
+      </b>
+      No Aplica DESCRIPCION: Enviar por WS (monitor de envío) los casos terminados. En caso de ingreso por FTP se usara el motor de transformación TXTtoXML para generar los XML de respuesta y se colocan en la carpeta de salida. //servidor/CompartidaAvvillas/CompartidaSals 29/11/2023 Digitación Información de clientes Complementación del Activo Pasivo Después de ser procesados estos casos quedan con extensión .SAX en la ruta \\SERVIDORAPLICACIONES\aplicativo pasivo\in\ así que es necesario transformarlos nuevamente para que queden en formato .XML, para esto abrimos el motor TxttoXml.exe que se encuentra en la ruta \\SERVIDORAPLICACIONES\aplicativo pasivo\MonitorTXTtoXML\, este motor se abre dentro del servidor y debe estar direccionado a la ruta v:\\Aplicativo pasivo\in\ Lo activamos para empezar el proceso de transformación y este nos dejara los XML de respuesta en la ruta v:\\Ingreso_archivos_contingencia dentro del servidor, tomamos todos los archivos XML generados los cortamos y pegamos en \\SERVIDORFTP\CompartidaAvvillas\CompartidaSals_Contingencia\, para que corra el proceso automático de impacto en CRM
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.2.8. Generación de informes
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.2.8.1. Generar informes
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       RESPONSABLE:
+      </b>
+      Líder de proceso
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       REGISTRO:
+      </b>
+      PRO-D-002 Envíos del Pasivo PRO-D-004 Resumen diario del pasivo PRO-D-003 Reporte de casos bloqueados del pasivo “Si el banco lo solicita” DESCRIPCION: Generar diariamente a través del aplicativo los informes diarios de: • Envíos del pasivo 29/11/2023 Digitación Información de clientes Complementación del Activo Pasivo Se genera desde “Reportes/reportes de pasivo/Generar reporte de casos enviados” Se ingresa la fecha del informe El archivo generado queda ubicado en: \\SERVIDOR\Aplicativo Pasivo\InformesDiarios El archivo generado se debe ubicar y copiar en el archivo codificado ubicado en la ruta: \\192.168.78.3\Aplicativo Pasivo \InformesDiarios (Confidencial)\Archivos formatos PROD-D-002 • Casos bloqueados del pasivo Se genera desde “Reportes/reportes de pasivo/Generar reporte de casos bloqueados” Se ingresa la fecha del informe El archivo generado queda ubicado en: \\SERVIDOR\Aplicativo Pasivo\InformesDiarios El archivo generado se debe ubicar y copiar en el archivo codificado ubicado en la ruta: “\\SERVIDOR\Aplicativo Pasivo\InformesDiarios\(Confidencial)\Archivos formatos PROD-D-003. Este reporte se genera si el banco lo solicita ya que dentro del ingreso y el vio de casos se evidencian los casos con bloqueo. • Resumen diario de ingreso del Pasivo Se genera desde “Revisión de documentos/Documentos recibidos/Generar reporte en Excel” Se ingresa la fecha desde cuando se quiere generar el informe \\SERVIDOR\Aplicativo Pasivo\”recibidos.xls” El archivo generado se debe ubicar y copiar en el archivo codificado ubicado en la ruta: \\SERVIDOR\Aplicativo Pasivo\InformesDiarios (Confidencial)\Archivos formatos PROD- D-004 Resumen diario del pasivo
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       NOTA:
+      </b>
+      Estos 3 archivos deben ser copiados en la ruta /DIGICOM_A_BANCO/ARCHIVOS DE PROCESO/ y se debe informar al cliente mediante correo electrónico a la dirección &lt;JefaturadeDigitalizacionyComplementacion@bancoavvillas.com.co&gt; confirmando la publicación de estos. • Diariamente a las 12:00pm y 04:30 pm se genera un informe que se envía por e-mail al cliente a la dirección &lt;JefaturadeDigitalizacionyComplementacion@bancoavvillas.com.co&gt;, este informe contiene la información actual de la producción del proceso: 01/07/2015 60 35 0 25 02/07/2015 50 49 0 26 03/07/2015 56 50 0 32 04/07/2015 177 196 3 10 05/07/2015 0 0 0 10 06/07/2015 2 10 0 2 07/07/2015 0 0 0 2 TOTAL 345 340 3 2 29/11/2023 Digitación Información de clientes Complementación del Activo Pasivo En él se indica la cantidad de casos ingresados, enviados y bloqueados por día, además de la cantidad de casos pendientes cada día. Esta información se genera desde el aplicativo de pasivo en /REVISION DE DOCUMENTOS/ENVIOS POR FECHA/ en el cual se genera la siguiente tabla:
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.2.9. Backup
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.2.9.1. Generación de backups
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       RESPONSABLE:
+      </b>
+      Cliente
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       REGISTRO:
+      </b>
+      No Aplica DESCRIPCION: El cliente se encargara de tener los backups correspondientes al proceso y serán ellos los encargados de suministrarlos en caso de que sea necesario. 29/11/2023 Digitación Información de clientes Complementación del Activo Pasivo
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.2.10. Eliminación de la información
+   </div>
+   <div class="doc-subcontent">
+   </div>
+  </div>
+ </div>
+ <div class="doc-section" data-id="1">
+  1. Ingreso al aplicativo:
+ </div>
+ <div class="doc-content" data-id="1">
+ </div>
+ <div class="doc-section" data-id="2">
+  2. Ingresar usuario y contraseña
+ </div>
+ <div class="doc-content" data-id="2">
+  <div class="doc-subsection">
+   6.4. NOMINAS MASIVAS
+  </div>
+  <div class="doc-subcontent">
+   <div class="doc-subsection">
+    6.4.1. Recepción y cargue de información
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.4.1.1. Recepción de información
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       RESPONSABLE:
+      </b>
+      Líder de proceso
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       REGISTRO:
+      </b>
+      No Aplica DESCRIPCION: En la dirección \\SERVIDORFTP\CompartidaAvvillas\ Entrada_NominasMasivas se descargan las imágenes y archivos planos. Estos se copian en la carpeta asignada en el sistema nombrada de acuerdo a la fecha (AAAAMMDD) y creamos otra carpeta con la fecha y agregando “_destino” (AAAAMMDD_DESTINO)
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.4.1.2. Cargue de información
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       RESPONSABLE:
+      </b>
+      Líder de proceso
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       REGISTRO:
+      </b>
+      No Aplica DESCRIPCION: Para cargar y generar archivos de nóminas masivas es necesario crear una carpeta en C: llamada “archivos_xml”, esto es necesario debido a que las sesiones remotas son temporales y no almacenan ningún tipo de archivo ni configuración. Internamente en la carpeta (las fechas de descarga las indica el cliente mediante correo) hay un archivo llamado “keyword.txt”, el nombre debe ser modificado por “listaresultado.txt” Seleccionamos la carpeta con la opción cortar para evitar la duplicidad de imágenes y la pegamos en la siguiente ruta: \\SERVIDORAPLICACIONES\Confidencial_Nominas52_2017\database\imagenes La nombramos con “AAAAMMDD” Y creamos una carpeta con la misma fecha, pero añadimos “_destino” AAAAMMDD_destino 29/11/2023 Digitación Información de clientes Complementación del Activo Pasivo Ahora procedemos a abrir el aplicativo para realizar la carga: Ubicación del aplicativo C:\Programas Digicom\ - En el aplicativo vamos a /AYUDA/VERIFICACION/ Directorio origen \\SERVIDORAPLICACIONES\Confidencial_Nominas\database\imagenes\AAAAMMDD\ Directorio destino \\SERVIDORAPLICACIONES \Confidencial_Nominas\database\imagenes\AAAAMMDD_destino\ Y le damos ACEPTAR Buscamos la opción Cargar_info y en “Fecha_Proceso” ingresamos la fecha de la carpeta y presionamos el botón “Cargar_info” Al finalizar la carga recibimos el siguiente mensaje: Volvemos al cuadro de Frm_Validacion y oprimimos el botón “Cargar_ID” 29/11/2023 Digitación Información de clientes Complementación del Activo Pasivo
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.4.2. Digitación
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.4.2.1. Captura de información
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       RESPONSABLE:
+      </b>
+      Digitadores
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       REGISTRO:
+      </b>
+      No Aplica DESCRIPCION: Capturar la información de los formularios en primera y segunda captura
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.4.3. Validación de información
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.4.3.1. Validar capturas
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       RESPONSABLE:
+      </b>
+      Auxiliar de proceso
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       REGISTRO:
+      </b>
+      No Aplica DESCRIPCION: Se validan las diferencias entre la primera y segunda captura, confirmando contra la imagen. Si la información no coincide con ninguna de las capturas el auxiliar debe ingresar la información correcta. 29/11/2023 Digitación Información de clientes Complementación del Activo Pasivo
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.4.4. Generación y envío de archivos de salida
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.4.4.1. Generación de archivos de salida
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       RESPONSABLE:
+      </b>
+      Líder de proceso
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       REGISTRO:
+      </b>
+      No Aplica DESCRIPCION: En la ruta: \\SERVIDORFTP\CompartidaAvvillas\Entrada_NominasMasivas Copiamos el archivo llamado “MATRIZ” en la ruta “SERVIDORAPLICACIONES\confidencial_nominas\matriz salidas” El archivo a cargar es “Matriz reporte.csv” En al recuadro de Cargar_Info buscamos la ruta del archivo en Nombre_Directorio Cuando termine de cargar el archivo matriz procedemos a generar el FORM o archivo de desbloqueos 29/11/2023 Digitación Información de clientes Complementación del Activo Pasivo Y generamos el archivo de respuesta que contiene toda la información complementada para la fecha, este archivo de forma predeterminada queda con la fecha en la cual se genera el archivo: En la carpeta \\SERVIDORAPLICACIONES\confidencial_nominas\matriz salidas\MATRIZ\ se generan los archivos: Rep_Nom_AAAAMMDD.txt FORM_COMPLETOS_DIGICOM.txt Y en la carpeta \\SERVIDORAPLICACIONES\confidencial_nominas\matriz salidas\XML_SAL\ Matriz_Reporte.csv Agregamos el día de generación al nombre del archivo Matriz_Reporte AAAAMMDD.csv
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.4.4.2. Envío archivos de salida
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       RESPONSABLE:
+      </b>
+      Líder de proceso
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       REGISTRO:
+      </b>
+      No Aplica DESCRIPCION: Los archivos generados serán copiados en la ruta \DIGICOM A BANCO\ARCHIVOS DE PROCESO\ En la ruta \\SERVIDORFTP\CompartidaAvvillas\Salida_Nominas_Masivas\ copiamos el archivo plano de respuesta Rep_Nom_AAAAMMDD.txt En la ruta \\SERVIDORFTP\CompartidaAvvillas\Salida_Actualizacion\ es necesario crear un archivo llamado Rte_act_AAAAMMDD.txt con la fecha de generación actual (para que corra correctamente el proceso de impacto en CRM), debemos garantizar que la fecha de creación sea la del día de publicación, por esta razón no se deben copiar los archivos. 29/11/2023 Digitación Información de clientes Complementación del Activo Pasivo
+     </li>
+    </ul>
+   </div>
+  </div>
+ </div>
+ <div class="doc-section" data-id="7">
+  7. ANEXOS
+ </div>
+ <div class="doc-content" data-id="7">
+  <p>
+   No Aplica 29/11/2023 Digitación Información de clientes Complementación del Activo Pasivo
+  </p>
+ </div>
+ <div class="doc-section" data-id="8">
+  8. INDICADORES DE DESEMPEÑO
+ </div>
+ <div class="doc-content" data-id="8">
+  <p>
+   RESPONSABL MEDIDO FRECUENCI INDICADOR E POR A REVISIÓN Σ Casos - ∑ Errores grabación *100 Líder de Gerente de ------------------------------------------- Mensual procesos operaciones Σ Casos ingresados Σ casos-∑ (Errores grabación Errores en análisis) *100 Líder de Gerente de Mensual ------------------------------------------- procesos operaciones Σ Casos ingresados Σ Total Casos - Casos OCI Entregados *100 fuera de tiempo Líder de Gerente de Mensual ---------------------------------------------------- procesos operaciones Σ Total Casos Σ total Casos - Casos Tradicionales Entregados fuera de tiempo *100 Líder de Gerente de Mensual --------------------------------------------------- procesos operaciones Σ Total casos Σ Tiempo de respuesta por crédito Líder de Gerente de ------------------------------------------------ Mensual procesos operaciones Σ Total créditos recibidos Σ Tiempo de respuesta por crédito Líder de Gerente de ----------------------------------------------- Mensual procesos operaciones Σ Total créditos recibidos
+  </p>
+ </div>
+ <div class="doc-section" data-id="9">
+  9. CONTROL DEL PROCEDIMIENTO
+ </div>
+ <div class="doc-content" data-id="9">
+  <p>
+   VER. FECHA DE No. ELABORADO REVISADO APROBADO APROBACIÓN MODIFICACIÓN REALIZADA Oficial de Se realiza actualización Líder de Líder de 20 Seguridad 21/06/2019 general al Procesos Procesos Informática procedimiento. Se realizó actualización Líder de Analista de Líder de 21 20/08/2019 general del procesos Calidad procesos procedimiento 29/11/2023 Digitación Información de clientes Complementación del Activo Pasivo Se actualizó el responsable de la actividad 6.2.10.1 Coordinador Directos Coordinador 22 28/11/2023 Eliminar información de procesos SGI de procesos según acuerdo de servicios 29/11/2023
+  </p>
+ </div>
+</div>
+
+<!-- Botón para abrir el modal -->
+<button class="btn btn-outline-primary" id="openModalBtn" style="margin-top: 20px;">Editar Secciones</button>
+<!-- El Modal -->
+<div class="modal" id="sectionModal">
+    <div class="modal-content">
+        <span class="close-button">×</span>
+        <h2>Selecciona y Edita una Sección</h2>
+        <label for="sectionSelector">Sección:</label>
+        <select id="sectionSelector">
+            <option value="">-- Selecciona una sección --</option>
+        </select>
+        <label for="sectionContent">Contenido:</label>
+        <textarea id="sectionContent" placeholder="El contenido de la sección aparecerá aquí..."></textarea>
+        <label for="sectionCambio">Descripcion del Cambio:</label>
+        <textarea id="sectionCambio" placeholder="Describe en palabras cortas el cambio realizado..."
+            required></textarea>
+        <button class="btn btn-outline-primary" id="saveChangesBtn" style="margin-top: 15px;">Guardar Cambios</button>
+    </div>
+</div>
+<script src="{{ url_for('static', filename='js/jquery.min.js')}}"></script>
+<script src="{{ url_for('static', filename='js/acordeon_doc.js')}}"></script>
+<script src="{{ url_for('static', filename='js/edita_procedimiento.js')}}"></script>
+
+{% endblock %}

@@ -9,13 +9,7 @@ usoInt_bp = Blueprint('usoInt', __name__)
 @login_required
 def UsoInterno():
     def CONTEXTO():
-        archivos_UsoInterno = subC_doc_UsoInt('Información de Uso Interno')
-        rol = current_user.rol
-        procesos = PROCESOS_ROL.get(rol, [])
-        imagen_rol = ROL_IMAGES.get(rol, 'imgs/user.png')
         return {
-            'archivos_UsoInterno': archivos_UsoInterno,
-            'procesos': procesos,
-            'imagen_rol': imagen_rol
+            'archivos_UsoInterno': subC_doc_UsoInt('Información de Uso Interno')
         }
     return render_template('UsoInterno/UsoInterno.html', usuario=current_user, **CONTEXTO())

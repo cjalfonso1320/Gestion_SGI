@@ -1,0 +1,1453 @@
+{% extends 'home.html' %}
+{% block title %}Documentacion{% endblock %}
+{% block content %}
+<link href="{{ url_for('static', filename='css/acordeon_doc.css') }}" rel="stylesheet" />
+<link href="{{ url_for('static', filename='css/procedimientos.css') }}" rel="stylesheet" />
+
+<div id="documento" style="display:none;">procedimientos/Produccion/PRO-PR-013 Impuestos Distritales Bancolombia.html</div>
+<div id="nombre_documento" style="display: none;">PRO-PR-013 Impuestos Distritales Bancolombia</div>
+<h1>PRO-PR-013 Impuestos Distritales Bancolombia</h1>
+{% for cambio in cambios %}
+{% if loop.first %}
+<h3>Version: {{cambio[3]}}</h3>
+{% endif %}
+{% endfor %}
+<br />
+<div class="doc-accordion">
+    <div class="doc-section" data-id="1">
+        1. OBJETIVO
+    </div>
+    <div class="doc-content" data-id="1">
+        <p>
+            Procesar integralmente los impuestos distritales recaudos por Bancolombia y dar cumplimiento al sistema de
+            gestión integrado
+        </p>
+    </div>
+    <div class="doc-section" data-id="2">
+        2. ALCANCE
+    </div>
+    <div class="doc-content" data-id="2">
+        <p>
+            Este procedimiento aplica a los servicios de impuestos distritales implementados por Digicom System
+            Corporation S.A
+        </p>
+    </div>
+    <div class="doc-section" data-id="3">
+        3. RESPONSABLES
+    </div>
+    <div class="doc-content" data-id="3">
+        <p>
+            Gerente de operaciones, director de procesos, jefe de Procesos, Líder de procesos, Auxiliar de procesos y
+            Digitador
+        </p>
+    </div>
+    <div class="doc-section" data-id="4">
+        4. DEFINICIONES
+    </div>
+    <div class="doc-content" data-id="4">
+        <ul>
+            <li><i class="fa-regular fa-circle-check"></i> <b>Archivo Plano:</b> Archivo de datos que se utiliza para intercambio de información entre las diferentes
+            aplicaciones.</li>
+            <li><i class="fa-regular fa-circle-check"></i> <b>LOG bancario:</b> Es el registro de las transacciones de una fecha de recaudo remitido por el
+            banco.</li>
+            <li><i class="fa-regular fa-circle-check"></i> <b>Página Web:</b> es un gran espacio documental organizado, dedicado al intercambio de información.</li>
+        </ul>
+    </div>
+    <div class="doc-section" data-id="5">
+        5. DOCUMENTOS DE REFERENCIA
+    </div>
+    <div class="doc-content" data-id="5">
+        <ul>
+            <li><i class="fa-regular fa-circle-check"></i> Acuerdo de servicios.</li>
+            <li><i class="fa-regular fa-circle-check"></i> Norma NTC ISO 9001.</li>
+            <li><i class="fa-regular fa-circle-check"></i> Resolución SHD 167 26 de octubre de 2018</li>
+        </ul>
+    </div>
+    <div class="doc-section" data-id="6">
+        6. DESCRIPCIÓN DEL PROCESO
+    </div>
+    <div class="doc-content" data-id="6">
+        <div class="doc-subsection">
+            6.1. Recepción de Información bancaria
+        </div>
+        <div class="doc-subcontent">
+            <div class="doc-subsection">
+                6.1.1. Recepción Log Bancario
+            </div>
+            <div class="doc-subcontent">
+                <div class="doc-subsection">
+                    6.1.1.1. Descargue log banco
+                </div>
+                <div class="doc-subcontent">
+                    <ul>
+                        <li><i class="fa-regular fa-circle-check"></i> RESPONSABLE: Líder de procesos</li>
+                        <li><i class="fa-regular fa-circle-check"></i> REGISTRO: No Aplica.</li>
+                        <li><i class="fa-regular fa-circle-check"></i> DESCRIPCIÓN: El banco envía en un archivo plano en formato TXT en donde se resume el registro de
+                        las transacciones de una fecha de recaudo. El banco sitúa el archivo en el canal en la siguiente
+                        ruta: \\servidor\bancolombia\INPUT\CAJAaammdd.txt, el cual viene nombrado con CAJAaammdd.
+                            <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img1.png')}}"
+                            alt="">
+                         El archivo remito por el banco se sitúa en el servidor asignado
+                        \\servidor\Confidencial_Id07_aaaa\cajabancolombia
+                            <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img2.png')}}"
+                            alt="">
+                        </li>     
+                    </ul>
+                    <div class="doc-subsection" data-id="1">
+                        1.
+                    </div>
+                    <div class="doc-subcontent" data-id="1">
+                        <p>
+                            Luego ingresamos al aplicativo que se encuentra ubicado en el servidor asignado
+                            \\servidor\Confidencial_Id07_aaaa\jid_07.exe e ingresamos usuario y contraseña.
+                            <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img3.png')}}"
+                                alt="">
+                        </p>
+                    </div>
+                    <div class="doc-subsection" data-id="2">
+                        2.
+                    </div>
+                    <div class="doc-subcontent" data-id="2">
+                        <p>
+                            En la barra superior del aplicativo, en la pestaña movimiento ingresamos la fecha que vamos
+                            a procesar, aaaammdd
+                            <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img4.png')}}"
+                                alt="">
+                        </p>
+                    </div>
+                    <div class="doc-subsection" data-id="3">
+                        3.
+                    </div>
+                    <div class="doc-subcontent" data-id="3">
+                        <p>
+                            Nos dirigimos en la barra superior en la pestaña bancos opción carga log Bancolombia
+                            nos arroja una ventana donde ingresamos la fecha que vamos a procesar aaaammdd y
+                            seleccionamos el botón
+                            Cargar.
+                            <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img5.png')}}"
+                                alt="">
+                            ‘ Nota 1: Cuando el aplicativo ya finalizo el proceso arroja el mensaje que se cargó
+                            correctamente.
+                            Nota 2: En el caso que el log no se encuentre disponible en el canal del servidor se debe
+                            realizar la
+                            solicitud al banco por correo electrónico primera hora.
+
+                        </p>
+                    </div>
+                </div>
+                <div class="doc-subsection">
+                    6.1.1.2. Generar formato recepción tula
+                </div>
+                <div class="doc-subcontent">
+                    <ul>
+                        <li><i class="fa-regular fa-circle-check"></i> RESPONSABLE: Líder de procesos – Auxiliar de procesos.</li>
+                        <li><i class="fa-regular fa-circle-check"></i> REGISTRO: PRO F 023 Relación Oficina cantidad documentos Distritales Bancolombia.</li>
+                        <li><i class="fa-regular fa-circle-check"></i> DESCRIPCIÓN: Para generar el formato de recepción para descargar los documentos nos dirigimos por el
+                            el aplicativo en la barra superior a Bancos, opción Log bancario nos arroja
+                            una ventana donde se actualiza el icono Copiar log banco a Excel
+                            <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img6.png')}}"
+                            alt="">
+                            Luego nos dirigimos a la ruta en el servidor asignado
+                            \\servidor\Confidencial_Id07_aaaa\data\07\aaaammdd Donde se generó el archivo
+                            declaraciones_x_ofic_horario.xls De la fecha anterior copiamos el archivo PRO F 023 Relación
+                            Oficina
+                            ctdad documentos Distritales Bancolombia aaaa mm dd se diligencia con los datos del archivo
+                            declaraciones_x_ofic_horario.xls
+                            <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img7.png')}}"
+                                alt="">
+                            Despues que ya lo hemos pasado al formato se imprime y se pasa
+                            a la
+                            actividad de digitalización.
+                            <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img8.png')}}"
+                                alt="">
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="doc-subsection">
+                6.1.2. Recepción documentos físicos
+            </div>
+            <div class="doc-subcontent">
+                <div class="doc-subsection">
+                    6.1.2.1. Recepción Tulas
+                </div>
+                <div class="doc-subcontent">
+                    <ul>
+                        <li><i class="fa-regular fa-circle-check"></i> RESPONSABLE: Auxiliar de procesos</li>
+                        <li><i class="fa-regular fa-circle-check"></i> REGISTRO: PRO F EXT 007 RELACION TULAS IMPUESTOS BANCOLOMBIA</li>
+                        <li><i class="fa-regular fa-circle-check"></i> DESCRIPCIÓN: El banco envía en una tula madre selladas con un precinto de seguridad, que contiene bolsas
+                            rotuladas con un label y selladas con precintos, el precinto de la tula madre debe ser cantado
+                            ante
+                            cámara, las bolsas transparentes que vienen con su respectivo label se dejan en una canasta y
+                            las bolsas
+                            blancas con precinto se revisan una a una para verificar que no vengan rotas o abiertas en las
+                            partes
+                            laterales (si se detecta alguna anomalía se notifica por medio de correo electrónico a los
+                            funcionarios
+                            de Bancolombia), Después de revisados los paquetes se pasa a organizar en forma ascendente las
+                            bolsas de
+                            menor a mayor por orden de oficina, se imprime el listado PRO F EXT 007 RELACION TULAS IMPUESTOS
+                            BANCOLOMBIA (el funcionario de Domesa envía por correo electrónico el formato al líder del
+                            proceso),
+                            este formato contiene la relación uno a uno de las tulas con el código de oficina y numero de
+                            precinto
+                            el cual se verifica con las tulas que se recibieron. Una vez organizado los paquetes y
+                            verificados los
+                            precintos se comienza a realizar la lectura de las bolsas. El auxiliar de proceso debe leer ante
+                            la
+                            cámara el número de precinto o label, la oficina, la cantidad de documentos recibidos los cuales
+                            deben
+                            coincidir con la tapa de relación. Una vez terminada la actividad los documentos se le entregan
+                            al líder
+                            del proceso.
+                        </li>
+                    </ul>
+                </div>
+                <div class="doc-subsection">
+                    6.1.2.2. Digitalización documentos:
+                </div>
+                <div class="doc-subcontent">
+                    <ul>
+                        <li><i class="fa-regular fa-circle-check"></i> RESPONSABLE: Líder de proceso – Auxiliar de procesos.</li>
+                        <li><i class="fa-regular fa-circle-check"></i> REGISTRO: No aplica.</li>
+                        <li><i class="fa-regular fa-circle-check"></i> DESCRIPCIÓN: Cuando no llegan imágenes por el canal
+                        y/o la página web, se generan desde el documento físico que ya se encuentran descargados en el registro
+                        y organizados por fecha y sucursal. En el computador asignado para la digitalización de documentos
+                        en el escritorio se encuentra el programa ScandAll Pro el cual damos clic para ejecutarlo.
+                        </li>
+                    </ul>
+                    <div class="doc-subsection" data-id="1">
+                        1.
+                    </div>
+                    <div class="doc-subcontent" data-id="1">
+                        <p>
+                            Estando en el programa scandall pro se selecciona el menú “digitalizar”
+                            <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img9.png')}}"
+                                alt="">
+                        </p>
+                    </div>
+                    <div class="doc-subsection" data-id="2">
+                        2.
+                    </div>
+                    <div class="doc-subcontent" data-id="2">
+                        <p>Nos dirigimos al menú configuraciones de digitalizaciones</p>
+                        <img
+                            src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img010.png')}}">
+                    </div>
+                    <div class="doc-subsection" data-id="3">
+                        3.
+                    </div>
+                    <div class="doc-subcontent" data-id="3">
+                        <p>
+                            Donde nos arroja una ventana en el cual se selecciona la ruta donde van a quedar las
+                            imágenes Servidor\confidendial_id07_aaaa\índex\digitalización\aaaammdd
+                            <img
+                                src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img011.png')}}">
+                        </p>
+                    </div>
+                    <div class="doc-subsection" data-id="4">
+                        4.
+                    </div>
+                    <div class="doc-subcontent" data-id="4">
+                        <p>
+                            En la opción regla del nombre se abre una ventana donde ingresamos como se van a llamar los
+                            archivos.
+                            <img
+                                src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img012.png')}}">
+                        </p>
+                    </div>
+                    <div class="doc-subsection" data-id="5">
+                        5.
+                    </div>
+                    <div class="doc-subcontent" data-id="5">
+                        <p>
+                            En la opción iniciar con se digita el número de consecutivo por el que va a iniciar los
+                            archivos y en la opción cadena de caracteres el nombre 27/11/2023 9 IMPUESTOS DISTRITALES
+                            BANCOLOMBIA
+                            <img
+                                src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img013.png')}}">
+                        </p>
+                    </div>
+                    <div class="doc-subsection" data-id="6">
+                        6.
+                    </div>
+                    <div class="doc-subcontent" data-id="6">
+                        <p>
+                            Las imagenes deberan quedar guardadas en \\servidor\Confidencial_Id07_aaaa\index\aaaammdd,
+                            donde se deben crear las carpetas por fechas.
+                            <img
+                                src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img014.png')}}">
+                            Nota 1: Para colocar
+                            el nombre de los archivos se recomienda hacerlo con la inicial de cada persona y para el
+                            consecutivo se debe
+                            iniciar desde 1 si es el mismo día.
+                            Nota 2: Si el banco envía los siguientes tipos de
+                            impuestos que
+                            corresponden a facturas cupones y rops (400 500 800) igual se deben digitalizar, pero
+                            aclarando en el
+                            formato PRO F 023 Relación Oficina ctdad documentos Distritales Bancolombia. en la sucursal
+                            la cantidad que
+                            llegaron
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="doc-subsection">
+            6.2. Captura de Información
+        </div>
+        <div class="doc-subcontent">
+            <div class="doc-subsection">
+                6.2.1. Cargar imágenes para indexar
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li><i class="fa-regular fa-circle-check"></i> RESPONSABLE: Líder de procesos, Auxiliar de procesos.</li>
+                    <li><i class="fa-regular fa-circle-check"></i> REGISTRO: No aplica.</li>
+                    <li><i class="fa-regular fa-circle-check"></i> DESCRIPCIÓN: Ingresamos a la
+                    siguiente ruta: \\servidor\Confidencial_Id07_aaaa\index\DIGITALIZACION cortamos las imágenes de cada
+                    fecha que se digitalizaron y las pegamos en la ruta \\servidor\Confidencial_Id07_aaaa\index en la
+                    fecha correspondiente.
+                    <div class="doc-subsection">1</div>
+                    <div class="doc-subcontent">
+                        <p>
+                            Ingresamos al aplicativo por la siguiente ruta
+                            <ul>
+                                <li>- Indexacion</li>
+                                <li>- Cargar Imagenes</li>
+                                <li>- Se le da clic en el boton cargar imagenes</li>
+                            </ul>
+                            <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img015.png')}}"
+                                alt="">
+                        </p>
+                    </div>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.2.2. Indexación
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li><i class="fa-regular fa-circle-check"></i> RESPONSABLE: Líder de procesos.</li>
+                    <li><i class="fa-regular fa-circle-check"></i> REGISTRO: No aplica.</li>
+                    <li><i class="fa-regular fa-circle-check"></i> DESCRIPCIÓN: Se ingresa al aplicativo por la siguiente ruta \Indexación\Indexar pre liquidados\Asignar imagen Se
+                    digita el número de referencia el cual se encuentra en la parte superior derecha, se verifica el adhesivo y
+                    se digita el valor total y se selecciona grabar imagen.
+                    <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img016.png')}}"
+                        alt="">
+                    Después que se han realizado la indexación total de las imágenes procedemos a revisar que no hallan imágenes pendientes por el siguiente menú en el
+                    aplicativo \Indexación\Cargar imágenes, revisamos los siguientes botones “ver ilegibles” “ver
+                    sobrantes” “liberar”, los cuales deben estar en cero.
+                    <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img017.png')}}"
+                        alt="">
+                    <b>Nota 1: </b>En caso de que al digitar el número de referencia
+                    nos arroja al campo del sticker esto quiere decir que corresponde a una imagen fuera de log y se debe
+                    seleccionar en el botón sobrante o ilegible para que el líder de proceso proceda a revisar esta
+                    imagen.
+                    <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img018.png')}}"
+                        alt="">
+                </ul>
+            </div>
+        </div>
+
+        <div class="doc-subsection">
+            6.3. Medios Magnéticos
+        </div>
+        <div class="doc-subcontent">
+            <div class="doc-subsection">
+                6.3.1 Generación de medios magnéticos:
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li><i class="fa-regular fa-circle-check"></i> <b>Responsable:</b> Líder de proceso</li>
+                    <li><i class="fa-regular fa-circle-check"></i> <b>Registro:</b> PRO D 116 Informe de estado de adhesivos antes de generar cinta
+                        PRO-F-EXT- 016 Anexo 11</li>
+                    <li><i class="fa-regular fa-circle-check"></i> <b>Descripción:</b>Por el aplicativo nos dirigimos al siguiente menú \Bancos\log
+                    bancario\ seleccionamos los siguientes botones:
+                    <ul>
+                        <li>Generar cruce de validaciones</li>
+                        <li>Copiar sya a Excel</li>
+                        <li>Reporte de faltantes Bancolombia</li>
+                        <li>Copiar a csv. Declaraciones y (fact, rop y cupones).</li>
+                    </ul>
+                    Estos archivos se generan en la ruta: \\servidor\Confidencial_Id07_aaaa\data\07\aaaammdd
+                    <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img019.png')}}"
+                        alt="">
+                    Nos dirigimos a ruta en el servidor \\servidor\Confidencial_Id07_aaaa\data\07\aaaamm
+                    estado de adhesivos antes de generar cinta, el reporte de faltantes generado con el aplicativo versus el
+                    físico, el reporte de faltantes una vez valido se envía el archivo a los funcionarios del banco
+                    indicando los faltantes reales a la fecha.
+                    <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img020.png')}}"
+                        alt="">
+                    Estando en la misma ruta \\servidor\Confidencial_Id07_aaaa\data\07\aaaammdd abrimos el archivo cruce_log_davi.xls y revisamos
+                    cuales registro tiene el siguiente error “Revisar vigencia de pago”
+                    <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img021.png')}}"
+                        alt="">
+                    Por el aplicativo en el menú \Grabación\Pre liquidados\visor de imágenes\ lo buscamos por:
+                    <ul>
+                        <li>Número de referencia
+                            <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img022.png')}}"
+                            alt="">
+                        </li>
+                        <li>Revisamos que el valor indexado sea igual o menor a las fechas límite de pago
+                            <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img023.png')}}"
+                            alt="">
+                        </li>
+                    </ul>
+                    Cuando se presentan inconsistencias antes de enviar el medio magnético como referencias
+                    duplicadas, adhesivos repetidos se realizan los siguientes pasos por el aplicativo:
+                    <ul>
+                        <li>Generación archivos planos</li>
+                        <li>Carga plana 2017</li>
+                        <li>En botón “carga archivo csv” se busca el archivo de las declaraciones o facturas dependiendo en
+                            donde se presentó la inconsistencia.
+                        </li>
+                        <li>Se busca el documento por referencia o por adhesivo.</li>
+                        <li>Se marca el documento y se selecciona el botón “ver marcados”</li>
+                        <li>En la opción “Copiar csv a la fecha” se digita la fecha a donde se va enviar el archivo con el
+                            documento,
+                            este en la fecha crea un archivo con el nombre “log_davi_cinta_inconsistencias.csv”.
+                        </li>
+                        <li>En seguida le damos la opción “ver no marcados” y en la opción Copiar csv a la fecha
+                            seleccionamos no marcados y
+                            digitamos la fecha y enviamos el archivo que lo crea con el nombre “log_davi_Declaraciones2.csv”.
+                        </li>
+                    </ul>
+                    Una vez se haya validado que no se encontraron diferencias en valor procedemos a generar los medios
+                    magnéticos
+                    <div class="doc-subsection" data-id="1">
+                        1.
+                    </div>
+                    <div class="doc-subcontent" data-id="1">
+                        <p>
+                            Generacion de Archivos Planos
+                            <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img024.png')}}"
+                                alt="">
+                        </p>
+                    </div>
+                    <div class="doc-subsection" data-id="1">
+                        2.
+                    </div>
+                    <div class="doc-subcontent" data-id="1">
+                        <p>
+                            Pre liquidados 2017
+                            <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img025.png')}}"
+                                alt="">
+                        </p>
+                    </div>
+                    <div class="doc-subsection" data-id="1">
+                        3.
+                    </div>
+                    <div class="doc-subcontent" data-id="1">
+                        <p>
+                            Se ingresa el numero de secuencia del medio magnetico
+                            <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img026.png')}}"
+                                alt="">
+                        </p>
+                    </div>
+                    <div class="doc-subsection" data-id="4">
+                        4.
+                    </div>
+                    <div class="doc-subcontent" data-id="4">
+                        <p>
+                            Se selecciona “16” si corresponde a declaraciones o “22” si corresponde a facturas cupones rops
+                            <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img027.png')}}"
+                                alt="">
+                        </p>
+                    </div>
+                    <div class="doc-subsection" data-id="5">
+                        5.
+                    </div>
+                    <div class="doc-subcontent" data-id="5">
+                        <p>
+                            Con el botón carga de archivo csv el abre una ventana para cargar los archivos de
+                            declaraciones o facturas generados al inicio de esta actividad, los cuales están situados en la
+                            ruta \\servidor\Confidencial_Id07_aaaa\data\07\aaaammdd
+                            <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img028.png')}}"
+                                alt="">
+                        </p>
+                    </div>
+                    <div class="doc-subsection" data-id="6">
+                        6.
+                    </div>
+                    <div class="doc-subcontent" data-id="6">
+                        <p>
+                            Una vez cargados lo archivos al aplicativo se selecciona el botón “genera plano 2017”
+                            <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img029.png')}}"
+                                alt="">
+                            <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img030.png')}}"
+                                alt="">
+                            <b>Nota:</b> Al generar el medio magnetico este nos genera el formato PRO-F-EXT- 016 Anexo 11, el cual
+                            se guarda en la siguiente ruta \\servidor\Confidencial_Id07_aaaa\data\07\aaaammdd, con el nombre
+                            PLANILLA_PRE.pdf
+                        </p>
+                    </div>
+                    <div class="doc-subsection" data-id="7">
+                        7.
+                    </div>
+                    <div class="doc-subcontent" data-id="7">
+                        <p>
+                            Crea el archivo en formato texto plano con la secuencia, el cual queda situado en la ruta:
+                            \\servidor\Confidencial_Id07_aaaa\data\07\aaaammdd\envios.
+                            <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img031.png')}}"
+                                alt="">
+                        </p>
+                    </div>
+                    <div class="doc-subsection" data-id="8">
+                        8.
+                    </div>
+                    <div class="doc-subcontent" data-id="8">
+                        <p>
+                            LOS ARCHIVOS SE DEBEN CIFRAR EN CON LA EXTENSIÓN. ZIP Y SE DEBEN CIFRAR CON CLAVE
+                            <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img032.png')}}"
+                                alt="">
+                        </p>
+                    </div>
+                    <div class="doc-subsection" data-id="9">
+                        9.
+                    </div>
+                    <div class="doc-subcontent" data-id="9">
+                        <p>
+                            ABRIR EL APLICATIVO DE CERTICAMARA UBICADO EN EL ESCRITORIO DEL EQUIPO DEL LÍDER DE PROCESO
+                            <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img033.png')}}"
+                                alt="">
+                        </p>
+                    </div>
+                    <div class="doc-subsection" data-id="10">
+                        10.
+                    </div>
+                    <div class="doc-subcontent" data-id="10">
+                        <p>
+                            LUEGO PROCEDEMOS A SELECCIONAR LA OPCIÓN FIRMAR DOCUMENTO
+                            <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img034.png')}}"
+                                alt="">
+                        </p>
+                    </div>
+                    <div class="doc-subsection" data-id="11">
+                        11.
+                    </div>
+                    <div class="doc-subcontent" data-id="11">
+                        <p>
+                            SE BUSCA EL ARCHIVO SE CARGA
+                            <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img035.png')}}"
+                                alt="">
+                        </p>
+
+                    </div>
+                    <div class="doc-subsection" data-id="12">
+                        12.
+                    </div>
+                    <div class="doc-subcontent" data-id="12">
+                        <p>
+                            SELECCIONAMOS LA OPCIÓN FIRMAR Y ACEPTAR
+                            <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img036.png')}}"
+                                alt="">
+                        </p>
+                    </div>
+                    <div class="doc-subsection" data-id="13">
+                        13.
+                    </div>
+                    <div class="doc-subcontent" data-id="13">
+                        <p>
+                            MUESTRA UNA VENTANA PARA INGRESAR LA CLAVE ASIGNADA
+                            <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img037.png')}}"
+                                alt="">
+                        </p>
+                    </div>
+                    <div class="doc-subsection" data-id="14">
+                        14.
+                    </div>
+                    <div class="doc-subcontent" data-id="14">
+                        <p>
+                            APARECE UNA VENTANA EMERGENTE INDICANDO QUE LOS ARCHIVOS FUERON FIRMADOS EXITOSAMENTE
+                            <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img038.png')}}"
+                                alt="">
+                        </p>
+                    </div>
+                    <div class="doc-subsection" data-id="15">
+                        15.
+                    </div>
+                    <div class="doc-subcontent" data-id="15">
+                        <p>
+                            LUEGO LOS ARCHIVOS QUE SE ENCUENTRAN FIRMADOS LOS PROCEDEMOS A SUBIR A LA PÁGINA DEL DISTRITO
+                            https://oficinavirtual.shd.gov.co/Recepcion/login.html donde nos solicita el banco, usuario y
+                            contraseña
+                            <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img039.png')}}"
+                                alt="">
+                        </p>
+                    </div>
+                    <div class="doc-subsection" data-id="16">
+                        16.
+                    </div>
+                    <div class="doc-subcontent" data-id="16">
+                        <p>
+                            INGRESADO A LA PÁGINA SELECCIONAMOS
+                            a. Reporte de información b. subir archivos c. Seleccionamos el tipo de archivo declaraciones o
+                            facturas.
+                            <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img040.png')}}"
+                                alt="">
+                            d.
+                            Se carga el tipo de archivo seleccionado el cual debe estar cifrado con Certifirma.
+
+                            e. se selecciona enviar e indica un mensaje notificando que el archivo
+                            se envió
+                            exitosamente
+                            <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img041.png')}}"
+                                alt="">
+                        </p>
+                    </div>
+                    <div class="doc-subsection" data-id="17">
+                        17.
+                    </div>
+                    <div class="doc-subcontent" data-id="17">
+                        <p>
+                            UNA VEZ LA CINTA SE ENCUENTRA EN ESTADO ACEPTADO SE PROCEDE A DESCARGAR EL REPORTE DE LA cinta
+                            en la cinta (pdf)
+                            <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img042.png')}}"
+                                alt="">
+                        </p>
+                    </div>
+                    <div class="doc-subsection" data-id="18">
+                        18.
+                    </div>
+                    <div class="doc-subcontent" data-id="18">
+                        <p>
+                            SELECCIONAR CONSULTAS – CONSULTAR RESULTADOS SE ORGANIZA POR FECHA DE ENVIÓ EL CUAL
+                            muestra el icono reporte el cual en la columna de resulto indica si el archivo fue aceptado o
+                            rechazo. el
+                            cual se valida con el PDF con la información procesada.
+                            <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img043.png')}}"
+                                alt="">
+                            Nota 1: este proceso debe realizar con los
+                            Declaraciones y facturas. Nota 2: la página dela secretaria de hacienda distrital notifica por
+                            medio de
+                            correo electrónico el estado en el cual se encuentra el medio magnético (Aceptado o rechazado)
+                        </p>
+                    </div>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.3.2 Descargar aceptado medio magnetico:
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li><i class="fa-regular fa-circle-check"></i> <b>Responsable: </b> Lider de proceso</li>
+                    <li><i class="fa-regular fa-circle-check"></i> <b>Registro: </b> PRO-D-EXT-031 Reporte validación de archivos PRO-D-010 Cantidad
+                    cintas magnéticas facturación Distritales Bancolombia - facturas cupones rops PRO-D-048 Cantidad
+                    documentos Sugeridos facturación Distritales Bancolombia PRO-D-049 Bitácora aceptación cintas
+                    Distritales Bancolombia</li>
+                    <li><i class="fa-regular fa-circle-check"></i> <b>Descripción: </b>Después que los medios magnéticos se encuentran en estado aceptados
+                    se deben descargar el reporte de validación de archivos que arroja la página del distrito Se
+                    ingresa al link de la página de distrito: https://oficinavirtual.shd.gov.co/Recepcion/login.html Luego que
+                    hemos ingresado con el banco y el usuario y clave, ingresamos por el modulo consultas – consultar
+                    resultados se organiza por fecha de envió seleccionamos el archivo que se envió y nos dirigimos al módulo
+                    Reporte
+                    <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img044.png')}}"
+                        alt="">
+                    seleccionamos el icono que descargamos nos arroja un icono de descargar
+                    <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img045.png')}}"
+                        alt="">
+                    Cuando damos clic en icono de descargar nos arroja en el explorador la imagen del
+                    reporte, luego damos clic derecho y selecciona la ruta donde se guarda
+                    \\servidor\Confidencial_Id07_aaaa\data\07\aaaammdd\envios con el nombre de la secuencia de la
+                    cinta.
+                    <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img046.png')}}"
+                        alt="">
+                    En el PDF (PRO D EXT 031 Reporte validación de archivos) se verifica número de cinta, fecha de
+                    envió, estado (Aceptado o Rechazo), Días de Extemporaneidad, Cantidad de documentos y valor.
+                    <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img047.png')}}"
+                        alt="">
+                    Después que se guardan los pdf se diligencian los siguientes formatos
+                    PRO-D-010 Cantidad cintas magnéticas facturación Distritales Bancolombia - facturas cupones rops
+                    (el cual se encuentra en la ruta \\servidor\Confidencial_Id07_aaaa\Procesos
+                    Bancolombia\Informes\Facturación\aaaa\mes) PRO-D-048 Cantidad documentos Sugeridos facturación
+                    Distritales Bancolombia (el cual se encuentra en la ruta
+                    \\servidor\Confidencial_Id07_aaaa\Procesos
+                    Bancolombia\Informes\Facturación\aaaa\mes) PRO-D-049 Bitácora aceptación cintas Distritales
+                    Bancolombia (el cual se encuentra en la ruta \\servidor\Confidencial_Id07_aaaa\Procesos
+                    Bancolombia\Informes) Para control del proceso.
+                        <ul>
+                            <li><b>Nota 1:</b> Este proceso debe realizar con los Declaraciones y facturas.</li>
+                            <li><b>Nota 2:</b> En el caso de ser rechazado el medio magnético, se debe revisar la causa del rechazo y se corrige para
+                                nuevamente realizar la trasmisión ante la página de la SHD. Las causas de rechazo más común son
+                                los siguientes:
+                                <ul>
+                                    <li>Valor recaudado.</li>
+                                    <li>Adhesivo o sucursal no creada en la base del distrito.</li>
+                                    <li>Formulario no generado por el distrito.</li>
+                                </ul>
+                            </li>
+                            <li><b>Nota 3:</b> Los reportes del rechazo se guardan en la siguiente ruta
+                                \\servidor\Confidencial_Id07_aaaa\data\07\aaaammdd\envios\rechazo
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.3.3 Subir los medios magnéticos a la web
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Responsable: </b> Líder de proceso</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Registro: </b>No aplica </li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Descripción: </b>
+                        <div class="doc-subsection" data-id="1">
+                            1. 
+                        </div>
+                        <div class="doc-subcontent" data-id="1">
+                            <p>
+                                LOS MEDIOS MAGNÉTICOS SE DEBEN CONVERTIR A (. ZIP) ASÍ COMO SE MUESTRA EN LA IMAGEN
+                                <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img048.png')}}"
+                        alt="">
+                            </p>
+                        </div>
+                        <div class="doc-subsection" data-id="2">
+                            2. 
+                        </div>
+                        <div class="doc-subcontent" data-id="2">
+                            <p>
+                                LUEGO SE SITÚAN EN EL SERVIDOR DE LA PÁGINA WEB DE DIGICOM DE LA RUTA DE LA PÁGINA \\servidorWeb\07_Procesos\aaaammdd\ArchivosDIS\CINTAS SUGERIDOS
+                                <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img049.png')}}"
+                        alt="">
+                            </p>
+                        </div>
+                        <div class="doc-subsection" data-id="3">
+                            3. 
+                        </div>
+                        <div class="doc-subcontent" data-id="3">
+                            <p>
+                                SE PROCEDE A REALIZAR LA CARGA EN LA PÁGINA WEB DE DIGICOM http://www.digicom.com.co/bancos_web/Sistema/Inicio.aspx, donde la página solicita
+                                usuario y contraseña
+                                <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img050.png')}}"
+                        alt="">
+                            </p>
+                        </div>
+                        <div class="doc-subsection" data-id="4">
+                            4. 
+                        </div>
+                        <div class="doc-subcontent" data-id="4">
+                            SE DA CLIC EN EL MENÚ DE DISTRITALES/ DESCARGAS
+                            <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img051.png')}}"
+                        alt="">
+                        </div>
+                        <div class="doc-subsection" data-id="5">
+                            5. 
+                        </div>
+                        <div class="doc-subcontent" data-id="5">
+                            <p>
+                               SE SELECCIONA LA FECHA A REALIZAR EL CARGUE DE ARCHIVOS Y ACEPTAR, EN EL CUAL SE
+                            VISUALIZA LOS archivos situada en la pagina por último, enviamos correo de confirmación a los
+                                funcionarios del banco que
+                                los archivos se encuentran situados en la página. 27/11/2023 9 IMPUESTOS DISTRITALES
+                                BANCOLOMBIA
+                                <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img052.png')}}"
+                        alt="">
+                            </p>
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.3.4 Control de envíos e integrar los medios magnéticos
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Responsable: </b> Líder de proceso</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Registro: </b> No aplica</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Descripción: </b> Cuando los medios magnéticos son
+                    aceptados ante la secretaria de Hacienda Distrital , se copia el archivo plano en la siguiente
+                    ruta \\servidor\Confidencial_Id07_aaaa\Cintas_Aceptadas y se ingresa al aplicativo para cargar el
+                    archivo realizando los siguientes pasos:
+                     <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img053.png')}}"
+                        alt="">
+                        <div class="doc-subsection" data-id="1">
+                            1. CONTROL ENVÍOS
+                        </div>
+                        <div class="doc-subcontent" data-id="1">
+                            <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img054.png')}}"
+                        alt="">
+                        </div>
+                        <div class="doc-subsection" data-id="2">
+                            2. CONTROL DE DOCUMENTOS ENVIADOS
+                        </div>
+                        <div class="doc-subcontent" data-id="2">
+                            <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img055.png')}}"
+                        alt="">
+                        </div>
+                        <div class="doc-subsection" data-id="3">
+                            3. CARGA PLANOS 2017
+                        </div>
+                        <div class="doc-subcontent" data-id="3">
+                            <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img056.png')}}"
+                        alt="">
+                        </div>
+                        <div class="doc-subsection" data-id="4">
+                            4. BUSCAR LA CINTA QUE SE VA A INTEGRAR (LAS CINTAS SE ENCUENTRAN EN LA RUTA
+                        </div>
+                        <div class="doc-subcontent" data-id="4">
+                            <p>
+                                \\192.168.70.141\Confidencial_Id07_2018\Cintas_Aceptadas\0716000000.txt) 
+                                <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img057.png')}}"
+                        alt="">
+                            </p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="doc-subsection">
+            6.4. Generación de informes
+        </div>
+        <div class="doc-subcontent">
+            <div class="doc-subsection">
+                6.4.1 Generación de adhesivos no utilizados / saltos de adhesivos
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Responsable: </b>Líder de proceso</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Registro: </b> PRO-D-050 Reporte Consolidado de Saltos de Adhesivos</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Descripción: </b>Se genera por el aplicativo por la siguiente ruta:
+                        <div class="doc-subsection" data-id="1">
+                            1. 
+                        </div>
+                        <div class="doc-subcontent" data-id="1">
+                            CONTROL ENVÍOS
+                            <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img058.png')}}"
+                                alt="">
+                        </div>
+                        <div class="doc-subsection" data-id="2">
+                            2. 
+                        </div>
+                        <div class="doc-subcontent" data-id="2">
+                            <p>
+                                CONTROL DE DOCUMENTOS ENVIADOS, EN LA FECHA INICIAL SIEMPRE SE VA A DIGITAR 20140102 Y EN la fecha final se digita la última fecha de recaudo
+                                <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img059.png')}}"
+                                alt="">
+                            </p>
+                        </div>
+                        <div class="doc-subsection" data-id="3">
+                            3. 
+                        </div>
+                        <div class="doc-subcontent" data-id="3">
+                            <p>
+                               SE LE DA CLIC EN “REPORTE DE NO UTILIZADOS Y DUPLICADOS”
+                                <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img060.png')}}"
+                                alt="">
+                            </p>
+                        </div>
+                        <div class="doc-subsection" data-id="4">
+                            4. 
+                        </div>
+                        <div class="doc-subcontent" data-id="4">
+                            <p>
+                                EL ARCHIVO QUEDA GENERADO EN LA SIGUIENTE RUTA: \\servidor\Confidencial_Id07_aaaa\data\07\aaaammdd en el formato PRO-D-050 Reporte Consolidado
+                                de Saltos de Adhesivos este archivo se comprime se guarda en la ruta de la página \\servidorWeb\07_Procesos\aaammdd\ArchivosDIS\SALTOS DE ADHESIVOS se actualiza la
+                                pagina y se envia el correo de confrimacion igual que la actividad 6.9
+                            </p>
+                        </div>  
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.4.2 Reporte de faltantes físicos
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Responsable: </b> Líder de Proceso</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Registro: </b> Líder de Proceso</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Descripción: </b> Después que se han indexados los documentos (actividad 6.6. indexación) la totalidad de las imágenes
+                    se cruzan contra el log del banco para generar los documentos faltantes para reportarlos al banco en el
+                    registro correspondiente.
+                        <div class="doc-subsection" data-id="1">
+                            1. BANCOS
+                        </div>
+                        <div class="doc-subcontent" data-id="1">
+                            <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img061.png')}}"
+                                alt="">
+                        </div>
+                        <div class="doc-subsection" data-id="2">
+                            2. LOG BANCARIO
+                        </div>
+                        <div class="doc-subcontent" data-id="2">
+                            <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img062.png')}}"
+                                alt="">
+                        </div>
+                        <div class="doc-subsection" data-id="3">
+                            3. GENERAR CRUCE DE VALIDACIONES
+                        </div>
+                        <div class="doc-subcontent" data-id="3">
+                            <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img063.png')}}"
+                                alt="">
+                        </div>
+                        <div class="doc-subsection" data-id="4">
+                            4. ACEPTAR
+                        </div>
+                        <div class="doc-subcontent" data-id="4">
+                            <p>
+                                <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img064.png')}}"
+                                alt="">
+                                El archivo se genera en la siguiente ruta \\servidor\Confidencial_Id07_aaaa\data\07\aaaammdd
+                                Con el nombre “PRO D 045 Cuadre diario de Faltantes físicos”,
+                                este archivo se comprime y se guarda en la ruta de la página
+                                \\servidor\07_Procesos\aaaammdd\ArchivosDIS\FALTANTES y se envía correo de confirmación al banco
+                            </p>
+                        </div>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="doc-subsection">
+            6.5 Control Documental
+        </div>
+        <div class="doc-subcontent">
+            <div class="doc-subsection">
+                6.5.1 Reporte de inconsistencias físicas:
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Responsable: </b>Líder de Proceso</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Registro: </b> PRO-D-044 Cuadre de inconsistencias Distritales Bancolombia, PRO-F-024 Tipificación inconsistencias físicas</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Descripción: </b>Se debe realizar la revisión de los
+                        documentos físicos, para informar al banco de las inconsistencias cometidas por los cajeros de cada
+                        oficina en la recepción en caja, las inconsistencias que se reportan según el documento PRO-F-024
+                        Tipificación inconsistencias físicas: Las inconsistencias son cargadas en el aplicativo por el
+                        siguiente
+                        menú:
+                        <ul>
+                            <li>Inconsistencias</li>
+                            <li>Registro de inconsistencias
+                                <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img065.png')}}"
+                                alt="">
+                            </li>
+                            <li>Se busca el número de referencia (número de Formularios)</li>
+                            <li>Se selecciona adicionar sticker
+                                <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img066.png')}}"
+                                alt="">
+                            </li>
+                            <li>En la lista de despliegue se escoge la inconsistencia que presente el documento
+                                <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img067.png')}}"
+                                alt="">
+                            </li>
+                            <li>Cuando ya se ha terminado de revisar la totalidad de la fecha se ingresa en el campo fecha inicial y fecha final y se selecciona la
+                                opción inconsistencia x rango de fecha
+                            <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img068.png')}}"
+                                alt="">
+                            </li>
+                            <li>se crea un archivo en Excel y una carpeta con las imágenes en la siguiente ruta:
+                                \\servidor\Confidencial_Id07_aaaa\data\07\aaaammdd
+                                <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img069.png')}}"
+                                alt="">
+                            </li>
+                        </ul>
+                        El archivo en Excel queda con el nombre “PRO D 044 Cuadre de inconsistencias Distritales 
+                        Bancolombia aaaammdd.xlsx” y la carpeta con las imágenes “Imgs_aaaammdd_aaaammdd” estos 
+                        dos archivos se comprimen en un solo archivo con el nombre del Excel y se suben a la página Web
+                        en su correspondiente fecha de recaudo y se envía correo e confirmación al banco. \\Servidor Web 
+                        \07_Procesos\aaaammdd\ArchivosDIS\INCONSISTENCIAS
+                        <br>
+                        Luego se actualiza la página por el link http://www.digicom.com.co/Bancos_Web/ donde se ingresa 
+                        usuario y contraseña asignados ver actividad 6.9.
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img070.png')}}"
+                                alt="">
+                        Luego se selecciona el menú distrital en la opción descargar y se selecciona la fecha y se envía 
+                        correo electrónico de confirmación.
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img071.png')}}"
+                                alt="">
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.5.2 Organización de los documentos
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Responsable: </b>Líder de Proceso</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Registro: </b>No Aplica</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Descripción: </b>Después de la actividad de revisar inconsistencias (actividad 6.16) físicas los documentos se deben 
+                        separar por tipo de impuestos conservando el orden de sucursal de forma ascendente.
+                        Los tipos de impuestos como deben quedar organizados son los siguientes: 101, 103, 106, 112, 
+                        132,133
+                        <b>Nota: </b>Los formularios (400 500 800) se dejan aparte para archivarlos ya que estos no se deben 
+                        entregar al distrito.
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.5.3 Lectura de código de barras:
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Responsable: </b>Líder de Proceso</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Registro: </b>PRO-F-EXT- 003 Anexo 5 PRO-F-EXT- 008 Anexo 6 </li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Descripción: </b>Luego de separar los documentos por tipo de impuestos se
+                    procede a pasar por lector de código de barras por el aplicativo:
+                        <div class="doc-subsection" data-id="1">
+                            1. 
+                        </div>
+                        <div class="doc-subcontent" data-id="1">
+                            CONTROL ENVÍOS
+                        </div>
+                        <div class="doc-subsection" data-id="2">
+                            2. 
+                        </div>
+                        <div class="doc-subcontent" data-id="2">
+                            DESCARGA DE DOCUMENTOS ENVIADOS
+                            <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img072.png')}}"
+                                alt="">
+                        </div>
+                        <div class="doc-subsection" data-id="3">
+                            3. 
+                        </div>
+                        <div class="doc-subcontent" data-id="3">
+                            SE INGRESA LA FECHA DE MOVIMIENTO Y FECHA DE RECAUDO
+                        </div>
+                        <div class="doc-subsection" data-id="4">
+                            4. 
+                        </div>
+                        <div class="doc-subcontent" data-id="4">
+                            SE INGRESA EL NÚMERO SECUENCIA DE LA CINTA
+                            <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img073.png')}}"
+                                alt="">
+                        </div>
+                        <div class="doc-section" data-id="5">
+                            5. 
+                        </div>
+                        <div class="doc-subcontent" data-id="5">
+                            SE INGRESA EL CÓDIGO A VALIDAR (EL CÓDIGO A VALIDAR SON EL TERCER Y CUARTO DIGITO DEL NÚMERO DE REFERENCIA DEL FORMULARIO)
+                            <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img074.png')}}"
+                                alt="">
+                            <b>Nota:</b> cada vez que se pase un código diferente de impuesto se debe cambiar el código en el 
+                            código a validar por el impuesto que se vaya a procesar.
+
+                        </div>
+                        <div class="doc-subsection" data-id="6">
+                            6. 
+                        </div>
+                        <div class="doc-subcontent" data-id="6">
+                            
+                            <p>
+                               CUANDO ESTA PASADO POR LECTOR LA TOTALIDAD DE LA FECHA DE RECAUDO SE SELECCIONA LA OPCIÓN “copiar a Excel”. 27/11/2023 9 IMPUESTOS DISTRITALES BANCOLOMBIA
+                               <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img076.png')}}"
+                                alt="">
+                            </p>
+                        </div>
+                        <div class="doc-subsection" data-id="7">
+                            7. 
+                        </div>
+                        <div class="doc-subcontent" data-id="7">
+                            Este genera un archivo en la siguiente ruta:
+                            \\servidor\Confidencial_Id07_aaaa\Cintas_Aceptadas\Reportes\enviados_aaaammdd_000000.xls donde se verifican los faltantes.
+                            <b>Nota: </b> los archivos que generan, no debe haber documentos faltantes, si hay se notifica al banco y 
+                            ellos envía los anexo 5, 6(PRO-F-EXT- 003 Anexo, PRO-F-EXT- 008 Anexo 6) diligenciados y el 
+                            denuncio para procesar como si fuera el físico. 
+                        </div>  
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.5.4 Conformación de paquetes:
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Responsable: </b>Líder de Proceso</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Registro: </b>PRO-D-EXT- 007 Anexo 9 PRO-D-EXT- 031 Reporte validación de
+                    archivos
+                    </li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Descripción: </b>
+                        Una vez realizada la actividad 6.18 lectura de código de barras se realiza la
+                        conformación de paquetes para la entrega ante la SHD donde el físico debe estar organizado por
+                        código de oficina de forma ascendente y tipo de formulario, estos paquetes deben ir con los formatos PRO-D-EXT 031.
+                        Reporte validación de archivos y PRO-D-EXT- 007 Anexo 9, los documentos deben ser originales 
+                        únicamente en el caso en que se haya extraviado un documento debe ir con los anexos 5,6 y 
+                        denuncio remplazado el documento extraviado. Los cuales deben ir empacado y sellados en bolsas 
+                        plásticas.
+                        La cantidad de documentos y valor debe ser igual a lo reportado en los formatos PRO-D-EXT- 007 
+                        Anexo 9 y PRO-D-EXT- 031 Reporte validación de archivos, para evitar extemporaneidad.
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img077.png')}}"
+                                alt="">
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.5.5 Entrega de documentos físicos:
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Responsable: </b>Director de procesos, Líder de Proceso</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Registro: </b>PRO-D-EXT- 031 Reporte
+                    validación de archivos
+                    </li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Descripción: </b>Después que se
+                    empacan en bolsa sellada los documentos se procede a entregarlos a el área de dirección de procesos
+                    donde los directores son los encargados de enviar al mensajero para que realice la entrega ante la
+                    Secretaria de Hacienda Distrital.
+                    En mensajero debe hacer firmar el formato PRO-D-EXT- 031 Reporte
+                    validación de archivos por el funcionario de la Secretaria de Hacienda Distrital donde hace contar
+                    que los documentos fueron entregados.
+                    <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img078.png')}}"
+                                alt="">
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.5.6 Aceptado Magnético y físico por la SHD
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Responsable: </b>Director de procesos, Líder de Proceso, Mensajero</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Registro: </b>PRO-F-EXT- 011 Aceptado
+                    magnetico vs físico aceptado
+                    </li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Descripción: </b>En esta actividad luego que la SHD valida los documentos
+                    físicos contra las cintas magnéticas, aproximadamente en ocho días hábiles envían por medio del
+                    mensajero el documento PRO-F-EXT- 011 Aceptado magnetico vs físico aceptado informando que las
+                    cintas como los físicos quedaron aceptados:
+                    <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img079.png')}}"
+                                alt="">
+                    Este documento se debe digitalizar en el servidor asignado para reportarlo al banco
+                    \\servidor\Confidencial_Id07_aaaa\ProcesosBancolombia\Informes\ArchivoMagneticoyfisicoAceptado\mes
+                    Luego que lo hemos digitalizado se convierte a. Zip con el siguiente nombre Archivo magnetico vs 
+                    físico aceptado y lo copiamos a la ruta de la página 
+                    \\servidorWeb\07_Procesos\aaaammdd\ArchivosDIS\CONTROL FISICOS y enviamos correo de 
+                    confirmación.
+                    <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img080.png')}}"
+                                alt="">
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="doc-subsection">
+            6.6 Generación de Adhesivo
+        </div>
+        <div class="doc-subcontent">
+            <div class="doc-subsection">
+                6.6.1 Creación de Adhesivos
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Responsable: </b>Líder de Proceso</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Registro: </b>No Aplica</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Descripción: </b>El banco informa por correo electrónico la oficina a la que se le va a generar adhesivos, luego 
+                        ingresamos por medio del aplicativo por el siguiente menú herramientas por la opción generación 
+                        de stickers donde nos arroja una ventana emergente donde seleccionamos la opción Generados 
+                        luego ingresamos el consecutivo de envió a la DDI, digitamos la oficina la cual se creara, digitamos 
+                        el código del cajero (por lo generar para Bancolombia siempre será 01), digitamos el primer 
+                        consecutivo del adhesivo sin digito de verificación, digitamos la cantidad de adhesivos,
+                        seleccionamos la opción incluir y por último en fecha de asignación digitamos la fecha del día actual.
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img081.png')}}"
+                                alt="">
+                        Este proceso crea un archivo en .txt en la ruta del servidor asignado 
+                        \\servidor\Confidencial_Id07_aaaa\Adhesivos este archivo se comprime y se firma digitalmente para 
+                        subir a la página de la SHD
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img082.png')}}"
+                                alt="">
+                        <b>Nota:</b> para saber el consecutivo de envió nos dirigimos a la siguiente ruta 
+                        \\servidor\Confidencial_Id07_aaaa\Adhesivos organizamos los archivos por nombre de archivo los 
+                        cuales se ingresa el siguiente consecutivo.
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.6.2 Anulaciones Adhesivos
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Responsable: </b>Líder de Proceso</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Registro: </b>PRO D EXT 013 Anulación de adhesivos</li>
+                    <li><i class="fa-regular fa-circle-check"></i><b>Descripción: </b>
+                        <div class="doc-subsection" data-id="1">
+                            1. 
+                        </div>
+                        <div class="doc-subcontent" data-id="1">
+                            <p>
+                                EL BANCO ENVÍA POR CORREO ELECTRÓNICO UN ARCHIVO DE LOS ANULADOS POR FECHA DE RECAUDO (PRO D EXT 013 Anulación de adhesivos)                                
+                                <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img083.png')}}"
+                                                                alt="">
+                            </p>
+                        </div>
+                        <div class="doc-subsection" data-id="2">
+                            2. 
+                        </div>
+                        <div class="doc-subcontent" data-id="2">
+                            <p>
+                                EL CUAL SE GUARDA EN LA SIGUIENTE RUTA: \\SERVIDOR\CONFIDENCIAL_ID07_AAAA\PROCESOS Bancolombia\Recaudo aaaa\Adhesivos
+                            </p>
+                        </div>
+                        <div class="doc-subsection" data-id="3">
+                            3. 
+                        </div>
+                        <div class="doc-subcontent" data-id="3">
+                            <p>
+                                ESTE ARCHIVO SE ABRE Y SE LE REALIZAN LAS SIGUIENTES MODIFICACIONES
+                                <ul>
+                                    <li>Se eliminan los títulos</li>
+                                    <li>Se le agrega el 0 del código del banco</li>
+                                    <li>Se elimina la columna de la oficina</li>
+                                </ul>
+                            <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img061.png')}}"
+                                alt="">
+                            </p>
+                        </div>
+                        <div class="doc-subsection" data-id="4">
+                            4. 
+                        </div>
+                        <div class="doc-subcontent" data-id="4">
+                            <p>
+                                SE GUARDA EN LA SIGUIENTE RUTA \\SERVIDOR\CONFIDENCIAL_ID07_AAAA\PROCESOS Bancolombia\Recaudo aaaa\Adhesivos\anula\aaaa la extensión (.csv)
+                            </p>
+                        </div>
+                        <div class="doc-subsection" data-id="5">
+                            5. 
+                        </div>
+                        <div class="doc-subcontent" data-id="5">
+                            SE PROCEDE A GENERAR EL PLANO POR MEDIO DEL APLICATIVO SIGUIENDO LOS SIGUIENTES PASOS
+                        </div>
+                        <div class="doc-subsection" data-id="6">
+                            6. 
+                        </div>
+                        <div class="doc-subcontent" data-id="6">
+                            HERRAMIENTAS
+                            <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img085.png')}}"
+                                alt="">
+                        </div>
+                        <div class="doc-subsection" data-id="7">
+                            7. 
+                        </div>
+                        <div class="doc-subcontent" data-id="7">
+                            GENERACIÓN DE STICKERS
+                            <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img086.png')}}"
+                                alt="">
+                        </div>
+                        <div class="doc-subsection" data-id="8">
+                            8. 
+                        </div>
+                        <div class="doc-subcontent" data-id="8">
+                            <p>
+                                SE SELECCIONA LA OPCIÓN “ANULADOS” SE INGRESA EL CONSECUTIVO DE ENVIÓ PARA SABER EL consecutivo de envió nos dirigimos a la siguiente ruta
+                                \\servidor\Confidencial_Id07_aaaa\Adhesivos
+                                organizamos los archivos por nombre de archivo los cuales se ingresa el siguiente consecutivo
+                            </p>
+                        </div>
+                        <div class="doc-subsection" data-id="9">
+                            9. 
+                        </div>
+                        <div class="doc-subcontent" data-id="9">
+                            <p>
+                                SE SELECCIONA EL BOTÓN “CARGA DESDE ARCHIVO PLANO SOLO STICKER” DONDE SE SELECCIONA EL archivo modificado remitido por el banco
+                                <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img087.png')}}"
+                                alt="">
+                            </p>
+                        </div>
+                        <div class="doc-subsection" data-id="10">
+                            10. 
+                        </div>
+                        <div class="doc-subcontent" data-id="10">
+                            <p>
+                                SE DIGITA LA FECHA DE ASIGNACIÓN QUE DEBE SER EL DÍA ACTUAL 27/11/2023 9 IMPUESTOS DISTRITALES BANCOLOMBIA
+                                
+                            </p>
+                        </div>
+                        <div class="doc-subsection" data-id="11">
+                            11. 
+                        </div>
+                        <div class="doc-subcontent" data-id="11">
+                            <p>
+                                EL ARCHIVO PLANO QUEDA GENERADO EN LA SIGUIENTE RUTA \\servidor\Confidencial_Id07_aaaa\Adhesivos con el nombre “07000000AD.txt”
+                            </p>
+                        </div>
+                        <div class="doc-subsection" data-id="12">
+                            12. 
+                        </div>
+                        <div class="doc-subcontent" data-id="12">
+                            <p>
+                                ESTE ARCHIVO SE COMPRIME EN (ZIP) SE FIRMA POR CERTICAMARA Y SE SUBE A LA PÁGINA DE LA SHD 
+                                <b>Nota 1:</b> Ver actividad 6.9. subir los medios magnéticos a la web 
+                                <b>Nota 2:</b> Ver actividad 6.7. generación de medios magnéticos. en la parte donde se firman los archivos
+                                <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img089.png')}}"
+                                alt="">
+                            </p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="doc-subsection">
+            6.7 Generación de consignación Semanal
+        </div>
+        <div class="doc-subcontent">
+            <ul>
+                <li><i class="fa-regular fa-circle-check"></i><b>Responsable: </b>Líder de Proceso</li>
+                <li><i class="fa-regular fa-circle-check"></i><b>Registro: </b>PRO-F-EXT- 012 Anexo 9</li>
+                <li><i class="fa-regular fa-circle-check"></i><b>Descripción: </b>
+                    En el transcurso de la semana el banco envía las planillas de consignación PRO-F-EXT-012 Anexo 9 estas planillas se organizan por fecha de recaudo de manera ascendente.
+                    El último día hábil de la semana se genera la cinta por el aplicativo siguiendo los siguientes pasos.
+                    1. En la barra superior en el menú movimiento abrimos la fecha de recaudo de la planilla, luego por 
+                        el menú generación de archivos planos nos dirigimos a la opción consignación automática 
+                        donde se despliega una ventana emergente donde ingresamos en el paso 1, donde la fecha de 
+                        recaudo se coloca automática mente, para la fecha de traslado se debe da clic en el botón automático 
+                        para que traiga el día en el cual se debe trasladar los fondos, el No consecutivo se digita el que se encuentra 
+                        en el formato PRO-F-EXT- 012 Anexo 9, damos clic en generar 2017. Este proceso se realiza con 
+                        cada fecha de recaudo.
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img090.png')}}"
+                                alt="">
+                    2. En el paso 2 digitamos la fecha de recaudo de la planilla y damos clic en abrir donde se 
+                        despliega otra subventana emergente donde digitamos los valores de cada concepto que se 
+                        encuentran en el formato PRO-F-EXT- 012 Anexo 9 luego este proceso se realiza con cada 
+                        fecha de recaudo.
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img091.png')}}"
+                                alt="">
+                    3. Luego en el paso 3 digitamos el rango de las fechas que se procesaron en el paso 2 y 
+                        seleccionamos la opción Integrada 2017 
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img092.png')}}"
+                                alt="">
+                        esta opción crea un archivo en .txt en la ruta del servidor 
+                        \\servidor\Confidencial_Id07_aaaa\consigna\integrados, este archivo se comprime y se firma 
+                        digitalmente para subirlo a la página del distrito
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img093.png')}}"
+                                alt="">
+                </li>
+            </ul>
+        </div>
+        <div class="doc-subsection">
+            6.8 Generación factura mensual:
+        </div>
+        <div class="doc-subcontent">
+            <ul>
+                <li><i class="fa-regular fa-circle-check"></i><b>Responsable: </b>Líder de Proceso</li>
+                <li><i class="fa-regular fa-circle-check"></i><b>Registro: </b>No Aplica</li>
+                <li><i class="fa-regular fa-circle-check"></i><b>Descripción: </b>Esta actividad se realiza por el
+                aplicativo por el siguiente menú
+                    <div class="doc-subsection" data-id="1">
+                        1. 
+                    </div>
+                    <div class="doc-subcontent" data-id="1">
+                        CONTROL ENVÍOS
+                    </div>
+                    <div class="doc-subsection" data-id="2">
+                        2. 
+                    </div>
+                    <div class="doc-subcontent" data-id="2">
+                        CONTROL DE DOCUMENTOS ENVIADOS
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img094.png')}}"
+                                alt="">
+                    </div>
+                    <div class="doc-subsection" data-id="3">
+                        3. 
+                    </div>
+                    <div class="doc-subcontent" data-id="3">
+                        <p>
+                            SE INGRESA LA FECHA INICIAL QUE DEBE SER EL PRIMER DÍA HÁBIL DEL MES Y LA FECHA FINAL QUE DEBE ser el último día hábil del mes
+                            <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img095.png')}}"
+                                alt="">
+                        </p>
+                    </div>
+                    <div class="doc-subsection" data-id="4">
+                        4. 
+                    </div>
+                    <div class="doc-subcontent" data-id="4">
+                        SE SELECCIONA EL BOTÓN “CONSOLIDADO FACTURA 2017”
+                        <img src="{{ url_for('static', filename='imgs/Procedimientos/Produccion/pro-pr-013/img096.png')}}"
+                                alt="">
+                    </div>
+                    <div class="doc-subsection" data-id="5">
+                        5. 
+                    </div>
+                    <div class="doc-subcontent" data-id="5">
+                        <p>
+                            INDICANDO LA RUTA DONDE SE SITUÓ EL ARCHIVO GENERADO 27/11/2023 9 IMPUESTOS DISTRITALES BANCOLOMBIA
+                        </p>
+                    </div>
+                    <div class="doc-subsection" data-id="6">
+                        6. 
+                    </div>
+                    <div class="doc-subcontent" data-id="6">
+                        <p>
+                            EL ARCHIVO QUEDA GENERADO EN LA SIGUIENTE RUTA: \\servidor\Confidencial_Id07_aaaa\Cintas_Aceptadas\Reportes Con el siguiente nombre “ 
+                            <ul>
+                                <li>Consolidado_imp_20230801_20230831.dbf</li>
+                                <li>consolidado_imp_20230801_20230831_detalle.xls</li>
+                                <li>consolidado_imp_20230801_20230831_impuesto.xls</li>
+                            </ul>
+                            <b>Nota 1:</b> Los archivos de Excel que se genera se comparan con
+                            los datos de las cintas. 
+                            ▪ El archivo (.dbf) se envía al área de desarrollo para que genere la
+                            factura y la envió al banco
+                        </p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="doc-subsection">
+            6.9 Revisión de actividades
+        </div>
+        <div class="doc-subcontent">
+            <ul>
+                <li><i class="fa-regular fa-circle-check"></i><b>Responsable: </b>Líder de Proceso</li>
+                <li><i class="fa-regular fa-circle-check"></i><b>Registro: </b>PRO-D-105 lista de chequeo impuestos distritales Bancolombia</li>
+                <li><i class="fa-regular fa-circle-check"></i><b>Descripción: </b>Diariamente el líder proceso para verificar y validar que cada actividad del proceso se
+                realice debe diligenciar el formato PRO-D-105 Lista de Chequeo Impuestos Distritales Bancolombia, donde
+                están las actividades que se debe realizar con el fin de tener un control y cumplir con los requisitos
+                del cliente.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="doc-section" data-id="7">
+        7. INDICADORES DE DESEMPEÑO
+    </div>
+    <div class="doc-content"></div>
+    <div class="doc-section" data-id="8">
+        8. CONTROL DEL PROCEDIMIENTO
+    </div>
+    <div class="doc-content">
+        <table>
+            <thead>
+                <tr>
+                    <th>Versión</th>
+                    <th>Elaborado</th>
+                    <th>Aprobado</th>
+                    <th>Fecha</th>
+                    <th>Descripción del Cambio</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cambio in cambios %}
+                <tr>
+                    <td>{{ cambio[2] }}</td>
+                    <td>{{ cambio[3] }}</td>
+                    <td>{{ cambio[5] }}</td>
+                    <td>{{ cambio[6] }}</td>
+                    <td>{{ cambio[7] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<!-- Botón para abrir el modal -->
+<button class="btn btn-outline-primary" id="openModalBtn" style="margin-top: 20px;">Editar Secciones</button>
+<!-- El Modal -->
+<div class="modal" id="sectionModal">
+    <div class="modal-content">
+        <span class="close-button">×</span>
+        <h2>Selecciona y Edita una Sección</h2>
+        <label for="sectionSelector">Sección:</label>
+        <select id="sectionSelector">
+            <option value="">-- Selecciona una sección --</option>
+        </select>
+        <label for="sectionContent">Contenido:</label>
+        <textarea id="sectionContent" placeholder="El contenido de la sección aparecerá aquí..."></textarea>
+        <label for="sectionCambio">Descripcion del Cambio:</label>
+        <textarea id="sectionCambio" placeholder="Describe en palabras cortas el cambio realizado..."
+            required></textarea>
+        <button class="btn btn-outline-primary" id="saveChangesBtn" style="margin-top: 15px;">Guardar Cambios</button>
+    </div>
+</div>
+<script src="{{ url_for('static', filename='js/jquery.min.js')}}"></script>
+<script src="{{ url_for('static', filename='js/acordeon_doc.js')}}"></script>
+<script src="{{ url_for('static', filename='js/edita_procedimiento.js')}}"></script>
+
+{% endblock %}

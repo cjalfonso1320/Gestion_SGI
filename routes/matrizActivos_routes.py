@@ -19,7 +19,6 @@ def Matriz_Activos(role_id):
         rol = session.get('selected_rol', current_user.rol)
 
     nombre_del_rol = nombre_rol(rol)
-    imagen_rol = ROL_IMAGES.get(rol, 'imgs/user.png')
     lista_procesos = PROCESOS_ROL.get(rol, [])
 
     if not lista_procesos:
@@ -28,7 +27,6 @@ def Matriz_Activos(role_id):
                                lista_procesos=[],
                                proceso_actual=None,
                                datos_matriz=[],
-                               imagen_rol=imagen_rol,
                                rol_seleccionado=rol,
                                nombre_rol_seleccionado=nombre_del_rol,
                                is_role_override=is_role_override)
@@ -47,7 +45,6 @@ def Matriz_Activos(role_id):
                            proceso_actual=proceso_actual,
                            datos_matriz=datos_matriz,
                            rol_seleccionado=rol,
-                           imagen_rol=imagen_rol,
                            nombre_rol_seleccionado=nombre_del_rol,
                            is_role_override=is_role_override)
 

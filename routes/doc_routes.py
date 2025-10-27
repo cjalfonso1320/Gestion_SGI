@@ -7,6 +7,7 @@ from controllers.doc_controller import auditorias_ifx, auditoria_integrum, audit
 from controllers.doc_controller import vulnerabilidades_2024, vulnerabilidades_2025, vulnerabilidades_ant
 from controllers.doc_controller import revision_seguridad_2021, revision_seguridad_2022, revision_seguridad_2023, revision_seguridad_2024, sst, encuestas_2019, encuestas_2020, encuestas_2021, sagrilaft, ambiental
 from controllers.rol_controller import PROCESOS_ROL, ROL_IMAGES, nombre_rol
+from controllers.procedimientos_controller import cuenta_pendientes, lista_cambios_pendientes, lista_cambios_rechazados, cuenta_rechazados
 
 
 
@@ -25,8 +26,6 @@ def documentacion(role_id):
         rol = session.get('selected_rol', current_user.rol)
 
     def CONTEXTO(rol_actual):
-        procesos = PROCESOS_ROL.get(rol, [])
-        imagen_rol = ROL_IMAGES.get(rol, 'imgs/user.png')
         nombre_del_rol = nombre_rol(rol)
         archivos_procedimientos = procedimientos(rol)
         caracterizaciones = caracterizacion(rol)
@@ -110,8 +109,6 @@ def documentacion(role_id):
             'archivos_encuestas_2021': archivos_encuestas_2021,
             'archivos_sagrilaft': archivos_sagrilaft,
             'archivos_ambiental': archivos_ambiental,
-            'procesos': procesos,
-            'imagen_rol': imagen_rol,
             'rol_seleccionado': rol,
             'is_especific_role': is_role_override,
             'is_role_override': is_role_override
@@ -218,3 +215,7 @@ def subir_documento():
         
     except Exception as e:
         return jsonify({'success': False, 'message': f'Error al subir el archivo: {str(e)}'})
+    
+@doc_bp.route('/documentacion2')
+def documentacion2():
+    return render_template('users/documentacion_v2.html', usuario=current_user)

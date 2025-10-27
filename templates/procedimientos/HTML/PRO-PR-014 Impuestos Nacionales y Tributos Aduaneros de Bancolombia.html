@@ -1,0 +1,1717 @@
+{% extends 'home.html' %}
+{% block title %}Documentacion{% endblock %}
+{% block content %}
+<link href="{{ url_for('static', filename='css/acordeon_doc.css') }}" rel="stylesheet" />
+<link href="{{ url_for('static', filename='css/procedimientos.css') }}" rel="stylesheet" />
+
+<div id="documento" style="display:none;">procedimientos/HTML/PRO-PR-014 Impuestos Nacionales y Tributos Aduaneros de Bancolombia.html</div>
+<div id="nombre_documento" style="display: none;">PRO-PR-014 Impuestos Nacionales y Tributos Aduaneros de Bancolombia</div>
+<h1>PRO-PR-014 Impuestos Nacionales y Tributos Aduaneros de Bancolombia</h1>
+{% for cambio in cambios %}
+{% if loop.first %}
+<h3>Version: {{cambio[3]}}</h3>
+{% endif %}
+{% endfor %}
+<br />
+<div class="doc-accordion">
+ <div class="doc-section" data-id="1">
+  1. OBJETIVO
+ </div>
+ <div class="doc-content" data-id="1">
+ </div>
+ <div class="doc-section" data-id="2">
+  2. ALCANCE
+ </div>
+ <div class="doc-content" data-id="2">
+ </div>
+ <div class="doc-section" data-id="3">
+  3. RESPONSABLES
+ </div>
+ <div class="doc-content" data-id="3">
+ </div>
+ <div class="doc-section" data-id="4">
+  4. DEFINICIONES
+ </div>
+ <div class="doc-content" data-id="4">
+ </div>
+ <div class="doc-section" data-id="5">
+  5. DOCUMENTOS DE REFERENCIA
+ </div>
+ <div class="doc-content" data-id="5">
+ </div>
+ <div class="doc-section" data-id="6">
+  6. Descripción del proceso
+ </div>
+ <div class="doc-content" data-id="6">
+  <div class="doc-subsection">
+   6.1. Recepción información bancaria.
+  </div>
+  <div class="doc-subcontent">
+   <div class="doc-subsection">
+    6.1.1. Descargar log bancario
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.1.1.1. Cargar log bancario
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.1.1.2. Cargar de archivos PSE
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.1.2. Recepción de imágenes
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.1.2.1. Descargar imágenes
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.1.2.2. Cargar archivo log para descarga de formularios.
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.1.2.3. Pasar imágenes al servidor
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.1.3. Recepción Documentos Físicos
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.1.3.1. Recibir Tula Que Contienen Los Documentos
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.1.3.2. Verificación De Precintos Tula
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.1.3.3. Verificación De Cámaras
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.1.3.4. Verificar los documentos contenidos en los paquetes.
+   </div>
+   <div class="doc-subcontent">
+   </div>
+  </div>
+  <div class="doc-subsection">
+   6.2. Control documental
+  </div>
+  <div class="doc-subcontent">
+   <div class="doc-subsection">
+    6.2.1. Revisar y clasificar los documentos
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.2.2. Pasar los documentos por el lector de código de barras
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.2.3. Revisión y carga de inconsistencias
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.2.4. Certificar documento físico
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.2.5. Reportar inconsistencias documentos físicos
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.2.6. Reporte de documentos faltantes físicos
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.2.7. Generación de formatos para entrega de documentos en las ciudades
+   </div>
+   <div class="doc-subcontent">
+   </div>
+  </div>
+  <div class="doc-subsection">
+   6.3. Captura de información
+  </div>
+  <div class="doc-subcontent">
+   <div class="doc-subsection">
+    6.3.1. Indexación
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.3.1.1. Carga de imágenes índex global
+   </div>
+   <div class="doc-subcontent">
+    <p>
+     IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA
+    </p>
+   </div>
+   <div class="doc-subsection">
+    6.3.1.2. Captura global automática
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.3.1.3. Carga de imágenes
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.3.1.4. Captura de campos
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.3.1.5. Integración imágenes provenientes de las sedes regionales
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.3.1.6. Generar informe diario de faltantes reales
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.3.2. Digitación
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.3.2.1. Captura campo a campo la información de los formularios
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.3.2.2. Inconsistencias generadas durante la digitalización
+   </div>
+   <div class="doc-subcontent">
+   </div>
+  </div>
+  <div class="doc-subsection">
+   6.4. TIDIS Y CERTS
+  </div>
+  <div class="doc-subcontent">
+   <div class="doc-subsection">
+    6.4.1. Recepción certificados TIDIS
+   </div>
+   <div class="doc-subcontent">
+   </div>
+  </div>
+  <div class="doc-subsection">
+   6.5. Generación Informe 1187
+  </div>
+  <div class="doc-subcontent">
+  </div>
+  <div class="doc-subsection">
+   6.5. Generar informe 1740
+  </div>
+  <div class="doc-subcontent">
+   <div class="doc-subsection">
+    6.5.1. Generar informe diferencia tipo impuestos
+   </div>
+   <div class="doc-subcontent">
+   </div>
+  </div>
+  <div class="doc-subsection">
+   6.6. Generación informe distribución de fondos y medios magnéticos
+  </div>
+  <div class="doc-subcontent">
+   <div class="doc-subsection">
+    6.6.1. Revisar grabación y cierre de fechas
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.6.2. Diferencias Contables
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.6.3. Archivo simplificadas
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.6.4. Validar log y log adicional 05
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.6.5. Generar archivo cruce web y crucewebfull
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.6.6. Revisar y cargar formularios inconsistencias
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.6.7. Validar cinta magnética.
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.6.8. Distribución de fondos
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.6.9. Generación de cintas magnéticas
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.6.10. Actualizar control datos cintas
+   </div>
+   <div class="doc-subcontent">
+   </div>
+  </div>
+  <div class="doc-subsection">
+   6.7. Conformación de paquetes de documentos físico y entrega la DIAN
+  </div>
+  <div class="doc-subcontent">
+   <div class="doc-subsection">
+    6.7.1. Organizar los documentos
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.7.2. Generar listas de punteo
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.7.3. Organizar los envíos
+   </div>
+   <div class="doc-subcontent">
+   </div>
+  </div>
+  <div class="doc-subsection">
+   6.8. Generar informes semanales y mensuales
+  </div>
+  <div class="doc-subcontent">
+   <div class="doc-subsection">
+    6.8.1. Integrar movimiento
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.8.2. Recibir archivo plano
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.8.3. Ingreso De Planillas Radicadas Al Aplicativo
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.8.4. Generación de cruce
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.8.5. Controlar las planillas “formato de envió de documentos físicos tributarios y
+   </div>
+   <div class="doc-subcontent">
+    <p>
+     aduaneros
+    </p>
+   </div>
+   <div class="doc-subsection">
+    6.8.6. Organización de planillas radicadas
+   </div>
+   <div class="doc-subcontent">
+   </div>
+  </div>
+  <div class="doc-subsection">
+   6.9. Generación mensual del informe 1188
+  </div>
+  <div class="doc-subcontent">
+  </div>
+ </div>
+ <div class="doc-section" data-id="7">
+  7. INDICADORES DE DESEMPEÑO
+ </div>
+ <div class="doc-content" data-id="7">
+ </div>
+ <div class="doc-section" data-id="8">
+  8. CONTROL DEL PROCEDIMIENTO
+ </div>
+ <div class="doc-content" data-id="8">
+  <p>
+   IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA
+  </p>
+ </div>
+ <div class="doc-section" data-id="1">
+  1. OBJETIVO
+ </div>
+ <div class="doc-content" data-id="1">
+  <p>
+   Procesar y Administrar los Impuestos Nacionales recaudados y pactados con Banco Bancolombia y dar cumplimiento al Sistema de Gestión Integrado
+  </p>
+ </div>
+ <div class="doc-section" data-id="2">
+  2. ALCANCE
+ </div>
+ <div class="doc-content" data-id="2">
+  <p>
+   Este procedimiento aplica a los Impuestos Nacionales de Bancolombia, implementados por Digicom System Corporation S. A
+  </p>
+ </div>
+ <div class="doc-section" data-id="3">
+  3. RESPONSABLES
+ </div>
+ <div class="doc-content" data-id="3">
+  <p>
+   Director de Operaciones, Jefe de Producción, Analistas de proceso, Auxiliares de proceso y Digitador
+  </p>
+ </div>
+ <div class="doc-section" data-id="4">
+  4. DEFINICIONES
+ </div>
+ <div class="doc-content" data-id="4">
+  <ul>
+   <li>
+    <i class="fa-regular fa-circle-check">
+    </i>
+    <b>
+     Nota:
+    </b>
+    Para los servidores utilizados en el proceso se remplazó su dirección IP por las letras S (\\Servidor Producción) y SC (\\192.168.0.28)
+   </li>
+  </ul>
+ </div>
+ <div class="doc-section" data-id="5">
+  5. DOCUMENTOS DE REFERENCIA
+ </div>
+ <div class="doc-content" data-id="5">
+  <p>
+    Acuerdo de servicios  ISO 9001:2015  ISO 27001:2022  Resolución 1188 de 2007 de la DIAN  Resolución 478 de 2000 de la DIAN  Memorando 561 septiembre 23 de 2008 de la DIAN  Resolución 436 del 24 de agosto de 2010
+  </p>
+ </div>
+ <div class="doc-section" data-id="6">
+  6. Descripción del proceso
+ </div>
+ <div class="doc-content" data-id="6">
+ </div>
+ <div class="doc-section" data-id="1">
+  1. https://vpn.bancolombia.com
+ </div>
+ <div class="doc-content" data-id="1">
+ </div>
+ <div class="doc-section" data-id="2">
+  2. Se ingresa con el correo que se asignó @bancolombia.com.co
+ </div>
+ <div class="doc-content" data-id="2">
+  <p>
+   IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA
+  </p>
+ </div>
+ <div class="doc-section" data-id="3">
+  3. Escribir la contraseña y esperar la llamada al celular registrado. Al contestar oprimir la tecla
+ </div>
+ <div class="doc-content" data-id="3">
+  <p>
+   ¨#¨, con ello se autenticará
+  </p>
+ </div>
+ <div class="doc-section" data-id="4">
+  4. Ingresar al intranet Bancolombia
+ </div>
+ <div class="doc-content" data-id="4">
+ </div>
+ <div class="doc-section" data-id="5">
+  5. Ingresar de nuevo correo @bancolombia.com.co y contraseña
+ </div>
+ <div class="doc-content" data-id="5">
+  <p>
+   IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA
+  </p>
+ </div>
+ <div class="doc-section" data-id="6">
+  6. Al ingresar seleccionar ¨para mi ¨después ¨Mis herramientas¨ y ¨correspondencia¨
+ </div>
+ <div class="doc-content" data-id="6">
+ </div>
+ <div class="doc-section" data-id="7">
+  7. Acceder y Seleccionar ¨Recepción de Documentos¨
+ </div>
+ <div class="doc-content" data-id="7">
+ </div>
+ <div class="doc-section" data-id="8">
+  8. Esta interfaz está dividida en dos secciones
+ </div>
+ <div class="doc-content" data-id="8">
+  <p>
+   - Sección de legalización. - Sección de detalle de solicitudes pendientes.  Sección de legalización: En esta sección podrá indicar el estado final de la solicitud, las observaciones y el sistema ubicará esta por medio del número del Sticker. IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA  Estados de legalización o estados finales.  Observaciones de la legalización.  Cantidad de registros identificados por el sistema pendientes por legalizar
+  </p>
+ </div>
+ <div class="doc-section" data-id="9">
+  9. Podemos evidenciar el listado que se relaciona del recaudo diario y este deberá de quedar
+ </div>
+ <div class="doc-content" data-id="9">
+  <p>
+   en cero para así dejar despejado para el siguiente día
+  </p>
+ </div>
+ <div class="doc-section" data-id="10">
+  10. Rastreo de los precintos
+ </div>
+ <div class="doc-content" data-id="10">
+  <p>
+   IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA  Ingresamos por busqueda y seleccionamos STICKER  ingresamos el número de precinto que se necesite validar.  en resultado de consulta en general se puede evidencia todos los datos y fecha que fue enrutado por parte de la sucursal hacia nuestra dependencia IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA  en detalle se puede ver la descripción del día que por nuestra dependencia fue descargada la información
+  </p>
+ </div>
+ <div class="doc-section" data-id="11">
+  11. Una vez ingresados los precintos y label le damos GUARDAR, guardamos el PDF generado
+ </div>
+ <div class="doc-content" data-id="11">
+  <div class="doc-subsection">
+   6.2. Control documental
+  </div>
+  <div class="doc-subcontent">
+   <div class="doc-subsection">
+    6.2.1. Revisar y clasificar los documentos
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Auxiliar de procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      PRO-D-074 Reporte confirmación de fecha real
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      En el área de producción procedemos a realizar la separación de los documentos litográficos de los XML según el orden ya establecido al momento de iniciar el proceso de lectura, cuando la oficina contiene documentos litográficos se deja la planilla original si llega a venir formularios XML se hace una planilla manual con los datos de la zona, oficina, fecha de recaudo y horario, por solicitud del cliente debemos reportar las inconsistencias por fecha errada y documentos que lleguen sin sello, este reporte se debe enviar en el formato PRO-D-070 Reporte confirmación de imágenes con inconsistencia en la ruta Servidor Canal\07_procesos\aaaammdd\archivos\inconsistencias Actualizar las imágenes en la página Https://www.digicom.com.co/bancos_web/sistema/inicio.aspx en la fecha del día para su respectiva validación por parte del banco y este a su vez nos envía un correo validando estas inconsistencias y notificando como proceder con las mismas. IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Nota:
+      </b>
+      Esta actividad también se realiza en todas las ciudades Digicom (Barranquilla, Bucaramanga, Cali, Cartagena, Ibagué, Manizales, Medellín y Pereira)
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.2.2. Pasar los documentos por el lector de código de barras
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Auxiliar de procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Se empieza a pasar por el lector de código de barras los autoadhesivos de los documentos litográficos en el aplicativo in_07.exe en el menú principal opción: Bancolombia\registro de llegada de físicos por lector de código de barras. Se asigna la fecha en el campo "fecha de recaudo a descargar", Nos ubicamos en el campo "código de barras" y comenzamos a realizar la descarga de los formularios litográficos. Para los formularios XML se realiza el mismo proceso, pero nos ubicamos en el campo “código de barras del formulario” y realizamos la descarga correspondiente. IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA XML LITOGRAFICO  Si al momento de la descarga sale el mensaje imagen no fue enviada por el banco se debe dejar el documento físico aparte, y continuar con la descarga de la información.  El aplicativo avisa cuando un formulario no está en log, o no es XML, estos formularios se separan y se dejan con el analista a cargo (se debe anotar en su tapa respectiva cuando se saca un documento y el caso específico).  Hay documentos que al pasar por lector presenta el mensaje "la fecha original es diferente a la fecha reportada, aaaammdd desea continuar" se debe informar al analista del proceso para el proceso a continuar. Una vez terminada esta actividad se genera el archivo de faltantes por la opción: Bancolombia\registro de llegada de físicos por lector de código de barras, diligenciamos el campo: rango de fechas y damos clic en el botón: faltantes, el informe que genera queda en la ruta: IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA Servidor Producción\confidencial_nacionales07_aaaa\07\procesos_07\faltantes_fisicos, en este revisamos las oficinas por ciudades que están pendientes por llegar. Nota 1: Después de descargada la fecha de recaudo y retirado los documentos que el aplicativo informo que venían sin imagen se entregan al área de digitalización separados por XML, litográficos. Una vez hecha la digitalización de estos documentos se intercalan dentro de las correspondientes oficinas. Nota 2: Esta actividad también se realiza en todas las ciudades Digicom (Barranquilla, Bucaramanga, Cali, Cartagena, Ibagué, Manizales, Medellín y Pereira)
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.2.3. Revisión y carga de inconsistencias
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Auxiliar de procesos/ Líder de procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      PRO-F-033 tabla de inconsistencias Bancolombia, PRO-D-105-EXT Documentos con inconsistencias
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Los documentos físicos se deben revisar uno a uno con el fin de identificar las posibles inconsistencias en la recepción del impuesto teniendo en cuenta los siguientes campos:  Año.  Periodo.  Concepto.  Administración.  Nombre o Razón Social.  Periodicidad declaración, para el caso de los 300  Código título campo 33 para el caso de los 490, diligenciado 50 para pago con Tidis y 40 para pago con cert.  Código título campo 43 para el caso de los 690, diligenciado 50 para pago con Tidis y 40 para pago con Cert. IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA  Sello de impuestos legible (en el campo destinado para tal fin) y que corresponda a la fecha de recaudo y jornada, Verificar Pago total: Igual a “0” sin pago. Pago total Mayor a “0” con pago. Si es con Tidis o con Cert  Actividad económica.  Firma del contribuyente, contador o revisor fiscal.  Adhesivo en campo destinado para este fin y que se encuentre en buen estado  Documentos con deterioro Si se encuentran inconsistencias se deben registrar en la aplicación. Control de Documentos según la codificación del formato PRO-F-033 Tabla de Inconsistencias Bancolombia una vez se termina de revisar los documentos se procede a ingresar al aplicativo IN_07.exe las inconsistencias encontradas por el menú principal: Inconsistencias\Registro de inconsistencias En esta opción: ingresamos el adhesivo en la casilla número de sticker o el número de formulario en la casilla número de formulario del XML lateral y seleccionamos el botón: adicionar Sticker o XML el registro nos aparece en la tabla y en el campo inconsistencia Observación: las ciudades dejan en la ruta; Servidor Producción\Confidencial_In07_aaaa\Inconsistencias de su respectivo servidor el archivo Incondiasaaaammdd el cual se debe dejar en la ruta: ServidorProducción\Confidencial_Nacionales07_aaaa\07\Procesos_07\ProcesosBancolombia\ciud ades\""Ciudad""\inconsistencias, este se carga al aplicativo IN_07.exe por el menú principal: Inconsistencias\Registro de inconsistencias botón: Carga de inconsistencias y procedemos a ingresar en la ruta donde dejamos los archivos de ciudades. IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA Nota 1: Para el caso de documentos que lleguen sin firma estos se deben reportar al analista encargado del proceso, el cual a su vez reporta estas inconsistencias al banco y diligencia el formato externo PRO-D-105-EXT Documentos con inconsistencias con los datos que allí solicita y este reporte se envía al banco para realizar gestión, todas las ciudades Digicom reportan directamente por correo electrónico a la persona encargada del procesado estos formularios con imagen adjunta, se debe tener en cuenta que solo las ciudades principales deben ser incluidas en este informe , para el caso de las ciudades secundarias y/o aledañas solo se reportan por el aplicativo Nota 2: En caso del que el documento llegue con centavos se debe reportar la inconsistencia y pasar a Líder a cargo. Nota 3: Verificar que ningún campo numérico este en blanco, mínimo debe contener el número “0”. Nota 4: verificar que el documento no tenga marca de agua a excepción de la palabra litográfico e igualmente que no tenga sello digital. Nota 5: Esta actividad también se realiza en todas las ciudades Digicom (Barranquilla, Bucaramanga, Cali, Cartagena, Ibagué, Manizales, Medellín y Pereira)
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.2.4. Certificar documento físico
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Auxiliar de procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Si algún documento no cumple con lo establecido anteriormente se debe certificar el documento al respaldo. Certificar es describir la novedad que presenta el documento con una leyenda en la parte posterior del documento, anexo a la certificación se debe colocar el sello legible con la fecha de recaudo y forma de pago correcta y se debe incluir el nombre completo de la persona autorizada por el banco. Nota 1: para los casos de las oficinas que recaudan mucho y que se debe certificar muchos documentos por la misma inconsistencia se puede utilizar impresora con el fin de que este proceso se realice con mayor rapidez y eficiencia, sin embargo, también se debe colocar el sello legible con la fecha de recaudo y forma de pago correcta y se debe incluir el nombre completo de la persona autorizada por el banco de forma manual. Nota 2: Esta actividad también se realiza en todas las ciudades Digicom (Barranquilla, Bucaramanga, Cali, Cartagena, Ibagué, Manizales, Medellín y Pereira). IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.2.5. Reportar inconsistencias documentos físicos
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Auxiliar de proceso
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      PRO-D-074 informe de inconsistencia diarias
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Después de realizada la certificación e ingreso de inconsistencias de cada fecha de recaudo se deben generar un archivo de inconsistencias por fecha de recaudo, el cual se genera por el aplicativo IN_07.exe por el menú principal: Inconsistencias\Registro de inconsistencias botón: Inconsistencias por rango de fechas, Nota 1: Para reportar el archivo de inconsistencias se debe hacer al segundo y al sexto día hábil de cada fecha de recaudo. El informe queda generado en la ruta \Confidencial_In07_aaaa\Inconsistencias\envíos. IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA Se debe relacionar en el formato PRO-D-074 informe de inconsistencia diarias para esto debemos copiar la información del archivo incondias_aaaammdd_aaaammdd_aaaammdd_xxxx.xls generado en la ruta anteriormente mencionada; una vez pegada la información procedemos ordenar el informe (márgenes, tamaño, etc.). Inmediatamente procedemos a copiar la columna de adhesivo en un Excel aparte y se guarda como extraer.txt (MS-DOS) en la ruta: Servidor Producción\confidencial_in07_aaaa\procesos con el nombre extraer esto con el fin de poder publicar las imágenes del reporte de inconsistencias. Para obtener las imágenes ingresamos al aplicativo in_07.exe menú principal opción: Bancolombia\caja 07 integrado Damos clic en los botones: extraer imágenes litográficas, según plano txt y extraer imágenes XML IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA Según plano txt, las imágenes quedan listas en la ruta: Servidor de producción \confidencial_in07_aaaa\procesos\extraer . Se copia la carpeta extraer en la ruta: Servidor Producción\confidencial_nacionales07_aaaa\07\procesos_07\procesosbancolombia\carpetas_banc olombia_aaaa\inconsistencias físicas\aaaa\mm-(mes)\aaaammdd esta carpeta la renombramos como "imágenes_(mes) dd_ (1 o 2) parcial" la comprimimos en un archivo Zip, este archivo se debe copiar en la ruta: Servidor Producción\07_procesos\aaaammdd\archivos\inconsistencias Se actualiza la pág. Https://www.digicom.com.co/bancos_web/sistema/inicio.aspx según la IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA Nota 2: este procedimiento se realiza a diario. Teniendo en cuenta que ya se han reportado las inconsistencias con código 449 y 453 (fecha errada y documentos que lleguen sin sello) las cuales son verificadas por el turno de la noche y se las dejan al Líder del proceso para su respectivo reporte por medio de correo electrónico
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.2.6. Control de documentos faltantes físicos
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Líder de procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      PRO-D-EXT- 106 Plantilla reporte faltantes consolidado PRO-D-071 - Reporte de Documentos con denuncio
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Después de que los documentos se pasan por el lector de código de barras debemos generar el archivo “faltantes_aaaammdd_aaaammdd”, el cual se genera en el aplicativo IN_07.exe, menú principal en la opción: Bancolombia\Registro de llegada de físicos por lector de códigos de Barras casilla rango de fechas desde hasta con la fecha de recaudo trabajada, le damos clic en el botón: faltantes el cual deja el archivo en la ruta: Servidor Producción\Confidencial_Nacionales07_aaaa\07\procesos_07\Faltantes_Fisicos Nota 1: Esta actividad también se realiza en todas las ciudades Digicom (Barranquilla, Bucaramanga, Cali, Cartagena, Ibagué, Manizales, Medellín y Pereira). IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA Se diligencia el formato PRO-D-EXT- 106 Plantilla reporte faltantes consolidado que se encuentra en la ruta. Se actualiza la fecha en la pág.: https://www.digicom.com.co/Bancos_Web/Sistema/Inicio.aspx. Por las opciones: Nacionales pestaña Descargar, seleccionamos la Fecha de Recaudo y damos clic en el botón: Aceptar y por último procedemos a enviar correo electrónico al banco informando que ya está el informe. en el archivo PRO-D-EXT- 106 Plantilla reporte faltantes consolidado el cual se encuentra en la ruta: Servidor Producción\Confidencial_Nacionales07_aaaa\07\procesos_07\ProcesosBancolombia\Carpetas_ba ncolombia_aaaa Se va actualizando los faltantes que están pendientes por llegar (las fechas pendientes), este archivo se comprime en formato .Zip y se copia en la ruta: Servidor Canal \07_Procesos\aaaammdd\Archivos\FALTANTES, se actualiza la fecha en la pág.: https://www.digicom.com.co/Bancos_Web/Sistema/Inicio.aspx por las opciones: Nacionales pestaña Descargar, seleccionamos la Fecha de Recaudo y damos clic en el botón: Aceptar y por último procedemos a enviar correo electrónico al banco informando que ya está el informe. Para el caso de los documentos que lleguen después de la fecha establecida para realizar la entrega física a la DIAN y queden extemporáneos se deben registrar en el formato PRO-D-071 Reporte de Documentos con denuncio después de vencimiento para llevar el control de los documentos entregados con denuncio. Nota 2: Las ciudades de Digicom reportan los faltantes por correo electrónico a líder de proceso de Bogotá. Nota 3: Este archivo se debe colocar en el día que se está trabajando. Los faltantes de documentos físicos se reportan en ciudades donde tiene presencia Digicom, al 3 día hábil después de la fecha de recaudo, y para el resto de las ciudades incluyendo Bogotá, al quinto día hábil después de la Nota 4: Para el caso de las oficinas de Florencia, Maicao, Riohacha no se deben reportar ya que no llegan los físicos a nuestras instalaciones
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.2.7. Generación de formatos para entrega de documentos en las ciudades
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Líder de procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Para generar estas planillas de entrega al aplicativo IN_07.exe se ingresa la fecha que vamos a generar en el menú principal opción: Informes\Formato de entrega de documentos se diligencia los campos: desde hasta con la fecha de recaudo y vamos seleccionando los botones (ciudades) a generar por intervalo vamos dando clic o seleccionando el tipo de documento (nacionales, aduanas) para nacionales seleccionamos la opción todos, el aplicativo va guardando IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA automáticamente los archivos en la ruta: Servidor Producción\Confidencial_Nacionales07_aaaa\07\procesos_07\envíos. Una vez terminada la generación ingresamos a la ruta mencionada y validamos el contenido del archivo, si tiene información se coloca en el respectivo servidor de las ciudades Digicom en la ruta: Servidor Producción\Confidencial_In07_aaaa\FORMATOS DE ENVIO ""Ciudad""\aaaa y las ciudades (Florencia, Maicao y apartado) se colocan en la ruta: Servidor Canal\07_Procesos\aaaammdd\Archivos\RELACION DE ENTREGA FISICOS y se procede a realizar la actualización de la fecha en la pág.: https://www.digicom.com.co/Bancos_Web/Sistema/Frm_Consultar_Descargas_Archivos.aspx?Fiel d_App=NACIONALES#no-back-button y se envía correo electrónico al banco confirmando los formatos de entrega. Para Formularios XML: Se ingresa los campos desde hasta damos clic en el botón: desmarcar todo y seleccionamos Florencia dando clic en la casilla correspondiente de listar, seleccionamos el tipo nacionales opción todos, opción No generar PDF y damos clic en el botón: generar, este me muestra la imagen de la planilla la cual debemos guardar en la ruta: Servidor Producción\confidencial_nacionales07_aaaa\07\procesos_07\procesosbancolombia\formatos_ciud ades_pdf\apartado-florencia-maicao\florencia XML\aaaa\(mes) y se guarda con el nombre: Florencia aaaammdd xml.pdf se comprime en archivo .Zip y se coloca en la ruta: Servidor Canal\07_procesos\aaaammdd\archivos\relación de entrega físicos, se procede a realizar la actualización en la página. Nota 1: Esta actividad también se realiza en todas las ciudades Digicom (Barranquilla, Bucaramanga, Cali, Cartagena, Ibagué, Manizales, Medellín y Pereira). Nota 2: Para generar los formatos de apartado y Maicao únicamente se generan los formatos de aduanas, y para Florencia se genera nacionales. se debe generar el formato XML para Florencia por el menú principal opción: Informes/formatos de entrega de documentos XML automáticos. IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA
+     </li>
+    </ul>
+   </div>
+  </div>
+  <div class="doc-subsection">
+   6.3. Captura de información
+  </div>
+  <div class="doc-subcontent">
+   <div class="doc-subsection">
+    6.3.1. Indexación
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.3.1.1. Carga de imágenes índex global
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Líder de procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No aplica IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Una vez se encuentren las imágenes en la carpeta índex global, se realiza la carga ingresando al aplicativo In_07.exe, en la fecha de recaudo y se selecciona en el menú principal la opción: Grabación/indexador global/carga, dar clic en el botón: cargar nuevas imágenes, aceptar y salir
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.3.1.2. Captura global automática
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Líder de procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Realizada la carga de imágenes por el índex global se procede a realizar una captura automática por el aplicativo de nacionales, en la fecha de recaudo, se selecciona en el menú principal la opción: Grabación/indexador global/indexador. Se da clic en el recuadro de solo automático y paso seguido clic en el botón: asignar imagen, una vez pasada las imágenes por el aplicativo terminado este proceso. IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA Se da clic en botón: mover procesadas para que cada imagen llegue a su respectiva carpeta, una vez terminado este proceso damos aceptar. Luego volvemos al recuadro y marcamos el botón: marcar sin imágenes esto con el fin de realizar la captura manual para las imágenes que no reconoció el aplicativo y verificar las que no vienen en el log, se deben indexar por el campo número de formulario y damos procesar, el aplicativo arroja un mensaje, es muy importante revisar muy bien el número de formulario capturado que concuerde con la imagen antes de dar la opción (procesar)
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.3.1.3. Carga de imágenes
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Una vez terminada la captura global, se realiza la carga de imágenes ingresando al aplicativo In_07.exe, en la fecha de recaudo y se selecciona en el menú principal la opción: Grabación/cargar imágenes a indexar, seleccionar botón cargar nuevas. IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA Se debe realizar la carga en el adicional 5 de la fecha de recaudo para indexar las aduanas bajadas por internet (500), para cargar documentos XML se procede a colocar la imagen en la siguiente ruta: Servidor Producción\confidencial_nacionales07_aaaa\07\index_xml\aaaammdd una vez realizado esto se procede a realizar la carga por el aplicativo de nacionales en el menú principal opción: Grabación/carga de imágenes a indexar XML botón: cargar nuevas imágenes/aceptar/salir
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.3.1.4. Captura de campos
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Líder de procesos \Digitadores\auxiliar de procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Para realizar la captura de los documentos litográficos se ingresa por el aplicativo In_07.exe en el menú principal opción: Grabación/indexador automático se da clic en el botón: asignar imagen y se procede a capturar los siguientes campos: - Numero de autoadhesivo - Tipo de formulario - Fecha de recaudo - Horario y forma de pago - Preimpreso - Numero de formulario - Año gravable - Pago total - Concepto para los formularios 490 y 690 IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA Para indexar formularios doble código de barras se ingresa por el menú principal opción: Grabación/indexador automático XML se da clic en el botón: asignar imagen y se procede a capturar los campos de: - Numero de formulario. - Tipo de formulario Según la calidad de la imagen se debe dar la a siguiente opción: Procesar: Siempre que la imagen este legible y en óptimas condiciones, Ilegible: Si vienen mal escaneadas o si no tiene buena calidad, Sobrante: Imágenes que no vienen en el log, el cual el aplicativo arroja un mensaje, es muy importante revisar muy bien el número capturado que concuerde con la imagen
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Nota:
+      </b>
+      se validan las imágenes que no fueron indexadas (rechazadas) por los digitadores para establecer el motivo de rechazo sea el correcto y se debe asegurar el procesamiento de cada una de ellas
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.3.1.5. Integración imágenes provenientes de las sedes regionales
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Líder de procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Las sedes regionales digitalizan los formularios pendientes por imagen que llegan a las sucursales de Digicom, estas imágenes se colocan en la carpeta scan/aaaammdd en cada servidor de la ciudad, una vez realizado este proceso cada ciudad debe informar por correo electrónico a la encargada del proceso, quien debe ingresar al servidor de cada ciudad y traer las imágenes las cuales se dejan en la siguiente ruta: SP\confidencial_nacionales07_aaaa\07\index_global, estas imágenes se descargan por medio del aplicativo: In_07\Fecha de movimiento\Botón: Grabación\Cargar imágenes a indexar (Ver actividad Carga de Imágenes), para su respectivo procesamiento
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.3.1.6. Generar informe diario de faltantes reales
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Líder de procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      PRO-D-025 Pendientes por Indexar Impuestos Bancolombia
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Para generar faltantes se necesita haber indexado la totalidad de las imágenes recibidas, se ingresa al aplicativo In_07.exe por el menú de iconos "ver registros indexados" damos clic en el botón: faltante recaudo el cual nos genera el archivo recaudobco_faltantes.xls, este archivo se genera en la ruta: Servidor Preoducción\confidencial_nacionales07_aaaa\07\procesos_07\informes\aaammdd IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA Nos muestra el archivo PRO-D-025 Pendientes por Indexar Impuestos Bancolombia donde nos discrimina por ciudades los documentos pendientes, estos archivos se envían por correo electrónico a las ciudades Digicom para solicitar las imágenes y poder completar las fechas, para el caso de Bogotá se imprime el documento para realizar su respectiva búsqueda, una vez depurada esta información se envía los faltantes reales al banco por medio de correo electrónico
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.3.2. Digitación
+   </div>
+   <div class="doc-subcontent">
+   </div>
+   <div class="doc-subsection">
+    6.3.2.1. Captura campo a campo la información de los formularios
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Digitador
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No aplica Descripción Para realizar la captura de los documentos se ingresa por el aplicativo de nacionales, se ingresa la fecha de recaudo y se selecciona el icono de captura de documentos, también se puede ingresar por el menú principal en la opción: Grabación/ imágenes automáticas opción: nacionales y aduanas. Sale una pantalla donde damos clic en el botón: asignar registró, se debe capturar campo a campo la información contenida en los documentos, la imagen es asignada aleatoriamente por el sistema en primera y segunda captura. No se debe digitar la imagen cuando es ilegible, se asigna una nueva imagen, la imagen no digitada es revisada por el responsable del proceso
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Nota:
+      </b>
+      la segunda captura se realiza por un usuario diferente a quien hizo la primera captura. IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.3.2.2. Inconsistencias generadas durante la digitalización
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Líder de procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Las imágenes no digitadas son revisadas luego de terminar la grabación por el encargado del proceso, se verifica el motivo por el cual no fueron grabadas y según su inconsistencia se busca el físico y se reemplazan las imágenes. Para los documentos que contienen información sensible, se debe informar al banco para que nos den respuesta al caso y como proceder
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.3.3. Validar captura
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Líder de procesos \ Auxiliar de procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Para realizar la validación se realiza por el aplicativo In_07.exe ingresar a la fecha de recaudo y seleccionar el icono comparación automática, se da clic en el botón: iniciar validación y se va seleccionando el tipo de formulario, se valida la primera captura contra la segunda captura, con referencia la imagen dejando la información correcta
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Nota:
+      </b>
+      Si las dos capturas no coinciden a la registrada en la imagen, se debe capturar la información correcta. Si la información no es legible se marca “campo legible”, sí tiene alguna duda le da la opción: omitir información la cual pasaría a revisión por él encargado del proceso
+     </li>
+    </ul>
+   </div>
+  </div>
+  <div class="doc-subsection">
+   6.4. Generación Informe 1187
+  </div>
+  <div class="doc-subcontent">
+  </div>
+  <div class="doc-subsection">
+   6.5. Generar informe 1740
+  </div>
+  <div class="doc-subcontent">
+   <div class="doc-subsection">
+    6.5.1. Generar informe diferencia tipo impuestos
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Líder de procesos \Auxiliar de procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Para realizar este informe se realiza por el aplicativo In_07.exe ingresar a la fecha de recaudo menú principal opción: Barras Laterales\XML Barras Laterales damos un clic en botón: Errores Caja automáticamente se genera el archivo quedando en la siguiente ruta: Servidor Producción\confidencial_nacionales07_aaaa\07_aaaa\07\aaaa\procesos_07\informes\aaaammdd este archivo se comprime , se coloca en la ruta Servidor Descarga\07_Procesos\aaaammdd\Archivos y se actualiza a la página: www.digicom.com.co/BANCOS_WEB en su respectiva fecha siempre y cuando genere inconsistencia de lo contrario no se sube a la página. IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA
+     </li>
+    </ul>
+   </div>
+  </div>
+  <div class="doc-subsection">
+   6.6. Generación informe distribución de fondos y medios magnéticos
+  </div>
+  <div class="doc-subcontent">
+   <div class="doc-subsection">
+    6.6.1. Revisar grabación y cierre de fechas
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Líder de proceso
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      para la generación de cintas es de importancia tener grabado toda la información y no tener ninguna inconsistencia por resolver esto se verifica por el aplicativo In_07.exe en el icono ver registros indexados, se generan los archivos de los botones: faltantes recaudo, sobrantes recaudo, reportes de diferencias y formularios duplicados los cuales quedan en la siguiente ruta: Servidor Producción\confidencial_nacionales07_aaaa\07\procesos_07\informes\aaaammdd con los siguientes nombres recaudobco_faltantes.xls, recaudobco_sobrantes.xls, diferenciasvslog.xls estos archivos deben estar en 0 si contienen algún error se tiene que validar la información y el porqué de la inconsistencia
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.6.2. Diferencias Contables
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Líder de proceso
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Las diferencias contables son las que tienen que ver con los valores, el campo de concepto y los sobrantes y faltantes, esta actividad se realiza por el aplicativo in_07\Bancolombia\ Ver archivo de caja de la fecha y damos clic en el botón Reporte web. IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA Estas deben reportan por el aplicativo img_banco07.exe el cual lo encontramos en la ruta: Servidor Producción\confidencial_nacionales07_aaaa\07\procesos_07\procesosbancolombia\img_banco07\ bin\debug, hay seleccionamos la opción Archivo\ingresar y procedemos a capturar los datos según el tipo de inconsistencia que tengamos. Abrimos el aplicativo para reportar y seleccionamos la inconsistencia correspondiente. Diligenciamos el numero de adhesivo para que nos arroje los datos correspondientes del formulario y se diligencia el CAMPO_BANCO según arroje el aplicativo y damos click en grabar. IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA Estas anomalías se deben reportar al segundo día hábil después del recaudo, con el fin de que el banco pueda validar y aceptar o rechazar cada inconsistencia antes de generar el archivo de distribución de fondos, se verifica en la pág. Https://www.digicom.com.co/bancos_web/sistema/frm_consulta_adhesivos.aspx?field_app=nacion ales#no-back-button por la pestaña nacionales opción: verificar seleccionamos la fecha y damos clic en el botón: consultar Hay podemos ver el adhesivo o número de formulario y en qué estado esta inconsistencia. También revisamos en el aplicativo de impuestos nacionales la pestaña nacionales opción: verificar_cont seleccionamos el rango de fecha y damos clic en el botón: consultar. Las inconsistencias tienen que estar en color verde para poder seguir en el proceso de lo contrario se debe llamar al encargado en el banco para dar solución a estas inconsistencias
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.6.3. Archivo simplificadas
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Líder de proceso
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      El banco envía diariamente un correo electrónico con un archivo plano encriptado con el detalle de las aduanas simplificadas (510) de la oficina 348 que se recaudaron en cada fecha de recaudo, este archivo se copia y pega en la ruta: Servidor producción\\Confidencial_In07_2024\data\07\aaaammdd y se renombra cambiando únicamente la letra que trae en el nombre del archivo por una “d” de tal manera que debe quedar de esta manera (01807d??), procedemos a cargar el archivo por el aplicativo en la pestaña \\Bancolombia\cruce\aduanas_simplificadas\cargar_plano, luego al dar la opción de aceptar el aplicativo realiza el cruce del archivo conta las aduanas indexadas generado así un archivo de faltantes para poder determinar que todo lo que llego por imagen y/o físico coincide con los datos del archivo enviado por el banco, se debe verificar que este cruce quede en blanco asegurando que se procesaron todos los registros en la fecha. IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.6.4. Validar log y log adicional 05
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Líder de proceso
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Se genera el informe por el aplicativo In_07/ abrir fecha de recaudo/normal o adicional 5/ abrir en el icono ver registros indexados, se da clic en el icono con la forma de hoja Excel este informe queda generado en la ruta: SP\confidencial_nacionales07_aaaa\07\procesos_07\informes\aaaammdd con el nombre log.xls y se debe revisar cada tipo de formulario filtrando el archivo, a estos se les revisar longitud, año, numero de formulario, preimpreso
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Nota:
+      </b>
+      para generar el log adicional 5 se debe ingresar a la fecha escogiendo el adicional
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.6.5. Generar archivo cruce web y crucewebfull
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Líder de proceso
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      PRO-D-029 Cruce web full PRO-D-052 Cruce web
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Una vez hechas las validaciones anteriores se debe revalidar la información por el aplicativo In_07.exe en el icono ver registros indexados, damos clic derecho en el icono del candado y clic al botón: si, para quitar marcas de validación. IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA Salimos al menú principal del aplicativo e ingresamos por el icono comparación automática y volvemos a validar. terminado este proceso generamos una malla por el menú principal opción; Generación de archivos planos/generación automática de tapas damos clic en el botón: malla terminado esto ingresamos nuevamente por el menú principal opción: Bancolombia\ver archivo de caja de la fecha, damos clic en el botón: reporte web. IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA Los archivos generados quedan en la ruta: Servidor Producción \confidencial_nacionales07_aaaa\07\procesos_07\informes\aaaammdd Servidor Producción\confidencial_aplic_in07_aaaa, procedemos a ingresar a la fecha de recaudo y se selecciona crucewebfull se imprime el archivo generado ”PRO-D-052 cruceweb y PRO-D-029 Cruce web full y procedemos a verificar los registros reportados por el aplicativo In_07.exe, en el menú principal opción: Grabación/imágenes/ver índex Digicom con imagen se da clic en el botón: filtro desde txt vamos a la ruta: Servidor producción\confidencial_nacionales07_aaaa\07\procesos_07\informes\aaaammdd, y procedemos a verificar los errores generados en el archivo. IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA Nota 1: El archivo cruceweb es un informe donde relaciona los errores contables (son diferencias de dineros). El archivo crucewebfull es un informe donde se relaciona errores de grabación (captura). Nota 2: Este proceso se realiza en el momento de generar la distribución de fondos, pero se debe volver a generar y asegurarnos de que no existan nuevas inconsistencias
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.6.6. Revisar y cargar formularios inconsistencias
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Líder de proceso
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Al momento de realizar la indexación se debe digitar bien los números de formularios tanto de documentos nacionales como de las aduanas para evitar posibles errores y así que no se vean reflejados en el cruce que se genera en el aplicativo. El número de formulario debe coincidir con el campo que se refleja en la indexación. Para las aduanas o pagos aduaneros, en algunos casos el número de formulario no se deja modificar, estos errores salen registrados en el archivo crucewebfull. Se proceden a corregir por el aplicativo In_07.exe en el menú principal opción: Herramientas/registros de stikers con formularios errados, en el cual ingresamos el número de IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA adhesivo y creamos el registro con el número de formulario correcto una vez terminado damos clic en salir
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.6.7. Validar cinta magnética
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Líder de proceso
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Por el aplicativo In_07.exe ingresar al menú principal en la opción: Generación de archivos planos\validación de cinta, ingresamos la fecha de recaudo que estamos procesando en la casilla de rango de fechas y damos clic en el botón: aceptar, en este se observa los diferentes errores que pueden ser causa de rechazo de la cinta magnética. Se debe ir a las capturas y corregir según el error comparando contra la imagen; esto se realiza a través del aplicativo In_07.exe en las opciones de indexación o grabación. Se debe validar desde la indexación como se encuentra registrado el formulario y así determinar de dónde proviene el posible error. Para ello en la opción consultar índex se digita el número de adhesivo. IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA En la opción de captura manual de igual forma se digita el número de adhesivo y ubicamos el campo donde se refleja el posible erro, se graba nuevamente el campo y guardamos el cambio
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.6.8. Distribución de fondos
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Líder de proceso
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Una vez realizados los 7 pasos anteriores se procede a realizar el archivo errcaja por el aplicativo In_07.exe en el menú principal opción: Bancolombia\ver archivo de caja de la fecha seleccionamos la opción: generar plano y damos clic en el botón: reporte web IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA Los archivos generados quedan en la ruta: Servidor Producción\confidencial_in07_aaaa\caja Bancolombia con el nombre: errcajadiaaaaammddxx.txt. Una vez se genera el archivo se copia en la ruta Servidor canal\Bancolombia\Salida y de igual forma se pega en la ruta Servidor descarga\07_Procesos\aaaammdd\Archivos\ERRCAJADIA una vez hecho esto se procede a enviar un correo al banco para notificar la existencia del archivo, IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA El banco da respuesta e informa que se colocó el archivo cajadefdiaaaaammdd.dbf en el canal en la ruta \\Servidor canal\Bancolombia\Entrada , Se copia en la ruta: Servidor Producción\confidencial_in07_aaaa\caja Bancolombia, IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA Una vez realizado esto ingresamos al aplicativo In_07.exe menú principal opción: Bancolombia\carga archivo de caja diario seleccionamos la opción: definitivo y damos clic en el botón: cargar él nos muestra un letrero con la información cargada cerramos la ventana. Volvemos al menú principal opción: Bancolombia\ver archivo de caja de la fecha seleccionamos la opción Reporte web y damos clic en el botón: reporte web y botón: enviar archivo de caja Excel IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA 1 . 2. Esto con el fin de verificar que los archivos queden en 0 y los revisamos en la ruta: Servidor Producción\confidencial_nacionales07_aaaa\07\procesos_07\informes\aaaammdd y no deben contener información. Una vez se copia nuevamente el archivo de caja se abre y luego vamos a la ruta Servidor Produccion\Confidencial_Nacionales07_aaaa\07\procesos_07\Procesos Bancolombia\controlcintas abrimos el archivo DATOS CINTAS en la pestaña DISTRIBUCION, copiamos la información del día el valor normal igualmente el valor del adicional del día anterior esto nos dará un valor total el cual nos servirá para comparar contra el valor del aplicativo, en el aplicativo In_07.exe en la opción: Bancolombia\archivo de distribución nos muestra una ventana en la cual vamos a diligenciar las fechas que van para distribución y seleccionamos la cantidad de días y sus respectivos horarios (normal, extendido) según apliquen, en la casilla fecha de distribución se diligencia con la fecha en la que vence (son 7 días calendario después de la fecha de recaudo) y damos clic en el botón: procesar y procedemos a comparar los valores que me muestra el aplicativo con el valor en el archivo datos cintas.xlsx IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA si los valores coinciden procedemos a copiar el archivo dfaaaammdddia.txt el cual se encuentra en la ruta: Servidor Producción\confidencial_in07_aaaa\caja Bancolombia a la ruta: Servidor Canal\Bancolombia\, una vez copiado el archivo enviamos correo al banco informando que el archivo fue colocado
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.6.9. Generación de cintas magnéticas
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Líder de proceso
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Se generan tapas por el aplicativo in_07.exe menú principal en la opción: Generación de archivos planos/generación automática de tapas, se va seleccionando el tipo de tapas a generar (nacionales “grandes u otros”, aduanas), Una vez generada la primera planilla se vuelve a ingresar al menú principal del aplicativo en la opción: Validación de cinta realizamos la consulta por el rango de fechas, IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA Y volvemos al menú principal opción: Generación de archivos planos/generación archivos planos por tipo, se selecciona el tipo de producto de acuerdo a las tapas generadas y se coloca la lo genera automáticamente pero se debe verificar que sea el consecutivo correcto validando al archivo de datos cintas que es donde se lleva el control) los archivos generados quedan en la ruta: Servidor producción\confidencial_nacionales07_aaaa\07\procesos_07\envios\aaaammdd. IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.6.10. Actualizar control datos cintas
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Líder de proceso
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No Aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      El archivo datos cintas se debe actualizar de forma manual cada vez que se genere una distribución de fondos comparando los valores que genera el aplicativo contra la suma del log banco, este dato se encuentra en el archivo de datos cintas en la pestaña llamada distribución: IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA De igual manera cuando se generan los medios magnéticos, se realiza la comparación de los datos que genera el aplicativo en la planilla de entrega a la Dian. Los cuales son trasferidos al archivo de datos cintas por modalidad, en cada pestaña (Grandes, Otros, Aduanas) IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA Y en la pestaña CONTROL CINTAS del archivo de datos cinta se diligencian en la macro que nos muestra las posibles diferencias que se presentan, las cuales deben ser controladas, (es decir que si hay diferencia el funcionario debe tener conocimiento de que sean o no reales. En la ruta \\Servidor Producción\Confidencial_In07_aaaa\procesos\controlcintas\dian\aaaammdd quedan los archivos planilla control lectura dd-mm-aaaa.xls, r_envioxxxx.doc y las cintas correspondientes, los cuales se comprimen y se deben colocar en la ruta: Servidor Canal\07_procesos\aaaammdd\archivos\cintas, por último se actualiza la fecha en la pág.: https://www.digicom.com.co/bancos_web/sistema/inicio.aspx por las opciones: nacionales pestaña descargar, seleccionamos la fecha de recaudo y damos clic en el botón: aceptar IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA
+     </li>
+    </ul>
+   </div>
+  </div>
+  <div class="doc-subsection">
+   6.7. Conformación de paquetes de documentos físico y entrega la DIAN
+  </div>
+  <div class="doc-subcontent">
+   <div class="doc-subsection">
+    6.7.1. Organizar los documentos
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Auxiliar de procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Los formularios se deben organizar siguiendo las siguientes especificaciones: Litográficos:  Fecha de recaudo  Tipo de impuesto  Organizar autoadhesivo en orden ascendente. Código de barras laterales (XML)  Fecha de recaudo  Tipo de impuesto
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.7.2. Generar listas de punteo
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Auxiliar de procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      PRO-D-028 Control faltantes finales conformación de paquetes Bancolombia
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Para el caso de litográficos tanto aduanas como nacionales que llegan a Bogotá: ingresar al aplicativo In_07.exe, en el menú principal opción: Informes\formato de entrega de documentos se diligencia los campos: desde hasta, fecha de entrega con la fecha de recaudo seleccionamos el tipo de impuesto (nacionales, aduanas), para nacionales damos clic en todos y no generar PDF, se selecciona la cuidad a la cual se debe generar planilla y botón: generar, seleccionamos la opción de imprimir y escogemos la impresora PDF estos archivos los guardamos en la ruta: Servidor Producción \confidencial_nacionales07_aaaa\07\procesos_07\procesosbancolombia\formatos_ciudades_pdf\b ogota\aaaa\"mes"\aaaammdd. IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA imprimimos el archivo y se puntea contra los formularios físicos con el fin de verificar que se encuentran todos y en el mismo orden del listado, se debe contar al terminar el punteo para confirmar que, si tengan la misma cantidad, estas planillas se debe firmar. Para los formularios XML ingresamos al aplicativo In_07.exe, en el menú principal opción: Informes\formato de entrega de documentos XML manual, asignamos consecutivo en la casilla número de envió de planilla, ingresamos el tipo de impuesto en la casilla tipo documento y procedemos a escoger la ciudad, nos ubicamos en la casilla número de pre impreso y comenzamos a descargar.( los formularios XML se deben pasan por lectora de código de barras donde se debe pasar el código de barras superior), el número de envió de planilla debe comenzar en uno dependiendo las cuidad y debe estar conformado por 200 Formularios. IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA Una vez terminado cada paquete conformado por 200 documentos damos clic en el botón: generar seleccionamos la opción de imprimir y escogemos la impresora PDF estos archivos los guardamos en la ruta: Servidor Producción\confidencial_nacionales07_aaaa\07\procesos_07\procesosbancolombia\formatos_ciud ades_pdf\bogota\aaaa\"mes"\aaaammdd, Una vez terminado de pasar todos los documentos damos clic en el botón: faltantes este nos genera el archivo envioxml_faltantes.xls en la ruta: Servidor Producción\confidencial_nacionales07_aaaa\07\procesos_07\informes\aaaammdd Este archivo se verifica para saber si quedo pendiente algún documento por pasar por la lectora de código de barras, volvemos a la ruta el cual se genera en la ruta: Servidor Producción\confidencial_nacionales07_aaaa\07\procesos_07\procesosbancolombia\formatos_ciud ades_pdf\bogota\aaaa\"mes"\aaaammdd y unificamos los archivos en un salo PDF el cual procedemos a imprimir, a esas planillas se les coloca firma y sello con fecha de entrega que se va a realizar a la DIAN, se realiza conteo de documentos para verificar la cantidad contra la planilla. Una vez terminado el proceso se validan los faltantes reales de la fecha y deben ser diligenciados en el formato PRO-F-028 Control faltantes finales conformación de paquetes Bancolombia para tener presente el registro y la cantidad total de faltantes después del envío. Nota 1: El listado generado desde el aplicativo solo relaciona 200 documentos máximo. Nota 2: Esta actividad también se realiza en las ciudades de Digicom (Barraquilla, Bucaramanga, Cali, Cartagena, Ibagué, Manizales, Medellín y Pereira)
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.7.3. Organizar los envíos
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Auxiliar de procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      PRO-F-008 Totales por tipo de formulario PRO-D-061 Relación envíos de Formularios Físicos a la DIAN IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Una vez conformado todos los paquetes y realizado las respectivas validaciones (conteo de documentos) procedemos a diligenciar el archivo PRO-F-008 Totales por tipo de formulario el cual contiene los totales de cada tipo de formulario para realizar la entrega ante la DIAN Bogotá, a este archivo se le debe colocar la fecha de entrega, los formularos se deben empacar en bolsas para su respectiva entrega. Para los documentos de ciudades que llegan a Bogotá se genera sus respectivas planillas (actividad 6.2.7) y se organiza por ciudad al momento de realizar el alistamiento se debe colocar tapa de identificación de cada administración dependiendo del tipo de formulario (Litográficos y XML) el cual se encuentra en la ruta: Servidor Producción\confidencial_nacionales07_aaaa\07\procesos_07\procesosbancolombia\carpetas_banc olombia_aaaa\envios inter servicios TAPA ADMINISTRACION XML TAPA ADMINISTRACION LITOGRAFICO Se procede a guardar en las bolsas por tipo de documento (litográficos, XML) estos paquetes a su vez se guardan en las bolsas de Digicom se sellan con Cinta de seguridad y se les coloca las respectivas guías y estos paquetes se le entregan al funcionario de Inter servicios Estas guías tienen un numero de referencia de seguridad, el cual se deben diligenciar en el formato PRO-D-061 Relación envíos de Formularios Físicos a la DIAN, formato que solicita los siguientes datos: observaciones. Al diligenciar estos datos, deben ser ingresado correctamente para dar seguimiento al número de guía y precinto en caso de alguna eventualidad. Nota 3: adicionalmente se ingresa a la Herramienta de inter servicios para generar las guías Por el siguiente link: https://aplicaciones.interserviciossas.com/newclientesweb/pages/Login.aspx IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA - Usuario y contraseña asignada - Damos click en cargue y generacion guias recoleccion. Seleccionamos una opción según el caso: mensajería con retorno si él envió es para la DIAN Mensajería nacional si es para una sede de DIGICOM. IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA Previamente generamos el archivo en Excel que vamos a cargar dando clic en el segundo recuadro en cargue y validación en la parte derecha. producción\Confidencial_Nacionales07_aaa\07\procesos_07\Procesos Bancolombia\Carpetas_bancolombia_aaaa\ENVIOS INTERSERVICIOS IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA Clic en examinar y cargamos el archivo cargue guías Digicom y validar información IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA Aquí nos dice que es correcto y que se cargaron 5 guías, clic en procesar y en SI en el recuadro que el sistema nos muestra. IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA Aquí nos carga las guías que procedemos a imprimir. IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA
+     </li>
+    </ul>
+   </div>
+  </div>
+  <div class="doc-subsection">
+   6.8. Generar informes semanales y mensuales
+  </div>
+  <div class="doc-subcontent">
+   <div class="doc-subsection">
+    6.8.1. Integrar movimiento
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Auxiliar De Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Primeramente, debemos de Integrar el Movimiento del mes o la fecha a trabajar. Nos vamos al aplicativo IN_07, menú, Informes\log Consolidado seleccionamos el rango de fecha desde el primer día al último de cada mes le damos la opción Integrar Movimiento hasta que termine. – (ver Imagen)
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.8.2. Recibir archivo plano
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Auxiliar De Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No Aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Después de esta acción el Banco informa por correo electrónico la publicación de los archivos de radicación en la página: servidor Canal \07_descargas\cobancolombia, en esta carpeta entramos en la fecha que recibimos el correo y descargamos los archivos de radicación que presenta el nombre, ejemplo: R07190108N los cuales se reciben en formato Zip se copia y se pega en el servidor de Naciones Bancolombia en la carpeta \Confidencial_In07_aaaa\radicados\Archivos Cargados aaaa y se descomprime. ARCHIVOS PEGADOS EN LA CARPETA RADICADOS DEL SERVIDOR: Aquí se pegan y se descomprimen los archivos envidos por la Dian al Banco IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA Abrimos el aplicativo \Confidencial_Aplic_In07_aaaa\ IN_07 en el menú principal desplegamos las opciones Informes\Control Radicación de Documentos 1096 (para los litográficos) y/o Informes\Control Radicación de Documentos 1096 XML (para XML), seleccionamos una de las dos y se abre una ventana la cual se encuentra en la parte posterior un botón que indica: Cargar 1096 le damos clic y nos abre una ventana donde se encuentran descargados los archivos \Confidencial_In07_aaaa\radicados\Archivos Cargados aaaa, seleccionamos y cargamos uno a uno
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.8.3. Ingreso De Planillas Radicadas Al Aplicativo
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Auxiliar De Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No Aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Para que las planillas sean ingresadas al aplicativo debemos tener en cuenta lo siguiente: que al momento de ejecutarlas en el aplicativo por parte de la persona encargada estas presentan un número que se compone del código de la ciudad y un consecutivo que se encuentra impreso en la parte posterior de la hoja, a su vez se generan unos archivos que llevan los mismo números en el caso de Bogotá el código de sede es 00 ejemplo: 00_0000000013 / 00_0000000013.art que se encuentra en la carpeta del servidor de nacionales Bancolombia \Confidencial_In07_aaaa\procesos\recfisicos esto con el fin de que el aplicativo reconozca el número de consecutivo al momento de ingresar la planillas ya radicada, si este archivo no aparece en la carpeta al momento de ingresarla nos indica que no se encontró el número de planilla seleccionado. IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA Planilla generada: con el código impreso parte posterior. Archivos generados: en el servidor, carpeta, \Confidencial_In07_aaaa\procesos\recfisicos Para que el aplicativo reconozca las planillas radicadas de otras ciudades al momento de ingresarlas primero hay que conectarse en los servidores de cada ciudad y entrar en la carpeta de Nacionales Bancolombia\procesos\recfisicos copiar y pegar los archivos generados al momento de ejecutar las planillas para su posterior radicación. Los códigos de cada ciudad son: Cód. Ciudad 00 Bogotá Cód. Ciudad 01 Barranquilla 07 Medellín 02 Bucaramanga 08 Pereira 03 Cali 04 Cartagena 05 Ibagué 06 Manizales Ingreso de planillas: Después que las planillas llegan radicadas se procede a ingresarlas al aplicativo, nos dirigimos al menú de Informes\ Control Radicación de Documentos 1096 XML o Litográfico, en la parte superior de la ventana hay una casilla que dice “Nro. Planillas” allí se coloca el numero consecutivo que se encuentra impreso en la parte posterior de la hoja, luego ingresamos IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA la ciudad, el código de sede, la fecha de radicación por parte de la Dian, en caso de que la planilla este extemporánea seleccionar en Causal allí le especificamos el motivo por el cual quedo presentada fuera de tiempo, si tiene duda de que esa sea la planilla a ingresar podemos hacer clic en el botón “Ver” donde nos mostrara la planilla que se está haciendo referencia, por ultimo hay una opción que es “Actualizar desde sello de planilla” él nos va a pedir que por favor confirmemos la ciudad si estamos seguro que es la correcta inmediatamente el programa nos indica el número de registro que se le coloco la fecha de radicación, y así sucesivamente hasta completar el ingreso de todas las planillas del mes, ver las gráficas a continuación
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.8.4. Generación de cruce
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Auxiliar De Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      PRO-D-139 Cruce
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Nos dirigimos al aplicativo, vamos a menú en la opción Informes\Log consolidad damos el rango de fecha y le damos la opción “Reporte Cruce 1096” IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA esperamos unos minutos a que genere el informe la cual encontramos en la carpeta del Servidor de nacionales Bancolombia \Confidencial_Nacionales07_aaaa\07\procesos_07\varios copiamos, cortamos el archivo con nombre “cruce 1096” y lo pegamos en una carpeta del mismo servidor de nacionales en su correspondiente mes \Confidencial_Nacionales07_aaaa\07\procesos_07\ProcesosBancolombia\CONTROL_1096\INFOR MES 1096\Informes_1096_aaaa\aaaa, allí lo renombramos con el nombre PRO-D-139 Cruce, abrimos el archivo y lo organizamos por orden alfabético de ciudad y fecha de recaudo. Archivo generado después del cruce: aquí nos damos cuenta que ha quedado presentado a tiempo, extemporáneo y que planilla aún está pendiente por recibir, si la columna “I” no contiene con el funcionario de Digicom para la recuperación de la (s) planilla (s) o copia (s) de la misma debe tener la firma y sello del funcionario de la Dian. Si el documento quedo de forma extemporánea en la columna “P” Observaciones debemos ser muy explícito y argumentar el motivo porque quedo presentada fuera de tiempo Columna A: Formato, que indica si es litográfico o doble código de barra (XML) Columna B: Código seccional al cual administración pertenece ese documento. Columna C: Nombre de la Seccional o administración. Columna D: Código de la sucursal bancaria, es el código de la sucursal la cual recibió el pago del impuesto. Columna E: Numero de adhesivo, esta columna es para el caso de los litográficos la cual indica el respectivo número de adhesivo. Columna F: Modelo de Formulario, si es 210,490,300
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.8.5. Organización de planillas radicadas
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Responsable:
+      </b>
+      Auxiliar De Procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Registro:
+      </b>
+      No Aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Descripción:
+      </b>
+      Las planillas físicas ya radicadas se reciben y se deben de organizar por:  Fecha  Ciudad (Alfabéticamente)  Concepto: Nacionales (490)- Aduanas (500, 510, 690) las aduanas se organizan por número de oficina) Se verifica que las planillas contengan el sello y firma de recibido por parte del funcionario de la Dian, cuando ya esto se haya validado se procede a escanear los documentos y deben quedar nombrados de la siguiente forma ciudad_fecha_cantidad de planillas: Armenia_20190104-2, con formato PDF y la opción OCR, estas imágenes quedan organizadas en el servidor de nacionales primero por fecha y orden alfabético en la siguiente dirección: ROL PLANILLAS\Digitalización Planillas Aceptadas\aaaa\mes\d Al finalizar se va comprimiendo fecha por fecha y se renombra de la siguiente forma: Planillas_Aceptadas_aaaammdd para ser cargadas a la web en la siguiente dirección: \07_Procesos\aaaammdd\Archivos\109 IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA Por último, se actualiza la fecha en la web de Digicom: www.digicom.com.co/Bancos_Web/Sistema/Inicio para que el funcionario del banco pueda hacer la respectiva descarga
+     </li>
+    </ul>
+   </div>
+  </div>
+  <div class="doc-subsection">
+   6.9. Generación mensual del informe 1188
+  </div>
+  <div class="doc-subcontent">
+   <ul>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Responsable:
+     </b>
+     Líder de proceso
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Registro:
+     </b>
+     No Aplica
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Descripción:
+     </b>
+     Este informe se genera antes de los primeros 4 días hábiles de cada mes y se genera con el mes vencido anterior, todas las fechas de recaudo deben estar cerradas y cuadradas con el fin de que las sumatorias de los valores coincidan con el dato real. El informe se genera en el aplicativo, por la pestaña de \\informes\informe_de_recaudos_y_consignaciones_1188, se debe digitar el rango de fechas teniendo en cuenta el último día hábil del mes anterior al que se está generando y el primer día hábil del mes posterior al generado, esto con el fin de que queden incluidos todos lo posible valores de horarios extendidos, así mismo se deben marcar las opciones que da el cuadro en la parte superior derecha que son:  Solo procesar efectivo  Ajustar horario 07  Crear copia de temporales El informe queda generado en dos rutas, la primera genera un borrador, que se utiliza para validar la sumatoria y verificar que las sumatorias estén cuadradas \\Servidor Producción\Confidencial_In07_aaaa\procesos\reportes IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA Queda generado un archivo que muestra los totales por fecha de recaudo y tiene tres columnas adicionales, en la primera (DATO 1188) se totalizan los horarios normales y adicionales que corresponden a cada fecha de recaudo de los días hábiles donde taremos los datos de nuestro archivo datos cinta En la siguiente columna (CONSIGANDO) se trae el dato consignado en cada fecha de recaudo que tenemos en nuestro archivo de datos cinta, que se encuentra en la ruta:\\Servidor Producción\Confidencial_Nacionales07_aaaa\07\procesos_07\Procesos Bancolombia\controlcintas IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA Después de tener diligenciadas las dos columnas anteriores, se formula la tercera columna para verificar las posibles diferencias que se presenten en el informe. Cada diferencia se debe revisar y corregir dependiendo del caso, si la diferencia es real el funcionario debe tener conocimiento de su origen en el momento de haber cerrado la fecha de recaudo correspondiente, de lo contrario la columna (DIFERENCIAS) debe quedar en ceros IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA La segunda ruta \\Servidor Producción\Confidencial_Nacionales07_aaaa\07\procesos_07\r1510 es el archivo que se envía al banco, después de validar las posibles diferencias se debe volver a generar pero esta vez solo se deben marcar las opciones que da el cuadro en la parte superior derecha que son:  Ajustar horario 07  Crear copia de temporales Se abre el archivo que queda en la ruta: colocar ruta : \\192.168.0.117\Confidencial_Nacionales07_2020\07\procesos_07\r1510 IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA Se empieza a organizar de la siguiente manera:  La columna a se debe eliminar.  Se deben eliminar las filas que tengan otra fecha diferente al mes que se procesa en el inicio y en el final del archivo. IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA Se filtra la columna de la forma de pago Se elimina todo lo de la forma de pago (S) Las otras dos formas de pago (E, y T) se separan en hojas de cálculo independientes, cortando todo lo que tiene forma de pago (T) para colocarlo en la otra hoja de cálculo, de esta manera todo o que tiene forma de pago (E) queda independiente, y se renombra el nombre de cada hoja de cálculo. IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCOLOMBIA Finalmente se colocan bordes y resalta títulos, para enviar al banco, para lo cual se publica en la publicación
+    </li>
+   </ul>
+  </div>
+ </div>
+ <div class="doc-section" data-id="7">
+  7. INDICADORES DE DESEMPEÑO
+ </div>
+ <div class="doc-content" data-id="7">
+  <p>
+   Medido Responsable Indicador Frecuencia por revisión Σ Documentos Entregados – Σ Documentos Extemporáneos --------------------------------------------- *100 Σ Doc. Entregados Líder Gerente de de Mensual Operaciones proceso Σ Total citas enviadas – Σ Cintas rechazas -------------------------------------- *100 Σ Total citas enviadas
+  </p>
+ </div>
+ <div class="doc-section" data-id="8">
+  8. CONTROL DEL PROCEDIMIENTO
+ </div>
+ <div class="doc-content" data-id="8">
+  <p>
+   VER. FECHA MODIFICACION ELABORADO REVISADO APROBADO No. APROBACION REALIZADA Se realiza Coordinador Coordinadora Jefe de 15 18/06/2018 actualización general de procesos SGI procesos del procedimiento. Se realiza Jefe de Analista del Jefe de 16 05/12/2019 actualización general procesos SGI procesos del procedimiento. Se realiza Jefe de Analista del Jefe de 17 29/09/2020 actualización general procesos SGI procesos del procedimiento. Se realiza Líder de Analista del Líder de 18 28/07/2022 actualización general proceso SGI proceso del procedimiento. Se realiza Supervisor de Oficial de Directo de 19 19/09/2024 actualización general procesos Seguridad SGI del procedimiento
+  </p>
+ </div>
+</div>
+
+<!-- Botón para abrir el modal -->
+<button class="btn btn-outline-primary" id="openModalBtn" style="margin-top: 20px;">Editar Secciones</button>
+<!-- El Modal -->
+<div class="modal" id="sectionModal">
+    <div class="modal-content">
+        <span class="close-button">×</span>
+        <h2>Selecciona y Edita una Sección</h2>
+        <label for="sectionSelector">Sección:</label>
+        <select id="sectionSelector">
+            <option value="">-- Selecciona una sección --</option>
+        </select>
+        <label for="sectionContent">Contenido:</label>
+        <textarea id="sectionContent" placeholder="El contenido de la sección aparecerá aquí..."></textarea>
+        <label for="sectionCambio">Descripcion del Cambio:</label>
+        <textarea id="sectionCambio" placeholder="Describe en palabras cortas el cambio realizado..."
+            required></textarea>
+        <button class="btn btn-outline-primary" id="saveChangesBtn" style="margin-top: 15px;">Guardar Cambios</button>
+    </div>
+</div>
+<script src="{{ url_for('static', filename='js/jquery.min.js')}}"></script>
+<script src="{{ url_for('static', filename='js/acordeon_doc.js')}}"></script>
+<script src="{{ url_for('static', filename='js/edita_procedimiento.js')}}"></script>
+
+{% endblock %}

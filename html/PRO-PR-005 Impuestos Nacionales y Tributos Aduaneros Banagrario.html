@@ -1,0 +1,565 @@
+{% extends 'home.html' %}
+{% block title %}Documentacion{% endblock %}
+{% block content %}
+<link href="{{ url_for('static', filename='css/acordeon_doc.css') }}" rel="stylesheet" />
+<link href="{{ url_for('static', filename='css/procedimientos.css') }}" rel="stylesheet" />
+
+<div id="documento" style="display:none;">procedimientos/HTML/PRO-PR-005 Impuestos Nacionales y Tributos Aduaneros Banagrario.html</div>
+<div id="nombre_documento" style="display: none;">PRO-PR-005 Impuestos Nacionales y Tributos Aduaneros Banagrario</div>
+<h1>PRO-PR-005 Impuestos Nacionales y Tributos Aduaneros Banagrario</h1>
+{% for cambio in cambios %}
+{% if loop.first %}
+<h3>Version: {{cambio[3]}}</h3>
+{% endif %}
+{% endfor %}
+<br />
+<div class="doc-accordion">
+ <div class="doc-section" data-id="1">
+  1. Archivo convertido a excel del XML
+ </div>
+ <div class="doc-content" data-id="1">
+ </div>
+ <div class="doc-section" data-id="2">
+  2. Transacciones
+ </div>
+ <div class="doc-content" data-id="2">
+ </div>
+ <div class="doc-section" data-id="3">
+  3. Archivo DIGICOMAAMMDD, al cual se le debe cambiar el nombre y dejar solo DDMM
+ </div>
+ <div class="doc-content" data-id="3">
+  <div class="doc-subsection">
+   6.2. Recepción de imágenes
+  </div>
+  <div class="doc-subcontent">
+   <div class="doc-subsubsection">
+    6.2.1. Descarga de Imágenes
+   </div>
+   <div class="doc-subsubcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       RESPONSABLE:
+      </b>
+      Auxiliar de procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       registro:
+      </b>
+      No aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       descripción:
+      </b>
+      Descargar del sitio seguro del banco: (https://vpnssl.bancoagrario.gov.co/sslvpn/Login/Login-salida) los archivos Zip por fecha de recaudo (ImagenesDIAN_AAMMDD)
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsubsection">
+    6.2.2. Clasificar Imágenes
+   </div>
+   <div class="doc-subsubcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       RESPONSABLE:
+      </b>
+      Auxiliar de procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       registro:
+      </b>
+      No aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       descripción:
+      </b>
+      Una vez descargadas las imágenes se deben dejar en su fecha de recaudo, luego hacer su respectiva división según el programa establecido:
+ServidorProducción\Confidencial_In40_aaaa\Img_Banco07\Img_Banco07\bin\Debug\Img_Banco07.
+Realizada la división de las imagines quedan en la siguiente ruta: C:\example\extract\AAMMDD\TOT_IMG_IND. Las cuales se deben clasificar en litográficas y XML para su respectiva indexación
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsubsection">
+    6.2.3. Reportar inconsistencias de imágenes
+   </div>
+   <div class="doc-subsubcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       RESPONSABLE:
+      </b>
+      Líder de procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       registro:
+      </b>
+      PRO-D-016 Informe de inconsistencias por oficina
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       descripción:
+      </b>
+      Reportar al banco por correo electrónico las imágenes con inconsistencias de documentos sin sellos, documentos de otras fechas de recaudo, documentos ilegibles y documentos sin firma (declaraciones). Entre otros en el formato PRO-D-016 Informe de inconsistencias por oficina el cual se debe guardar en la ruta \\Servidor Producción\Confidencial_Nacionales40__aaaa/40/procesos_40/Procesos_Agrario/Inconsistencias
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsubsection">
+    6.2.4. Integración de imágenes
+   </div>
+   <div class="doc-subsubcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       RESPONSABLE:
+      </b>
+      Auxiliar de procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       registro:
+      </b>
+      No aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       descripción:
+      </b>
+      Integrar las imágenes por fecha de recaudo en la carpeta denominada índex para los documentos litográficos; e index_xml para los documentos XML, en la siguiente ruta:
+Servidor Producción\Confidencial_Nacionales40_aaaa\40\índex
+Servidor Producción\Confidencial_Nacionales40_aaaa\40\index_xml
+De igual manera se deben integrar al aplicativo las imágenes para la indexación en:  por el menú grabación\carga de imágenes a indexar.
+IIMAGENES LITOGRAFICAS
+IMÁGENES XML
+     </li>
+    </ul>
+   </div>
+  </div>
+  <div class="doc-subsection">
+   6.3. CONTROL
+  </div>
+  <div class="doc-subcontent">
+   <div class="doc-subsubsection">
+    6.3.1. Verificar tipos de formularios
+   </div>
+   <div class="doc-subsubcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       RESPONSABLE:
+      </b>
+      Auxiliar de procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       registro:
+      </b>
+      No aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       descripción:
+      </b>
+      No se deben recibir documentos con marca de agua, únicamente con previa autorización del Banco.
+Para los formularios 350 se debe verificar con el Banco el trámite a realizar con los mismos.
+Todas las declaraciones deben venir firmadas.
+Para formularios 300, 490, importaciones y otros, el campo año gravable debe contener un año superior a 1989: pero el año del preimpreso debe corresponder al año en curso o al inmediatamente anterior.
+Si se presenta una inconsistencia se debe informar al banco para el trámite con los mismos
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsubsection">
+    6.3.2. Generar faltantes, sobrantes, duplicados y diferencias de valor
+   </div>
+   <div class="doc-subsubcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       RESPONSABLE:
+      </b>
+      Auxiliar de procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       registro:
+      </b>
+      PRO-D-017 Control Cuadro de Documentos Faltantes Banco Agrario
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       descripción:
+      </b>
+      Para generar faltantes se necesita haber indexado la totalidad de las imágenes recibidas por día de recaudo, se debe verificar que no existan sobrantes, formularios duplicados y diferencias de valor. Por el icono ver registro indexados las opciones:
+Faltantes recaudos.
+Validaciones.
+Sobrantes de recaudo.
+Reporte de Diferencia.
+Formularios duplicados
+Al realizar dicho procedimiento  arroja las respectivas diferencias en la siguiente ruta:
+Servidor Producción\Confidencial_Nacionales40_AAAA\40\procesos_40\Informes\AAMMDD
+Si existen diferencias en fecha de recaudo se debe revisar el sello de la imagen y verificar si existe certificación alguna, si existe diferencia en valor PT se envía la imagen al banco para corroborar la información, el cual indicara el paso a seguir con el tipo de inconsistencia presentada.
+Una vez verificados los faltantes reales, se debe integrar la información en el formato PRO-D-017 Control Cuadro de Documentos Faltantes Banco Agrario que se encuentra ubicado en:
+ServidorProducción\Confidencial_Nacionales40__aaaa/40/procesos_40/Procesos_Agrario/Formatos de calidad
+CONSIGNACIÓN
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsubsection">
+    6.4.1. Clasificar la Información para la Generación de la Consignación
+   </div>
+   <div class="doc-subsubcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       RESPONSABLE:
+      </b>
+      Líder de procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       registro:
+      </b>
+      PRO-D-014 Cuadre de consignación.
+PRO-F-039 Conceptos Formulario Impuestos Nacionales
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       descripción:
+      </b>
+      Para la elaboración de la consignación se deben generar los archivos cuadre490_electronicos.xls cuadreproductos490.xls, cuadrediferencias490.xls, y cuadreproductosdetalle en la siguiente dirección:
+Servidor\Confidencial_In40_AAAA\Aplic_In40\jin40.
+Donde se deben realizar los siguientes pasos en el aplicativo
+A.    Apertura de fecha.                                         B. Agrario/ Descarga de sticker en log integrado.
+C. Rango de fechas, Descarga desde Índex. Y Salir
+D. Agrario/ log caja                                 E. Borrar todo, cargar Logs desde Descarga Integrada
+F. Agrario / Descarga de sticker en log integrado, rango de fechas, Reporte cuadre diario 490
+Después de haber realizado todo lo anterior se generan unos reportes en la siguiente ruta:
+Servidor\Confidencial_In40_AAAA\log_agra, abrimos Excel cuadre productos detalle, este lo comparamos con el log de la fecha para verificar las diferencias en concepto, luego abrimos Excel cuadrediferncias490 allí quedan las diferencias de valor y anulados, Se pasa la información del archivo cuadreproductos490.xls y cuadrediferencias490.xls al formato PRO-D-014 Cuadre de consignación según el orden de los conceptos contemplados en el documento PRO-F-039 Conceptos Formulario Impuestos Nacionales. Verificando previamente el orden solicitado por el banco (Aduanas, gravamen, 110-210-300-350-490). Dicho formato se encuentra ubicado en:
+ServidorProducción\Confidencial_Nacionales40__aaaa/40/procesos_40/Procesos_Agrario/Formatos de calidad
+     </li>
+    </ul>
+   </div>
+  </div>
+  <div class="doc-subsection">
+   6.5. CAPTURA DE INFORMACIÓN
+  </div>
+  <div class="doc-subcontent">
+   <div class="doc-subsubsection">
+    6.5.1. Digitación
+   </div>
+   <div class="doc-subsubcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       RESPONSABLE:
+      </b>
+      Digitador
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       registro:
+      </b>
+      No Aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       descripción:
+      </b>
+      Capturar campo a campo la información contenida en los formularios desde la imagen asignada aleatoriamente por el sistema, en primera y segunda captura.
+No se debe digitar la imagen cuando es ilegible y pasa a la siguiente imagen. La imagen no digitada es revisada por el responsable del proceso.
+A través del correo electrónico se reportan   las imágenes ilegibles por fecha de recaudo.
+El banco envía nuevamente las imágenes y se recepcionan para ser procesadas.
+Nota 1: La segunda captura es realizada por un digitador diferente a quien hizo la primera captura.
+Nota 2: Los documentos XML no tienen captura
+Se ingresa al aplicativo de impuestos nacionales por el menú Grabación\Captura de documentos
+A
+     </li>
+    </ul>
+   </div>
+  </div>
+  <div class="doc-subsection">
+   6.6. GENERACIÓN DE CINTA
+  </div>
+  <div class="doc-subcontent">
+   <div class="doc-subsubsection">
+    6.6.1. Generar reportes y validar cintas
+   </div>
+   <div class="doc-subsubcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       RESPONSABLE:
+      </b>
+      Líder de procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       registro:
+      </b>
+      No Aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       descripción:
+      </b>
+      Se necesita que toda la información se encuentre completa, indexada, digitada y validada, que no existan formularios inexactos (Formularios con formato diferente al correspondiente). Se verifica la cantidad de documentos, valor y se compara contra la información indexada, en caso que se encuentren diferencias se verifica la información registro por registro y se corrige.
+Se detectan formularios con grabación parcial o campos en blanco o incompletos y formularios sin código Dirección seccional.
+En el aplicativo in_40.exe en la barra de menú se   despliega la opción generación de archivos planos - validación de cintas – se digita la fecha a validar cinta, esta debe quedar en blanco
+Se   despliega la opción generación de archivos planos\ validación de numero de formularios se genera y se le da aceptar.
+C. Se despliega la opción generación de archivos planos\ validación de fórmulas, se le da procesar, se le da salir
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsubsection">
+    6.6.2. Generar tapas
+   </div>
+   <div class="doc-subsubcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       RESPONSABLE:
+      </b>
+      Líder de procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       registro:
+      </b>
+      No Aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       descripción:
+      </b>
+      En el aplicativo in_40.exe en la barra de menús se despliega la opción generación de archivos planos\ generación automática de tapas, se le indica otros, se da la opción en el botón Aceptar y salir
+A.                                                                                    B
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Nota:
+      </b>
+      Para generar los archivos planos se debe volver a generar las tapas. Esta activad se debe realizar por tipo de contribuyente
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsubsection">
+    6.6.3. Generar archivos planos por tipo
+   </div>
+   <div class="doc-subsubcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       RESPONSABLE:
+      </b>
+      Líder de procesos
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       registro:
+      </b>
+      No Aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       descripción:
+      </b>
+      Luego vamos a generación de archivos planos\generación de archivos planos por tipo.
+Digitamos la fecha de la jornada normal, se cambia el consecutivo ya que aparecerá el que se genera primero, Se genera la cinta con su consecutivo correspondiente, se diligencia la fecha de entrega es decir el día que está generando los ftp, se selecciona los documentos a enviar, le damos aceptar y le hacemos clic en cuadro que dice generando tipo: ns, nn, nv, nr, np, nu, nx, nf, ny, nz, nj, nk, nb.
+Sale la opción procesando, le damos aceptar y salir.
+Hacemos el mismo proceso para grandes y aduanas.
+Vamos a la ruta donde se generaron los archivos ftp: \\Servidor producción\.\confidencial_nacionales40_aaaa\40\procesos_40\envios\aaaammdd\envios\_ns_nn_nv_nr_np_nu_nx_nf_ny_nz_nj_nk_nb_ng_ne_nm_nt\ftp\nacionales_2\lst
+Nota 1:
+• Grandes es Modalidad 1.
+• Otros es Modalidad 2.
+• Aduanas es Modalidad 3.
+Nota 2: El plazo máximo para la entrega de las cintas es de 7 días hábiles, se recomienda hacer él envió el QUINTO día por si se presenta algún cambio, inconveniente o rechazo poder realizar los ajustes necesarios y no tener extemporaneidades
+     </li>
+    </ul>
+   </div>
+  </div>
+  <div class="doc-subsection">
+   6.7. REPORTAR AUTOADHESIVOS ANULADOS
+  </div>
+  <div class="doc-subcontent">
+   <ul>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      RESPONSABLE:
+     </b>
+     Líder de procesos
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      registro:
+     </b>
+     PRO-D-021 Ultimo utilizado día Banagrario
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      descripción:
+     </b>
+     El Banco envía Actas de Anulación de Adhesivos las cuales se ingresan al aplicativo para ser anulados y son reportados a la DIAN en FTP.  Por el menú Grabación\Captura documentos anulados.
+Se debe tener en cuenta:
+- Fecha de anulación.
+- Verificar sí en ese día la oficina recaudo impuestos, de lo contrario pasar al siguiente día, y así sucesivamente hasta cuando se pueda relacionar. Una vez incorporado los anulados el aplicativo arroja un informe en: Servidor producción\Confidencial_In40_2018\procesos, esta información debe ser incorporada en el formato PRO-D-021 Ultimo utilizado día Banagrario que está la ruta ServidorProducción\Confidencial_Nacionales40__aaaa/40/procesos_40/Procesos_Agrario/Formatos de calidad, y posteriormente se envía por correo electrónico al Banco.
+A.                                                                                B.
+Nota 1: El Banco debe realizar este reporte a diario.
+Este informe se Realiza para saber cuántos números de adhesivos ha utilizado el Banco
+    </li>
+   </ul>
+  </div>
+  <div class="doc-subsection">
+   6.8. INCONSISTENCIA
+  </div>
+  <div class="doc-subcontent">
+  </div>
+  <div class="doc-subsection">
+   6.9. GENERACIÓN DE INFORMES
+  </div>
+  <div class="doc-subcontent">
+   <div class="doc-subsubsection">
+    6.9.1. Generar formatos de entrega
+   </div>
+   <div class="doc-subsubcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       RESPONSABLE:
+      </b>
+      Auxiliar de Proceso
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       registro:
+      </b>
+      No aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       descripción:
+      </b>
+      Generar formatos de entrega de documentos físicos para las administraciones de la DIAN en PDF.
+Al día siguiente del envío de las cintas se deben generar los formatos de entrega para cada una de las direcciones seccionales de la DIAN. Teniendo en cuenta que estos deben generarse por tipo de contribuyente: OTROS, GRANDES Y ADUANAS y enviar en pdf por sitio seguro al banco.
+Este procedimiento se realiza para documentos litográficos como XML.
+Ingresar al aplicativo in_40.exe, en la barra de menús desplegamos la opción informes\formato de entrega de documentos para litográficos y  si la fecha a enviar es pequeña  usar la opción informes\formato de entrega de documentos XML automático para  XML, en los dos casos se digita  la  fecha de recaudo que se va  a enviar y  la  del  siguiente día  hábil normal,  para  que  el aplicativo  reconozca  los  documentos de jornada  adicional,  también  se marca  las  ciudades a enviar, el tipo de documentos  nacionales  o aduanas y  se da  clic  en  generar,  aparece los formatos de envió de documentos físicos tributarios y aduaneros; en los litográficos va  relacionado el número de formulario y de adhesivo, en los  XML  sale relacionado únicamente el número de formulario, se imprimen.
+A. LITOGRAFICOS                                                          B. XML
+Los PDF generados deben ser guardados en: ServidorProducción\Confidencial_Nacionales40__aaaa/40/procesos_40/Procesos_Agrario/FORMATOS.
+Posteriormente se deben cargar en la página del banco por la opción entrada, mismo procedimiento que se realiza con la consignación.
+https://acceso.bancoagrario.gov.co/sslvpn/Login/Login
+     </li>
+    </ul>
+   </div>
+  </div>
+ </div>
+ <div class="doc-section" data-id="7">
+  7. INDICADORES DE DESEMPEÑO
+ </div>
+ <div class="doc-content" data-id="7">
+  <p>
+   CONTROL DEL PROCEDIMIENTO
+  </p>
+ </div>
+</div>
+
+<!-- Botones y Modals para edición -->
+<button class="btn btn-outline-primary" id="openModalBtn" style="margin-top: 20px;">Editar Secciones</button>
+<div class="modal" id="sectionModal">
+    <div class="modal-content">
+        <span class="close-button">×</span>
+        <h2>Selecciona y Edita una Sección</h2>
+        <select id="sectionSelector"><option value="">-- Selecciona --</option></select>
+        <textarea id="sectionContent" placeholder="Contenido..."></textarea>
+        <textarea id="sectionCambio" placeholder="Descripción del cambio..." required></textarea>
+        <button class="btn btn-outline-primary" id="saveChangesBtn" style="margin-top: 15px;">Guardar Cambios</button>
+    </div>
+</div>
+<script src="{{ url_for('static', filename='js/jquery.min.js')}}"></script>
+<script src="{{ url_for('static', filename='js/acordeon_doc.js')}}"></script>
+<script src="{{ url_for('static', filename='js/edita_procedimiento.js')}}"></script>
+
+{% endblock %}

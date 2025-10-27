@@ -13,6 +13,11 @@ from routes.matrizActivos_routes import mActivos_bp
 from routes.listaMaestra_routes import lMaestra_bp
 from routes.riesgos_routes import mRiesgos_bp
 from routes.control_routes import control_bp
+from routes.procedimientos_routes import proc_bp
+
+from controllers.procedimientos_controller import cuenta_pendientes, lista_cambios_pendientes, lista_cambios_rechazados, cuenta_rechazados
+from controllers.rol_controller import PROCESOS_ROL, ROL_IMAGES
+
 
 from routes.doc_routes import doc_bp
 
@@ -32,6 +37,27 @@ from models import Usuarios
 def load_user(user_id):
     return Usuarios.obtener_por_id(user_id)
 
+@app.context_processor
+def inject_global_context():
+    """Inyecta variables comunes en TODAS las plantillas de la aplicación."""
+    try:
+        # Solo inyecta si hay un usuario logueado para evitar errores en páginas públicas
+        from flask_login import current_user
+        if current_user.is_authenticated:
+            rol = current_user.rol
+            return dict(
+                pendientes=cuenta_pendientes(),
+                rechazados=cuenta_rechazados(),
+                cambios_pendientes=lista_cambios_pendientes(),
+                cambios_rechazados=lista_cambios_rechazados(),
+                # Añadimos procesos e imagen_rol para que estén disponibles globalmente
+                procesos=PROCESOS_ROL.get(rol, []),
+                imagen_rol=ROL_IMAGES.get(rol, 'imgs/user.png')
+            )
+    except ImportError:
+        # Si flask_login no está disponible o hay otro error, no inyecta nada
+        pass
+    return {}
 
 
 #registrar blueprints
@@ -54,6 +80,8 @@ app.register_blueprint(mRiesgos_bp)
 app.register_blueprint(lMaestra_bp)  
 app.register_blueprint(control_bp)
 
+#procedimeintos
+app.register_blueprint(proc_bp)
 
 
 

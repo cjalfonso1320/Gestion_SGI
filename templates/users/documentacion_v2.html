@@ -1,0 +1,38 @@
+{% extends 'home.html' %}
+{% block title %}Documentacion{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/acordeon_doc.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/busqueda.css') }}">
+
+<div class="upcoming-events">
+    <div id="content-container">
+        <!-- PRESENTACION INICIAL -->
+        <div id="initial-presentation" class="initial-content">
+            <div class="welcome-section">
+                <h2>¡Bienvenido a Procedimeintos</h2>
+                <p>Selecciona una opción del menú para comenzar a gestionar tu información.</p>
+
+                <div class="feature-grid">
+                    <a href="{{ url_for('proc.procedimientos')}}" style="text-decoration: none;">
+                        <div class="feature-card">
+                            <i class="fa-regular fa-file-lines"></i>
+                            <h3>Procedimientos</h3>
+                        </div>
+                    </a>
+                    <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-001')}}"
+                        style="text-decoration: none;">
+                        <div class="feature-card">
+                            <i class="fa-regular fa-file-lines"></i>
+                            <h3>Fromatos</h3>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/jquery.min.js')}}"></script>
+<script src="{{ url_for('static', filename='js/acordeon_doc.js')}}"></script>
+
+{% endblock %}

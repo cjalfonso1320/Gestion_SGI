@@ -1,0 +1,1027 @@
+{% extends 'home.html' %}
+{% block title %}Documentacion{% endblock %}
+{% block content %}
+<link href="{{ url_for('static', filename='css/acordeon_doc.css') }}" rel="stylesheet" />
+<link href="{{ url_for('static', filename='css/procedimientos.css') }}" rel="stylesheet" />
+
+<div id="documento" style="display:none;">procedimientos/HTML/PRO-PR-006 Impuestos Nacionales y Tributos Aduaneros Banco Caja Social.html</div>
+<div id="nombre_documento" style="display: none;">PRO-PR-006 Impuestos Nacionales y Tributos Aduaneros Banco Caja Social</div>
+<h1>PRO-PR-006 Impuestos Nacionales y Tributos Aduaneros Banco Caja Social</h1>
+{% for cambio in cambios %}
+{% if loop.first %}
+<h3>Version: {{cambio[3]}}</h3>
+{% endif %}
+{% endfor %}
+<br />
+<div class="doc-accordion">
+ <div class="doc-section" data-id="1">
+  1. OBJETIVO Procesar los formularios de Impuestos y Aduanas Nacionales recaudados por
+ </div>
+ <div class="doc-content" data-id="1">
+  <p>
+   entidades bancarias y dar cumplimiento al Sistema de Gestión Integrado
+  </p>
+ </div>
+ <div class="doc-section" data-id="2">
+  2. ALCANCE Este procedimiento aplica a todos los servicios de Impuestos y Aduanas Nacionales
+ </div>
+ <div class="doc-content" data-id="2">
+  <p>
+   del Banco Caja Social implementados por Digicom System Corporation S.A
+  </p>
+ </div>
+ <div class="doc-section" data-id="3">
+  3. RESPONSABLES Gerente de Operaciones, Director de Procesos, Líder de Procesos, Auxiliar
+ </div>
+ <div class="doc-content" data-id="3">
+  <p>
+   de Proceso, Digitador
+  </p>
+ </div>
+ <div class="doc-section" data-id="4">
+  4. DEFINICIONES
+ </div>
+ <div class="doc-content" data-id="4">
+  <p>
+   • ARC: Archivo Recaudo en Caja. • Centralizadoras: Oficina del Banco donde se administra y se entregan paquetes con formularios originales de impuestos nacionales. • FTP (File Transfer Protocol): Protocolo de transferencia de archivos entre sistemas conectados a una red TCP, basado en arquitectura cliente-servidor, que permite descargar o enviar archivos desde o hacia un servidor. • Precinto: Sello de seguridad numerado que, una vez colocado en el medio de transporte de documentos o valores, no puede ser violado ni roto excepto por el destinatario. • Autoadhesivo: Soporte de texto o imágenes impresas o serigrafiadas sobre una lámina de vinilo o papel, con una capa adhesiva en la parte posterior. • VPN: Red privada virtual (Virtual Private Network), tecnología de red que extiende una red local sobre una red pública. • Traslado Sebra: Sistema de comunicación para transferencia de fondos entre cuentas de entidades financieras y el Banco de la República, con cuentas previamente matriculadas
+  </p>
+ </div>
+ <div class="doc-section" data-id="5">
+  5. DOCUMENTOS DE REFERENCIA
+ </div>
+ <div class="doc-content" data-id="5">
+  <p>
+   • Resolución 1188 de 2007 de la DIAN. • Resolución 478 de 2000 de la DIAN. • Memorando 561, sep. 23 de 2008 de la DIAN
+  </p>
+ </div>
+ <div class="doc-section" data-id="6">
+  6. DESCRIPCIÓN DEL PROCESO
+ </div>
+ <div class="doc-content" data-id="6">
+ </div>
+ <div class="doc-section" data-id="1">
+  1. Tulas y/o bolsas de seguridad no relacionadas en el manifiesto de Inter Servicios
+ </div>
+ <div class="doc-content" data-id="1">
+ </div>
+ <div class="doc-section" data-id="2">
+  2. Tula sin precinto
+ </div>
+ <div class="doc-content" data-id="2">
+ </div>
+ <div class="doc-section" data-id="3">
+  3. Bolsa de seguridad destapada
+ </div>
+ <div class="doc-content" data-id="3">
+ </div>
+ <div class="doc-section" data-id="4">
+  4. Documentos faltantes, los cuales están relacionados en el manifiesto de Inter Servicios
+ </div>
+ <div class="doc-content" data-id="4">
+ </div>
+ <div class="doc-section" data-id="5">
+  5. Autoadhesivos y formularios deteriorados o en mal estado
+ </div>
+ <div class="doc-content" data-id="5">
+ </div>
+ <div class="doc-section" data-id="6">
+  6. Documentos dañados o manchados
+ </div>
+ <div class="doc-content" data-id="6">
+ </div>
+ <div class="doc-section" data-id="1">
+  1. Realizar prueba de audio y video ingresando al programa del DVR
+ </div>
+ <div class="doc-content" data-id="1">
+ </div>
+ <div class="doc-section" data-id="2">
+  2. Al terminar la prueba, proceder al equipo de monitoreo y verificar la efectividad tanto de
+ </div>
+ <div class="doc-content" data-id="2">
+  <p>
+   audio como de video. La prueba debe registrarse con fecha y hora en la casilla de observación en el formato PRO-F-045 Control de pruebas de audio y video
+  </p>
+ </div>
+ <div class="doc-section" data-id="3">
+  3. Si la prueba es efectiva, proceder a abrir las tulas; si no es efectiva, solicitar soporte al área
+ </div>
+ <div class="doc-content" data-id="3">
+  <p>
+   de T.I
+  </p>
+ </div>
+ <div class="doc-section" data-id="1">
+  1. Si se encuentran documentos que no cumplen con las especificaciones, se deben apartar y
+ </div>
+ <div class="doc-content" data-id="1">
+  <p>
+   reportar al banco posteriormente
+  </p>
+ </div>
+ <div class="doc-section" data-id="2">
+  2. Colocar sello de certificación, según corresponda, a los formularios con inconsistencia
+ </div>
+ <div class="doc-content" data-id="2">
+ </div>
+ <div class="doc-section" data-id="3">
+  3. Los tipos de formularios son: 490, 500, 690. Desde el año 2019, el banco ha recibido
+ </div>
+ <div class="doc-content" data-id="3">
+  <p>
+   físicamente solo los formularios 210, 490, 500 y 690. Sin embargo, es posible recibir otros formatos de años anteriores, los cuales el líder de proceso debe reportar al banco
+  </p>
+ </div>
+ <div class="doc-section" data-id="1">
+  1. Para la indexación de los litográficos:
+ </div>
+ <div class="doc-content" data-id="1">
+  <p>
+   En el aplicativo in_32.exe, en la barra de menús se despliega la opción Movimiento / seleccionar la opción Grabación / Carga de imágenes a indexar, después de cargar la imagen ir a la opción Indexador automático, se digitan los campos especiales que son: o Tipo de formato: según corresponda, ejemplo 490, 690. o Para impreso. o Número de formulario en caso de que no se reconozca. o Año gravable para las declaraciones. o Pago total. o Concepto en los formularios 490 y 690
+  </p>
+ </div>
+ <div class="doc-section" data-id="2">
+  2. La indexación para los XML:
+ </div>
+ <div class="doc-content" data-id="2">
+  <p>
+   En el aplicativo in_32.exe, en la barra de menús se despliega la opción Grabación / Carga de imágenes a indexar XML, se da la opción Cargar nuevas imágenes, luego en la barra de menú se despliega la opción Barras laterales y seleccionar XMLindAuto. En la ventana, dar clic en el botón Automático, el sistema automáticamente indexa aquello que reconozca del código de barras. Después, en la barra de menú desplegar Grabación y seleccionar Indexador automático XML, dar opción Asignar imagen y Procesar. Si el aplicativo no reconoce la imagen, se deberá digitar los siguientes campos: o Número de formulario. o Tipo de documento
+  </p>
+ </div>
+ <div class="doc-section" data-id="1">
+  1. Generar archivos en Excel, los cuales se guardan automáticamente en la siguiente ruta:
+ </div>
+ <div class="doc-content" data-id="1">
+  <p>
+   \\Servidor\confidencial_nacionales32_aaaa\32\procesos_32\informes\aaaammdd
+  </p>
+ </div>
+ <div class="doc-section" data-id="2">
+  2. Los archivos generados deben estar en blanco. En caso contrario, validar contra el
+ </div>
+ <div class="doc-content" data-id="2">
+  <p>
+   documento físico o con la imagen. Si el error o novedad es del banco, informar por medio de correo electrónico y adjuntar relación del formulario e imagen. Proceder según indicaciones del banco. Realizar revisión de grabado por primera, segunda captura y validación. Nota 1: Cada vez que se realice una corrección, en esta ventana hay un candado en la parte superior derecha. Dar clic derecho, quitar la marca de validación y volver a correr el proceso de validación. Generación Faltantes De Imagen Documentos Nacionales:
+  </p>
+ </div>
+ <div class="doc-section" data-id="1">
+  1. Ingresar e indexar las imágenes
+ </div>
+ <div class="doc-content" data-id="1">
+ </div>
+ <div class="doc-section" data-id="2">
+  2. Ingresar al aplicativo y ver registros indexados (icono de lupa en la parte inferior izquierda)
+ </div>
+ <div class="doc-content" data-id="2">
+ </div>
+ <div class="doc-section" data-id="3">
+  3. En la ventana, dar en los siguientes 5 recuadros:
+ </div>
+ <div class="doc-content" data-id="3">
+  <p>
+   o Faltantes recaudos o Sobrantes en recaudos o Formularios duplicados o Validaciones o Reporte de diferencias
+  </p>
+ </div>
+ <div class="doc-section" data-id="4">
+  4. Después, dar en salir. En la pestaña BCSC, dar en “ver archivo en el Excel de la fecha”,
+ </div>
+ <div class="doc-content" data-id="4">
+  <p>
+   colocar la fecha, dar el recuadro aceptar y abrir los siguientes archivos: o Diferenciasvslog.xls o Recaudobco_faltantes.xls 13/11/2024 IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCO CAJA SOCIAL. o Recaudobco_sobrantes.xls
+  </p>
+ </div>
+ <div class="doc-section" data-id="5">
+  5. Al abrir el archivo Diferenciasvslog.xls, identificar la diferencia (número de formulario,
+ </div>
+ <div class="doc-content" data-id="5">
+  <p>
+   concepto o valor). Ir al aplicativo en grabación, imágenes, ver índex Digicom con imagen, buscar el sticker que tenga la diferencia y corregirla. El Excel debe quedar en blanco
+  </p>
+ </div>
+ <div class="doc-section" data-id="6">
+  6. Al abrir el archivo Recaudobco_sobrantes.xls, en recaudos hay información. Buscar la
+ </div>
+ <div class="doc-content" data-id="6">
+  <p>
+   imagen del documento y verificar la fecha del sello. Colocar en la carpeta de la fecha correspondiente y el Excel debe quedar en blanco
+  </p>
+ </div>
+ <div class="doc-section" data-id="7">
+  7. Al abrir el archivo Recaudobco_faltantes.xls, extraer el número de la oficina con la fórmula
+ </div>
+ <div class="doc-content" data-id="7">
+  <p>
+   =extrae; la celda seleccionada; 7;3. Después de extraer la oficina, verificar en el \\servidor\Confidencial_Nacionales_32_2024\32\aaaammdd y buscar en las carpetas descargadas del canal el número de las oficinas que falta la imagen. Si la imagen no se encuentra o está mal digitalizada, reportar al banco en un archivo de Excel colocando los encabezados: oficina, observación, insertar tabla, borrar el número de sticker, quitar la contraseña al archivo, guardar como recaudobco_faltantes_imágenes_aaaammdd.xlsx y enviar un correo llamado “Faltantes de Imagen” anexando el Excel. En caso de haber faltantes litográficos, hacer énfasis en que son de gran importancia para la realización de consignación
+  </p>
+ </div>
+ <div class="doc-section" data-id="1">
+  1. En el aplicativo in_32.exe, desplegar la opción informes\reporte de consignación res.478
+ </div>
+ <div class="doc-content" data-id="1">
+  <p>
+   en la barra de menús
+  </p>
+ </div>
+ <div class="doc-section" data-id="2">
+  2. Digitar fecha de recaudo, hacer clic en generar desde índex Digicom y luego en procesar
+ </div>
+ <div class="doc-content" data-id="2">
+ </div>
+ <div class="doc-section" data-id="3">
+  3. Validar los valores de cada tipo de cuenta, los cuales deben coincidir con los datos del log
+ </div>
+ <div class="doc-content" data-id="3">
+  <p>
+   bancario, tomando en cuenta litográficos, XML y pagos electrónicos
+  </p>
+ </div>
+ <div class="doc-section" data-id="4">
+  4. Hacer clic en aceptar; la aplicación genera un archivo en la ruta
+ </div>
+ <div class="doc-content" data-id="4">
+  <p>
+   \\Servidor\confidencial_nacionales32_aaaa\32\procesos_32\combina llamado com0478.csv
+  </p>
+ </div>
+ <div class="doc-section" data-id="5">
+  5. Combinar este archivo en el “consignación de las entidades autorizadas para recaudar a la
+ </div>
+ <div class="doc-content" data-id="5">
+  <p>
+   dirección general de crédito público y de tesoro nacional” Formato PRO-D-EXT-005 Formato 050 consignación de las entidades autorizadas
+  </p>
+ </div>
+ <div class="doc-section" data-id="6">
+  6. Guardar en la ruta
+ </div>
+ <div class="doc-content" data-id="6">
+  <p>
+   \\Servidor\confidencial_nacionales32_aaaa\32\procesos_32\informes\aaaammdd, renombrado como BCS_050_aaaa/mm/de
+  </p>
+ </div>
+ <div class="doc-section" data-id="7">
+  7. Enviar por correo al funcionario encargado en el banco
+ </div>
+ <div class="doc-content" data-id="7">
+ </div>
+ <div class="doc-section" data-id="8">
+  8. Diligenciar el total de consignación diaria en el formato PRO-D-085 consignación y guardar
+ </div>
+ <div class="doc-content" data-id="8">
+  <p>
+   en la ruta \\Servidor\Confidencial_Nacionales32_aaaa\32\procesos_32\Procesos BCS\CONSIGNACIONES. 13/11/2024 IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCO CAJA SOCIAL
+  </p>
+ </div>
+ <div class="doc-section" data-id="1">
+  1. Después del traslado de dinero del Banco recaudador al Banco de la República, este
+ </div>
+ <div class="doc-content" data-id="1">
+  <p>
+   genera soportes en PDF denominados polígrafos
+  </p>
+ </div>
+ <div class="doc-section" data-id="2">
+  2. El Banco Caja Social envía los polígrafos, que se guardan en la ruta
+ </div>
+ <div class="doc-content" data-id="2">
+  <p>
+   \\192.168.70.159\Confidencial_In32_2024\procesos\Poligrafos, creando la carpeta de la
+  </p>
+ </div>
+ <div class="doc-section" data-id="3">
+  3. Guardar los archivos y copiar el archivo Excel PRO-D-EXT- 110
+ </div>
+ <div class="doc-content" data-id="3">
+  <p>
+   Relacion_envios_Res_0478_BCSC en la ruta \\192.168.70.159\Confidencial_In32_2024\procesos\r1187
+  </p>
+ </div>
+ <div class="doc-section" data-id="4">
+  4. Pegar en la carpeta del último consecutivo de la fecha correspondiente y cambiar el
+ </div>
+ <div class="doc-content" data-id="4">
+  <p>
+   nombre a “Relacion_envios_Res_0478 – BCS”
+  </p>
+ </div>
+ <div class="doc-section" data-id="5">
+  5. Volver a la ruta
+ </div>
+ <div class="doc-content" data-id="5">
+  <p>
+   \\192.168.70.159\Confidencial_In32_2024\procesos\Poligrafos\aaaa/mm/dd, abrir el Excel, luego los archivos PDF uno a uno, comparando que el consecutivo y el valor sean iguales al Excel
+  </p>
+ </div>
+ <div class="doc-section" data-id="6">
+  6. Ir al aplicativo, seleccionar Más informes y la opción reporte 1187. Ingresar la fecha,
+ </div>
+ <div class="doc-content" data-id="6">
+  <p>
+   aceptar y buscar el último consecutivo de la fecha. Hacer clic en ver
+  </p>
+ </div>
+ <div class="doc-section" data-id="7">
+  7. Comparar el valor en el recuadro con el valor del archivo DATOS CINTAS BCSC 2024 en
+ </div>
+ <div class="doc-content" data-id="7">
+  <p>
+   la ruta \\192.168.70.159\Confidencial_Nacionales_32_2024\32\procesos_32\Procesos BCS\CINTAS BCS
+  </p>
+ </div>
+ <div class="doc-section" data-id="8">
+  8. Si los valores coinciden, hacer clic en cargar Excel BCS y luego en Generar R1187
+ </div>
+ <div class="doc-content" data-id="8">
+ </div>
+ <div class="doc-section" data-id="9">
+  9. Ir a la ruta \\192.168.70.159\Confidencial_Aplic_In32_2024\Img_Banco07\bin\Debug, abrir
+ </div>
+ <div class="doc-content" data-id="9">
+  <p>
+   el aplicativo Img_Banco07, seleccionar Reportes\informe_1187
+  </p>
+ </div>
+ <div class="doc-section" data-id="10">
+  10. Seleccionar el consecutivo y la fecha, abrir el Excel llamado ppal_3222_1, cerrar la
+ </div>
+ <div class="doc-content" data-id="10">
+  <p>
+   ventana, aceptar y se generará un archivo en \\192.168.70.159\Confidencial_In32_2024\procesos\r1187\aaaa\mm\dd_consecutivo
+  </p>
+ </div>
+ <div class="doc-section" data-id="11">
+  11. Validar en el Prevalidador de la DIAN en la ruta C:\Prevalidador_F1187v1-2.0.2-24
+ </div>
+ <div class="doc-content" data-id="11">
+ </div>
+ <div class="doc-section" data-id="12">
+  12. Abrir el archivo Dmuisca_numero de consecutivo.xml en la ruta
+ </div>
+ <div class="doc-content" data-id="12">
+  <p>
+   \\192.168.70.159\Confidencial_In32_2024\procesos\r1187\aaaammdd\numero de consecutivo
+  </p>
+ </div>
+ <div class="doc-section" data-id="13">
+  13. Validar y asegurarse de que no haya casillas en blanco, verificar el valor en Datos cintas
+ </div>
+ <div class="doc-content" data-id="13">
+ </div>
+ <div class="doc-section" data-id="14">
+  14. Si todo es correcto, validar el archivo y cerrar el Excel del validador sin guardar cambios
+ </div>
+ <div class="doc-content" data-id="14">
+ </div>
+ <div class="doc-section" data-id="15">
+  15. Enviar por correo electrónico al banco el archivo Dmuisca_numero de consecutivo.xml
+ </div>
+ <div class="doc-content" data-id="15">
+ </div>
+ <div class="doc-section" data-id="1">
+  1. En la mayoría de los días de recaudo, el banco transmite por canal un archivo con el
+ </div>
+ <div class="doc-content" data-id="1">
+  <p>
+   número BCSLOGDIANANUAAAAMMDD.txt
+  </p>
+ </div>
+ <div class="doc-section" data-id="2">
+  2. Guardar en la ruta
+ </div>
+ <div class="doc-content" data-id="2">
+  <p>
+   \\Servidor\Confidencial_Nacionales32_aaaa\32\procesos_32\informes\aaaammdd
+  </p>
+ </div>
+ <div class="doc-section" data-id="3">
+  3. Extraer solo el número de adhesivo y guardarlo en un archivo de texto
+ </div>
+ <div class="doc-content" data-id="3">
+ </div>
+ <div class="doc-section" data-id="4">
+  4. Ir al aplicativo IN_32, en la barra de menús seleccionar la opción Captura de Documentos
+ </div>
+ <div class="doc-content" data-id="4">
+  <p>
+   Anulados y luego Cargar desde archivo plano
+  </p>
+ </div>
+ <div class="doc-section" data-id="5">
+  5. Corroborar la información cargada con los reportes de adhesivos anulados que llegan de
+ </div>
+ <div class="doc-content" data-id="5">
+  <p>
+   manera física
+  </p>
+ </div>
+ <div class="doc-section" data-id="1">
+  1. Verificar que el documento pertenezca a la fecha
+ </div>
+ <div class="doc-content" data-id="1">
+ </div>
+ <div class="doc-section" data-id="2">
+  2. Informar al banco si hay documentos sobrantes y asegurarse de que exista soporte (correo
+ </div>
+ <div class="doc-content" data-id="2">
+  <p>
+   electrónico o comunicado). Para generar los archivos:
+  </p>
+ </div>
+ <div class="doc-section" data-id="1">
+  1. En el aplicativo in_32.exe, desplegar la opción Generación de Archivos Planos &gt;
+ </div>
+ <div class="doc-content" data-id="1">
+  <p>
+   Validación de Cintas
+  </p>
+ </div>
+ <div class="doc-section" data-id="2">
+  2. Digitar la fecha a validar; la cinta debe quedar en blanco
+ </div>
+ <div class="doc-content" data-id="2">
+ </div>
+ <div class="doc-section" data-id="3">
+  3. Desplegar la opción Generación de Archivos Planos &gt; Validación de Número de
+ </div>
+ <div class="doc-content" data-id="3">
+  <p>
+   Formularios, generar y aceptar
+  </p>
+ </div>
+ <div class="doc-section" data-id="4">
+  4. Desplegar la opción Generación de Archivos Planos &gt; Validación de Fórmulas, procesar y
+ </div>
+ <div class="doc-content" data-id="4">
+  <p>
+   luego salir
+  </p>
+ </div>
+ <div class="doc-section" data-id="5">
+  5. Desplegar la opción Generación de Archivos Planos &gt; Generación Automática de Tapas,
+ </div>
+ <div class="doc-content" data-id="5">
+  <p>
+   seleccionar "otros", dar la opción en el botón malla y salir
+  </p>
+ </div>
+ <div class="doc-section" data-id="6">
+  6. En la opción Generación de Archivos Planos &gt; Ver Grabación, seleccionar concepto por
+ </div>
+ <div class="doc-content" data-id="6">
+  <p>
+   concepto e indicar "preimpreso en blanco"
+  </p>
+ </div>
+ <div class="doc-section" data-id="7">
+  7. Revisar todos los conceptos y salir
+ </div>
+ <div class="doc-content" data-id="7">
+ </div>
+ <div class="doc-section" data-id="8">
+  8. En la barra de menús, desplegar la opción Herramientas, seleccionar Log Arco del Banco
+ </div>
+ <div class="doc-content" data-id="8">
+  <p>
+   Consolidado, indicar la fecha del rango a generar, clicar en las opciones "todos" e "integrar log"
+  </p>
+ </div>
+ <div class="doc-section" data-id="9">
+  9. Generar un archivo "digitoarc.txt", aceptar y luego seleccionar Cruce Log, generando un
+ </div>
+ <div class="doc-content" data-id="9">
+  <p>
+   archivo "digivsarc.txt" y "digivsarc.xls"
+  </p>
+ </div>
+ <div class="doc-section" data-id="10">
+  10. Ir a la ruta donde se generó el archivo
+ </div>
+ <div class="doc-content" data-id="10">
+  <p>
+   (\\Servidor\confidencial_nacionales32_aaaa\32\procesos_32\) y abrirlo. 13/11/2024 IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCO CAJA SOCIAL
+  </p>
+ </div>
+ <div class="doc-section" data-id="11">
+  11. Revisar las diferencias entre el log del banco y lo digitado. Validar con la imagen del
+ </div>
+ <div class="doc-content" data-id="11">
+  <p>
+   formulario y hacer la corrección según el campo indicado
+  </p>
+ </div>
+ <div class="doc-section" data-id="12">
+  12. En el aplicativo in_32.exe, en la barra de menús, desplegar la opción Grabación &gt;
+ </div>
+ <div class="doc-content" data-id="12">
+  <p>
+   Imágenes &gt; Ver Índex Digicom con Imagen. Corregir las diferencias contra el banco
+  </p>
+ </div>
+ <div class="doc-section" data-id="13">
+  13. Desplegar la opción Generación de Archivos Planos &gt; Validación de Número de
+ </div>
+ <div class="doc-content" data-id="13">
+  <p>
+   Formularios
+  </p>
+ </div>
+ <div class="doc-section" data-id="14">
+  14. Seleccionar nuevamente Generación de Archivos Planos &gt; Generación Automática de
+ </div>
+ <div class="doc-content" data-id="14">
+  <p>
+   Tapas, seleccionando "nacionales y otros", aceptar
+  </p>
+ </div>
+ <div class="doc-section" data-id="15">
+  15. Ir a Generación de Archivos Planos &gt; Generación de Archivos Planos por Tipo
+ </div>
+ <div class="doc-content" data-id="15">
+ </div>
+ <div class="doc-section" data-id="16">
+  16. Digitar la fecha del recaudo, cambiar el consecutivo, generar la cinta con su consecutivo
+ </div>
+ <div class="doc-content" data-id="16">
+  <p>
+   correspondiente
+  </p>
+ </div>
+ <div class="doc-section" data-id="17">
+  17. Diligenciar la fecha de entrega, seleccionar los documentos a enviar, aceptar y clicar en
+ </div>
+ <div class="doc-content" data-id="17">
+  <p>
+   "Generando tipo: ms, nn, nv, nr, np, nu, nx, nf, ny, nz, nj, nk, nb"
+  </p>
+ </div>
+ <div class="doc-section" data-id="18">
+  18. Repetir el proceso para "grandes" y "aduanas"
+ </div>
+ <div class="doc-content" data-id="18">
+ </div>
+ <div class="doc-section" data-id="19">
+  19. Ir a la ruta \\Servidor
+ </div>
+ <div class="doc-content" data-id="19">
+  <ul>
+   <li>
+    <i class="fa-regular fa-circle-check">
+    </i>
+    <b>
+     Nota:
+    </b>
+    Las modalidades son: • Modalidad 1: Grandes Contribuyentes. • Modalidad 2: Otros Contribuyentes. • Modalidad 3: Tributos Aduaneros. Diligenciar el formato PRO-D-EXT-006 planilla control lectura medios magnéticos para enviar por correo a los responsables del banco y guardarlo en \\Servidor\Confidencial_Nacionales32_aaaa\32\procesos_32\Procesos BCS\Formatos\Formato control envió Medios Electrónicos. Enviar los archivos al banco Caja Social para que hagan la trasmisión de los FTP a la DIAN. Para transmitir, ubicar los archivos planos en el canal de salida del banco e informar vía correo electrónico que los archivos se encuentran en las carpetas correspondientes. La ruta del canal del banco es: \\Canal\BCSC_nac\entregas\ftp. Hacer el respectivo correo con el consecutivo de la cinta generada y la cantidad de los archivos para que el banco esté informado de lo que estamos colocando en el canal. Relacionar el archivo FTP y la relación envío de cinta por consecutivo y clase de contribuyente: grandes, otros o aduanas. Otra clase: normales o adicionales, en el formato PRO-D-084 Control de Cintas. Reportar consolidado mensual: En el aplicativo IN_32.exe, ir al menú Administración &gt; Control de Cintas. Clicar en el logo de la hoja Excel para generar el archivo en la ruta \\Servidor\Confidencial_IN32_aaaa. Abrir el archivo de control de cintas y copiar el mes que se va a reportar en el formato PRO-D-128 Control de Cintas BCS, el cual se encuentra en la ruta \\Servidor producción\Confidencial_Nacionales32_aaaa\32\procesos_32\Procesos BCS\CINTAS BCS. Guardar el archivo con el nombre del mes y enviarlo por correo al funcionario del banco. 13/11/2024 IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCO CAJA SOCIAL
+   </li>
+  </ul>
+ </div>
+ <div class="doc-section" data-id="1">
+  1. Imprimir 2 copias, Carta Banco y firmar con la “A” de Adriana
+ </div>
+ <div class="doc-content" data-id="1">
+ </div>
+ <div class="doc-section" data-id="2">
+  2. Imprimir 1 copia, oficio Policía respecto a los denuncios
+ </div>
+ <div class="doc-content" data-id="2">
+ </div>
+ <div class="doc-section" data-id="3">
+  3. Imprimir 1 copia, carta denuncio sucursal
+ </div>
+ <div class="doc-content" data-id="3">
+ </div>
+ <div class="doc-section" data-id="4">
+  4. Imprimir 2 copias “formato de envío” y firmar en la parte inferior izquierda
+ </div>
+ <div class="doc-content" data-id="4">
+  <p>
+   13/11/2024 IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCO CAJA SOCIAL
+  </p>
+ </div>
+ <div class="doc-section" data-id="5">
+  5. Imprimir 1 copia formularios 490 Recibos de pago, en la parte posterior imprimir leyenda
+ </div>
+ <div class="doc-content" data-id="5">
+  <p>
+   certificación con firma. Empacar en bolsa transparente hermética, y enviar a la DIAN
+  </p>
+ </div>
+ <div class="doc-section" data-id="1">
+  1. Recibir las planillas radicadas por la DIAN enviadas por las ciudades y oficinas del banco,
+ </div>
+ <div class="doc-content" data-id="1">
+  <p>
+   verificar que tengan fecha de entrega y sello del funcionario de la DIAN
+  </p>
+ </div>
+ <div class="doc-section" data-id="2">
+  2. Digitalizar en la ruta \\Servidor
+ </div>
+ <div class="doc-content" data-id="2">
+  <p>
+   Producción\Confidencial_Nacionales32_aaaa\32\procesos_32\Radicados\Año\Mes\Planilla s
+  </p>
+ </div>
+ <div class="doc-section" data-id="3">
+  3. Guardar en formato .PDF con opción activada de OCR (Reconocimiento Óptico de
+ </div>
+ <div class="doc-content" data-id="3">
+  <p>
+   Caracteres) y cada ciudad por lote, ejemplo “Ciudad_aaaammdd” en su respectiva fecha de recaudo. Organizar las planillas físicas por ciudad administrativa, mes y fecha en orden descendente. 13/11/2024 IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCO CAJA SOCIAL
+  </p>
+ </div>
+ <div class="doc-section" data-id="1">
+  1. Recibir y cargar el archivo plano
+ </div>
+ <div class="doc-content" data-id="1">
+  <p>
+   El banco envía por correo electrónico los archivos de radicación, los cuales se guardan en la ruta \\servidor\Confidencial_In32_aaaa\radicados. Abrir el aplicativo IN_32, en el menú principal desplegar las opciones Informes\Control Radicación de Documentos 1096 (para los litográficos) y/o Informes\Control Radicación de Documentos 1096 XML. Seleccionar una de las dos, se abre una ventana con un botón que indica: Cargar 1096. Hacer clic en él y seleccionar los archivos descargados, cargándolos uno a uno
+  </p>
+ </div>
+ <div class="doc-section" data-id="2">
+  2. Ingreso de planillas radicadas al aplicativo
+ </div>
+ <div class="doc-content" data-id="2">
+  <p>
+   Para ingresar las planillas al aplicativo, tener en cuenta que estas presentan un número compuesto por el código de la ciudad y un consecutivo impreso en la parte posterior de la hoja. Se generan archivos con los mismos números; en el caso de BCS, el código de sede es 00, ejemplo: 00_0000000013 / 00_0000000013.art, en la carpeta del servidor \Confidencial_In32_aaaa\procesos\recfisicos. El aplicativo reconoce el número de consecutivo al ingresar las planillas ya radicadas. Si este archivo no aparece en la carpeta, el aplicativo indica que no se encontró el número de planilla seleccionado
+  </p>
+ </div>
+ <div class="doc-section" data-id="3">
+  3. Ingreso de planillas
+ </div>
+ <div class="doc-content" data-id="3">
+  <p>
+   Después de que las planillas llegan radicadas, proceder a ingresarlas al aplicativo. Ir al menú Informes\Control Radicación de Documentos 1096 XML o Litográfico. En la parte superior de la ventana, colocar el número consecutivo que se encuentra impreso en la parte posterior de la hoja, ingresar la ciudad, el código de sede, y la fecha de radicación por parte de la DIAN. Si la planilla está extemporánea, seleccionar en Causal y especificar el motivo de presentación fuera de tiempo. Si hay dudas sobre la planilla a ingresar, hacer clic en el botón “Ver” para mostrar la planilla. Por último, seleccionar “Actualizar desde sello de planilla”. Confirmar la ciudad, y el programa indicará el número de registro con la fecha de radicación. Repetir hasta completar el ingreso de todas las planillas del mes
+  </p>
+ </div>
+ <div class="doc-section" data-id="4">
+  4. Generación de cruce
+ </div>
+ <div class="doc-content" data-id="4">
+  <p>
+   Ir al menú Informes\Log consolidado, seleccionar el rango de fecha y elegir la opción “Reporte Cruce 1096”. Esperar a que genere el informe, el cual se encuentra en la carpeta \\servidor\Confidencial_Nacionales32_aaaa\32\procesos_32\varios. Copiar y cortar el archivo “cruce 1096_aaaammdd_aaaammdd” y pegarlo en una carpeta del mismo servidor en su correspondiente mes 13/11/2024 IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCO CAJA SOCIAL. \\Servidor\confidencial_nacionales32_aaaa\32\procesos_32\radicados\aaaa\mm. Renombrar con el nombre PRO-D-139_cruce_fecha, abrir el archivo y organizarlo por orden alfabético de ciudad y fecha de recaudo
+  </p>
+ </div>
+ <div class="doc-section" data-id="5">
+  5. Organización física de planillas radicadas para ser escaneadas
+ </div>
+ <div class="doc-content" data-id="5">
+  <div class="doc-subsection">
+   6.7 Generación de informe 1188
+  </div>
+  <div class="doc-subcontent">
+   <ul>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      RESPONSABLE:
+     </b>
+     Líder de Procesos
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      REGISTRO:
+     </b>
+     PRO-D-085 consignación
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      DESCRIPCIÓN:
+     </b>
+     Verificar antes de generar los archivos que los valores y cantidad de documentos coincidan con los datos enviados por el banco. Si no coinciden, realizar el análisis hasta establecer la diferencia. Verificar que todos los documentos estén indexados para luego generar el informe desde el aplicativo. Revisar los saldos, valores diarios y enviar el informe a través del correo electrónico. Ingresar al aplicativo in_32.exe, en la barra de menús desplegar la opción informes\ informe de recaudos y consignaciones 1188. Digitar el periodo correspondiente al mes que se va a enviar, dar la opción aceptar. Se genera un archivo consolidado que el banco solicita para validaciones en la ruta: \\Servidor\confidencial_nacionales32_aaaa\32\procesos_32\r1510 llamado inf_1188resu.xls. Realizar validaciones de totales contra lo que diariamente se ha diligenciado en el formato PRO-D- 085 consignación. Este es un consolidado mensual que incluye XML, litográficos y pagos electrónicos. Realizar validaciones de totales de valores y de formularios, comparando lo que diariamente se ha diligenciado en el formato PRO-D-085 consignación. Una vez validados los totales, conceptos, fechas y jornada, y que no se repitan en una fecha, proceder a eliminar título, totales, dar formato a la fecha aaaa-mm-dd, a la columna de concepto dar formato número y quitar los decimales. Guardar en formato CSV (ms-dos). Abrir el archivo de la DIAN: prevalidadorrecaudo_1188_versionx ubicado en la ruta: \\Servidor\confidencial_nacionales32_aaaa\32\procesos_32\procesos BCS\informe 1188 aaaa. La pantalla presenta las opciones de diligenciamiento o validación. Seleccionar el formato que va a utilizar y hacer clic en “ir al formato”. En la barra de herramientas del prevalidador, en la pestaña “complementos”, una vez activada, dar la opción “limpiar entidad”, asignar banco respectivo, desplegar la opción reporte de recaudos y consignación EAR hoja 2. Contar las celdas del archivo “inf_1188.xls” generado por el aplicativo in_32.exe y escribir la cantidad de registros generados menos 1 en la opción “agregar”. En la barra de herramientas en la pestaña “revisar”, dar la opción desproteger hoja. Luego, en la pestaña “datos” en la opción “desde texto” buscar el archivo CSV a cargar. Una vez cargado, dar clic en las opciones delimitados – siguiente – tabulación - punto y coma, seleccionar la opción Calificador de texto – ninguno – Siguiente – texto – aceptar y finalizar. En la pestaña “complementos”, buscar la opción “principal” y comparar en el formato PRO-D-085 consignación, validar el total valor recaudado, contra el valor recaudo. El saldo periodo anterior corresponde al saldo viene, el cual se debe digitar. De no haber intereses y sanciones, colocar “0”. Digitar el total consignado en el mes en la celda para consignaciones. Una vez diligenciados y validados todos los valores totales, dar clic en la opción GENERAL XML para generar los archivos XML que deben ser entregados a la DIAN. Esta acción solo se realizará 13/11/2024 IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCO CAJA SOCIAL. si no existe ningún error en la información. De lo contrario, el prevalidador indicará que hay errores. Al oprimir el botón “sí”, mostrará una pantalla con un listado de errores. Al oprimir el botón “guardar”, se guardará un archivo de texto con los errores para su posterior revisión y corrección. La pantalla siguiente mostrará donde guardar el archivo. Una vez guardados e identificados los errores, volver al prevalidador de datos para presentación de información por envío de archivos. Ubicar el formato que tenga el error y modificarlo. Una vez modificados, nuevamente realizar la generación de los archivos XML. Para continuar con el proceso, diligenciar los siguientes datos (algunos de los datos el sistema los traerá automáticamente, pero es obligación del usuario verificar que la información sea correcta): • Año de envío: (Año en el cual se envía el informe) • Concepto • Número de envío • Fecha de envío • Fecha inicial • Fecha final Con el botón “generar XML”, se inicia el proceso de generación de los archivos. Los archivos se generan en el directorio salida de la ubicación seleccionada para la instalación del programa. Se genera el archivo plano dmuisca_010118808aaaa00000001. El archivo validado inf_1188.xls y el dmuisca_010118808aaaa00000001 se envían por correo electrónico al funcionario encargado en el banco
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      Nota:
+     </b>
+     Los archivos mencionados se guardan en la ruta: \\Servidor\confidencial_nacionales32_aaaa\32\procesos_32\procesosBCS\informe1188\aaaa\infor me1188\mmaaaa
+    </li>
+   </ul>
+  </div>
+  <div class="doc-subsection">
+   6.8 Hacer una copia de seguridad
+  </div>
+  <div class="doc-subcontent">
+   <div class="doc-subsection">
+    6.8.1 Realizar back up en Bogotá
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       RESPONSABLE:
+      </b>
+      Líder de proceso, Oficial de Backup
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       REGISTRO:
+      </b>
+      TEC- PR-003 copias de seguridad
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       DESCRIPCIÓN:
+      </b>
+      Realizar back up diariamente para contingencia en las siguientes rutas: • \\Servidor\confidencial_aplic_in32_aaaa_cont • \\Servidor\confidencial_in32_aaaa_cont • \\Servidor\confidencial_nacionales32_aaaa_cont
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       Nota:
+      </b>
+      La copia de seguridad del proceso se realiza diariamente de forma automática a cargo del Oficial de Backup, según el procedimiento TEC- PR-003 Copias de seguridad. 13/11/2024 IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCO CAJA SOCIAL
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.8.2 Realizar back up diario
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       RESPONSABLE:
+      </b>
+      Líder de proceso
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       REGISTRO:
+      </b>
+      No aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       DESCRIPCIÓN:
+      </b>
+      A diario, por el aplicativo in_32.exe, en la barra de menús desplegar la opción administración\back up de movimiento\fecha, que corresponde a la información de cintas, tablas procesadas en el proceso de impuestos nacionales. Este queda direccionado en la ruta \\Servidor\confidencial_in32_aaaa_cont\backup_movimiento
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.8.3 Realizar back up en ciudad alterna
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       RESPONSABLE:
+      </b>
+      Líder de proceso, Oficial de Backup
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       REGISTRO:
+      </b>
+      No aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       DESCRIPCIÓN:
+      </b>
+      El área de T.I. tiene establecido un Backup automático en el servidor de Ibagué de toda la información procesada en los servidores de Bogotá en las siguientes rutas: • \\Servidor\confidencial_aplic_in32_aaaa_cont • \\Servidor\confidencial_in32_aaaa_cont • \\Servidor\confidencial_nacionales32_aaaa_cont Ingresar periódicamente para verificar que el Backup se esté realizando
+     </li>
+    </ul>
+   </div>
+  </div>
+ </div>
+ <div class="doc-section" data-id="1">
+  1. Custodiar las tapas relaciones de impuestos nacionales de las oficinas con las cuales se
+ </div>
+ <div class="doc-content" data-id="1">
+  <p>
+   entregan los documentos físicos a Digicom System Corporation S.A. por un mes como archivo activo. Una vez cumplido este tiempo, empacar las tapas en cajas, sellarlas e informar al director de procesos, quien se encargará de transportarlas a la empresa recicladora, actualmente Bogotana de reciclaje S.A.S. Bogotana de reciclaje S.A.S se encargará de la destrucción mecánica (picado), sistema de embalaje y compactación a presión, realizándose en presencia del director de procesos. Una vez finalizado el proceso de destrucción de las tapas, la empresa recicladora certificará el material destruido
+  </p>
+ </div>
+ <div class="doc-section" data-id="2">
+  2. Custodiar los videos de las grabaciones de lectura de tulas por un mes. El DVR realizará el
+ </div>
+ <div class="doc-content" data-id="2">
+  <p>
+   borrado de los videos, configurado para realizar el recicle automático cumpliendo este tiempo definido. Verificar en las configuraciones del DVR
+  </p>
+ </div>
+ <div class="doc-section" data-id="3">
+  3. Custodiar los videos de grabación de proceso por un mes. El DVR realizará el borrado de
+ </div>
+ <div class="doc-content" data-id="3">
+  <p>
+   los videos, configurado para realizar el recicle automático cumpliendo este tiempo definido. Verificar en las configuraciones del DVR
+  </p>
+ </div>
+ <div class="doc-section" data-id="4">
+  4. Custodiar la información digital (bases de datos, logs, tablas, imágenes, informes
+ </div>
+ <div class="doc-content" data-id="4">
+  <div class="doc-subsection">
+   6.10 Visor de imágenes
+  </div>
+  <div class="doc-subcontent">
+   <div class="doc-subsection">
+    6.10.1 Consolidar imágenes para visor mensual
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       RESPONSABLE:
+      </b>
+      Líder de proceso
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       REGISTRO:
+      </b>
+      No aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       DESCRIPCIÓN:
+      </b>
+      Al completar las imágenes mensuales tanto de XML como de litográficos, proceder a consolidar imágenes para quemar DVD para el Banco Caja Social. Ingresar al aplicativo in_32.exe, en la barra de menús desplegar la opción herramientas\copiar imágenes a web Backup. En la ventana que aparece, digitar el rango de fechas que comprenden el mes y activar la opción solo generar XML. Al finalizar, repetir este paso sin activar la opción Generar XML. Estos pasos consolidan la información en la ruta \\Servidor\confidencial_in32_aaaa\DVDnacionales\32\datos
+     </li>
+    </ul>
+   </div>
+   <div class="doc-subsection">
+    6.10.2 Solicitar permisos para activar unidad de DVD
+   </div>
+   <div class="doc-subcontent">
+    <ul>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       RESPONSABLE:
+      </b>
+      Líder de proceso, Oficial de Seguridad, Auxiliar T.I
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       REGISTRO:
+      </b>
+      No aplica
+     </li>
+     <li>
+      <i class="fa-regular fa-circle-check">
+      </i>
+      <b>
+       DESCRIPCIÓN:
+      </b>
+      El líder de proceso debe solicitar permisos para activar la unidad de DVD por medio de System Center o correo electrónico al área de T.I. y al Oficial de seguridad. Una vez se realice la activación de la unidad de DVD, el quemado de la información se debe realizar en presencia del Oficial de seguridad para garantizar que la única información que se va a quemar es la requerida por el cliente. Una vez finalice este proceso, se realizará la desactivación de la unidad de DVD en el equipo
+     </li>
+    </ul>
+   </div>
+  </div>
+  <div class="doc-subsection">
+   6.11 Documentos para archivo inactivo
+  </div>
+  <div class="doc-subcontent">
+   <ul>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      RESPONSABLE:
+     </b>
+     Líder de proceso, Auxiliar de Proceso
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      REGISTRO:
+     </b>
+     • PRO-F-EXT-004 formato envío de documentos físicos tributarios y aduaneros • PRO-D-EXT-002 Remisión de Documentos para archivo inactivo • PRO-F-029-EXT-reporte de sticker / autoadhesivos anulados
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      DESCRIPCIÓN:
+     </b>
+     13/11/2024 IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCO CAJA SOCIAL. Los documentos que se envían a archivo inactivo del banco son: PRO-F-029-EXT-reporte de sticker / autoadhesivos anulados y las planillas radicadas de control tulas nacionales Bogotá y país caja social (PRO-F-EXT-004 formato envío de documentos físicos tributarios y aduaneros). Estos deben ir organizados en una caja por fecha. La caja debe estar rotulada indicando el destino, contenido y fecha. Realizar la relación de la caja en un formato que es remitido por el banco, PRO-D-EXT-002 Remisión de Documentos para archivo inactivo, el cual se guarda en la ruta \\Servidor\Confidencial_Nacionales32_aaaa\32\procesos_32\ProcesosBCS\Formatos\Archivo Microfilmación. Una vez diligenciado el formato, enviarlo por correo electrónico al encargado del proceso en el banco, quien indicará por el mismo medio el día y la hora en que se realizará la recolección de las cajas
+    </li>
+   </ul>
+  </div>
+  <div class="doc-subsection">
+   6.12 Restauración de contraseña
+  </div>
+  <div class="doc-subcontent">
+   <ul>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      RESPONSABLE:
+     </b>
+     Líder de proceso, Gerente de Operaciones
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      REGISTRO:
+     </b>
+     No aplica
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      DESCRIPCIÓN:
+     </b>
+     Diligenciar en un sobre la contraseña de los diferentes accesos y entregar al gerente de operaciones. El gerente debe custodiar el sobre en la caja fuerte para su ejecución en el momento que se requiera
+    </li>
+   </ul>
+  </div>
+  <div class="doc-subsection">
+   6.13 Realizar lista de chequeo
+  </div>
+  <div class="doc-subcontent">
+   <ul>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      RESPONSABLE:
+     </b>
+     Líder de Proceso
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      REGISTRO:
+     </b>
+     PRO-D-039 Lista de Chequeo BCS
+    </li>
+    <li>
+     <i class="fa-regular fa-circle-check">
+     </i>
+     <b>
+      DESCRIPCIÓN:
+     </b>
+     Verificar la lista de chequeo, ya que en ella se registran las actividades del proceso diaria, semanal y mensualmente. Esto con el fin de mantener un orden para el envío de la información al banco. 7 INDICADORES DE DESEMPEÑO MEDIDO RESPONSABLE INDICADOR FRECUENCIA POR/MEDIO REVISIÓN Σ Total citas enviadas - Σ Cintas rechazas ------------------------------------------------------- *100 Líder de procesos Director de Mensual Σ Total de citas enviadas Procesos. 13/11/2024 IMPUESTOS NACIONALES Y TRIBUTOS ADUANEROS BANCO CAJA SOCIAL. MEDIDO RESPONSABLE INDICADOR FRECUENCIA POR/MEDIO REVISIÓN Σ Entrega de doc. físicos – Doc. físicos entregados fuera de tiempos *100 ------------------------------------------------------- Σ Entrega de doc. físicos 8 CONTROL DEL PROCEDIMIENTO REV. NO. ELABORADO REVISADO APROBADO APROBACIÓN REALIZADA Analista de Oficial de Analista de Se realiza actualización 35 06/06/2019 Proceso Seguridad Proceso de todo el procedimiento. Se realiza actualización Analista de Analista Analista de 36 17/10/2019 general del Proceso SGI Proceso procedimiento. Se realiza actualización Lider de Oficial de Director de 37 13/11/2024 general del proceso Seguridad proceso procedimiento. 13/11/2024
+    </li>
+   </ul>
+  </div>
+ </div>
+</div>
+
+<!-- Botón para abrir el modal -->
+<button class="btn btn-outline-primary" id="openModalBtn" style="margin-top: 20px;">Editar Secciones</button>
+<!-- El Modal -->
+<div class="modal" id="sectionModal">
+    <div class="modal-content">
+        <span class="close-button">×</span>
+        <h2>Selecciona y Edita una Sección</h2>
+        <label for="sectionSelector">Sección:</label>
+        <select id="sectionSelector">
+            <option value="">-- Selecciona una sección --</option>
+        </select>
+        <label for="sectionContent">Contenido:</label>
+        <textarea id="sectionContent" placeholder="El contenido de la sección aparecerá aquí..."></textarea>
+        <label for="sectionCambio">Descripcion del Cambio:</label>
+        <textarea id="sectionCambio" placeholder="Describe en palabras cortas el cambio realizado..."
+            required></textarea>
+        <button class="btn btn-outline-primary" id="saveChangesBtn" style="margin-top: 15px;">Guardar Cambios</button>
+    </div>
+</div>
+<script src="{{ url_for('static', filename='js/jquery.min.js')}}"></script>
+<script src="{{ url_for('static', filename='js/acordeon_doc.js')}}"></script>
+<script src="{{ url_for('static', filename='js/edita_procedimiento.js')}}"></script>
+
+{% endblock %}
