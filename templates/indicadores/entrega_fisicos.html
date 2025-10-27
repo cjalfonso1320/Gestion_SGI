@@ -181,7 +181,25 @@
 </div>
 {% endif %}
 
+{% if current_user.rol == 16 %}
+<button id="export_btn_{{ proceso }}" class="btn-export">Exportar</button>
+{% endif %}
 
+<style>
+    .btn-export{
+        display:inline-block;
+        background: linear-gradient(90deg,#4b6cb7,#182848);
+        color:#fff;
+        padding:8px 14px;
+        border-radius:6px;
+        border:none;
+        box-shadow:0 2px 6px rgba(0,0,0,0.25);
+        cursor:pointer;
+        font-weight:600;
+        margin-bottom:10px;
+    }
+    .btn-export:hover{ transform:translateY(-1px); }
+</style>
 
 <div class="container mt-4">
 
@@ -190,7 +208,7 @@
             Ver Tabla de Registros
         </div>
         <div class="accordion-content">
-            <table class="table">
+            <table class="table" id="tabla_entrega_fisicos_{{ proceso }}">
                 <thead>
                     <tr>
                         <th>Mes</th>
@@ -221,6 +239,8 @@
     <canvas id="grafica_entregaFisicos_{{ proceso }}" width="400" height="200"></canvas>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+<!-- html2pdf (includes html2canvas + jsPDF) to export DOM to PDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
 <script>
     // --- LÓGICA DE LA GRÁFICA (sin cambios) ---
     const ctx_entregaFisicos_{{ proceso }} = document.getElementById('grafica_entregaFisicos_{{ proceso }}').getContext('2d');
@@ -229,7 +249,7 @@
         data: {
             labels: {{ meses_entregaFisicos|default([]) | tojson | safe }},
             datasets: [{
-                label: 'Porcentaje Nacionales (%)',
+                label: 'Porcentaje (%)',
                 data: {{ porcentajes_entregaFisicos|default([]) | tojson | safe }},
                 borderColor: 'rgba(255, 99, 132, 1)',
                 backgroundColor: 'rgba(255, 99, 132, 0.2)',
@@ -273,4 +293,79 @@
             }
         }
     });
+    
+    // --- EXPORT: GENERAR PDF con GRÁFICA y TABLA ---
+    (function() {
+        const exportBtn = document.getElementById('export_btn_{{ proceso }}');
+        if (!exportBtn) return;
+        exportBtn.addEventListener('click', async function () {
+            try {
+                const table = document.getElementById('tabla_entrega_fisicos_{{ proceso }}');
+                const canvas = document.getElementById('grafica_entregaFisicos_{{ proceso }}');
+                if (!table && !canvas) throw new Error('No se encontró la tabla ni la gráfica para exportar');
+
+                // Crear contenedor temporal con el contenido a exportar
+                const wrapper = document.createElement('div');
+                wrapper.style.padding = '10px';
+                wrapper.style.background = '#fff';
+                // Forzar color de texto oscuro para que sea legible en PDF
+                wrapper.style.color = '#000';
+
+                // Título
+                const title = document.createElement('h2');
+                title.innerText = `Entrega Físicos - ${'{{ proceso }}'}`;
+                wrapper.appendChild(title);
+
+                // Añadir imagen de la gráfica si existe
+                if (canvas) {
+                    const img = document.createElement('img');
+                    // Mejor calidad: usar toDataURL
+                    img.src = canvas.toDataURL('image/png');
+                    img.style.maxWidth = '100%';
+                    img.style.display = 'block';
+                    img.style.marginBottom = '12px';
+                    wrapper.appendChild(img);
+                }
+
+                // Clonar la tabla para evitar modificar la original
+                if (table) {
+                    const cloned = table.cloneNode(true);
+                    // Ajustes de estilo para PDF (opcional)
+                    cloned.style.width = '100%';
+                    cloned.style.borderCollapse = 'collapse';
+                    Array.from(cloned.querySelectorAll('th, td')).forEach(cell => {
+                        cell.style.border = '1px solid #444';
+                        cell.style.padding = '6px';
+                        cell.style.fontSize = '10pt';
+                        cell.style.color = '#000';
+                    });
+                    // Make header background light so headers stand out on white PDF
+                    Array.from(cloned.querySelectorAll('thead th')).forEach(th => {
+                        th.style.background = '#f2f2f2';
+                        th.style.color = '#000';
+                    });
+                    wrapper.appendChild(cloned);
+                }
+
+                document.body.appendChild(wrapper);
+
+                // Configuración de html2pdf
+                const opt = {
+                    margin:       10,
+                    filename:     `entrega_fisicos_{{ proceso }}.pdf`,
+                    image:        { type: 'jpeg', quality: 0.98 },
+                    html2canvas:  { scale: 2, useCORS: true },
+                    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                };
+
+                await html2pdf().set(opt).from(wrapper).save();
+
+                // Limpiar
+                document.body.removeChild(wrapper);
+            } catch (err) {
+                console.error(err);
+                alert('Error al generar PDF: ' + (err.message || err));
+            }
+        });
+    })();
 </script>

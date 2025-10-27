@@ -1,16 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-<head> 
+
+<head>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
 </head>
+
 <body>
     <div class="background">
         <div class="shape"></div>
         <div class="shape"></div>
     </div>
+    <svg width="100%" height="120" viewBox="0 0 1200 120" preserveAspectRatio="xMidYMin meet"
+        style="position: absolute; top: 20px; left: 0; z-index: 10;">
+        <defs>
+            <!-- Curva más amplia y suave para texto largo -->
+            <path id="arc-path" d="M50,60 Q600,0 1150,60" fill="none" stroke="none" />
+        </defs>
+        <text font-family="Poppins, sans-serif" font-size="22" fill="#23a2f6" text-anchor="middle">
+            <textPath href="#arc-path" startOffset="50%" textLength="1100" lengthAdjust="spacingAndGlyphs">
+                Sistema de Gestion Integrado - DIGICOM SYSTEM CORPORATION S.A
+            </textPath>
+        </text>
+    </svg>
+
     <form method="POST" action="{{ url_for('auth.login') }}">
         <h3>Iniciar Sesión</h3>
 
@@ -22,10 +37,10 @@
 
         <button type="submit">Iniciar Sesión</button>
         <div class="social">
-          <!-- <div class="go"><a href="{{ url_for('auth.register') }}">¿No tienes cuenta? Regístrate</a></div> -->
+            <!-- <div class="go"><a href="{{ url_for('auth.register') }}">¿No tienes cuenta? Regístrate</a></div> -->
         </div>
     </form>
-    
-</body>
-</html>
 
+</body>
+
+</html>

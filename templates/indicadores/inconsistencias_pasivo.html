@@ -55,6 +55,25 @@
     </form>
 
 {% endif %}
+{% if current_user.rol == 16 %}
+<button id="export_btn_{{ proceso }}" class="btn-export">Exportar</button>
+{% endif %}
+
+<style>
+    .btn-export{
+        display:inline-block;
+        background: linear-gradient(90deg,#4b6cb7,#182848);
+        color:#fff;
+        padding:8px 14px;
+        border-radius:6px;
+        border:none;
+        box-shadow:0 2px 6px rgba(0,0,0,0.25);
+        cursor:pointer;
+        font-weight:600;
+        margin-bottom:10px;
+    }
+    .btn-export:hover{ transform:translateY(-1px); }
+</style>
 <div class="container mt-4">
 
     <div class="accordion" id="acordeonTabla">
@@ -62,7 +81,7 @@
             Ver Tabla de Registros
         </div>
         <div class="accordion-content">
-            <table class="table">
+            <table class="table" id="tabla_inconsistencias_pasivo_{{ proceso }}">
                 <thead>
                     <tr>
                         <th>Mes</th>
@@ -99,7 +118,7 @@
         data: {
             labels: {{ meses_inconsistenciasPasivo|default([]) | tojson | safe }},
         datasets: [{
-            label: 'Porcentaje Nacionales (%)',
+            label: 'Porcentaje (%)',
             data: {{ porcentajes_inconsistenciasPasivo|default ([]) | tojson | safe }},
         borderColor: 'rgba(255, 99, 132, 1)',
         backgroundColor: 'rgba(255, 99, 132, 0.2)',
@@ -116,6 +135,31 @@
         }
     }
     });
+</script>
+
+<!-- html2pdf for Export PDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+<script>
+    (function(){
+        const exportBtn = document.getElementById('export_btn_{{ proceso }}');
+        if (!exportBtn) return;
+        exportBtn.addEventListener('click', async function(){
+            try{
+                const table = document.getElementById('tabla_inconsistencias_pasivo_{{ proceso }}');
+                const canvas = document.getElementById('grafica_inconsistenciasPasivo_{{ proceso }}');
+                if (!table && !canvas) throw new Error('No hay contenido para exportar');
+                const wrapper = document.createElement('div');
+                wrapper.style.padding = '10px'; wrapper.style.background = '#fff'; wrapper.style.color = '#000';
+                const title = document.createElement('h2'); title.innerText = `Inconsistencias Pasivo - {{ proceso }}`; wrapper.appendChild(title);
+                if (canvas){ const img = document.createElement('img'); img.src = canvas.toDataURL('image/png'); img.style.maxWidth='100%'; img.style.display='block'; img.style.marginBottom='12px'; wrapper.appendChild(img); }
+                if (table){ const cloned = table.cloneNode(true); cloned.style.width='100%'; cloned.style.borderCollapse='collapse'; Array.from(cloned.querySelectorAll('th, td')).forEach(cell=>{cell.style.border='1px solid #444'; cell.style.padding='6px'; cell.style.fontSize='10pt'; cell.style.color='#000';}); Array.from(cloned.querySelectorAll('thead th')).forEach(th=>{th.style.background='#f2f2f2'; th.style.color='#000';}); wrapper.appendChild(cloned); }
+                document.body.appendChild(wrapper);
+                const opt = { margin:10, filename:`inconsistencias_pasivo_{{ proceso }}.pdf`, image:{type:'jpeg', quality:0.98}, html2canvas:{scale:2, useCORS:true}, jsPDF:{unit:'mm', format:'a4', orientation:'portrait'} };
+                await html2pdf().set(opt).from(wrapper).save();
+                document.body.removeChild(wrapper);
+            }catch(e){ console.error(e); alert('Error al generar PDF: '+ (e.message||e)); }
+        });
+    })();
 </script>
 <script>
     document.addEventListener('input', function (event) {

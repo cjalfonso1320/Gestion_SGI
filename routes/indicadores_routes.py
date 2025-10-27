@@ -33,7 +33,7 @@ def indicadores():
         uvt_valor = uvt_rol(rol)
 
         #agrario
-        datos_calidadInformacion_nacionales_agrario = lista_registrosFisicos(rol, 'Nacionales Agrario')
+        datos_calidadInformacion_nacionales_agrario = lista_registrosFisicos(rol, 'Nacionales_Agrario_CalidadInformacion')
         datos_registrosMagneticos_nacionales_agrario = lista_registrosFisicos(rol, 'Nacionales_Agrario_RegistrosMagneticos')
         #bancolombia
         datos_entrega_fisicos_nacionales_bancolombia = lista_registrosFisicos(rol, 'Nacionales_Bancolombia_Fisicos')
@@ -472,6 +472,7 @@ def indicadores():
             'meses_administrativo_SGI_Riesgos': meses_administrativo_SGI_Riesgos,
             'porcentajes_administrativo_SGI_Riesgos': porcentajes_administrativo_SGI_Riesgos,
                 }
+    print(lista_registrosFisicos(rol, 'Nacionales_Agrario_CalidadInformacion'))   
     return render_template('indicadores/indicadores.html', **CONTEXTO(), **CONTEXTO_GRAFICA())
 
 @ind_bp.route('/limpiar_rol_seleccionado', methods=['POST'])
@@ -735,7 +736,7 @@ def indicadores_por_rol(role_id):
         uvt_valor = uvt_rol(rol)
 
         #agrario
-        datos_calidadInformacion_nacionales_agrario = lista_registrosFisicos(rol, 'Nacionales Agrario')
+        datos_calidadInformacion_nacionales_agrario = lista_registrosFisicos(rol, 'Nacionales_Agrario_CalidadInformacion')
         datos_registrosMagneticos_nacionales_agrario = lista_registrosFisicos(rol, 'Nacionales_Agrario_RegistrosMagneticos')
         #bancolombia
         datos_entrega_fisicos_nacionales_bancolombia = lista_registrosFisicos(rol, 'Nacionales_Bancolombia_Fisicos')

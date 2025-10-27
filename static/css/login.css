@@ -119,3 +119,18 @@ button{
 .social i{
   margin-right: 4px;
 }
+
+svg {
+    pointer-events: none;
+}
+
+/* Mejorar legibilidad */
+text {
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* Sombra sutil para destacar sobre fondo oscuro */
+text textPath {
+    filter: drop-shadow(1px 1px 2px rgba(0,0,0,0.5));
+}

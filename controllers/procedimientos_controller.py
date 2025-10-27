@@ -181,9 +181,12 @@ def notificacion_pendiente(nombre_documento):
         server.login('calfonso@digicomsys.com.co', '**Combosken1953/*$')
         server.send_message(message)
 
-def cuenta_pendientes():
+def cuenta_pendientes(rol):
     cur = mysql.connection.cursor()
-    cur.execute("SELECT COUNT(*) FROM control_cambios WHERE estado = 'Pendiente'")
+    if rol == 16:
+        cur.execute("SELECT COUNT(*) FROM control_cambios WHERE estado = 'Pendiente'")
+    else:
+        cur.execute("SELECT COUNT(*) FROM control_cambios WHERE estado = 'Pendiente' and id_rol = %s", (rol,))
     count = cur.fetchone()[0]
     cur.close()
     return count
@@ -195,9 +198,12 @@ def cuenta_rechazados():
     cur.close()
     return count
 
-def lista_cambios_pendientes():
+def lista_cambios_pendientes(rol):
     cur = mysql.connection.cursor()
-    cur.execute("SELECT * FROM control_cambios WHERE estado = 'Pendiente'")
+    if rol == 16:
+        cur.execute("SELECT * FROM control_cambios WHERE estado = 'Pendiente'")
+    else:
+        cur.execute("SELECT * FROM control_cambios WHERE estado = 'Pendiente' and id_rol = %s", (rol,))
     cambios = cur.fetchall()
     cur.close()
     return cambios

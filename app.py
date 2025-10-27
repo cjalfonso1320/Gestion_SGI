@@ -46,9 +46,9 @@ def inject_global_context():
         if current_user.is_authenticated:
             rol = current_user.rol
             return dict(
-                pendientes=cuenta_pendientes(),
+                pendientes=cuenta_pendientes(rol),
                 rechazados=cuenta_rechazados(),
-                cambios_pendientes=lista_cambios_pendientes(),
+                cambios_pendientes=lista_cambios_pendientes(rol),
                 cambios_rechazados=lista_cambios_rechazados(),
                 # Añadimos procesos e imagen_rol para que estén disponibles globalmente
                 procesos=PROCESOS_ROL.get(rol, []),
