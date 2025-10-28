@@ -283,8 +283,21 @@
                 if (table){ const cloned = table.cloneNode(true); cloned.style.width='100%'; cloned.style.borderCollapse='collapse'; Array.from(cloned.querySelectorAll('th, td')).forEach(cell=>{cell.style.border='1px solid #444'; cell.style.padding='6px'; cell.style.fontSize='10pt'; cell.style.color='#000';}); Array.from(cloned.querySelectorAll('thead th')).forEach(th=>{th.style.background='#f2f2f2'; th.style.color='#000';}); wrapper.appendChild(cloned); }
                 document.body.appendChild(wrapper);
                 const opt = { margin:10, filename:`administrativo_{{ proceso }}.pdf`, image:{type:'jpeg', quality:0.98}, html2canvas:{scale:2, useCORS:true}, jsPDF:{unit:'mm', format:'a4', orientation:'portrait'} };
-                await html2pdf().set(opt).from(wrapper).save();
-                document.body.removeChild(wrapper);
+                await html2pdf().set(opt).from(wrapper).toPdf().get('pdf').then(function (pdf) {
+                    const totalPages = pdf.internal.getNumberOfPages();
+                    const usuario = "{{ current_user.username|default(current_user.email)|default('') }}";
+                    const fecha = new Date().toLocaleString();
+                    for (let i = 1; i <= totalPages; i++) {
+                        pdf.setPage(i);
+                        pdf.setFontSize(9);
+                        pdf.setTextColor(40);
+                        pdf.text(`Usuario: ${usuario}`, 10, 10);
+                        pdf.text(fecha, pdf.internal.pageSize.getWidth() - 10, 10, { align: 'right' });
+                        pdf.text(`Página ${i} de ${totalPages}`, pdf.internal.pageSize.getWidth() / 2, pdf.internal.pageSize.getHeight() - 10, { align: 'center' });
+                    }
+                    pdf.save(opt.filename);
+                    document.body.removeChild(wrapper);
+                });
             }catch(e){ console.error(e); alert('Error al generar PDF: '+ (e.message||e)); }
         });
     })();

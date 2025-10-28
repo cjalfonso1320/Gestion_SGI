@@ -358,10 +358,24 @@
                     jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
                 };
 
-                await html2pdf().set(opt).from(wrapper).save();
-
-                // Limpiar
-                document.body.removeChild(wrapper);
+                await html2pdf().set(opt).from(wrapper).toPdf().get('pdf').then(function (pdf) {
+                    const totalPages = pdf.internal.getNumberOfPages();
+                    const usuario = "{{ current_user.username|default(current_user.email)|default('') }}";
+                    const fecha = new Date().toLocaleString();
+                    for (let i = 1; i <= totalPages; i++) {
+                        pdf.setPage(i);
+                        pdf.setFontSize(9);
+                        pdf.setTextColor(40);
+                        // Header: usuario (left) and fecha (right)
+                        pdf.text(`Usuario: ${usuario}`, 10, 10);
+                        pdf.text(fecha, pdf.internal.pageSize.getWidth() - 10, 10, { align: 'right' });
+                        // Footer: página centrada
+                        pdf.text(`Página ${i} de ${totalPages}`, pdf.internal.pageSize.getWidth() / 2, pdf.internal.pageSize.getHeight() - 10, { align: 'center' });
+                    }
+                    pdf.save(opt.filename);
+                    // Limpiar
+                    document.body.removeChild(wrapper);
+                });
             } catch (err) {
                 console.error(err);
                 alert('Error al generar PDF: ' + (err.message || err));
