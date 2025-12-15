@@ -1,0 +1,1313 @@
+{% extends 'home.html' %}
+{% block title %}Documentacion{% endblock %}
+{% block content %}
+<link href="{{ url_for('static', filename='css/acordeon_doc.css') }}" rel="stylesheet" />
+<link href="{{ url_for('static', filename='css/procedimientos.css') }}" rel="stylesheet" />
+
+<div id="documento" style="display:none;">procedimientos/HTML/PRO-PR-004 Tarjetas Registro de Firmas.html</div>
+<div id="nombre_documento" style="display: none;">PRO-PR-004 Tarjetas Registro de Firmas</div>
+<h1>PRO-PR-004 Tarjetas Registro de Firmas</h1>
+{% for cambio in cambios %}
+{% if loop.first %}
+<h3>Version: {{cambio[3]}}</h3>
+{% endif %}
+{% endfor %}
+<br />
+<div class="doc-accordion">
+    <div class="doc-section" data-id="1">
+        1. OBJETIVO
+    </div>
+    <div class="doc-content" data-id="1">
+        <p>
+            Procesar, Validar y administrar la información de tarjetas, del Banco AV Villas cumpliendo con los
+            lineamientos del Sistema de Gestión Integrado, con el firme propósito de satisfacer las necesidades del
+            cliente
+        </p>
+    </div>
+    <div class="doc-section" data-id="2">
+        2. ALCANCE
+    </div>
+    <div class="doc-content" data-id="2">
+        <p>
+            Este procedimiento aplica a todos los servicios de Tarjetas Registro de Firmas, para el procesamiento de la
+            información
+        </p>
+    </div>
+    <div class="doc-section" data-id="3">
+        3. RESPONSABLES
+    </div>
+    <div class="doc-content" data-id="3">
+        <p>
+            Gerente de Operaciones, director de Procesos, Analista de procesos, Auxiliares de proceso, Digitador
+        </p>
+    </div>
+    <div class="doc-section" data-id="4">
+        4. DEFINICIONES
+    </div>
+    <div class="doc-content" data-id="4">
+        <p>
+            • Archivo Plano: Archivo de datos que se utiliza para intercambio de información entre diferentes
+            aplicaciones. • Desencriptar: Verificación por medio de contraseña suministrada por el cliente para
+            descifrar archivos mediante el uso de aplicativos para este fin. • TURF: Tarjeta Única de Registro de Firmas
+            • TCM: Tarjetas de Condiciones de Manejo • TRF: Tarjetas registro de firmas funcionarios (colaboradores)
+        </p>
+    </div>
+    <div class="doc-section" data-id="5">
+        5. DOCUMENTOS DE REFERENCIA
+    </div>
+    <div class="doc-content" data-id="5">
+        <p>
+            ➢ Cláusulas del Contrato. ➢ Acuerdos de Servicios. ➢ Propuestas de Servicios. 21/08/2025 TARJETAS REGISTRO
+            DE FIRMAS
+        </p>
+    </div>
+    <div class="doc-section" data-id="6">
+        6. DESCRIPCIÓN DEL PROCESO
+    </div>
+    <div class="doc-content" data-id="6">
+        <div class="doc-subsection">
+            6.1. RECEPCIÓN DE ARCHIVOS
+        </div>
+        <div class="doc-subcontent">
+            <ul>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        RESPONSABLE:
+                    </b>
+                    Líder de proceso
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        REGISTRO:
+                    </b>
+                    No aplica
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        DESCRIPCIÓN:
+                    </b>
+                    Los archivos turf, tcm y colaboradores son transmitidos por el banco diariamente y se encuentran
+                    publicados en el sitio seguro shika //200.14.232.175. Por medio del aplicativo FileZilla (Imagen 1),
+                    se ingresa mediante usuario digicom_001 y contraseña asignada por el cliente, en la carpeta
+                    “desdeusuario\firmas\vinculaclientes_Oficinas” se seleccionan los archivos de la fecha
+                    correspondiente, los mismos son compartidos por el banco desde las 8:00 a.m. hasta las 9:00 p.m., se
+                    debe tener en cuenta que cada media hora se hace el cargue de los archivos, los cuales se descargan
+                    en la carpeta Confidencial_Trm52_aaaa\avvill Imagen 1 21/08/2025 TARJETAS REGISTRO DE FIRMAS
+                </li>
+            </ul>
+        </div>
+        <div class="doc-subsection">
+            6.2. CONTROL DE ARCHIVOS
+        </div>
+        <div class="doc-subcontent">
+            <div class="doc-subsection">
+                6.2.1. REGISTRAR ARCHIVOS
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            RESPONSABLE:
+                        </b>
+                        Líder de proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            REGISTRO:
+                        </b>
+                        PRO-D-008 Control Archivos Recibidos
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            DESCRIPCIÓN:
+                        </b>
+                        Diariamente se registra la cantidad de archivos descargados cada media hora en el formato
+                        PRO-D-008 Control Archivos Recibidos. El cual encuentra en la ruta archivos, las imágenes y
+                        oficinas que realizaron la transmisión durante el día. En este formato se registra la hora de
+                        descarga, la cantidad de archivos a descargar dependiendo de las carpetas que aparezcan en el
+                        rango de media hora, la última oficina que será descargada en ese rango de selección y la
+                        cantidad de imágenes que fueron descargadas las cuales se conocen después de descifrar lo
+                        descargado. Imagen 2 21/08/2025 TARJETAS REGISTRO DE FIRMAS
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.2.2. DESENCRIPTAR, DESCOMPRIMIR, DEPURAR Y DISTRIBUIR ARCHIVOS
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            RESPONSABLE:
+                        </b>
+                        Líder de Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            REGISTRO:
+                        </b>
+                        No aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            DESCRIPCIÓN:
+                        </b>
+                        Los archivos descargados se desencriptan mediante el aplicativo WinPT (Imagen 3), arrastrando el
+                        archivo sobre la ventana del aplicativo, clic derecho, opción decrypt, se ingresa la contraseña
+                        asignada por el banco, los archivos se extraen en formato Zip (Imagen 4)en la carpeta diferentes
+                        a Turf, Tcm o imágenes en blanco, las Turf se copian en partes iguales en las carpetas nombradas
+                        con cada uno de sus usuarios estas se encuentran situadas en
+                        \Confidencial_Trm52_aaaa\xmail\Correo, posteriormente los digitadores asignados para este
+                        proceso ingresan al aplicativo por la opción clientes, ubican la carpeta nombrada con su usuario
+                        e indexan las Tarjetas que se encuentren en dicha ruta, al indexar las tarjetas estas se
+                        borraran automáticamente de la carpeta de cada usuario para ser asignadas por el líder de
+                        proceso, las TCM se ubican en Confidencial_Trm52_aaaa\xmail\Ztcm, las cuales serán indexadas por
+                        el líder de proceso ya que deben ser clasificadas por tipo de producto. Finalmente, los archivos
+                        que fueron descargados en formato PGP son guardados en la carpeta
+                        Confidencial_Trm52_aaaa\bsitsegPGP y los archivos en formato Zip que son extraídos, luego de
+                        desencriptar, son guardados en la carpeta queden solo los archivos correspondientes a la fecha a
+                        procesar. Imagen 3 Imagen 4 21/08/2025 TARJETAS REGISTRO DE FIRMAS
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.2.3. IDENTIFICAR INCONSISTENCIAS
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            RESPONSABLE:
+                        </b>
+                        Digitadores y Líder de Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            REGISTRO:
+                        </b>
+                        No aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            DESCRIPCIÓN:
+                        </b>
+                        al ingresar al aplicativo el cual se encuentra en Confidencial_Trm52_aaaa para hacer la
+                        indexación, se debe revisar en el diligenciamiento de las turf y tcm los siguientes parámetros
+                        (Imagen 5 Y 6), las imágenes que presenten alguna inconsistencia no deberán ser indexada por los
+                        digitadores, ya que debe devolver y repórtalas al banco por parte del líder de proceso. • Sin
+                        firma o sin sellos • Sellos ilegibles • Impreso ilegible • Falta diligenciar campos • Datos
+                        ilegibles o no coinciden con impreso Imagen 5 Imagen 6 21/08/2025 TARJETAS REGISTRO DE FIRMAS
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="doc-subsection">
+            6.3. IMÁGENES
+        </div>
+        <div class="doc-subcontent">
+            <div class="doc-subsection">
+                6.3.1. INDEXAR IMÁGENES
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            RESPONSABLE:
+                        </b>
+                        Digitador
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            REGISTRO:
+                        </b>
+                        No aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            DESCRIPCIÓN:
+                        </b>
+                        Cada Digitador ingresa al aplicativo Tarjetas con el usuario y contraseña asignado, ubica en el
+                        panel superior la opción clientes el cual corresponde a las Turf (Imagen 8), en la carpeta con
+                        el nombre de su usuario que se encuentran en Confidencial_Trm52_aaaa\xmail\Correo ubica las
+                        imágenes de las Turf para indexar los siguientes campos: • número de identificación, • oficina a
+                        la que corresponde la tarjeta, • fecha de documento 21/08/2025 TARJETAS REGISTRO DE FIRMAS Todo
+                        campo tiene la condición de doble captura para evitar inconsistencias de digitación. Las Tcm son
+                        indexadas por el líder de proceso, ya que deben ser clasificadas por tipo de producto (Imagen
+                        9), • M por el campo de modificaciones. • A para los productos de cuentas de ahorro y los
+                        productos de cuenta corriente. Imagen 8 Imagen 9 21/08/2025 TARJETAS REGISTRO DE FIRMAS
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.3.2. ASIGNAR IMÁGENES
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            RESPONSABLE:
+                        </b>
+                        Líder de proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            REGISTRO:
+                        </b>
+                        No aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            DESCRIPCIÓN:
+                        </b>
+                        Asignar a los digitadores las imágenes ya indexadas para realizar el recorte de la firma y
+                        grabar los datos. En el aplicativo tarjetas, opción Administrador, Asignar tarjetas (Imagen 10),
+                        se consulta por tipo de producto las imágenes de las Turf y Tcm ya indexadas y se distribuye
+                        entre los digitadores, esto se hace periódicamente hasta las 9:00 p.m. hora en la que culmina el
+                        proceso según acuerdo de servicios. Imagen 10
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.3.3. RECORTAR FIRMA
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            RESPONSABLE:
+                        </b>
+                        Digitadores
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            REGISTRO:
+                        </b>
+                        No aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            DESCRIPCIÓN:
+                        </b>
+                        En el Aplicativo Tarjetas, cada digitador ingresa con su usuario y contraseña, en el panel
+                        superior, opción recortar aparecen las imágenes asignadas (Imagen 11), se va haciendo clic sobre
+                        cada una de ellas sean TURF o TCM, en el caso de las Turf se realiza el corte del sector de la
+                        firma, en caso necesario se limpia la imagen, si tiene algún signo o mancha que interfiera con
+                        la firma del cliente se utilizan las herramientas ubicadas en la parte superior, borrador,
+                        limpiar, recortar. Para las condiciones de manejo TCM deben recortar los diferentes sellos que
+                        pueda utilizar la cuenta o identificar si no solicita sellos (Imagen 12). Además de las
+                        herramientas de depuración y recorte en este producto aparece al lado izquierdo el menú para
+                        recortar los sellos según su tipo: • 1 y 2 para sello seco 21/08/2025 TARJETAS REGISTRO DE
+                        FIRMAS • 3-4 sello húmedo • 5 protectografo • 6 recorte en blanco si la condición no exige
+                        sello. Imagen 11 Imagen 12 21/08/2025 TARJETAS REGISTRO DE FIRMAS
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="doc-subsection">
+            6.4. TCM DE CUENTAS MASIVAS
+        </div>
+        <div class="doc-subcontent">
+            <div class="doc-subsection">
+                6.4.1 RECEPCIÓN DEL LOG
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            RESPONSABLE:
+                        </b>
+                        Líder de Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            REGISTRO:
+                        </b>
+                        No aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            DESCRIPCIÓN:
+                        </b>
+                        Por medio del aplicativo FileZilla, se ingresa en la carpeta
+                        “/DesdeBanco/Complementación/VinculaClientes/Informes” (imagen 16), se seleccionan los archivos
+                        CSV.pgp, los mismos son compartidos por las oficinas antes de las 7:00 p.m. y están nombrados
+                        “MODIF_COND_DE_MANEJO_aaaammdd_xxxxx.CSV”. pgp, se descargan en la carpeta
+                        Confidencial_Trm52_aaaa\Entrada_Log_tcm, se descomprimen con la contraseña Dual y queda el
+                        archivo CSV que será cargado al aplicativo para su proceso. 21/08/2025 TARJETAS REGISTRO DE
+                        FIRMAS Imagen 16 • 6.4.2 CARGAR .LOG
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            RESPONSABLE:
+                        </b>
+                        Líder de Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            REGISTRO:
+                        </b>
+                        No aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            DESCRIPCIÓN:
+                        </b>
+                        En el aplicativo Tarjetas.exe, ingresando con usuario y contraseña, se ejecuta Gestión –
+                        Condiciones Manejo Múltiple – tipo de tarjetas (modificación, ahorro, corriente) (Imagen 17) al
+                        seleccionar esta opción se abrirá una ventana (Imagen 18) desde la cual debemos seleccionar la
+                        condición de manejo en la carpeta Ztcm Múltiple, luego se abrirá una nueva ventana para cargar
+                        la imagen de la tcm y el .log que contiene las cuentas de la tarjeta (Este debe estar en formato
+                        .CSV y no debe contener espacios en blanco) ubicado en \Confidencial_Trm52_aaaa\Entrada_Log_tcm
+                        Imagen 17 21/08/2025 TARJETAS REGISTRO DE FIRMAS Imagen 18
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="doc-subsection">
+            6.5. VALIDACIÓN
+        </div>
+        <div class="doc-subcontent">
+            <div class="doc-subsection">
+                6.5.1. VALIDAR TARJETAS GRABADAS
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            RESPONSABLE:
+                        </b>
+                        Líder de proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            REGISTRO:
+                        </b>
+                        No aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            DESCRIPCIÓN:
+                        </b>
+                        El líder del proceso ingresa al aplicativo Tarjetas con su usuario y contraseña, panel superior,
+                        opción Administración, Visor de Tarjetas, abrir, se seleccionan las imágenes que se va a revisar
+                        ya sea Turf, Tcm o colaboradores, allí aparecen las imágenes procesadas, los recortes y la
+                        grabación del recorte (Imagen 20). Se revisa que coincidan los datos de la imagen con los
+                        grabados por el digitador, así como la calidad del recorte de la firma. En el caso de las TCM,
+                        se revisa que coincida el tipo de recorte con el sello de la imagen, así como la digitación de
+                        las condiciones de manejo de la cuenta (Imagen 21). Esta actividad se hace continuamente hasta
+                        que el visor de imágenes indique que ya no hay más imágenes por validar. Imagen 20 Imagen 21
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.5.2. BORRAR TARJETAS
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            RESPONSABLE:
+                        </b>
+                        Líder de procesos
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            REGISTRO:
+                        </b>
+                        No aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            DESCRIPCIÓN:
+                        </b>
+                        El Líder del proceso ingresa al aplicativo Tarjetas con su usuario y contraseña, panel superior,
+                        opción Administración, modificación de Cuentas, se ingresa número de tarjeta incluso con los
+                        dígitos después del -, enter, se selecciona la opción borrar tarjeta, borrar (Imagen 22). Esto
+                        se realiza cuando se procesa una imagen que tiene inconsistencias y no fue detectada por los
+                        digitadores, en primer lugar se debe copiar la multi de la carpeta de imágenes multis a la
+                        carpeta de control, fecha, para reportarla en el pro-d-007 con la imagen de evidencia, si se
+                        elimina desde el aplicativo ya no aparecerá la imagen en la carpeta de multis ni recortes, se
+                        debe tener en cuenta que en los dos aplicativos no se deberá eliminar imágenes desde la carpeta
+                        donde está ubicada, se deberán eliminar las imágenes desde el aplicativo o generara error.
+                        21/08/2025 TARJETAS REGISTRO DE FIRMAS Imagen 22
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.5.3. CORRECCIÓN DE INCONSISTENCIAS
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            RESPONSABLE:
+                        </b>
+                        Líder de proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            REGISTRO:
+                        </b>
+                        No aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            DESCRIPCIÓN:
+                        </b>
+                        El Líder del proceso ingresa al aplicativo Tarjetas con su usuario y contraseña, panel superior,
+                        opción reportes, generación de reportes, generales, inconsistencias en revisión, se selecciona
+                        el tipo de producto ya sea Turf o Tcm y en el estado se seleccionan todas las opciones excepto
+                        enviado, en caso de que no existan inconsistencias aparecerá una ventana emergente informando
+                        “No se encontró ningún registro inconsistente en la revisión” (Imagen 23). Cuando aparecen
+                        inconsistencias ya sea de numero de cedula, cuenta o fecha (Imagen 24), se realiza la revisión
+                        de la imagen para corregir. Las correcciones de grabación se realizan por la opción
+                        Administración, modificación de cuentas y se ubica por el número de identificación de la tarjeta
+                        (Imagen 25) y las correcciones de indexación se hacen por el visor de imágenes (Imagen 26).
+                        21/08/2025 TARJETAS REGISTRO DE FIRMAS Imagen 23 Imagen 24 Imagen 25 Imagen 26
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="doc-subsection">
+            6.6. GENERAR ARCHIVOS
+        </div>
+        <div class="doc-subcontent">
+            <div class="doc-subsection">
+                6.6.1. GENERAR ARCHIVO DE SALIDA
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            RESPONSABLE:
+                        </b>
+                        Líder de Procesos
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            REGISTRO:
+                        </b>
+                        No aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            DESCRIPCIÓN:
+                        </b>
+                        luego de revisar que no haya tarjetas por asignar, recortes por grabar, ni documentos por
+                        validar en el aplicativo y todas las inconsistencias estén corregidas, el líder del proceso
+                        ingresa al aplicativo, panel superior, Generar Salida, opción Clientes, procesar (Imagen 30).
+                        Esperar a que la ventana emergente indique que se realizó la descarga con éxito, Luego opción
+                        productos, se selecciona modificaciones (Imagen 31) y luego se selecciona ahorro y Corrientes
+                        (Imagen 32), por último, colaboradores (Imagen 33). Estos archivos se generan en la ruta:
+                        \Confidencial_TRM52_aaaa\Salida, cada uno con la numeración de consecutivo que corresponde, con
+                        dos carpetas, una corresponde a los Multis procesados y la otra con los recortes realizados,
+                        cada uno con su respectivo informe CSV. Imagen 30 Imagen 31 Imagen 32 Imagen 33 21/08/2025
+                        TARJETAS REGISTRO DE FIRMAS
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.6.2. VALIDACIÓN DE ARCHIVOS DE SALIDA
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            RESPONSABLE:
+                        </b>
+                        Líder de Procesos
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            REGISTRO:
+                        </b>
+                        No aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            DESCRIPCIÓN:
+                        </b>
+                        El líder de proceso revisa cada uno de los archivos de salida que se encuentran en enviada al
+                        banco este conforme a lo pactado en el acuerdo de servicios, las validaciones que se realizan
+                        son: • La cantidad de Multis y de recortes debe coincidir con los registros del informe CSV
+                        generado (Imagen 34) • Los recortes deben coincidir con el tipo de sello (Imagen 35), para
+                        realizar esta validación, en el buscador se coloca *B1 *B2 deben aparecer solo sellos húmedos
+                        *B3 *B4 deberán aparecer los sellos secos, *B5 para los protectografo y *B6 solo aparecerán los
+                        espacios en blanco que corresponden a los recortes de las Tcm que no exigen sellos. • Los
+                        informes no deben tener espacios en blanco respetando la estructura solicitada por el banco
+                        (Imagen 36), Imagen 34 Imagen 35 Imagen 36 21/08/2025 TARJETAS REGISTRO DE FIRMAS
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.6.3. GENERACIÓN DE INFORMES CONSOLIDADO DIARIO
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            RESPONSABLE:
+                        </b>
+                        Líder de Procesos
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            REGISTRO:
+                        </b>
+                        PRO-D-007 Informe Diario de Proceso de imágenes (conciliación diaria Hoja 1 y Hoja 2)
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            DESCRIPCIÓN:
+                        </b>
+                        El líder de proceso ingresa al aplicativo tarjetas con su usuario y contraseña, panel superior
+                        opción reportes, generación de reporte, control, consolidado de proceso por oficina (Imagen 37),
+                        generar; luego relación de tarjetas reprocesadas, generar. El primer informe se copia y pega con
+                        la misma estructura en la hoja 1 del formato PRO-D-007 Informe Diario de Proceso de imágenes del
+                        día que se está realizando el proceso (Imagen 38), el segundo informe se abre en Excel se
+                        delimita y se filtran solo las turf del día de proceso columna F, se insertan dos columnas en
+                        blanco en b y c, se filtran solo las turf, se selecciona la información de la columna A a la
+                        columna E y se pegan valores en la hoja 3 en las celdas color gris del PRO-D-007 Informe Diario
+                        de Proceso de imágenes, estas son las imágenes reprocesadas, si sobrepasa las líneas grises se
+                        pueden insertar las necesarias para pegar toda la información, luego se retiran los filtros, se
+                        eliminan las columnas que se insertaron, se dejan solo las columnas a b y c, se elimina las
+                        demás, se ordena por número de cuenta y primero quedaran las turf y de ultimas las tcm, se
+                        seleccionan las tcm desde la columna A a la C, se cortan y pegan al lado en la fila dos columna
+                        E F G, se selecciona toda la información y se pega valores en el formato de la hoja 2 del
+                        PRO-D-007 Informe Diario de Proceso de imágenes (Imagen 39), Imagen 37 21/08/2025 TARJETAS
+                        REGISTRO DE FIRMAS Imagen 38 Imagen 39
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.6.4. INFORME DIARIO DE PROCESO DE IMÁGENES
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            RESPONSABLE:
+                        </b>
+                        Líder de Procesos
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            REGISTRO:
+                        </b>
+                        PRO-D-007 Informe Diario de Proceso de imágenes PRO-D-008 Control Archivos Recibidos
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            DESCRIPCIÓN:
+                        </b>
+                        Luego de generar salida de las imágenes procesadas, deberá completar el formato PRO-D-007
+                        Informe Diario de Proceso de imágenes del día, este consta de 4 hojas, las tres primeras hojas
+                        corresponden a informes anteriormente descritos (informe consolidado por oficinas, informe de
+                        imágenes reprocesadas) en la tercera hoja del libro en la parte superior filas en blanco, se
+                        diligencia la información de las imágenes que serán devueltas al banco por presentar
+                        inconsistencias (espacios en blanco, sin firma, sin huella, imagen fuera de parámetros, datos
+                        ilegibles, las turf reprocesadas en el día (filas grises ya diligenciadas) y al final la
+                        totalidad de las imágenes procesadas por tipo, tanto Multis como firmas y sellos, con su
+                        respectiva numeración de salida (Imagen 40). En la hoja 4 (Documentos descargados) TCM Y TURF,
+                        se refleja la información de las descargas, la cual se extrae del PRO-D-008 Control Archivos
+                        Recibidos del día, junto con el pantallazo del sitio seguro shika donde se evidencia la
+                        trasmisión de los archivos (Imagen 41). 21/08/2025 TARJETAS REGISTRO DE FIRMAS Imagen 40 Imagen
+                        41
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.6.5. CARPETA DE ENVIO
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            RESPONSABLE:
+                        </b>
+                        Líder de Procesos
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            REGISTRO:
+                        </b>
+                        PRO-D-007 Informe Diario de Proceso de imágenes
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            DESCRIPCIÓN:
+                        </b>
+                        El líder al finalizar el proceso diario, debe guardar los archivos e informes CSV de las multis
+                        en una carpeta nombrada con la fecha del proceso, esta se encuentra ubicada en de las tarjetas,
+                        esta carpeta debe contener: carpeta de archivos duplicados, imágenes con inconsistencias,
+                        informe PRO-D-007 Informe Diario de Proceso de imágenes. Y los informes CSV de los Multis
+                        generados en la salida Confidencial_Trm52_aaaa\Salida (Imagen 42). Imagen 42 21/08/2025 TARJETAS
+                        REGISTRO DE FIRMAS
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="doc-subsection">
+            6.7. ELIMINACIÓN DE IMÁGENES
+        </div>
+        <div class="doc-subcontent">
+            <ul>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        RESPONSABLE:
+                    </b>
+                    Líder de Procesos
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        REGISTRO:
+                    </b>
+                    GER-F-002
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        DESCRIPCIÓN:
+                    </b>
+                    El líder de proceso cada quince días elabora el acta formato GER-F-002 con la numeración consecutiva
+                    asignada por Digicom, ingresa al aplicativo, panel superior, Gestión, borrar imágenes, selecciona el
+                    rango a eliminar ( del 1 al 15 del mes o del 16 al 31 del mes), procesar (Imagen 47) al culminar la
+                    eliminación se abrirá una ventana del aplicativo informando cuantas imágenes fueron eliminadas del
+                    rango de fecha seleccionado, se toma pantallazo y se anexa al acta (Imagen 48), adicional se toman
+                    pantallazos de la carpeta de imágenes del servidor, donde se evidencie que no hay Multis ni recortes
+                    de las fechas que se seleccionó, se actualizan los datos del acta, tales como fecha, numeración,
+                    numero de imágenes eliminadas, rango de fecha de eliminación (Imagen 49), se convierte en pdf y se
+                    envía a los correos del personal autorizado por el banco. Imagen 47 Imagen 48 21/08/2025 TARJETAS
+                    REGISTRO DE FIRMAS Imagen 49
+                </li>
+            </ul>
+        </div>
+        <div class="doc-subsection">
+            6.8. BACKUP DE CORREO
+        </div>
+        <div class="doc-subcontent">
+            <ul>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        RESPONSABLE:
+                    </b>
+                    Líder de Procesos
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        REGISTRO:
+                    </b>
+                    No Aplica
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        DESCRIPCIÓN:
+                    </b>
+                    El líder del proceso debe realizar El Backup de correo que se realiza por medio de la aplicación:
+                    Backup_correo (ubicado en el escritorio del equipo) cada semana (Imagen 50). Imagen 50
+                </li>
+            </ul>
+        </div>
+        <div class="doc-subsection">
+            6.9. CREACIÓN DE USUARIOS, CONSECUTIVOS DE OFICINAS
+        </div>
+        <div class="doc-subcontent">
+            <ul>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        RESPONSABLE:
+                    </b>
+                    Líder de Procesos
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        REGISTRO:
+                    </b>
+                    No Aplica
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        DESCRIPCIÓN:
+                    </b>
+                    El líder del proceso mediante usuario y contraseña tiene autorización para manejar los privilegios
+                    de los digitadores según las actividades que desempeñen en el proceso, así como la creación de
+                    nuevos usuarios para que realicen la digitación y recorte de las imágenes a procesar, en el panel
+                    superior, seguridad, usuarios, nuevo registro, se crean o buscan, marcando sobre el 21/08/2025
+                    TARJETAS REGISTRO DE FIRMAS nombre del usuario se modifican funciones según se requiera (Imagen 51).
+                    Los consecutivos hacen referencia a la creación códigos de nuevas oficinas (Imagen 52). Imagen 51
+                    Imagen 52
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="doc-section" data-id="7">
+        7. PROCESO FÍSICO
+    </div>
+    <div class="doc-content" data-id="7">
+        <div class="doc-subsection">
+            7.2 CONTROL DOCUMENTAL
+        </div>
+        <div class="doc-subcontent">
+            <div class="doc-subsection">
+                7.2.1 DIGITALIZACIÓN
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            RESPONSABLE:
+                        </b>
+                        Auxiliar de procesos
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            REGISTRO:
+                        </b>
+                        No Aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            DESCRIPCIÓN:
+                        </b>
+                        Culminado el proceso de lectura de tulas, el auxiliar encargado digitaliza las tapas, turf y
+                        tcm, teniendo en cuenta que en la carpeta scan en la fecha correspondiente el 1 hace referencia
+                        a las Turf Confidencial_TrmFisicas52_aaaa\scan\1 y el 2 a las TCM respectiva carpeta (Imagen
+                        65). Este proceso se debe llevar a cabo todos los días antes de las 10:00 21/08/2025 TARJETAS
+                        REGISTRO DE FIRMAS p.m. en caso que durante la digitalización se consigan más inconsistencias se
+                        realiza el proceso de corrección de tapas. Imagen 64 Imagen 65
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                7.2.1.1 CARGAR IMÁGENES AL APLICATIVO
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            RESPONSABLE:
+                        </b>
+                        Auxiliar de procesos
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            REGISTRO:
+                        </b>
+                        No Aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            DESCRIPCIÓN:
+                        </b>
+                        Una vez culminado el proceso de digitalización, Carga las imágenes al aplicativo de Tarjetas
+                        físicas el cual se encuentra ubicado en imágenes, selecciona la fecha a cargar (Imagen 66) para
+                        que posteriormente los digitadores realicen el respectivo proceso de indexación en horas de la
+                        mañana del siguiente día. Imagen 66 21/08/2025 TARJETAS REGISTRO DE FIRMAS
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                7.2.1.2 DIGITACIÓN
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            RESPONSABLE:
+                        </b>
+                        Digitadores
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            REGISTRO:
+                        </b>
+                        No Aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            DESCRIPCIÓN:
+                        </b>
+                        los digitadores autorizados y con los permisos de digitación de tarjetas físicas ingresan con
+                        usuario y contraseña al aplicativo Tarjetas, ingresan en panel izquierdo, captura 1 o captura 2,
+                        la diferencia de estas capturas es que en captura dos puede seleccionar la fecha a indexar,
+                        mientras que en captura 1 van a apareciendo las imágenes pendientes por indexar en orden
+                        cronológico; seleccionan el tipo de producto 326 o 327, tipo de pago: efectivo, de acuerdo al
+                        formato del documento que va a indexar selecciona el formato: • A para las tapas (Imagen 67). •
+                        B para las TCM (Imagen 68). • C para las TURF (Imagen 69). primer campo se ingresa la fecha de
+                        proceso como aparece en la imagen aaaa/mm/dd, en el caso de las TCM la fecha viene en formato
+                        aaaa/dd/mm sin embargo debe indexarse aaaa/mm/dd, se ingresan los demás campos que va
+                        solicitando, en el caso de las tapas, en el campo tipo de documento se ingresa el concepto de la
+                        tapa, es decir, 326 o 327 según sea el caso, en los formatos B se ingresa el número de cuenta y
+                        en los formatos C el número de identificación del cliente, todos los campos tienen doble captura
+                        para evitar errores de digitación. Imagen 67 Imagen 68 21/08/2025 TARJETAS REGISTRO DE FIRMAS
+                        Imagen 69
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                7.2.1.3 LIMPIAR TABLAS, CORRECCIÓN DE ERRORES Y PUNTEO
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            RESPONSABLE:
+                        </b>
+                        Auxiliar de Procesos
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            REGISTRO:
+                        </b>
+                        No Aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            DESCRIPCIÓN:
+                        </b>
+                        Una vez culminada la indexación de las imágenes por parte de los digitadores, ingresa al
+                        aplicativo tarjetas para revisar la fecha, por la opción archivo, informes, informe de grabación
+                        (Imagen 70), para hacer la limpieza de tablas, en la cual el auxiliar debe corregir los errores
+                        de digitación teniendo en cuenta la documentación física (Imagen 71), estos errores puedes ser:
+                        blanco o mal diligenciados. Para los dos tipos de producto se aplica el mismo procedimiento.
+                        Culminada la limpieza y corregidos los errores, se genera el informe cuadres de oficina por
+                        panel izquierdo (Imagen 72), informes, cuadres de oficina, se selecciona la fecha y el tipo de
+                        producto, este informe se genera en la salida aparezcan errores, por último en panel izquierdo,
+                        informes, generar el punteo por el aplicativo y verificar que la información del sistema se
+                        encuentre acorde con la documentación física (Imagen 73). 21/08/2025 TARJETAS REGISTRO DE FIRMAS
+                        Imagen 70 Imagen 71 Imagen 72 Imagen 73
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                7.2.2 ARCHIVO
+            </div>
+            <div class="doc-subcontent">
+            </div>
+            <div class="doc-subsection">
+                7.2.2.1 ASIGNACIÓN DE CAJAS Y LABEL
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            RESPONSABLE:
+                        </b>
+                        Auxiliar de Procesos
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            REGISTRO:
+                        </b>
+                        PRO-F-EXT- 030 Entrega de Cajas Archivo Inactivo. PRO-D-EXT- 090 Planilla Envió Archivo
+                        Inactivo. 21/08/2025 TARJETAS REGISTRO DE FIRMAS
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            DESCRIPCIÓN:
+                        </b>
+                        El Auxiliar de Procesos, una vez punteados los documentos y organizados en lotes, almacenados en
+                        bolsas plásticas, marcados con un label que se encuentra ubicado en ese paquete y tipo de
+                        producto (Imagen 74), arma la caja donde serán organizados los paquetes de documentos, pega el
+                        sticker correspondiente, el cual es suministrado por el banco (Imagen 75), tomando en cuenta que
+                        se debe seguir el consecutivo de la numeración y la pestaña se debe pegar en el formato
+                        PRO-F-EXT- 030 Entrega de Cajas Archivo Inactivo (Imagen 76), ingresa al aplicativo tarjetas,
+                        panel izquierdo, informes, informe de grabación, selecciona la fecha y el tipo de producto
+                        (Imagen 77), selecciona el rango de oficinas a guardar en la caja, en caso que la fecha no
+                        complete una caja, se deberá completar con la fecha siguiente, en el orden de oficina que
+                        corresponda, seleccionando el rango de oficinas a asignar esa caja en la opción offi desde offi
+                        hasta, guardar, aparecerá solo el rango seleccionado, se marcan y se asigna la numeración del
+                        sticker de la caja, ese mismo procedimiento se debe realizar con el rango de fechas siguiente de
+                        la misma fecha para asignar la continuación de la numeración. La caja debe quedar sellada con
+                        abrazaderas plásticas para su despacho. Imagen 74 Imagen 75 Imagen 76 21/08/2025 T I P P O R O P
+                        FO D A F EC I E Q CE C U T HS I N A E AA T R D A E J O E T A D E S D 2 E 0 3 1 0 2 1 9 0 6 / 0 D
+                        T 0 H E U 8 A R 3 / S F 2 T 7 A 0 4 0 TARJETAS REGISTRO DE FIRMAS Imagen 77
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                7.2.2.2 ENTREGA DE CAJAS
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            RESPONSABLE:
+                        </b>
+                        Líder de Procesos
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            REGISTRO:
+                        </b>
+                        PRO-D-EXT- 090 Planilla Envió Archivo Inactivo. Unificado Cajas Consolidado Cajas
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            DESCRIPCIÓN:
+                        </b>
+                        Se debe diligenciar el formato PRO-D-EXT- 090 Planilla Envió Archivo Inactivo (imagen 78) en el
+                        cual deben estar relacionado: • Numero de consecutivo de caja (código de label). • Código de
+                        Carpeta (Campo exclusivo para el banco). • Descripción, Numero de cedula o cuenta. • Serie
+                        (1.25) • Sub-Serie (Campo exclusivo para el banco). • Centro de Costo. (16851) • Fecha desde
+                        (Fecha de la TURF o TCM) • Fecha Hasta (Fecha de la TURF o TCM) • Unidad de Almacenamiento
+                        (Bolsa) • Consecutivo desde (Campo exclusivo para el banco). • Consecutivo hasta (Campo
+                        exclusivo para el banco). • Observación (Oficina y especificar si es TURF o TCM) 21/08/2025
+                        TARJETAS REGISTRO DE FIRMAS Imagen 78 Igualmente, Se debe diligenciar el formato Unificado Cajas
+                        en el cual deben estar todas las cajas que se va a enviar de las fechas del mes. Cada caja en
+                        una pestaña (imagen 79) Imagen 79 21/08/2025 TARJETAS REGISTRO DE FIRMAS Por último, se debe
+                        diligenciar el consolidado cajas, donde va el resumen de la información que contienen las cajas
+                        a enviar (imagen 80) imagen 80 Luego de diligenciar estos formatos, se procede a enviar un
+                        correo electrónico con un comprimido que contengan los informes consolidado cajas y unificado
+                        cajas al área de gestión documental del banco, donde se informará el total de cajas que están
+                        listas para recolección. El banco validara la información y consultará con la empresa de
+                        custodia el día en el cual se realizará la recolección de las cajas y lo notificara a Digicom
+                        por correo electrónico, una vez realicen la recolección de las cajas se debe hacer firmar el
+                        formato PRO-F-EXT- 030 Entrega de Cajas Archivo Inactivo por el funcionario que recogió las
+                        cajas y el mismo deberá dejar una guía de retiro de cajas firmada por ambas partes, esto dos
+                        formatos junto con un oficio de envío, se deberán digitalizar y enviar por correo electrónico a
+                        gestión documental y al analista del banco para informar que las cajas ya fueron entregadas a
+                        custodia y los físicos se deben enviar en un sobre con el mensajero al área de Gestión
+                        documental del banco, el cual devolverá una copia de los oficios de entrega firmado y sellado
+                        que se deberá guardar como evidencia de la entrega de las mismas
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Nota:
+                        </b>
+                        Las entregas de las cajas se deben realizar Mensualmente posterior a la aprobación de todas las
+                        fechas por parte del analista del banco
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                7.2.3 INFORMES
+            </div>
+            <div class="doc-subcontent">
+            </div>
+            <div class="doc-subsection">
+                7.2.3.1 CRUCE DE INFORMACIÓN
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            RESPONSABLE:
+                        </b>
+                        Auxiliar de Procesos
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            REGISTRO:
+                        </b>
+                        PRO-D-137 Cruce de Tarjetas Físicas vs Multis
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            DESCRIPCIÓN:
+                        </b>
+                        El Auxiliar de Procesos debe realizar un cruce entre las tarjetas físicas y las Multis (archivo
+                        csv. de Tarjetas digitales) para identificar las tarjetas físicas que no se encuentran
+                        procesadas, para continuar con su respectivo procesamiento y no sean devueltas en el informe que
+                        21/08/2025 TARJETAS REGISTRO DE FIRMAS se envía al banco. Para esto se generan los informes
+                        mediante el aplicativo tarjetas, panel izquierdo, archivo, informes, informes banco (Imagen 81),
+                        se selecciona la fecha, y se descargan las tres opciones que aparecen en la pestaña, tapas,
+                        aceptar, se exporta la información y se genera el archivo Zip, donde se descargan las imágenes
+                        de las tapas correspondientes a esa fecha, en el caso de los 326 y 327 se genera solo la
+                        extracción de la información, estos informes se generan en correspondiente que contiene lo
+                        anteriormente descargado del aplicativo (Imagen 82), se verifica que las imágenes de las tapas
+                        coincida con los archivos del Excel generado, se unifican los informes 326 y 327, se delimitan y
+                        se lleva la información al formato PRO-D-137 Cruce de Tarjetas Físicas vs Multis que se
+                        encuentra en el servidor Confidencial_TrmFisicas52_aaaa\Cruce de información (Imagen 83), donde
+                        en la hoja Multis se debe ir alimentando diariamente con el archivo de las Multis procesadas
+                        tanto turf como tcm, se formula para que relacione la información y muestre cuales son las
+                        tarjetas que no cruzan, en el caso de las turf estas imágenes se descargan del aplicativo y se
+                        procesan, en el caso de las tcm se eliminan del aplicativo, se extraen del paquete físico, se
+                        relacionan en el informe de devoluciones y se envían de regreso a las oficinas para que sean
+                        enviadas por ellos mismos al proceso de multis, una vez son procesadas por multis la oficina
+                        vuelve a enviar el físico. Imagen 81 Imagen 82 21/08/2025 TARJETAS REGISTRO DE FIRMAS Imagen 83
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="doc-section" data-id="8">
+        8. INDICADORES DE DESEMPEÑO
+    </div>
+    <div class="doc-content" data-id="8">
+        <p>
+            INDICADOR MEDIDO FRECUENCIA RESPONSABLE POR/MEDIO REVISIÓN Σ Tarjetas Digitadas (Errores) - Líder de Gerente
+            de Σ Tarjetas Digitadas Mensual proceso operaciones ------------------------------------------ *100 Σ
+            Tarjetas Digitadas INDICADOR MEDIDO FRECUENCIA RESPONSABLE POR/MEDIO REVISIÓN Σ Tarjetas físicas recibidas
+            (inconsistencias) - Líder de Gerente de Σ Tarjetas Digitalizadas Mensual proceso operaciones
+            ------------------------------------------ *100 Σ Tarjetas físicas Digitalizadas 21/08/2025 TARJETAS
+            REGISTRO DE FIRMAS
+        </p>
+    </div>
+    <div class="doc-section" data-id="9">
+        9. POSIBLES ERRORES DURANTE EL PROCESO
+    </div>
+    <div class="doc-content" data-id="9">
+        <p>
+            Error en la descarga de informes: si al momento de generar el informe de multis y recortes del proceso se
+            genera un error que impide la descarga de las imágenes se deberá verificar 1. El formato de la fecha del
+            computador deberá ser año-mes-día 2. Que en la carpeta de salida no exista otro informe con el mismo número
+            de consecutivo, en este caso se deberá eliminar o mover esa carpeta para que pueda descargar de nuevo las
+            imágenes. Cambio de clave o Shika bloqueado: el usuario y la clave del sitio seguro es de uso general para
+            varios procesos del banco, el sitio solicita cambio automático cada mes, cuando se realiza el cambio de
+            clave la cual deberá ser consecutiva a la anterior, se deberá informar por correo electrónico a todos los
+            que utilizan este usuario Digicom_001, en caso de que el sitio sea bloqueado o no tenga conexión se deberá
+            enviar correo a monitoreo solicitando el desbloqueo del sitio y este enviara una respuesta de notificación
+            el desbloqueo. Error en oficina: Si al momento de indexar una multi ya sea tcm o turf en alguno de los dos
+            aplicativos genera error en la oficina significa que esta no está creada en el aplicativo, por lo que en
+            cada caso deberá crear la misma, en el caso del aplicativo de multis deberá ingresar con usuario y
+            contraseña, administración, consecutivo, nuevo registro (imagen 91) en el caso del aplicativo de físicas
+            deberá ingresar con usuario y contraseña, archivo, administración, administrar_oficinas, nuevo (imagen 92)
+            imagen 91 imagen 92 No coinciden los datos de la factura con los datos del analista del banco: los primeros
+            5 días hábiles de cada mes el analista del proceso deberá realizar la proforma de datos para la factura,
+            esta debe ser enviada por correo inicialmente al analista del banco para verificar que coincida los datos
+            con el control que lleva el analista, el deberá dar el visto bueno, en caso de que no coincidan se deberán
+            revisar los informes día a día verificando que los datos relacionados en el Pro-D-007 coincidan con las
+            multis e imágenes procesadas en cada fecha. Una de las fallas puede ser que se relacionó mal la cantidad en
+            el informe, al encontrar el error se deberá notificar al analista del banco para que realice la corrección
+            en sus datos. No se deben eliminar ni modificar las cantidades que arrojo el aplicativo para que concuerden
+            las cantidades. 21/08/2025 TARJETAS REGISTRO DE FIRMAS No se procesaron los informes del día anterior: el
+            analista del banco manifiesta por correo electrónico que los informes ya sea de recortes o multis del día
+            anterior no quedaron en el sistema del banco, en este caso se debe tener claro que información fue la que no
+            quedo registrada en el sistema del cliente, ya sea multis o recortes de clientes, modificaciones o producto,
+            en ese caso la información se debe pegar en los informes del día a transmitir, en ningún caso se deben
+            descargar y reprocesar toda la información que se procesó en otra fecha, por ejemplo: del día 02 de enero
+            del año en curso no quedaron en sistema las multis de clientes, ese día en la noche cuando se descarguen los
+            informes y las imágenes se copian las del día q no quedaron y se pegan en la carpeta del día que se va a
+            transmitir, igualmente sucede con el archivo CSV., se debe abrir copiar y pegar en el CSV que se va a
+            transmitir la información de las imágenes que previamente se pegaron y debe coincidir la cantidad de
+            imágenes con la cantidad de registros en el CSV que se va a enviar. Actualizaciones, ajustes o cambios en
+            los aplicativos: cada aplicativo fue elaborado por un ingeniero que será el único que puede realizar
+            ajustes, modificaciones o actualizaciones, se deberá solicitar la modificación o ajuste por correo
+            electrónico a cada ingeniero con copia a los gerentes de operaciones, hacer seguimiento y realizar pruebas
+            para verificar su correcto funcionamiento. Visitas del cliente y contingencias: el cliente realizara 4
+            visitas durante el año, serán trimestrales y son programadas por ellos notificando por correo electrónico,
+            así mismo, se realizaran dos contingencias en sede alterna donde asistirán para validar que en caso de
+            emergencia se puede realizar el proceso en una sede de contingencia sin que afecte el funcionamiento normal
+            del proceso y así garantizar la continuidad del mismo, en las visitas verificaran el funcionamiento del
+            proceso, se aclararan dudas del mismo, realizaran recomendaciones y ajustes de ser el caso, posteriormente
+            enviaran un acta de visita la cual deberá ser diligenciada, firmada y se deberán adjuntar las evidencias
+            solicitadas y realizar los ajustes recomendados. En el caso de la contingencia el analista del proceso
+            deberá realizar un acta de contingencia donde indique el proceso de esta, así como los hallazgos,
+            recomendaciones y acciones correctivas, esta acta deberá ser enviada en formato PDF al analista del banco
+            por correo electrónico
+        </p>
+    </div>
+    <div class="doc-section" data-id="10">
+        10. CAPACITACIONES
+    </div>
+    <div class="doc-content" data-id="10">
+        <p>
+            El líder del proceso deberá realizar capacitaciones periódicas a los auxiliares del proceso, ya sea de
+            actualización de funciones o tareas asignadas, estas capacitaciones deben ser soportadas con acta de
+            capacitación al cargo y deberá ser enviada por correo al área de gestión humana y al analista del banco, así
+            mismo, deberá realizar por lo menos una capacitación al año a los digitadores y entregar a gestión humana la
+            asistencia al evento y resultados de la evaluación de la capacitación la cual será anexada al expediente del
+            digitador
+        </p>
+    </div>
+    <div class="doc-section" data-id="11">
+        11. CONTROL DEL PROCEDIMIENTO
+    </div>
+    <div class="doc-content" data-id="11">
+        <p>
+            VER. ELABORADO FECHA DE MODIFICACIÓN No REVISADO APROBADO APROBACIÓN REALIZADA Analista de Se realiza
+            Coordinadora Analista de 35 proceso 30/07/2018 actualización a la SGI proceso actividad N. 8. Analista de
+            Actualización Analista Analista de 36 proceso 21/10/2019 general del SGI proceso procedimiento Analista de
+            Actualización Director Analista de 37 proceso 21/08/2025 general del SGI proceso procedimiento 21/08/2025
+        </p>
+    </div>
+</div>
+
+<!-- Botón para abrir el modal -->
+<button class="btn btn-outline-primary" id="openModalBtn" style="margin-top: 20px;">Editar Secciones</button>
+<!-- El Modal -->
+<div class="modal" id="sectionModal">
+    <div class="modal-content">
+        <span class="close-button">×</span>
+        <h2>Selecciona y Edita una Sección</h2>
+        <label for="sectionSelector">Sección:</label>
+        <select id="sectionSelector">
+            <option value="">-- Selecciona una sección --</option>
+        </select>
+        <label for="sectionContent">Contenido:</label>
+        <textarea id="sectionContent" placeholder="El contenido de la sección aparecerá aquí..."></textarea>
+        <label for="sectionCambio">Descripcion del Cambio:</label>
+        <textarea id="sectionCambio" placeholder="Describe en palabras cortas el cambio realizado..."
+            required></textarea>
+        <button class="btn btn-outline-primary" id="saveChangesBtn" style="margin-top: 15px;">Guardar Cambios</button>
+    </div>
+</div>
+<script src="{{ url_for('static', filename='js/jquery.min.js')}}"></script>
+<script src="{{ url_for('static', filename='js/acordeon_doc.js')}}"></script>
+<script src="{{ url_for('static', filename='js/edita_procedimiento.js')}}"></script>
+
+{% endblock %}

@@ -95,8 +95,202 @@
                         <p>Impuestos Departamentales Davivienda</p>
                     </div>
                 </a>
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-016')}}"
+                    style="text-decoration: none;">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>PRO-PR-016</h3>
+                        <p>Convenios Especiales Davivienda</p>
+                    </div>
+                </a>
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-019')}}"
+                    style="text-decoration: none;">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>PRO-PR-019</h3>
+                        <p>Impuestos Nacionales y Tributos Aduaneros de Davivienda</p>
+                    </div>
+                </a>
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-023')}}"
+                    style="text-decoration: none;">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>PRO-PR-023</h3>
+                        <p>Convenios  Davivienda</p>
+                    </div>
+                </a>
             </div>
-
+            {% elif usuario.rol == 7 %}
+            <div class="feature-grid">
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-028')}}"
+                    style="text-decoration: none;">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>PRO-PR-028</h3>
+                        <p>Impuestos Nacionales y Tributos Aduaneros Itau</p>
+                    </div>
+                </a>
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-029')}}"
+                    style="text-decoration: none;">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>PRO-PR-029</h3>
+                        <p>Impuesto Departamentales Itau</p>
+                    </div>
+                </a>
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-030')}}"
+                    style="text-decoration: none;">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>PRO-PR-030</h3>
+                        <p>Impuesto Municipales Cali Itau</p>
+                    </div>
+                </a>
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-031')}}"
+                    style="text-decoration: none;">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>PRO-PR-031</h3>
+                        <p>Impuesto Municipales Cartagena Itau</p>
+                    </div>
+                </a>
+            </div>
+             {% elif usuario.rol == 8 %}
+            <div class="feature-grid">
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-028')}}"
+                    style="text-decoration: none;">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>PRO-TH-001</h3>
+                        <p>Impuestos Nacionales y Tributos Aduaneros Itau</p>
+                    </div>
+                </a>
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-029')}}"
+                    style="text-decoration: none;">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>PRO-TH-002</h3>
+                        <p>Impuesto Departamentales Itau</p>
+                    </div>
+                </a>
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-030')}}"
+                    style="text-decoration: none;">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>PRO-TH-003</h3>
+                        <p>Impuesto Municipales Cali Itau</p>
+                    </div>
+                </a>
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-031')}}"
+                    style="text-decoration: none;">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>PRO-TH-004</h3>
+                        <p>Impuesto Municipales Cartagena Itau</p>
+                    </div>
+                </a>
+            </div>
+            {% elif usuario.rol == 10 %}
+            <div class="feature-grid">
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-008')}}"
+                    style="text-decoration: none;">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>PRO-PR-008</h3>
+                        <p>Impuestos Departamentales Popular - SANTANDER Y VALLE</p>
+                    </div>
+                </a>
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-027')}}"
+                    style="text-decoration: none;">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>PRO-PR-027</h3>
+                        <p>Convenios Popular</p>
+                    </div>
+                </a>
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-034')}}"
+                    style="text-decoration: none;">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>PRO-PR-034</h3>
+                        <p>Impuestos Departamentales Popular - ANTIOQUIA</p>
+                    </div>
+                </a>
+                
+            </div>
+            {% elif usuario.rol == 11 %}
+            <div class="feature-grid">
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-001')}}"
+                    style="text-decoration: none;">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>PRO-PR-001</h3>
+                        <p>Impuestos Distritales Av Villas</p>
+                    </div>
+                </a>
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-009')}}"
+                    style="text-decoration: none;">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>PRO-PR-009</h3>
+                        <p>Impuestos Departamentales Av Villas</p>
+                    </div>
+                </a>
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-010')}}"
+                    style="text-decoration: none;">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>PRO-PR-010</h3>
+                        <p>Impuestos Distritales Av Villas</p>
+                    </div>
+                </a>
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-017')}}"
+                    style="text-decoration: none;">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>PRO-PR-017</h3>
+                        <p>Radicación AV Villas</p>
+                    </div>
+                </a>
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-022')}}"
+                    style="text-decoration: none;">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>PRO-PR-022</h3>
+                        <p>Impuestos Nacionales y Tributos Aduaneros Av Villas</p>
+                    </div>
+                </a>
+            </div>
+            {% elif usuario.rol == 12 %}
+            <div class="feature-grid">
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-018')}}"
+                    style="text-decoration: none;">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>PRO-PR-018</h3>
+                        <p>Impuestos Departamentales Bancoomeva</p>
+                    </div>
+                </a>
+            </div>
+            {% elif usuario.rol == 13 %}
+            <div class="feature-grid">
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-006')}}"
+                    style="text-decoration: none;">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>PRO-PR-006</h3>
+                        <p>Impuestos Nacionales y Tributos Aduaneros Banco Caja Social</p>
+                    </div>
+                </a>
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-020')}}"
+                    style="text-decoration: none;">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>PRO-PR-020</h3>
+                        <p>Procedimiento Recaudos Banco Caja Social</p>
+                    </div>
+                </a>
+            </div>
             {% endif %}
 
             <!-- PARA ROL DE TI -->

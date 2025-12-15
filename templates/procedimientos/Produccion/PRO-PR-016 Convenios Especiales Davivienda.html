@@ -1,0 +1,491 @@
+{% extends 'home.html' %}
+{% block title %}Documentacion{% endblock %}
+{% block content %}
+<link href="{{ url_for('static', filename='css/acordeon_doc.css') }}" rel="stylesheet" />
+<link href="{{ url_for('static', filename='css/procedimientos.css') }}" rel="stylesheet" />
+
+<div id="documento" style="display:none;">procedimientos/HTML/PRO-PR-016 Convenios Especiales Davivienda.html</div>
+<div id="nombre_documento" style="display: none;">PRO-PR-016 Convenios Especiales Davivienda</div>
+<h1>PRO-PR-016 Convenios Especiales Davivienda</h1>
+{% for cambio in cambios %}
+{% if loop.first %}
+<h3>Version: {{cambio[3]}}</h3>
+{% endif %}
+{% endfor %}
+<br />
+<div class="doc-accordion">
+    <div class="doc-section" data-id="1">
+        1. Objetivo
+    </div>
+    <div class="doc-content" data-id="1">
+        <p>
+            Procesar, Validar y administrar la información de los Convenios Especiales recaudados por el Banco
+            Davivienda, cumplimiento con los requerimientos implementados por el Sistema de Gestión
+        </p>
+    </div>
+    <div class="doc-section" data-id="2">
+        2. Alcance
+    </div>
+    <div class="doc-content" data-id="2">
+        <p>
+            Este procedimiento aplica a los Convenios Especiales entregados por el Banco Davivienda, para el
+            procesamiento de la información
+        </p>
+    </div>
+    <div class="doc-section" data-id="3">
+        3. Responsables
+    </div>
+    <div class="doc-content" data-id="3">
+        <p>
+            Gerente de Operaciones, Director de Procesos, Líder de procesos, Auxiliar de procesos y Diigitador
+        </p>
+    </div>
+    <div class="doc-section" data-id="4">
+        4. Definiciones
+    </div>
+    <div class="doc-content" data-id="4">
+        <p>
+            • Archivo Plano: Archivo de datos que se utiliza para intercambio de información entre las diferentes
+            aplicaciones. • LOG bancario: Es el registro de las transacciones de una fecha de recaudo. • Página Web: es
+            un gran espacio documental organizado dedicado al intercambio de información. • Precinto: Suncho de
+            seguridad numerado que una vez colocado en el medio de transporte de documentos o valores no puede ser
+            violentado ni roto excepto por el destinatario. • Enzipar: Es la carpeta comprimida la cual contiene las
+            plantillas de expedientes y garantías
+        </p>
+    </div>
+    <div class="doc-section" data-id="5">
+        5. Documentos de referencia
+    </div>
+    <div class="doc-content" data-id="5">
+        <p>
+            ➢ Acuerdo de servicios. ➢ Norma NTC-ISO-9001
+        </p>
+    </div>
+    <div class="doc-section" data-id="6">
+        6. Procesamiento de la información
+    </div>
+    <div class="doc-content" data-id="6">
+        <div class="doc-subsection">
+            6.1. Recepción y organización de información magnética
+        </div>
+        <div class="doc-subcontent">
+            <div class="doc-subsection">
+                6.1.1. Información General
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Líder de Procesos
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No Aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Este proceso valido, procesa y administra los siguientes convenios: NUMERO DE CONVENIO CONVENIO
+                        1 IMPOCONSUMO CALDAS 150 2 IMPOCONSUMO CUNDINAMARCA 140 3 IMPOCONSUMO BOLIVAR 80 4 IMPOCONSUMO
+                        TOLIMA 100 11/08/2023 CONVENIOS ESPECIALES DAVIVIENDA 50 5 IMPOCONSUMO SANTANDER 6 IMPOCONSUMO
+                        CAUCA 120 7 IMPOCONSUMO HUILA 180 8 FENALCE 304-2 64 9 FENALCE 412-5 65 10 FENALCE 371-6 66 11
+                        IMPRENTA NACIONAL 68 90 12 UNIVERSIDAD DEL ROLDANILLO 110 13 PROTECCION_FONDO_CESANTIAS 112 14
+                        PROTECCION_PENSION_VOLUNTARIAS 114 15 PROTECCION_PENSION_OBLIGATORIAS
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.1.2. Recepción de documentos Físicos
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Auxiliar de Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No Aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Llega una tula grande en la noche a la 1:30 a.m. dentro de esta tula llega una tula color
+                        amarillo que contiene los convenios de Bogotá, se sacan los convenios, se separan por convenios,
+                        se clasifica por fechas, se organiza por oficinas, se digitalizan por convenio y por fechas. La
+                        tula que llega a las 05:30 de la tarde que contiene los convenios de ciudades, se destapan los
+                        sobres a las 08:00 am del otro día se separan por convenios y se organiza por fecha y oficina,
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Nota:
+                        </b>
+                        los convenios de ciudades no se digitalizan por motivo de que nos envían las imágenes por la
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.1.3. Descargue del log Bancario. E imágenes
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Auxiliar de Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No Aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        La tula que llega a las 06:00 de la tarde que contiene los convenios de ciudades, en la noche
+                        destapan la tula y nos dejan los documentos por convenio al otro día se separan por convenios y
+                        se organiza por fecha y oficina,
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Nota:
+                        </b>
+                        los convenios físicos de ciudades no se digitalizan por motivo de que nos envían las imágenes
+                        por la página, a excepción de FNA que se digitaliza por motivo de que se maneja solo físico. El
+                        Banco remite los log por un canal dedicado con Digicom: \\Servidor Canal
+                        \Digicom\Digicom\Logs\aaaammdd 11/08/2023 CONVENIOS ESPECIALES DAVIVIENDA Se debe crear la
+                        carpeta de la fecha y guardar todos los archivos .txt que se encuentran por fuera. Luego se
+                        ingresa al servidor: \\Servidor\confidencial_VPN Una vez dentro de la carpeta confidencial_VPN
+                        ingresamos a la aplicación davivpn.exe 11/08/2023 CONVENIOS ESPECIALES DAVIVIENDA Una vez dentro
+                        de la aplicación vamos a la pestaña de cargue y salen las dos opciones que se deben usar para
+                        clasificar las imágenes y descarga de logs Ingresamos a la pestaña: Búsqueda y Renombre de logs,
+                        donde nos habilitara la siguiente pantalla. Seleccionamos la fecha y clic en logs para que la
+                        aplicación empiece a movernos todos los logs de Davivienda a la ruta correspondiente por cada
+                        aplicación para el cargue uno a uno de los archivos. Con lo anterior se procede a carga el log
+                        en el aplicativo que se encuentra en la siguiente ruta: Gobernaciones_plus.exe. Ingresando por
+                        la opción Archivo seleccionar la opción carga_ de archivo luego log bancario. 11/08/2023
+                        CONVENIOS ESPECIALES DAVIVIENDA El cual genera un explorador de Windows donde se ingresa la
+                        fecha correspondiente y selecciona cargar archivo donde se carga los logs masivamente
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.1.4. Extraer imágenes
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Auxiliar de Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No Aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Las imágenes de ciudades se encuentran desde las 11:00pm a 03:00am, Se deben descargar todas las
+                        imágenes de las carpetas comprimidas (en Zip) con el aplicativo llamado Img_Banco07.exe - de la
+                        siguiente ruta: 51_Descargas\COnombre de la ciudad\AAAAMMDD Se ingresa al explorador de Windows
+                        se ubica la ruta C: Imágenes_banco07\bin\debut en esta ruta se procede a buscar el aplicativo el
+                        cual tiene el nombre de Img_Banco07 y ejecutar En la ejecución del aplicativo se procede a dar
+                        clic en archivo, imágenes. Lo cual genera una ventana de Windows donde se busca la ruta:
+                        \\Canal\51_Descargas RECAUDO DIARIO Se deben descargar todas las imágenes de las carpetas
+                        comprimidas (en Zip) con el aplicativo llamado Img_Banco07.exe - de la siguiente ruta:
+                        51_Descargas\nombre de la ciudad\aaaammdd Se ingresa al explorador de Windows se ubica la ruta
+                        C: Imágenes_banco07\bin\debut en esta ruta se procede a buscar el aplicativo el cual tiene el
+                        nombre de Img_Banco07 y ejecutar En la ejecución del aplicativo se procede a dar clic en
+                        archivo, imágenes 11/08/2023 CONVENIOS ESPECIALES DAVIVIENDA Ingresa a la fecha correspondiente
+                        y le da clic a la carpeta de protección Damos clic en abrir y automáticamente empieza a
+                        descomprimirse todas las imágenes que haya en esa carpeta. Aparece un cuadro donde indica que
+                        termino separación de imágenes Luego se vuelve hacer la misma operación anterior pero con la
+                        carpeta de convenios especiales que queda en la ruta: Servidor
+                        Canal\51_Descargas\RECAUDO_DIARIO\aaaammdd. Al realizar la actividad anterior automáticamente
+                        todas las imágenes se generan descomprimidas en la ruta: C:\Example Se ingresa a la carpeta.
+                        11/08/2023 CONVENIOS ESPECIALES DAVIVIENDA
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.1.4.1. Separación de imágenes
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Auxiliar de Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No Aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Se ingresa a la fecha del día en que se está descomprimiendo las imágenes. Se ingresa y salen
+                        las carpetas que se descomprimieron. Lugo se ingresa a cada carpeta 11/08/2023 CONVENIOS
+                        ESPECIALES DAVIVIENDA Las imágenes llegan en archivos multi tif las cuales se deben separar en
+                        imágenes individuales de la siguiente forma: presionar clic derecho del mouse sobre el archivo
+                        que se va a convertir, luego por la opción "combine in Adobe Acrobat", presionar OK, Luego tipo
+                        de archivo: TIFF, Guardamos las imágenes donde corresponde, después Llega una tula grande en la
+                        noche a la 04:00 a.m. Que contiene los convenios físicos de Bogotá, se sacan los convenios, se
+                        separan por convenios, se clasifica por fechas, se digitalizan por convenio y por fecha así: se
+                        ingresa el icono del scanner, se da clic a configuración. 11/08/2023 CONVENIOS ESPECIALES
+                        DAVIVIENDA Se ingresa a configurar por convenio, al cual se va a digitalizar, y se selecciona
+                        aceptar. Se copia la ruta del convenio que se va a digitalizar:
+                        Ejemplo:Confidencial_Convenios51_aaaa\scan\69\DDMMAAA\EF\HN,se copia y se pega en nombre de
+                        carpeta. Por último, se da clic en digitalizar y después cada convenio se organiza por oficinas.
+                        11/08/2023 CONVENIOS ESPECIALES DAVIVIENDA
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="doc-subsection">
+            6.2. Grabación
+        </div>
+        <div class="doc-subcontent">
+        </div>
+        <div class="doc-subsection">
+            6.3. Validación
+        </div>
+        <div class="doc-subcontent">
+            <ul>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Registro:
+                    </b>
+                    PRO-F-047 Chek lisk-convenios Imágenes Davivienda PRO-F-003 Control de Recaudo Convenios Especiales
+                    Davivienda PRO-D-EXT-018 Informe de faltantes y Gestión Call Center
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Descripción:
+                    </b>
+                    Se utiliza un formato de PRO-F-047 Chek lisk-convenios Imágenes Davivienda y PRO- F-003 Control de
+                    Recaudo Convenios Especiales Davivienda, para controlar que todo el proceso se haga en sus
+                    respectivos tiempos que pide el banco. Se debe comparar la información del Log enviado por el Banco
+                    y las capturas realizadas por Digicom. Si se presentan diferencias de la actividad anterior se deben
+                    corregir a través del aplicativo que se encuentra en la ruta:
+                    Confidencial_Convenios51_aaaa\Gobernaciones_Plus\bin e ingresar al aplicativo “Debut
+                    gobernaciones_plus.exe En el aplicativo ingresar a archivo, informe dar clic en la opción cuadre e
+                    ingresa los siguientes datos: • La fecha correspondiente • El convenio correspondiente • Efectivo •
+                    Valores • Sobrantes • Faltantes. 11/08/2023 CONVENIOS ESPECIALES DAVIVIENDA Cuando se evidencia una
+                    diferencia en valor se reporta al banco por medio de correo así: se ingresa documento que tenga la
+                    inconsistencia. Se copia el cuadro de la inconsistencia al correo se ingresa a una plantilla que nos
+                    envio el banco que queda en la ruta En el caso de faltantes se debe realizar la búsqueda en las
+                    imágenes y en el servidor ubicada en la siguiente ruta: Confidencial_Convenios51_aaaa
+                    \ArchivosSalida\Inconsistencias se procede a copiar y pegar el texto. 11/08/2023 CONVENIOS
+                    ESPECIALES DAVIVIENDA 51_Descargas\carpetas C.O. y procesarlas, de no encontrarse se debe realizar
+                    seguimiento en la ruta Confidencial_Convenios51_aaa\ArchivosSalida\INFORMES\51 y encontrar el
+                    archivo faltante. Se diligencia un cuadro de Excel con los datos del faltante en el formato
+                    PRO-D-EXT-018 Informe de faltantes y Gestión Call Center y antes de las 09:00 am del siguiente día
+                    se copia en el servidor gestión y recuperación de documentos. El archivo de la gestión PRO-D-EXT-018
+                    Informe de faltantes y Gestión Call Center se cargar a la
+                </li>
+            </ul>
+        </div>
+        <div class="doc-subsection">
+            6.4. Generación de informes y subir a web
+        </div>
+        <div class="doc-subcontent">
+            <ul>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Responsable:
+                    </b>
+                    Líder de Proceso y Auxiliar de procesos
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Registro:
+                    </b>
+                    No Aplica
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Descripción:
+                    </b>
+                    Informes e imágenes para: IMPOCONSUMO SANTANDER, BOLIVAR Y CUNDINAMARCA Se debe generar un informe y
+                    adicional se genera las imágenes por el visor del aplicativo de la siguiente forma: 11/08/2023
+                    CONVENIOS ESPECIALES DAVIVIENDA Ingresar al aplicativo “Debut gobernaciones_plus.exe” en la
+                    siguiente ruta: informes se procede a seleccionar informes, archivos planos. Se coloca su respectiva
+                    fecha se genera los tres códigos de barras se encuentran así: 7709998434011, 7709998310230,
+                    7709998458864,7709998503366, traslado_impo_consumo y para bolívar solo se genera
+                    traslado_impo_bolivar, Para generar las imágenes se ingresa en archivo, generar visor. Se procede a
+                    diligenciar su respectiva fecha y respectivo convenio. 11/08/2023 CONVENIOS ESPECIALES DAVIVIENDA Se
+                    procede a dar clic en aceptar y se procede a dar clic en asociar_ automático. Al terminar la
+                    actividad anterior se procede en dar clic en verificar y generar CD generando una nueva ventana el
+                    cual se le procede a dar clic en aceptar. Se procede a ir a la ruta: se procede a Enzipar la carpeta
+                    imágenes de la siguiente manera: Se enzipa carpeta individual de cada proceso la carpeta, se copia
+                    en la ruta: 51_Procesos\aaaammdd\Archivos\ PRO_PLA_CESAN, PRO_CMPTE_CESAN, PRO_PLA_VOLU,
+                    PRO_CMPTE_VOLU, PRO_PLA_OBLIGA, PRO_CMPTE_OBLIGA Después de realizar lo anterior se procede a subir
+                    a internet ingresando a
+                    https://www.digicom.com.co/Bancos_Web/Sistema/Frm_Consultar_Descargas_Archivos.aspx?Fiel d_App. Se
+                    ingresar clave y usuario y procede a ingresar al archivo, descargas diligenciar fecha
+                    correspondiente y busca la carpeta de PRO_PLA_CESAN, PRO_CMPTE_CESAN, PRO_PLA_VOLU, PRO_CMPTE_VOLU,
+                    PRO_PLA_OBLIGA, PRO_CMPTE_OBLIGA, se da clic en observaciones y se selecciona lo opción aceptar y
+                    actualizar de tal manera que el circulo queda en de color verde. 11/08/2023 CONVENIOS ESPECIALES
+                    DAVIVIENDA
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Nota:
+                    </b>
+                    las imágenes se deben de cargar en la página web antes de las 10:00 a.m
+                </li>
+            </ul>
+        </div>
+        <div class="doc-subsection">
+            6.5. Informes mensuales
+        </div>
+        <div class="doc-subcontent">
+            <ul>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Responsable:
+                    </b>
+                    Líder de procesos
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Registro:
+                    </b>
+                    No Aplica. Descripción. Al quinto día de cada mes se carga en la página web que queda en la ruta
+                    Servidor Canal\51_Procesos\aaaammdd\Archivos\ carpeta de Bogotá las cifras de convenios especiales,
+                    se generan así: Se procede a darle clic al botón de consolidado este archivo se encuentra en la ruta
+                    \Confidencial_Convenios51_aaaa\ArchivosSalida\INFORMES\51\aaaammdd\Planos el archivo se llama
+                    FACTURACION_4_aaammdd El informe se copia y se pega en la ruta \\Servidor
+                    Canal\51_Procesos\AAAMMDD\Archivos\BOGOTA se ingresa a la página de Digicom y se carga para que el
+                    cliente lo vea. 11/08/2023 CONVENIOS ESPECIALES DAVIVIENDA Para el consolidado de municipales
+                    Cartagena se genera así: Se le coloca la fecha desde hasta del mes anterior se coloca Cartagena y se
+                    procede a dar clic en aceptar y exportar. El informe se copia y se pega en la ruta: \\Servidor
+                    Canal\51_Procesos\AAAMMDD\Archivos\BOGOTA se ingresa a la página de Digicom y se carga para que el
+                    cliente lo vea. A los 26 días se cargan las inconsistencias del mes anterior. 11/08/2023 CONVENIOS
+                    ESPECIALES DAVIVIENDA
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="doc-section" data-id="7">
+        7. Indicadores de desempeño
+    </div>
+    <div class="doc-content" data-id="7">
+        <p>
+            MEDIDO RESPONSABLE INDICADOR FRECUENCIA POR/MEDIO REVISIÓN Σ Total Informes enviados- Informes enviados
+            fuera de tiempo Líder De Gerente de Mensual ---------------------------------------------------- Procesos
+            Operaciones Σ Total informes enviados
+        </p>
+    </div>
+    <div class="doc-section" data-id="8">
+        8. Control del procedimiento
+    </div>
+    <div class="doc-content" data-id="8">
+        <p>
+            VER. FECHA MODIFICACION ELABORADO REVISADO APROBADO No. APROBACION REALIZADA Se realiza Analista de
+            Coordinadora Analista de actualización de 5 30/05/2018 proceso SGI proceso indicadores de gestión. Se
+            realiza Líder de Analista del Líder de 6 06/12/2019 actualización general proceso SGI proceso al
+            procedimiento. Se realiza Líder de Director del Líder de 7 11/08/2023 actualización general proceso SGI
+            proceso al procedimiento. 11/08/2023
+        </p>
+    </div>
+
+</div>
+
+<!-- Botón para abrir el modal -->
+<button class="btn btn-outline-primary" id="openModalBtn" style="margin-top: 20px;">Editar Secciones</button>
+<!-- El Modal -->
+<div class="modal" id="sectionModal">
+    <div class="modal-content">
+        <span class="close-button">×</span>
+        <h2>Selecciona y Edita una Sección</h2>
+        <label for="sectionSelector">Sección:</label>
+        <select id="sectionSelector">
+            <option value="">-- Selecciona una sección --</option>
+        </select>
+        <label for="sectionContent">Contenido:</label>
+        <textarea id="sectionContent" placeholder="El contenido de la sección aparecerá aquí..."></textarea>
+        <label for="sectionCambio">Descripcion del Cambio:</label>
+        <textarea id="sectionCambio" placeholder="Describe en palabras cortas el cambio realizado..."
+            required></textarea>
+        <button class="btn btn-outline-primary" id="saveChangesBtn" style="margin-top: 15px;">Guardar Cambios</button>
+    </div>
+</div>
+<script src="{{ url_for('static', filename='js/jquery.min.js')}}"></script>
+<script src="{{ url_for('static', filename='js/acordeon_doc.js')}}"></script>
+<script src="{{ url_for('static', filename='js/edita_procedimiento.js')}}"></script>
+
+{% endblock %}

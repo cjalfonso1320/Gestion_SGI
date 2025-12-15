@@ -1,0 +1,767 @@
+{% extends 'home.html' %}
+{% block title %}Documentacion{% endblock %}
+{% block content %}
+<link href="{{ url_for('static', filename='css/acordeon_doc.css') }}" rel="stylesheet" />
+<link href="{{ url_for('static', filename='css/procedimientos.css') }}" rel="stylesheet" />
+
+<div id="documento" style="display:none;">procedimientos/HTML/PRO-PR-034 Impuestos Departamentales Popular -
+    ANTIOQUIA.html</div>
+<div id="nombre_documento" style="display: none;">PRO-PR-034 Impuestos Departamentales Popular - ANTIOQUIA</div>
+<h1>PRO-PR-034 Impuestos Departamentales Popular - ANTIOQUIA</h1>
+{% for cambio in cambios %}
+{% if loop.first %}
+<h3>Version: {{cambio[3]}}</h3>
+{% endif %}
+{% endfor %}
+<br />
+<div class="doc-accordion">
+    <div class="doc-section" data-id="1">
+        1. OBJETIVO
+    </div>
+    <div class="doc-content" data-id="1">
+        <p>
+            Procesar y Administrar los Impuestos Departamentales recaudados y pactados con Banco Popular y dar
+            cumplimiento al Sistema de Gestión Integrado
+        </p>
+    </div>
+    <div class="doc-section" data-id="2">
+        2. ALCANCE
+    </div>
+    <div class="doc-content" data-id="2">
+        <p>
+            Este procedimiento aplica los servicios de Impuestos Departamentales del banco Popular, implementados por
+            Digicom System Corporation S. A
+        </p>
+    </div>
+    <div class="doc-section" data-id="3">
+        3. RESPONSABLES
+    </div>
+    <div class="doc-content" data-id="3">
+        <p>
+            Gerente de procesos, Director de procesos, Líder de Proceso, Auxiliar de proceso y Digitador
+        </p>
+    </div>
+    <div class="doc-section" data-id="4">
+        4. DEFINICIONES
+    </div>
+    <div class="doc-content" data-id="4">
+        <p>
+            Archivo Plano: Archivo de datos que se utiliza para intercambio de información entre las diferentes
+            aplicaciones. Conciliación: Registro consolidado de transacciones por convenio. FTP: (File Transfer
+            Protocol) es un protocolo de transferencia de archivos entre sistemas conectados a una red TCP (Protocolo de
+            Control de Transmisión) basado en la arquitectura cliente-servidor, de manera que desde un equipo cliente
+            nos podemos conectar a un servidor para descargar archivos desde él o para enviarle nuestros propios
+            archivos independientemente del sistema operativo utilizado en cada equipo. LOG bancario: Es el registro de
+            las transacciones de una fecha de recaudo. Precinto: Zuncho de seguridad numerado que una vez colocado en el
+            medio de transporte de documentos o valores no puede ser violentado ni roto excepto por el destinatario.
+            Tula: Empaque en material de lona que permite el transporte seguro de documentos. Servidor Pagina Web: Donde
+            se publica la información para que la página web deje ver y consultar información. Servidor canal Ftp: Donde
+            el banco hace la trasmisión de la información| (imágenes y log bancarios). Servidor Proceso: Donde se hace
+            el desarrollo de la operación
+        </p>
+    </div>
+    <div class="doc-section" data-id="5">
+        5. DOCUMENTOS DE REFERENCIA
+    </div>
+    <div class="doc-content" data-id="5">
+        <p>
+            ➢ Acuerdo de servicios. 28/11/2024 IMPUESTOS DEPARTAMENTALES POPULAR
+        </p>
+    </div>
+    <div class="doc-section" data-id="6">
+        6. DESARROLLO DEL PROCESO
+    </div>
+    <div class="doc-content" data-id="6">
+        <div class="doc-subsection">
+            6.1. Descarga LOG
+        </div>
+        <div class="doc-subcontent">
+            <ul>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Responsable:
+                    </b>
+                    Auxiliar de procesos, Líder de procesos
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Registro:
+                    </b>
+                    No Aplica
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Descripción:
+                    </b>
+                    Para realizar la siguiente actividad debemos ingresar al correo y descargar
+                    GoAnywheregoanywhere@bancopopular.com.co y allí descargamos los 3 logs: 1. efectivo, 2. Adquirencia,
+                    3. acuerdos de pago, quedan en la carpeta descargas. Después traemos los LOG y lo pegamos en la
+                    siguiente ruta: \\Servidor
+                    \\192.168.40.169\Confidencial_Ig02_2024\Ent_LogAch\t05\log\aaaammdd\origianalal crear la fecha que
+                    estamos descargando creamos una subcarpeta llamada original y pegamos el LOG traído de extensión de
+                    caja y lo guardamos como eje: LOGaaaammdd Después entramos al aplicativo el cual lo encontramos en
+                    la ruta \\192.168.40.169\Confidencial_Ig02_2024 y en la siguiente opción entramos para realizar el
+                    respectivo cargue. Ingresamos con el usuario y contraseña, se escoge la gobernación a la cual se le
+                    va a realizar el cargue del log bancario 28/11/2024 IMPUESTOS DEPARTAMENTALES POPULAR Ir al menú
+                    cargue/Log/ Caja Escoger la fecha a la cual se va a realizar el cargue del log bancario y dar clic
+                    en cargar, aparece una ventana emergente donde indica la ruta donde indica los registros cargados
+                    28/11/2024 IMPUESTOS DEPARTAMENTALES POPULAR
+                </li>
+            </ul>
+        </div>
+        <div class="doc-subsection">
+            6.2. Recepción documentos físicos
+        </div>
+        <div class="doc-subcontent">
+            <ul>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        RESPONSABLE:
+                    </b>
+                    Auxiliar de Proceso
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        REGISTRO:
+                    </b>
+                    Manifiesto Inter Servicios DESCRIPCION: Recibir las tulas y bolsas que contienen los formularios
+                    originales recaudados por la red de oficinas, en una fecha determinada. Se procede a abrir las tulas
+                    o bolsas frente a cámara, se cuentan los documentos y se separan por Los documentos se colocan en su
+                    respectivo sitio de custodia. Nota 1: Los horarios para recibir tulas es de 9:30 a 10:00 a.m
+                </li>
+            </ul>
+        </div>
+        <div class="doc-subsection">
+            6.3. Loteo e indexación de Imágenes
+        </div>
+        <div class="doc-subcontent">
+            <ul>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Responsable:
+                    </b>
+                    Digitador, Auxiliar
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Registro:
+                    </b>
+                    No aplica
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Descripción:
+                    </b>
+                    Es la clasificación de imágenes de un mismo formato y forma de pago efectivo y tarjeta, para
+                    ingresar al sistema la información a procesar. • Todos los días debemos crear la carpeta con la
+                    fecha de la información que debemos procesar en la ruta
+                    \\ServidorProceso\Confidencial_Ig02_AAAAMMDD\Grabacion\Scan\T05 (crear la carpeta con la
+                    aplicación). • Al tener creada la carpeta de la fecha para el procesamiento de datos, debemos tener
+                    claridad de la forma de pago de las imágenes que tenemos para lotear, pues de la forma de pago
+                    depende el renombre que tendrá la carpeta del lote. 28/11/2024 IMPUESTOS DEPARTAMENTALES POPULAR •
+                    Cada que creemos un lote, debemos abrir el lote en la aplicación (bancopopulargob) verificando que
+                    carguen la cantidad de imágenes que deben ser procesadas. • Los datos que se indexación son los
+                    campos que pueden generar multas o sanciones “Numero del formulario, Placa, Dane”. Como no tenemos
+                    como realizar un cruce de esta información contra nada, la indexación se vuelve como un log para el
+                    cruce contra los datos de la grabación. Para la grabación de la tarjeta de crédito se lotea de la
+                    misma manera solo que le cambiamos la letra E (efectivo) por la letra T de Tarjeta y se coloca el
+                    código de la oficina y de esta manera indexamos. 28/11/2024 IMPUESTOS DEPARTAMENTALES POPULAR
+                </li>
+            </ul>
+        </div>
+        <div class="doc-subsection">
+            6.4. Grabación De Imágenes
+        </div>
+        <div class="doc-subcontent">
+            <ul>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Responsable:
+                    </b>
+                    Digitador, Auxiliar, Líder de Proceso
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Registro:
+                    </b>
+                    No aplica
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Descripción:
+                    </b>
+                    Al terminar el proceso de indexación de lotes, los digitadores deben empezar a realizar la captura
+                    de la información que traen los impuestos, esta actividad se realizar dos veces con cada impuesto y
+                    la grabación debe ser por diferente usuario, para así obtener diferentes criterios de captura.
+                    28/11/2024 IMPUESTOS DEPARTAMENTALES POPULAR
+                </li>
+            </ul>
+        </div>
+        <div class="doc-subsection">
+            6.5. Validación: Grabación 1 Vs Grabación 2
+        </div>
+        <div class="doc-subcontent">
+            <ul>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Responsable:
+                    </b>
+                    Auxiliar, Líder de Proceso
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Registro:
+                    </b>
+                    No Aplica
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Descripción:
+                    </b>
+                    Cuando el formulario magnético (imagen) está digitado doble vez, debe pasar al proceso de
+                    verificación o validación de la grabación1 vs grabación2. La verificación o validación es corregir
+                    los campos de captura que en las dos grabaciones han tenido diferencias, y seleccionar el dato que
+                    debe ser procesado. Cuando ninguna de las dos grabaciones corresponda, el validador debe tomar la
+                    opción de “NUEVA INFORMACION” y digitar el campo como debe ser procesado. Cuando la imagen este
+                    ilegible para validar, el validador debe tomar la opción “OMITIR INFORMACION” para continuar con las
+                    siguientes imágenes y dejar este documento pendiente de validación al encargado de la gobernación.
+                    28/11/2024 IMPUESTOS DEPARTAMENTALES POPULAR
+                </li>
+            </ul>
+        </div>
+        <div class="doc-subsection">
+            6.6. Limpiar Tablas (Indexación Vs Grabación)
+        </div>
+        <div class="doc-subcontent">
+            <ul>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Responsable:
+                    </b>
+                    Auxiliar, Líder de Proceso
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Registro:
+                    </b>
+                    No Aplica
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Descripción:
+                    </b>
+                    Una vez terminado el proceso de indexación, grabación y validación de los documentos a procesar
+                    debemos limpiar las tablas, de los campos que pueden ocasionar multas o sanciones “Numero del
+                    formulario, Placa, Código Dane”. Limpiar de tablas es un cruce que hay entre los datos de la
+                    indexación “Numero del formulario, Placa, Dane” y los campos de grabación una vez terminado de
+                    validar o verificar la información. 28/11/2024 IMPUESTOS DEPARTAMENTALES POPULAR • En la opción de
+                    limpiar tablas, esta debe seleccionarse una fecha y debe ser la misma en la la tabla. • Cuando se
+                    consulta la fecha para limpiar tablas debemos seleccionar la opción de “Solo Inconsistencias” y de
+                    esta manera la tabla solo nos mostrara los formularios o documentos que presentan diferencia en
+                    campos como “Numero del formulario, Placa, Dane”. En la parte izquierda tenemos una columna de
+                    “INCONSISTENCIA”, le damos un clic sobre el nombre de la columna y esta organizara las
+                    inconsistencias por tipo. • Al organizar por tipo de inconsistencia debemos dar clic sobre el tipo
+                    de inconsistencia y la aplicación traerá la información de la imagen para realizar cambio o
+                    confirmar el campo, que en la tabla aparecen con inconsistencia. • Cuando estemos limpiando la
+                    tabla, hay una inconsistencia que la aplicación nos la reporta como PLACA “escrita en mayúsculas”,
+                    esta inconsistencia obedece a que la placa declarada no cumple con la estructura de la placa que
+                    debería ser “alfa-numérica” y declaran la placa “numérica-alfa”, esta es la única inconsistencia con
+                    la que podemos darle continuidad al proceso pues DIGICOM es transcriptor de datos. Al finalizar el
+                    proceso de limpiar tablas debemos realizar el proceso de descarga de log ´s bancario para realizar
+                    los cruces de información. 28/11/2024 IMPUESTOS DEPARTAMENTALES POPULAR
+                </li>
+            </ul>
+        </div>
+        <div class="doc-subsection">
+            6.7. Complementación
+        </div>
+        <div class="doc-subcontent">
+            <ul>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Responsable:
+                    </b>
+                    Auxiliar, Líder de Proceso
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Registro:
+                    </b>
+                    No Aplica
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Descripción:
+                    </b>
+                    La complementación es traer con la referencia procesada la información del log: Oficina, Valor para
+                    cruzar y horario, también realiza el cambio de fechas a las imágenes que se procesan en la fecha que
+                    no coinciden con la fecha del recaudo. Para poder complementar debemos revisar que no tengamos
+                    imágenes pendientes por realizar alguna actividad (Indexación, Grabación, Validación Grabación 1 Vs
+                    Grabación 2) esto se pueden validar en la siguiente opción. Si tenemos imágenes pendientes en algún
+                    proceso debemos ir a las opciones de la parte inferior y desbloquear. Para complementar debemos
+                    tener claro que fecha o periodo vamos a procesar pues la aplicación solicita un rango de fechas para
+                    realizar la complementación. 28/11/2024 IMPUESTOS DEPARTAMENTALES POPULAR Cuando tenemos imágenes de
+                    otras fechas en el periodo solicitado a complementar, la aplicación realizar el movimiento de la
+                    información a la fecha que corresponden arrojando un mensaje
+                </li>
+            </ul>
+        </div>
+        <div class="doc-subsection">
+            6.8. Revisión Grabación Vs Log
+        </div>
+        <div class="doc-subcontent">
+            <ul>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Responsable:
+                    </b>
+                    Auxiliar, Líder de Proceso
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Registro:
+                    </b>
+                    No Aplica
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Descripción:
+                    </b>
+                    Una vez realizada la complementacion debemos realizar el cruce de la informacion contra el log y
+                    esta pueda arrojar las siguientes inconsistencias, DOBLE, DANE, MUNICIPÍO, VALPA, FALTA Y SOBRA.
+                    28/11/2024 IMPUESTOS DEPARTAMENTALES POPULAR Para las inconsistencias debemos tener claro el trato
+                    que se les debe dar. DOBLE: debemos eliminar unos de los dos registros que nos arroja la aplicación
+                    con mensaje DOBLE, esta herramienta se utiliza dando un clic izquierdo en la casilla del formulario
+                    y enseguida apareceran un mensaje al cual debemos dar la opcion de “OK”, luego aparecera un
+                    pantallazo con en formulario, dane, identificacion, valor sistemarizacion y valor pagado. Debemos
+                    dar clic derecho sobre el numero del formulario y la aplicación preguntara si desea eliminar el
+                    registro. Cuando halla eliminado el registro debe dar clic sobre la opcion “REFRESCAR” DANE:
+                    Confirmación a municipio que vamos a realizar el traslado del 20%. MUNICIPIO: Debemos revisar el
+                    municipio con el que vamos a procesar el impuesto, y la inconsistencia hace referencia, el codigo
+                    dane que captura el cajero en caja del codigo de barras tiene diferencia en el numero del DANE, pues
+                    hay municipios que según el fisico son un codigo pero al validar la division politica de colombia no
+                    se evidencia el mismo numero que declaran.ejemplo PALOCABILDO-TOLIMA en el fisico aparece como dane
+                    73994 y en la division politica de colombia PALOCABILDO-TOLIMA tiene dane 73520. VALPA: Hace
+                    referencia a que el valor digitado para el documento no coincide con el valor que tiene el log, en
+                    la transaccion debemos confirmar el valor, si la diferencia es real reportal al banco via email.
+                    FALTA: Hace referencia a los documentos que tenemos pendientes por llegar o procesar. SOBRA: Hace
+                    referencia a transacciones o documentos que no fueron timbrados en caja, se debe reportar al ciente
+                    via mail, si los SOBRA son de valle del cauca, debemos pasar los pagos a tc, el banco envia mezclado
+                    efectivo y tarjeta en la VPN. Una vez revisadas las inconsistencias debemos volver desde la
+                    actividad 6.1.11 Complementación
+                </li>
+            </ul>
+        </div>
+        <div class="doc-subsection">
+            6.9. Validación Estructural
+        </div>
+        <div class="doc-subcontent">
+            <ul>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Responsable:
+                    </b>
+                    Auxiliar, Líder de Proceso
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Registro:
+                    </b>
+                    No Aplica
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Descripción:
+                    </b>
+                    Una vez revisadas y corregidas las inconsistencias presentadas en la actividad 6.1.12 Revisión
+                    grabación vs log, debemos iniciar una validación a la información que tenemos en el sistema, donde
+                    se validara nuevamente el valor pagado, saldo a pagar, valor sistematización, valor 80% y 20%, Dane,
+                    Dobles, Placa y cuentas de traslado para los municipios. 28/11/2024 IMPUESTOS DEPARTAMENTALES
+                    POPULAR En esta validación podemos dar clic derecho o izquierdo sobre la inconsistencia o número del
+                    formulario y automáticamente el sistema trae una ventana con la información que se grabó e indexo.
+                    Para la inconsistencia que más aparece “/ 80% / 35322 / 20% / 8831” hace referencia a que el valor
+                    del 80% y 20% calculado por la aplicación no es el mismo que tienen los campos del 80% y 20%
+                    grabados, lo anterior puede pasar cuando se calcula la dispersión del 80% y 20% y este cálculo da
+                    valores con centavos y nosotros debemos redondear o aproximar en grabación, como el cálculo de la
+                    aplicación no hace lo mismo arroja este mensaje de la inconsistencia. Con clic izquierdo muestra los
+                    datos de indexación: Campos a modificar Formulario, Dane, Identificación, Sistematización, valor
+                    Pagado. Con clic derecho muestra los datos de grabación: Campos a modificar todos los campos
+                    grabados. Una vez sea modificada la información debemos reiniciar las 6.1.11 actividades desde
+                    complementación. 28/11/2024 IMPUESTOS DEPARTAMENTALES POPULAR
+                </li>
+            </ul>
+        </div>
+        <div class="doc-subsection">
+            6.10. Cargue Base De Grabación
+        </div>
+        <div class="doc-subcontent">
+            <ul>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Responsable:
+                    </b>
+                    Auxiliar, Líder de Proceso
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Registro:
+                    </b>
+                    No aplica
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Descripción:
+                    </b>
+                    Una vez realizadas las validaciones descritas anteriormente y los cargues de información , Log y
+                    Ach), debemos consolidar toda la información, cargando la base de grabación. En este cargue se
+                    unifican todos los archivos y formas de pago que tienen cada gobernación. En la aplicación debemos
+                    ir a la pestaña de cargue y la opción que describe la imagen: debemos saber cómo se compone una
+                    fecha de recaudo pues todas las gobernaciones tienen cuadre diferente para el cargue de la base de
+                    grabación. eje (HN+HA del mismo día ó HA del día anterior + HN). 28/11/2024 IMPUESTOS
+                    DEPARTAMENTALES POPULAR Cuando la aplicación termine el cargue arrojara un mensaje con las
+                    inconsistencias presentadas y la ruta en la que se guarda el informe. Debemos ejecutar la validación
+                    estructural con toda la información consolidada, después de haber realizado el cargue de la base,
+                    esta es la segunda validación estructural que tiene el cuadre diario para las gobernaciones, pues en
+                    la primera validación estructural no se validan los pagos PSE y su información. En esta validación
+                    es revisado el 100% de la información a entregar al cliente o gobernación, esta herramienta tiene
+                    las mimas validaciones descritas en la actividad de 6.1.13 Validación estructural. 28/11/2024
+                    IMPUESTOS DEPARTAMENTALES POPULAR Si aparecen errores y debemos modificar la información, esta debe
+                    modificarse y volver a ejecutar el procedimiento desde la actividad 6.1.11 Complementación Si no
+                    tenemos inconsistencias debemos ir a la pestaña en la aplicación de “consultas y cuadre de
+                    vehículos” donde visualizaremos la información que tiene el banco según los log ´s vs la información
+                    que fue procesada en la aplicación por DIGICOM, en esta ventana también saldrán las diferencias si
+                    presenta el cuadre. Si hay diferencias debemos revisar y reportar si es real, si no tiene
+                    diferencias debemos darle continuidad a la generación de informes
+                </li>
+            </ul>
+        </div>
+        <div class="doc-subsection">
+            6.11 Reporte De Inconsistencias Sobre El Recaudo al Banco
+        </div>
+        <div class="doc-subcontent">
+            <ul>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Responsable:
+                    </b>
+                    Auxiliar, Líder
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Registro:
+                    </b>
+                    PRO-D- 141 Informe inconsistencias
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Descripción:
+                    </b>
+                    Cuando hallamos realizado las actividades descritas anteriormente en su totalidad, debemos tener
+                    plenamente identificadas las inconsistencias que presento el recaudo y debemos reportar al banco la
+                    inconsistencia, las cuales se deben registrar en el formato PRO-D- 141 Informe inconsistencias.
+                    28/11/2024 IMPUESTOS DEPARTAMENTALES POPULAR Si en el cuadre no tenemos diferencias e
+                    inconsistencias, procedemos a la actividad de generación de informes DEFINITIVOS por gobernación
+                </li>
+            </ul>
+        </div>
+        <div class="doc-subsection">
+            6.12. Generación De Informes
+        </div>
+        <div class="doc-subcontent">
+            <ul>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Responsable:
+                    </b>
+                    Auxiliar, Líder de Proceso
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Registro:
+                    </b>
+                    No aplica
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Descripción:
+                    </b>
+                    Cuando se tenga el resultado de las validaciones realizadas y no tengamos inconsistencias o
+                    diferencias procedemos a empezar a generar los informes por gobernación: Se deben generar
+                    inicialmente el informe de tarjeta, en lo posible que se haya grabado el recaudo total, en casa de
+                    no tener grabado todo el efectivo, damos prioridad a la tarjeta a continuación mencionamos su
+                    proceso: En la opción Operaciones: En la opción cuadre tarjeta de crédito, organizamos por la
+                    columna C y columna oficina y se empieza a colocar las autorizaciones de acuerdo con el Boucher
+                    correspondiente, al cuadrar la fecha se deben generar los siguientes informes: En la opción Anexos
+                    AS generamos los siguientes 5 informes y se generan en la siguiente ruta:
+                    \\192.168.40.169\Confidencial_Ig02_2024\sal_informes\antioquia\20241120 y los enviamos por correo al
+                    Banco: • 29ATarjetas 28/11/2024 IMPUESTOS DEPARTAMENTALES POPULAR • 29B cuadre • 23C cuadre
+                    consolidado • 107 comisiones • 108 Credibanco
+                </li>
+            </ul>
+        </div>
+        <div class="doc-subsection">
+            6.13. Generación de dispersiones y sistematización
+        </div>
+        <div class="doc-subcontent">
+            <ul>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Responsable:
+                    </b>
+                    Auxiliar, Líder de Proceso
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Registro:
+                    </b>
+                    No Aplica
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Descripción:
+                    </b>
+                    Para realizar la generación de dispersiones se hacen mediante el aplicativo después de cerrar las
+                    fechas a generar y haber realizado todos los pasos de la opción operaciones: 28/11/2024 IMPUESTOS
+                    DEPARTAMENTALES POPULAR Se realizan los traslados cada 20 días calendario y la sistematización de
+                    realizan cada quince días, se colocan en el canal en la siguiente ruta:
+                    \\192.168.40.126\Banco_Popular\SALIDAS\GOBERNACIONES\VALLE DEL CAUCA 28/11/2024 IMPUESTOS
+                    DEPARTAMENTALES POPULAR Las dispersiones después de realizarlas se deben cifrar mediante la
+                    siguiente aplicación: Después de cifrar los archivos de dispersiones se colocan en la VPN de la
+                    siguiente manera y se debe esperar que AXON aplicación del Banco las tome es decir ya no se
+                    visualicen en el canal: Por correo GoAnywhere MFT goanywhere@bancopopular.com.co llegan las
+                    respuestas donde se deben revisar y colocar en la siguiente carpeta:
+                    \\192.168.40.169\Confidencial_Ig02_2024\Ent_LogAch\t05\achd
+                </li>
+            </ul>
+        </div>
+        <div class="doc-subsection">
+            6.14. Generación informe de contador
+        </div>
+        <div class="doc-subcontent">
+            <ul>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Responsable:
+                    </b>
+                    Líder de Proceso
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Registro:
+                    </b>
+                    No Aplica
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Descripción:
+                    </b>
+                    El Banco realiza en envió los 10 primeros de cada mes el extracto y mediante este informe se realiza
+                    el informe de contador
+                </li>
+            </ul>
+        </div>
+        <div class="doc-subsection">
+            6.13. Cargue De Informes A La Página De Digicom
+        </div>
+        <div class="doc-subcontent">
+            <ul>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Responsable:
+                    </b>
+                    Auxiliar, Líder de Proceso. 28/11/2024 IMPUESTOS DEPARTAMENTALES POPULAR
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Registro:
+                    </b>
+                    No Aplica
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Descripción:
+                    </b>
+                    Existen diferentes tipos de informes, ya que hay gobernaciones en particular que tienen unos que
+                    otras no poseen, de igual manera se manejan diferentes tiempos para la publicación de estos, ya sea
+                    a diario, semanal, quincenal o mensual. También existen otros tipos de condiciones, quiere decir que
+                    podemos habilitar informes para que sean o no visibles, las demás personas que hagan uso de la
+                    página (personal del banco), puedan verlos y descargar el contenido que necesiten. Los informes se
+                    comienzan a publicar en el momento que tenemos cuadrado o procesado un día de las gobernaciones,
+                    cuando hemos verificado que no tenemos diferencias, inconsistencias o cualquier otro tipo de error
+                    que altere el resultado final. A continuación, veremos el paso por paso para poder subir y publicar
+                    un informe:
+                </li>
+            </ul>
+        </div>
+        <div class="doc-subsection">
+            6.15. Entrega Física a las Gobernaciones
+        </div>
+        <div class="doc-subcontent">
+            <ul>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Responsable:
+                    </b>
+                    Auxiliar, Líder de Proceso
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Registro:
+                    </b>
+                    No Aplica
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Descripción:
+                    </b>
+                    Para el proceso de impuestos departamentales Banco Popular, el líder o persona que cuadre esta
+                    gobernación deberá solicitar al Banco planilla y remitir a la funcionaria de la ciudad Cuando estos
+                    documentos sean entregados a interservicios (Banco) deberán digitalizar y remitir el acuse de
+                    recibido con su soporte de la fecha y hora de entrega. Para la entrega de los acuerdos de pago se
+                    deben entregar los 10 primeros días de cada mes el mes inmediatamente anterior en la Gobernación de
+                    Antioquia. El Líder debe publicar las imágenes que son remitidas por las sucursales de DIGICOM a las
+                    gobernaciones, en la web para que el banco consulte sobre la entrega del físico
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="doc-section" data-id="7">
+        7. INDICADORES DE DESEMPEÑO
+    </div>
+    <div class="doc-content" data-id="7">
+        <p>
+            MEDIDO RESPONSABLE INDICADOR FRECUENCIA POR/MEDIO REVISIÓN Σ Total Informes enviados – *100 Líder de Gerente
+            de Informes enviados fuera de tiempo Mensual Proceso Operaciones
+            ------------------------------------------------------- Σ Total informes enviados
+        </p>
+    </div>
+    <div class="doc-section" data-id="8">
+        8. CONTROL DEL PROCEDIMIENTO
+    </div>
+    <div class="doc-content" data-id="8">
+        <p>
+            VER. FECHA MODIFICACION ELABORADO REVISADO APROBADO No. APROBACION REALIZADA Creación de procedimiento
+            Supervisor de Oficial de con tareas específicas 0 Director SGI 28/11/2024 proceso Seguridad para la
+            gobernación de Antioquia. 28/11/2024
+        </p>
+    </div>
+</div>
+
+<!-- Botón para abrir el modal -->
+<button class="btn btn-outline-primary" id="openModalBtn" style="margin-top: 20px;">Editar Secciones</button>
+<!-- El Modal -->
+<div class="modal" id="sectionModal">
+    <div class="modal-content">
+        <span class="close-button">×</span>
+        <h2>Selecciona y Edita una Sección</h2>
+        <label for="sectionSelector">Sección:</label>
+        <select id="sectionSelector">
+            <option value="">-- Selecciona una sección --</option>
+        </select>
+        <label for="sectionContent">Contenido:</label>
+        <textarea id="sectionContent" placeholder="El contenido de la sección aparecerá aquí..."></textarea>
+        <label for="sectionCambio">Descripcion del Cambio:</label>
+        <textarea id="sectionCambio" placeholder="Describe en palabras cortas el cambio realizado..."
+            required></textarea>
+        <button class="btn btn-outline-primary" id="saveChangesBtn" style="margin-top: 15px;">Guardar Cambios</button>
+    </div>
+</div>
+<script src="{{ url_for('static', filename='js/jquery.min.js')}}"></script>
+<script src="{{ url_for('static', filename='js/acordeon_doc.js')}}"></script>
+<script src="{{ url_for('static', filename='js/edita_procedimiento.js')}}"></script>
+
+{% endblock %}

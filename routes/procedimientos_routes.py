@@ -53,6 +53,46 @@ def procedimiento(doc_id):
         documentos_tecnologia = {
             f"{rol}-007": ("PRO-PR-007 Impuestos Distritales Davivienda", "procedimientos/Produccion/PRO-PR-007 Impuestos Distritales Davivienda.html"),
             f"{rol}-011": ("PRO-PR-011 Impuestos Departamentales Davivienda", "procedimientos/Produccion/PRO-PR-011 Impuestos Departamentales Davivienda.html"),
+            f"{rol}-016": ("PRO-PR-016 Convenios Especiales Davivienda", "procedimientos/Produccion/PRO-PR-016 Convenios Especiales Davivienda.html"),
+            f"{rol}-019": ("PRO-PR-019 Impuestos Nacionales y Tributos Aduaneros de Davivienda", "procedimientos/Produccion/PRO-PR-019 Impuestos Nacionales y Tributos Aduaneros de Davivienda.html"),
+            f"{rol}-023": ("PRO-PR-023 Convenios Davivienda", "procedimientos/Produccion/PRO-PR-023 Convenios  Davivienda.html"),
+        }
+    elif rol == 7:
+        documentos_tecnologia = {
+            f"{rol}-028": ("PRO-PR-028 Impuestos Nacionales y Tributos Aduaneros Itau", "procedimientos/Produccion/PRO-PR-028 Impuestos Nacionales y Tributos Aduaneros Itau.html"),
+            f"{rol}-029": ("PRO-PR-029 Impuesto Departamentales Itau", "procedimientos/Produccion/PRO-PR-029 Impuesto Departamentales Itau.html"),
+            f"{rol}-030": ("PRO-PR-030 Impuesto Municipales Cali Itau", "procedimientos/Produccion/PRO-PR-030 Impuesto Municipales Cali Itau.html"),
+            f"{rol}-031": ("PRO-PR-031 Impuesto Municipales Cartagena Itau", "procedimientos/Produccion/PRO-PR-031 Impuesto Municipales Cartagena Itau.html"),
+        }
+    elif rol == 8:
+        documentos_tecnologia = {
+            f"{rol}-001": ("PRO-TH-001 Impuestos Nacionales y Tributos Aduaneros AV Villas", "procedimientos/Produccion/PRO-PR-021 Impuestos Nacionales y Tributos Aduaneros AV Villas.html"),
+            f"{rol}-002": ("PRO-TH-002 Impuestos Departamentales AV Villas", "procedimientos/Produccion/PRO-PR-022 Impuestos Departamentales AV Villas.html"),
+            f"{rol}-003": ("PRO-TH-003 Impuestos Departamentales AV Villas", "procedimientos/Produccion/PRO-PR-022 Impuestos Departamentales AV Villas.html"),
+            f"{rol}-004": ("PRO-TH-004 Impuestos Departamentales AV Villas", "procedimientos/Produccion/PRO-PR-022 Impuestos Departamentales AV Villas.html"),
+        }
+    elif rol == 10:
+        documentos_tecnologia = {
+            f"{rol}-008": ("PRO-PR-008 Impuestos Departamentales Popular - SANTANDER Y VALLE", "procedimientos/Produccion/PRO-PR-008 Impuestos Departamentales Popular - SANTANDER Y VALLE.html"),
+            f"{rol}-027": ("PRO-PR-027 Convenios Popular", "procedimientos/Produccion/PRO-PR-027 Convenios Popular.html"),
+            f"{rol}-034": ("PRO-PR-034 Impuestos Departamentales Popular - ANTIOQUIA", "procedimientos/Produccion/PRO-PR-034 Impuestos Departamentales Popular - ANTIOQUIA.html"),
+        }
+    elif rol == 11:
+        documentos_tecnologia = {
+            f"{rol}-001": ("PRO-PR-001 Convenios Av Villas", "procedimientos/Produccion/PRO-PR-001 Convenios Av Villas.html"),
+            f"{rol}-009": ("PRO-PR-009 Impuestos Departamentales Av Villas", "procedimientos/Produccion/PRO-PR-009 Impuestos Departamentales Av Villas.html"),
+            f"{rol}-010": ("PRO-PR-010 Impuestos Distritales Av Villas", "procedimientos/Produccion/PRO-PR-010 Impuestos Distritales Av Villas.html"),
+            f"{rol}-017": ("PRO-PR-017  Radicación AV Villas", "procedimientos/Produccion/PRO-PR-017  Radicación AV Villas.html"),
+            f"{rol}-022": ("PRO-PR-022 Impuestos Nacionales y Tributos Aduaneros Av Villas", "procedimientos/Produccion/PRO-PR-022 Impuestos Nacionales y Tributos Aduaneros Av Villas.html"),
+        }
+    elif rol == 12:
+        documentos_tecnologia = {
+            f"{rol}-018": ("PRO-PR-018 Impuestos Departamentales Bancoomeva", "procedimientos/Produccion/PRO-PR-018 Impuestos Departamentales Bancoomeva.html"),
+        }
+    elif rol == 13:
+        documentos_tecnologia = {
+            f"{rol}-006": ("PRO-PR-006 Impuestos Nacionales y Tributos Aduaneros Banco Caja Social", "procedimientos/Produccion/PRO-PR-006 Impuestos Nacionales y Tributos Aduaneros Banco Caja Social.html"),
+            f"{rol}-020": ("PRO-PR-020 Procedimiento Recaudos Banco Caja Social", "procedimientos/Produccion/PRO-PR-020 Procedimiento Recaudos Banco Caja Social.html"),
         }
     # Busca el documento en el mapeo
     doc_info = documentos_tecnologia.get(doc_id)

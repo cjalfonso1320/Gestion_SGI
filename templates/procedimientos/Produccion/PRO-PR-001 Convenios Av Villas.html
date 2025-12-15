@@ -1,0 +1,1508 @@
+{% extends 'home.html' %}
+{% block title %}Documentacion{% endblock %}
+{% block content %}
+<link href="{{ url_for('static', filename='css/acordeon_doc.css') }}" rel="stylesheet" />
+<link href="{{ url_for('static', filename='css/procedimientos.css') }}" rel="stylesheet" />
+
+<div id="documento" style="display:none;">procedimientos/HTML/PRO-PR-001 Convenios Av Villas.html</div>
+<div id="nombre_documento" style="display: none;">PRO-PR-001 Convenios Av Villas</div>
+<h1>PRO-PR-001 Convenios Av Villas</h1>
+{% for cambio in cambios %}
+{% if loop.first %}
+<h3>Version: {{cambio[3]}}</h3>
+{% endif %}
+{% endfor %}
+<br />
+<div class="doc-accordion">
+    <div class="doc-section" data-id="1">
+        1. Objetivo
+    </div>
+    <div class="doc-content" data-id="1">
+        <p>
+            Versió n: 35 16/07/2022 CONVENIOS AV VILLAS Procesar, Administrar y Entregar a los clientes el registro
+            consolidado de los Convenios recaudados por el Banco Av Villas y dar cumplimiento del Sistema de Gestión
+        </p>
+    </div>
+    <div class="doc-section" data-id="2">
+        2. Alcance
+    </div>
+    <div class="doc-content" data-id="2">
+        <p>
+            Este procedimiento aplica a todos los Convenios de recaudos a nivel nacional por el banco AV Villas,
+        </p>
+    </div>
+    <div class="doc-section" data-id="3">
+        3. Responsables
+    </div>
+    <div class="doc-content" data-id="3">
+        <p>
+            Gerente de Operaciones, Director de Procesos, Líder de Procesos, Auxiliar de procesos y Digitador
+        </p>
+    </div>
+    <div class="doc-section" data-id="4">
+        4. Definiciones
+    </div>
+    <div class="doc-content" data-id="4">
+        <p>
+            Archivo Plano: Archivo de datos que se utiliza para intercambio de información entre diferentes
+            aplicaciones. Cantar: Dar lectura en voz alta frente a cámaras de audio y video del contenido en las tulas
+            recibidas del cliente: Conciliación: Registro consolidado de transacciones por Convenio. FTP: (File Transfer
+            Protocol) es un protocolo de transferencia de archivos entre sistemas conectados a una red TCP (Protocolo de
+            Control de Transmisión) basado en la arquitectura cliente- servidor, de manera que desde un equipo cliente
+            nos podemos conectar a un servidor para descargar archivos desde él o para enviarle nuestros propios
+            archivos independientemente del sistema operativo utilizado en cada equipo. LOG Bancario o Archivo de
+            Recaudo: Es el registro de las transacciones de una fecha de recaudo, capturado desde las cajas del Banco a
+            nivel Nacional. Precinto: Suncho de seguridad numerado que una vez colocado en el medio de transporte de
+            documentos o valores no puede ser violentado ni roto excepto por el destinatario
+        </p>
+    </div>
+    <div class="doc-section" data-id="5">
+        5. Documentos De Referencia
+    </div>
+    <div class="doc-content" data-id="5">
+        <p>
+            Acuerdos de Servicios
+        </p>
+    </div>
+    <div class="doc-section" data-id="6">
+        6. Descripción Del Proceso
+    </div>
+    <div class="doc-content" data-id="6">
+        <div class="doc-subsection">
+            6.1 Recibir los convenios
+        </div>
+        <div class="doc-subcontent">
+            <div class="doc-subsection">
+                6.1.1 Verificación de cámaras
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Área de TI Versió n: 35 16/07/2022 CONVENIOS AV VILLAS
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        PRO-F-045 Control de pruebas de audio y video
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Las pruebas de audio y video son realizadas diariamente por el personal encargado (auxiliar o
+                        líder de proceso), solicitando mediante el system center al área de TI la revisión de la
+                        grabación del audio y video de tulas para este procesos debe dejar registro en el formato PRO-F-
+                        045 Control de pruebas de audio y video, si las verificación es exitosa se realiza a realizar el
+                        canto de tulas si hay inconvenientes con la cámara se solicita al área de T.I realizar el ajuste
+                        en las cámaras
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="doc-subsection">
+            6.2 Clasificar los documentos
+        </div>
+        <div class="doc-subcontent">
+            <ul>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Responsable:
+                    </b>
+                    Auxiliar de Proceso
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Registro:
+                    </b>
+                    No aplica Versió n: 35 16/07/2022 CONVENIOS AV VILLAS
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Descripción:
+                    </b>
+                    Luego de la apertura y lectura de los documentos, se deben organizar los convenios de la siguiente
+                    forma: Tipo de convenio Jornada de recaudo Número de oficina Se empacan en bolsas y se entregan al
+                    área de digitación únicamente se entrega los convenios correspondientes a recaudo simple
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Nota:
+                    </b>
+                    Los convenios correspondientes a rentas varias y provenir se les entregan a los auxiliares
+                    encargados del proceso
+                </li>
+            </ul>
+        </div>
+        <div class="doc-subsection">
+            6.3. Recepción y envío de resultados
+        </div>
+        <div class="doc-subcontent">
+            <ul>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Responsable:
+                    </b>
+                    Administrador de T.I
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Registro:
+                    </b>
+                    No aplica
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Descripción:
+                    </b>
+                    El banco provee un canal dedicado configurado y administrado directamente por ellos para el
+                    intercambio de información vía FTP (transmisión de imágenes y archivos del activo) y consumo de
+                    WebService (envío de datos complementados). El banco provee un sitio seguro a través de internet
+                    para recibir y enviar imágenes y archivos planos encriptados del pasivo
+                </li>
+            </ul>
+        </div>
+        <div class="doc-subsection">
+            6.4 Recepción del log
+        </div>
+        <div class="doc-subcontent">
+            <div class="doc-subsection">
+                6.4.1 Descarga de log
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Auxiliar de Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Ingresar, al servidor denominado Shikha del Banco AVVILLAS, dirección https://servidor_shikha
+                        ingrese digitando usuario y contraseña convenida con el Banco, es importante que no se debe
+                        digitar la clave errada mas tres veces ya que la cuenta se bloquea por lo que se reporta
+                        mediante correo a: monitoreo@bancoavvillas.com.co, quienes desbloquean el acceso al sitio
+                        seguro. Versió n: 35 16/07/2022 CONVENIOS AV VILLAS Una vez se realice el login, vaya a la ruta:
+                        /DesdeBanco/Convenios/Reportes Desde allí se descarga el archivo de Recaudo Diario o LOG:
+                        RECDIGICOMT.AAMMDD.TXT.pgp (fecha a validar). Al dar por finalizada la descarga, se activa en el
+                        equipo en la llave WinPT para desencriptar el archivo ejecutando la opción “file manager” de la
+                        llave, para lo cual debe proporcionarse la clave destinada para tal fin. Al des encriptar el log
+                        RECDIGICOMT.AAMMDD.TXT.pgp se renombra eliminado la letra T, se copia y pega en la ruta:
+                        \\servidor_produccion\Confidencial_Convenios52_AAAA\LISRECAMIG. A continuación, Se ingresa al
+                        aplicativo en ubicado en la ruta \\servidor_produccion\Confidencial_Convenios52_AAAA, por el
+                        menú archivo/fecha de recaudo/ Versió n: 35 16/07/2022 CONVENIOS AV VILLAS se digita la fecha
+                        que se ha descargado. El aplicativo informa que esa fecha no está creada y pregunta si se crea,
+                        se responde que sí. Se abre en la barra CONVENIOS, Carga de Convenios. Aparece una pantalla
+                        donde solicita una clave para hacer la carga de log. La clave es la estipulada y el número del
+                        día a cargar. En el caso de ser los 9 primeros días del mes, solamente se escribe 1 dígito. Al
+                        hacer la respectiva carga se pulsa la imagen que hay en la pantalla al lado derecho que trae una
+                        flecha azul indicando hacia abajo. Aparece un aviso indicando que se está procediendo a cargar
+                        la información y al terminar sale un recuadro en la mitad que indica “FIN DE PROCESO”. Pulsar
+                        ACEPTAR y con este procedimiento queda activado el Archivo de recaudo (Log) de la fecha. Para
+                        las ciudades el procedimiento se realiza de la misma manera, abriendo el aplicativo ubicado en
+                        la ruta \\servidor_produccion\Confidencial_Convenios52_AAAA\APLICACIONES\ciudad
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="doc-subsection">
+            6.5 Grabación
+        </div>
+        <div class="doc-subcontent">
+        </div>
+        <div class="doc-subsection">
+            6.6 Descargue documentos
+        </div>
+        <div class="doc-subcontent">
+            <ul>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Responsable:
+                    </b>
+                    Líder de procesos
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Registro:
+                    </b>
+                    No aplica
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Descripción:
+                    </b>
+                    Ingresar al aplicativo que se encuentra ubicado en la ruta
+                    \\servidor_produccion\confidencial_convenios_aaaa, se abre la fecha de recaudo, ingresando por la
+                    pestaña de convenios/convenios reportados, se despliega la ventana emergente donde se realiza el
+                    descargue de los documentos, donde se debe digitar el número de cuenta del convenio, este nos
+                    despliega la cantidad total de documentos que recaudo el convenio por cada oficina, se debe realizar
+                    el descargue verificando que la cantidad que recaudo del convenio sea igual al físico y en la
+                    columna F. DOCS se digita la cantidad de documentos, esta fila debe coincidir con lo recaudado por
+                    la oficina y debe quedar en color blanco . Para diferenciar lo grabado y lo que no se ha procesado,
+                    la aplicativa marca en el fondo de cada campo:  Color rosado lo que aún no se ha grabado.  Color
+                    verde lo que no se ha descargado.  Color blanco lo que se ha grabado y descargado. Al terminar de
+                    realizar el descargue de todos los documentos pulsamos en el ícono Cruzar LOG VS Captura, lo que nos
+                    genera la planilla para él envió de los documentos físicos. Si se presentan inconsistencias por
+                    parte del personal del Banco, estas se reportan en el Informe Diario de Inconsistencias la imagen se
+                    debe digitalizar y ubicar la imagen del documento en la ruta
+                    \\servidor_produccion\Confidencial_Convenios52_AAAA\Procesos Convenios
+                    Avvillas\Inconsistencias\AAAA\Mes de recaudo\AAAMMDD
+                </li>
+                <li>
+                    <i class="fa-regular fa-circle-check">
+                    </i>
+                    <b>
+                        Nota:
+                    </b>
+                    Esta actividad también se realiza en todas las ciudades de Digicom (Barranquilla, Bucaramanga, Cali,
+                    Medellín y Pereira)
+                </li>
+            </ul>
+        </div>
+        <div class="doc-subsection">
+            6.7 Generación de envío
+        </div>
+        <div class="doc-subcontent">
+            <div class="doc-subsection">
+                6.7.1 Tapas por convenio
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Líder de procesos
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Una vez realizado el cruce pulsando en el ícono Cruzar LOG VS Captura, se da clic en el botón
+                        imprimir reporte, en el que se pueden visualizar la totalidad de documentos recibidos, la
+                        referencia de cada uno y el valor. Versió n: 35 16/07/2022 CONVENIOS AV VILLAS Esta planilla se
+                        puede generar por documentos recibidos al día siguiente de recaudo: Detallado: documentos que
+                        correspondan a la fecha del día anterior se imprimen por esta opción, dando clic en Todos,
+                        Totales, Cruce de Captura y detallado Documentos extemporáneos: Documentos correspondiente a más
+                        de dos días de la fecha de recaudo se imprimen por la opción, se digita la fecha de recaudo que
+                        corresponda el recaudo, mostrar todos los detalles, detalles filtrados por fecha, totales y clic
+                        en documentos extemporáneos, estas opciones dependen de la fecha de recaudo de cada documento
+                        descargado Donde genera las planillas de entrega, se deben imprimir 2 copias las cuales se
+                        distribuyen de la siguiente manera: 2 se envían diariamente con los documentos al banco y se
+                        envían al cerrar el mes al banco, De igual manera se diligencia un formato llamado planilla en
+                        cual se encuentra en la ruta \\servidor_produccion\Confidencial_Convenios52_AAAA\Procesos
+                        Convenios Avvillas, donde se relaciona la fecha de recaudo la cantidad de documentos y la cuenta
+                        a la que pertenecen. Nota 1: Esto se realiza con cada uno de los convenios. Nota 2: Esta
+                        actividad también se realiza en todas las ciudades de Digicom (Barranquilla, Bucaramanga, Cali,
+                        Medellín y Pereira) Versió n: 35 16/07/2022 CONVENIOS AV VILLAS
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.7.2 Ordenar los documentos
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Líder de procesos
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        PRO-F-001 Control relación envió Convenios
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Una vez los convenios tenga su respectiva tapa se deben organizar los documentos por: Número de
+                        cuenta Nombre de Convenios Luego de estar organizados, se deben relacionar el total de
+                        convenios, total de valor de los convenios, código de oficina de destino, en el formato
+                        PRO-F-001 Control Relación envíos de Convenios, el formato se encuentra en la ruta:
+                        \\servidor_produccion\confidencial_convenios_AAAA\Procesos Convenios AVVillas\relación envío
+                        paquetes\aaaa. Una vez se realice la relación de todos los convenios en el formato se deben
+                        empacar en bolsa plástica y para que el mensajero de Digicom lo envié a la central de recaudo y
+                        realice la respectiva radicación con el formato PRO-F-001 Control Relación envíos de Convenios.
+                        Nota 1: Se deben imprimir cuatro copias de este formato que se distribuyen tres copias para el
+                        banco y otra para el archivo de Digicom. Nota 2: Este envío de paquetes se hace en forma diaria
+                        por medio del mensajero de Digicom. Nota 3: Esta actividad también se realiza en todas las
+                        ciudades de Digicom (Barranquilla, Bucaramanga, Cali, Medellín y Pereira)
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="doc-subsection">
+            6.8 Generación de informe diario de inconsistencias
+        </div>
+        <div class="doc-subcontent">
+            <div class="doc-subsection">
+                6.8.1 Generar faltantes de Bogotá y ciudades
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Líder de procesos
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No aplica Descripción. Faltantes Bogota: Ingresar al aplicativo que se encuentra ubicado en la
+                        ruta \\servidor_produccion\confidencial_convenios_aaaa, se abre la fecha del día anterior hábil,
+                        ingresando por la pestaña de envió/envió integrado, se despliega la ventana emergente donde se
+                        genera el informe de faltantes pertenecientes a Bogotá. Donde se digita en fecha de movimiento,
+                        desde se digita el primer día hábil del mes en curso, hasta la última fecha de recaudo que se
+                        está trabajando y fecha para solo faltantes la última fecha de recaudo que se está trabajando,
+                        se da clic en consolidado y clic en generar cruce de registros El aplicativo genera el informe
+                        el cual queda almacenado en la ruta \\servidor_produccion\Confidencial_Convenios52_AAAA\envio,
+                        en una carpeta nombrada con la Faltantes Ciudades: Para generar el informe de faltantes de cada
+                        ciudad, las ciudades envían vía correo electrónico el archivo transfer, donde se encuentra
+                        contenida la información de los convenios descargados; este archivo debe ser ubicado en la
+                        carpeta Carga Trans de cada ciudad ubicada en la ruta
+                        \\servidor_produccion\Confidencial_Convenios52_AAAA\APLICACIONES\CIUDAD\CargaTrans, luego se
+                        ejecuta el aplicativo de cada ciudad ubicado en la ruta Versió n: 35 16/07/2022 CONVENIOS AV
+                        VILLAS \\servidor_produccion\Confidencial_Convenios52_AAAA\APLICACIONES\CIUDAD, llamado
+                        convenios Avvillas, al abrir el aplicativo se abre la fecha de recaudo por la pestaña archivos,
+                        y luego da clic en la pestaña envío/carga trans, lo cual arroja una ventana emergente donde
+                        pregunta si desea cargar el archivo y se da clic en aceptar; al finalizar la carga se cierra la
+                        ventana emergente y de nuevo se da clic en la pestaña envío/envío integrado, se selecciona el
+                        rango de fechas y la opción (igual que para Bogotá) “regenerar cruce datos”, y aceptar Genera el
+                        archivo de faltantes de cada ciudad el cual queda en la ruta
+                        \\servidor_produccion\Confidencial_Convenios52_AAAA\APLICACIONES\CIUDAD\envio, en una carpeta
+                        nombrada con la fecha de generación
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.8.2 Inconsistencias imágenes faltantes Dian
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Líder de procesos
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        El banco proporciona vía correo electrónico los números de formularios de impuestos Nacionales,
+                        donde las imágenes de los formularios no son situadas en el canal por las oficinas para que
+                        Digicom pueda realizar el procesamiento, este número de formulario es consultado en el
+                        aplicativo de convenios av villas, ubicado en la ruta
+                        \\servidor_produccion\confidencial_convenios_aaaa, se abre la fecha de recaudo por la pestaña
+                        archivos, luego de abrir la fecha ir a la opción inconsistencias Versió n: 35 16/07/2022
+                        CONVENIOS AV VILLAS donde arroja la ventana emergente, se debe seleccionar el tipo de convenio a
+                        consultar, la referencia (depende del datos a buscar) y se selecciona el tipo de inconsistencia
+                        que para este caso siempre es imágenes de impuestos y aduanas nacionales no enviadas, luego se
+                        da clic en el botón “crear inconsistencia” lo cual relaciona el formulario en el recuadro
+                        ubicado en la parte central de la ventana emergente, al registrar todas las inconsistencias
+                        reportadas, en la parte inferior de la ventana emergente se selecciona el rango de fecha de las
+                        inconsistencias reportadas y se genera el informe el cual queda almacenado en la ruta,
+                        \\servidor_produccion\Confidencial_Convenios52_AAAA\inconsistencias\reportes, al abrir el
+                        archivo generado se modifica el formato de fecha se eliminan los centavos en el valor y se
+                        modifica el formato de la celda para ser copiadas en el informe diario de inconsistencias, el
+                        archivo generado por el aplicativo contiene toda la información necesaria para el registro en el
+                        informe la cual solamente debe ser copiada y pegada de acuerdo al orden establecido para el
+                        informe
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.8.3 Reversiones
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Líder de procesos
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        El banco proporciona vía correo electrónico los registros que han sido reversados por las
+                        oficinas, pertenecientes a impuestos nacionales, impuestos distritales de Bogotá y de impuestos
+                        de Cundinamarca, este registro contiene toda la información necesaria para ser relacionado en el
+                        informe diario, no se debe modificar solamente se copia en el informe siguiendo el orden
+                        establecido, esta información se copia en el informe diario de inconsistencias. Versió n: 35
+                        16/07/2022 CONVENIOS AV VILLAS
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="doc-subsection">
+            6.9 Informe de planillas de recaudo centralizado
+        </div>
+        <div class="doc-subcontent">
+            <div class="doc-subsection">
+                6.9.1 Organizar las planillas
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Auxiliar de Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Luego de la apertura y lectura de los documentos, las planillas se organizan de la siguiente
+                        manera: Número de cuenta Se procede a realizar la grabación en el aplicativo de convenios
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.9.2 Descarga e impresión de planillas desde el aplicativo
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Auxiliar de Proceso Versió n: 35 16/07/2022 CONVENIOS AV VILLAS
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Una vez organizadas las planillas por fecha de entrega, se procede a descargar las planillas que
+                        le corresponden a Digicom en el aplicativo de convenios ConveniosAvvillas que se encuentra
+                        ubicado en la siguiente ruta \\servidor_produccion\Confidencial_Convenios52_AAAAA Una vez
+                        iniciado el aplicativo, se abre la fecha de movimiento anterior hábil que se está trabajando. Se
+                        descargan y se imprimen las planillas que le corresponden a Digicom S.A., las cuales se
+                        encuentran en un archivo Excel nombrado como CTAS de nosotros en la siguiente ruta
+                        \\servidor_produccion\Confidencial_Convenios52_AAAA\Planillas\Procesos Planillas Para la
+                        descarga de estas planillas, en el aplicativo, ingresaremos al menú Convenios/Convenios
+                        reportados. En la tabla buscaremos por nombre del convenio o número de cuenta, cada una de las
+                        que debemos imprimir, se selecciona la cuenta que queremos descargar y se remplazan los campos
+                        vacíos de la cuarta columna F Docs por los valores de la segunda columna F Docs. Versió n: 35
+                        16/07/2022 CONVENIOS AV VILLAS Para diferenciar lo grabado y lo que no se ha procesado, la
+                        aplicativa marca en el fondo de cada campo con color rosado lo que aún no se ha grabado, en
+                        color verde lo que no se ha descargado y en color blanco lo que se ha grabado y descargado.
+                        Seguido al paso anterior, se dará clic en el botón Captura de documentos y salir. Versió n: 35
+                        16/07/2022 CONVENIOS AV VILLAS Se hará clic en el botón Cruzar log Vs Captura, en la ventana
+                        emergente clic en aceptar y se imprime la planilla. Para imprimir las planillas se dará clic
+                        sobre el botón imprimir reporte y en las opciones se desmarcará la casilla Cruce con captura y
+                        se hará clic en el botón Detallado. Por último, se mostrará el informe detallado de la planilla
+                        y se hará clic en imprimir
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.9.3 Grabación de planillas
+            </div>
+            <div class="doc-subcontent">
+            </div>
+            <div class="doc-subsection">
+                6.9.3.1 Integrar planillas y referencias en el aplicativo de convenios
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Auxiliar de Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        En el aplicativo de convenios se da clic sobre el botón Convenios/ Control de planillas de
+                        entrega/Control Planillas Versió n: 35 16/07/2022 CONVENIOS AV VILLAS Desde allí se grabarán los
+                        registros, para lo cual debemos integrar las planillas y las referencias del log del día. Para
+                        esto se ingresarán en las celdas de Rango de fechas, la fecha anterior a la del día de
+                        movimiento en que estamos trabajando y la actual. Se hará clic en el botón Integrar Planillas, y
+                        clic en el botón aceptar de la ventana emergente, asimismo, se hará clic en el botón Integrar
+                        referencias y clic en aceptar. INTEGRAR PLANILLAS INTEGRAR REFERENCIAS
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.9.3.2 Grabación de planillas en el aplicativo de convenios
+            </div>
+            <div class="doc-subcontent">
+                <p>
+                    En el aplicativo de convenios, se graban uno a uno los registros contenidos en las planillas
+                    enviadas por las oficinas y las descargadas por nosotros indexando los siguientes campos: Se
+                    ingresan los datos en el siguiente orden:  Fecha de entrega  Oficina de destino Versió n: 35
+                    16/07/2022 CONVENIOS AV VILLAS  Numero de cuenta  Fecha de recaudo  Horario  Oficina de origen
+                    PLANILLA ENVIADA POR EL BANCO PLANILLA IMPRESA POR DIGICOM Los datos señalados anteriormente se
+                    grabarán en el aplicativo de convenios, en el apartado Control planillas de entrega en los espacios
+                    señalados en la siguiente imagen. Versió n: 35 16/07/2022 CONVENIOS AV VILLAS Una vez ingresada la
+                    información se da clic en el botón Cargar Ref desde logbanco En este cuadro nos aparece la
+                    información del registro que vamos a grabar, verificamos que los datos sean correctos con relación a
+                    los de la planilla y damos clic en el estado ya sea “Archivo Inactivo” o “Entregado” dependiendo lo
+                    que indique el estado en las planillas, en el caso de las planillas impresas por Digicom que no
+                    traen la información de estado, se grabaran como “Archivo Inactivo”. Versió n: 35 16/07/2022
+                    CONVENIOS AV VILLAS
+                </p>
+            </div>
+            <div class="doc-subsection">
+                6.9.3.3 Generar reporte de faltantes
+            </div>
+            <div class="doc-subcontent">
+                <p>
+                    A continuación, se genera el “Reporte de Inconsistencias” desde el mismo cuadro de grabación,
+                    colocando en las celdas de Rango de fechas de entrega la fecha del primer día del mes a la fecha
+                    actual y se da clic en el botón Cruce, faltantes y sobrantes como se muestra en la siguiente imagen.
+                    El reporte generado quedara en la siguiente ruta \\servidor
+                    producción\Confidencial_Convenios52_AAAA\Planillas\Reportes desde allí empezaremos verificar la
+                    información de los faltantes que se enviaran al banco
+                </p>
+            </div>
+            <div class="doc-subsection">
+                6.9.3.4 Digitalizar las planillas
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Auxiliar de Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Una vez grabadas las planillas se procede a digitalizarlas y se utilizara el perfil de planillas
+                        ya establecido en el Escáner como plantillas, el cual cargara las imágenes en un índex global
+                        cuya ruta es \\servidor_produccion\Confidencial_Convenios52_AAAA\Planillas\Index para después
+                        indexarlas. Seleccionar el perfil Planillas y dar clic en digitalizar, esta planilla ya está
+                        configurada para que las imagen queden en la ruta
+                        \\servidor_produccion\Confidencial_Convenios52_AAAA\Planillas\Index Versió n: 35 16/07/2022
+                        CONVENIOS AV VILLAS Las imágenes digitalizadas se visualizarán inmediatamente en la interfaz de
+                        vistas previas del escáner
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.9.3.5 Almacenamiento de planillas
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Auxiliar de Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No aplica Descripción. Terminado el proceso de digitalización se guardarán las planillas en
+                        bolsas, organizadas por fecha de entrega y estas se archivarán en una caja suministrada por el
+                        banco con un respectivo sticker de identificación una vez llena la caja se debe realizar la
+                        entrega de la caja al banco
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.9.3.6 Cargar e indexar planillas
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Auxiliar de Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        En el aplicativo de convenios se cargan las imágenes contenidas en el índex para realizar su
+                        respectiva indexación, para esto se debe ingresar al aplicativo de convenios ConveniosAvvillas
+                        ubicado en \\servidor_produccion\Confidencial_Convenios52_AAAA y desde allí abriremos la fecha
+                        al día anterior en que nos encontremos, se hará clic en Convenios, Control de planillas de
+                        entrega, carga de imágenes de planillas. Versió n: 35 16/07/2022 CONVENIOS AV VILLAS Seguido a
+                        esto se hace clic en el botón Cargar nuevas imágenes, aparecerá una ventana emergente con la
+                        cantidad de imágenes que se están cargando. Desde el mismo aplicativo ingresaremos a indexar,
+                        dando clic en Convenios, Control de planillas de entrega, indexación de planillas. Se mostrará
+                        la siguiente ventana y se hará clic en el botón Asignar imagen y se diligenciaran los campos de
+                        la parte inferior en el siguiente orden: PLANILLA IMPRESA POR DIGICOM En este formato de
+                        planilla, los datos se encuentran distribuidos como se ve en las siguientes imágenes Versió n:
+                        35 16/07/2022 CONVENIOS AV VILLAS En este formato el código de la oficina son los tres primeros
+                        dígitos del número de cuenta. El total de registros y valor será la última fila. En el registro
+                        de planillas enviado por el banco la información está más detallada. Versió n: 35 16/07/2022
+                        CONVENIOS AV VILLAS
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.9.3.7 Reporte diario de faltantes
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Auxiliar de Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No aplica Descripción. En este reporte generado en la actividad Integrar planillas y referencias
+                        en el aplicativo de convenios, se enviará al banco la información detallada de cada uno de los
+                        registros que no han llegado y por lo tanto no se han podido grabar. Este reporte se hace a
+                        diario desde el primer día (01) de cada mes, hasta la fecha del día actual y lo envía el Líder
+                        de convenios. En la ruta \\servidor_produccion\Confidencial_Convenios52_AAAA\Planillas\Reportes
+                        se generan dos archivos Excel, uno como archivo de valores y otro como Hoja de cálculo. El
+                        archivo de valores es en donde se encuentra la información de los faltantes, el cual se
+                        verificará. En este reporte se remplazan algunos campos y se eliminan otros, esto con el fin de
+                        enviar el reporte de faltantes según los días de caída de cada oficina. La información de días
+                        de caída, nombre del convenio, número de cuenta y número de oficina se encuentra en un archivo
+                        Excel en la siguiente ruta
+                        \\servidor_produccion\Confidencial_Convenios52_AAAA\Planillas\Procesos Planillas nombrado como
+                        CTAS SEGUIMIENTO DOCUMENTAL. En la misma ruta se encontrará también un archivo nombrado PLANTA
+                        BANCO en el cual se encuentra la información de los funcionarios del banco en cada oficina. Lo
+                        primero que se debe hacer en cuanto se abra el archivo es:  Contar los 5 días hábiles
+                        anteriores a la fecha actual y desde allí eliminar todos los registros de la jornada adicional
+                        del mismo, así como los registros de las fechas posteriores a esta. Versió n: 35 16/07/2022
+                        CONVENIOS AV VILLAS  Seguido a este paso también se eliminan los registros de las cuentas con 9
+                        días de caída de la misma manera que se hace con las de 5 días.  Eliminar los registros de las
+                        cuentas con 39 días y N/A Remplazar la celda del número de la oficina con el número real
+                        asociado a la cuenta, esto dado a que este número inicial es el número de la oficina de origen
+                        del registro. Esta información se encuentra en el archivo CTAS SEGUIMIENTO DOCUMENTAL. 
+                        Remplazar la celda de referencia por el número de cedula de el subgerente de la oficina, esta
+                        información se encuentra en el archivo PLANTA BANCO Versió n: 35 16/07/2022 CONVENIOS AV VILLAS
+                         Verificar que el reporte no tenga registros de planillas que se encuentren ya en Digicom. En
+                        caso de encontrar algún registro se verificara contra las imágenes ya digitalizadas en la
+                        carpeta img la cual se encuentra en el servidor de producción en la ruta
+                        \\servidor_produccion\Confidencial_Convenios52_AAAAA\Planillas  Guardar el archivo en la
+                        carpeta Reporte Diario del año y mes en curso, que se encuentra ubicada en la siguiente ruta
+                        \\servidor_produccion\Confidencial_Convenios52_AAAAA\Planillas\Reportes\Reporte Diario\AAAAA
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="doc-subsection">
+            6.10 Cesantías porvenir
+        </div>
+        <div class="doc-subcontent">
+            <div class="doc-subsection">
+                6.10.1 Descarga del log
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Líder de procesos
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Ingresar, al servidor denominado Shikha del Banco AVVILLAS, dirección https://servidor_shikha
+                        ingrese digitando usuario y contraseña convenida con el Banco; ir a la ruta:
+                        /DesdeBanco/cesantias/porvenir/Reportes. Desde allí se descarga el archivo de Recaudo Diario o
+                        LOG: REPORTE.AAMMDD.TXT.pgp. Al dar por finalizada la descarga, se activa en el equipo en la
+                        llave WinPT para desencriptar el archivo ejecutando la opción “file manager” de la llave, para
+                        lo cual debe proporcionarse la clave destinada para tal fin. Al generar el archivo desencriptado
+                        REPORTE.AAMMDD.TXT.pgp, se copia y pega en la ruta:
+                        \\servidor_produccion\Convenios_Porvenir52_AAAA\procesos\Logbanco . Este proceso se realiza
+                        Versió n: 35 16/07/2022 CONVENIOS AV VILLAS a primera hora en la mañana ya que el servidor del
+                        banco genera el archivo diariamente alrededor de las 6:00 am. Luego se ingresa al aplicativo
+                        denominado “cesantiasvillas” el cual se encuentra en la ruta
+                        \\servidor_produccion\Confidencial_Convenios_Porvenir52_AAAA, por la opción indexación\log
+                        bancario Al desplegarse la ventana emergente se diligencia la fecha a cargar y se da clic en la
+                        opción carga log banco, al finalizar la carga se verifica que todos los registros cargados
+                        correspondan a la fecha de recaudo y se procede a cargar las imágenes para indexación
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.10.2 Digitalizar Cesantías Porvenir
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Auxiliar de Proceso
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Una vez se haya realizado la apertura y canto de las cesantías porvenir se procede a
+                        digitalizarlas y se utilizara el perfil de Porvenir ya establecido en el Escáne, el cual cargara
+                        las imágenes en un índex global cuya ruta es
+                        \\servidor_produccion\Confidencial_Convenios_Porvenir52_AAAA\index_global\inconsistencias para
+                        después indexarlas. Seleccionar el perfil Porvenir y dar clic en digitalizar, esta planilla ya
+                        está configurada para que las imagen queden en la ruta
+                        \\servidor_produccion\Confidencial_Convenios_Porvenir52_AAAA\index_global\inconsistencias Versió
+                        n: 35 16/07/2022 CONVENIOS AV VILLAS Las imágenes digitalizadas se visualizarán inmediatamente
+                        en la interfaz de vistas previas del escáner
+                    </li>
+                </ul>
+            </div>
+            <div class="doc-subsection">
+                6.10.3 Carga de imágenes
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Líder de procesos
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        Se ingresa al servidor de producción en la ruta
+                        \\servidor_produccion\Confidencial_Convenios_Porvenir52_AAAA\index_global\inconsistencias, y se
+                        cortan todas las imágenes de los documentos de retiros de cesantías los cuales son
+                        digitalizados, y se llevan a la ruta
+                        \\servidor_produccion\Confidencial_Convenios_Porvenir52_AAAA\index_global, para ser cargadas al
+                        aplicativo “cesantiasvillas” el cual se encuentra en la ruta
+                        \\servidor_produccion\Confidencial_Convenios_Porvenir52_AAAA, por la opción indexación\carga de
+                        imágenes. Al desplegarse la ventana emergente se debe dar clic en la opción mover procesadas,
+                        esta opción mueve todas la imágenes que ya fueron indexadas las cuales se mueven a la carpeta
+                        ruta \\servidor_produccion\Confidencial_Convenios_Porvenir52_AAAA\index_global\procesadas, las
+                        imágenes que quedan en esta carpeta se eliminan. posterior a ello se debe liberan los documentos
+                        pendientes dando clic en los botones “pasar abiertos a libres” y “pasar sobrantes a libres”,
+                        luego se procede a cargar las imágenes liberados y las nuevas imágenes ubicadas en la ruta dando
+                        clic en el botón “cargar nuevas imágenes”. Versió n: 35 16/07/2022 CONVENIOS AV VILLAS En
+                        pendientes indica la cantidad de documentos que se deben indexar, luego de ser cargadas la
+                        totalidad de las imágenes se proporciona el dato de documentos pendientes por grabar a los
+                        directores de operación para que sean asignadas al grupo de digitadores
+                    </li>
+                </ul>
+                < va /div>
+                    <div class="doc-subsection">
+                        6.10.4 Indexación de imágenes
+                    </div>
+                    <div class="doc-subcontent">
+                        <ul>
+                            <li>
+                                <i class="fa-regular fa-circle-check">
+                                </i>
+                                <b>
+                                    Responsable:
+                                </b>
+                                Digitadores
+                            </li>
+                            <li>
+                                <i class="fa-regular fa-circle-check">
+                                </i>
+                                <b>
+                                    Registro:
+                                </b>
+                                No aplica
+                            </li>
+                            <li>
+                                <i class="fa-regular fa-circle-check">
+                                </i>
+                                <b>
+                                    Descripción:
+                                </b>
+                                Ingresa al aplicativo “cesantiasvillas” el cual se encuentra en la ruta
+                                \\servidor_produccion\Confidencial_Convenios_Porvenir52_AAAA, por la opción
+                                indexación\indexación de imágenes. Al asignar imagen, la información que se debe indexar
+                                es con
+                                respecto al timbre que tiene el documento, diligenciamos el número de cedula del
+                                cliente, el
+                                concepto de retiro y se da clic en procesar, en ocasiones al digitar el número de cedula
+                                del
+                                cliente solicita el nit de la empresa, en este caso basados en la información del
+                                timbre,
+                                confirmamos el número de autorización en el recuadro de la parte inferior derecha, se
+                                confirma
+                                el concepto de retiro y se da clic en procesar. Versió n: 35 16/07/2022 CONVENIOS AV
+                                VILLAS
+                                Cuando el documento asignado no tiene timbre o sello se debe enviar como “ilegible”
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="doc-subsection">
+                        6.10.5 Generación de documentos faltantes
+                    </div>
+                    <div class="doc-subcontent">
+                        <ul>
+                            <li>
+                                <i class="fa-regular fa-circle-check">
+                                </i>
+                                <b>
+                                    Responsable:
+                                </b>
+                                Auxiliar de procesos
+                            </li>
+                            <li>
+                                <i class="fa-regular fa-circle-check">
+                                </i>
+                                <b>
+                                    Registro:
+                                </b>
+                                No aplica
+                            </li>
+                            <li>
+                                <i class="fa-regular fa-circle-check">
+                                </i>
+                                <b>
+                                    Descripción:
+                                </b>
+                                Ingresa al aplicativo “cesantiasvillas” el cual se encuentra en la ruta
+                                \\servidor_produccion\Confidencial_Convenios_Porvenir52_AAAA, por la opción
+                                indexación\log
+                                bancario. Al desplegarse la ventana emergente se diligencia la fecha que se desea
+                                generar en el
+                                rango y se da clic en el botón “faltantes”; este archivo queda ubicado en la ruta
+                                \\servidor_produccion \Confidencial_Convenios_Porvenir52_AAAA\procesos\reportes, antes
+                                de
+                                generar este archivo se verifica que la fecha no este generada en la ruta descrita
+                                anteriormente, de ser así se deben eliminar los archivo antes de generar los faltantes
+                                por el
+                                aplicativo. Versió n: 35 16/07/2022 CONVENIOS AV VILLAS Al generarse el archivo se debe
+                                verificar que los documento relacionados como faltantes sean reales de acuerdo a la
+                                tabla de
+                                días de caída para cada oficina proporcionada por el banco, los cuales se deben reportar
+                                en el
+                                informe de inconsistencias diario
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="doc-subsection">
+                        6.10.6 Verificación de documentos
+                    </div>
+                    <div class="doc-subcontent">
+                        <ul>
+                            <li>
+                                <i class="fa-regular fa-circle-check">
+                                </i>
+                                <b>
+                                    Responsable:
+                                </b>
+                                Auxiliar de procesos
+                            </li>
+                            <li>
+                                <i class="fa-regular fa-circle-check">
+                                </i>
+                                <b>
+                                    Registro:
+                                </b>
+                                No aplica
+                            </li>
+                            <li>
+                                <i class="fa-regular fa-circle-check">
+                                </i>
+                                <b>
+                                    Descripción:
+                                </b>
+                                Se realiza la verificación física de los documentos recibidos en las instalaciones de 
+                                Todas
+                                las cartas deben estar dirigida a Porvenir  La cantidad de documentos relacionados en
+                                la tapa
+                                del paquete deben coincidir con la cantidad de físicos.  El número de cedula del
+                                cliente
+                                diligenciado en el cuerpo de la carta debe coincidir con el que se encuentra en el
+                                timbre del
+                                documento  Basados en los criterios establecidos por el banco (1. Vivienda, 2.
+                                Educación 3.
+                                Terminación de contrato, 4. Independiente total, 5. Independiente parcial, 9 salario
+                                mínimo por
+                                covid), se verifica que el concepto por el cual fue timbrado el documento corresponda
+                                con lo
+                                estipulado en el cuerpo de la carta.  Todos los documentos deben tener diligenciado a
+                                mano el
+                                nombre, numero de cedula teléfono firma y huella de la persona que realiza el retiro. 
+                                Si
+                                alguno de los documentos recibidos no cumple con las condiciones descritas anteriormente
+                                se debe
+                                reportar en el informe de inconsistencias remitido diariamente al banco a través del
+                                sitio
+                                seguro
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="doc-subsection">
+                        6.10.7 Inconsistencias porvenir
+                    </div>
+                    <div class="doc-subcontent">
+                        <ul>
+                            <li>
+                                <i class="fa-regular fa-circle-check">
+                                </i>
+                                <b>
+                                    Responsable:
+                                </b>
+                                Líder de procesos
+                            </li>
+                            <li>
+                                <i class="fa-regular fa-circle-check">
+                                </i>
+                                <b>
+                                    Registro:
+                                </b>
+                                No aplica
+                            </li>
+                            <li>
+                                <i class="fa-regular fa-circle-check">
+                                </i>
+                                <b>
+                                    Descripción:
+                                </b>
+                                las inconsistencias detectadas en la revisión física de los documentos de retiro de
+                                cesantías
+                                deben relacionarse en el informe diario presentado al banco para ello tomamos el número
+                                de
+                                autorización del documento con inconsistencia, y realizamos un cruce con el log bancario
+                                donde
+                                se arrastran los datos requeridos para el informe tales como fecha, oficina, jornada,
+                                cedula del
+                                cajero responsable, valor y cedula del cliente, de igual manera el documento debe ser
+                                digitalizado y la imagen debe ser almacenada en la siguiente ruta
+                                \\servidor_produccion\Confidencial_Convenios52_AAAA\Procesos Convenios Versió n: 35
+                                16/07/2022
+                                CONVENIOS AV VILLAS Avvillas\Inconsistencias\AAA\mes. Las imágenes deben ser publicadas
+                                al
+                                finalizar el día junto con el informe en neusa en la ruta Digicom\ CONVENIOS\ IMAGENES
+                                AAAA,
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="doc-subsection">
+                        6.10.8 Verificación de inconsistencias en aplicativo
+                    </div>
+                    <div class="doc-subcontent">
+                        <ul>
+                            <li>
+                                <i class="fa-regular fa-circle-check">
+                                </i>
+                                <b>
+                                    Responsable:
+                                </b>
+                                Auxiliar de procesos
+                            </li>
+                            <li>
+                                <i class="fa-regular fa-circle-check">
+                                </i>
+                                <b>
+                                    Registro:
+                                </b>
+                                No aplica
+                            </li>
+                            <li>
+                                <i class="fa-regular fa-circle-check">
+                                </i>
+                                <b>
+                                    Descripción:
+                                </b>
+                                Ingresa al aplicativo “cesantiasvillas” el cual se encuentra en la ruta
+                                \\servidor_produccion\Confidencial_Convenios_Porvenir52_AAAA, por la opción
+                                indexación\log
+                                bancario. Al desplegarse la ventana emergente se diligencia el rango de fechas que se
+                                desea
+                                revisar y se da clic en el botón “filtro inconsistencias Fecha” Al arrojar los
+                                resultados se
+                                verifica que la información sea correcta basados en la imagen que nos muestra el
+                                aplicativo y
+                                los criterios de la grabación de Digicom contra los datos del banco, es importante tener
+                                en
+                                cuenta las directrices impartidas por el banco descritas en el numeral anterior. Se
+                                realiza la
+                                corrección de las inconsistencias presentadas por parte de la grabación de Digicom, y
+                                las
+                                inconsistencias que se presenten por errores del cajero deben ser incluidas en el
+                                informe diario
+                                de inconsistencias enviado al banco. Versió n: 35 16/07/2022 CONVENIOS AV VILLAS
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="doc-subsection">
+                        6.10.9 Generación de cajas
+                    </div>
+                    <div class="doc-subcontent">
+                        <ul>
+                            <li>
+                                <i class="fa-regular fa-circle-check">
+                                </i>
+                                <b>
+                                    Responsable:
+                                </b>
+                                Auxiliar de procesos
+                            </li>
+                            <li>
+                                <i class="fa-regular fa-circle-check">
+                                </i>
+                                <b>
+                                    Registro:
+                                </b>
+                                PRO-D-032 Control Cajas Descripción. Una vez cerrada cada fecha de recaudo se procede a
+                                almacenar los documentos de cada fecha en cajas X300, las cuales se encuentran
+                                codificadas por
+                                los stickers proporcionados por el banco y un número de caja asignado internamente,
+                                estos datos
+                                son relacionados en el formato PRO-D-032 Control Cajas, ubicado en la ruta
+                                \\servidor_produccion\Confidencial_Convenios_Porvenir52_AAAA\procesos. Una vez incluidos
+                                los
+                                documentos en las unidades de almacenamiento se procede a generar el índex y las
+                                imágenes de la
+                                fecha cerrada, para ello se abre el aplicativo “cesantiasvillas” el cual se encuentra en
+                                la ruta
+                                \\servidor_produccion\Confidencial_Convenios_Porvenir52_AAAA, por la opción
+                                indexación\log
+                                bancario. Al desplegarse la ventana emergente en la parte inferior se diligencia la
+                                fecha de
+                                recaudo a generar y basados en el control de cajas, la jornada y número de oficinas
+                                contenidas
+                                en cada caja y se da clic en la opción filtrar. Una vez se filtrar el rango de oficinas
+                                designadas se procede a asignar el número de caja interna y código de barras relacionado
+                                en el
+                                control de cajas; luego de filtra todas las oficinas de la jornada normal se hace el
+                                mismo
+                                procedimiento con la jornada adicional. Luego de asignar el número de caja se diligencia
+                                el
+                                rango de cajas donde se encuentra contenida la cantidad de documentos por cada fecha de
+                                recaudo,
+                                esta cantidad de documentos debe coincidir con los datos registrados en el log bancario;
+                                al
+                                confirmar la cantidad se empiezan a generar las imágenes y el índex de la fecha de
+                                recaudo ya
+                                cerrada, lo cual queda almacenado en la ruta
+                                \\servidor_produccion\Confidencial_Convenios_Porvenir52_AAAA\procesos\envio_imagenes\AAA
+                                MMDD.
+                                Versió n: 35 16/07/2022 CONVENIOS AV VILLAS Luego de confirmar que la carpeta de la
+                                fecha
+                                contiene el total de las imágenes y el índex se comprime la carpeta en Zip y se procede
+                                a se
+                                dejan en la ruta, \\servidor_produccion\52_Procesos\aaaammdd\archivos\logs ,y se
+                                publican en el
+                                servidor digicom
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="doc-subsection">
+                        6.10.10 Entrega mensual de cajas
+                    </div>
+                    <div class="doc-subcontent">
+                        <ul>
+                            <li>
+                                <i class="fa-regular fa-circle-check">
+                                </i>
+                                <b>
+                                    Responsable:
+                                </b>
+                                líder de procesos
+                            </li>
+                            <li>
+                                <i class="fa-regular fa-circle-check">
+                                </i>
+                                <b>
+                                    Registro:
+                                </b>
+                                PRO-F-EXT- 030 Entrega de Cajas Archivo Inactivo. PRO-D-EXT- 090 Planilla Envió Archivo
+                                Inactivo
+                            </li>
+                            <li>
+                                <i class="fa-regular fa-circle-check">
+                                </i>
+                                <b>
+                                    Descripción:
+                                </b>
+                                Una vez cerrado el mes se realiza la entrega de las cajas a la compañía Iron Mountain
+                                quien se
+                                encarga del archivo inactivo del banco, para lo cual se diligencia el formato PRO-D-EXT-
+                                090
+                                Planilla Envió Archivo Inactivo, ubicado en la ruta
+                                \\servidor_produccion\Confidencial_Convenios_Porvenir52_AAAA\procesos\Archivo Inactivo,
+                                este
+                                formato se genera automáticamente desde el el aplicativo desde la opción indexación\log
+                                bancario. En la ventana emergente en el rango de fecha se coloca las fechas de las cajas
+                                que se
+                                va entregar posterior a ello se da clic en el botón Índex Consolidado, el cual nos
+                                genera la
+                                información a entregar en el formato PRO-D-EXT- 090 Planilla Envió Archivo Inactivo,
+                                esta
+                                información queda almacenada en la ruta
+                                \\servidor_produccion\Confidencial_Convenios_Porvenir52_AAAA\procesos\Archivo
+                                Inactivo\aaaammdd
+                                se pegan los sticker de cada caja en el formato PRO-F-EXT- 030 Entrega de Cajas Archivo
+                                Inactivo, ubicado en la ruta
+                                \\servidor_produccion\Confidencial_Convenios_Porvenir52_AAAA\procesos\Archivo Inactivo.
+                                Esta
+                                información es remitida al banco vía correo electrónico quienes coordinan la recogida de
+                                las
+                                cajas Versió n: 35 16/07/2022 CONVENIOS AV VILLAS en las instalaciones de Digicom,
+                                notificando
+                                el día y la hora de la recolección de las, en la cual los funcionarios de Iron Mountain
+                                debe
+                                firmar el formato PRO-F-EXT- 030 Entrega de Cajas Archivo Inactivo el cual se firma a
+                                conformidad de la entrega de las cajas
+                            </li>
+                        </ul>
+                    </div>
+            </div>
+            <div class="doc-subsection">
+                6.11 informe diario de inconsistencias
+            </div>
+            <div class="doc-subcontent">
+                <div class="doc-subsection">
+                    6.11.1 generación de informe
+                </div>
+                <div class="doc-subcontent">
+                    <ul>
+                        <li>
+                            <i class="fa-regular fa-circle-check">
+                            </i>
+                            <b>
+                                Responsable:
+                            </b>
+                            Líder de procesos
+                        </li>
+                        <li>
+                            <i class="fa-regular fa-circle-check">
+                            </i>
+                            <b>
+                                Registro:
+                            </b>
+                            No aplica
+                        </li>
+                        <li>
+                            <i class="fa-regular fa-circle-check">
+                            </i>
+                            <b>
+                                Descripción:
+                            </b>
+                            Una vez han sido incluidas todas las inconsistencias y los documentos faltantes de todas las
+                            ciudades y de todos los procesos se procede realizar la unificación de todas las
+                            inconsistencias
+                            presentadas en un solo informe, este informe únicamente se genera a partir del primer día
+                            hábil
+                            del mes hasta la última fecha de recaudo del mes, posterior a ello se procede a realizar las
+                            modificaciones del informe de la manera en la cual el banco lo solicita para ser publicado
+                            en el
+                            sitio seguro, son:  No puede ir caracteres especiales. Versió n: 35 16/07/2022 CONVENIOS AV
+                            VILLAS  Valores sin centavos  Formato CSV  Formato de Fecha DD/MM/AAAAA  Columna de la
+                            oficina debe ir personalizado 000  se asigna formato número de la columna G a la M  sin
+                            decimales En la ruta
+                            \\servidor_produccion\Confidencial_Convenios52_AAAA\Planillas\Reportes\Reporte
+                            Diario\AAAA\MES\,
+                            se encuentra el informe diario de planillas faltantes el cual debe ser incluido al final del
+                            informe, luego de eso se realiza la validación de la información contenida en cada columna
+                            del
+                            informe, se cambia el formato de la columna donde se relaciona la fecha por el personalizado
+                            DD/MM/AAA, se cambia el formato de la columna donde se relaciona la oficina de origen del
+                            documento por el personalizado 000, se asigna formato número de la columna G a la M sin
+                            decimales y se guarda el informe nombrándolo Informeaaaammdd con la fecha de elaboración en
+                            la
+                            ruta \\servidor_produccion\Confidencial_Convenios52_AAAA\envio\AAAMMDD,
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="doc-subsection">
+                6.12 Gestión de los archivos SICALI / CALI
+            </div>
+            <div class="doc-subcontent">
+                <ul>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Responsable:
+                        </b>
+                        Líder de procesos
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Registro:
+                        </b>
+                        No aplica
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-circle-check">
+                        </i>
+                        <b>
+                            Descripción:
+                        </b>
+                        En el servidor remoto perteneciente a la ciudad de Cali, en la ruta
+                        D:\Confidencial_Convenios52_AAAA\imagenes\aaammdd, se encuentran las imágenes de cada
+                        \\servidor_produccion\Confidencial_Convenios52_AAAA\SICALI\SICALI\AAAA\Imagenes\mes\ en una
+                        carpeta
+                        nombrada con la fecha de recaudo; de este mismo servidor remoto de la ruta
+                        D:\Confidencial_Convenios52_AAAA\procesos\planillas\ se toma el índex junto con la planilla de
+                        anulados y la planilla de control de recaudo, estos archivos junto con las imágenes se guardan
+                        en
+                        una sola carpeta y se comprimen en Zip, para ser publicadas en la ruta
+                        \\servidor_produccion\52_Procesos\20220711\archivosGOB\imagenessicali
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="doc-section" data-id="7">
+            7. Inidcadores
+        </div>
+        <div class="doc-content" data-id="7">
+            <p>
+                MEDIDO RESPONSABLE INDICADOR FRECUENCIA POR/MEDIO REVISIÓN Σ Total Informes enviados- Líder de Mensual
+                Director de procesos Informes enviados fuera de tiempo *100 procesos
+                --------------------------------------------- Versió n: 35 16/07/2022 CONVENIOS AV VILLAS Σ Total
+                informes
+                enviados
+            </p>
+        </div>
+        <div class="doc-section" data-id="8">
+            8. Control Del Procedimiento
+        </div>
+        <div class="doc-content" data-id="8">
+            <p>
+                VER. FECHA DE No. ELABORADO REVISADO APROBADO APROBACIÓ MODIFICACIÓNREALIZADA N 32 Líder de Coordinador
+                Líder de Se hace actualización de 30/05/2018 proceso a SGI proceso indicador de gestión 33 Director
+                Líder de
+                Supervisor Se realiza actualización Comercial y 28/11/2018 proceso de Procesos General al procedimiento
+                del
+                SGI 34 Líder de Analista del Coordinador Se realiza actualización 09/11/2019 proceso SGI de Procesos
+                General
+                al procedimiento 35 Líder de Coordinador Líder de Se realiza actualización 16/07/2022 proceso del SGI
+                Procesos General al procedimiento Versió n: 35 16/07/2022
+            </p>
+        </div>
+</div>
+<!-- Botón para abrir el modal -->
+<button class="btn btn-outline-primary" id="openModalBtn" style="margin-top: 20px;">Editar Secciones</button>
+<!-- El Modal -->
+<div class="modal" id="sectionModal">
+    <div class="modal-content">
+        <span class="close-button">×</span>
+        <h2>Selecciona y Edita una Sección</h2>
+        <label for="sectionSelector">Sección:</label>
+        <select id="sectionSelector">
+            <option value="">-- Selecciona una sección --</option>
+        </select>
+        <label for="sectionContent">Contenido:</label>
+        <textarea id="sectionContent" placeholder="El contenido de la sección aparecerá aquí..."></textarea>
+        <label for="sectionCambio">Descripcion del Cambio:</label>
+        <textarea id="sectionCambio" placeholder="Describe en palabras cortas el cambio realizado..."
+            required></textarea>
+        <button class="btn btn-outline-primary" id="saveChangesBtn" style="margin-top: 15px;">Guardar Cambios</button>
+    </div>
+</div>
+<script src="{{ url_for('static', filename='js/jquery.min.js')}}"></script>
+<script src="{{ url_for('static', filename='js/acordeon_doc.js')}}"></script>
+<script src="{{ url_for('static', filename='js/edita_procedimiento.js')}}"></script>
+
+{% endblock %}
