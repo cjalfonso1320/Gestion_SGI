@@ -1,0 +1,42 @@
+<h3>Evaluacion - {{ intento.nombre_estudiante }}</h3>
+<form action="{{ url_for('aula.validar_intento', intento_id=intento.id) }}" method="post">
+    {% for r in intento.respuestas %}
+    <div class="pregunta-grid">
+        <div class="col-pregunta">
+            <p><strong>Pregunta: </strong>{{ r.pregunta }}</p>
+        </div>
+        <div class="col-respuesta">
+            <p><strong>Respuesta: </strong>{{ r.respuesta_texto }}</p>
+            {% if r.tipo != 'texto' %}
+            {% if r.es_correcta == 1 %}
+            <blockquote style="color: green;">
+                Correcta
+            </blockquote>
+            {% else %}
+            <blockquote style="color: red;">
+                Incorrecta
+            </blockquote>
+            {% endif %}
+            {% endif %}
+        </div>
+
+
+
+        {% if r.tipo == 'texto' %}
+        <div class="col-opciones">
+            <label for="" style="color: green;">
+                <input type="radio" name="correcta_{{ r.respuesta_id }}" value="1" required>
+                Correcta
+            </label>
+            <label for="" style="color: red;">
+                <input type="radio" name="correcta_{{ r.respuesta_id}}" value="0">
+                Incorrecta
+            </label>
+        </div>
+        {% else %}
+        {% endif %}
+        <input type="hidden" name="respuesta_{{ r.respuesta_id }}" value="1">
+    </div>
+    {% endfor %}
+    <button type="submit" class="btn-submit"> Validar y recalcular</button>
+</form>

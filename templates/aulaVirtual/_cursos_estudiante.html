@@ -1,0 +1,30 @@
+{% extends 'aulaVirtual/estudiante.html' %}
+{% block title %}Aula Virtual{% endblock %}
+{% block content %}
+
+<div class="welcome-section">
+    <h2>¡Bienvenido al Aula Virtual de Digicom System Corporation!</h2>
+    <p>Selecciona una opción del menú para comenzar a gestionar tus cursos.</p>
+
+    <div class="feature-grid">
+        <table>
+            <tr>
+                <th>Curso</th>
+                <th>Fecha Limite</th>
+                <th>Acciones</th>
+            </tr>
+            {% for curso in cursos %}
+                {% if curso.estado == 'Abierto' %}
+                <tr>
+                    <td>{{ curso.nombre }}</td>
+                    <td>{{ curso.fecha_limite }}</td>
+                    <td>
+                        <a href="{{ url_for('aula.curso', curso_id=curso.id) }}" class="btn btn-primary">Ingresar</a>
+                    </td>
+                </tr>
+                {% endif %}
+            {% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -471,8 +471,7 @@ def indicadores():
             'porcentajes_administrativo_SGI_Producto_No_Conforme': porcentajes_administrativo_SGI_Producto_No_Conforme,
             'meses_administrativo_SGI_Riesgos': meses_administrativo_SGI_Riesgos,
             'porcentajes_administrativo_SGI_Riesgos': porcentajes_administrativo_SGI_Riesgos,
-                }
-    print(lista_registrosFisicos(rol, 'Nacionales_Agrario_CalidadInformacion'))   
+                } 
     return render_template('indicadores/indicadores.html', **CONTEXTO(), **CONTEXTO_GRAFICA())
 
 @ind_bp.route('/limpiar_rol_seleccionado', methods=['POST'])
@@ -670,7 +669,6 @@ def guardar_TRespuesta_Credito():
                 'proceso': request.form['proceso']
             }
             rol = session.get('selected_rol', current_user.rol)
-            #print(datos)
             guardar_TRespuesta_credito(datos, rol)
             return jsonify({'success': True, 'message': 'Indicador guardado correctamente', 'newData': datos})
         except Exception as e:

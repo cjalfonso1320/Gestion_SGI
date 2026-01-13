@@ -1,0 +1,49 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home_admin.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/form_indicadores.css') }}">
+
+<body class="darkmode">
+
+    <!-- MENU LATERAL -->
+    <nav class="main-menu">
+        <div>
+            <div class="user-info">
+                <p>{{ estudiante.nombre }}</p>
+            </div>
+        </div>
+
+        <ul>
+
+            <li class="nav-item">
+                <a href="{{ url_for('auth.logout') }}">
+                    <i class="fa fa-right-from-bracket nav-icon"></i>
+                    <span class="nav-text">Cerrar Sesion</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <!-- FINALIZA MENU LATERAL -->
+
+    <section class="">
+        <div class="">
+
+            <!-- MENU CENTRAL -->
+            <div class="upcoming-events">
+                <div id="content-container">
+                    <!-- CONTENIDO DINÁMICO -->
+                    <div id="dynamic-content" class="dynamic-content" {% if request.endpoint !='home.home'
+                        %}style="display: block;" {% endif %}>
+                        {% block content %}
+                        <!-- Contenido específico de cada página -->
+                        {% endblock %}
+                    </div>
+                </div>
+            </div>
+            <!-- FINALIZA MENU CENTRAL -->
+        </div>
+
+    </section>
+
+</body>
+
+<script src="{{ url_for('static', filename='js/home_admin.js') }}"></script>

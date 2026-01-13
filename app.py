@@ -15,6 +15,8 @@ from routes.riesgos_routes import mRiesgos_bp
 from routes.control_routes import control_bp
 from routes.procedimientos_routes import proc_bp
 
+from routes.aula_routes import aula_bp
+
 from controllers.procedimientos_controller import cuenta_pendientes, lista_cambios_pendientes, lista_cambios_rechazados, cuenta_rechazados
 from controllers.rol_controller import PROCESOS_ROL, ROL_IMAGES
 
@@ -82,6 +84,9 @@ app.register_blueprint(control_bp)
 
 #procedimeintos
 app.register_blueprint(proc_bp)
+
+#aula virtual
+app.register_blueprint(aula_bp)
 
 
 

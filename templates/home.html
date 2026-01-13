@@ -2,6 +2,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/form_indicadores.css') }}">
 
+
 <body class="darkmode">
 
     <!-- MENU LATERAL -->
@@ -152,6 +153,13 @@
                                         <i class="fa-regular fa-file-lines"></i>
                                         <h3>Control</h3>
                                         <p>Accede a las funciones de control</p>
+                                    </div>
+                                </a>
+                                <a href="{{ url_for('aula.aulaAdmin') }}" style="text-decoration: none;">
+                                    <div class="feature-card">
+                                        <i class="fa-regular fa-file-lines"></i>
+                                        <h3>Aula Virtual</h3>
+                                        <p>Accede a las funciones de Aula Virtual</p>
                                     </div>
                                 </a>
                                 {% endif %}

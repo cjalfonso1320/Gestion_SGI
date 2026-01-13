@@ -1,0 +1,124 @@
+<h1>crea curso</h1>{% extends 'home.html' %}
+{% block title %}Gestion de Cursos{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/modal.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/form_indicadores.css') }}">
+
+<div class="welcome-section">
+    <button onclick="location.href='{{ url_for('aula.gestionar_cursos') }}'">Volver a Gestionar Cursos</button>
+
+    <div class="form-container">
+        <form action="{{ url_for('aula.crear_curso') }}" method="post" enctype="multipart/form-data">
+            <h2>Crear Nuevo Curso</h2>
+            <label class="form-label" for="nombre">Nombre del Curso:</label>
+            <input class="form-control" type="text" id="nombre" name="nombre" required>
+
+            <label class="form-label" for="descripcion">Descripción:</label>
+            <textarea class="form-control" id="descripcion" name="descripcion" required></textarea>
+
+            <label class="form-label" for="duracion">Cargar Documento</label>
+            <input class="form-control" type="file" id="documento" name="documento" required>
+
+            <label class="form-label" for="duracion">Este curso estara disponible hasta:</label>
+            <input class="form-control" type="date" id="duracion" name="duracion" required>
+
+            <h3>Evaluacion</h3>
+            <div id="cantidadPreguntasdiv">
+                <label class="form-label">Cantidad de Preguntas:</label>
+                <input class="form-control" id="cantidadPreguntas" type="number" min="1" required>
+                <button type="button" onclick="crearPreguntas()">Continuar</button>
+            </div>
+            <div id="preguntasContainer"></div>
+            <button type="submit">Guardar Curso</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    function crearPreguntas() {
+        const cantidad = parseInt(document.getElementById('cantidadPreguntas').value);
+        const container = document.getElementById('preguntasContainer');
+
+        if (!cantidad || cantidad < 1) {
+            alert('Por favor, ingresa una cantidad válida de preguntas.');
+            return;
+        }
+
+        document.getElementById('cantidadPreguntasdiv').style.display = 'none';
+        container.innerHTML = '';
+
+        for (let i = 1; i <= cantidad; i++) {
+            container.innerHTML += `
+                <div class="pregunta">
+                    <h4>Pregunta ${i}</h4>
+                    <label class="form-label">Tipo de Respuesta:</label>
+                    <select class="form-control" name="tipo_pregunta_${i}" onchange="cambiarTipo(this, ${i})" required>
+                        <option value="" selected disabled>Seleccione tipo</option>
+                        <option value="opcion_multiple">Opción Múltiple</option>
+                        <option value="vf">Verdadero/Falso</option>
+                        <option value="texto">Respuesta Abierta</option>
+                    </select>
+                    <div id="tipo_${i}"></div>
+                </div>`;
+        }
+    }
+    function cambiarTipo(select, i) {
+        const div = document.getElementById(`tipo_${i}`);
+        const tipo = select.value;
+        div.innerHTML = '';
+
+        if (tipo === 'opcion_multiple') {
+            div.innerHTML = `
+                <label class="form-label">Pregunta:</label>
+                <input class="form-control" type="text" name="preguntas[${i}][pregunta]" required>
+
+                <label class="form-label">Opciones:</label>
+                <div class="opcion">
+                    <input type="radio" name="preguntas[${i}][correcta]" value="A" required>
+                    <input class="form-control"
+                        name="preguntas[${i}][opciones][]" placeholder="Opción A" required>
+                </div>
+
+                <div class="opcion">
+                    <input type="radio" name="preguntas[${i}][correcta]" value="B">
+                    <input class="form-control"
+                        name="preguntas[${i}][opciones][]" placeholder="Opción B" required>
+                </div>
+
+                <div class="opcion">
+                    <input type="radio" name="preguntas[${i}][correcta]" value="C">
+                    <input class="form-control"
+                        name="preguntas[${i}][opciones][]" placeholder="Opción C">
+                </div>
+
+                <div class="opcion">
+                    <input type="radio" name="preguntas[${i}][correcta]" value="D">
+                    <input class="form-control"
+                        name="preguntas[${i}][opciones][]" placeholder="Opción D">
+                </div>
+                `;
+        }
+        if (tipo === 'vf') {
+            div.innerHTML = `
+            <label>Pregunta</label>
+            <input class="form-control" name="preguntas[${i}][pregunta]" required>
+
+            <label>Respuesta</label>
+            <select name="preguntas[${i}][respuesta]" required>
+                <option value="V">Verdadero</option>
+                <option value="F">Falso</option>
+            </select>
+        `;
+        }
+        if (tipo === 'texto') {
+            div.innerHTML = `
+            <label>Pregunta</label>
+            <input class="form-control" name="preguntas[${i}][pregunta]" required>
+
+            <label>Respuesta correcta</label>
+            <textarea class="form-control" name="preguntas[${i}][respuesta]" required></textarea>
+        `;
+        }
+    }
+</script>
+{% endblock %}

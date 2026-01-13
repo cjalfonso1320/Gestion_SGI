@@ -1,0 +1,43 @@
+{% extends 'aulaVirtual/estudiante.html' %}
+{% block title %}Aula Virtual - Curso {{ curso.nombre }}{% endblock %}
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/curso.css') }}">
+<div class="welcome-section">
+    <h2>Esta realizando el curso: {{ curso.nombre }}</h2>
+    <p>{{ curso.descripcion }}</p>
+
+    <div class="material-box">
+        <h3>Material de apoyo</h3>
+        <div class="pdf-container" id="pdfContainer">
+            <iframe src="{{ url_for('static', filename=curso.archivo)}}" id="pdfFrame" frameborder="0"></iframe>
+        </div>
+        <p id="mensajeLectura" class="mensaje">
+            Debe leer el material completo antes de continuar con la evaluación.
+        </p>
+
+        <button id="btnEvaluacion" class="btn-evaluacion" disabled>Presentar Evaluacion</button>
+    </div>
+</div>
+
+<script>
+    const container = document.getElementById('pdfContainer');
+    const btn = document.getElementById('btnEvaluacion');
+    const msg = document.getElementById('mensajeLectura');
+
+    container.addEventListener('scroll', () => {
+        const scrollTop = container.scrollTop;
+        const scrollHeight = container.scrollHeight;
+        const clientHeight = container.clientHeight;
+
+        if (scrollTop + clientHeight >= scrollHeight - 10) {
+            btn.disabled = false;
+            msg.textContent = "Ha leído el material completo. Ahora puede continuar con la evaluación.";
+        }
+    });
+
+    btn.addEventListener('click', () => {
+        window.location.href = "{{ url_for('aula.presentar_evaluacion', curso_id=curso.id) }}";
+    });
+</script>
+{% endblock %}

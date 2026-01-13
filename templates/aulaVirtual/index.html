@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/reg_aula.css') }}">
+</head>
+
+<body>
+    <div class="background">
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+    <svg width="100%" height="120" viewBox="0 0 1200 120" preserveAspectRatio="xMidYMin meet"
+        style="position: absolute; top: 20px; left: 0; z-index: 10;">
+        <defs>
+            <!-- Curva más amplia y suave para texto largo -->
+            <path id="arc-path" d="M50,60 Q600,0 1150,60" fill="none" stroke="none" />
+        </defs>
+        <text font-family="Poppins, sans-serif" font-size="22" fill="#23a2f6" text-anchor="middle">
+            <textPath href="#arc-path" startOffset="50%" textLength="1100" lengthAdjust="spacingAndGlyphs">
+                Aula Virtual - DIGICOM SYSTEM CORPORATION S.A
+            </textPath>
+        </text>
+    </svg>
+
+    <form method="POST" action="{{ url_for('aula.aula') }}">
+    <h3>Ingresa tus Datos</h3>
+
+    <div class="form-grid">
+        <div class="form-group">
+            <label>Numero de identificación</label>
+            <input type="text" name="identificacion" placeholder="Identificación">
+        </div>
+
+        <div class="form-group">
+            <label>Nombre Completo</label>
+            <input type="text" name="fullname" placeholder="Nombre Completo">
+        </div>
+
+        <div class="form-group">
+            <label>Ciudad</label>
+            <select name="ciudad">
+                <option>Bogota</option>
+                <option>Medellin</option>
+                <option>Cali</option>
+                <option>Manizales</option>
+                <option>Ibague</option>
+                <option>Cartagena</option>
+                <option>Pereira</option>
+                <option>Barranquilla</option>
+                <option>Bucaramanga</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Cargo</label>
+            <select name="cargo">
+                <option>Coordinador</option>
+                <option>Supervisor</option>
+                <option>Analista</option>
+                <option>Auxiliar</option>
+                <option>Digitador</option>
+                <option>Servicios Generales</option>
+            </select>
+        </div>
+
+        <div class="form-group full">
+            <label>Proceso</label>
+            <input type="text" name="proceso"
+                placeholder="Ej: Nacionales Bancolombia">
+        </div>
+    </div>
+
+    <button type="submit">Ingresa al Aula Virtual</button>
+
+</form>
+
+</body>
+
+</html>

@@ -1,0 +1,68 @@
+{% extends 'home.html' %}
+{% block title %}Resultados de Cursos{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/modal_curso.css') }}">
+
+<h2>Resultados de Evaluaciones</h2>
+<table>
+    <tr>
+        <th>Curso</th>
+        <th>Estudiante</th>
+        <th>Cargo</th>
+        <th>Ciudad</th>
+        <th>Proceso</th>
+        <th>Nota</th>
+        <th>Fecha</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+    </tr>
+
+    {% for r in resultados %}
+    <tr>
+        <td>{{ r.curso }}</td>
+        <td>{{ r.nombre_estudiante }}</td>
+        <td>{{ r.cargo }}</td>
+        <td>{{ r.ciudad }}</td>
+        <td>{{ r.proceso }}</td>
+        <td>
+            <span class="{{ 'aprobado' if r.nota >= 70 else 'reprobado' }}">
+                {{ r.nota }}% {% if r.nota >= 70 %} Aprobado {% else %} Reprobado {% endif %}
+            </span>
+        </td>
+        <td>{{ r.fecha_presentacion }}</td>
+        <td>{{ r.estado }}</td>
+        <td>
+            <button type="button" class="btn-ver" onclick="revisarIntento({{ r.intento_id }})">
+                Revisar
+            </button>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% if resultados|length == 0 %}
+<p>No hay resultados registrados.</p>
+{% endif %}
+<div id="modalRevision" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <span class="close" onclick="cerrarModal()">&times;</span>
+        </div>
+        <div class="modal-body" id="contenidoRevision"></div>
+    </div>
+</div>
+<script>
+    function revisarIntento(intentoId) {
+        const url = "{{ url_for('aula.revisar_intento', intento_id=0) }}".replace('0', intentoId);
+        fetch(url)
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('contenidoRevision').innerHTML = html;
+                document.getElementById('modalRevision').style.display = 'flex';
+            });
+    }
+    function cerrarModal() {
+        document.getElementById('modalRevision').style.display = 'none';
+    }
+</script>
+{% endblock %}

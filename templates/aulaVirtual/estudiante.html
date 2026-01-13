@@ -1,0 +1,29 @@
+{% extends 'home_aula.html' %}
+{% block title %}Aula Virtual{% endblock %}
+{% block content %}
+
+<div class="welcome-section">
+    <h2>¡Bienvenido al Aula Virtual de Digicom System Corporation!</h2>
+    <p>Selecciona una opción del menú para comenzar a gestionar tus cursos.</p>
+
+    <div class="feature-grid">
+        <a href="{{ url_for('aula.cursos_abiertos') }}" class="feature-card" style="cursor: pointer; text-decoration: none !important;">
+            <i class="fa-regular fa-file-lines"></i>
+            <h3>Cursos</h3>
+            <p>Crear, Cargar y eliminar cursos</p>
+        </a>
+
+
+        <div class="feature-card" style="cursor: pointer;">
+            <i class="fa-solid fa-chart-line"></i>
+            <h3>Resultados</h3>
+            <p>Visualiza y analiza los resultados de los estudiantes</p>
+        </div>
+        <div class="feature-card" style="cursor: pointer;">
+            <i class="fa-solid fa-arrows-up-to-line"></i>
+            <h3>Certificados</h3>
+            <p>Crea e imprime certificados</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

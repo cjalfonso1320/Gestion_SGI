@@ -1,0 +1,64 @@
+{% extends 'home.html' %}
+{% block title %}Gestion de Cursos{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/modal_curso.css') }}">
+
+<div class="welcome-section">
+    <button onclick="location.href='{{ url_for('aula.crear_curso') }}'">Crear Curso</button>
+
+    <div class="feature-grid">
+
+        <table>
+            <tr>
+                <th>Nombre del Curso</th>
+                <th>Descripción</th>
+                <th>Fecha Limite</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+            {% for curso in cursos %}
+            <tr>
+                <td>{{ curso.nombre }}</td>
+                <td>{{ curso.descripcion }}</td>
+                <td>{{ curso.fecha_limite }}</td>
+                <td>{{ curso.estado }}</td>
+                <td class="acciones">
+                    <button type="button" class="btn-ver" onclick="verEvaluacion({{ curso.id }})">Ver</button>
+                    <form action="{{ url_for('aula.eliminar_curso', curso_id=curso.id)}}" method="post"
+                        class="form-eliminar"
+                        onsubmit="return confirm('Seguro que desea eliminar este curso y todo su contenido?');">
+                        <button type="submit" class="btn-eliminar">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+<div id="modalEvaluacion" class="modal">
+
+    <div class="modal-content">
+        <span class="close" onclick="cerrarModal()">&times;</span>
+        <div id="contenidoEvaluacion"></div>
+    </div>
+</div>
+<script>
+    function verEvaluacion(cursoId) {
+        fetch(`{{ url_for('aula.ver_evaluacion', curso_id=0) }}`.replace('0', cursoId))
+            .then(response => response.text())
+            .then(data => {
+                console.log(data);
+                document.getElementById('contenidoEvaluacion').innerHTML = data;
+                document.getElementById('modalEvaluacion').style.display = 'block';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error al cargar la evaluación.');
+            });
+
+    }
+    function cerrarModal() {
+        document.getElementById('modalEvaluacion').style.display = 'none';
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends 'aulaVirtual/estudiante.html' %}
+{% block title %}Aula Virtual{% endblock %}
+{% block content %}
+<style>
+    .opciones-horizontal {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-top: 10px;
+    }
+    .opcion-radio {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        background: rgba(255,255,255,0.08);
+        padding: 6px 10px;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+    .opcion-radio input[type="radio"] {
+        cursor: pointer;
+        margin: 0;
+    }
+    .opcion-radio input[type="radio"]:checked + span {
+        font-weight: 600;
+        color: #2ecc71;
+    }
+</style>
+<div class="welcome-section">
+    <h2>¡Bienvenido al Aula Virtual de Digicom System Corporation!</h2>
+    <p>{{ evaluacion.titulo }}</p>
+
+    <div class="feature-grid">
+        <form action="{{ url_for('aula.presentar_evaluacion', curso_id=curso_id) }}" method="post">
+            {% for pregunta in evaluacion.preguntas %}
+                <div class="question-block">
+                    <h3>{{ loop.index }}. {{ pregunta.pregunta }}</h3>
+                    {% if pregunta.tipo == 'opcion_multiple' %}
+                        <div class="opciones-horizontal">
+                            {% for opcion in pregunta.opciones %}
+                                <label class="opcion-radio">
+                                    <input type="radio" name="pregunta_{{ pregunta.id }}" value="{{ opcion.texto }}" required>
+                                    {{ opcion.texto }}
+                                </label>
+                        {% endfor %}
+                        </div>
+                    {% elif pregunta.tipo == 'vf' %}
+                        <select class="form-control" name="pregunta_{{ pregunta.id }}" id="" required>
+                            <option value="V">Verdadero</option>
+                            <option value="F">Falso</option>
+                        </select>
+                    {% elif pregunta.tipo == 'texto' %}
+                        <textarea class="form-control" name="pregunta_{{ pregunta.id }}" class="long-answer" required></textarea>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            <button type="submit" class="btn-submit">Enviar Evaluación</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

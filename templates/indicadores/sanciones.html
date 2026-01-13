@@ -251,46 +251,39 @@
 
 
 <script>
-    // Usamos 'let' en lugar de 'const' y un IIFE (Immediately Invoked Function Expression)
-    // para crear un nuevo ámbito para nuestras variables y evitar errores de redeclaración.
-    (function () {
-        // 1. El nombre de la variable del contexto también es dinámico ahora.
-        let canvasId = 'grafica_sanciones{{ tipo_sancion }}';
-        let chartVarName = 'grafica_sanciones{{ tipo_sancion }}';
+(function () {
+    let canvasId = 'grafica_sanciones{{ tipo_sancion }}';
+    let chartVarName = 'grafica_sanciones{{ tipo_sancion }}';
 
-        let canvasElement = document.getElementById(canvasId);
+    let canvasElement = document.getElementById(canvasId);
+    if (!canvasElement) {
+        console.error('Canvas no encontrado:', canvasId);
+        return;
+    }
 
-        // Verificamos si el canvas existe antes de continuar
-        if (canvasElement) {
-            let ctx = canvasElement.getContext('2d');
+    let ctx = canvasElement.getContext('2d');
 
-            // 2. Creamos la gráfica en el objeto 'window' usando el nombre dinámico.
-            window[chartVarName] = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: {{ meses_sanciones|default([]) | tojson | safe }}
-    },
-    datasets: [{
-        label: 'Multa por mes', // Etiqueta más genérica
-        data: {{ multas_sanciones|default ([]) | tojson | safe }},
-        borderColor: 'rgba(255, 99, 132, 1)',
-        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-        fill: true,
-        tension: 0.3
-                    }]
-                },
-    options: {
-        scales: {
-            y: {
-                beginAtZero: true
-                // Es mejor no fijar un 'max' a menos que sea necesario,
-                // Chart.js lo calculará automáticamente.
+    window[chartVarName] = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: {{ meses_sanciones | default([]) | tojson | safe }},
+            datasets: [{
+                label: 'Multa por mes',
+                data: {{ multas_sanciones | default([]) | tojson | safe }},
+                borderColor: 'rgba(255, 99, 132, 1)',
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                fill: true,
+                tension: 0.3
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
             }
         }
-    }
-            });
-        } else {
-        console.error('No se pudo encontrar el elemento canvas con id:', canvasId);
-    }
-    }) ();
+    });
+})();
 </script>
