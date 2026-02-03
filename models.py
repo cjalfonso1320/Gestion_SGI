@@ -33,23 +33,11 @@ class Usuarios(UserMixin):
     
     def verifica_contrasena(self, contrasena):
         return check_password_hash(self.password_hash, contrasena)
+    def get_id(self):
+        return f"sgi-{self.id}"
     
 def obtener_roles():
     cur = mysql.connection.cursor()
     cur.execute("SELECT id, rol FROM rol")
     roles = cur.fetchall()
     return roles
-
-# class Rutas:
-#     def __init__(self, id, nombre, descripcion):
-#         self.id = id
-#         self.nombre = nombre
-#         self.descripcion = descripcion
-
-#     @staticmethod
-#     def obtener_todas():
-#         cur = mysql.connection.cursor()
-#         cur.execute("SELECT id, nombre, descripcion FROM rutas")
-#         rutas = cur.fetchall()
-#         cur.close()
-#         return [Rutas(id=row[0], nombre=row[1], descripcion=row[2]) for row in rutas]

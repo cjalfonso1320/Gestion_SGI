@@ -1,0 +1,564 @@
+{% extends 'rrhh/home_rrhh.html' %}
+{% block title %}Empleados{% endblock %}
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/tabla_lista.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/modal_empleado.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/botones_accion.css') }}">
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+
+<button class="accordion-header" onclick="abrirModalEmpleado()">Nuevo Empleado <i
+        class="fa-regular fa-square-plus"></i></button>
+
+<div class="modal-overlay" id="modalEmpleado">
+    <div class="modal-container modal-xl">
+        <div class="modal-header">
+            <h2>Nuevo Empleado</h2>
+            <button class="btn-close" onclick="cerrarModalEmpleado()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form id="form_Empleado" enctype="multipart/form-data">
+                <!-- ========DATOS PERSONALES============ -->
+                <div class="wizard-step active">
+                    <h3>Datos Personales</h3>
+                    <div class="form-grid-container">
+                        <div class="form-field">
+                            <label class="form-label" for="identificacion">N° Identificacion</label>
+                            <input class="form-control" type="text" id="identificacion" name="identificacion" required>
+                        </div>
+                        <div class="form-field">
+                            <label class="form-label" for="nombres">Nombres</label>
+                            <input class="form-control" type="text" id="nombres" name="nombres" required>
+                        </div>
+                        <div class="form-field">
+                            <label class="form-label" for="apellidos">Apellidos</label>
+                            <input class="form-control" type="text" id="apellidos" name="apellidos" required>
+                        </div>
+
+                        <!-- Fila 2 -->
+                        <div class="form-field">
+                            <label class="form-label" for="cedula_expedida_en">Cedula Expedida en</label>
+                            <input class="form-control" type="text" id="cedula_expedida_en" name="cedula_expedida_en"
+                                required>
+                        </div>
+                        <div class="form-field">
+                            <label class="form-label" for="sexo">Sexo</label>
+                            <select id="sexo" name="sexo" required>
+                                <option value="">Seleccione uno...</option>
+                                <option value="M">M</option>
+                                <option value="F">F</option>
+                            </select>
+                        </div>
+                        <div class="form-field">
+                            <label class="form-label" for="fecha_nacimiento">Fecha de Nacimiento</label>
+                            <input class="form-control" type="date" name="fecha_nacimiento" id="fecha_nacimiento"
+                                required>
+                        </div>
+
+                        <!-- Fila 3 (Campos de ancho completo) -->
+                        <div class="form-field">
+                            <label class="form-label" for="lugar_nacimiento">Lugar de Nacimiento</label>
+                            <input class="form-control" type="text" id="lugar_nacimiento" name="lugar_nacimiento"
+                                required>
+                        </div>
+                        <div class="form-field">
+                            <label class="form-label" for="edad">Edad</label>
+                            <input class="form-control" type="number" id="edad" name="edad" readonly>
+                        </div>
+                        <div class="form-field">
+                            <label class="form-label" for="estado_civil">Estado Civil</label>
+                            <select name="estado_civil_id" id="estado_civil_id" required>
+                                <option value="">Seleccione uno...</option>
+                                {% for estado in estadoCivil %}
+                                <option value="{{estado.id}}">{{estado.nombre}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-field">
+                            <label class="form-label" for="grupo_sanguineo">Grupo Sanguineo RH</label>
+                            <select name="grupo_sanguineo_id" id="grupo_sanguineo_id" required>
+                                <option value="">Seleccione uno...</option>
+                                {% for grupo in grupoSanguineo %}
+                                <option value="{{grupo.id}}">{{grupo.tipo}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-field">
+                            <label class="form-label" for="numero_hijos">Numero de Hijo</label>
+                            <input class="form-control" type="number" id="numero_hijos" name="numero_hijos" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ========CONTACTO============ -->
+                <div class="wizard-step">
+                    <h3>Contacto</h3>
+                    <div class="form-grid-container">
+                        <div class="form-field">
+                            <label class="form-label" for="direccion">Direccion</label>
+                            <input class="form-control" type="text" id="direccion" name="direccion" required>
+                        </div>
+
+                        <!-- Fila 5 -->
+                        <div class="form-field">
+                            <label class="form-label" for="barrio">Ciudad o Municipio de Residencia</label>
+                            <select name="barrio" id="barrio" class="select2_barrio" required>
+                                <option value="">Seleccione uno...</option>
+                                {% for ciudad in ciudadS %}
+                                <option value="{{ciudad.id}}">{{ciudad.nombre}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-field localidad" id="localidad">
+                            <label class="form-label" for="localidad">Localidad</label>
+                            <input class="form-control" type="text" id="localidad_id" name="localidad">
+                        </div>
+                        <div class="form-field">
+                            <label class="form-label" for="estrato">Estrato</label>
+                            <select name="estrato" id="estrato" required>
+                                <option value="">Seleccione uno...</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                            </select>
+                        </div>
+
+                        <!-- Fila 6 -->
+                        <div class="form-field">
+                            <label class="form-label" for="telefono_fijo">Telefono Fijo</label>
+                            <input class="form-control" type="number" id="telefono_fijo" name="telefono_fijo">
+                        </div>
+                        <div class="form-field">
+                            <label class="form-label" for="celular">Celular</label>
+                            <input class="form-control" type="number" id="celular" name="celular" required>
+                        </div>
+                        <div class="form-field">
+                            <label class="form-label" for="correo">Correo</label>
+                            <input class="form-control" type="email" id="correo" name="correo" required>
+                        </div>
+
+
+                        <!-- Fila 7 -->
+                        <div class="form-field">
+                            <label class="form-label" for="contacto_emergencia">Contacto de Emergencia</label>
+                            <input class="form-control" type="text" id="contacto_emergencia" name="contacto_emergencia"
+                                required>
+                        </div>
+                        <div class="form-field">
+                            <label class="form-label" for="telefono_emergencia">Telefono de Emergencia</label>
+                            <input class="form-control" type="number" id="telefono_emergencia"
+                                name="telefono_emergencia" required>
+                        </div>
+                        <div class="form-field">
+                            <label class="form-label" for="parentesco">Parentesco</label>
+                            <input class="form-control" type="text" id="parentesco" name="parentesco" required>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- ========SEGURIDAD SOCIAL============ -->
+                <div class="wizard-step">
+                    <h3>Seguridad Social</h3>
+                    <div class="form-grid-container">
+                        <div class="form-field">
+                            <label class="form-label" for="eps">EPS</label>
+                            <select name="eps_id" id="eps_id" required>
+                                <option value="">Seleccione uno...</option>
+                                {% for eps in epsS %}
+                                <option value="{{eps.id}}">{{eps.nombre}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-field">
+                            <label class="form-label" for="afp">AFP</label>
+                            <select name="afp_id" id="afp_id" required>
+                                <option value="">Seleccione uno...</option>
+                                {% for afp in afpS %}
+                                <option value="{{afp.id}}">{{afp.nombre}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-field">
+                            <label class="form-label" for="cesantias">Cesantias</label>
+                            <select name="cesantias_id" id="cesantias_id" required>
+                                <option value="">Seleccione uno...</option>
+                                {% for cesantia in cesantiasS %}
+                                <option value="{{cesantia.id}}">{{cesantia.nombre}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-field">
+                            <label class="form-label" for="ccf">CCF</label>
+                            <select name="ccf_id" id="ccf_id" required>
+                                <option value="">Seleccione uno...</option>
+                                {% for ccf in ccfS %}
+                                <option value="{{ccf.id}}">{{ccf.nombre}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-field">
+                            <label class="form-label" for="arl">ARL</label>
+                            <select name="arl_id" id="arl_id" required>
+                                <option value="">Seleccione uno...</option>
+                                {% for arl in arlS %}
+                                <option value="{{arl.id}}">{{arl.nombre}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ========INFORMACION LABORAL============ -->
+                <div class="wizard-step">
+                    <h3>Informacion Laboral</h3>
+                    <div class="form-grid-container">
+                        <div class="form-field">
+                            <label class="form-label" for="tipo_contrato">Tipo de Contrato</label>
+                            <select name="tipo_contrato_id" id="tipo_contrato_id" required>
+                                <option value="">Seleccione uno...</option>
+                                {% for tipo_contrato in tipoContrato %}
+                                <option value="{{tipo_contrato.id}}">{{tipo_contrato.nombre}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-field">
+                            <label class="form-label" for="cargo">cargo</label>
+                            <select name="cargo_id" id="cargo_id" required>
+                                <option value="">Seleccione uno...</option>
+                                {% for cargo in cargoS %}
+                                <option value="{{cargo.id}}">{{cargo.nombre}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-field">
+                            <label class="form-label" for="jornada">Jornada</label>
+                            <select name="jornada" id="jornada" required>
+                                <option value="">Seleccione uno...</option>
+                                <option value="DIURNO">DIURNO</option>
+                                <option value="TARDE">TARDE</option>
+                                <option value="NOCTURNO">NOCTURNO</option>
+                            </select>
+                        </div>
+                        <div class="form-field">
+                            <label class="form-label" for="sede">Sede</label>
+                            <select name="sede" id="sede" required>
+                                <option value="">Seleccione uno...</option>
+                                {% for sede in sedeS %}
+                                <option value="{{sede.id}}">{{sede.nombre}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-field">
+                            <label class="form-label" for="fecha_ingreso_antigua">Fecha de Ingreso</label>
+                            <input class="form-control" type="date" name="fecha_ingreso_antigua"
+                                id="fecha_ingreso_antigua" required>
+                        </div>
+                        <div class="form-field">
+                            <label class="form-label" for="antiguedad">Antiguedad</label>
+                            <input class="form-control" type="number" name="antiguedad" id="antiguedad" required>
+                        </div>
+                        <div class="form-field">
+                            <label class="form-label" for="salario_basico">Salario Basico</label>
+                            <input class="form-control" type="text" name="salario_basico" id="salario_basico" required>
+                        </div>
+                        <div class="form-field">
+                            <label class="form-label" for="factor_no_salarial">Factor No Salarial</label>
+                            <input class="form-control" type="text" name="factor_no_salarial" id="factor_no_salarial"
+                                required>
+                        </div>
+                        <div class="form-field">
+                            <label class="form-label" for="numero_cuenta">N° Cuenta</label>
+                            <input class="form-control" type="number" name="numero_cuenta" id="numero_cuenta" required>
+                        </div>
+                        <div class="form-field">
+                            <label class="form-label" for="banco">Banco</label>
+                            <select name="banco" id="banco" required>
+                                <option value="">Seleccione uno...</option>
+                                {% for banco in bancoS %}
+                                <option value="{{banco.id}}">{{banco.nombre}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-field">
+                            <label class="form-label" for="banco">Grupo de Nomina</label>
+                            <select name="grupo_nomina_id" id="grupo_nomina_id" required>
+                                <option value="">Seleccione uno...</option>
+                                {% for nomina in nominaS %}
+                                <option value="{{nomina.id}}">{{nomina.nombre}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ========INFORMACION EDUCATIVA============ -->
+                <div class="wizard-step">
+                    <h3>Informacion Educativa</h3>
+                    <div class="form-grid-container">
+                        <div class="form-field">
+                            <label class="form-label" for="nivel_escolaridad">Nivel Escolaridad</label>
+                            <select name="nivel_escolaridad_id" id="nivel_escolaridad_id" required>
+                                <option value="">Seleccione uno...</option>
+                                {% for nivel in nivelEscolaridad %}
+                                <option value="{{nivel.id}}">{{nivel.nombre}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-field">
+                            <label class="form-label" for="programa_academico">Programa Academico</label>
+                            <input class="form-control" type="text" name="programa_academico" id="programa_academico"
+                                required>
+                        </div>
+                        <div class="form-field">
+                            <label class="form-label" for="estudia_actualmente">Estudia Actualmente</label>
+                            <select name="estudia_actualmente" id="estudia_actualmente" required>
+                                <option value="">Seleccione uno...</option>
+                                <option value="SI">SI</option>
+                                <option value="NO">NO</option>
+                            </select>
+                        </div>
+
+                        <div class="form-field estudio_actual" id="estudio_actual">
+                            <label class="form-label" for="nombre_programa_actual">Nombre del Programa Actual</label>
+                            <input class="form-control" type="text" name="nombre_programa_actual"
+                                id="nombre_programa_actual">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===========DOCUMENTACION======== -->
+                <div class="wizard-step">
+                    <h3>Documentacion</h3>
+                    <div class="">
+                        <div class="">
+                            <label for="Cedula" class="form-label">Cedula</label>
+                            <input class="form-control" type="file" name="cedula" id="cedula">
+
+                            <label for="foto" class="form-label">Foto</label>
+                            <input class="form-control" type="file" name="foto" id="foto">
+
+                            <label class="form-label" for="documentos_estudio">Documentos de Estudio</label>
+                            <input type="file" name="documentos_estudio[]" class="form-control" multiple
+                                accept=".pdf,.jpg,.jpeg,.png,.tiff">
+                            <small class="text-muted">Puedes Seleccionar varios archivos</small>
+                            <ul id="listaDocumentos" class="lista-documentos"></ul>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- =======FOOTER======= -->
+                <div class="wizard-footer acciones">
+                    <button type="button" class="btn-accion-modal btn-prev" onclick="prevStep()"><i
+                            class="fa-solid fa-left-long"></i></button>
+                    <button type="button" class="btn-accion-modal btn-next" id="btnSiguiente" onclick="nextStep()"><i
+                            class="fa-solid fa-right-long"></i></button>
+                    <button type="submit" class="btn-accion-modal btn-guardar" id="btnGuardar"
+                        style="display: none;">Guardar Empleado</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<table class="tabla-expandible">
+    <thead>
+        <tr>
+            <th>Identificacion</th>
+            <th>Apellidos y Nombres</th>
+            <th>Correo</th>
+            <th>Cargo</th>
+            <th>Tipo de Contrato</th>
+            <th>Documentacion</th>
+        </tr>
+    </thead>
+    <tbody id="tabla_lista_empleados_body">
+        {% for dato in empleados_list %}
+        <!-- Fila Principal Visible -->
+        {% if dato.activo == 1 %}
+        <tr class="fila-principal" data-id="{{ dato.id }}">
+            <td data-column="identificacion">{{ dato.identificacion }}</td> <!-- tipo_documento -->
+            <td data-column="nombres_y_apellidos">{{ dato.apellidos }} {{ dato.nombres }}</td> <!-- consecutivo -->
+            <td data-column="correo">{{ dato.correo }}</td> <!-- version -->
+            <td data-column="cargo">{{ dato.cargos }}</td> <!-- nombre_documento -->
+            <td data-column="tipo_contrato">{{ dato.tipo_contrato }}</td> <!-- fecha_ultima_revision -->
+            <td class="acciones">
+                <button type="button" class="btn-accion btn-foto btn-preview"
+                    data-url="{{ dato.cedula_path | replace('\\', '/') }}" data-tipo="cedula"><i
+                        class="fa-regular fa-id-card"></i></button>
+                <button type="button" class="btn-accion btn-foto btn-preview"
+                    data-url="{{ dato.foto_path | replace('\\', '/') }}" data-tipo="foto"><i
+                        class="fa-solid fa-image-portrait"></i></button>
+                <button type="button" class="btn-accion btn-editar" data-id="{{ dato.id }}"><i
+                        class="fa-solid fa-user-pen"></i></button>
+                <button type="button" class="btn-accion btn-eliminar" id="btn-eliminar" data-id="{{ dato.id }}"><i
+                        class="fa-solid fa-person-circle-minus"></i></button>
+            </td>
+        </tr>
+        <!-- Fila de Detalles Oculta -->
+        <tr class="fila-detalles">
+            <td colspan="5">
+                <div class="detalles-contenido">
+                    <div class="detalle-item"><strong>Cedula Expedida en:</strong> <span
+                            data-column="cedula_expedida_en">{{ dato.cedula_expedida_en }}</span></div>
+                    <div class="detalle-item"><strong>Sexo:</strong> <span data-column="sexo">{{ dato.sexo }}</span>
+                    </div>
+                    <div class="detalle-item"><strong>Edad:</strong> <span data-column="cargo">{{ dato.edad }}</span>
+                    </div>
+                    <div class="detalle-item"><strong>Fecha de Nacimiento:</strong> <span
+                            data-column="fecha_nacimiento">{{ dato.fecha_nacimiento }}</span></div>
+                    <div class="detalle-item"><strong>Lugar de Nacimiento:</strong> <span
+                            data-column="lugar_nacimiento">{{ dato.lugar_nacimiento }}</span></div>
+                    <div class="detalle-item"><strong>Edad:</strong> <span data-column="edad">{{ dato.edad }}</span>
+                    </div>
+                    <div class="detalle-item"><strong>Estado Civil:</strong> <span data-column="estado_civil_id">{{
+                            dato.estado_civil }}</span></div>
+                    <div class="detalle-item"><strong>Grupo Sanguineo RH:</strong> <span
+                            data-column="grupo_sanguineo_id">{{ dato.grupo_sanguineo }}</span></div>
+                    <div class="detalle-item"><strong>N° Hijos:</strong> <span data-column="numero_hijos">{{
+                            dato.numero_hijos }}</span></div>
+                    <div class="detalle-item"><strong>Direccion:</strong> <span data-column="direccion">{{
+                            dato.direccion }}</span></div>
+                    <div class="detalle-item"><strong>Barrio:</strong> <span data-column="barrio">{{ dato.barrio
+                            }}</span></div>
+                    <div class="detalle-item"><strong>Localidad:</strong> <span data-column="localidad">{{
+                            dato.localidad }}</span></div>
+                    <div class="detalle-item"><strong>Estrato:</strong> <span data-column="estrato">{{ dato.estrato
+                            }}</span></div>
+                    <div class="detalle-item"><strong>Telefono Fijo:</strong> <span data-column="telefono_fijo">{{
+                            dato.telefono_fijo }}</span></div>
+                    <div class="detalle-item"><strong>Celular:</strong> <span data-column="celular">{{ dato.celular
+                            }}</span></div>
+                    <div class="detalle-item"><strong>Contacto de Emergencia:</strong> <span
+                            data-column="contacto_emergencia">{{ dato.contacto_emergencia }}</span></div>
+                    <div class="detalle-item"><strong>Telefono de Emergencia:</strong> <span
+                            data-column="telefono_emergencia">{{ dato.telefono_emergencia }}</span></div>
+                    <div class="detalle-item"><strong>Parentesco:</strong> <span data-column="parentesco">{{
+                            dato.parentesco }}</span></div>
+                    <div class="detalle-item"><strong>EPS:</strong> <span data-column="eps_id">{{ dato.eps }}</span>
+                    </div>
+                    <div class="detalle-item"><strong>AFP:</strong> <span data-column="afp_id">{{ dato.afp }}</span>
+                    </div>
+                    <div class="detalle-item"><strong>Cesantias:</strong> <span data-column="cesantias_id">{{
+                            dato.cesantias }}</span></div>
+                    <div class="detalle-item"><strong>CCF:</strong> <span data-column="ccf_id">{{ dato.ccf }}</span>
+                    </div>
+                    <div class="detalle-item"><strong>ARL:</strong> <span data-column="arl_id">{{ dato.arl }}</span>
+                    </div>
+                    <div class="detalle-item"><strong>Jornada:</strong> <span data-column="jornada">{{ dato.jornada
+                            }}</span></div>
+                    <div class="detalle-item"><strong>Sede:</strong> <span data-column="sede">{{ dato.sedes }}</span>
+                    </div>
+                    <div class="detalle-item"><strong>Tipo de Contrato:</strong> <span data-column="tipo_contrato">{{
+                            dato.tipo_contrato }}</span></div>
+                    <div class="detalle-item"><strong>Antiguedad:</strong> <span data-column="antiguedad">{{
+                            dato.antiguedad }}</span></div>
+                    <div class="detalle-item"><strong>Nivel de Escolaridad:</strong> <span
+                            data-column="nivel_escolaridad_id">{{ dato.nivel_escolaridad }}</span></div>
+                    <div class="detalle-item"><strong>Programa Academico:</strong> <span
+                            data-column="programa_academico">{{ dato.programa_academico }}</span></div>
+                    <div class="detalle-item"><strong>Estudia Actualmente:</strong> <span
+                            data-column="estudia_actualmente">{{ dato.estudia_actualmente }}</span></div>
+                    <div class="detalle-item"><strong>Nombre del Programa Actual:</strong> <span
+                            data-column="nombre_programa_actual">{{ dato.nombre_programa_actual }}</span></div>
+                    <div class="detalle-item"><strong>Salario Basico:</strong> <span data-column="salario_basico">{{
+                            dato.salario_basico }}</span></div>
+                    <div class="detalle-item"><strong>Factor No Salarial:</strong> <span
+                            data-column="factor_no_salarial">{{ dato.factor_no_salarial }}</span></div>
+                    <div class="detalle-item"><strong>N° Cuenta:</strong> <span data-column="numero_cuenta">{{
+                            dato.numero_cuenta }}</span></div>
+                    <div class="detalle-item"><strong>Banco:</strong> <span data-column="banco">{{ dato.bancos }}</span>
+                    </div>
+                    <div class="detalle-item"><strong>Ver Documentos de Estudio:</strong> <span data-column="estudio">
+                            <button type="button" class="btn-accion btn-docs" data-id="{{ dato.id }}"><i
+                                    class="fa-solid fa-folder-open"></i></button>
+                        </span>
+                    </div>
+                    <div class="detalle-item"><strong>Cantidad de Contratos:</strong> <span
+                            data-column="cantidad_contratos">
+                            {{ dato.cantidad_contratos }}
+                            <button type="button" class="btn-accion btn-contratos" data-id="{{ dato.id }}"><i class="fa-solid fa-eye"></i></button>
+                        </span>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- modal para ver imagenes  -->
+<div id="modalPreview" class="modal-preview">
+    <div class="modal-preview-content">
+        <div class="modal-header">
+            <h3>Visualizacion de Documentos</h3>
+        </div>
+        <div class="modal-body-preview">
+            <span class="modal-close" onclick="cerrarPreview()">&times;</span>
+
+            <button id="btnVolverLista" onclick="volverListaDocs()" style="display: none;">Volver a Documentos</button>
+
+            <img src="" alt="Preview" id="previewImg">
+
+            <iframe src="" frameborder="0" id="previewPdf"></iframe>
+
+            <div id="previewListaDocs" style="display: none;">
+                <h3>Documentos de Estudio</h3>
+                <div id="listaDocsContainer"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL RETIRO -->
+<div id="modalRetiro" class="modal-preview">
+    <div class="modal-preview-content">
+        <div class="modal-body-preview">
+            <span class="modal-close" onclick="cerrarModalRetiro()">&times;</span>
+            <h3>Fecha de Retiro</h3>
+            <input class="form-control" type="date" name="fecha_retiro" id="fecha_retiro">
+            <div class="acciones" style="margin-top: 20px;">
+                <button type="button" class="btn-accion btn-guardar" id="btnGuardarRetiro" onclick="guardarFechaRetiro()">Guardar</button>
+                <button type="button" class="btn-accion btn-cancelar" onclick="cerrarModalRetiro()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalContratos" class="modal-preview">
+    <div class="modal-preview-content">
+        <div class="modal-body-preview">
+            <span class="modal-close" onclick="cerrarModalContratos()">&times;</span>
+            <h3 class="titulo-modal">Contratos del Empleado</h3>
+            <table class="tabla-expandible">
+                <thead>
+                    <tr>
+                        <th>Tipo de Contrato</th>
+                        <th>Fecha Inicio</th>
+                        <th>Fecha Finalización</th>
+                        <th>Salario Basico</th>
+                        <th>Factor No Salarial</th>
+                    </tr>
+                </thead>
+                <tbody id="tabla_contratos_empleado_body"></tbody>
+            </table>
+            <div class="acciones" style="margin-top: 20px;">
+                <button type="button" class="btn-accion btn-cancelar" onclick="cerrarModalContratos()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="{{ url_for('static', filename='js/empleados.js')}}"></script>
+
+
+{% endblock %}

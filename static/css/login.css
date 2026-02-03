@@ -40,18 +40,14 @@ body{
     bottom: -80px;
 }
 form{
-    height: 520px;
-    width: 400px;
-    background-color: rgba(255,255,255,0.13);
-    position: absolute;
-    transform: translate(-50%,-50%);
-    top: 50%;
-    left: 50%;
+    height: 100%;
+    background-color: transparent;
     border-radius: 10px;
     backdrop-filter: blur(10px);
-    border: 2px solid rgba(255,255,255,0.1);
-    box-shadow: 0 0 40px rgba(8,7,16,0.6);
-    padding: 50px 35px;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    overflow: visible;
 }
 form *{
     font-family: 'Poppins',sans-serif;
@@ -69,7 +65,7 @@ form h3{
 
 label{
     display: block;
-    margin-top: 30px;
+    margin-top: 18px;
     font-size: 16px;
     font-weight: 500;
 }
@@ -87,15 +83,17 @@ input{
 ::placeholder{
     color: #e5e5e5;
 }
-button{
-    margin-top: 50px;
+form button{
+    margin-top: 30px;
     width: 100%;
+    display: block;
+    visibility: visible;
     background-color: #ffffff;
-    color: #080710;
-    padding: 15px 0;
-    font-size: 18px;
+    color: #080710 !important;
+    padding: 14px 0;
+    font-size: 16px;
     font-weight: 600;
-    border-radius: 5px;
+    border-radius: 6px;
     cursor: pointer;
 }
 .social{
@@ -134,3 +132,95 @@ text {
 text textPath {
     filter: drop-shadow(1px 1px 2px rgba(0,0,0,0.5));
 }
+ .alert-error{
+    animation: shake 0.4s;
+    box-shadow: 0 0 20px rgba(231, 76, 60, 0.9);
+    border-color: rgba(231, 76, 60, 0.8);
+ }
+ .login-form{
+    width: 33.333%;
+    height: 100%;
+    padding: 80px 35px 40px 35px;
+    background-color: rgba(255, 255, 255, 0.13);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+    flex-shrink: 0;
+    flex-grow: 0;
+    animation: fadeIn 0.4s ease;
+ }
+ .login-tabs{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 6px;
+    z-index: 20;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 6px;
+    border-radius: 20px;
+ }
+ .tab-btn{
+    padding: 8px 14px;
+    border-radius: 14px;
+    font-size: 13px;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    background: transparent;
+    color: #fff;
+    transition: all 0.25s ease;
+ }
+ .tab-btn:hover{
+    background: rgba(255, 255, 255, 0.25);
+ }
+ .tab-btn.active{
+    background: #23a2f6;
+    color: white;
+ }
+ .login-container{
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    width: 400px;
+    height: 540px;
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+    border-radius: 10px;
+    z-index: 10;
+ }
+ .login-slider{
+    display: flex;
+    width: 300%;
+    height: 100%;
+    transition: transform 0.5s ease-in-out;
+    margin: 0;
+ }
+ @keyframes fadeIn {
+    from{
+        opacity: 0;
+        transform: scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+ }
+ @keyframes shake{
+    0% {transform:  translateX(0);}
+    25% {transform: translateX(-6px);}
+    50% {transform: translateX(6px);}
+    75% {transform: translateX(-4px);}
+    100% {transform: translateX(0);}
+ }
+ .login-error-msg{
+    background: rgba(231, 76, 60, 0.15);
+    border: 1px solid rgba(231, 76, 60, 0.6);
+    color: #ffb4b4;
+    padding: 10px 14px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    font-size: 13px;
+    text-align: center;
+    animation: fadeIn 0.3s ease;
+ }

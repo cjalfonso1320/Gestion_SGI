@@ -1,0 +1,66 @@
+.acciones{
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+}
+
+.btn-accion{
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 6px 8px;
+    border-radius: 6px;
+    font-size: 14px;
+    transition:  all 0.2s ease-in-out;
+}
+.btn-accion-modal{
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 6px 8px;
+    border-radius: 6px;
+    font-size: 40px;
+    transition:  all 0.2s ease-in-out;
+}
+.btn-editar{
+    color: #716fd7;
+}
+.btn-editar:hover{
+    background-color: rgba(13, 110, 253, 0.15);
+    transform: scale(1.05);
+}
+
+.btn-eliminar{
+    color: #dc3545;
+}
+.btn-eliminar:hover{
+    background-color: rgba(220, 53, 69, 0.15);
+    transform: scale(1.05);
+}
+.btn-accion i{
+    pointer-events: none;
+}
+.btn-next,
+.btn-prev{
+    color: #0ebeda;
+}
+.btn-next:hover,
+.btn-prev:hover{
+    background-color: rgba(220, 53, 69, 0.15);
+    transform: scale(1.05);
+}
+.btn-foto{
+    color: #dd5618;
+    font-size: large;
+}
+.btn-foto:hover{
+    background-color: rgba(230, 14, 35, 0.973);
+    transform: scale(1.05);
+}
+.btn-activar{
+    color: #28a745;
+}
+.btn-docs{
+    color: #0ebeda;
+    font-size: 40px;
+}

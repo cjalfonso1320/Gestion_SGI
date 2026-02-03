@@ -25,23 +25,102 @@
             </textPath>
         </text>
     </svg>
+    {% with messages = get_flashed_messages(with_categories=true ) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class="login-error-msg alert-{{ category }}">
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
 
-    <form method="POST" action="{{ url_for('auth.login') }}">
-        <h3>Iniciar Sesión</h3>
 
-        <label for="username">Usuario</label>
-        <input type="text" name="username" placeholder="Usuario" id="username">
-
-        <label for="password">Contraseña</label>
-        <input type="password" name="password" placeholder="Contraseña" id="password">
-
-        <button type="submit">Iniciar Sesión</button>
-        <div class="social">
-            <!-- <div class="go"><a href="{{ url_for('auth.register') }}">¿No tienes cuenta? Regístrate</a></div> -->
-             <div class="go"><a href="{{ url_for('aula.aula') }}">Aula Virtual</a></div>
+    <div class="login-container">
+        <div class="login-tabs">
+            <button type="button" class="tab-btn active" onclick="showLogin('sgi', this)">SGI</button>
+            <button type="button" class="tab-btn" onclick="showLogin('rrhh', this)">RRHH</button>
+            <button type="button" class="tab-btn" onclick="showLogin('aula', this)">Aula Virtual</button>
         </div>
-    </form>
+        <div class="login-slider">
+            <!-- LOGIN SGI -->
+            <form id="login-sgi" class="login-form active" method="POST" action="{{ url_for('auth.login') }}">
 
+
+                <input type="hidden" name="tipo_login" value="sgi">
+                <label for="username">Usuario</label>
+                <input type="text" name="username" placeholder="Usuario" id="username">
+
+                <label for="password">Contraseña</label>
+                <input type="password" name="password" placeholder="Contraseña" id="password">
+
+                <button type="submit">Ingresa a SGI</button>
+                <!-- <div class="social">
+
+            <div class="go"><a href="{{ url_for('aula.aula') }}">Aula Virtual</a></div>
+        </div> -->
+            </form>
+
+            <!-- LOGIN RRHH -->
+            <form id="login-rrhh" class="login-form" method="POST" action="{{ url_for('auth.login') }}">
+
+                <input type="hidden" name="tipo_login" value="rrhh">
+                <label for="username">Usuario</label>
+                <input type="text" name="username" placeholder="Usuario" id="username">
+
+                <label for="password">Contraseña</label>
+                <input type="password" name="password" placeholder="Contraseña" id="password">
+
+                <button type="submit">Ingresa a RRHH</button>
+            </form>
+
+            <!-- LOGIN AULA -->
+            <form id="login-aula" class="login-form" method="POST" action="{{ url_for('auth.login') }}">
+
+                <input type="hidden" name="tipo_login" value="aula">
+                <label for="username">Numero de identificacion</label>
+                <input type="text" name="username" id="username">
+
+                <button type="submit">Ingresa al Aula Virtual</button>
+                <!-- <div class="social">
+
+            <div class="go"><a href="{{ url_for('aula.aula') }}">Aula Virtual</a></div>
+        </div> -->
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function showLogin(tipo, btn) {
+            const slide = document.querySelector('.login-slider');
+            const tabs = document.querySelectorAll('.tab-btn');
+
+            let index = 0;
+            if (tipo === 'rrhh') index = 1;
+            if (tipo === 'aula') index = 2;
+
+            slide.style.transform = `translateX(-${index * 33.333}%)`;
+
+            tabs.forEach(t => t.classList.remove('active'));
+            btn.classList.add('active');
+        }
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () =>{
+            const errorMsg = document.querySelector('.login-error-msg');
+
+            if (errorMsg){
+                const activeForm = document.querySelector('.login-form');
+
+                if (activeForm){
+                    activeForm.classList.remove('login-error');
+                    void activeForm.offsetWidth;
+                    activeForm.classList.add('login-error');
+                }
+            }
+        })
+    </script>
 </body>
+<!-- <div class="go"><a href="{{ url_for('auth.register') }}">¿No tienes cuenta? Regístrate</a></div> -->
 
 </html>

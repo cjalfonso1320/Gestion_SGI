@@ -1,0 +1,136 @@
+{% extends 'rrhh/home_rrhh.html' %}
+{% block title %}Grupos Nomina{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/tabla_lista.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/botones_accion.css') }}">
+<div class="accordion" id="acordeonTabla">
+    <div class="accordion-header" onclick="this.parentElement.classList.toggle('active')">
+        Nuevo Grupo Nomina <i class="fa-regular fa-square-plus"></i>
+    </div>
+    <div class="accordion-content">
+        <form id="formGrupoNomina" method="post">
+            <div class="">
+                <div class="form-field">
+                    <label for="nombre" class="form-label">Nombre de Grupo</label>
+                    <input name="nombre" id="nombre" type="text" class="form-control" required>
+                </div>
+            </div>
+            <div style="text-align: right; margin-top: 20px;">
+                <button type="submit">Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>
+<table class="tabla-expandible">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody id="tabla_grupo_nomina">
+        {% for nomina in nominaS %}
+        <tr data-id="{{ nomina.id }}">
+            <td class="col-nombre">{{nomina.nombre}}</td>
+            <td class="acciones">
+                <button class="btn-accion btn-editar" onclick="editarGrupo(this)"><i class="fa-regular fa-pen-to-square"></i></button>
+                <button class="btn-accion btn-eliminar" onclick="eliminarGrupo({{ nomina.id }}, this)"><i class="fa-solid fa-delete-left"></i></button>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<script>
+    document.getElementById('formGrupoNomina').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const form = this;
+        const formData = new FormData(form);
+
+        fetch('/rrhh/grupos_nomina/crear', {
+            method: 'POST',
+            body: formData
+        })
+        .then(res => res.json())
+        .then(data => {
+            if(!data.success){
+                alert(data.error);
+                return;
+            }
+            agregarFilaTabla(data.GrupoNomina);
+            form.reset();
+        });
+    });
+
+    function agregarFilaTabla(nomina) {
+        const tbody = document.getElementById('tabla_grupo_nomina');
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+        <td>${nomina.nombre}</td>
+        <td class="acciones">
+            <button class="btn-accion btn-editar" onclick="editarGrupo(this)"><i class="fa-regular fa-pen-to-square"></i></button>
+            <button class="btn-accion btn-eliminar" onclick="eliminarGrupo(${nomina.id}, this)"><i class="fa-solid fa-delete-left"></i></button>    
+        </td>
+        `;
+        tbody.appendChild(tr);
+    }
+
+    function editarGrupo(btn) {
+        const tr = btn.closest('tr');
+        const tdNombre = tr.querySelector('.col-nombre');
+        const nombreActual = tdNombre.innerText;
+
+        tdNombre.innerHTML =  `
+            <input type="text" value="${nombreActual}" class="input-edit">
+        `;
+        btn.innerText = 'Guardar'
+        btn.onclick = () => guardarEdicion(tr, btn);
+    }
+
+    function guardarEdicion(tr, btn) {
+        const id = tr.dataset.id;
+        const input = tr.querySelector('.input-edit');
+        const nuevoNombre = input.value.trim();
+
+        if(!nuevoNombre) {
+            alert('El nombre no puede estar Vacio')
+            return;
+        }
+
+        fetch( `/rrhh/grupos_nomina/editar/${id}`,{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ nombre: nuevoNombre})
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (!data.success){
+                alert(data.error);
+                return;
+            }
+
+            tr.querySelector('.col-nombre').innerText = nuevoNombre;
+            btn.innerText = 'Editar';
+            btn.onclick = () => editarGrupo(btn)
+        });
+    }
+
+    function eliminarGrupo(id, btn) {
+        if(!confirm('¿Eliminar este grupo de nomina?')) return;
+
+        fetch(`/rrhh/grupos_nomina/eliminar/${id}`, {
+            method: 'POST'
+        })
+        .then(res => res.json())
+        .then(data => {
+            if(!data.success) {
+                alert(data.error);
+                return;
+            }
+            btn.closest('tr').remove();
+        });
+    }
+</script>
+{% endblock %}

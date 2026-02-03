@@ -1,0 +1,190 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home_admin.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/form_indicadores.css') }}">
+
+
+<body class="darkmode">
+{{usuario.cargo}}
+    <!-- MENU LATERAL -->
+    <nav class="main-menu">
+        <div>
+            <div class="user-info">
+                <img src="{{ url_for('static', filename=imagen_rol) }}" alt="user" />
+                <p>{{ usuario.nombres }} {{ usuario.apellidos }}</p>
+            </div>
+        </div>
+        <div>
+            <ul>
+                <li class="nav-item">
+                    <a href="" class="nav-link" data-section="documentacion">
+                        <i class="fa-regular fa-file-lines nav-icon"></i>
+                        <span class="nav-text">menu 1</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-section="indicadores">
+                        <i class="fa-solid fa-chart-line nav-icon"></i>
+                        <span class="nav-text">menu 2</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-section="uso-interno">
+                        <i class="fa-solid fa-up-right-from-square nav-icon"></i>
+                        <span class="nav-text">menu 3</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link"
+                        data-section="matriz-riesgos">
+                        <i class="fa-solid fa-arrows-up-to-line nav-icon"></i>
+                        <span class="nav-text">menu 4</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-section="matriz-activos">
+                        <i class="fa-solid fa-chart-line nav-icon"></i>
+                        <span class="nav-text">menu 5</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <ul>
+
+            <li class="nav-item">
+                <a href="{{ url_for('auth.logout') }}">
+                    <i class="fa fa-right-from-bracket nav-icon"></i>
+                    <span class="nav-text">Cerrar Sesion</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <!-- FINALIZA MENU LATERAL -->
+
+    <section class="content">
+        <div class="left-content">
+
+            <!-- MENU CENTRAL -->
+            <div class="upcoming-events">
+                {% if request.endpoint != 'rrhh.dashboard' %}
+                <div style="margin-bottom: 20px;">
+                    <a href="{{ url_for('rrhh.dashboard') }}" class="btn-10"
+                        style="text-decoration: none; display: inline-block;">
+                        <i class="fa fa-home"></i> Volver al Inicio
+                    </a>
+                </div>
+                {% endif %}
+                {% if usuario.cargo in [1, 9, 26, 29] %}
+                <div id="content-container">
+                    <!-- PRESENTACION INICIAL -->
+                    <div id="initial-presentation" class="initial-content" {% if request.endpoint != 'rrhh.dashboard'
+                        %}style="display: none;" {% endif %}>
+                        <div class="welcome-section">
+                            <h2>¡Bienvenido al Sistema Administrador RRHH!</h2>
+                            <p>Selecciona una opción del menú para comenzar a gestionar tu información.</p>
+
+                            <div class="feature-grid">
+                                <a href="{{ url_for('rrhh.empleados') }}" style="text-decoration: none;">
+                                    <div class="feature-card">
+                                        <i class="fa-regular fa-file-lines"></i>
+                                        <h3>Empleados</h3>
+                                        <p>Gestiona toda la documentación de los empleados</p>
+                                    </div>
+                                </a>
+                                <a href="{{ url_for('rrhh.grupos_nomina') }}" style="text-decoration: none;">
+                                    <div class="feature-card">
+                                        <i class="fa-regular fa-file-lines"></i>
+                                        <h3>Grupos de Nomina</h3>
+                                        <p>Gestiona todos los grupos de nomina</p>
+                                    </div>
+                                </a>
+                                <a href="{{ url_for('rrhh.cargos_vista') }}" style="text-decoration: none;">
+                                    <div class="feature-card">
+                                        <i class="fa-solid fa-chart-line"></i>
+                                        <h3>Cargos</h3>
+                                        <p>Gestiona todos los Cargos</p>
+                                    </div>
+                                </a>
+                                <a href="{{ url_for('rrhh.empleados_retirados') }}" style="text-decoration: none;">
+                                    <div class="feature-card">
+                                        <i class="fa-regular fa-file-lines"></i>
+                                        <h3>Empleados Retirados</h3>
+                                        <p>Accede a los usuarios retirados</p>
+                                    </div>
+                                </a>
+                                <a href="#" style="text-decoration: none;">
+                                    <div class="feature-card">
+                                        <i class="fa-regular fa-file-lines"></i>
+                                        <h3>menu 5</h3>
+                                        <p>Gestiona y evalúa los riesgos del sistema</p>
+                                    </div>
+                                </a>
+                                <a href="#" style="text-decoration: none;">
+                                    <div class="feature-card">
+                                        <i class="fa-regular fa-file-lines"></i>
+                                        <h3>menu 6</h3>
+                                        <p>Administra los activos del sistema</p>
+                                    </div>
+                                </a>
+                                <a href="#" style="text-decoration: none;">
+                                    <div class="feature-card">
+                                        <i class="fa-regular fa-file-lines"></i>
+                                        <h3>menu 7</h3>
+                                        <p>Gestiona la lista maestra de documentos</p>
+                                    </div>
+                                </a>
+                                <a href="#" style="text-decoration: none;">
+                                    <div class="feature-card">
+                                        <i class="fa-regular fa-file-lines"></i>
+                                        <h3>menu 8</h3>
+                                        <p>Accede a las funciones de control</p>
+                                    </div>
+                                </a>
+                                <a href="{{ url_for('aula.aulaAdmin') }}" style="text-decoration: none;">
+                                    <div class="feature-card">
+                                        <i class="fa-regular fa-file-lines"></i>
+                                        <h3>Aula Virtual</h3>
+                                        <p>Accede a las funciones de Aula Virtual</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CONTENIDO DINÁMICO -->
+                    <div id="dynamic-content" class="dynamic-content" {% if request.endpoint !='home.home'
+                        %}style="display: block;" {% endif %}>
+                        {% block content %}
+                        <!-- Contenido específico de cada página -->
+                        {% endblock %}
+                    </div>
+                </div>
+                {% endif %}
+
+            </div>
+            <!-- FINALIZA MENU CENTRAL -->
+        </div>
+
+        <!-- MENU DERECHA-CONTEOS -->
+        {% if current_user.cargo in [1, 9, 26, 29] %}
+        <div class="right-content">
+            <div class="analytics">
+                <h1>Conteo</h1>
+                <div class="analytics-container">
+                    <div class="total-events">
+                        <div class="event-number card">
+                            <h2>Empleados</h2>
+                            <p>{{empleados}}</p>
+                            <i class="bx bx-check-circle"></i>
+                        </div>
+                    </div>
+                    <br>           
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        <!-- FINALIZA MENU DERECHA -->
+    </section>
+    
+
+<script src="{{ url_for('static', filename='js/home_admin.js') }}"></script>

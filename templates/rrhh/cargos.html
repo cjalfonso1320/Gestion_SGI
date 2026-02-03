@@ -1,0 +1,136 @@
+{% extends 'rrhh/home_rrhh.html' %}
+{% block title %}Cargos{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/tabla_lista.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/botones_accion.css') }}">
+<div class="accordion" id="acordeonTabla">
+    <div class="accordion-header" onclick="this.parentElement.classList.toggle('active')">
+        Nuevo Cargo <i class="fa-regular fa-square-plus"></i>
+    </div>
+    <div class="accordion-content">
+        <form id="formCargo" method="post">
+            <div class="">
+                <div class="form-field">
+                    <label for="nombre" class="form-label">Nombre de Cargo</label>
+                    <input name="nombre" id="nombre" type="text" class="form-control" required>
+                </div>
+            </div>
+            <div style="text-align: right; margin-top: 20px;">
+                <button type="submit">Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>
+<table class="tabla-expandible">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody id="tabla_cargos">
+        {% for cargo in cargoS %}
+        <tr data-id="{{ cargo.id }}">
+            <td class="col-nombre">{{cargo.nombre}}</td>
+            <td class="acciones">
+                <button class="btn-accion btn-editar" onclick="editarGrupo(this)"><i class="fa-regular fa-pen-to-square"></i></button>
+                <button class="btn-accion btn-eliminar" onclick="eliminarGrupo({{ cargo.id }}, this)"><i class="fa-solid fa-delete-left"></i></button>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<script>
+    document.getElementById('formCargo').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const form = this;
+        const formData = new FormData(form);
+
+        fetch('/rrhh/cargos/crear', {
+            method: 'POST',
+            body: formData
+        })
+        .then(res => res.json())
+        .then(data => {
+            if(!data.success){
+                alert(data.error);
+                return;
+            }
+            agregarFilaTabla(data.Cargo);
+            form.reset();
+        });
+    });
+
+    function agregarFilaTabla(cargo) {
+        const tbody = document.getElementById('tabla_cargos');
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+        <td>${cargo.nombre}</td>
+        <td class="acciones">
+            <button class="btn-accion btn-editar" onclick="editarGrupo(this)"><i class="fa-regular fa-pen-to-square"></i></button>
+            <button class="btn-accion btn-eliminar" onclick="eliminarGrupo(${cargo.id}, this)"><i class="fa-solid fa-delete-left"></i></button>    
+        </td>
+        `;
+        tbody.appendChild(tr);
+    }
+
+    function editarGrupo(btn) {
+        const tr = btn.closest('tr');
+        const tdNombre = tr.querySelector('.col-nombre');
+        const nombreActual = tdNombre.innerText;
+
+        tdNombre.innerHTML =  `
+            <input type="text" value="${nombreActual}" class="input-edit">
+        `;
+        btn.innerText = 'Guardar'
+        btn.onclick = () => guardarEdicion(tr, btn);
+    }
+
+    function guardarEdicion(tr, btn) {
+        const id = tr.dataset.id;
+        const input = tr.querySelector('.input-edit');
+        const nuevoNombre = input.value.trim();
+
+        if(!nuevoNombre) {
+            alert('El nombre no puede estar Vacio')
+            return;
+        }
+
+        fetch( `/rrhh/cargos/editar/${id}`,{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ nombre: nuevoNombre})
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (!data.success){
+                alert(data.error);
+                return;
+            }
+
+            tr.querySelector('.col-nombre').innerText = nuevoNombre;
+            btn.innerText = 'Editar';
+            btn.onclick = () => editarGrupo(btn)
+        });
+    }
+
+    function eliminarGrupo(id, btn) {
+        if(!confirm('¿Eliminar este Cargo?')) return;
+
+        fetch(`/rrhh/cargos/eliminar/${id}`, {
+            method: 'POST'
+        })
+        .then(res => res.json())
+        .then(data => {
+            if(!data.success) {
+                alert(data.error);
+                return;
+            }
+            btn.closest('tr').remove();
+        });
+    }
+</script>
+{% endblock %}
