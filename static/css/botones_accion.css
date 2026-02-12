@@ -1,66 +1,125 @@
-.acciones{
+/* --- CONTENEDOR DE ACCIONES --- */
+.acciones {
     display: flex;
-    gap: 8px;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+/* --- BOTÓN DE ACCIÓN BASE --- */
+.btn-accion {
+    border: 1px solid transparent;
+    background: transparent;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 8px;
+    font-size: 16px; /* Aumentado ligeramente para mejor legibilidad */
+    transition: all 0.2s ease-in-out;
+    display: inline-flex;
+    align-items: center;
     justify-content: center;
 }
 
-.btn-accion{
+.btn-accion-modal {
     border: none;
     background: transparent;
     cursor: pointer;
-    padding: 6px 8px;
-    border-radius: 6px;
-    font-size: 14px;
-    transition:  all 0.2s ease-in-out;
-}
-.btn-accion-modal{
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    padding: 6px 8px;
-    border-radius: 6px;
-    font-size: 40px;
-    transition:  all 0.2s ease-in-out;
-}
-.btn-editar{
-    color: #716fd7;
-}
-.btn-editar:hover{
-    background-color: rgba(13, 110, 253, 0.15);
-    transform: scale(1.05);
+    padding: 10px;
+    border-radius: 50%;
+    font-size: 28px; /* Reducido de 40px para que no sea tan invasivo */
+    transition: all 0.2s ease-in-out;
 }
 
-.btn-eliminar{
-    color: #dc3545;
+/* --- COLORES SEMÁNTICOS (BLUE LIGHT) --- */
+
+/* Editar: Azul Corporativo */
+.btn-editar {
+    color: #2563eb;
 }
-.btn-eliminar:hover{
-    background-color: rgba(220, 53, 69, 0.15);
-    transform: scale(1.05);
+.btn-editar:hover {
+    background-color: #eff6ff;
+    border-color: #bfdbfe;
+    transform: translateY(-2px);
 }
-.btn-accion i{
+
+/* Contrato/Tie: Verde Esmeralda Profesional */
+.btn-contrato {
+    color: #059669;
+}
+.btn-contrato:hover {
+    background-color: #ecfdf5;
+    border-color: #a7f3d0;
+    transform: translateY(-2px);
+}
+
+/* Eliminar/Certificado: Rojo Soft */
+.btn-eliminar, .btn-certificado {
+    color: #dc2626;
+}
+.btn-eliminar:hover, .btn-certificado:hover {
+    background-color: #fef2f2;
+    border-color: #fecaca;
+    transform: translateY(-2px);
+}
+
+/* Navegación (Flechas): Azul Cobalto */
+.btn-next, .btn-prev {
+    color: #3b82f6;
+}
+.btn-next:hover, .btn-prev:hover {
+    background-color: #dbeafe;
+    transform: scale(1.1);
+}
+
+/* Foto/Cédula: Ámbar/Ocre (Para diferenciar de los otros azules) */
+.btn-foto {
+    color: #d97706;
+}
+.btn-foto:hover {
+    background-color: #fffbeb;
+    border-color: #fef3c7;
+    transform: translateY(-2px);
+}
+
+/* Activar: Verde Éxito */
+.btn-activar {
+    color: #10b981;
+}
+.btn-activar:hover {
+    background-color: #f0fdf4;
+    border-color: #bbf7d0;
+}
+
+/* Documentos y carpetas: Cyan/Azul Claro */
+.btn-docs {
+    color: #0891b2;
+    font-size: 22px; /* Ajustado para que no se vea gigante */
+}
+.btn-docs:hover {
+    background-color: #ecfeff;
+    border-color: #cffafe;
+}
+
+/* Ver Contratos (Ojo): Morado Suave */
+.btn-contratos {
+    color: #7c3aed;
+    font-size: 22px;
+}
+.btn-contratos:hover {
+    background-color: #f5f3ff;
+    border-color: #ddd6fe;
+}
+
+/* --- ICONOS --- */
+.btn-accion i {
     pointer-events: none;
 }
-.btn-next,
-.btn-prev{
-    color: #0ebeda;
-}
-.btn-next:hover,
-.btn-prev:hover{
-    background-color: rgba(220, 53, 69, 0.15);
-    transform: scale(1.05);
-}
-.btn-foto{
-    color: #dd5618;
-    font-size: large;
-}
-.btn-foto:hover{
-    background-color: rgba(230, 14, 35, 0.973);
-    transform: scale(1.05);
-}
-.btn-activar{
-    color: #28a745;
-}
-.btn-docs{
-    color: #0ebeda;
-    font-size: 40px;
+
+/* Ajuste específico para el botón de certificado que tiene texto */
+.btn-certificado {
+    font-size: 0.85rem;
+    font-weight: 700;
+    gap: 5px;
+    padding: 6px 12px;
+    border: 1px solid #fecaca;
 }

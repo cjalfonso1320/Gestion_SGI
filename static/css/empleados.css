@@ -1,0 +1,179 @@
+/* --- BARRA DE ACCIONES SUPERIOR - ESTILO BLUE LIGHT --- */
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+    padding: 12px 15px;
+    background-color: #ffffff; /* Fondo blanco para la barra */
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+/* --- BOTÓN NUEVO EMPLEADO (Acción Primaria) --- */
+.header-actions .accordion-header {
+    margin: 0;
+    white-space: nowrap;
+    /* Degradado azul corporativo */
+    background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.header-actions .accordion-header:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+}
+
+/* --- NAVBAR Y DROPDOWN (Acciones Secundarias) --- */
+.navbar-actions {
+    position: relative;
+}
+
+.navbar-actions .nav-main {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-actions .dropbtn {
+    background: #ffffff;
+    color: #1e3a8a; /* Azul marino */
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    border: 1.5px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.navbar-actions .dropbtn:hover {
+    background-color: #f8fafc;
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+}
+
+/* --- EL MENÚ DESPLEGABLE (CLARO Y MODERNO) --- */
+.navbar-actions .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 8px); /* Un poco de aire abajo */
+    left: 0;
+    background-color: #ffffff;
+    min-width: 250px;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    padding: 8px 0;
+    list-style: none;
+}
+
+/* Flechita del menú (opcional) */
+.navbar-actions .dropdown-menu::before {
+    content: "";
+    position: absolute;
+    top: -6px;
+    left: 20px;
+    width: 12px;
+    height: 12px;
+    background: white;
+    transform: rotate(45deg);
+    border-left: 1px solid #e2e8f0;
+    border-top: 1px solid #e2e8f0;
+}
+
+.navbar-actions .dropdown:hover .dropdown-menu {
+    display: block;
+    animation: slideInMenu 0.2s ease-out;
+}
+
+/* Enlaces dentro del menú */
+.navbar-actions .dropdown-menu li a {
+    color: #475569 !important; /* Gris azulado */
+    padding: 12px 20px;
+    text-decoration: none;
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.navbar-actions .dropdown-menu li a:hover {
+    background-color: #eff6ff; /* Fondo azul suave */
+    color: #2563eb !important; /* Texto azul vibrante */
+    padding-left: 25px; /* Pequeño desplazamiento al pasar el mouse */
+}
+
+/* --- BUSCADOR --- */
+.search-container {
+    position: relative;
+    margin-left: auto; /* Empuja a la derecha */
+}
+
+.search-container input {
+    width: 280px;
+    height: 42px;
+    background-color: #f8fafc; /* Gris casi blanco */
+    color: #1e293b;
+    border: 1.5px solid var(--border-color);
+    border-radius: 10px;
+    padding: 0 45px 0 15px;
+    outline: none;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+}
+
+.search-container input:focus {
+    background-color: #ffffff;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+    width: 320px; /* Se expande un poco al enfocar */
+}
+
+.search-container i {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8; /* Gris suave */
+    font-size: 1rem;
+    transition: color 0.3s;
+}
+
+.search-container input:focus + i {
+    color: var(--accent-color);
+}
+
+/* --- ANIMACIONES --- */
+@keyframes slideInMenu {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Ajuste responsivo */
+@media (max-width: 768px) {
+    .header-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .search-container, .search-container input {
+        width: 100% !important;
+    }
+}

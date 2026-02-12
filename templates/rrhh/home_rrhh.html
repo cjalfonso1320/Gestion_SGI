@@ -1,10 +1,15 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/home_admin.css') }}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/form_indicadores.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/empleados.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/tabla_lista.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/modal_empleado.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/botones_accion.css') }}">
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
 
-<body class="darkmode">
-{{usuario.cargo}}
+<body class="blue-theme">
+
     <!-- MENU LATERAL -->
     <nav class="main-menu">
         <div>
@@ -16,28 +21,28 @@
         <div>
             <ul>
                 <li class="nav-item">
-                    <a href="" class="nav-link" data-section="documentacion">
-                        <i class="fa-regular fa-file-lines nav-icon"></i>
-                        <span class="nav-text">menu 1</span>
+                    <a href="{{ url_for('rrhh.empleados') }}" class="nav-link" data-section="documentacion">
+                        <i class="fa-solid fa-users"></i>
+                        <span class="nav-text">Empleados</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link" data-section="indicadores">
-                        <i class="fa-solid fa-chart-line nav-icon"></i>
-                        <span class="nav-text">menu 2</span>
+                    <a href="{{ url_for('rrhh.grupos_nomina') }}" class="nav-link" data-section="indicadores">
+                        <i class="fa-solid fa-building-user"></i>
+                        <span class="nav-text">Grupos de Nomina</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link" data-section="uso-interno">
-                        <i class="fa-solid fa-up-right-from-square nav-icon"></i>
-                        <span class="nav-text">menu 3</span>
+                    <a href="{{ url_for('rrhh.cargos_vista') }}" class="nav-link" data-section="uso-interno">
+                        <i class="fa-solid fa-person-chalkboard"></i>
+                        <span class="nav-text">Cargos</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link"
+                    <a href="{{ url_for('rrhh.empleados_retirados') }}" class="nav-link"
                         data-section="matriz-riesgos">
-                        <i class="fa-solid fa-arrows-up-to-line nav-icon"></i>
-                        <span class="nav-text">menu 4</span>
+                        <i class="fa-solid fa-users-slash"></i>
+                        <span class="nav-text">Empleados Retirados</span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -86,28 +91,28 @@
                             <div class="feature-grid">
                                 <a href="{{ url_for('rrhh.empleados') }}" style="text-decoration: none;">
                                     <div class="feature-card">
-                                        <i class="fa-regular fa-file-lines"></i>
+                                        <i class="fa-solid fa-users"></i>
                                         <h3>Empleados</h3>
                                         <p>Gestiona toda la documentación de los empleados</p>
                                     </div>
                                 </a>
                                 <a href="{{ url_for('rrhh.grupos_nomina') }}" style="text-decoration: none;">
                                     <div class="feature-card">
-                                        <i class="fa-regular fa-file-lines"></i>
+                                        <i class="fa-solid fa-building-user"></i>
                                         <h3>Grupos de Nomina</h3>
                                         <p>Gestiona todos los grupos de nomina</p>
                                     </div>
                                 </a>
                                 <a href="{{ url_for('rrhh.cargos_vista') }}" style="text-decoration: none;">
                                     <div class="feature-card">
-                                        <i class="fa-solid fa-chart-line"></i>
+                                        <i class="fa-solid fa-person-chalkboard"></i>
                                         <h3>Cargos</h3>
                                         <p>Gestiona todos los Cargos</p>
                                     </div>
                                 </a>
                                 <a href="{{ url_for('rrhh.empleados_retirados') }}" style="text-decoration: none;">
                                     <div class="feature-card">
-                                        <i class="fa-regular fa-file-lines"></i>
+                                        <i class="fa-solid fa-users-slash"></i>
                                         <h3>Empleados Retirados</h3>
                                         <p>Accede a los usuarios retirados</p>
                                     </div>
@@ -173,12 +178,38 @@
                 <div class="analytics-container">
                     <div class="total-events">
                         <div class="event-number card">
-                            <h2>Empleados</h2>
+                            <h2>Empleados Activos</h2>
                             <p>{{empleados}}</p>
                             <i class="bx bx-check-circle"></i>
                         </div>
                     </div>
-                    <br>           
+                    <br>
+                    <div class="total-events">
+                        <div class="event-number card">
+                            <h2>Empleados Retirados</h2>
+                            <p>{{empleados_retirados}}</p>
+                            <i class="bx bx-check-circle"></i>
+                        </div>
+                    </div>
+                    <br> 
+                    <div class="total-events">
+                        <div class="event-number card">
+                            <h2>Grupos de Nomina</h2>
+                            <p>{{cuenta_nominas}}</p>
+                            <i class="bx bx-check-circle"></i>
+                        </div>
+                    </div>
+                    <br> 
+                    <div class="total-events">
+                        <div class="event-number card">
+                            <h2>Consecutivo de Contratos</h2>
+                            {% for consecutivo in consecutivo_contratos %}
+                            <p>{{consecutivo.nombre}}</p><small>{{consecutivo.ult_consecutivo}}</small><a href="#" class="btn-consecutivo" data-id="{{consecutivo.id}}">Editar</a>
+                            <hr>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <br>         
                 </div>
             </div>
         </div>
@@ -186,5 +217,30 @@
         <!-- FINALIZA MENU DERECHA -->
     </section>
     
+<!-- MODAL IMPORTAR -->
+<div id="modalConsecutivo" class="modal-preview">
+    <div class="modal-preview-content">
+        <div class="modal-header">
+            <h3 id="tituloContrato_Consecutivo"></h3>
+            <button class="btn-close" onclick="cerrarModalConsecutivo()">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form id="formConsecutivo">
+                 <input type="hidden" id="id_contrato_consecutivo" name="id">
+                <div class="form-field" style="margin-bottom: 20px;">
+                    <input type="text" name="ult_consecutivo" id="ult_consecutivo" placeholder="Digita el consecutivo Deseado (Solo Numeros)" required>
+                </div>
+                <div class="acciones">
+                    <button type="submit" class="btn-accion btn-guardar" id="btnCargarExcel">Guardar Consecutivo</button>
+                    <button type="button" class="btn-accion btn-cancelar"
+                        onclick="cerrarModalConsecutivo()">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="{{ url_for('static', filename='js/empleados.js')}}"></script>
 <script src="{{ url_for('static', filename='js/home_admin.js') }}"></script>

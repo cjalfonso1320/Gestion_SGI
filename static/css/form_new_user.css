@@ -1,62 +1,112 @@
+/* --- FORMULARIO DE ACCESO/REGISTRO - ESTILO BLUE LIGHT --- */
+
+.login-page {
+    width: 400px; /* Un poco más ancho para mayor comodidad */
+    padding: 8% 0 0;
+    margin: auto;
+}
+
+.form {
+    position: relative;
+    z-index: 1;
+    background: #FFFFFF; /* Fondo blanco puro */
+    max-width: 400px;
+    margin: 0 auto 100px;
+    padding: 40px;
+    text-align: center;
+    border-radius: 16px; /* Bordes más redondeados y modernos */
+    border: 1px solid var(--border-color);
+    box-shadow: 0 10px 25px -5px rgba(0, 40, 100, 0.1), 0 8px 10px -6px rgba(0, 40, 100, 0.1);
+}
+
+/* Título opcional dentro del form si lo agregas en el HTML */
+.form h2 {
+    color: var(--primary-color);
+    font-weight: 800;
+    margin-bottom: 25px;
+    font-size: 1.5rem;
+}
+
+/* --- INPUTS Y SELECTS --- */
+.form input, 
+.form select {
+    font-family: "Nunito", "Roboto", sans-serif;
+    outline: 0;
+    background: #f8fafc; /* Gris azulado casi blanco */
+    width: 100%;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 10px;
+    margin: 0 0 20px;
+    padding: 14px 15px;
+    box-sizing: border-box;
+    font-size: 15px;
+    color: #1e293b;
+    transition: all 0.3s ease;
+}
+
+.form input:focus, 
+.form select:focus {
+    background: #ffffff;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1); /* Resplandor azul suave */
+}
+
+/* --- BOTÓN PRINCIPAL --- */
+.form button {
+    font-family: "Nunito", sans-serif;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 1px;
+    outline: 0;
+    /* Degradado azul corporativo */
+    background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+    padding: 15px;
+    color: #FFFFFF;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2);
+}
+
+.form button:hover,
+.form button:active,
+.form button:focus {
+    transform: translateY(-1px);
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    box-shadow: 0 6px 12px rgba(37, 99, 235, 0.3);
+}
+
+/* --- TEXTO DE AYUDA / REGISTRO --- */
+.form .message {
+    margin: 15px 0 0;
+    color: #64748b;
+    font-size: 13px;
+}
+
+.form .message a {
+    color: var(--accent-color);
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.form .message a:hover {
+    text-decoration: underline;
+}
+
+.form .register-form {
+    display: none;
+}
+
+/* Responsivo para móviles */
+@media (max-width: 450px) {
     .login-page {
-        width: 360px;
-        padding: 8% 0 0;
-        margin: auto;
+        width: 90%;
+        padding-top: 20%;
     }
-
     .form {
-        position: relative;
-        z-index: 1;
-        background: #FFFFFF;
-        max-width: 360px;
-        margin: 0 auto 100px;
-        padding: 45px;
-        text-align: center;
-        box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+        padding: 25px;
     }
-
-    .form input {
-        font-family: "Roboto", sans-serif;
-        outline: 0;
-        background: #f2f2f2;
-        width: 100%;
-        border: 0;
-        margin: 0 0 15px;
-        padding: 15px;
-        box-sizing: border-box;
-        font-size: 14px;
-    }
-    .form select {
-        font-family: "Roboto", sans-serif;
-        outline: 0;
-        background: #f2f2f2;
-        width: 100%;
-        border: 0;
-        margin: 0 0 15px;
-        padding: 15px;
-        box-sizing: border-box;
-        font-size: 14px;
-    }
-    .form button {
-        font-family: "Roboto", sans-serif;
-        text-transform: uppercase;
-        outline: 0;
-        background: #4CAF50;
-        width: 100%;
-        border: 0;
-        padding: 15px;
-        color: #FFFFFF;
-        font-size: 14px;
-        -webkit-transition: all 0.3 ease;
-        transition: all 0.3 ease;
-        cursor: pointer;
-    }
-
-    .form button:hover,
-    .form button:active,
-    .form button:focus {
-        background: #43A047;
-    }
-    .form .register-form {
-        display: none;
-    }
+}

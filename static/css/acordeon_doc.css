@@ -1,375 +1,131 @@
-  .doc-accordion .doc-section, .doc-accordion .doc-subsection {
+/* --- ACORDEÓN DE DOCUMENTOS - ESTILO BLUE LIGHT --- */
+
+.doc-accordion .doc-section, 
+.doc-accordion .doc-subsection {
     cursor: pointer;
-    background-color: #333;
-    color: #ffff;
-    padding: 12px;
-    margin: 0;
-    font-weight: bold;
-  }
-
-  .doc-accordion .doc-content, .doc-accordion .doc-subcontent {
-    display: none;
-    padding: 15px;
-    background: #333;
-    border: 1px solid #ccc;
-  }
-
-  .doc-accordion .doc-subsection {
-    background-color: #060528;
-    margin-top: 10px;
-  }
-
-  .doc-accordion table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-  }
-
-  .doc-accordion th, .doc-accordion td {
-    border: 1px solid #aaa;
-    padding: 8px;
-    text-align: left;
-  }
-
-  .doc-accordion .doc-subsubsection {
-  cursor: pointer;
-  background-color: #16134c;
-  color: white;
-  padding: 10px;
-  margin-top: 8px;
-  font-weight: normal;
-}
-
-.doc-accordion .doc-subsubcontent {
-  display: none;
-  padding: 10px;
-  background: #222;
-  border: 1px dashed #888;
-}
-
- .sst-accordion .sst-section, .sst-accordion .sst-subsection {
-    cursor: pointer;
-    background-color: #333;
-    color: #fff;
-    padding: 12px;
+    background-color: #f8fafc; /* Gris azulado muy pálido */
+    color: #1e3a8a;           /* Azul marino */
+    padding: 12px 15px;
     margin-top: 5px;
-    font-weight: bold;
-    border: 1px solid #555;
-  }
+    font-weight: 800;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    transition: all 0.3s;
+}
 
-  .sst-accordion .sst-content, .sst-accordion .sst-subcontent {
+.doc-accordion .doc-section:hover {
+    background-color: #eff6ff;
+    border-color: #2563eb;
+}
+
+.doc-accordion .doc-content, 
+.doc-accordion .doc-subcontent {
     display: none;
-    background: #222;
-    padding: 10px;
-    border: 1px solid #444;
-  }
+    padding: 20px;
+    background: #ffffff; /* Fondo blanco */
+    border: 1px solid #e2e8f0;
+    border-top: none;
+    color: #334155;
+}
 
-  .sst-accordion table {
+.doc-accordion .doc-subsection {
+    background-color: #f1f5f9;
+    color: #1e40af;
+    margin-left: 15px;
+}
+
+.doc-accordion .doc-subsubsection {
+    cursor: pointer;
+    background-color: #dbeafe; /* Azul claro para sub-niveles */
+    color: #1e40af;
+    padding: 10px;
+    margin-top: 8px;
+    margin-left: 30px;
+    border-radius: 4px;
+}
+
+/* --- TABLAS DENTRO DE ACORDEONES --- */
+.doc-accordion table, .sst-accordion table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 10px;
-    background-color: #111;
-    color: #ddd;
-  }
+    background-color: #ffffff;
+    color: #334155;
+}
 
-  .sst-accordion th, .sst-accordion td {
-    border: 1px solid #555;
-    padding: 8px;
-    text-align: left;
-  }
+.doc-accordion th, .sst-accordion th {
+    background-color: #f8fafc;
+    color: #1e3a8a;
+    font-weight: 700;
+    border: 1px solid #e2e8f0;
+}
 
-  .sst-node { margin: .25rem 0 .25rem 1rem; }
-.sst-summary { cursor:pointer; font-weight:600; }
-.sst-node[open] > .sst-summary { color: #4b8; }
-/* Oculta el triangulito si no lo quieres */
-.sst-summary::-webkit-details-marker { display:none; }
+.doc-accordion td, .sst-accordion td {
+    border: 1px solid #f1f5f9;
+    padding: 10px;
+}
 
-/* Estilos para el botón flotante de subida */
+/* --- BOTÓN FLOTANTE (FAB) - CAMBIO A AZUL --- */
 .upload-fab {
     position: fixed;
     bottom: 30px;
     right: 30px;
     width: 60px;
     height: 60px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%); /* Azul en lugar de purpura */
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
     transition: all 0.3s ease;
     z-index: 1000;
 }
 
-.upload-fab:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-}
-
-.upload-fab i {
-    color: white;
-    font-size: 24px;
-}
-
-/* Estilos para los modales */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 2000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(5px);
-}
-
+/* --- MODAL GENERAL (RE-ESTILIZADO) --- */
 .modal-content {
-    background-color: #fefefe;
-    margin: 5% auto;
-    padding: 0;
-    border-radius: 10px;
-    width: 90%;
-    max-width: 500px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    animation: modalSlideIn 0.3s ease;
-}
-
-@keyframes modalSlideIn {
-    from {
-        opacity: 0;
-        transform: translateY(-50px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    background-color: #ffffff !important;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
 }
 
 .modal-header {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    padding: 20px;
-    border-radius: 10px 10px 0 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.modal-header h2 {
-    margin: 0;
-    font-size: 1.5em;
-}
-
-.close {
-    color: white;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: color 0.3s ease;
-}
-
-.close:hover {
-    color: #ff6b6b;
-}
-
-.modal-body {
-    padding: 30px;
-}
-
-.form-group {
-    margin-bottom: 20px;
+    background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%) !important; /* Azul corporativo */
+    color: white !important;
 }
 
 .form-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 600;
-    color: #333;
+    color: #1e3a8a !important; /* Azul marino para que se vea sobre blanco */
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.85rem;
 }
 
-.form-group select,
-.form-group input[type="file"] {
-    width: 100%;
-    padding: 12px;
-    border: 2px solid #e1e5e9;
-    border-radius: 8px;
-    font-size: 14px;
-    transition: border-color 0.3s ease;
-    background-color: white;
+.form-group select, 
+.form-group input {
+    background-color: #ffffff !important;
+    border: 2px solid #e2e8f0 !important;
+    color: #1e293b !important;
 }
 
-.form-group select:focus,
-.form-group input[type="file"]:focus {
-    outline: none;
-    border-color: #667eea;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-}
-
-.form-actions {
-    display: flex;
-    gap: 15px;
-    justify-content: flex-end;
-    margin-top: 30px;
-}
-
-.btn-primary,
-.btn-secondary,
-.btn-warning {
-    padding: 12px 24px;
-    border: none;
-    border-radius: 6px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-decoration: none;
-    display: inline-block;
-    text-align: center;
-}
-
+/* --- BOTONES DE ACCIÓN --- */
 .btn-primary {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
+    background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%) !important;
+    color: white !important;
 }
 
-.btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+.btn-warning {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important; /* Ámbar/Naranja para advertencias */
 }
 
 .btn-secondary {
-    background: #6c757d;
-    color: white;
-}
-
-.btn-secondary:hover {
-    background: #5a6268;
-    transform: translateY(-2px);
-}
-
-.btn-warning {
-    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
-    color: white;
-}
-
-.btn-warning:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .modal-content {
-        width: 95%;
-        margin: 10% auto;
-    }
-    
-    .upload-fab {
-        bottom: 20px;
-        right: 20px;
-        width: 50px;
-        height: 50px;
-    }
-    
-    .upload-fab i {
-        font-size: 20px;
-    }
-    
-    .form-actions {
-        flex-direction: column;
-    }
-    
-    .btn-primary,
-    .btn-secondary,
-    .btn-warning {
-        width: 100%;
-    }
-}
-
-/* Estilos para botones de subida de sección */
-.section-upload {
-    margin-top: 20px;
-    text-align: center;
+    background: #f1f5f9 !important;
+    color: #475569 !important;
+    border: 1px solid #cbd5e1 !important;
 }
 
 .upload-section-btn {
-    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
-    color: white;
-    border: none;
-    padding: 12px 24px;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    box-shadow: 0 2px 10px rgba(40, 167, 69, 0.3);
-}
-
-.upload-section-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.4);
-}
-
-.upload-section-btn i {
-    font-size: 16px;
-}
-.btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    padding: 10px 20px;
-    border-radius: 8px;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    border: 2px solid transparent;
-    cursor: pointer;
-}
-
-.btn-outline-primary {
-    color: #007bff;
-    border-color: #007bff;
-    background: transparent;
-}
-
-.btn-outline-primary:hover {
-    background: #007bff;
-    color: white;
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0,123,255,0.3);
-}
-
-.btn-outline-secondary {
-    color: #6c757d;
-    border-color: #6c757d;
-    background: transparent;
-}
-
-.btn-outline-secondary:hover {
-    background: #6c757d;
-    color: white;
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(108,117,125,0.3);
-}
-
-/* Responsive para móviles */
-@media (max-width: 768px) {
-    .role-selection-header {
-        padding: 15px !important;
-    }
-    
-    .role-selection-header > div {
-        flex-direction: column;
-        gap: 15px;
-        align-items: stretch !important;
-    }
-    
-    .role-selection-header > div > div:last-child {
-        justify-content: center;
-    }
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important; /* Verde esmeralda */
+    box-shadow: 0 2px 10px rgba(16, 185, 129, 0.3);
 }

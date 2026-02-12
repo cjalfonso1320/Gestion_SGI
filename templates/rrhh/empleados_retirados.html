@@ -1,12 +1,32 @@
 {% extends 'rrhh/home_rrhh.html' %}
 {% block title %}Empleados{% endblock %}
 {% block content %}
-
+<link rel="stylesheet" href="{{ url_for('static', filename='css/empleados.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/tabla_lista.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/modal_empleado.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/botones_accion.css') }}">
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
+<div class="header-actions">
+    
+    <!-- Menú Acciones -->
+    <nav class="navbar-actions">
+        <ul class="nav-main">
+            <li class="dropdown">
+                <a href="#" class="dropbtn">Acciones Masivas <i class="fa-solid fa-chevron-down"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{{ url_for('rrhh.descargar_reporte_empleados', filtro=2) }}">Descargar Reporte de Empleados</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Buscador -->
+    <div class="search-container">
+        <input type="text" id="inputBusquedaID" placeholder="Buscar identificación...">
+        <i class="fa-solid fa-magnifying-glass"></i>
+    </div>
+</div>
 
 
 <table class="tabla-expandible">
@@ -32,14 +52,14 @@
             <td data-column="tipo_contrato">{{ dato.tipo_contrato }}</td> <!-- fecha_ultima_revision -->
             <td class="acciones">
                 <button type="button" class="btn-accion btn-foto btn-preview"
-                    data-url="{{ dato.cedula_path | replace('\\', '/') }}" data-tipo="cedula"><i
+                    data-url="{{ dato.cedula_path | replace('\\', '/') }}" data-tipo="cedula" title="Ver Cedula"><i
                         class="fa-regular fa-id-card"></i></button>
                 <button type="button" class="btn-accion btn-foto btn-preview"
-                    data-url="{{ dato.foto_path | replace('\\', '/') }}" data-tipo="foto"><i
+                    data-url="{{ dato.foto_path | replace('\\', '/') }}" data-tipo="foto" title="Ver Foto"><i
                         class="fa-solid fa-image-portrait"></i></button>
-                <button type="button" class="btn-accion btn-editar" data-id="{{ dato.id }}"><i
+                <button type="button" class="btn-accion btn-editar" data-id="{{ dato.id }}" title="Editar Empleado"><i
                         class="fa-solid fa-user-pen"></i></button>
-                <button type="button" class="btn-accion btn-activar" data-id="{{ dato.id }}"><i
+                <button type="button" class="btn-accion btn-activar" data-id="{{ dato.id }}" title="Activar Empleado"><i
                         class="fa-solid fa-person-circle-plus"></i></button>
             </td>
         </tr>
@@ -116,13 +136,13 @@
                     <div class="detalle-item"><strong>Banco:</strong> <span data-column="banco">{{ dato.bancos }}</span>
                     </div>
                     <div class="detalle-item"><strong>Ver Documentos de Estudio:</strong> <span data-column="estudio">
-                            <button type="button" class="btn-accion btn-docs" data-id="{{ dato.id }}"><i
+                            <button type="button" class="btn-accion btn-docs" data-id="{{ dato.id }}" title="Ver Documentos de Estudio"><i
                                     class="fa-solid fa-folder-open"></i></button>
                         </span>
                     </div>
                     <div class="detalle-item"><strong>Cantidad de Contratos:</strong> <span data-column="cantidad_contratos">
                             {{ dato.cantidad_contratos }} 
-                            <button type="button" class="btn-accion btn-contratos" data-id="{{ dato.id }}"><i class="fa-solid fa-eye"></i></button>
+                            <button type="button" class="btn-accion btn-contratos" data-id="{{ dato.id }}" title="Ver Contratos"><i class="fa-solid fa-eye"></i></button>
                         </span>
                     </div>
                 </div>
@@ -162,6 +182,14 @@
             <span class="modal-close" onclick="cerrarModalIngreso()">&times;</span>
             <h3>Fecha de Ingreso</h3>
             <input class="form-control" type="date" name="fecha_ingreso" id="fecha_ingreso">
+            <input type="text" class="form-control" name="salario_basico_ingreso" id="salario_basico_ingreso" placeholder="Salario Basico">
+            <input type="text" class="form-control" name="factor_no_salarial_ingreso" id="factor_no_salarial_ingreso" placeholder="Factor No Salarial">
+            <select name="tipo_contrato" id="tipo_contrato">
+                <option value="">Seleccuine uno...</option>
+                {% for contrato in contratos %}
+                        <option value="{{contrato.id}}">{{contrato.nombre}}</option>
+                {% endfor %}
+            </select>
             <div class="acciones" style="margin-top: 20px;">
                 <button type="button" class="btn-accion btn-guardar" id="btnGuardarIngreso" onclick="guardarFechaIngreso()">Guardar</button>
                 <button type="button" class="btn-accion btn-cancelar" onclick="cerrarModalIngreso()">Cancelar</button>
@@ -183,6 +211,8 @@
                         <th>Fecha Finalización</th>
                         <th>Salario Basico</th>
                         <th>Factor No Salarial</th>
+                        <th>Motivo de Retiro</th>
+                        <th>Codigo de Contrato</th>
                     </tr>
                 </thead>
                 <tbody id="tabla_contratos_empleado_body"></tbody>

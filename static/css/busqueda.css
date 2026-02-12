@@ -1,24 +1,64 @@
+/* --- BUSCADOR ESTILO BLUE LIGHT --- */
+
 .search-container {
-        margin-bottom: 25px;
-        position: relative;
+    margin-bottom: 25px;
+    position: relative;
+    width: 100%;
+    max-width: 400px; /* Limitamos el ancho para que se vea más elegante */
+}
+
+#searchInput, #inputBusquedaID {
+    width: 100%;
+    padding: 10px 15px 10px 45px; /* Espacio para el ícono a la izquierda */
+    font-size: 15px;
+    font-weight: 500;
+    border: 1.5px solid var(--border-color);
+    background-color: #ffffff; /* Fondo blanco puro */
+    color: var(--primary-color);
+    border-radius: 10px;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+/* Efecto al hacer clic (Focus) */
+#searchInput:focus, #inputBusquedaID:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    background-color: #ffffff;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1); /* Resplandor azul suave */
+}
+
+/* Ícono de búsqueda mediante Pseudo-elemento */
+.search-container::before {
+    content: '\f002'; /* Lupa de Font Awesome */
+    font-family: 'Font Awesome 6 Free', 'Font Awesome 5 Free';
+    font-weight: 900;
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8; /* Gris azulado suave para el ícono */
+    font-size: 16px;
+    transition: color 0.3s ease;
+    pointer-events: none;
+    z-index: 5;
+}
+
+/* El ícono cambia a azul cuando el input está enfocado */
+.search-container:focus-within::before {
+    color: var(--accent-color);
+}
+
+/* Placeholder personalizado */
+#searchInput::placeholder, #inputBusquedaID::placeholder {
+    color: #94a3b8;
+    opacity: 0.8;
+}
+
+/* --- AJUSTE PARA RESPONSIVO --- */
+@media (max-width: 768px) {
+    .search-container {
+        max-width: 100%;
     }
-    #searchInput {
-        width: 100%;
-        padding: 12px 20px 12px 40px; /* Espacio para el ícono */
-        font-size: 16px;
-        border: 1px solid var(--border-color);
-        background-color: var(--card-bg-color);
-        color: var(--primary-color);
-        border-radius: 8px;
-        box-sizing: border-box;
-    }
-    .search-container::before {
-        content: '\f002'; /* Código del ícono de búsqueda de Font Awesome */
-        font-family: 'Font Awesome 5 Free';
-        font-weight: 900;
-        position: absolute;
-        left: 15px;
-        top: 50%;
-        transform: translateY(-50%);
-        color: var(--primary-hover-color);
-    }
+}

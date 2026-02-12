@@ -1,18 +1,114 @@
-.tabla-expandible { width: 100%; border-collapse: collapse; }
-    .tabla-expandible th, .tabla-expandible td { border: 1px solid #4a4a6a; padding: 12px 15px; text-align: left; }
-    .tabla-expandible thead th { background-color: #333; color: #fff; }
-    .fila-principal { cursor: pointer; background-color: #2c2c4a; transition: background-color 0.2s ease; }
-    .fila-principal:hover, .fila-principal.expanded { background-color: #3a3a5a; }
-    .toggle-icon { display: inline-block; width: 20px; text-align: center; font-weight: bold; transition: transform 0.3s ease; }
-    .fila-principal.expanded .toggle-icon { transform: rotate(45deg); }
-    .fila-detalles { display: none; background-color: #22223a; }
-    .fila-detalles.show { display: table-row; }
-    .detalles-contenido { padding: 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 15px; }
-    .detalle-item { display: flex; flex-direction: column; }
-    .detalle-item strong { color: #a0a0c0; font-size: 0.8em; text-transform: uppercase; margin-bottom: 5px; }
+/* --- TABLA EXPANDIBLE ESTILO BLUE LIGHT --- */
 
-/* Asegurar el mismo layout para cualquier tabla expandible, incl. Riesgos */
-.tabla-expandible .fila-detalles > td { padding: 16px; }
+.tabla-expandible { 
+    width: 100%; 
+    border-collapse: collapse; 
+    background-color: #ffffff; /* Fondo blanco para la tabla */
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.tabla-expandible th, 
+.tabla-expandible td { 
+    border: 1px solid #e2e8f0; /* Borde gris azulado muy suave */
+    padding: 12px 15px; 
+    text-align: left; 
+    color: #334155; /* Texto gris pizarra oscuro */
+}
+
+/* Encabezados de la tabla */
+.tabla-expandible thead th { 
+    background-color: #f8fafc; /* Gris azulado casi blanco */
+    color: #1e3a8a; /* Azul marino profundo */
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    border-bottom: 2px solid #2563eb; /* Línea de acento azul */
+}
+
+/* Filas principales */
+.fila-principal { 
+    cursor: pointer; 
+    background-color: #ffffff; 
+    transition: all 0.2s ease; 
+}
+
+/* Efecto Hover: Azul muy pálido */
+.fila-principal:hover { 
+    background-color: #f1f7ff; 
+}
+
+/* Fila cuando está expandida */
+.fila-principal.expanded { 
+    background-color: #eff6ff; 
+    border-left: 4px solid #2563eb; 
+}
+
+/* Icono de expansión */
+.toggle-icon { 
+    display: inline-block; 
+    width: 20px; 
+    text-align: center; 
+    font-weight: bold; 
+    color: #2563eb;
+    transition: transform 0.3s ease; 
+}
+
+.fila-principal.expanded .toggle-icon { 
+    transform: rotate(45deg); 
+}
+.fila-principal:hover{
+    cursor: pointer;
+}
+
+/* Fila de detalles (Oculta) */
+.fila-detalles { 
+    display: none; 
+    background-color: #f9fbff; /* Un azul apenas perceptible para diferenciar la zona */
+}
+
+.fila-detalles.show { 
+    display: table-row; 
+}
+
+/* Contenido de los detalles */
+.detalles-contenido { 
+    padding: 20px; 
+    display: grid; 
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
+    gap: 15px; 
+}
+
+/* Items de detalle */
+.detalle-item { 
+    display: flex; 
+    flex-direction: column; 
+    padding: 5px;
+}
+
+/* Etiquetas (Strong) en modo claro */
+.detalle-item strong { 
+    color: #64748b; /* Gris azulado medio */
+    font-size: 0.75rem; 
+    text-transform: uppercase; 
+    margin-bottom: 3px; 
+    letter-spacing: 0.5px;
+}
+
+/* Valor del dato */
+.detalle-item span {
+    color: #1e293b;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+/* Ajustes adicionales para grids internos */
+.tabla-expandible .fila-detalles > td { 
+    padding: 16px; 
+    border-top: none;
+}
+
 .tabla-expandible .fila-detalles .detalles-contenido {
     display: grid !important;
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -20,8 +116,8 @@
     width: 100%;
     box-sizing: border-box;
 }
-.tabla-expandible .fila-detalles .detalles-contenido.use-grid {
-    display: grid !important;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)) !important;
+
+.tabla-expandible .fila-detalles .detalle-item { 
+    white-space: normal; 
+    word-break: break-word; 
 }
-.tabla-expandible .fila-detalles .detalle-item { white-space: normal; word-break: break-word; }
