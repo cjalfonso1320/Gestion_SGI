@@ -2,29 +2,55 @@
 {% block title %}Aula Virtual{% endblock %}
 {% block content %}
 
-<div class="welcome-section">
-    <h2>¡Bienvenido al Aula Virtual de Digicom System Corporation!</h2>
-    <p>Selecciona una opción del menú para comenzar a gestionar tus cursos.</p>
-
-    <div class="feature-grid">
-        <table>
+<div class="welcome-header" style="text-align: left; margin-bottom: 30px;">
+    <h2 style="color: var(--primary-color); font-weight: 800;">¡Mis Cursos Disponibles!</h2>
+    <p style="color: var(--modal-text-soft);">A continuación se muestran las capacitaciones que tienes habilitadas.</p>
+</div>
+<div class="resultados-container">
+    <table class="table">
+        <thead>
             <tr>
-                <th>Curso</th>
-                <th>Fecha Limite</th>
-                <th>Acciones</th>
+                <th>Nombre del Curso</th>
+                <th>Fecha Limite de Presentación</th>
+                <th style="text-align: center;">Acciones</th>
             </tr>
+        </thead>
+        <tbody>
             {% for curso in cursos %}
-                {% if curso.estado == 'Abierto' %}
-                <tr>
-                    <td>{{ curso.nombre }}</td>
-                    <td>{{ curso.fecha_limite }}</td>
-                    <td>
-                        <a href="{{ url_for('aula.curso', curso_id=curso.id) }}" class="btn btn-primary">Ingresar</a>
-                    </td>
-                </tr>
-                {% endif %}
+            {% if curso.estado == 'Abierto' %}
+            <tr>
+                <td style="font-weight: 700; color: var(--primary-color);">
+                    <i class="fa-solid fa-book" style="margin-right: 10px; color: var(--accent-color);"></i>
+                    {{ curso.nombre }}
+                </td>
+                <td>
+                    <i class="fa-regular fa-calendar-check" style="margin-right: 8px;"></i>
+                    {{ curso.fecha_limite }}
+                </td>
+                <td style="text-align: center;">
+                    {% if curso.aprobado %}
+                        <span class="aprobado" style="font-size: 0.9rem;">
+                            <i class="fa-solid fa-circle-check"></i> Completado
+                        </span>
+                    {% else %}
+                        <a href="{{ url_for('aula.curso', curso_id=curso.id) }}" class="btn btn-ver"
+                            style="text-decoration: none;">
+                            <i class="fa-solid fa-right-to-bracket"></i>
+                            Ingresar al curso
+                        </a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endif %}
             {% endfor %}
-        </table>
+        </tbody>
+    </table>
+    {% set activos = cursos | selectattr('estado', 'equalto', 'Abierto') | list %}
+    {% if activos | length == 0 %}
+    <div class="no-results" style="text-align: center; padding: 40px; color: #64748b;">
+        <i class="fa-solid fa-face-smile" style="font-size: 2rem; display: block; margin-bottom: 10px;"></i>
+        Actualmente no tienes cursos pendientes por realizar.
     </div>
+    {% endif %}
 </div>
 {% endblock %}

@@ -19,13 +19,13 @@ def get_cursos_db():
     return cursos
 
 
-def crear_curso_db(nombre, descripcion, archivo, fecha_limite, creado_por, estado):
+def crear_curso_db(nombre, descripcion, archivo, fecha_limite, creado_por, estado, enlace_video):
     cursor = mysql.connection.cursor()
     
     cursor.execute(
-        """INSERT INTO cursos (nombre, descripcion, archivo, fecha_limite, creado_por, estado)
-        VALUES (%s, %s, %s, %s, %s, %s)""",
-        (nombre, descripcion, archivo, fecha_limite, creado_por, estado))
+        """INSERT INTO cursos (nombre, descripcion, archivo, enlace_video, fecha_limite, creado_por, estado)
+        VALUES (%s, %s, %s, %s, %s, %s, %s)""",
+        (nombre, descripcion, archivo, enlace_video, fecha_limite, creado_por, estado))
     cursor.connection.commit()
     curso_id = cursor.lastrowid
     cursor.close()
@@ -313,4 +313,59 @@ def recalcular_nota_final(intento_id):
         raise e
     finally:
         cursor.close()
+
+def busca_estudiante(identificacion):
+    cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    sql = """
+            SELECT u.identificacion,
+                u.nombres,
+                u.apellidos,
+                cg.nombre AS cargo,
+                ci.nombre AS ciudad,
+                gn.nombre AS proceso
+            FROM users_rrhh u
+            LEFT JOIN cargos cg ON u.cargo_id = cg.id
+            LEFT JOIN ciudades ci ON u.barrio = ci.id
+            LEFT JOIN grupo_nomina gn ON u.grupo_nomina_id = gn.id
+            WHERE u.identificacion = %s AND u.activo = 1
+        """
+    cur.execute(sql, (identificacion,))
+    estudiante = cur.fetchone()
+    cur.close()
+    return estudiante
+
+def resultados_estudiante(identificacion):
+    cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    sql = """
+            SELECT 
+                c.nombre AS curso,
+                ie.nota,
+                ie.fecha_presentacion,
+                ie.estado,
+                ie.id as intento_id
+            FROM intentos_evaluacion ie
+            INNER JOIN evaluaciones e ON ie.evaluacion_id = e.id
+            INNER JOIN cursos c ON e.curso_id = c.id
+            WHERE ie.estudiante_id = %s
+            ORDER BY fecha_presentacion DESC
+        """
+    cur.execute(sql, (identificacion,))
+    resultados = cur.fetchall()
+    cur.close()
+    return resultados
+
+def curso_aprobado(identificacion, curso_id):
+    cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    sql = """
+            SELECT ie.id
+            FROM intentos_evaluacion ie
+            INNER JOIN evaluaciones e ON ie.evaluacion_id = e.id
+            WHERE ie.estudiante_id = %s AND e.curso_id = %s AND ie.nota >= 70
+        """
+    cur.execute(sql, (identificacion, curso_id))
+    resultado = cur.fetchone()
+    cur.close()
+    return resultado is not None
+
+
 

@@ -1,39 +1,68 @@
-<h1>crea curso</h1>{% extends 'home.html' %}
-{% block title %}Gestion de Cursos{% endblock %}
+{% extends 'home.html' %}
+{% block title %}Crear Curso{% endblock %}
 {% block content %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/modal.css') }}">
+<!-- Vinculamos el CSS -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/reg_aula.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/form_indicadores.css') }}">
 
 <div class="welcome-section">
-    <button onclick="location.href='{{ url_for('aula.gestionar_cursos') }}'">Volver a Gestionar Cursos</button>
+    <!-- Botón Volver estilizado -->
+    <button class="btn-volver" onclick="location.href='{{ url_for('aula.gestionar_cursos') }}'">
+        <i class="fa-solid fa-arrow-left"></i> Volver a Gestionar Cursos
+    </button>
 
     <div class="form-container">
         <form action="{{ url_for('aula.crear_curso') }}" method="post" enctype="multipart/form-data">
             <h2>Crear Nuevo Curso</h2>
-            <label class="form-label" for="nombre">Nombre del Curso:</label>
-            <input class="form-control" type="text" id="nombre" name="nombre" required>
 
-            <label class="form-label" for="descripcion">Descripción:</label>
-            <textarea class="form-control" id="descripcion" name="descripcion" required></textarea>
+            <div class="form-grid-container">
+                <div class="form-field full-width">
+                    <label class="form-label" for="nombre">Nombre del Curso:</label>
+                    <input class="form-control" type="text" id="nombre" name="nombre"
+                        placeholder="Ej: Inducción de Seguridad" required>
+                </div>
 
-            <label class="form-label" for="duracion">Cargar Documento</label>
-            <input class="form-control" type="file" id="documento" name="documento" required>
+                <div class="form-field full-width">
+                    <label class="form-label" for="descripcion">Descripción:</label>
+                    <textarea class="form-control" id="descripcion" name="descripcion"
+                        placeholder="Breve descripción del contenido..." required></textarea>
+                </div>
 
-            <label class="form-label" for="duracion">Este curso estara disponible hasta:</label>
-            <input class="form-control" type="date" id="duracion" name="duracion" required>
+                <div class="form-field">
+                    <label class="form-label">Archivo de Estudio (PDF)</label>
+                    <input class="form-control" type="file" id="documento" name="documento" required>
+                </div>
+                <div class="form-field">
+                    <label class="form-label">Enlace de Video</label>
+                    <input class="form-control" type="text" id="enlace_video" name="enlace_video" required>
+                </div>
 
-            <h3>Evaluacion</h3>
-            <div id="cantidadPreguntasdiv">
-                <label class="form-label">Cantidad de Preguntas:</label>
-                <input class="form-control" id="cantidadPreguntas" type="number" min="1" required>
-                <button type="button" onclick="crearPreguntas()">Continuar</button>
+                <div class="form-field">
+                    <label class="form-label">Fecha Límite</label>
+                    <input class="form-control" type="date" id="duracion" name="duracion" required>
+                </div>
             </div>
+
+            <div class="evaluacion-header">
+                <h3><i class="fa-solid fa-graduation-cap"></i> Configuración de la Evaluación</h3>
+            </div>
+
+            <div id="cantidadPreguntasdiv" class="analysis-container">
+                <label class="form-label">¿Cuántas preguntas tendrá el examen?</label>
+                <div style="display: flex; gap: 15px;">
+                    <input class="form-control" id="cantidadPreguntas" type="number" min="1"
+                        style="width: 100px; margin-bottom: 0;">
+                    <button type="button" class="btn-continuar" onclick="crearPreguntas()">Configurar Preguntas</button>
+                </div>
+            </div>
+
             <div id="preguntasContainer"></div>
-            <button type="submit">Guardar Curso</button>
+
+            <button type="submit" class="btn-guardar" style="display: none;" id="btnGuardarCurso">Guardar y Publicar
+                Curso</button>
         </form>
     </div>
 </div>
-
 <script>
     function crearPreguntas() {
         const cantidad = parseInt(document.getElementById('cantidadPreguntas').value);
@@ -45,6 +74,7 @@
         }
 
         document.getElementById('cantidadPreguntasdiv').style.display = 'none';
+        document.getElementById('btnGuardarCurso').style.display = 'block';
         container.innerHTML = '';
 
         for (let i = 1; i <= cantidad; i++) {
@@ -99,16 +129,17 @@
                 `;
         }
         if (tipo === 'vf') {
-            div.innerHTML = `
-            <label>Pregunta</label>
-            <input class="form-control" name="preguntas[${i}][pregunta]" required>
+           div.innerHTML = `
+        <label class="form-label">Pregunta</label>
+        <input class="form-control" name="preguntas[${i}][pregunta]" required>
 
-            <label>Respuesta</label>
-            <select name="preguntas[${i}][respuesta]" required>
-                <option value="V">Verdadero</option>
-                <option value="F">Falso</option>
-            </select>
-        `;
+        <label class="form-label">Respuesta Correcta</label>
+        <!-- AGREGADA LA CLASE form-control AQUÍ -->
+        <select class="form-control" name="preguntas[${i}][respuesta]" required>
+            <option value="V">Verdadero</option>
+            <option value="F">Falso</option>
+        </select>
+    `;
         }
         if (tipo === 'texto') {
             div.innerHTML = `

@@ -150,18 +150,14 @@
     let currentAction = '';
 
     function openRoleModal(event, action) {
-        console.log('Opening role modal for action:', action);
-        event.preventDefault(); // ¡CLAVE! Detiene cualquier otra acción del clic.
-        currentAction = action;
-        const modal = document.getElementById('roleModal');
-        console.log('Modal element:', modal);
-        if (modal) {
-            modal.style.display = 'block';
-            console.log('Modal display set to block');
-        } else {
-            console.error('Modal element not found!');
-        }
+    event.preventDefault();
+    currentAction = action;
+    const modal = document.getElementById('roleModal');
+    if (modal) {
+        // CAMBIO: Usar flex para centrar
+        modal.style.display = 'flex'; 
     }
+}
 
     function closeRoleModal() {
         console.log('Closing role modal');

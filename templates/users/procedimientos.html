@@ -19,7 +19,7 @@
             <td>{{ p.tipo }}</td>
             <td>
                 {% if p.tipo == '.pdf' %}
-                    <a target="_blank" href="{{ url_for('doc.ver_documento', filepath=p.ruta) }}" class="custom-btn btn-5" style="text-decoration: none; text-align: center;">Ver</a> |
+                    <a target="_blank" href="{{ url_for('doc.ver_documento', filepath=p.ruta) }}" class="btn-ver"  style="text-decoration: none; text-align: center;">Ver</a>
                 {% else %}
                 <a href="{{ url_for('doc.descargar_documento', filepath=p.ruta) }}" class="custom-btn btn-5" style="text-decoration: none; text-align: center;">Descargar</a>
                 {% endif %}

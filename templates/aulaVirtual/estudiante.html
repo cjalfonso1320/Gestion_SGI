@@ -2,27 +2,31 @@
 {% block title %}Aula Virtual{% endblock %}
 {% block content %}
 
-<div class="welcome-section">
-    <h2>¡Bienvenido al Aula Virtual de Digicom System Corporation!</h2>
-    <p>Selecciona una opción del menú para comenzar a gestionar tus cursos.</p>
+<div class="welcome-header" style="text-align: left; margin-bottom: 40px;">
+    <h2 style="font-size: 2.2rem; color: var(--primary-color); font-weight: 800;">¡Bienvenido al Aula Virtual de Digicom
+        System Corporation!</h2>
+    <p style="color: var(--modal-text-soft); font-size: 1.1rem;">Selecciona una opción del menú para comenzar a
+        gestionar tus cursos.</p>
 
     <div class="feature-grid">
-        <a href="{{ url_for('aula.cursos_abiertos') }}" class="feature-card" style="cursor: pointer; text-decoration: none !important;">
-            <i class="fa-regular fa-file-lines"></i>
-            <h3>Cursos</h3>
-            <p>Crear, Cargar y eliminar cursos</p>
-        </a>
+        <!-- tarjeta cursos -->
+         <div class="feature-card" onclick="location.href='{{ url_for('aula.cursos_abiertos') }}'">
+            <i class="fa-solid fa-book-open-reader"></i>
+            <h3>Mis Cursos</h3>
+            <p>Accede al material de estudio y presenta tus evaluaciones.</p>
+         </div>
 
 
-        <div class="feature-card" style="cursor: pointer;">
-            <i class="fa-solid fa-chart-line"></i>
+        <div class="feature-card" onclick="location.href='{{ url_for('aula.mis_resultados') }}'" style="cursor: pointer;">
+            <i class="fa-solid fa-square-poll-vertical"></i>
             <h3>Resultados</h3>
-            <p>Visualiza y analiza los resultados de los estudiantes</p>
+            <p>Consulta las notas de tus evaluaciones presentadas.</p>
         </div>
-        <div class="feature-card" style="cursor: pointer;">
-            <i class="fa-solid fa-arrows-up-to-line"></i>
+
+        <div class="feature-card">
+            <i class="fa-solid fa-award"></i>
             <h3>Certificados</h3>
-            <p>Crea e imprime certificados</p>
+            <p>Descarga tus certificados de aprobación.</p>
         </div>
     </div>
 </div>

@@ -5,5 +5,61 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/form_indicadores.css') }}">
 {% include 'UsoInterno/doc_UsoInterno.html' %}
 <script src="{{ url_for('static', filename='js/jquery.min.js')}}"></script>
-<script src="{{ url_for('static', filename='js/acordeon_doc.js')}}"></script>
+<!-- <script src="{{ url_for('static', filename='js/acordeon_doc.js')}}"></script> -->
+ {% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const accordionContainer = document.querySelector('.doc-accordion');
+
+    if (accordionContainer) {
+        accordionContainer.addEventListener('click', function(e) {
+            // 1. Detectamos si el clic fue en CUALQUIER encabezado (de cualquier nivel)
+            const header = e.target.closest('.doc-section, .doc-subsection, .doc-subsubsection');
+            
+            if (header) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                // 2. Alternar clase active para el estilo visual
+                header.classList.toggle('active');
+
+                // 3. Buscar el contenido (es el hermano inmediatamente siguiente)
+                const content = header.nextElementSibling;
+
+                if (content) {
+                    // Verificamos el estado actual para conmutar
+                    const isHidden = window.getComputedStyle(content).display === 'none';
+                    
+                    if (isHidden) {
+                        content.style.display = 'block';
+                        // Pequeña animación de entrada
+                        content.style.opacity = '0';
+                        setTimeout(() => { content.style.opacity = '1'; content.style.transition = 'opacity 0.3s'; }, 10);
+                    } else {
+                        content.style.display = 'none';
+                    }
+                }
+
+                // 4. LÓGICA OPCIONAL: Cerrar solo a los hermanos del MISMO nivel
+                // Buscamos al "abuelo" para encontrar a los tíos y hermanos
+                const parentContainer = header.parentElement;
+                const miClase = header.classList[0]; // doc-section, doc-subsection, etc.
+
+                Array.from(parentContainer.children).forEach(child => {
+                    if (child !== header && child.classList.contains(miClase)) {
+                        child.classList.remove('active');
+                        const siblingContent = child.nextElementSibling;
+                        if (siblingContent && (siblingContent.classList.contains('doc-content') || 
+                            siblingContent.classList.contains('doc-subcontent') || 
+                            siblingContent.classList.contains('doc-subsubcontent'))) {
+                            siblingContent.style.display = 'none';
+                        }
+                    }
+                });
+            }
+        });
+    }
+});
+</script>
+{% endblock %}
 {% endblock %}

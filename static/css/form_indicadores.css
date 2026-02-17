@@ -1,45 +1,52 @@
 /* --- FORMULARIOS E INDICADORES - ESTILO BLUE LIGHT --- */
 
 form {
-    background-color: #ffffff; /* Fondo blanco */
-    padding: 30px;
-    border-radius: 12px;
-    max-width: 900px; /* Aumentado para mejor visualización de la grilla */
+    background-color: #ffffff !important;
+    padding: 30px !important;
+    border-radius: 12px !important;
+    max-width: 1100px !important; /* Aumentamos el ancho para que quepan 3 columnas bien */
     margin: 0 auto 2rem;
-    border: 1.5px solid var(--border-color);
+    border: 1px solid var(--border-color);
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+}
+/* El contenedor de los campos DEBE ser grid */
+.form-grid-container {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important; /* 3 columnas iguales */
+    gap: 20px 25px !important; /* Espacio entre campos */
+    align-items: start;
+}
+/* Cada campo individual */
+.form-field {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }
 
 .form-label {
-    display: block;
-    margin-bottom: 6px;
-    font-weight: 800;
-    font-size: 0.85rem;
-    color: var(--primary-color); /* Azul marino */
+    color: #1e3a8a !important;
+    font-weight: 800 !important;
+    font-size: 0.8rem !important;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    margin-bottom: 8px !important;
 }
 
-.form-control,
-select,
-textarea {
-    width: 100%;
-    padding: 10px 12px;
-    font-size: 0.95rem;
-    border: 1.5px solid #cbd5e1; /* Gris azulado medio */
-    border-radius: 8px;
-    background-color: #ffffff;
-    color: #1e293b;
-    margin-bottom: 20px;
-    transition: all 0.3s ease;
-    outline: none;
+/* Ajuste de los controles para que no se desborden */
+.form-control, select, textarea {
+    width: 100% !important;
+    box-sizing: border-box;
+    margin-bottom: 0px !important; /* El espacio lo da el gap del grid */
 }
+
 
 .form-control:focus, select:focus, textarea:focus {
     border-color: var(--accent-color);
     box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
 }
-
+/* Campos que deben ocupar todo el ancho (como el Análisis) */
+.full-width {
+    grid-column: 1 / -1 !important; /* Ocupa las 3 columnas */
+}
 /* --- BOTONES --- */
 button[type="submit"] {
     background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
@@ -86,19 +93,79 @@ button[type="submit"]:hover {
 }
 
 .accordion-content {
-    display: none;
-    padding: 20px;
-    background-color: #ffffff;
+    display: none; /* Oculto por defecto */
+    background-color: #ffffff !important;
+    padding: 20px !important;
+    border-top: 1px solid #e2e8f0;
+}
+/* Esta es la regla que el navegador debe obedecer al hacer clic */
+.accordion.active .accordion-content {
+    display: block !important;
+    animation: fadeInAccordion 0.3s ease;
+}
+
+.accordion.active .accordion-header {
+    background-color: #eff6ff; /* Azul muy pálido al abrir */
+    color: #2563eb;           /* Azul vibrante en el título */
+    border-bottom: 1.5px solid #e2e8f0;
+}
+
+@keyframes fadeInAccordion {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 /* --- TABLAS --- */
 .table {
     width: 100%;
-    border-collapse: collapse;
-    color: #334155;
-    background-color: #ffffff;
+    border-collapse: collapse !important;
+    background-color: #ffffff !important;
+    margin-top: 15px;
+    border: 1px solid #e2e8f0 !important;
+}
+/* Encabezados con filas dobles */
+.table thead th {
+    background-color: #f8fafc !important; /* Gris azulado muy claro */
+    color: #1e3a8a !important;           /* Azul marino profundo */
+    font-weight: 800 !important;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    padding: 12px 8px !important;
+    border: 1px solid #cbd5e1 !important; /* Borde más visible para las rejillas */
+    text-align: center !important;
+    vertical-align: middle !important;
+}
+.table thead tr:first-child th {
+    border-top: 3px solid var(--accent-color) !important;
 }
 
+/* Celdas de datos (Aquí es donde no se veía el texto) */
+.table tbody td {
+    background-color: #ffffff !important;
+    color: #334155 !important;           /* Gris oscuro visible */
+    padding: 10px 12px !important;
+    border: 1px solid #f1f5f9 !important; /* Bordes internos más suaves */
+    font-size: 0.85rem !important;
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* Efecto al pasar el mouse por la fila */
+.table tbody tr:hover td {
+    background-color: #f1f7ff !important;
+    color: #2563eb !important; /* El texto se resalta en azul al pasar el mouse */
+}
+
+/* Estilo para los números (Criticidad y Total) */
+.table td[data-column*="Activo"], 
+.table td[data-column="total"] {
+    font-weight: 700;
+}
+/* Resaltar la columna TOTAL */
+.table td[data-column="total"] {
+    background-color: #f8fafc !important;
+    color: var(--accent-color) !important;
+}
 .table th,
 .table td {
     padding: 12px;
@@ -169,4 +236,63 @@ button[type="submit"]:hover {
     background-color: #eff6ff !important;
     color: var(--accent-color) !important;
     font-weight: 700;
+}
+/* --- RESPONSIVO --- */
+@media (max-width: 992px) {
+    .form-grid-container {
+        grid-template-columns: repeat(2, 1fr) !important; /* 2 columnas en tablets */
+    }
+}
+
+@media (max-width: 600px) {
+    .form-grid-container {
+        grid-template-columns: 1fr !important; /* 1 columna en móviles */
+    }
+    .full-width {
+        grid-column: auto !important;
+    }
+}
+.chart-wrapper {
+    position: relative;
+    width: 100%;
+    height: 350px !important; /* Altura fija para que la gráfica tenga espacio */
+    margin: 20px 0;
+    display: block;
+}
+
+canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.proceso-selector {
+    background-color: #f8fafc;
+    padding: 15px 25px;
+    border-radius: 12px;
+    border: 1.5px solid #e2e8f0;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.proceso-selector label {
+    color: #1e3a8a;
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    margin: 0;
+    white-space: nowrap;
+}
+
+.proceso-selector select {
+    margin-bottom: 0 !important; /* Quita el margen inferior para alinear */
+    flex-grow: 1;
+    background-color: #ffffff;
+    border: 1.5px solid #cbd5e1;
+    height: 40px;
+    border-radius: 8px;
+    padding: 0 10px;
+    font-weight: 600;
 }

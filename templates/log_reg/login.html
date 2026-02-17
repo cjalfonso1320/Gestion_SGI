@@ -75,17 +75,13 @@
             </form>
 
             <!-- LOGIN AULA -->
-            <form id="login-aula" class="login-form" method="POST" action="{{ url_for('auth.login') }}">
+            <form id="login-aula" class="login-form" method="POST" action="{{ url_for('aula.aula') }}">
 
                 <input type="hidden" name="tipo_login" value="aula">
-                <label for="username">Numero de identificacion</label>
-                <input type="text" name="username" id="username">
+                <label for="identificacion">Numero de identificacion</label>
+                <input type="text" name="identificacion" id="identificacion">
 
                 <button type="submit">Ingresa al Aula Virtual</button>
-                <!-- <div class="social">
-
-            <div class="go"><a href="{{ url_for('aula.aula') }}">Aula Virtual</a></div>
-        </div> -->
             </form>
         </div>
     </div>
@@ -106,17 +102,24 @@
         }
     </script>
     <script>
-        document.addEventListener('DOMContentLoaded', () =>{
+        document.addEventListener('DOMContentLoaded', () => {
             const errorMsg = document.querySelector('.login-error-msg');
 
-            if (errorMsg){
+            if (errorMsg) {
                 const activeForm = document.querySelector('.login-form');
 
-                if (activeForm){
+                if (activeForm) {
                     activeForm.classList.remove('login-error');
                     void activeForm.offsetWidth;
                     activeForm.classList.add('login-error');
                 }
+            }
+
+            // Si la URL tiene un parámetro ?tab=aula, mostrar esa pestaña automáticamente
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('tab') === 'aula') {
+                const btnAula = document.querySelector('button[onclick*="aula"]');
+                showLogin('aula', btnAula);
             }
         })
     </script>

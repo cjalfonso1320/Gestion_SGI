@@ -1,60 +1,194 @@
 {% extends 'aulaVirtual/estudiante.html' %}
-{% block title %}Aula Virtual{% endblock %}
+{% block title %}Presentar Evaluación{% endblock %}
 {% block content %}
 <style>
-    .opciones-horizontal {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 15px;
-        margin-top: 10px;
+    /* --- CONTENEDOR DE EVALUACIÓN --- */
+    .evaluacion-container {
+        background: #ffffff;
+        padding: 40px;
+        border-radius: 16px;
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 10px 25px -5px rgba(30, 58, 138, 0.1);
+        max-width: 800px;
+        margin: 0 auto;
     }
+
+    .evaluacion-header {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    .evaluacion-header h2 {
+        color: #1e3a8a;
+        font-weight: 800;
+        font-size: 1.8rem;
+        margin-bottom: 10px;
+    }
+
+    /* --- BLOQUE DE PREGUNTA --- */
+    .question-block {
+        background: #f8fafc;
+        /* Fondo azul grisáceo tenue */
+        padding: 25px;
+        border-radius: 12px;
+        margin-bottom: 30px;
+        border-left: 5px solid #2563eb;
+    }
+
+    .question-block h3 {
+        color: #1e3a8a;
+        font-size: 1.1rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+    }
+
+    /* --- OPCIONES (RADIO TILES) --- */
+    .opciones-horizontal {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        /* Dos por fila */
+        gap: 12px;
+    }
+
     .opcion-radio {
         display: flex;
         align-items: center;
-        gap: 6px;
-        background: rgba(255,255,255,0.08);
-        padding: 6px 10px;
-        border-radius: 6px;
+        gap: 10px;
+        background: #ffffff;
+        padding: 12px 15px;
+        border-radius: 10px;
+        border: 1.5px solid #e2e8f0;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .opcion-radio:hover {
+        border-color: #2563eb;
+        background: #eff6ff;
+    }
+
+    /* Estilo cuando está seleccionado */
+    .opcion-radio input[type="radio"]:checked+span {
+        color: #2563eb;
+        font-weight: 700;
+    }
+
+    .opcion-radio input[type="radio"]:checked {
+        accent-color: #2563eb;
+    }
+
+    /* --- BOTÓN ENVIAR --- */
+    .btn-submit {
+        background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+        color: white;
+        width: 100%;
+        padding: 15px;
+        border: none;
+        border-radius: 10px;
+        font-size: 1.1rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        cursor: pointer;
+        transition: all 0.3s;
+        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+    }
+
+    .btn-submit:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);
+        filter: brightness(1.1);
+    }
+
+    /* --- ESTILO DE LOS INPUTS Y SELECTS --- */
+    .form-control {
+        display: block;
+        width: 100%;
+        padding: 12px 15px;
+        font-size: 1rem;
+        font-weight: 500;
+        line-height: 1.5;
+        color: #1e293b;
+        background-color: #ffffff;
+        border: 1.5px solid #cbd5e1;
+        border-radius: 10px;
+        transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        outline: none;
+        appearance: none;
+        /* QUITA LA FLECHA POR DEFECTO */
+        -webkit-appearance: none;
+        -moz-appearance: none;
+    }
+
+    /* Flecha personalizada para el SELECT */
+    select.form-control {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%232563eb' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right 1rem center;
+        background-size: 16px 12px;
+        padding-right: 40px;
+        /* Espacio para que el texto no pise la flecha */
         cursor: pointer;
     }
-    .opcion-radio input[type="radio"] {
-        cursor: pointer;
-        margin: 0;
+
+    .form-control:focus {
+        border-color: #2563eb;
+        background-color: #ffffff;
+        box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
     }
-    .opcion-radio input[type="radio"]:checked + span {
-        font-weight: 600;
-        color: #2ecc71;
+
+    /* Ajuste para el bloque de pregunta para que no se vea tan pegado */
+    .form-field {
+        margin-top: 10px;
     }
 </style>
-<div class="welcome-section">
-    <h2>¡Bienvenido al Aula Virtual de Digicom System Corporation!</h2>
-    <p>{{ evaluacion.titulo }}</p>
 
-    <div class="feature-grid">
+<div class="welcome-section">
+    <div class="evaluacion-container">
+        <div class="evaluacion-header">
+            <h2>Evaluación de Conocimientos</h2>
+            <p style="color: #64748b; font-weight: 600;">{{ evaluacion.titulo }}</p>
+        </div>
+
         <form action="{{ url_for('aula.presentar_evaluacion', curso_id=curso_id) }}" method="post">
             {% for pregunta in evaluacion.preguntas %}
-                <div class="question-block">
-                    <h3>{{ loop.index }}. {{ pregunta.pregunta }}</h3>
-                    {% if pregunta.tipo == 'opcion_multiple' %}
-                        <div class="opciones-horizontal">
-                            {% for opcion in pregunta.opciones %}
-                                <label class="opcion-radio">
-                                    <input type="radio" name="pregunta_{{ pregunta.id }}" value="{{ opcion.texto }}" required>
-                                    {{ opcion.texto }}
-                                </label>
-                        {% endfor %}
-                        </div>
-                    {% elif pregunta.tipo == 'vf' %}
-                        <select class="form-control" name="pregunta_{{ pregunta.id }}" id="" required>
-                            <option value="V">Verdadero</option>
-                            <option value="F">Falso</option>
-                        </select>
-                    {% elif pregunta.tipo == 'texto' %}
-                        <textarea class="form-control" name="pregunta_{{ pregunta.id }}" class="long-answer" required></textarea>
-                    {% endif %}
+            <div class="question-block">
+                <h3>{{ loop.index }}. {{ pregunta.pregunta }}</h3>
+
+                {% if pregunta.tipo == 'opcion_multiple' %}
+                <div class="opciones-horizontal">
+                    {% for opcion in pregunta.opciones %}
+                    <label class="opcion-radio">
+                        <input type="radio" name="pregunta_{{ pregunta.id }}" value="{{ opcion.texto }}" required>
+                        <span>{{ opcion.texto }}</span>
+                    </label>
+                    {% endfor %}
                 </div>
+
+                {% elif pregunta.tipo == 'vf' %}
+                <div class="form-field">
+                    <select class="form-control" name="pregunta_{{ pregunta.id }}" required>
+                        <option value="" disabled selected>Seleccione una opción...</option>
+                        <option value="V">Verdadero</option>
+                        <option value="F">Falso</option>
+                    </select>
+                </div>
+
+                {% elif pregunta.tipo == 'texto' %}
+                <div class="form-field">
+                    <textarea class="form-control" name="pregunta_{{ pregunta.id }}"
+                        placeholder="Escriba su respuesta aquí..." style="min-height: 100px; resize: vertical;"
+                        required></textarea>
+                </div>
+                {% endif %}
+            </div>
             {% endfor %}
-            <button type="submit" class="btn-submit">Enviar Evaluación</button>
+
+            <div style="margin-top: 40px;">
+                <button type="submit" class="btn-submit">
+                    <i class="fa-solid fa-paper-plane" style="margin-right: 10px;"></i> Finalizar y Enviar
+                </button>
+            </div>
         </form>
     </div>
 </div>

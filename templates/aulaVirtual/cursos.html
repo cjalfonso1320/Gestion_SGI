@@ -4,7 +4,9 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/modal_curso.css') }}">
 
 <div class="welcome-section">
-    <button onclick="location.href='{{ url_for('aula.crear_curso') }}'">Crear Curso</button>
+    <button class="btn-crear-curso" onclick="location.href='{{ url_for('aula.crear_curso') }}'">
+        <i class="fa-solid fa-circle-plus"></i> Crear Nuevo Curso
+    </button>
 
     <div class="feature-grid">
 
@@ -23,16 +25,26 @@
                 <td>{{ curso.fecha_limite }}</td>
                 <td>{{ curso.estado }}</td>
                 <td class="acciones">
+                    <!-- Botón Ver -->
                     <button type="button" class="btn-ver" onclick="verEvaluacion({{ curso.id }})">Ver</button>
+
+                    <!-- Formulario de Eliminar (Limpio) -->
                     <form action="{{ url_for('aula.eliminar_curso', curso_id=curso.id)}}" method="post"
-                        class="form-eliminar"
-                        onsubmit="return confirm('Seguro que desea eliminar este curso y todo su contenido?');">
-                        <button type="submit" class="btn-eliminar">Eliminar</button>
+                        class="form-eliminar">
+                        <button type="submit" class="btn-eliminar"
+                            onclick="return confirm('¿Seguro que desea eliminar este curso?');">
+                            Eliminar
+                        </button>
                     </form>
                 </td>
             </tr>
             {% endfor %}
         </table>
+        {% if cursos|length == 0 %}
+        <div class="no-results">
+            <i class="fa-solid fa-circle-info"></i> No hay cursos registrados actualmente.
+        </div>
+        {% endif %}
     </div>
 </div>
 <div id="modalEvaluacion" class="modal">
@@ -44,21 +56,32 @@
 </div>
 <script>
     function verEvaluacion(cursoId) {
+        // Mostrar un estado de carga opcional
+        document.getElementById('contenidoEvaluacion').innerHTML = '<p>Cargando evaluación...</p>';
+
         fetch(`{{ url_for('aula.ver_evaluacion', curso_id=0) }}`.replace('0', cursoId))
             .then(response => response.text())
             .then(data => {
-                console.log(data);
                 document.getElementById('contenidoEvaluacion').innerHTML = data;
-                document.getElementById('modalEvaluacion').style.display = 'block';
+                // CAMBIO: Usar 'flex' para que el CSS lo centre
+                document.getElementById('modalEvaluacion').style.display = 'flex';
             })
             .catch(error => {
                 console.error('Error:', error);
                 alert('Error al cargar la evaluación.');
             });
-
     }
+
     function cerrarModal() {
         document.getElementById('modalEvaluacion').style.display = 'none';
+    }
+
+    // CERRAR AL HACER CLIC FUERA (Opcional pero recomendado)
+    window.onclick = function (event) {
+        const modal = document.getElementById('modalEvaluacion');
+        if (event.target == modal) {
+            cerrarModal();
+        }
     }
 </script>
 {% endblock %}

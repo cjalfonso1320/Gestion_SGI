@@ -204,7 +204,7 @@
 <div class="container mt-4">
 
     <div class="accordion" id="acordeonTabla">
-        <div class="accordion-header" onclick="this.parentElement.classList.toggle('active')">
+        <div class="accordion-header">
             Ver Tabla de Registros
         </div>
         <div class="accordion-content">
@@ -235,8 +235,10 @@
             </table>
         </div>
     </div>
-    <h3>Porcentaje de Documentos Entregados por Mes</h3>
-    <canvas id="grafica_entregaFisicos_{{ proceso }}" width="400" height="200"></canvas>
+    <h3 style="text-align: center; color: #1e3a8a; margin-top: 30px;">Porcentaje de Documentos Entregados por Mes</h3>
+    <div class="chart-wrapper">
+        <canvas id="grafica_entregaFisicos_{{ proceso }}" width="400" height="200"></canvas>
+    </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
 <!-- html2pdf (includes html2canvas + jsPDF) to export DOM to PDF -->
@@ -263,7 +265,11 @@
             scales: {
                 y: {
                     beginAtZero: true,
-                    max: 100
+                    max: 100,
+                    grid: { color: '#e2e8f0'}
+                },
+                x: {
+                    grid: { display: false }
                 }
             }
         }

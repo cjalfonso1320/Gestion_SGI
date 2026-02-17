@@ -2,47 +2,58 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/form_indicadores.css') }}">
 
-<body class="darkmode">
+<body class="blue-theme">
 
     <!-- MENU LATERAL -->
     <nav class="main-menu">
-        <div>
+        <div class="user-info">
             <div class="user-info">
-                <p>{{ estudiante.nombre }}</p>
+                <div style="font-size: 3rem; color: var(--accent-color); margin-bottom: 10px;">
+                    <i class="fa-solid da-circle-user"></i>
+                </div>
+                <p style="font-weight: 800; color: var(--primary-color);">{{ estudiante.nombre }}</p>
+                <small style="color: var(--modal-text-soft); font-size: 0.7rem;">ESTUDIANTE</small>
             </div>
         </div>
-
-        <ul>
-
+        <ul class="nav-list">
             <li class="nav-item">
-                <a href="{{ url_for('auth.logout') }}">
-                    <i class="fa fa-right-from-bracket nav-icon"></i>
-                    <span class="nav-text">Cerrar Sesion</span>
+                <a href="{{ url_for('aula.cursos_estudiante') }}">
+                    <i class="fa-solid fa-house-user nav-icon"></i>
+                    <span class="nav-text">Inicio</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="logout-section" style="margin-top: auto;">
+            <li class="nav-item">
+                <a href="{{ url_for('auth.login') }}" style="color: #ef4444;">
+                    <i class="fa-solid fa-right-from-bracket nav-icon"></i>
+                    <span class="nav-text">Cerrar Sesión</span>
                 </a>
             </li>
         </ul>
     </nav>
     <!-- FINALIZA MENU LATERAL -->
 
-    <section class="">
-        <div class="">
-
-            <!-- MENU CENTRAL -->
-            <div class="upcoming-events">
-                <div id="content-container">
-                    <!-- CONTENIDO DINÁMICO -->
-                    <div id="dynamic-content" class="dynamic-content" {% if request.endpoint !='home.home'
-                        %}style="display: block;" {% endif %}>
-                        {% block content %}
-                        <!-- Contenido específico de cada página -->
-                        {% endblock %}
-                    </div>
+    <main class="content">
+        <section class="left-content">
+            <div class="welcome-section">
+                {% block content %}
+                <!-- Contenido específico de cada página -->
+                {% endblock %}
+                <!-- FINALIZA MENU CENTRAL -->
+            </div>
+        </section>
+        <section class="right-content">
+            <div class="analytics">
+                <h1 style="font-size: 1.2rem;">Tu Perfil</h1>
+                <div class="contact-status">
+                    <p><strong>Cargo:</strong> <br> {{estudiante.cargo}}</p>
+                    <hr style="margin: 10px 0; border: 0; border-top: 1px solid var(--border-color);">
+                    <p><strong>Proceso:</strong> <br> {{estudiante.proceso}}</p>
                 </div>
             </div>
-            <!-- FINALIZA MENU CENTRAL -->
-        </div>
-
-    </section>
+        </section>
+    </main>
 
 </body>
 

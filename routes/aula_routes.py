@@ -2,8 +2,10 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash,
 from flask_login import login_user, logout_user, login_required, current_user
 import os
 from werkzeug.utils import secure_filename
+import re
 
 from controllers.aula_controller import crear_curso_db, get_cursos_db, crear_evaluacion_db, get_evaluacion_curso_db, eliminar_curso_db, ya_presento_evaluacion, guardar_intento_respuestas, get_resultados_cursos_db, get_intento_validar, validar_respuestas_texto, recalcular_nota_final
+from controllers.aula_controller import busca_estudiante, resultados_estudiante, curso_aprobado
 
 
 
@@ -13,6 +15,16 @@ UPLOAD_CURSOS = os.path.join(BASE_DIR, '..', 'static', 'uploads', 'cursos')
 os.makedirs(UPLOAD_CURSOS, exist_ok=True)
 
 
+#convierte url a rutas de embed
+def convert_url_to_embed(url):
+    if not url:
+        return None
+    youtube_regex = r'(https?://)?(www\.)?(youtube|youtu|youtube-nocookie)\.(com|be)/(watch\?v=|embed/|v/|.+\?v=)?([^&=%\?]{11})'
+    match = re.search(youtube_regex, url)
+    if match:
+        video_id = match.group(6)
+        return f"https://youtube.com/embed/{video_id}"
+    return url
 
 
 
@@ -41,6 +53,7 @@ def crear_curso():
         descripcion = request.form.get('descripcion')
         fecha_limite = request.form.get('duracion')
         file = request.files.get('documento')
+        enlace_video = request.form.get('enlace_video')
         estado = 'Abierto'
         
         if not file or file.filename == '':
@@ -58,7 +71,8 @@ def crear_curso():
             archivo='uploads/cursos/' + filename,
             fecha_limite=fecha_limite,
             creado_por=current_user.id,
-            estado=estado
+            estado=estado,
+            enlace_video=enlace_video
         )
         
         #lee preguntas
@@ -137,15 +151,21 @@ def validar_intento(intento_id):
 @aula_bp.route('/aula', methods=['GET', 'POST'])
 def aula():
     if request.method == 'POST':
-        session['estudiante'] = {
-            'identificacion': request.form.get('identificacion'),
-            'nombre': request.form.get('fullname'),
-            'ciudad': request.form.get('ciudad'),
-            'cargo': request.form.get('cargo'),
-            'proceso': request.form.get('proceso')
-        }
-        return redirect(url_for('aula.cursos_estudiante'))
-    return render_template('aulaVirtual/index.html')
+        identificacion = request.form.get('identificacion')
+        estudiante = busca_estudiante(identificacion)
+        if estudiante:
+            session['estudiante'] = {
+                'identificacion': estudiante['identificacion'],
+                'nombre': f"{estudiante['nombres']} {estudiante['apellidos']}",
+                'ciudad': estudiante['ciudad'] or 'N/A',
+                'cargo': estudiante['cargo'] or 'N/A',
+                'proceso': estudiante['proceso'] or 'N/A'
+            }
+            return redirect(url_for('aula.cursos_estudiante'))
+        else:
+            flash('El numero de identificacion no coincide con nuestro personal activo', 'error')
+            return redirect(url_for('auth.login'))
+    return redirect(url_for('auth.login'))
 
 @aula_bp.route('/aula/cursos-estudiante')
 def cursos_estudiante():
@@ -159,6 +179,11 @@ def cursos_estudiante():
 def cursos_abiertos():
     cursos = get_cursos_db()
     estudiante = session.get('estudiante')
+    
+    #marca de curso
+    for c in cursos:
+        c['aprobado'] = curso_aprobado(estudiante['identificacion'], c['id'])
+    
     return render_template('aulaVirtual/_cursos_estudiante.html', cursos=cursos, estudiante=estudiante)
 
 @aula_bp.route('/aula/cursos-estudiante/cursos/<int:curso_id>')
@@ -167,12 +192,20 @@ def curso(curso_id):
     if not estudiante:
         return redirect(url_for('aula.aula'))
     
+    #valida bloqueo
+    if curso_aprobado(estudiante['identificacion'], curso_id):
+        flash('Ya has completado este curso, Puedes ver tu certificado en la resiccion de Resultados', 'info')
+        return redirect(url_for('aula.cursos_abiertos'))
+    
     cursos = get_cursos_db()
     curso = next((c for c in cursos if c['id'] == curso_id), None)
     if not curso:
         flash('Curso no encontrado.', 'error')
         return redirect(url_for('aula.cursos_estudiante'))
     
+    #procesa video
+    if curso.get('enlace_video'):
+        curso['enlace_video_embed'] = convert_url_to_embed(curso['enlace_video'])
     evaluacion = get_evaluacion_curso_db(curso_id)
     return render_template('aulaVirtual/_curso.html', curso=curso, evaluacion=evaluacion, estudiante=estudiante)
 
@@ -204,3 +237,14 @@ def presentar_evaluacion(curso_id):
         return redirect(url_for('aula.cursos_estudiante'))
     return render_template('aulaVirtual/_evaluacion.html', evaluacion=evaluacion, estudiante=estudiante, curso_id=curso_id)
 
+@aula_bp.route('/aula/mis_resultados')
+def mis_resultados():
+    estudiante = session.get('estudiante')
+    if not estudiante:
+        return redirect(url_for('aula.aula'))
+    
+    resultados = resultados_estudiante(estudiante['identificacion'])
+    
+    return render_template('aulaVirtual/mis_resultados.html',
+                           estudiante=estudiante,
+                           resultados=resultados)
