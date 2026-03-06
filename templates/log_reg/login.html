@@ -19,7 +19,7 @@
             <!-- Curva más amplia y suave para texto largo -->
             <path id="arc-path" d="M50,60 Q600,0 1150,60" fill="none" stroke="none" />
         </defs>
-        <text font-family="Poppins, sans-serif" font-size="22" fill="#23a2f6" text-anchor="middle">
+        <text font-family="Nunito, sans-serif" font-size="24" fill="#1e3a8a" text-anchor="middle" font-weigth="800">
             <textPath href="#arc-path" startOffset="50%" textLength="1100" lengthAdjust="spacingAndGlyphs">
                 Sistema de Gestion Integrado - DIGICOM SYSTEM CORPORATION S.A
             </textPath>
@@ -90,40 +90,30 @@
         function showLogin(tipo, btn) {
             const slide = document.querySelector('.login-slider');
             const tabs = document.querySelectorAll('.tab-btn');
+            const forms = document.querySelectorAll('.login-form');
 
             let index = 0;
             if (tipo === 'rrhh') index = 1;
             if (tipo === 'aula') index = 2;
 
+            // Movimiento del slider
             slide.style.transform = `translateX(-${index * 33.333}%)`;
 
             tabs.forEach(t => t.classList.remove('active'));
             btn.classList.add('active');
-        }
-    </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const errorMsg = document.querySelector('.login-error-msg');
 
-            if (errorMsg) {
-                const activeForm = document.querySelector('.login-form');
-
-                if (activeForm) {
-                    activeForm.classList.remove('login-error');
-                    void activeForm.offsetWidth;
-                    activeForm.classList.add('login-error');
+            // Animación de escala y opacidad (active-view es la que definimos en el CSS)
+            forms.forEach((f, i) => {
+                if (i === index) {
+                    f.classList.add('active-view');
+                } else {
+                    f.classList.remove('active-view');
                 }
-            }
-
-            // Si la URL tiene un parámetro ?tab=aula, mostrar esa pestaña automáticamente
-            const urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.get('tab') === 'aula') {
-                const btnAula = document.querySelector('button[onclick*="aula"]');
-                showLogin('aula', btnAula);
-            }
-        })
+            });
+        }
     </script>
 </body>
 <!-- <div class="go"><a href="{{ url_for('auth.register') }}">¿No tienes cuenta? Regístrate</a></div> -->
 
 </html>
+

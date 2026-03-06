@@ -20,17 +20,13 @@ def login():
             user = Usuarios.obtener_por_username(username)
         elif tipo_login == 'rrhh':
             user = UsuariosRRHH.obtener_por_identificacion_correo(username)
-        elif tipo_login == 'aula':
-            flash('Modulo de aula vortual en contruccion', 'error')
-            return redirect(url_for('auth.login'))
+
         
         if user and user.verifica_contrasena(password):
             session.pop('selected_rol', None)
             login_user(user)
             if tipo_login == 'rrhh':
                 return redirect(url_for('rrhh.dashboard'))
-            elif tipo_login == 'aula':
-                return redirect(url_for('aula.aula'))
             else:
                 return redirect(url_for('home.home'))
         
@@ -38,6 +34,7 @@ def login():
         return redirect(url_for('auth.login'))
     return render_template('log_reg/login.html')
             
+        
         
 @auth_bp.route('/register', methods=['GET', 'POST'])
 def register():
@@ -62,3 +59,5 @@ def logout():
     
     logout_user()
     return redirect(url_for('auth.login'))
+
+

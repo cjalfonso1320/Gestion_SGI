@@ -1,226 +1,209 @@
-      *,
-*:before,
-*:after{
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap");
+
+*, *:before, *:after{
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
+
 body{
-    background-color: #080710;
+    background-color: #f0f4f9;
+    font-family: 'Nunito', sans-serif;   
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
 }
+
+/* CIURCULOS DE FONDO */
 .background{
     width: 430px;
     height: 520px;
     position: absolute;
-    transform: translate(-50%,-50%);
-    left: 50%;
     top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 .background .shape{
-    height: 200px;
-    width: 200px;
+    height: 220px;
+    width: 220px;
     position: absolute;
     border-radius: 50%;
+    filter: blur(50px);
+    opacity: 0.5;
 }
+
 .shape:first-child{
-    background: linear-gradient(
-        #1845ad,
-        #23a2f6
-    );
-    left: -80px;
-    top: -80px;
+    background: linear-gradient(#2563eb, #60a5fa);
+    left: -100px;
+    top: -100px;
 }
+
 .shape:last-child{
-    background: linear-gradient(
-        to right,
-        #ff512f,
-        #f09819
-    );
-    right: -30px;
-    bottom: -80px;
-}
-form{
-    height: 100%;
-    background-color: transparent;
-    border-radius: 10px;
-    backdrop-filter: blur(10px);
-    border: none;
-    box-shadow: none;
-    padding: 0;
-    overflow: visible;
-}
-form *{
-    font-family: 'Poppins',sans-serif;
-    color: #ffffff;
-    letter-spacing: 0.5px;
-    outline: none;
-    border: none;
-}
-form h3{
-    font-size: 32px;
-    font-weight: 500;
-    line-height: 42px;
-    text-align: center;
+    background: linear-gradient(to right, #3b82f6, #dbeafe);
+    right: -100px;
+    bottom: -100px;
 }
 
-label{
-    display: block;
-    margin-top: 18px;
-    font-size: 16px;
-    font-weight: 500;
-}
-input{
-    display: block;
-    height: 50px;
-    width: 100%;
-    background-color: rgba(255,255,255,0.07);
-    border-radius: 3px;
-    padding: 0 10px;
-    margin-top: 8px;
-    font-size: 14px;
-    font-weight: 300;
-}
-::placeholder{
-    color: #e5e5e5;
-}
-form button{
-    margin-top: 30px;
-    width: 100%;
-    display: block;
-    visibility: visible;
-    background-color: #ffffff;
-    color: #080710 !important;
-    padding: 14px 0;
-    font-size: 16px;
-    font-weight: 600;
-    border-radius: 6px;
-    cursor: pointer;
-}
-.social{
-  margin-top: 30px;
-  display: flex;
-}
-.social div{
-  background: red;
-  border-radius: 3px;
-  padding: 5px 10px 10px 5px;
-  background-color: rgba(255,255,255,0.27);
-  color: #eaf0fb;
-  text-align: center;
-}
-.social div:hover{
-  background-color: rgba(255,255,255,0.47);
-}
-.social .fb{
-  margin-left: 25px;
-}
-.social i{
-  margin-right: 4px;
-}
-
-svg {
-    pointer-events: none;
-}
-
-/* Mejorar legibilidad */
-text {
-    font-weight: 600;
-    letter-spacing: 0.5px;
-}
-
-/* Sombra sutil para destacar sobre fondo oscuro */
-text textPath {
-    filter: drop-shadow(1px 1px 2px rgba(0,0,0,0.5));
-}
- .alert-error{
-    animation: shake 0.4s;
-    box-shadow: 0 0 20px rgba(231, 76, 60, 0.9);
-    border-color: rgba(231, 76, 60, 0.8);
- }
- .login-form{
-    width: 33.333%;
-    height: 100%;
-    padding: 80px 35px 40px 35px;
-    background-color: rgba(255, 255, 255, 0.13);
-    backdrop-filter: blur(10px);
-    border: 2px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
-    flex-shrink: 0;
-    flex-grow: 0;
-    animation: fadeIn 0.4s ease;
- }
- .login-tabs{
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 6px;
-    z-index: 20;
-    background: rgba(255, 255, 255, 0.08);
-    padding: 6px;
+/* CONTENEDOR PRINCIPAL */
+.login-container{
+    width: 420px;
+    height: 550px;
+    background-color: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
     border-radius: 20px;
- }
- .tab-btn{
-    padding: 8px 14px;
-    border-radius: 14px;
-    font-size: 13px;
-    font-weight: 500;
-    border: none;
-    cursor: pointer;
-    background: transparent;
-    color: #fff;
-    transition: all 0.25s ease;
- }
- .tab-btn:hover{
-    background: rgba(255, 255, 255, 0.25);
- }
- .tab-btn.active{
-    background: #23a2f6;
-    color: white;
- }
- .login-container{
-    position: absolute;
-    top: 55%;
-    left: 50%;
-    width: 400px;
-    height: 540px;
-    transform: translate(-50%, -50%);
+    box-shadow: 0 25px 50px -12px rgba(30, 58, 138, 0.15);
     overflow: hidden;
-    border-radius: 10px;
+    position: relative;
     z-index: 10;
- }
- .login-slider{
+}
+
+.login-slider{
     display: flex;
     width: 300%;
     height: 100%;
-    transition: transform 0.5s ease-in-out;
-    margin: 0;
- }
- @keyframes fadeIn {
-    from{
-        opacity: 0;
-        transform: scale(0.98);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
- }
- @keyframes shake{
-    0% {transform:  translateX(0);}
-    25% {transform: translateX(-6px);}
-    50% {transform: translateX(6px);}
-    75% {transform: translateX(-4px);}
-    100% {transform: translateX(0);}
- }
- .login-error-msg{
-    background: rgba(231, 76, 60, 0.15);
-    border: 1px solid rgba(231, 76, 60, 0.6);
-    color: #ffb4b4;
-    padding: 10px 14px;
-    border-radius: 6px;
-    margin-bottom: 15px;
+    transition: transform 0.7 cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+.login-form{
+    width: 33.333%;
+    height: 100%;
+    padding: 70px 40px 40px;
+    opacity: 0.3;
+    transform: scale(0.9);
+    transition: all 0.6s ease;
+}
+
+.login-form.active-view{
+    opacity: 1;
+    transform: scale(1);
+}
+/* PESTAÑAS (TABS) */
+.login-tabs{
+    position: absolute;
+    top: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 5px;
+    z-index: 20;
+    background: rgba(226, 232, 240, 0.8);
+    padding: 5px;
+    border-radius: 12px;
+}
+
+.tab-btn{
+    padding: 8px 18px;
+    border-radius: 8px;
     font-size: 13px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    background: transparent;
+    color: #64748b;
+    transition: all 0.3 ease;
+}
+
+.tab-btn.active{
+    background: #ffffff;
+    color: #2563eb;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* ELEMENTOS DE FORMULARIO */
+.login-form h3{
+    font-size: 24px;
+    font-weight: 800;
+    color: #1e3a8a;
     text-align: center;
-    animation: fadeIn 0.3s ease;
- }
+    margin-bottom: 25px;
+}
+
+.login-form label{
+    display: block;
+    margin-top: 15px;
+    font-size: 0.8rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #1e3a8a;
+    letter-spacing: 0.5px;
+}
+
+.login-form input{
+    display: block;
+    height: 50px;
+    width: 100%;
+    background-color: #ffffff;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 0 15px;
+    margin-top: 8px;
+    font-size: 15px;
+    color: #1e293b;
+    font-family: inherit;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.login-form input:focus{
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+}
+
+/* BOTONES */
+.login-form button{
+    margin-top: 35px;
+    width: 100%;
+    background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+    color: #ffffff !important;
+    padding: 15px;
+    font-size: 15px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+}
+
+.login-form button:hover{
+    transform: translateY(-1px);
+    box-shadow: 0 6px 15px rgba(37, 99, 235, 0.3);
+    filter: brightness(1.1);
+}
+
+/* ALERTAS DE ERROR */
+.login-error-msg{
+    position: absolute;
+    top: 90px;
+    left: 40px;
+    right: 40px;
+    background: #fee2e2;
+    border: 1px solid #fecaca;
+    color: #dc2626;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: center;
+    z-index: 30;
+    animation: slideDown 0.4s ease;
+}
+
+@keyframes slideDown{
+    from {transform: translateY(-10px); opacity: 0;}
+    to{ transform: translateY(0); opacity: 1;}
+}
+
+/* SVG CURVO SUPERIOR */
+.header-svg{
+    position: absolute;
+    top: 5vh;
+    left: 0;
+    width: 100%;
+    z-index: 5;
+}

@@ -56,43 +56,75 @@ def load_user(user_id):
         return Usuarios.obtener_por_id(real_id)
     return None
 
+# @app.context_processor
+# def inject_global_context():
+#     """Inyecta variables comunes en TODAS las plantillas de la aplicación."""
+#     try:
+#         # Solo inyecta si hay un usuario logueado para evitar errores en páginas públicas
+#         from flask_login import current_user
+#         if current_user.is_authenticated:
+#             user_id = current_user.get_id()
+#             if user_id.startswith('sgi-'):
+#                 rol = current_user.rol
+#                 return dict(
+#                     pendientes=cuenta_pendientes(rol),
+#                     rechazados=cuenta_rechazados(),
+#                     cambios_pendientes=lista_cambios_pendientes(rol),
+#                     cambios_rechazados=lista_cambios_rechazados(),
+#                     # Añadimos procesos e imagen_rol para que estén disponibles globalmente
+#                     procesos=PROCESOS_ROL.get(rol, []),
+#                     imagen_rol=ROL_IMAGES.get(rol, 'imgs/user.png')
+#                 )
+#             elif user_id.startswith('rrhh-'):
+#                 rol = current_user.rol
+#                 if rol == 1:
+#                     return dict(
+#                     empleados=total_empleados(),
+#                     imagen_rol='imgs/user.png'
+#                 )
+#                 else:
+#                     return dict(
+#                         imagen_rol='imgs/user.png'
+#                     )
+                
+#         return dict(pendientes=0, rechazados=0, procesos=[], imagen_rol='imgs/user.png')
+#     except ImportError:
+#         # Si flask_login no está disponible o hay otro error, no inyecta nada
+#         pass
+#     return {}
+
 @app.context_processor
 def inject_global_context():
-    """Inyecta variables comunes en TODAS las plantillas de la aplicación."""
+    from flask_login import current_user
     try:
-        # Solo inyecta si hay un usuario logueado para evitar errores en páginas públicas
-        from flask_login import current_user
+        context = {
+            'pendientes': 0,
+            'rechazados': 0,
+            'cambios_pendientes': [],
+            'cambios_:rechazados': [],
+            'procesos': [],
+            'imagen_rol': 'imgs/user.png'
+        }
         if current_user.is_authenticated:
             user_id = current_user.get_id()
             if user_id.startswith('sgi-'):
                 rol = current_user.rol
-                return dict(
+                context.update(dict(
                     pendientes=cuenta_pendientes(rol),
-                    rechazados=cuenta_rechazados(),
+                    rechazados=cuenta_rechazados(rol),
                     cambios_pendientes=lista_cambios_pendientes(rol),
                     cambios_rechazados=lista_cambios_rechazados(),
-                    # Añadimos procesos e imagen_rol para que estén disponibles globalmente
-                    procesos=PROCESOS_ROL.get(rol, []),
+                    procesos=PROCESOS_ROL(rol, []),
                     imagen_rol=ROL_IMAGES.get(rol, 'imgs/user.png')
-                )
+                ))
             elif user_id.startswith('rrhh-'):
-                rol = current_user.rol
-                if rol == 1:
-                    return dict(
-                    empleados=total_empleados(),
-                    imagen_rol='imgs/user.png'
-                )
-                else:
-                    return dict(
-                        imagen_rol='imgs/user.png'
-                    )
-                
+                if current_user.rol == 1:
+                    context['empleados'] = total_empleados()
+                context['imagen_rol'] = 'imgs/user.png'
+        return context
+    except Exception as e:
+        print(f"Error en context_procesos: {e}")
         return dict(pendientes=0, rechazados=0, procesos=[], imagen_rol='imgs/user.png')
-    except ImportError:
-        # Si flask_login no está disponible o hay otro error, no inyecta nada
-        pass
-    return {}
-
 
 #registrar blueprints
 
