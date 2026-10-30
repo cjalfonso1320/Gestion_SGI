@@ -1,0 +1,339 @@
+/* --- TABLA EXPANDIBLE ESTILO BLUE LIGHT --- */
+
+.tabla-expandible { 
+    width: 100%; 
+    border-collapse: collapse; 
+    background-color: #ffffff; /* Fondo blanco para la tabla */
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.tabla-expandible th, 
+.tabla-expandible td { 
+    border: 1px solid #e2e8f0; /* Borde gris azulado muy suave */
+    padding: 12px 15px; 
+    text-align: left; 
+    color: #334155; /* Texto gris pizarra oscuro */
+}
+
+/* Encabezados de la tabla */
+.tabla-expandible thead th { 
+    background-color: #f8fafc; /* Gris azulado casi blanco */
+    color: #1e3a8a; /* Azul marino profundo */
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    border-bottom: 2px solid #2563eb; /* Línea de acento azul */
+}
+
+/* Filas principales */
+.fila-principal { 
+    cursor: pointer; 
+    background-color: #ffffff; 
+    transition: all 0.2s ease; 
+}
+
+/* Efecto Hover: Azul muy pálido */
+.fila-principal:hover { 
+    background-color: #f1f7ff; 
+}
+
+/* Fila cuando está expandida */
+.fila-principal.expanded { 
+    background-color: #eff6ff; 
+    border-left: 4px solid #2563eb; 
+}
+
+/* Icono de expansión */
+.toggle-icon { 
+    display: inline-block; 
+    width: 20px; 
+    text-align: center; 
+    font-weight: bold; 
+    color: #2563eb;
+    transition: transform 0.3s ease; 
+}
+
+.fila-principal.expanded .toggle-icon { 
+    transform: rotate(45deg); 
+}
+.fila-principal:hover{
+    cursor: pointer;
+}
+
+/* Fila de detalles (Oculta) */
+.fila-detalles { 
+    display: none; 
+    background-color: #f9fbff; /* Un azul apenas perceptible para diferenciar la zona */
+}
+
+.fila-detalles.show { 
+    display: table-row; 
+}
+
+/* Contenido de los detalles */
+.detalles-contenido { 
+    padding: 20px; 
+    display: grid; 
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
+    gap: 15px; 
+}
+
+/* Items de detalle */
+.detalle-item { 
+    display: flex; 
+    flex-direction: column; 
+    padding: 5px;
+}
+
+/* Etiquetas (Strong) en modo claro */
+.detalle-item strong { 
+    color: #64748b; /* Gris azulado medio */
+    font-size: 0.75rem; 
+    text-transform: uppercase; 
+    margin-bottom: 3px; 
+    letter-spacing: 0.5px;
+}
+
+/* Valor del dato */
+.detalle-item span {
+    color: #1e293b;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+/* Ajustes adicionales para grids internos */
+.tabla-expandible .fila-detalles > td { 
+    padding: 16px; 
+    border-top: none;
+}
+
+.tabla-expandible .fila-detalles .detalles-contenido {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 14px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.tabla-expandible .fila-detalles .detalle-item { 
+    white-space: normal; 
+    word-break: break-word; 
+}
+
+/* ====================================================
+   PESTAÑAS DE DETALLE (EMPLEADOS)
+   ==================================================== */
+
+/* Contenedor principal de pestañas */
+.detalle-tabs {
+    width: 100%;
+}
+
+/* Barra de navegación de pestañas */
+.detalle-tab-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+/* Botones de pestaña */
+.detalle-tab-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #64748b;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.detalle-tab-btn:hover {
+    background: #f1f5f9;
+    color: #1e3a8a;
+}
+
+.detalle-tab-btn.active {
+    background: #eff6ff;
+    color: #2563eb;
+    border-color: #bfdbfe;
+    font-weight: 700;
+    box-shadow: 0 1px 3px rgba(37, 99, 235, 0.1);
+}
+
+.detalle-tab-btn i {
+    font-size: 0.85rem;
+}
+
+.detalle-tab-btn.active i {
+    color: #2563eb;
+}
+
+/* Paneles de contenido */
+.detalle-tab-panel {
+    display: none;
+    animation: fadeInTab 0.25s ease;
+}
+
+.detalle-tab-panel.active {
+    display: block;
+}
+
+@keyframes fadeInTab {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* El grid de items dentro del panel */
+.detalle-tab-panel .detalles-contenido {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 12px;
+    padding: 0;
+}
+
+/* Mejorar la apariencia de cada item */
+.detalle-tab-panel .detalle-item {
+    background: #ffffff;
+    border: 1px solid #f1f5f9;
+    border-radius: 8px;
+    padding: 12px 14px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.detalle-tab-panel .detalle-item:hover {
+    border-color: #e2e8f0;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+}
+
+.detalle-tab-panel .detalle-item strong {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.7rem;
+    margin-bottom: 4px;
+    color: #64748b;
+}
+
+.detalle-tab-panel .detalle-item span {
+    font-size: 0.9rem;
+    color: #1e293b;
+    font-weight: 600;
+}
+
+/* Botones de acción dentro de los items de detalle */
+.detalle-tab-panel .detalle-item .btn-accion {
+    margin-top: 6px;
+    font-size: 0.78rem;
+    padding: 8px 14px;
+    width: auto !important;
+    height: auto !important;
+    gap: 6px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* Badge para campos especiales */
+.detalle-tab-panel .detalle-item .badge-info {
+    display: inline-block;
+    background: #eff6ff;
+    color: #2563eb;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 2px 10px;
+    border-radius: 12px;
+    margin-left: 6px;
+}
+
+/* ==================================================
+   RESPONSIVE: TABLAS
+   ==================================================== */
+@media (max-width: 768px) {
+    .detalle-tab-nav {
+        flex-wrap: wrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    .detalle-tab-btn {
+        flex: 1 1 auto;
+        justify-content: center;
+        font-size: 0.72rem;
+        padding: 6px 10px;
+        white-space: nowrap;
+    }
+    .detalle-tab-btn i {
+        display: none;
+    }
+
+    /* Scroll horizontal para tablas en móvil */
+    .tabla-expandible {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        white-space: nowrap;
+    }
+
+    .tabla-expandible table {
+        min-width: 600px; /* Ancho mínimo para que la tabla tenga sentido */
+        table-layout: auto;
+    }
+
+    .tabla-expandible th,
+    .tabla-expandible td {
+        padding: 8px 10px;
+        font-size: 0.78rem;
+        white-space: nowrap;
+    }
+
+    .detalles-contenido {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 10px;
+    }
+
+    .detalle-item span {
+        font-size: 0.82rem;
+    }
+
+    .detalle-tab-panel .detalles-contenido {
+        grid-template-columns: 1fr 1fr !important;
+    }
+
+    .detalle-tab-panel .detalle-item {
+        padding: 8px 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .detalles-contenido {
+        grid-template-columns: 1fr !important;
+    }
+
+    .detalle-tab-panel .detalles-contenido {
+        grid-template-columns: 1fr !important;
+    }
+
+    .tabla-expandible thead th {
+        font-size: 0.7rem;
+        padding: 6px 8px;
+    }
+
+    .tabla-expandible td {
+        padding: 6px 8px;
+        font-size: 0.72rem;
+    }
+
+    .detalle-tab-btn {
+        font-size: 0.65rem;
+        padding: 4px 8px;
+    }
+}

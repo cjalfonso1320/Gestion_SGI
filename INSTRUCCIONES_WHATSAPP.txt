@@ -1,0 +1,134 @@
+====================================================================
+  WHATSAPP - NOTIFICACIONES DE CURSOS
+  Sistema de Gestión Integral (SGI)
+====================================================================
+
+El sistema puede enviar notificaciones de cursos por WhatsApp.
+Por defecto funciona en MODO SIMULACIÓN (solo registra en logs).
+Cuando se apruebe el presupuesto, se activa el MODO REAL con Meta API.
+
+
+╔══════════════════════════════════════════════════════════════╗
+║           MODO 1 - SIMULACIÓN (sin costo)                   ║
+╚══════════════════════════════════════════════════════════════╝
+
+NO requiere configuración. Funciona automáticamente.
+
+¿Qué hace?
+  - NO envía mensajes reales
+  - Registra cada mensaje en la consola del servidor
+  - Guarda un log en:  logs/whatsapp.log
+
+¿Dónde ver los logs?
+
+  1. Consola del servidor (donde se ejecuta Flask):
+     Verás líneas como:
+     [2025-06-03 10:30:00] 📲 [SIMULACIÓN] | 57300123456 | 🎓 Nuevo curso disponible...
+
+  2. Archivo de log:
+     Abre el archivo  logs/whatsapp.log  con cualquier editor de texto.
+
+¿Cómo probar?
+
+  1. Inicia sesión en el SGI como administrador.
+  2. Ve a Aula Virtual -> Gestionar Cursos -> Crear Nuevo Curso.
+  3. Completa el formulario y en "Dirigido a:" selecciona "Personas"
+     o "Roles" y elige al menos un destinatario.
+  4. Guarda el curso.
+  5. Revisa la consola del servidor o el archivo logs/whatsapp.log
+     para ver los mensajes simulados.
+
+
+╔══════════════════════════════════════════════════════════════╗
+║           MODO 2 - META API (cuando haya presupuesto)       ║
+╚══════════════════════════════════════════════════════════════╝
+
+Requisitos previos (gestionados por TI / Meta Business):
+
+  [ ] 1. Tener un número de teléfono verificado en Meta
+           (puede ser un número corporativo nuevo o existente)
+
+  [ ] 2. Crear una cuenta en Meta for Developers:
+           https://developers.facebook.com/
+
+  [ ] 3. Crear una App de tipo "Negocio" y agregar el producto
+           "WhatsApp" a la app.
+
+  [ ] 4. Obtener un Token de Acceso Permanente (System User Token):
+           - Ir a Meta Business Settings -> System Users
+           - Crear un System User con permisos de "whatsapp_business_messaging"
+           - Generar un token permanente (no el token temporal de 24h)
+
+  [ ] 5. Obtener el Phone Number ID:
+           - En la app de Meta, sección WhatsApp -> API Setup
+           - Ahí aparece el "Phone Number ID" del número registrado
+
+  [ ] 6. Tener instalada la librería 'requests' en el servidor:
+           pip install requests
+
+Pasos para activar:
+
+  1. Agrega estas variables al archivo  .env  del proyecto:
+
+     WHATSAPP_MODE=real
+     WHATSAPP_TOKEN=EAAT... (el token permanente que generaste)
+     WHATSAPP_PHONE_ID=123456789... (el ID del número en Meta)
+     WHATSAPP_FROM=57300XXXXXXX (tu número corporativo sin el +)
+
+  2. Opcional: Si no existe el archivo .env, puedes definir
+     las variables en el sistema operativo directamente.
+
+  3. Verifica la conexión:
+     - Crea un curso de prueba con un destinatario que tenga
+       número de celular en la base de datos (users_rrhh.celular).
+     - Revisa la consola; deberías ver:
+       ✅ [ENVIADO] | ID: wamid.XXXXXXXXXXX...
+
+  4. Si ves ❌ [ERROR API], revisa la consola para más detalles
+     (token inválido, número no verificado, etc.)
+
+
+╔══════════════════════════════════════════════════════════════╗
+║           PERSONALIZACIÓN                                    ║
+╚══════════════════════════════════════════════════════════════╝
+
+El mensaje de WhatsApp se define en:
+  utils/whatsapp_utils.py  -> función  enviar_notificacion_curso_whatsapp()
+
+Puedes cambiar el texto, emojis, o agregar enlaces editando esa
+función. El formato actual del mensaje es:
+
+  🎓 Nuevo curso disponible en SGI
+  📘 [Nombre del curso]
+  Has sido asignado a este curso. Ingresa al sistema para ver
+  el material y completar la evaluación.
+  📅 Fecha límite: [fecha]
+  🔗 https://servicios.digicom.com.co/Gestion
+
+
+╔══════════════════════════════════════════════════════════════╗
+║           SOLUCIÓN DE PROBLEMAS                              ║
+╚══════════════════════════════════════════════════════════════╝
+
+Problema: No se envía el WhatsApp
+  -> Revisa si el empleado tiene número de celular en la BD
+  -> Consulta: SELECT id, nombres, celular FROM users_rrhh
+  -> Si está vacío, el sistema omite ese destinatario
+
+Problema: El log no se crea
+  -> La carpeta logs/ se crea automáticamente al enviar el primer
+     mensaje simulado. Si no existe, verifica permisos de escritura.
+
+Problema: Error "requests no instalado" en modo real
+  -> Ejecuta: pip install requests
+  -> Luego agrega "requests" en requirements.txt
+
+Problema: Token expirado (Meta)
+  -> Si usaste un token temporal de 24h, genera un System User
+     Token permanente desde Meta Business Settings.
+
+
+====================================================================
+  Documentación oficial de Meta WhatsApp Cloud API:
+  https://developers.facebook.com/docs/whatsapp/cloud-api
+====================================================================

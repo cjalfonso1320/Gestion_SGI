@@ -1,0 +1,557 @@
+{% extends 'home.html' %}
+{% block title %}Buzón de Mensajes{% endblock %}
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/botones_accion.css') }}">
+<style>
+    .buzon-container {
+        max-width: 860px;
+        margin: 0 auto;
+    }
+    .buzon-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+    .buzon-header h2 {
+        color: #f1f5f9;
+        font-size: 1.3rem;
+        font-weight: 700;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .buzon-header h2 i {
+        color: #60a5fa;
+    }
+    .buzon-stats {
+        display: flex;
+        gap: 16px;
+        align-items: center;
+    }
+    .stat-badge {
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+    .stat-total {
+        background: rgba(59, 130, 246, 0.15);
+        color: #93c5fd;
+    }
+    .stat-no-leidos {
+        background: rgba(239, 68, 68, 0.15);
+        color: #fca5a5;
+    }
+    .stat-leidos {
+        background: rgba(34, 197, 94, 0.15);
+        color: #86efac;
+    }
+
+    .buzon-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+    .buzon-item {
+        background: rgba(15, 23, 42, 0.75);
+        backdrop-filter: blur(6px);
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        padding: 16px 20px;
+        cursor: pointer;
+        transition: all 0.2s;
+        position: relative;
+    }
+    .buzon-item:hover {
+        border-color: rgba(59, 130, 246, 0.3);
+        background: rgba(15, 23, 42, 0.9);
+    }
+    .buzon-item.no-leido {
+        border-left: 3px solid #3b82f6;
+        background: rgba(59, 130, 246, 0.05);
+    }
+    .buzon-item-leido {
+        opacity: 0.7;
+    }
+    .buzon-item-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 12px;
+        margin-bottom: 6px;
+    }
+    .buzon-item-asunto {
+        color: #e2e8f0;
+        font-size: 0.95rem;
+        font-weight: 600;
+        margin: 0;
+        flex: 1;
+    }
+    .buzon-item-fecha {
+        color: #64748b;
+        font-size: 0.75rem;
+        white-space: nowrap;
+        padding-top: 2px;
+    }
+    .buzon-item-remitente {
+        color: #94a3b8;
+        font-size: 0.8rem;
+        margin: 0 0 8px 0;
+    }
+    .buzon-item-preview {
+        color: #64748b;
+        font-size: 0.82rem;
+        line-height: 1.5;
+        margin: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+    .no-leido-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #3b82f6;
+        display: inline-block;
+        margin-right: 6px;
+        flex-shrink: 0;
+    }
+
+    /* Modal de detalle simple (solo mensaje, sin decoración) */
+    .buzon-modal-overlay {
+        display: none;
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(0,0,0,0.7);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+        padding: 30px;
+    }
+    .buzon-modal-overlay.active {
+        display: flex;
+    }
+    .buzon-modal-simple {
+        position: relative;
+        max-width: 700px;
+        width: 100%;
+        max-height: 85vh;
+        overflow-y: auto;
+        background: #fff;
+        border-radius: 4px;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+        padding: 36px 32px 24px;
+    }
+    .buzon-modal-simple #modalBody {
+        color: #1e293b;
+        font-size: 14px;
+        line-height: 1.7;
+    }
+    .buzon-modal-simple #modalBody img {
+        max-width: 100%;
+        height: auto;
+    }
+    .buzon-modal-subject {
+        font-size: 16px;
+        font-weight: 700;
+        color: #0f172a;
+        margin-bottom: 16px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid #e2e8f0;
+    }
+    .buzon-modal-close {
+        position: absolute;
+        top: 8px;
+        right: 12px;
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        color: #94a3b8;
+        line-height: 1;
+        padding: 4px 8px;
+        transition: color 0.15s;
+    }
+    .buzon-modal-close:hover {
+        color: #475569;
+    }
+
+    .buzon-empty {
+        text-align: center;
+        padding: 60px 20px;
+        color: #64748b;
+    }
+    .buzon-empty i {
+        font-size: 3rem;
+        color: #334155;
+        margin-bottom: 16px;
+    }
+    .buzon-empty h3 {
+        color: #94a3b8;
+        margin: 0 0 8px;
+        font-weight: 600;
+    }
+    .buzon-empty p {
+        margin: 0;
+        font-size: 0.85rem;
+    }
+
+    .buzon-loading {
+        text-align: center;
+        padding: 40px;
+        color: #64748b;
+    }
+    .buzon-loading .spinner {
+        display: inline-block;
+        width: 32px;
+        height: 32px;
+        border: 3px solid rgba(255,255,255,0.1);
+        border-top-color: #3b82f6;
+        border-radius: 50%;
+        animation: spin 0.7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .btn-filtrar-buzon {
+        padding: 8px 16px;
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 8px;
+        background: rgba(30, 41, 59, 0.6);
+        color: #cbd5e1;
+        font-size: 0.8rem;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+    .btn-filtrar-buzon:hover {
+        background: rgba(59, 130, 246, 0.15);
+        border-color: rgba(59, 130, 246, 0.3);
+    }
+    .btn-filtrar-buzon.active {
+        background: rgba(59, 130, 246, 0.2);
+        border-color: #3b82f6;
+        color: #93c5fd;
+    }
+
+    /* ─── Pestañas Entrada / Salida ─── */
+    .buzon-tabs {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 18px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        padding-bottom: 10px;
+    }
+    .buzon-tab {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 20px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        background: rgba(30, 41, 59, 0.5);
+        color: #94a3b8;
+        font-size: 0.85rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+    .buzon-tab:hover {
+        background: rgba(59, 130, 246, 0.12);
+        border-color: rgba(59, 130, 246, 0.3);
+        color: #cbd5e1;
+    }
+    .buzon-tab.active {
+        background: rgba(59, 130, 246, 0.2);
+        border-color: #3b82f6;
+        color: #93c5fd;
+    }
+    .buzon-tab .tab-count {
+        background: rgba(59, 130, 246, 0.25);
+        color: #bfdbfe;
+        font-size: 0.7rem;
+        font-weight: 700;
+        padding: 2px 8px;
+        border-radius: 12px;
+    }
+    .buzon-tab.active .tab-count {
+        background: #3b82f6;
+        color: #fff;
+    }
+    .buzon-panel {
+        display: none;
+    }
+    .buzon-panel.active {
+        display: block;
+    }
+</style>
+
+<div class="buzon-container">
+    <div class="buzon-header">
+        <h2>
+            <i class="fa-solid fa-inbox"></i> Buzón de Mensajes
+        </h2>
+    </div>
+
+    <!-- Pestañas -->
+    <div class="buzon-tabs">
+        <button class="buzon-tab active" id="tabEntrada" onclick="switchBuzonTab('entrada')">
+            <i class="fa-solid fa-inbox"></i> Buzón de Entrada
+            <span class="tab-count" id="tabEntradaCount">{{ no_leidos }}/{{ mensajes|length }}</span>
+        </button>
+        {% if es_talento_humano %}
+        <button class="buzon-tab" id="tabSalida" onclick="switchBuzonTab('salida')">
+            <i class="fa-solid fa-paper-plane"></i> Buzón de Salida
+            <span class="tab-count" id="tabSalidaCount">{{ mensajes_enviados|length }}</span>
+        </button>
+        {% endif %}
+    </div>
+
+    <!-- ─── PANEL: ENTRADA ─── -->
+    <div class="buzon-panel active" id="panelEntrada">
+        <div class="buzon-stats" style="margin-bottom: 16px;">
+            <button class="btn-filtrar-buzon {% if not solo_no_leidos %}active{% endif %}" onclick="cambiarFiltro('todos')">
+                <i class="fa-solid fa-envelope"></i> Todos
+            </button>
+            <button class="btn-filtrar-buzon {% if solo_no_leidos %}active{% endif %}" onclick="cambiarFiltro('no_leidos')">
+                <i class="fa-solid fa-envelope-open-text"></i> No leídos
+            </button>
+            <span class="stat-badge stat-total" id="statTotal">{{ mensajes|length }}</span>
+            <span class="stat-badge stat-no-leidos" id="statNoLeidos">{{ no_leidos }}</span>
+        </div>
+
+        <div class="buzon-list" id="buzonList">
+            {% if mensajes %}
+                {% for msg in mensajes %}
+                <div class="buzon-item {% if not msg.leido %}no-leido{% else %}buzon-item-leido{% endif %}"
+                     onclick="abrirMensaje({{ msg.id }}, this)"
+                     data-id="{{ msg.id }}">
+                    <div class="buzon-item-header">
+                        <h4 class="buzon-item-asunto">
+                            {% if not msg.leido %}<span class="no-leido-dot"></span>{% endif %}
+                            {{ msg.asunto }}
+                        </h4>
+                        <span class="buzon-item-fecha">{{ msg.fecha_envio }}</span>
+                    </div>
+                    {% if msg.enviado_por_nombre %}
+                    <p class="buzon-item-remitente">De: {{ msg.enviado_por_nombre }}</p>
+                    {% endif %}
+                    <p class="buzon-item-preview">{{ msg.mensaje_html|striptags|truncate(120) }}</p>
+                </div>
+                {% endfor %}
+            {% else %}
+            <div class="buzon-empty">
+                <i class="fa-regular fa-inbox"></i>
+                <h3>Buzón vacío</h3>
+                <p>No tienes mensajes aún. Cuando te envíen comunicaciones desde Mensajería, aparecerán aquí.</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- ─── PANEL: SALIDA (solo Talento Humano) ─── -->
+    {% if es_talento_humano %}
+    <div class="buzon-panel" id="panelSalida">
+        <div class="buzon-list" id="buzonSalidaList">
+            {% if mensajes_enviados %}
+                {% for msg in mensajes_enviados %}
+                <div class="buzon-item" onclick="abrirMensajeEnviado({{ msg.id }}, this)" data-id="{{ msg.id }}">
+                    <div class="buzon-item-header">
+                        <h4 class="buzon-item-asunto">{{ msg.asunto }}</h4>
+                        <span class="buzon-item-fecha">{{ msg.fecha_envio }}</span>
+                    </div>
+                    <p class="buzon-item-remitente">Para: {{ msg.destinatario_nombre }}</p>
+                    <p class="buzon-item-preview">{{ msg.mensaje_html|striptags|truncate(120) }}</p>
+                </div>
+                {% endfor %}
+            {% else %}
+            <div class="buzon-empty">
+                <i class="fa-regular fa-paper-plane"></i>
+                <h3>Sin mensajes enviados</h3>
+                <p>Los mensajes que envíes desde Mensajería quedarán registrados aquí.</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<!-- Modal detalle (solo texto plano + asunto arriba) -->
+<div class="buzon-modal-overlay" id="buzonModal">
+    <div class="buzon-modal-simple">
+        <button class="buzon-modal-close" onclick="cerrarModal()" title="Cerrar">&times;</button>
+        <div id="modalAsunto" class="buzon-modal-subject"></div>
+        <div id="modalBody"></div>
+    </div>
+</div>
+
+<script>
+let soloNoLeidos = {{ 'true' if solo_no_leidos else 'false' }};
+let mensajesEnviadosCache = {{ mensajes_enviados | tojson | safe if es_talento_humano else '[]' }};
+
+function switchBuzonTab(tab) {
+    document.getElementById('tabEntrada').classList.toggle('active', tab === 'entrada');
+    document.getElementById('panelEntrada').classList.toggle('active', tab === 'entrada');
+    const tabSalida = document.getElementById('tabSalida');
+    const panelSalida = document.getElementById('panelSalida');
+    if (tabSalida && panelSalida) {
+        tabSalida.classList.toggle('active', tab === 'salida');
+        panelSalida.classList.toggle('active', tab === 'salida');
+    }
+}
+
+function abrirMensajeEnviado(id, el) {
+    const asunto = el.querySelector('.buzon-item-asunto')?.textContent?.trim() || 'Mensaje';
+    document.getElementById('modalAsunto').textContent = asunto;
+    document.getElementById('modalBody').textContent = 'Cargando...';
+    document.getElementById('buzonModal').classList.add('active');
+    const msg = mensajesEnviadosCache.find(m => m.id === id);
+    if (msg) {
+        document.getElementById('modalBody').textContent = stripHtml(msg.mensaje_html);
+    } else {
+        document.getElementById('modalBody').textContent = 'No se pudo cargar el contenido del mensaje.';
+    }
+}
+
+function cambiarFiltro(filtro) {
+    soloNoLeidos = filtro === 'no_leidos';
+    cargarMensajes();
+}
+
+function cargarMensajes() {
+    const list = document.getElementById('buzonList');
+    list.innerHTML = '<div class="buzon-loading"><div class="spinner"></div><p style="margin-top:12px;">Cargando mensajes...</p></div>';
+
+    let url = getBaseUrl() + '/rrhh/api/buzon/mensajes';
+    if (soloNoLeidos) url += '?no_leidos=true';
+
+    fetch(url)
+        .then(res => res.json())
+        .then(data => {
+            if (!data.success) {
+                list.innerHTML = '<div class="buzon-empty"><i class="fa-solid fa-circle-exclamation"></i><h3>Error</h3><p>' + (data.error || 'Error al cargar') + '</p></div>';
+                return;
+            }
+
+            document.getElementById('statTotal').textContent = data.total;
+            document.getElementById('statNoLeidos').textContent = data.no_leidos;
+
+            // Actualizar contador de la pestaña Entrada
+            const tabEntradaCount = document.getElementById('tabEntradaCount');
+            if (tabEntradaCount) tabEntradaCount.textContent = data.no_leidos + '/' + data.total;
+
+            // Actualizar botones
+            document.querySelectorAll('.btn-filtrar-buzon').forEach(b => b.classList.remove('active'));
+            if (soloNoLeidos) {
+                document.querySelector('.btn-filtrar-buzon[onclick*="no_leidos"]').classList.add('active');
+            } else {
+                document.querySelector('.btn-filtrar-buzon[onclick*="todos"]').classList.add('active');
+            }
+
+            if (!data.mensajes || !data.mensajes.length) {
+                list.innerHTML = '<div class="buzon-empty"><i class="fa-regular fa-inbox"></i><h3>Buzón vacío</h3><p>' + (soloNoLeidos ? 'No tienes mensajes sin leer.' : 'No tienes mensajes aún.') + '</p></div>';
+                return;
+            }
+
+            list.innerHTML = data.mensajes.map(m => {
+                const noLeido = !m.leido;
+                const preview = (m.mensaje_html || '').replace(/<[^>]*>/g, '').substring(0, 120);
+                return `<div class="buzon-item ${noLeido ? 'no-leido' : 'buzon-item-leido'}" onclick="abrirMensajeAPI(${m.id}, this)" data-id="${m.id}">
+                    <div class="buzon-item-header">
+                        <h4 class="buzon-item-asunto">${noLeido ? '<span class="no-leido-dot"></span>' : ''}${escapeHtml(m.asunto)}</h4>
+                        <span class="buzon-item-fecha">${m.fecha_envio || ''}</span>
+                    </div>
+                    ${m.enviado_por_nombre ? '<p class="buzon-item-remitente">De: ' + escapeHtml(m.enviado_por_nombre) + '</p>' : ''}
+                    <p class="buzon-item-preview">${escapeHtml(preview)}</p>
+                </div>`;
+            }).join('');
+        })
+        .catch(err => {
+            list.innerHTML = '<div class="buzon-empty"><i class="fa-solid fa-circle-exclamation"></i><h3>Error de conexión</h3><p>' + err.message + '</p></div>';
+        });
+}
+
+function stripHtml(html) {
+    if (!html) return 'Sin contenido';
+    // Crear elemento temporal, inyectar HTML y extraer solo texto
+    const d = document.createElement('div');
+    d.innerHTML = html;
+    return d.textContent || d.innerText || '';
+}
+
+function abrirMensaje(id, el) {
+    // Extraer asunto del DOM del elemento clickeado
+    const asunto = el.querySelector('.buzon-item-asunto')?.textContent?.trim() || 'Mensaje';
+    document.getElementById('modalAsunto').textContent = asunto;
+    document.getElementById('modalBody').textContent = 'Cargando...';
+    document.getElementById('buzonModal').classList.add('active');
+
+    // Marcar como leído via API y cargar contenido
+    fetch(getBaseUrl() + '/rrhh/api/buzon/marcar_leido/' + id, { method: 'POST' })
+        .then(() => {
+            cargarContenidoMensaje(id);
+            cargarMensajes();
+        })
+        .catch(() => {
+            cargarContenidoMensaje(id);
+        });
+}
+
+function abrirMensajeAPI(id, el) {
+    fetch(getBaseUrl() + '/rrhh/api/buzon/mensajes')
+        .then(res => res.json())
+        .then(data => {
+            if (!data.success || !data.mensajes) return;
+            const msg = data.mensajes.find(m => m.id === id);
+            if (!msg) return;
+
+            document.getElementById('modalAsunto').textContent = msg.asunto || 'Mensaje';
+            document.getElementById('modalBody').textContent = stripHtml(msg.mensaje_html);
+            document.getElementById('buzonModal').classList.add('active');
+
+            if (!msg.leido) {
+                fetch(getBaseUrl() + '/rrhh/api/buzon/marcar_leido/' + id, { method: 'POST' })
+                    .then(() => cargarMensajes())
+                    .catch(() => {});
+            }
+        })
+        .catch(() => {});
+}
+
+function cargarContenidoMensaje(id) {
+    fetch(getBaseUrl() + '/rrhh/api/buzon/mensajes')
+        .then(res => res.json())
+        .then(data => {
+            if (!data.success || !data.mensajes) return;
+            const msg = data.mensajes.find(m => m.id === id);
+            if (msg) {
+                document.getElementById('modalBody').textContent = stripHtml(msg.mensaje_html);
+            }
+        })
+        .catch(() => {
+            document.getElementById('modalBody').textContent = 'Error al cargar el contenido del mensaje.';
+        });
+}
+
+function cerrarModal() {
+    document.getElementById('buzonModal').classList.remove('active');
+}
+
+function escapeHtml(text) {
+    const d = document.createElement('div');
+    d.textContent = text;
+    return d.innerHTML;
+}
+
+// Cerrar modal al hacer clic fuera
+document.getElementById('buzonModal').addEventListener('click', function(e) {
+    if (e.target === this) cerrarModal();
+});
+</script>
+
+{% endblock %}

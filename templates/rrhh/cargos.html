@@ -1,0 +1,157 @@
+{% extends 'home.html' %}
+{% block title %}Cargos{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/tabla_lista.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/botones_accion.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/construccion_evaluacion.css') }}">
+<div class="form-card" style="padding:20px 24px;margin-bottom:18px;">
+    <div class="accordion" id="acordeonTabla" style="border:none;box-shadow:none;">
+        <div class="accordion-header text-white bg-gradient-primary" style="border-radius:10px;padding:14px 20px;font-weight:700;font-size:0.95rem;" onclick="this.parentElement.classList.toggle('active')">
+            <i class="fa-regular fa-square-plus"></i> Nuevo Cargo
+        </div>
+        <div class="accordion-content" style="padding:18px 4px 4px;">
+            <form id="formCargo" method="post">
+                {% if config.get('WTF_CSRF_ENABLED') %}<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">{% endif %}
+                <div class="form-field">
+                    <label for="nombre" class="form-label">Nombre de Cargo</label>
+                    <input name="nombre" id="nombre" type="text" class="form-control" required placeholder="Ej: Analista de Sistemas">
+                </div>
+                <div style="text-align:right;margin-top:16px;">
+                    <button type="submit" class="btn-accion btn-guardar text-white bg-gradient-primary-dark" style="border:none;padding:10px 28px;border-radius:8px;font-weight:700;cursor:pointer;">
+                        <i class="fa-regular fa-floppy-disk"></i> Guardar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<table class="tabla-expandible">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th style="width:140px;">Acciones</th>
+        </tr>
+    </thead>
+    <tbody id="tabla_cargos">
+        {% for cargo in cargoS %}
+        <tr data-id="{{ cargo.id }}">
+            <td class="col-nombre">{{cargo.nombre}}</td>
+            <td class="acciones">
+                <button class="btn-accion btn-editar" onclick="editarGrupo(this)" title="Editar"><i class="fa-regular fa-pen-to-square"></i></button>
+                <button class="btn-accion btn-eliminar" onclick="eliminarGrupo({{ cargo.id }}, this)" title="Eliminar"><i class="fa-solid fa-delete-left"></i></button>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<script>
+    // Lee la respuesta del servidor como JSON. Si el servidor devuelve HTML
+    // (p. ej. redirección a login o página de error), muestra un mensaje
+    // claro en lugar de fallar con "Unexpected token <".
+    function leerJson(res) {
+        const ct = res.headers.get('content-type') || '';
+        if (ct.includes('application/json')) {
+            return res.json();
+        }
+        return res.text().then(() => {
+            throw new Error('El servidor devolvió una respuesta inesperada. Verifica que tu sesión esté activa e intenta nuevamente.');
+        });
+    }
+
+    document.getElementById('formCargo').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const form = this;
+        const formData = new FormData(form);
+        fetch(getBaseUrl() + '/rrhh/cargos/crear', {
+            method: 'POST',
+            headers: { 'X-Requested-With': 'XMLHttpRequest' },
+            body: formData
+        })
+        .then(leerJson)
+        .then(data => {
+            if (!data.success) {
+                Swal.fire('Error', data.error || 'Error al crear cargo', 'error');
+                return;
+            }
+            agregarFilaTabla(data.Cargo);
+            form.reset();
+            Swal.fire({ icon: 'success', title: 'Cargo creado', timer: 1200, showConfirmButton: false });
+        })
+        .catch(err => Swal.fire('Error', err.message, 'error'));
+    });
+
+    function agregarFilaTabla(cargo) {
+        const tbody = document.getElementById('tabla_cargos');
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+        <td class="col-nombre">${cargo.nombre}</td>
+        <td class="acciones">
+            <button class="btn-accion btn-editar" onclick="editarGrupo(this)" title="Editar"><i class="fa-regular fa-pen-to-square"></i></button>
+            <button class="btn-accion btn-eliminar" onclick="eliminarGrupo(${cargo.id}, this)" title="Eliminar"><i class="fa-solid fa-delete-left"></i></button>
+        </td>`;
+        tbody.appendChild(tr);
+    }
+
+    function editarGrupo(btn) {
+        const tr = btn.closest('tr');
+        const tdNombre = tr.querySelector('.col-nombre');
+        const nombreActual = tdNombre.innerText;
+        tdNombre.innerHTML = `<input type="text" value="${nombreActual}" class="input-edit">`;
+        btn.innerHTML = '<i class="fa-regular fa-floppy-disk"></i>';
+        btn.onclick = () => guardarEdicion(tr, btn);
+    }
+
+    function guardarEdicion(tr, btn) {
+        const id = tr.dataset.id;
+        const input = tr.querySelector('.input-edit');
+        const nuevoNombre = input.value.trim();
+        if (!nuevoNombre) {
+            Swal.fire('Error', 'El nombre no puede estar vacío', 'warning');
+            return;
+        }
+        fetch(getBaseUrl() + `/rrhh/cargos/editar/${id}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
+            body: JSON.stringify({ nombre: nuevoNombre })
+        })
+        .then(leerJson)
+        .then(data => {
+            if (!data.success) {
+                Swal.fire('Error', data.error, 'error');
+                return;
+            }
+            tr.querySelector('.col-nombre').innerText = nuevoNombre;
+            btn.innerHTML = '<i class="fa-regular fa-pen-to-square"></i>';
+            btn.onclick = () => editarGrupo(btn);
+        })
+        .catch(err => Swal.fire('Error', err.message, 'error'));
+    }
+
+    async function eliminarGrupo(id, btn) {
+        const confirm = await Swal.fire({
+            title: '¿Eliminar este cargo?',
+            text: 'Esta acción no se puede deshacer',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar',
+            confirmButtonColor: '#dc2626'
+        });
+        if (!confirm.isConfirmed) return;
+        fetch(getBaseUrl() + `/rrhh/cargos/eliminar/${id}`, {
+            method: 'POST',
+            headers: { 'X-Requested-With': 'XMLHttpRequest' }
+        })
+        .then(leerJson)
+        .then(data => {
+            if (!data.success) {
+                Swal.fire('Error', data.error, 'error');
+                return;
+            }
+            btn.closest('tr').remove();
+            Swal.fire({ icon: 'success', title: 'Eliminado', timer: 1000, showConfirmButton: false });
+        })
+        .catch(err => Swal.fire('Error', err.message, 'error'));
+    }
+</script>
+{% endblock %}

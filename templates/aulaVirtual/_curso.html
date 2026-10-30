@@ -1,0 +1,448 @@
+{% extends 'aulaVirtual/estudiante.html' %}
+{% block title %}Aula Virtual - Curso {{ curso.nombre }}{% endblock %}
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/curso.css') }}">
+<div class="welcome-section">
+    <h2>Esta realizando el curso: {{ curso.nombre }}</h2>
+    <p>{{ curso.descripcion }}</p>
+
+    <div class="material-box">
+    <h2>{{ curso.nombre }}</h2>
+
+    <!-- BLOQUE DE VIDEOS -->
+    {% if curso.enlace_video_embed or videos %}
+    <div class="video-section" style="margin-bottom: 30px;">
+        <label class="form-label">Material Audiovisual</label>
+        
+        {% if curso.enlace_video_embed %}
+        <div class="video-container" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; border: 2px solid var(--border-color); margin-bottom: 16px;">
+            <div id="youtube-player" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"></div>
+        </div>
+        {% endif %}
+        
+        {% if videos %}
+            {% for v in videos %}
+            <div style="margin-bottom: 12px;">
+                <video controls playsinline webkit-playsinline style="width:100%;border-radius:12px;border:2px solid var(--border-color);max-height:400px;" preload="metadata">
+                    <source src="{{ url_for('static', filename=v.ruta) }}">
+                    Tu navegador no soporta la reproducción de video.
+                </video>
+                <small class="text-slate-500" style="display:block;margin-top:4px;">
+                    <i class="fa-solid fa-video"></i> {{ v.nombre_original }}
+                </small>
+            </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+    {% endif %}
+
+    <!-- VISOR DE PDF -->
+    <div class="pdf-header">
+        <label class="form-label">Lectura de Apoyo (PDF)</label>
+    </div>
+    {% if curso.archivo %}
+    {% set pdf_url = url_for('aula.ver_pdf_curso', curso_id=curso.id) %}
+    {% set pdf_download_url = url_for('static', filename=curso.archivo) %}
+    <!-- Visor PDF nativo (funciona en PC) -->
+    <div class="pdf-container" id="pdfContainer">
+        <object data="{{ pdf_url }}" type="application/pdf" id="pdfFrame" class="pdf-object">
+            <iframe src="{{ pdf_url }}" id="pdfFrameFallback" class="pdf-iframe"></iframe>
+        </object>
+        <!-- Mensaje de fallback para móvil / cuando no carga el visor nativo -->
+        <div id="pdfMobileFallback" class="pdf-mobile-fallback" style="display:none;">
+            <div class="pdf-fallback-content">
+                <i class="fa-solid fa-file-pdf pdf-fallback-icon" style="color: #2563eb;"></i>
+                <h3>Material de Lectura (PDF)</h3>
+                <p>En este dispositivo puedes abrir el documento en pantalla completa o descargarlo:</p>
+                <div style="display: flex; flex-direction: column; gap: 10px; width: 100%; margin-bottom: 12px;">
+                    <a href="{{ pdf_url }}" target="_blank" class="btn-download-pdf" style="width: 100%; justify-content: center;">
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i> Ver PDF en pantalla completa
+                    </a>
+                    <a href="{{ pdf_download_url }}" class="btn-download-pdf-secondary" download style="width: 100%; justify-content: center;">
+                        <i class="fa-solid fa-download"></i> Descargar PDF
+                    </a>
+                </div>
+                <p style="margin-top: 10px; font-size: 0.85rem; color: #166534; background: #f0fdf4; padding: 8px 12px; border-radius: 8px; border: 1px solid #bbf7d0;">
+                    <i class="fa-solid fa-circle-info"></i> El PDF es material de apoyo opcional. Solo es obligatorio ver el video para habilitar la evaluación.
+                </p>
+            </div>
+        </div>
+    </div>
+    <!-- Botón de descarga siempre visible -->
+    <div class="pdf-actions">
+        <a href="{{ pdf_download_url }}" class="btn-download-pdf-link" download>
+            <i class="fa-solid fa-download"></i> Descargar PDF
+        </a>
+    </div>
+    {% else %}
+    <div class="pdf-container" style="display: flex; align-items: center; justify-content: center; min-height: 200px; background: #f8fafc; border-radius: 12px; border: 2px dashed var(--border-color);">
+        <p style="color: #94a3b8; font-size: 1rem;">
+            <i class="fa-solid fa-file-pdf"></i> No hay material PDF disponible para este curso.
+        </p>
+    </div>
+    {% endif %}
+
+    {% set tiene_videos = curso.enlace_video_embed or (videos and videos|length > 0) %}
+    <!-- Mensaje y Botón de evaluación -->
+    <div id="footer-curso" style="margin-top: 20px;">
+        <p class="mensaje" id="msg-lectura">
+            {% if info_intentos and info_intentos.intentos_realizados > 0 %}
+                <i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i>
+                Ya has realizado {{ info_intentos.intentos_realizados }} de {{ info_intentos.max_intentos }} intentos. Te quedan {{ info_intentos.intentos_restantes }}.
+            {% elif tiene_videos %}
+                <i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i>
+                Por favor, visualice el material audiovisual para habilitar la evaluación.
+            {% else %}
+                <i class="fa-solid fa-check-circle" style="color: #10b981;"></i>
+                Material disponible. Ya puedes realizar la evaluación.
+            {% endif %}
+        </p>
+        <button onclick="location.href='{{ url_for('aula.presentar_evaluacion', curso_id=curso.id) }}'" 
+                class="btn-evaluacion{% if not tiene_videos %} parpadea{% endif %}" 
+                id="btn-eval" 
+                {% if tiene_videos %}disabled{% endif %}>
+            <i class="fa-solid fa-open-to-square"></i>
+            {% if info_intentos and info_intentos.intentos_realizados > 0 %}
+                Reintentar Evaluación ({{ info_intentos.intentos_restantes }} restantes)
+            {% else %}
+                Realizar Evaluación
+            {% endif %}
+        </button>
+    </div>
+</div>
+</div>
+
+<script>
+// --- ESTADO DE COMPLETACIÓN DEL MATERIAL ---
+// El PDF NO requiere validación: solo es obligatorio ver el video para habilitar la evaluación
+const tieneVideos = {% if curso.enlace_video_embed or (videos and videos|length > 0) %}true{% else %}false{% endif %};
+
+const estado = {
+    pdfVisto: true, // El PDF ya no requiere validación
+    youtubeCompletado: {% if curso.enlace_video_embed %}false{% else %}true{% endif %},
+    videosCompletados: 0,
+    totalVideos: {{ videos|length if videos else 0 }}
+};
+
+// --- UMBRAL DE VISUALIZACIÓN (75% del video) ---
+const UMBRAL_VIDEO = 0.75;
+
+// --- FUNCION GLOBAL PARA FALLBACK DEL PDF ---
+function mostrarFallbackPDF() {
+    var pdfObject = document.querySelector('.pdf-object');
+    var pdfFallback = document.getElementById('pdfMobileFallback');
+    if (pdfFallback && pdfFallback.style.display === 'none') {
+        if (pdfObject) pdfObject.style.display = 'none';
+        pdfFallback.style.display = 'flex';
+        console.log('PDF Fallback activado - visor nativo no disponible');
+    }
+}
+
+// --- DETECTAR MOVIL ---
+function esDispositivoMovil() {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+           (navigator.maxTouchPoints > 0 && window.innerWidth < 768);
+}
+
+// --- FUNCIÓN GLOBAL PARA VERIFICAR Y HABILITAR ---
+function verificarCompletado() {
+    var videosOk = estado.totalVideos === 0 || estado.videosCompletados >= estado.totalVideos;
+    var completo = (!tieneVideos) || (estado.youtubeCompletado && videosOk);
+
+    var btnEval = document.getElementById('btn-eval');
+    var msgLectura = document.getElementById('msg-lectura');
+    if (!btnEval || !msgLectura) return;
+
+    if (completo) {
+        btnEval.disabled = false;
+        btnEval.classList.add('parpadea');
+        msgLectura.innerHTML = '<i class="fa-solid fa-check-circle" style="color: #10b981;"></i> Material audiovisual visualizado. Ya puedes presentar tu evaluación.';
+        msgLectura.style.color = '#1e3a8a';
+        console.log('✅ Botón de evaluación habilitado — video completado');
+    }
+}
+
+// ============================================================
+// SEGUIMIENTO DE YOUTUBE VÍA IFrame API
+// ============================================================
+{% if curso.enlace_video_embed %}
+var ytPlayer = null;
+var ytIntervalo = null;
+
+// Extraer el ID del video de la URL embed
+var ytVideoId = "{{ curso.enlace_video_embed }}".split('/').pop().split('?')[0];
+
+function onYouTubeIframeAPIReady() {
+    ytPlayer = new YT.Player('youtube-player', {
+        height: '100%',
+        width: '100%',
+        videoId: ytVideoId,
+        playerVars: {
+            'rel': 0,
+            'modestbranding': 1,
+            'enablejsapi': 1,
+            'playsinline': 1
+        },
+        events: {
+            'onStateChange': function(event) {
+                // Cuando el video termina -> marcar como completado
+                if (event.data === YT.PlayerState.ENDED) {
+                    estado.youtubeCompletado = true;
+                    if (ytIntervalo) clearInterval(ytIntervalo);
+                    verificarCompletado();
+                }
+            }
+        }
+    });
+
+    // --- Prevenir adelantamiento del video ---
+    var ytMaxPosition = 0;
+
+    // Monitorear progreso cada 2 segundos
+    ytIntervalo = setInterval(function() {
+        if (estado.youtubeCompletado) {
+            clearInterval(ytIntervalo);
+            return;
+        }
+        try {
+            if (ytPlayer && ytPlayer.getCurrentTime) {
+                var duracion = ytPlayer.getDuration();
+                var actual = ytPlayer.getCurrentTime();
+                var state = ytPlayer.getPlayerState();
+
+                // --- ANTI-ADELANTAMIENTO: detectar saltos artificiales ---
+                // Solo corregir si el video está reproduciéndose (no paused, not ended)
+                if (state === YT.PlayerState.PLAYING) {
+                    // Si el tiempo actual saltó muy por delante de la posición máxima natural,
+                    // es porque el usuario adelantó -> regresar
+                    var ytTolerancia = 2.5; // segundos de tolerancia
+                    if (actual > ytMaxPosition + ytTolerancia) {
+                        console.warn('⚠️ YouTube: Adelantamiento detectado, regresando a ' + ytMaxPosition.toFixed(1) + 's');
+                        ytPlayer.seekTo(ytMaxPosition, true);
+                        actual = ytMaxPosition;
+                    }
+                }
+
+                // Actualizar la posición máxima alcanzada de forma natural
+                if (actual > ytMaxPosition) {
+                    ytMaxPosition = actual;
+                }
+
+                // --- Verificar completado (75%) ---
+                if (duracion > 0 && (actual / duracion) >= UMBRAL_VIDEO) {
+                    estado.youtubeCompletado = true;
+                    clearInterval(ytIntervalo);
+                    verificarCompletado();
+                }
+            }
+        } catch(e) {
+            console.warn('YouTube tracking error:', e);
+        }
+    }, 1000); // Revisar cada 1s para detectar adelantamiento más rápido
+}
+
+// Cargar la API de YouTube
+(function() {
+    var tag = document.createElement('script');
+    tag.src = 'https://www.youtube.com/iframe_api';
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+})();
+
+// FALLBACK: si la API de YouTube no carga en 15 segundos, 
+// se asume que el video fue visto para no bloquear al usuario
+setTimeout(function() {
+    if (ytPlayer === null) {
+        console.warn('⚠️ YouTube API no cargó en 15s — habilitando evaluación como fallback');
+        estado.youtubeCompletado = true;
+        verificarCompletado();
+    }
+}, 15000);
+{% endif %}
+
+// ============================================================
+// CONFIGURACIÓN AL CARGAR EL DOM
+// ============================================================
+function inicializarMaterial() {
+    // --- DETECCION MOVIL: mostrar fallback de PDF amigable inmediatamente ---
+    if (esDispositivoMovil()) {
+        mostrarFallbackPDF();
+    } else {
+        // En desktop, esperar un momento y verificar si cargo
+        setTimeout(function() {
+            var pdfObject = document.querySelector('.pdf-object');
+            var pdfFallback = document.getElementById('pdfMobileFallback');
+            if (pdfFallback && pdfFallback.style.display === 'none') {
+                var objectDoc = null;
+                try { objectDoc = pdfObject ? pdfObject.contentDocument : null; } catch(e) {}
+                var iframeDoc = null;
+                try {
+                    var iframeEl = document.getElementById('pdfFrameFallback');
+                    if (iframeEl && iframeEl.contentDocument) {
+                        iframeDoc = iframeEl.contentDocument.body.innerHTML.length > 100;
+                    }
+                } catch(e) {}
+                if (!objectDoc && !iframeDoc) {
+                    if (pdfObject) pdfObject.style.display = 'none';
+                    pdfFallback.style.display = 'flex';
+                }
+            }
+        }, 3000);
+    }
+
+    // --- SEGUIMIENTO DE VIDEOS HTML5 ---
+    document.querySelectorAll('video').forEach(function(video) {
+        // Inicializar dataset con la posición máxima natural
+        video.dataset.maxNatural = '0';
+
+        // timeupdate: detecta progreso de reproducción y previene adelantamiento
+        video.addEventListener('timeupdate', function() {
+            var maxNatural = parseFloat(this.dataset.maxNatural) || 0;
+            var actual = this.currentTime;
+
+            // --- ANTI-ADELANTAMIENTO ---
+            if (!this.seeking && !this.paused) {
+                // Actualizar la posición máxima alcanzada de forma natural
+                if (actual > maxNatural) {
+                    this.dataset.maxNatural = actual.toString();
+                    maxNatural = actual;
+                }
+            }
+
+            // --- Verificar completado (75%) ---
+            if (this.duration && !this.dataset.visto) {
+                var progreso = actual / this.duration;
+                if (progreso >= UMBRAL_VIDEO) {
+                    this.dataset.visto = 'true';
+                    estado.videosCompletados++;
+                    console.log('✅ Video completado (' + Math.round(progreso * 100) + '%)');
+                    verificarCompletado();
+                }
+            }
+        });
+
+        // --- ANTI-ADELANTAMIENTO: detectar seeking (cuando el usuario arrastra el slider) ---
+        video.addEventListener('seeking', function() {
+            var maxNatural = parseFloat(this.dataset.maxNatural) || 0;
+            var tolerancia = 0.5; // segundos de tolerancia
+
+            if (this.currentTime > maxNatural + tolerancia) {
+                console.warn('⚠️ Video HTML5: Adelantamiento detectado en ' + this.currentTime.toFixed(1) + 's, regresando a ' + maxNatural.toFixed(1) + 's');
+                this.currentTime = maxNatural;
+            }
+        });
+
+        // --- ANTI-ADELANTAMIENTO (respaldo): cuando termina el seeking ---
+        video.addEventListener('seeked', function() {
+            var maxNatural = parseFloat(this.dataset.maxNatural) || 0;
+            var tolerancia = 0.5;
+
+            if (this.currentTime > maxNatural + tolerancia) {
+                console.warn('⚠️ Video HTML5 (seeked): Adelantamiento detectado en ' + this.currentTime.toFixed(1) + 's, regresando a ' + maxNatural.toFixed(1) + 's');
+                this.currentTime = maxNatural;
+            }
+        });
+
+        // ended: si llega al final, marcar como visto
+        video.addEventListener('ended', function() {
+            if (!this.dataset.visto) {
+                this.dataset.visto = 'true';
+                estado.videosCompletados++;
+                console.log('✅ Video completado (ended)');
+                verificarCompletado();
+            }
+        });
+    });
+
+    // --- VERIFICAR COMPLETADO INICIAL ---
+    verificarCompletado();
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', inicializarMaterial);
+} else {
+    inicializarMaterial();
+}
+// ============================================================
+// RESULTADO DE EVALUACIÓN: SweetAlert al finalizar
+// ============================================================
+{% if eval_resultado %}
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(function() {
+        var r = {{ eval_resultado | tojson }};
+        if (r.aprobado) {
+            // ✅ APROBADO
+            Swal.fire({
+                title: '¡Felicitaciones! 🎉',
+                html: '<div style="text-align: center;">'
+                    + '<div style="font-size: 3rem; margin-bottom: 10px;">✅</div>'
+                    + '<p style="font-size: 1.2rem; font-weight: 700; color: #166534; margin-bottom: 8px;">¡Has aprobado la evaluación!</p>'
+                    + '<p style="font-size: 1rem; color: #475569;">Tu calificación: <strong style="font-size: 1.4rem; color: #16a34a;">{{ eval_resultado.nota }}%</strong></p>'
+                    + '<p style="font-size: 0.85rem; color: #94a3b8; margin-top: 8px;">Puedes descargar tu certificado desde la sección de Certificados.</p>'
+                    + '</div>',
+                icon: 'success',
+                iconHtml: '🎉',
+                confirmButtonText: 'Ir a Certificados',
+                confirmButtonColor: '#16a34a',
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                customClass: {
+                    popup: 'swal-eval-popup',
+                    confirmButton: 'swal-eval-btn-success'
+                }
+            }).then(function() {
+                window.location.href = '{{ url_for("aula.mis_certificados") }}';
+            });
+        } else if (r.estado === 'Pendiente' && r.tiene_texto) {
+            // ⏳ TIENE PREGUNTAS ABIERTAS (pendiente de revisión)
+            Swal.fire({
+                title: 'Evaluación enviada 📝',
+                html: '<div style="text-align: center;">'
+                    + '<div style="font-size: 3rem; margin-bottom: 10px;">⏳</div>'
+                    + '<p style="font-size: 1.1rem; font-weight: 600; color: #92400e; margin-bottom: 8px;">Tu evaluación tiene preguntas abiertas</p>'
+                    + '<p style="font-size: 0.95rem; color: #475569;">Un administrador revisará tus respuestas y asignará la calificación. Te notificaremos cuando esté lista.</p>'
+                    + '<p style="font-size: 1rem; margin-top: 10px;">Calificación parcial: <strong>{{ eval_resultado.nota }}%</strong></p>'
+                    + '</div>',
+                icon: 'warning',
+                confirmButtonText: 'Entendido',
+                confirmButtonColor: '#f59e0b',
+                allowOutsideClick: false,
+                allowEscapeKey: false
+            });
+        } else {
+            // ❌ REPROBÓ
+            Swal.fire({
+                title: 'Has reprobado 😔',
+                html: '<div style="text-align: center;">'
+                    + '<div style="font-size: 3rem; margin-bottom: 10px;">❌</div>'
+                    + '<p style="font-size: 1.1rem; font-weight: 700; color: #991b1b; margin-bottom: 8px;">No alcanzaste la nota mínima (70%)</p>'
+                    + '<p style="font-size: 1rem; color: #475569;">Tu calificación: <strong style="font-size: 1.4rem; color: #dc2626;">{{ eval_resultado.nota }}%</strong></p>'
+                    + '<p style="font-size: 0.85rem; color: #94a3b8; margin-top: 8px;">Puedes intentarlo de nuevo. Tienes {{ info_intentos.intentos_restantes if info_intentos else "" }} intento(s) restante(s).</p>'
+                    + '</div>',
+                icon: 'error',
+                showCancelButton: true,
+                confirmButtonText: 'Reintentar',
+                cancelButtonText: 'Ir a Mis Cursos',
+                confirmButtonColor: '#2563eb',
+                cancelButtonColor: '#64748b',
+                reverseButtons: true,
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                customClass: {
+                    popup: 'swal-eval-popup'
+                }
+            }).then(function(result) {
+                if (result.isConfirmed) {
+                    // Redirigir al curso para reintentar
+                    window.location.href = '{{ url_for("aula.curso", curso_id=curso.id) }}';
+                } else {
+                    window.location.href = '{{ url_for("aula.cursos_abiertos") }}';
+                }
+            });
+        }
+    }, 500); // Pequeño delay para que cargue bien SweetAlert
+});
+{% endif %}
+</script>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'home.html' %}
+{% block title %}Admin Aula Virtual{% endblock %}
+{% block content %}
+
+
+<div class="welcome-section">
+    <h2>¡Bienvenido al Aula Virtual de Digicom System Corporation!</h2>
+    <p>Selecciona una opción del menú para comenzar a gestionar tus cursos.</p>
+
+    <div class="feature-grid">
+        <a href="{{ url_for('aula.gestionar_cursos', modo='cursos') }}" class="card feature-card-new card-link card-blue" class="cursor-pointer card-link">
+            <i class="fa-solid fa-chalkboard-user watermark"></i>
+            <div class="card-info">
+                <h3><span>CURSOS</span></h3>
+                <p>Crear, Cargar y eliminar cursos</p>
+            </div>
+        </a>
+        <a href="{{ url_for('aula.gestionar_cursos', modo='resultados') }}" class="card feature-card-new card-link card-teal" class="cursor-pointer card-link">
+            <i class="fa-solid fa-square-poll-vertical watermark"></i>
+            <div class="card-info">
+                <h3><span>RESULTADOS</span></h3>
+                <p>Visualiza y analiza los resultados de los estudiantes</p>
+            </div>
+        </a>
+        <a href="{{ url_for('aula.tabulacion') }}" class="card feature-card-new card-link card-amber" class="cursor-pointer card-link">
+            <i class="fa-solid fa-chart-pie watermark"></i>
+            <div class="card-info">
+                <h3><span>TABULACIÓN</span></h3>
+                <p>Visualiza respuestas por estudiante, gráficos y descarga Excel</p>
+            </div>
+        </a>
+        <div class="card feature-card-new card-link card-green" class="cursor-pointer">
+            <i class="fa-solid fa-graduation-cap watermark"></i>
+            <div class="card-info">
+                <h3><span>CERTIFICADOS</span></h3>
+                <p>Crea e imprime certificados</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

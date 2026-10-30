@@ -1,0 +1,68 @@
+{#
+    avatar macro — imagen de perfil con placeholder / shimmer
+    Uso:
+        {{ avatar(src=foto_usuario, class='', alt='user', shimmer=True) }}
+        {{ avatar(src=dato.foto_path, class='emp-photo-thumb') }}
+    Parámetros:
+        src      — Ruta de la foto (puede empezar con 'static/' o no). None/'' = fallback.
+        class    — Clase(s) CSS para el <img>
+        alt      — Texto alternativo
+        fallback — Ruta de la imagen por defecto (relativa a static/)
+        shimmer  — True agrega onload/onerror para limpiar el efecto shimmer
+#}
+{% macro avatar(src=None, class='', alt='Avatar', fallback='imgs/user.png', shimmer=false) %}
+  {% set fallback_url = url_for('static', filename=fallback) %}
+  {% if src is not none and src|trim != '' %}
+    {% if src.startswith('static/') %}
+      {% set img_src = url_for('static', filename=src[7:]) %}
+    {% else %}
+      {% set img_src = url_for('static', filename=src) %}
+    {% endif %}
+  {% else %}
+    {% set img_src = fallback_url %}
+  {% endif %}
+  <img src="{{ img_src }}"
+       class="{{ class }}"
+       alt="{{ alt }}"
+       onerror="this.onerror=null;this.src='{{ fallback_url }}'{% if shimmer %};this.style.background='none';this.style.animation='none'{% endif %}"
+       {% if shimmer %}onload="this.style.background='none';this.style.animation='none'"{% endif %}>
+{% endmacro %}
+
+{% macro role_selection_header(icon_class, title_text, mi_rol_endpoint) %}
+{% if current_user.rol == 16 %}
+<div class="role-selection-header">
+    <div class="rsh-layout">
+        <div>
+            <h3 class="rsh-heading">
+                <i class="{{ icon_class }} rsh-heading-icon"></i>
+                {{ title_text }} para: <strong class="rsh-strong">{{ nombre_rol_seleccionado }}</strong>
+            </h3>
+            <p class="rsh-subtitle">
+                <i class="fa-solid fa-user-tag rsh-tag-icon"></i>
+                {% if is_role_override %}
+                    <span class="rsh-role-override">Vista de rol específico seleccionado</span>
+                {% else %}
+                    <span class="rsh-role-default">Vista de tu rol actual</span>
+                {% endif %}
+            </p>
+        </div>
+        <div class="rsh-actions">
+            <a href="{{ url_for('control.control') }}" class="btn btn-outline-primary rsh-btn">
+                <i class="fa-solid fa-arrow-left rsh-btn-icon"></i>
+                Cambiar Rol
+            </a>
+            {% if is_role_override %}
+            <a href="{{ url_for(mi_rol_endpoint) }}" class="btn btn-outline-secondary rsh-btn">
+                <i class="fa-solid fa-home rsh-btn-icon"></i>
+                Mi Rol
+            </a>
+            {% endif %}
+            <button onclick="limpiarRolSeleccionado()" class="btn btn-outline-secondary rsh-btn rsh-btn-danger">
+                <i class="fa-solid fa-eraser rsh-btn-icon"></i>
+                Limpiar Rol
+            </button>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endmacro %}

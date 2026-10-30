@@ -1,0 +1,2112 @@
+{% extends 'home.html' %}
+{% block title %}Asignar Evaluacion{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/tabla_lista.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/botones_accion.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/construccion_evaluacion.css') }}">
+<div class="main-tabs">
+    <button type="button" id="main-tab-habilitar" class="main-tab-btn" onclick="toggleMainTab('habilitar')">
+        <i class="fa-solid fa-clipboard-check"></i> Habilitar evaluación
+    </button>
+    <button type="button" id="main-tab-construccion" class="main-tab-btn" onclick="toggleMainTab('construccion')">
+        <i class="fa-solid fa-pen-ruler"></i> Construcción evaluación
+    </button>
+    <button type="button" id="main-tab-resultados" class="main-tab-btn" onclick="toggleMainTab('resultados')">
+        <i class="fa-solid fa-award"></i> Resultados evaluación
+    </button>
+    <button type="button" id="main-tab-resumen" class="main-tab-btn" onclick="toggleMainTab('resumen')">
+        <i class="fa-solid fa-chart-simple"></i> Resumen evaluación
+    </button>
+</div>
+
+<div id="panel-resumen" class="main-panel">
+    <div class="resumen-evaluaciones" id="panelResumen" style="box-shadow:none;border:none;margin:0;">
+        <div class="resumen-body" style="padding:0;">
+            <!-- Stats Cards -->
+            <div class="resumen-stats" id="resumenStats">
+                <div class="stat-card st-total">
+                    <div class="stat-icon"><i class="fa-solid fa-clipboard-list"></i></div>
+                    <div class="stat-info">
+                        <span class="stat-number" id="stat-total">0</span>
+                        <span class="stat-label">Total Asignadas</span>
+                    </div>
+                </div>
+                <div class="stat-card st-presentadas">
+                    <div class="stat-icon"><i class="fa-solid fa-check-circle"></i></div>
+                    <div class="stat-info">
+                        <span class="stat-number" id="stat-presentadas">0</span>
+                        <span class="stat-label">Presentadas</span>
+                    </div>
+                </div>
+                <div class="stat-card st-no-presentadas">
+                    <div class="stat-icon"><i class="fa-solid fa-clock"></i></div>
+                    <div class="stat-info">
+                        <span class="stat-number" id="stat-no-presentadas">0</span>
+                        <span class="stat-label">No Presentadas</span>
+                    </div>
+                </div>
+                <div class="stat-card st-aprob-eval">
+                    <div class="stat-icon"><i class="fa-solid fa-user-check"></i></div>
+                    <div class="stat-info">
+                        <span class="stat-number" id="stat-aprob-eval">0</span>
+                        <span class="stat-label">Aprob. Evaluado</span>
+                    </div>
+                </div>
+                <div class="stat-card st-no-aprob-eval">
+                    <div class="stat-icon"><i class="fa-solid fa-user-xmark"></i></div>
+                    <div class="stat-info">
+                        <span class="stat-number" id="stat-no-aprob-eval">0</span>
+                        <span class="stat-label">No Aprob. Evaluado</span>
+                    </div>
+                </div>
+                <div class="stat-card st-aprob-rrhh">
+                    <div class="stat-icon"><i class="fa-solid fa-building-circle-check"></i></div>
+                    <div class="stat-info">
+                        <span class="stat-number" id="stat-aprob-rrhh">0</span>
+                        <span class="stat-label">Aprob. RRHH</span>
+                    </div>
+                </div>
+                <div class="stat-card st-no-aprob-rrhh">
+                    <div class="stat-icon"><i class="fa-solid fa-building-circle-xmark"></i></div>
+                    <div class="stat-info">
+                        <span class="stat-number" id="stat-no-aprob-rrhh">0</span>
+                        <span class="stat-label">No Aprob. RRHH</span>
+                    </div>
+                </div>
+                <div class="stat-card st-promedio">
+                    <div class="stat-icon"><i class="fa-solid fa-chart-line"></i></div>
+                    <div class="stat-info">
+                        <span class="stat-number" id="stat-promedio">0.00</span>
+                        <span class="stat-label">Promedio General</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chart -->
+            <div class="resumen-chart-wrapper">
+                <canvas id="resumenChart"></canvas>
+            </div>
+            <div style="display:flex;justify-content:flex-end;margin:8px 0;">
+                <button class="btn btn-export-pdf" onclick="exportarResumenPDF()" title="Exportar resumen completo a PDF" class="bg-teal-700" style="border:none;">
+                    <i class="fa-solid fa-file-pdf"></i> Exportar Resumen PDF
+                </button>
+            </div>
+
+            <!-- Accordion Tables -->
+            <div class="resumen-acordeones" id="resumenAcordeones">
+                <div class="rs-acordeon active" data-cat="presentadas">
+                    <div class="rs-acordeon-header" onclick="toggleRsAcordeon(this)">
+                        <span><i class="fa-solid fa-check-circle icon-green"></i> Evaluaciones Presentadas (<span class="rs-count" id="rs-count-presentadas">0</span>)</span>
+                        <i class="fa-solid fa-chevron-down rs-icon"></i>
+                    </div>
+                    <div class="rs-acordeon-body">
+                        <div class="rs-table-wrapper" id="rs-table-presentadas"></div>
+                    </div>
+                </div>
+                <div class="rs-acordeon" data-cat="no-presentadas">
+                    <div class="rs-acordeon-header" onclick="toggleRsAcordeon(this)">
+                        <span><i class="fa-solid fa-clock icon-amber"></i> Evaluaciones sin Realizar (<span class="rs-count" id="rs-count-no-presentadas">0</span>)</span>
+                        <i class="fa-solid fa-chevron-down rs-icon"></i>
+                    </div>
+                    <div class="rs-acordeon-body">
+                        <div class="rs-table-wrapper" id="rs-table-no-presentadas"></div>
+                    </div>
+                </div>
+                <div class="rs-acordeon" data-cat="aprob-eval">
+                    <div class="rs-acordeon-header" onclick="toggleRsAcordeon(this)">
+                        <span><i class="fa-solid fa-user-check icon-green"></i> Evaluaciones Aprobadas por el Evaluado (<span class="rs-count" id="rs-count-aprob-eval">0</span>)</span>
+                        <i class="fa-solid fa-chevron-down rs-icon"></i>
+                    </div>
+                    <div class="rs-acordeon-body">
+                        <div class="rs-table-wrapper" id="rs-table-aprob-eval"></div>
+                    </div>
+                </div>
+                <div class="rs-acordeon" data-cat="no-aprob-eval">
+                    <div class="rs-acordeon-header" onclick="toggleRsAcordeon(this)">
+                        <span><i class="fa-solid fa-user-xmark icon-red"></i> Evaluaciones sin Aprobar por el Evaluado (<span class="rs-count" id="rs-count-no-aprob-eval">0</span>)</span>
+                        <i class="fa-solid fa-chevron-down rs-icon"></i>
+                    </div>
+                    <div class="rs-acordeon-body">
+                        <div class="rs-table-wrapper" id="rs-table-no-aprob-eval"></div>
+                    </div>
+                </div>
+                <div class="rs-acordeon" data-cat="no-aprob-rrhh">
+                    <div class="rs-acordeon-header" onclick="toggleRsAcordeon(this)">
+                        <span><i class="fa-solid fa-building-circle-xmark icon-red"></i> Evaluaciones en buzón RRHH (<span class="rs-count" id="rs-count-no-aprob-rrhh">0</span>)</span>
+                        <i class="fa-solid fa-chevron-down rs-icon"></i>
+                    </div>
+                    <div class="rs-acordeon-body">
+                        <div class="rs-table-wrapper" id="rs-table-no-aprob-rrhh"></div>
+                    </div>
+                </div>
+                <div class="rs-acordeon" data-cat="aprob-rrhh">
+                    <div class="rs-acordeon-header" onclick="toggleRsAcordeon(this)">
+                        <span><i class="fa-solid fa-building-circle-check icon-green"></i> Evaluaciones confirmadas en RRHH (<span class="rs-count" id="rs-count-aprob-rrhh">0</span>)</span>
+                        <i class="fa-solid fa-chevron-down rs-icon"></i>
+                    </div>
+                    <div class="rs-acordeon-body">
+                        <div class="rs-table-wrapper" id="rs-table-aprob-rrhh"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="panel-resultados" class="main-panel">
+    <div style="display:flex;align-items:end;gap:16px;margin:18px 0;flex-wrap:wrap;">
+        <div class="form-field" style="max-width:400px;flex:1;margin:0;">
+            <label for="filtro_respuesta_usuario" class="form-label">Buscar usuario (Evaluador / Evaluado)</label>
+            <select id="filtro_respuesta_usuario" class="form-control select2-busqueda" style="width:100%;">
+                <option value="">Seleccione un usuario…</option>
+                {% for u in empleados_list %}
+                <option value="{{ u.id }}" data-identificacion="{{ u.identificacion }}">
+                    {{ u.identificacion }} - {{ u.nombres }} {{ u.apellidos }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>                <button class="btn btn-export-pdf" onclick="exportarEvaluacionesPDF()" title="Exportar todas las evaluaciones a PDF">
+            <i class="fa-solid fa-file-pdf"></i> Exportar PDF
+        </button>
+        <button class="btn btn-export-pdf" onclick="exportarResumenPDF()" title="Exportar resumen completo a PDF" class="bg-teal-700" style="border:none;">
+            <i class="fa-solid fa-file-pdf"></i> Exportar Resumen PDF
+        </button>
+    </div>
+    <style>
+        .btn-export-pdf {
+            background: #dc2626;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.2s, transform 0.1s;
+            white-space: nowrap;
+        }
+        .btn-export-pdf:hover {
+            background: #b91c1c;
+        }
+        .btn-export-pdf:active {
+            transform: scale(0.97);
+        }
+        .st-promedio {
+            background: linear-gradient(135deg, #0f766e, #14b8a6) !important;
+        }
+    </style>
+
+    <div class="resultados-acordeon" id="tabla_respuestas">
+        {% if resultados_evaluacion %}
+        {% set grupos = resultados_evaluacion|groupby('anio_evaluacion')|reverse %}
+        {% for year, items in grupos %}
+        <div class="acordeon-anio{% if loop.first %} active{% endif %}">
+            <div class="acordeon-anio-header" onclick="toggleAcordeonAnio(this)">
+                <span class="acordeon-anio-titulo">Año {{ year }}</span>
+                <span class="acordeon-anio-count">{{ items|length }} evaluación(es)</span>
+                <i class="fa-solid fa-chevron-down acordeon-anio-icon"></i>
+            </div>
+            <div class="acordeon-anio-body{% if loop.first %} active{% endif %}"{% if loop.first %} style="display:block;"{% endif %}>
+                <div class="resultados-grid">
+                    {% for res in items %}
+                    <div class="resultado-card" data-evaluador-id="{{ res.evaluador_id }}" data-evaluado-id="{{ res.evaluado_id }}"
+                         data-id-asignacion="{{ res.id_asignacion }}">
+                        
+                        <!-- HEADER -->
+                        <div class="rc-header">
+                            <div class="rc-header-top">
+                                {% if res.estado_asignacion == 1 %}
+                                <span class="rc-estado completado">Completado</span>
+                                {% else %}
+                                <span class="rc-estado pendiente">Pendiente</span>
+                                {% endif %}
+                            </div>
+                            <div class="rc-personas">
+                                <div class="rc-persona">
+                                    <span class="rc-rol">Evaluador</span>
+                                    <span class="rc-nombre">{{ res.evaluador_nombres }} {{ res.evaluador_apellidos }}</span>
+                                </div>
+                                <div class="rc-flecha">→</div>
+                                <div class="rc-persona">
+                                    <span class="rc-rol">Evaluado</span>
+                                    <span class="rc-nombre">{{ res.evaluado_nombres }} {{ res.evaluado_apellidos }}</span>
+                                </div>
+                            </div>
+                            <div class="rc-cargo">
+                                <i class="fa-regular fa-building"></i> {{ res.plantilla_nombre or 'Sin cargo' }}
+                            </div>
+                        </div>
+                        
+                        <!-- BODY: Each tipo shows its competencias grouped underneath -->
+                        <div class="rc-body">
+                            {% if res.resultados_tipo %}
+                                {% for rt in res.resultados_tipo %}
+                                <div class="rc-grupo">
+                                    <!-- TIPO badge (padre) -->
+                                    <div class="rc-grupo-tipo">
+                                        <div class="calif-badge calif-tipo" data-valor="{{ rt.resultado or 0 }}">
+                                            <div class="calif-nombre">{{ rt.nombre_tipo }}</div>
+                                            <div class="calif-valor">{{ rt.resultado|round(2) if rt.resultado else '—' }}</div>
+                                            <div class="calif-pct">({{ rt.porcentaje }}%)</div>
+                                            <div class="calif-label"></div>
+                                        </div>
+                                    </div>
+                                    <!-- COMPETENCIAS hijas de este tipo (agrupadas desde el controller) -->
+                                    {% if rt.competencias %}
+                                    <div class="rc-grupo-comps">
+                                        {% for rc in rt.competencias %}
+                                        <div class="calif-badge calif-competencia" data-valor="{{ rc.resultado or 0 }}">
+                                            <div class="calif-nombre">{{ rc.nombre_competencia }}</div>
+                                            <div class="calif-valor">{{ rc.resultado|round(2) if rc.resultado else '—' }}</div>
+                                            <div class="calif-pct">({{ rc.porcentaje }}%)</div>
+                                            <div class="calif-label"></div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                {% endfor %}
+                            {% else %}
+                            <div class="rc-vacio">Sin resultados registrados</div>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- FOOTER -->
+                        <div class="rc-footer">
+                            <div class="rc-general" data-general="{{ res.resultado_general if res.resultado_general is not none else '' }}">
+                                <span class="rc-general-label">Resultado General</span>
+                                <span class="rc-general-valor">
+                                    {% if res.resultado_general is not none %}
+                                    {{ res.resultado_general|round(2) }}%
+                                    {% else %}
+                                    —
+                                    {% endif %}
+                                </span>
+                                <span class="rc-general-texto"></span>
+                            </div>
+                            <div class="rc-aprobacion">
+                                {% if res.aprobado_rrhh == 1 %}
+                                <span class="rc-aprobacion-badge aprobado">
+                                    <i class="fa-regular fa-circle-check"></i> RRHH OK
+                                </span>
+                                {% elif res.aprobado_rrhh == 0 %}
+                                <span class="rc-aprobacion-badge pendiente">
+                                    <i class="fa-regular fa-circle-xmark"></i> RRHH Pend.
+                                </span>
+                                {% else %}
+                                <span class="rc-aprobacion-badge no-aplica">
+                                    <i class="fa-regular fa-circle"></i> Sin aprob. RRHH
+                                </span>
+                                {% endif %}
+                                
+                                {% if res.aprobado_evaluado == 1 %}
+                                <span class="rc-aprobacion-badge aprobado">
+                                    <i class="fa-regular fa-circle-check"></i> Evaluado OK
+                                </span>
+                                {% elif res.aprobado_evaluado == 0 %}
+                                <span class="rc-aprobacion-badge pendiente">
+                                    <i class="fa-regular fa-circle-xmark"></i> Evaluado Pend.
+                                </span>
+                                {% else %}
+                                <span class="rc-aprobacion-badge no-aplica">
+                                    <i class="fa-regular fa-circle"></i> Sin aprob. Evaluado
+                                </span>
+                                {% endif %}
+                            </div>
+                            <div class="rc-fechas">
+                                <div class="rc-fecha">
+                                    <i class="fa-regular fa-calendar"></i>
+                                    <strong>Evaluación:</strong>
+                                    {% if res.fecha_evaluacion %}
+                                    {{ res.fecha_evaluacion.strftime('%d/%m/%Y') }}
+                                    {% else %}
+                                    Sin fecha
+                                    {% endif %}
+                                </div>
+                                {% if res.fecha_aprobacion %}
+                                <div class="rc-fecha aprobacion">
+                                    <i class="fa-regular fa-circle-check"></i>
+                                    <strong>Aprobación:</strong>
+                                    {{ res.fecha_aprobacion.strftime('%d/%m/%Y %H:%M') }}
+                                </div>
+                                {% endif %}
+                            </div>
+                            {% if res.observaciones_evaluador or res.observaciones_evaluado %}
+                            <div class="rc-observaciones">
+                                {% if res.observaciones_evaluador %}
+                                <div class="rc-obs-item">
+                                    <strong class="rc-obs-label">
+                                        <i class="fa-regular fa-comment"></i> Evaluador:
+                                    </strong>
+                                    <p class="rc-obs-texto">{{ res.observaciones_evaluador }}</p>
+                                </div>
+                                {% endif %}
+                                {% if res.observaciones_evaluado %}
+                                <div class="rc-obs-item">
+                                    <strong class="rc-obs-label">
+                                        <i class="fa-regular fa-comment"></i> Evaluado:
+                                    </strong>
+                                    <p class="rc-obs-texto">{{ res.observaciones_evaluado }}</p>
+                                </div>
+                                {% endif %}
+                            </div>
+                            {% endif %}
+                            {% if res.estado_asignacion == 1 and res.aprobado_rrhh != 1 %}
+                            <div class="rc-acciones">
+                                <button class="btn-accion btn-aprobar-rrhh" 
+                                        onclick="aprobarRRHH({{ res.id_asignacion }}, this)"
+                                        title="Aprobar evaluación como RRHH">
+                                    <i class="fa-regular fa-circle-check"></i> Aprobar RRHH
+                                </button>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <div class="resultado-card rc-vacio-total">
+            <div class="text-slate-400" style="text-align:center;padding:40px;">
+                <i class="fa-regular fa-clipboard" style="font-size:3em;margin-bottom:12px;display:block;"></i>
+                No hay resultados de evaluación disponibles.
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<div id="panel-habilitar" class="main-panel">
+    <div class="form-card">
+        <div class="form-eval-title">
+            <i class="fa-solid fa-calendar-check"></i> Nueva Evaluación de Desempeño
+        </div>
+        <form id="formHabilitarEvaluacion" action="{{ url_for('rrhh.habilitar_evaluacion') }}" method="post">
+            {% if config.get('WTF_CSRF_ENABLED') %}<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">{% endif %}
+            <div class="form-row-3">
+                <div class="form-group">
+                    <label for="anio_evaluacion"><i class="fa-regular fa-calendar"></i> Año a evaluar</label>
+                    <input class="form-control" type="text" name="anio_evaluacion" id="anio_evaluacion" placeholder="Ej: 2025" required>
+                </div>
+                <div class="form-group">
+                    <label for="fecha_inicio"><i class="fa-regular fa-play-circle"></i> Desde</label>
+                    <input class="form-control" type="date" name="fecha_inicio" id="fecha_inicio" required>
+                </div>
+                <div class="form-group">
+                    <label for="fecha_fin"><i class="fa-regular fa-stop-circle"></i> Hasta</label>
+                    <input class="form-control" type="date" name="fecha_fin" id="fecha_fin" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="evaluador_id"><i class="fa-regular fa-user"></i> Evaluador</label>
+                    <select class="form-control select2-evaluador" name="evaluador_id" id="evaluador_id" required>
+                        <option value="">Seleccione un evaluador…</option>
+                        {% for empleado in empleados_list %}
+                        <option value="{{ empleado.id }}" data-identificacion="{{ empleado.identificacion }}">
+                            {{ empleado.identificacion }} - {{ empleado.nombres }} {{ empleado.apellidos }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="evaluado_id"><i class="fa-regular fa-users"></i> Evaluado(s)</label>
+                    <select class="form-control select2-evaluado" name="evaluado_id" id="evaluado_id" multiple required>
+                        {% for empleado in empleados_list %}
+                        <option value="{{ empleado.id }}" data-identificacion="{{ empleado.identificacion }}">
+                            {{ empleado.identificacion }} - {{ empleado.nombres }} {{ empleado.apellidos }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group" style="margin-top:20px;">
+                <button type="submit" class="btn-submit">
+                    <i class="fa-solid fa-check"></i> Habilitar evaluación
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="panel-construccion" class="main-panel">
+    <div class="feature-grid">
+        <a class="card-link" onclick="toogleTable('competencias')">
+            <div class="card feature-card-new card-blue">
+                <i class="fa-solid fa-users watermark"></i>
+                <div class="card-info">
+                    <h3><span>COMPETENCIAS</span></h3>
+                    <p>Gestiona toda la documentación de los empleados</p>
+                </div>
+            </div>
+        </a>
+        <a class="card-link" onclick="toogleTable('criterios')">
+            <div class="card feature-card-new card-indigo">
+                <i class="fa-solid fa-building-user watermark"></i>
+                <div class="card-info">
+                    <h3><span>CRITERIOS</span></h3>
+                    <p>Gestiona todos los grupos de nómina</p>
+                </div>
+            </div>
+        </a>
+        <a class="card-link" onclick="toogleTable('preguntas')">
+            <div class="card feature-card-new card-teal">
+                <i class="fa-solid fa-person-chalkboard watermark"></i>
+                <div class="card-info">
+                    <h3><span>PREGUNTAS</span></h3>
+                    <p>Gestiona todos los Cargos</p>
+                </div>
+            </div>
+        </a>
+    </div>
+
+
+    <div id="tab-competencias" class="table-container">
+        <h2 class="mb-4"><i class="fa-solid fa-table"></i> Tipo de Competencias</h2>
+        <div class="accordion" id="acordeonNuevoTipo">
+            <div class="accordion-header" onclick="this.parentElement.classList.toggle('active')">
+                Nuevo tipo de competencia <i class="fa-regular fa-square-plus"></i>
+            </div>
+            <div class="accordion-content">
+                <form id="formNuevoTipo" class="form-eval-crear">
+                    {% if config.get('WTF_CSRF_ENABLED') %}<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">{% endif %}
+                    <div class="form-field">
+                        <label for="nuevo_tipo_nombre" class="form-label">Nombre</label>
+                        <input type="text" id="nuevo_tipo_nombre" name="nombre" class="form-control" required>
+                    </div>
+                    <div style="text-align:right;margin-top:12px;">
+                        <button type="submit"><i class="fa-solid fa-floppy-disk"></i> Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <table class="tabla-expandible">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="tabla_tipo_competencias">
+                {% for competencia in tipo_competencias %}
+                <tr data-id="{{ competencia.id }}">
+                    <td class="col-nombre">{{ competencia.nombre }}</td>
+                    <td class="acciones">
+                        <button class="btn-accion btn-editar" onclick="editarTipoCompetencia(this)">
+                            <i class="fa-regular fa-pen-to-square"></i>
+                        </button>
+                        <button class="btn-accion btn-eliminar"
+                            onclick="eliminarTipoCompetencia({{ competencia.id }}, this)">
+                            <i class="fa-solid fa-delete-left"></i>
+                        </button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div id="tab-criterios" class="table-container">
+        <h2 class="mb-4"><i class="fa-solid fa-table"></i> Tipo de Criterios</h2>
+        <div class="accordion" id="acordeonNuevoCriterio">
+            <div class="accordion-header" onclick="this.parentElement.classList.toggle('active')">
+                Nuevo criterio <i class="fa-regular fa-square-plus"></i>
+            </div>
+            <div class="accordion-content">
+                <form id="formNuevoCriterio" class="form-eval-crear">
+                    {% if config.get('WTF_CSRF_ENABLED') %}<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">{% endif %}
+                    <div class="form-field">
+                        <label for="nuevo_criterio_nombre" class="form-label">Nombre del criterio</label>
+                        <input type="text" id="nuevo_criterio_nombre" name="nombre" class="form-control" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="nuevo_criterio_tipo" class="form-label">Tipo de competencia</label>
+                        <select id="nuevo_criterio_tipo" name="id_tipo" class="form-control" required>
+                            <option value="">Seleccione…</option>
+                            {% for t in tipo_competencias %}
+                            <option value="{{ t.id }}">{{ t.nombre }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div style="text-align:right;margin-top:12px;">
+                        <button type="submit"><i class="fa-solid fa-floppy-disk"></i> Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <table class="tabla-expandible">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Competencia</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="tabla_criterios">
+                {% for criterio in criterios %}
+                <tr data-id="{{ criterio.id_criterio }}" data-id-tipo="{{ criterio.id_tipo }}">
+                    <td class="col-nombre">{{ criterio.nombre }}</td>
+                    <td class="col-competencia">{{ criterio.competencia }}</td>
+                    <td class="acciones">
+                        <button class="btn-accion btn-editar" onclick="editarCriterio(this)">
+                            <i class="fa-regular fa-pen-to-square"></i>
+                        </button>
+                        <button class="btn-accion btn-eliminar"
+                            onclick="eliminarCriterio({{ criterio.id_criterio }}, this)">
+                            <i class="fa-solid fa-delete-left"></i>
+                        </button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div id="tab-preguntas" class="table-container">
+        <h2 class="mb-4"><i class="fa-solid fa-table"></i> Tipo de Preguntas</h2>
+        <div class="accordion" id="acordeonNuevaPregunta">
+            <div class="accordion-header" onclick="this.parentElement.classList.toggle('active')">
+                Nueva pregunta <i class="fa-regular fa-square-plus"></i>
+            </div>
+            <div class="accordion-content">
+                <form id="formNuevaPregunta" class="form-eval-crear">
+                    {% if config.get('WTF_CSRF_ENABLED') %}<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">{% endif %}
+                    <div class="form-field">
+                        <label for="nueva_p_texto" class="form-label">Pregunta</label>
+                        <textarea id="nueva_p_texto" name="pregunta" class="form-control" rows="2" required></textarea>
+                    </div>
+                    <div class="form-field">
+                        <label for="nueva_p_cargo" class="form-label">Cargo / plantilla</label>
+                        <select id="nueva_p_cargo" name="id_plantilla" class="form-control" required>
+                            <option value="">Seleccione…</option>
+                            {% for c in lista_cargos %}
+                            <option value="{{ c.id }}">{{ c.nombre }}</option>
+                            {% endfor %}
+                        </select>
+                        {% if not lista_cargos %}
+                        <p class="texto-ayuda text-slate-500" style="margin-top:8px;font-size:0.9em;">
+                            No hay cargos registrados. Cree un cargo antes de crear preguntas.
+                        </p>
+                        {% else %}
+                        <p class="texto-ayuda text-slate-500" style="margin-top:8px;font-size:0.9em;">
+                            Se muestran todos los cargos registrados.
+                        </p>
+                        {% endif %}
+                    </div>
+                    <div class="form-field form-field-inline">
+                        <div class="field-select-group">
+                            <label for="nueva_p_tipo" class="form-label">Tipo de competencia</label>
+                            <select id="nueva_p_tipo" name="tipo" class="form-control" required>
+                                <option value="">Seleccione…</option>
+                                {% for t in tipo_competencias %}
+                                <option value="{{ t.id }}">{{ t.nombre }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="field-pct-group">
+                            <label for="porc_tipo">% Tipo</label>
+                            <input type="number" name="porc_tipo" id="porc_tipo" class="form-control" placeholder="%" min="0" max="100" step="0.01">
+                        </div>
+                    </div>
+                    <div class="form-field form-field-bar hidden" id="barra-tipo-wrapper">
+                        <div class="pct-bar-container">
+                            <div class="pct-bar-label">
+                                <span>Suma tipos: <strong id="suma-tipo-actual">0</strong>%</span>
+                                <span class="pct-bar-status" id="status-tipo"></span>
+                            </div>
+                            <div class="pct-bar-track">
+                                <div class="pct-bar-fill" id="barra-tipo-fill" style="width:0%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-field form-field-inline">
+                        <div class="field-select-group">
+                            <label for="nueva_p_criterio" class="form-label">Criterio</label>
+                            <select id="nueva_p_criterio" name="competencia" class="form-control" required></select>
+                        </div>
+                        <div class="field-pct-group">
+                            <label for="porc_criterio">% Criterio</label>
+                            <input type="number" name="porc_criterio" id="porc_criterio" class="form-control" placeholder="%" min="0" max="100" step="0.01">
+                        </div>
+                    </div>
+                    <div class="form-field form-field-bar hidden" id="barra-criterio-wrapper">
+                        <div class="pct-bar-container">
+                            <div class="pct-bar-label">
+                                <span>Suma criterios: <strong id="suma-criterio-actual">0</strong>%</span>
+                                <span class="pct-bar-status" id="status-criterio"></span>
+                            </div>
+                            <div class="pct-bar-track">
+                                <div class="pct-bar-fill" id="barra-criterio-fill" style="width:0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="text-align:right;margin-top:12px;">
+                        <button type="submit"><i class="fa-solid fa-floppy-disk"></i> Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="form-field" style="max-width:360px;margin:18px 0;">
+            <label for="filtro_preguntas_cargo" class="form-label">Filtrar por cargo</label>
+            <select id="filtro_preguntas_cargo" class="form-control">
+                <option value="">Todos los cargos</option>
+                {% for c in lista_cargos %}
+                <option value="{{ c.id }}">{{ c.nombre }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <table class="tabla-expandible">
+            <thead>
+                <tr>
+                    <th>Concepto</th>
+                    <th>Asignado a</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="tabla_preguntas">
+                {% for pregunta in preguntas %}
+                <tr data-id="{{ pregunta.id }}" data-id-plantilla="{{ pregunta.id_plantilla }}"
+                    data-tipo="{{ pregunta.tipo }}" data-competencia="{{ pregunta.competencia }}">
+                    <td class="col-pregunta">
+                        <div class="header-info">
+                            <h3>{{pregunta.tipo_competencia}}<span class="badge-porc">({{pregunta.tipo_porcentaje or
+                                    0}}%)</span>
+                                /
+                                {{pregunta.criterio}}
+                                <span class="badge-porc">({{pregunta.competencia_porcentaje or 0}}%)</span>
+                            </h3>
+                        </div>
+                        <div class="pregunta-body">{{ pregunta.pregunta }}</div>
+                    </td>
+                    <td class="col-asignado">{{ pregunta.asignado }}</td>
+                    <td class="acciones">
+                        <button class="btn-accion btn-editar" onclick="editarPregunta(this)">
+                            <i class="fa-regular fa-pen-to-square"></i>
+                        </button>
+                        <button class="btn-accion btn-eliminar" onclick="eliminarPregunta(this)">
+                            <i class="fa-solid fa-delete-left"></i>
+                        </button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js" integrity="sha384-9MhbyIRcBVQiiC7FSd7T38oJNj2Zh+EfxS7/vjhBi4OOT78NlHSnzM31EZRWR1LZ" crossorigin="anonymous">
+    // =============================================================
+    // CERRAR MODALES CON TECLA ESC
+    // =============================================================
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            const modales = [
+                'modalEmpleado', 'modalRetiro', 'modalIngreso',
+                'modalContratos', 'modalImportar', 'modalZip', 'modalConsecutivo', 'modalPreview'
+            ];
+            modales.forEach(id => {
+                const el = document.getElementById(id);
+                if (el && el.classList.contains('active')) {
+                    el.classList.remove('active');
+                }
+                if (el && (el.style.display === 'flex' || el.style.display === 'block')) {
+                    el.style.display = 'none';
+                }
+            });
+        }
+    });
+</script>
+<script>
+    const tiposCompetencia = {{ tipo_competencias| tojson }};
+    let criteriosLista = {{ criterios| tojson }};
+    const plantillasLista = {{ lista_cargos| tojson }};
+    const porcentajesTipoCompetencias = {{ porcentajes_tipo| tojson }};
+    const porcentajesCompetencias = {{ porcentajes_competencia| tojson}};
+
+    /** Misma lógica que empleados.js (IIS / subruta): BASE_URL + ruta absoluta */
+    function apiUrl(ruta) {
+        var base = (typeof getBaseUrl === 'function')
+            ? getBaseUrl()
+            : ((typeof BASE_URL !== 'undefined' && BASE_URL) ? BASE_URL : (window.BASE_URL || ''));
+        if (ruta.charAt(0) !== '/') ruta = '/' + ruta;
+        return base + ruta;
+    }
+
+    function swalError(msg) {
+        Swal.fire('Error', msg || 'Ocurrió un error', 'error');
+    }
+
+    async function swalConfirm(text, title) {
+        title = title || '¿Confirmar?';
+        const r = await Swal.fire({
+            title: title,
+            text: text,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Sí',
+            cancelButtonText: 'Cancelar'
+        });
+        return r.isConfirmed;
+    }
+
+    async function fetchJson(url, options) {
+        const res = await fetch(url, options || {});
+        const ct = (res.headers.get('content-type') || '').toLowerCase();
+        if (!ct.includes('application/json')) {
+            throw new Error('Respuesta inválida del servidor. Verifique la URL o recargue la página.');
+        }
+        const data = await res.json();
+        if (!data.success) {
+            throw new Error(data.error || 'Error en la operación');
+        }
+        return data;
+    }
+
+    function toggleMainTab(tipo) {
+        const habilitar = document.getElementById('panel-habilitar');
+        const construccion = document.getElementById('panel-construccion');
+        const resultados = document.getElementById('panel-resultados');
+        const resumen = document.getElementById('panel-resumen');
+        const btnHab = document.getElementById('main-tab-habilitar');
+        const btnCons = document.getElementById('main-tab-construccion');
+        const btnResul = document.getElementById('main-tab-resultados');
+        const btnResumen = document.getElementById('main-tab-resumen');
+        [habilitar, construccion, resultados, resumen].forEach(p => p?.classList.remove('active'));
+        [btnHab, btnCons, btnResul, btnResumen].forEach(b => b?.classList.remove('active'));
+
+        if (tipo === 'construccion') {
+            construccion.classList.add('active');
+            btnCons.classList.add('active');
+        } else if (tipo === 'habilitar') {
+            habilitar.classList.add('active');
+            btnHab.classList.add('active');
+        } else if (tipo === 'resultados') {
+            resultados.classList.add('active');
+            btnResul.classList.add('active');
+        } else if (tipo === 'resumen') {
+            resumen.classList.add('active');
+            btnResumen.classList.add('active');
+            cargarResumenEvaluaciones();
+        }
+    }
+
+    function toogleTable(tipo) {
+        document.getElementById('tab-competencias').classList.remove('active');
+        document.getElementById('tab-criterios').classList.remove('active');
+        document.getElementById('tab-preguntas').classList.remove('active');
+        document.getElementById('tab-' + tipo).classList.add('active');
+    }
+
+    function filtrarPreguntasPorCargo() {
+        const filtro = document.getElementById('filtro_preguntas_cargo');
+        const idCargo = filtro ? filtro.value : '';
+        document.querySelectorAll('#tabla_preguntas tr').forEach(tr => {
+            tr.style.display = !idCargo || Number(tr.dataset.idPlantilla) === Number(idCargo) ? '' : 'none';
+        });
+    }
+
+    document.getElementById('filtro_preguntas_cargo')?.addEventListener('change', filtrarPreguntasPorCargo);
+
+    function obtenerCalificacion(valor) {
+        let texto = "SIN EVALUAR";
+        let color = "#92400e";
+        let clase = "calif-sin-evaluar";
+        let claseTexto = "calif-txt-sin-evaluar";
+        if (valor >= 0 && valor < 2.0) {
+            texto = "PÉSIMO";
+            color = "#CC0000";
+            clase = "calif-pesimo";
+            claseTexto = "calif-txt-pesimo";
+        } else if (valor >= 2.0 && valor < 3.0) {
+            texto = "MALO";
+            color = "#5D417E";
+            clase = "calif-malo";
+            claseTexto = "calif-txt-malo";
+        } else if (valor >= 3.0 && valor < 3.5) {
+            texto = "REGULAR";
+            color = "#2C5D98";
+            clase = "calif-regular";
+            claseTexto = "calif-txt-regular";
+        } else if (valor >= 3.5 && valor < 4.0) {
+            texto = "BUENO";
+            color = "#CB6C1D";
+            clase = "calif-bueno";
+            claseTexto = "calif-txt-bueno";
+        } else if (valor >= 4.0 && valor < 4.6) {
+            texto = "SOBRESALIENTE";
+            color = "#769535";
+            clase = "calif-sobresaliente";
+            claseTexto = "calif-txt-sobresaliente";
+        } else if (valor >= 4.6 && valor <= 5.0) {
+            texto = "EXCELENTE";
+            color = "#2787A0";
+            clase = "calif-excelente";
+            claseTexto = "calif-txt-excelente";
+        }
+        return { texto, color, clase, claseTexto };
+    }
+
+    function obtenerCalificacionGeneral(porcentaje) {
+        // El resultado_general está en escala 0-5 (nota ponderada).
+        // Lo pasamos directamente a obtenerCalificacion que espera 0-5.
+        // Si el valor pareciera ser porcentaje (0-100), lo convertimos.
+        const valor = porcentaje > 5 ? porcentaje / 20 : porcentaje;
+        return obtenerCalificacion(valor);
+    }
+
+    function aplicarColoresResultados() {
+        // Colorear badges de tipo y competencia (escala 1-5)
+        document.querySelectorAll('.calif-badge[data-valor]').forEach(el => {
+            const raw = el.dataset.valor;
+            const valor = parseFloat(raw);
+            if (isNaN(valor) || valor <= 0) return;
+            const cal = obtenerCalificacion(valor);
+            el.className = el.className.replace(/\bcalif-\S+/g, '').trim() + ' ' + cal.clase;
+            const label = el.querySelector('.calif-label');
+            if (label) label.textContent = cal.texto;
+        });
+
+        // Colorear resultado general (porcentaje 0-100)
+        document.querySelectorAll('.rc-general[data-general]').forEach(el => {
+            const raw = el.dataset.general;
+            if (!raw) return;
+            const valor = parseFloat(raw);
+            if (isNaN(valor)) return;
+            const cal = obtenerCalificacionGeneral(valor);
+            el.className = el.className.replace(/\bcalif-\S+/g, '').trim() + ' ' + cal.clase;
+            const textoEl = el.querySelector('.rc-general-texto');
+            if (textoEl) textoEl.textContent = cal.texto;
+            // Also style the label inside
+            const labelEl = el.querySelector('.rc-general-label');
+            if (labelEl) labelEl.style.color = 'rgba(255,255,255,0.8)';
+        });
+    }
+
+    function toggleAcordeonAnio(headerEl) {
+        const section = headerEl.closest('.acordeon-anio');
+        const body = section.querySelector('.acordeon-anio-body');
+        const isOpen = body.classList.contains('active');
+        
+        if (isOpen) {
+            body.classList.remove('active');
+            body.style.display = 'none';
+            section.classList.remove('active');
+        } else {
+            body.classList.add('active');
+            body.style.display = 'block';
+            section.classList.add('active');
+            // Aplicar colores a las cards que se acaban de mostrar
+            body.querySelectorAll('.resultado-card').forEach(card => {
+                aplicarColoresCard(card);
+            });
+        }
+    }
+
+    function validarResultadoGeneral(card) {
+        /**
+         * Recalcula el resultado general a partir de los badges de tipo
+         * y sus porcentajes, y lo actualiza en el footer de la card.
+         * Fórmula: resultado_general = Σ(resultado_tipo × %tipo / 100)
+         */
+        const generalDiv = card.querySelector('.rc-general');
+        if (!generalDiv) return;
+
+        const tipoBadges = card.querySelectorAll('.calif-tipo');
+        if (!tipoBadges.length) return;
+
+        let calculatedGeneral = 0;
+        const storedRaw = generalDiv.dataset.general;
+        const storedGeneral = storedRaw ? parseFloat(storedRaw) : null;
+
+        tipoBadges.forEach(badge => {
+            const pctTextEl = badge.querySelector('.calif-pct');
+            if (!pctTextEl) return;
+            const pctText = pctTextEl.textContent.replace(/[()%\s]/g, '');
+            const tipoPorcentaje = parseFloat(pctText);
+            const tipoResultado = parseFloat(badge.dataset.valor);
+
+            if (isNaN(tipoResultado) || tipoResultado <= 0 || isNaN(tipoPorcentaje) || tipoPorcentaje <= 0) return;
+            calculatedGeneral += tipoResultado * (tipoPorcentaje / 100);
+        });
+
+        if (calculatedGeneral <= 0) return;
+
+        // Actualizar el valor mostrado con el calculado
+        const valorSpan = generalDiv.querySelector('.rc-general-valor');
+        if (valorSpan) {
+            valorSpan.textContent = calculatedGeneral.toFixed(2) + '%';
+        }
+
+        // Mostrar discrepancia si el valor almacenado difiere del recalculado
+        let valIcon = generalDiv.querySelector('.rc-val-icon');
+        if (storedGeneral !== null && Math.abs(calculatedGeneral - storedGeneral) > 0.01) {
+            if (!valIcon) {
+                valIcon = document.createElement('span');
+                valIcon.className = 'rc-val-icon';
+                generalDiv.appendChild(valIcon);
+            }
+            valIcon.title = `Almacenado: ${storedGeneral.toFixed(2)}%, Recalculado: ${calculatedGeneral.toFixed(2)}%`;
+            valIcon.style.cssText = 'font-size:0.7em;margin-left:6px;';
+            valIcon.innerHTML = '<i class="fa-solid fa-triangle-exclamation icon-warning"></i>';
+        } else {
+            // Coincide → check verde
+            if (!valIcon) {
+                valIcon = document.createElement('span');
+                valIcon.className = 'rc-val-icon';
+                generalDiv.appendChild(valIcon);
+            }
+            valIcon.title = 'Resultado verificado desde componentes';
+            valIcon.style.cssText = 'font-size:0.7em;margin-left:6px;opacity:0.7;';
+            valIcon.innerHTML = '<i class="fa-solid fa-check-circle"></i>';
+        }
+
+        // Aplicar color basado en el valor recalculado (escala 0-5)
+        const cal = obtenerCalificacionGeneral(calculatedGeneral);
+        generalDiv.className = generalDiv.className.replace(/\bcalif-\S+/g, '').trim() + ' ' + cal.clase;
+        const textoEl = generalDiv.querySelector('.rc-general-texto');
+        if (textoEl) textoEl.textContent = cal.texto;
+        const labelEl = generalDiv.querySelector('.rc-general-label');
+        if (labelEl) labelEl.style.color = 'rgba(255,255,255,0.8)';
+    }
+
+    function aplicarColoresCard(card) {
+        // Colorear badges de tipo y competencia (escala 1-5)
+        card.querySelectorAll('.calif-badge[data-valor]').forEach(el => {
+            const raw = el.dataset.valor;
+            const valor = parseFloat(raw);
+            if (isNaN(valor) || valor <= 0) return;
+            const cal = obtenerCalificacion(valor);
+            el.className = el.className.replace(/\bcalif-\S+/g, '').trim() + ' ' + cal.clase;
+            const label = el.querySelector('.calif-label');
+            if (label) label.textContent = cal.texto;
+        });
+
+        // Validar y colorear resultado general (recalculado desde componentes)
+        validarResultadoGeneral(card);
+    }
+
+    function aplicarColoresResultados() {
+        // Aplicar colores a todas las cards visibles
+        document.querySelectorAll('#tabla_respuestas .resultado-card').forEach(card => {
+            aplicarColoresCard(card);
+        });
+    }
+
+    function filtrarRespuestasporUsuario() {
+        const filtroUsuario = document.getElementById('filtro_respuesta_usuario');
+        const idUsuario = filtroUsuario ? filtroUsuario.value : '';
+        
+        // Si no hay usuario seleccionado, ocultar TODO
+        if (!idUsuario) {
+            document.querySelectorAll('.acordeon-anio').forEach(section => {
+                section.querySelectorAll('.resultado-card').forEach(card => { card.style.display = 'none'; });
+                section.style.display = 'none';
+            });
+            return;
+        }
+        
+        document.querySelectorAll('.acordeon-anio').forEach(section => {
+            const cards = section.querySelectorAll('.resultado-card');
+            let algunaVisible = false;
+            
+            cards.forEach(card => {
+                const evaluadorId = card.dataset.evaluadorId;
+                const evaluadoId = card.dataset.evaluadoId;
+                if (evaluadorId === undefined && evaluadoId === undefined) return;
+                const coincide = Number(evaluadorId) === Number(idUsuario) || 
+                    Number(evaluadoId) === Number(idUsuario);
+                card.style.display = coincide ? '' : 'none';
+                if (coincide) {
+                    algunaVisible = true;
+                    // Re-validar al hacer visible
+                    validarResultadoGeneral(card);
+                }
+            });
+            
+            // Ocultar/mostrar la sección de año completa si no tiene cards visibles
+            section.style.display = algunaVisible ? '' : 'none';
+        });
+    }
+
+    function initSelect2Filtro() {
+        $('.select2-busqueda').select2({
+            placeholder: 'Buscar por nombre o identificación…',
+            allowClear: true,
+            width: '100%',
+            matcher: function(params, data) {
+                // Si no hay término de búsqueda, mostrar todas las opciones
+                if ($.trim(params.term) === '') return data;
+                
+                const termino = params.term.toLowerCase();
+                const texto = data.text.toLowerCase();
+                const identificacion = data.element ? data.element.dataset.identificacion || '' : '';
+                
+                // Buscar tanto en el texto visible (nombre + identificación) como en el data-attribute
+                if (texto.indexOf(termino) > -1 || identificacion.indexOf(termino) > -1) {
+                    return data;
+                }
+                return null;
+            }
+        });
+        
+        // Vincular el evento change de Select2 al filtro
+        $('.select2-busqueda').on('change', function(e) {
+            filtrarRespuestasporUsuario();
+        });
+    }
+
+    function initSelect2Formulario() {
+        // Evaluador: Select2 simple con búsqueda
+        $('#evaluador_id').select2({
+            placeholder: 'Buscar evaluador por nombre o identificación…',
+            allowClear: true,
+            width: '100%',
+            matcher: function(params, data) {
+                if ($.trim(params.term) === '') return data;
+                const termino = params.term.toLowerCase();
+                const texto = data.text.toLowerCase();
+                const identificacion = data.element ? data.element.dataset.identificacion || '' : '';
+                if (texto.indexOf(termino) > -1 || identificacion.indexOf(termino) > -1) {
+                    return data;
+                }
+                return null;
+            }
+        });
+        
+        // Evaluado: Select2 múltiple con búsqueda
+        $('#evaluado_id').select2({
+            placeholder: 'Buscar evaluados por nombre o identificación…',
+            allowClear: true,
+            width: '100%',
+            matcher: function(params, data) {
+                if ($.trim(params.term) === '') return data;
+                const termino = params.term.toLowerCase();
+                const texto = data.text.toLowerCase();
+                const identificacion = data.element ? data.element.dataset.identificacion || '' : '';
+                if (texto.indexOf(termino) > -1 || identificacion.indexOf(termino) > -1) {
+                    return data;
+                }
+                return null;
+            }
+        });
+        
+
+    }
+
+    // =============================================================
+    // FUNCIONES DEL PANEL DE RESUMEN
+    // =============================================================
+    let resumenChartInstance = null;
+
+    function toggleRsAcordeon(headerEl) {
+        const section = headerEl.closest('.rs-acordeon');
+        const body = section.querySelector('.rs-acordeon-body');
+        const isOpen = body.classList.contains('active');
+        if (isOpen) {
+            body.classList.remove('active');
+            body.style.display = 'none';
+            section.classList.remove('active');
+        } else {
+            body.classList.add('active');
+            body.style.display = 'block';
+            section.classList.add('active');
+        }
+    }
+
+    function analizarEstadosEvaluacion() {
+        const cards = document.querySelectorAll('#tabla_respuestas .resultado-card');
+        let total = 0, presentadas = 0, noPresentadas = 0;
+        let aprobEval = 0, noAprobEval = 0;
+        let aprobRRHH = 0, noAprobRRHH = 0;
+        const detalles = { presentadas: [], 'no-presentadas': [], 'aprob-eval': [], 'no-aprob-eval': [], 'aprob-rrhh': [], 'no-aprob-rrhh': [] };
+
+        cards.forEach(card => {
+            const estadoEl = card.querySelector('.rc-estado');
+            const estaCompletado = estadoEl && estadoEl.classList.contains('completado');
+            total++;
+
+            // Extraer datos comunes
+            const personas = card.querySelectorAll('.rc-persona');
+            const evaluador = personas.length >= 1 ? personas[0].querySelector('.rc-nombre')?.textContent.trim() || '—' : '—';
+            const evaluado = personas.length >= 2 ? personas[1].querySelector('.rc-nombre')?.textContent.trim() || '—' : '—';
+            const cargo = card.querySelector('.rc-cargo')?.textContent.trim() || '—';
+            const resultadoEl = card.querySelector('.rc-general-valor');
+            const resultado = resultadoEl ? resultadoEl.textContent.trim() : '—';
+            const fechaEl = card.querySelector('.rc-fecha');
+            const fecha = fechaEl ? fechaEl.textContent.replace('Evaluación:', '').trim() : '—';
+
+            const rowHtml = `<tr><td>${evaluador}</td><td>${evaluado}</td><td>${cargo}</td><td>${resultado}</td><td>${fecha}</td></tr>`;
+
+            // Clasificar por estado
+            if (estaCompletado) {
+                presentadas++;
+                detalles['presentadas'].push(rowHtml);
+            } else {
+                noPresentadas++;
+                detalles['no-presentadas'].push(rowHtml);
+            }
+
+            // Aprobación evaluado
+            const badges = card.querySelectorAll('.rc-aprobacion-badge');
+            let aprobEvalStatus = null; // true=ok, false=pend, null=sin
+            let aprobRRHHStatus = null;
+            badges.forEach(b => {
+                const txt = b.textContent.trim();
+                if (txt.includes('Evaluado OK')) aprobEvalStatus = true;
+                else if (txt.includes('Evaluado Pend')) aprobEvalStatus = false;
+                else if (txt.includes('RRHH OK')) aprobRRHHStatus = true;
+                else if (txt.includes('RRHH Pend')) aprobRRHHStatus = false;
+            });
+
+            if (aprobEvalStatus === true) {
+                aprobEval++;
+                detalles['aprob-eval'].push(rowHtml);
+            } else {
+                noAprobEval++;
+                detalles['no-aprob-eval'].push(rowHtml);
+            }
+
+            if (aprobRRHHStatus === true) {
+                aprobRRHH++;
+                detalles['aprob-rrhh'].push(rowHtml);
+            } else {
+                noAprobRRHH++;
+                detalles['no-aprob-rrhh'].push(rowHtml);
+            }
+        });
+
+        // Calcular promedio general (suma resultados / empleados presentados)
+        let sumaResultados = 0;
+        let contadorResultados = 0;
+        cards.forEach(card => {
+            const estadoEl = card.querySelector('.rc-estado');
+            if (!estadoEl || !estadoEl.classList.contains('completado')) return;
+            const generalDiv = card.querySelector('.rc-general');
+            if (!generalDiv) return;
+            const raw = generalDiv.dataset.general;
+            if (!raw) return;
+            const val = parseFloat(raw);
+            if (!isNaN(val) && val > 0) {
+                sumaResultados += val;
+                contadorResultados++;
+            }
+        });
+        const promedioGeneral = contadorResultados > 0 ? sumaResultados / contadorResultados : 0;
+
+        return { total, presentadas, noPresentadas, aprobEval, noAprobEval, aprobRRHH, noAprobRRHH, promedioGeneral, detalles };
+    }
+
+    function renderResumenStats(stats) {
+        document.getElementById('stat-total').textContent = stats.total;
+        document.getElementById('stat-presentadas').textContent = stats.presentadas;
+        document.getElementById('stat-no-presentadas').textContent = stats.noPresentadas;
+        document.getElementById('stat-aprob-eval').textContent = stats.aprobEval;
+        document.getElementById('stat-no-aprob-eval').textContent = stats.noAprobEval;
+        document.getElementById('stat-aprob-rrhh').textContent = stats.aprobRRHH;
+        document.getElementById('stat-no-aprob-rrhh').textContent = stats.noAprobRRHH;
+
+        document.getElementById('rs-count-presentadas').textContent = stats.presentadas;
+        document.getElementById('rs-count-no-presentadas').textContent = stats.noPresentadas;
+        document.getElementById('rs-count-aprob-eval').textContent = stats.aprobEval;
+        document.getElementById('rs-count-no-aprob-eval').textContent = stats.noAprobEval;
+        document.getElementById('rs-count-aprob-rrhh').textContent = stats.aprobRRHH;
+        document.getElementById('rs-count-no-aprob-rrhh').textContent = stats.noAprobRRHH;
+        document.getElementById('stat-promedio').textContent = stats.promedioGeneral.toFixed(2);
+    }
+
+    function renderResumenChart(stats) {
+        const ctx = document.getElementById('resumenChart')?.getContext('2d');
+        if (!ctx) return;
+
+        if (resumenChartInstance) resumenChartInstance.destroy();
+
+        resumenChartInstance = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Presentación', 'Aprob. Evaluado', 'Aprob. RRHH'],
+                datasets: [
+                    {
+                        label: 'Sí',
+                        data: [stats.presentadas, stats.aprobEval, stats.aprobRRHH],
+                        backgroundColor: ['#16a34a', '#16a34a', '#16a34a'],
+                        borderRadius: 6,
+                        barPercentage: 0.6,
+                    },
+                    {
+                        label: 'No',
+                        data: [stats.noPresentadas, stats.noAprobEval, stats.noAprobRRHH],
+                        backgroundColor: ['#d97706', '#dc2626', '#dc2626'],
+                        borderRadius: 6,
+                        barPercentage: 0.6,
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: { font: { size: 12, weight: 'bold' }, padding: 16 }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(ctx) {
+                                const total = ctx.dataset.data[ctx.dataIndex];
+                                return `${ctx.dataset.label}: ${total}`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: { stepSize: 1, font: { size: 11 } },
+                        grid: { color: 'rgba(0,0,0,0.06)' }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: { font: { size: 11, weight: 'bold' } }
+                    }
+                }
+            }
+        });
+    }
+
+    function renderResumenTablas(stats) {
+        ['presentadas', 'no-presentadas', 'aprob-eval', 'no-aprob-eval', 'aprob-rrhh', 'no-aprob-rrhh'].forEach(cat => {
+            const wrapper = document.getElementById(`rs-table-${cat}`);
+            if (!wrapper) return;
+            const rows = stats.detalles[cat] || [];
+            if (rows.length === 0) {
+                wrapper.innerHTML = '<div class="rs-empty">Sin registros</div>';
+                return;
+            }
+            wrapper.innerHTML = `
+                <table class="rs-tabla">
+                    <thead>
+                        <tr>
+                            <th>Evaluador</th>
+                            <th>Evaluado</th>
+                            <th>Cargo</th>
+                            <th>Resultado</th>
+                            <th>Fecha</th>
+                        </tr>
+                    </thead>
+                    <tbody>${rows.join('')}</tbody>
+                </table>
+            `;
+        });
+    }
+
+    function cargarResumenEvaluaciones() {
+        const stats = analizarEstadosEvaluacion();
+        renderResumenStats(stats);
+        renderResumenChart(stats);
+        renderResumenTablas(stats);
+    }
+
+    // Inicializar todo al cargar
+    document.addEventListener('DOMContentLoaded', function() {
+        initSelect2Filtro();
+        initSelect2Formulario();
+        // Iniciar con todo oculto porque el select está vacío
+        filtrarRespuestasporUsuario();
+        aplicarColoresResultados();
+    });
+
+    function opcionesTipos(selectedId = null) {
+        return tiposCompetencia.map(item => {
+            const selected = Number(selectedId) === Number(item.id) ? 'selected' : '';
+            return `<option value="${item.id}" ${selected}>${item.nombre}</option>`;
+        }).join('');
+    }
+
+    function opcionesCriteriosPorTipo(idTipo, selectedId = null) {
+        if (!idTipo) return '<option value="">Seleccione tipo primero</option>';
+        const filas = criteriosLista.filter(item => Number(item.id_tipo) === Number(idTipo));
+        if (!filas.length) return '<option value="">Sin criterios para este tipo</option>';
+        return filas.map(item => {
+            const selected = Number(selectedId) === Number(item.id_criterio) ? 'selected' : '';
+            return `<option value="${item.id_criterio}" ${selected}>${item.nombre}</option>`;
+        }).join('');
+    }
+
+    function opcionesPlantillas(selectedId, nombreActual) {
+        const ids = new Set(plantillasLista.map(item => Number(item.id)));
+        let html = plantillasLista.map(item => {
+            const selected = Number(selectedId) === Number(item.id) ? 'selected' : '';
+            return `<option value="${item.id}" ${selected}>${item.nombre}</option>`;
+        }).join('');
+        if (selectedId && !ids.has(Number(selectedId)) && nombreActual) {
+            html += `<option value="${selectedId}" selected>${nombreActual} (actual)</option>`;
+        }
+        return html;
+    }
+
+    function nombrePlantilla(id) {
+        const p = plantillasLista.find(item => Number(item.id) === Number(id));
+        return p ? p.nombre : '';
+    }
+
+    function agregarOpcionTipoEnSelects(id, nombre) {
+        const optHtml = `<option value="${id}">${nombre}</option>`;
+        ['nuevo_criterio_tipo', 'nueva_p_tipo'].forEach(selId => {
+            const sel = document.getElementById(selId);
+            if (sel) sel.insertAdjacentHTML('beforeend', optHtml);
+        });
+    }
+
+    function quitarOpcionTipoDeSelects(id) {
+        ['nuevo_criterio_tipo', 'nueva_p_tipo'].forEach(selId => {
+            const sel = document.getElementById(selId);
+            if (!sel) return;
+            const opt = sel.querySelector(`option[value="${id}"]`);
+            if (opt) opt.remove();
+        });
+    }
+
+    document.getElementById('formNuevoTipo').addEventListener('submit', async function (e) {
+        e.preventDefault();
+        const nombre = document.getElementById('nuevo_tipo_nombre').value.trim();
+        if (!nombre) return;
+
+        try {
+            const data = await fetchJson(apiUrl('/rrhh/const_evaluacion/tipo_competencia/crear'), {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ nombre })
+            });
+            tiposCompetencia.push({ id: data.id, nombre: data.nombre });
+            agregarOpcionTipoEnSelects(data.id, data.nombre);
+
+            const tbody = document.getElementById('tabla_tipo_competencias');
+            const tr = document.createElement('tr');
+            tr.dataset.id = data.id;
+            tr.innerHTML = `
+                <td class="col-nombre">${data.nombre}</td>
+                <td class="acciones">
+                    <button type="button" class="btn-accion btn-editar" onclick="editarTipoCompetencia(this)">
+                        <i class="fa-regular fa-pen-to-square"></i>
+                    </button>
+                    <button type="button" class="btn-accion btn-eliminar" onclick="eliminarTipoCompetencia(${data.id}, this)">
+                        <i class="fa-solid fa-delete-left"></i>
+                    </button>
+                </td>`;
+            tbody.appendChild(tr);
+            this.reset();
+        } catch (err) {
+            swalError(err.message);
+        }
+    });
+
+    document.getElementById('formNuevoCriterio').addEventListener('submit', async function (e) {
+        e.preventDefault();
+        const nombre = document.getElementById('nuevo_criterio_nombre').value.trim();
+        const idTipo = document.getElementById('nuevo_criterio_tipo').value;
+        if (!nombre || !idTipo) return;
+
+        try {
+            const data = await fetchJson(apiUrl('/rrhh/const_evaluacion/criterio/crear'), {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ nombre, id_tipo: idTipo })
+            });
+            criteriosLista.push({
+                id_criterio: data.id_criterio,
+                id_tipo: data.id_tipo,
+                nombre: data.nombre,
+                competencia: data.competencia
+            });
+            const tbody = document.getElementById('tabla_criterios');
+            const tr = document.createElement('tr');
+            tr.dataset.id = data.id_criterio;
+            tr.dataset.idTipo = data.id_tipo;
+            tr.innerHTML = `
+                <td class="col-nombre">${data.nombre}</td>
+                <td class="col-competencia">${data.competencia}</td>
+                <td class="acciones">
+                    <button type="button" class="btn-accion btn-editar" onclick="editarCriterio(this)">
+                        <i class="fa-regular fa-pen-to-square"></i>
+                    </button>
+                    <button type="button" class="btn-accion btn-eliminar" onclick="eliminarCriterio(${data.id_criterio}, this)">
+                        <i class="fa-solid fa-delete-left"></i>
+                    </button>
+                </td>`;
+            tbody.appendChild(tr);
+            this.reset();
+        } catch (err) {
+            swalError(err.message);
+        }
+    });
+
+    function sincronizarCriteriosNuevaPregunta() {
+        const selTipo = document.getElementById('nueva_p_tipo');
+        const selCrit = document.getElementById('nueva_p_criterio');
+        if (!selTipo || !selCrit) return;
+        selCrit.innerHTML = opcionesCriteriosPorTipo(selTipo.value);
+        verificaPorcentajeTipo();
+    }
+
+    document.getElementById('nueva_p_tipo').addEventListener('change', sincronizarCriteriosNuevaPregunta);
+
+    function validarSumaPorcentajes(plantilla, tipo, competencia, porcTipo, porcCrit) {
+        const idPlantilla = Number(plantilla);
+        const idTipo = Number(tipo);
+        const idCompetencia = Number(competencia);
+        const valTipo = Number(porcTipo) || 0;
+        const valCrit = Number(porcCrit) || 0;
+
+        // Validar que el % tipo no exceda 100
+        const existeTipo = porcentajesTipoCompetencias.find(p =>
+            Number(p.id_plantilla) === idPlantilla && Number(p.id_tipo) === idTipo
+        );
+
+        // Suma actual de tipos, restando el valor existente si se va a reemplazar
+        const sumaBaseTipos = porcentajesTipoCompetencias
+            .filter(p => Number(p.id_plantilla) === idPlantilla)
+            .reduce((sum, p) => sum + Number(p.porcentaje), 0);
+        const sumaTipos = existeTipo
+            ? sumaBaseTipos - Number(existeTipo.porcentaje)
+            : sumaBaseTipos;
+
+        if (valTipo > 0 && sumaTipos + valTipo > 100) {
+            return `La suma de % de tipos de competencia excede 100% ` +
+                `(actual: ${sumaTipos}%, nuevo: ${valTipo}%)`;
+        }
+
+        // Validar que el % criterio no exceda 100 para este tipo
+        const existeCompetencia = porcentajesCompetencias.find(p =>
+            Number(p.id_plantilla) === idPlantilla && Number(p.id_competencia) === idCompetencia
+        );
+
+        const idsCriteriosDeEsteTipo = criteriosLista
+            .filter(c => Number(c.id_tipo) === idTipo)
+            .map(c => Number(c.id_criterio));
+
+        // Suma actual de criterios, restando el valor existente si se va a reemplazar
+        const sumaBaseCriterios = porcentajesCompetencias
+            .filter(p => Number(p.id_plantilla) === idPlantilla && idsCriteriosDeEsteTipo.includes(Number(p.id_competencia)))
+            .reduce((sum, p) => sum + Number(p.porcentaje), 0);
+        const sumaCriterios = existeCompetencia
+            ? sumaBaseCriterios - Number(existeCompetencia.porcentaje)
+            : sumaBaseCriterios;
+
+        if (valCrit > 0 && sumaCriterios + valCrit > 100) {
+            return `La suma de % de criterios para este tipo excede 100% ` +
+                `(actual: ${sumaCriterios}%, nuevo: ${valCrit}%)`;
+        }
+
+        return null; // Sin errores
+    }
+
+    document.getElementById('formNuevaPregunta').addEventListener('submit', async function (e) {
+        e.preventDefault();
+        const pregunta = document.getElementById('nueva_p_texto').value.trim();
+        const id_plantilla = document.getElementById('nueva_p_cargo').value;
+        const tipo = document.getElementById('nueva_p_tipo').value;
+        const competencia = document.getElementById('nueva_p_criterio').value;
+        const porc_tipo = document.getElementById('porc_tipo').value;
+        const porc_criterio = document.getElementById('porc_criterio').value;
+        if (!pregunta || !id_plantilla || !tipo || !competencia) {
+            swalError('Complete todos los campos');
+            return;
+        }
+
+        // Validar suma de porcentajes
+        const errorValidacion = validarSumaPorcentajes(id_plantilla, tipo, competencia, porc_tipo, porc_criterio);
+        if (errorValidacion) {
+            swalError(errorValidacion);
+            return;
+        }
+
+        try {
+            const data = await fetchJson(apiUrl('/rrhh/const_evaluacion/pregunta/crear'), {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ pregunta, id_plantilla, tipo, competencia, porc_tipo, porc_criterio })
+            });
+            // Actualizar los arrays locales de porcentajes para que persistan sin recargar
+            const idPlantillaNum = Number(data.id_plantilla);
+            const tipoNum = Number(data.tipo);
+            const competenciaNum = Number(data.competencia);
+
+            // Actualizar % tipo
+            const idxTipo = porcentajesTipoCompetencias.findIndex(p =>
+                Number(p.id_plantilla) === idPlantillaNum && Number(p.id_tipo) === tipoNum
+            );
+            if (idxTipo >= 0) {
+                porcentajesTipoCompetencias[idxTipo].porcentaje = data.porcentaje_tipo;
+            } else {
+                porcentajesTipoCompetencias.push({
+                    id_plantilla: data.id_plantilla,
+                    id_tipo: data.tipo,
+                    porcentaje: data.porcentaje_tipo
+                });
+            }
+
+            // Actualizar % criterio
+            const idxComp = porcentajesCompetencias.findIndex(p =>
+                Number(p.id_plantilla) === idPlantillaNum && Number(p.id_competencia) === competenciaNum
+            );
+            if (idxComp >= 0) {
+                porcentajesCompetencias[idxComp].porcentaje = data.porcentaje_criterio;
+            } else {
+                porcentajesCompetencias.push({
+                    id_plantilla: data.id_plantilla,
+                    id_competencia: data.competencia,
+                    porcentaje: data.porcentaje_criterio
+                });
+            }
+
+            const tbody = document.getElementById('tabla_preguntas');
+            const tr = document.createElement('tr');
+            tr.dataset.id = data.id;
+            tr.dataset.idPlantilla = data.id_plantilla;
+            tr.dataset.tipo = data.tipo;
+            tr.dataset.competencia = data.competencia;
+            tr.innerHTML = `
+                <td class="col-pregunta">${data.pregunta}</td>
+                <td class="col-asignado">${data.asignado}</td>
+                <td class="acciones">
+                    <button type="button" class="btn-accion btn-editar" onclick="editarPregunta(this)">
+                        <i class="fa-regular fa-pen-to-square"></i>
+                    </button>
+                    <button type="button" class="btn-accion btn-eliminar" onclick="eliminarPregunta(this)">
+                        <i class="fa-solid fa-delete-left"></i>
+                    </button>
+                </td>`;
+            tbody.appendChild(tr);
+            filtrarPreguntasPorCargo();
+            this.reset();
+            sincronizarCriteriosNuevaPregunta();
+            // Re-verificar porcentajes con los arrays ya actualizados
+            verificaPorcentajeTipo();
+        } catch (err) {
+            swalError(err.message);
+        }
+    });
+
+    function editarTipoCompetencia(btn) {
+        const tr = btn.closest('tr');
+        const tdNombre = tr.querySelector('.col-nombre');
+        const nombreActual = tdNombre.innerText.trim();
+
+        tdNombre.innerHTML = `<input type="text" value="${nombreActual}" class="input-edit">`;
+        btn.innerText = 'Guardar';
+        btn.onclick = () => guardarTipoCompetencia(tr, btn);
+    }
+
+    async function guardarTipoCompetencia(tr, btn) {
+        const id = tr.dataset.id;
+        const input = tr.querySelector('.input-edit');
+        const nombre = input.value.trim();
+
+        if (!nombre) {
+            swalError('El nombre no puede estar vacío');
+            return;
+        }
+
+        try {
+            await fetchJson(apiUrl(`/rrhh/const_evaluacion/tipo_competencia/editar/${id}`), {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ nombre })
+            });
+            tr.querySelector('.col-nombre').innerText = nombre;
+            const t = tiposCompetencia.find(x => Number(x.id) === Number(id));
+            if (t) t.nombre = nombre;
+            document.querySelectorAll(`#nuevo_criterio_tipo option[value="${id}"], #nueva_p_tipo option[value="${id}"]`).forEach(o => { o.textContent = nombre; });
+            btn.innerHTML = '<i class="fa-regular fa-pen-to-square"></i>';
+            btn.onclick = () => editarTipoCompetencia(btn);
+        } catch (err) {
+            swalError(err.message);
+        }
+    }
+
+    async function eliminarTipoCompetencia(id, btn) {
+        if (!await swalConfirm('¿Eliminar este tipo de competencia?')) return;
+
+        try {
+            await fetchJson(apiUrl(`/rrhh/const_evaluacion/tipo_competencia/eliminar/${id}`), { method: 'POST' });
+            const idx = tiposCompetencia.findIndex(x => Number(x.id) === Number(id));
+            if (idx >= 0) tiposCompetencia.splice(idx, 1);
+            quitarOpcionTipoDeSelects(id);
+            btn.closest('tr').remove();
+        } catch (err) {
+            swalError(err.message);
+        }
+    }
+
+    function editarCriterio(btn) {
+        const tr = btn.closest('tr');
+        const tdNombre = tr.querySelector('.col-nombre');
+        const tdCompetencia = tr.querySelector('.col-competencia');
+
+        tdNombre.innerHTML = `<input type="text" value="${tdNombre.innerText.trim()}" class="input-edit">`;
+        tdCompetencia.innerHTML = `<select class="input-edit">${opcionesTipos(tr.dataset.idTipo)}</select>`;
+        btn.innerText = 'Guardar';
+        btn.onclick = () => guardarCriterio(tr, btn);
+    }
+
+    async function guardarCriterio(tr, btn) {
+        const id = tr.dataset.id;
+        const nombre = tr.querySelector('.col-nombre .input-edit').value.trim();
+        const idTipo = tr.querySelector('.col-competencia .input-edit').value;
+
+        if (!nombre) {
+            swalError('El nombre no puede estar vacío');
+            return;
+        }
+
+        try {
+            await fetchJson(apiUrl(`/rrhh/const_evaluacion/criterio/editar/${id}`), {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ nombre, id_tipo: idTipo })
+            });
+            const tipoSeleccionado = tiposCompetencia.find(item => Number(item.id) === Number(idTipo));
+            tr.dataset.idTipo = idTipo;
+            tr.querySelector('.col-nombre').innerText = nombre;
+            tr.querySelector('.col-competencia').innerText = tipoSeleccionado ? tipoSeleccionado.nombre : '';
+            const cr = criteriosLista.find(c => Number(c.id_criterio) === Number(id));
+            if (cr) {
+                cr.nombre = nombre;
+                cr.id_tipo = Number(idTipo);
+                cr.competencia = tipoSeleccionado ? tipoSeleccionado.nombre : '';
+            }
+            btn.innerHTML = '<i class="fa-regular fa-pen-to-square"></i>';
+            btn.onclick = () => editarCriterio(btn);
+        } catch (err) {
+            swalError(err.message);
+        }
+    }
+
+    async function eliminarCriterio(id, btn) {
+        if (!await swalConfirm('¿Eliminar este criterio?')) return;
+
+        try {
+            await fetchJson(apiUrl(`/rrhh/const_evaluacion/criterio/eliminar/${id}`), { method: 'POST' });
+            criteriosLista = criteriosLista.filter(c => Number(c.id_criterio) !== Number(id));
+            btn.closest('tr').remove();
+        } catch (err) {
+            swalError(err.message);
+        }
+    }
+
+    function editarPregunta(btn) {
+        const tr = btn.closest('tr');
+        const tdPregunta = tr.querySelector('.col-pregunta');
+        const tdAsignado = tr.querySelector('.col-asignado');
+
+        const textoPregunta = tdPregunta.querySelector('.pregunta-body').innerText.trim();
+        const idPlantilla = Number(tr.dataset.idPlantilla);
+        const tipoActual = Number(tr.dataset.tipo);
+        const competenciaActual = Number(tr.dataset.competencia);
+        const nombreCargoActual = tdAsignado.innerText.trim();
+
+        const regTipo = porcentajesTipoCompetencias.find(p =>
+            Number(p.id_plantilla) === Number(idPlantilla) && Number(p.id_tipo) === Number(tipoActual)
+        );
+        const regCompetencia = porcentajesCompetencias.find(p =>
+            Number(p.id_plantilla) === Number(idPlantilla) && Number(p.id_competencia) === Number(competenciaActual)
+        )
+        const porTipoVal = regTipo ? regTipo.porcentaje : "";
+        const porcCompVal = regCompetencia ? regCompetencia.porcentaje : "";
+
+        const headerHtml = tdPregunta.querySelector('.header-info').innerHTML;
+
+        tdPregunta.innerHTML = `
+            <div class="header-info">${headerHtml}</div>
+            <textarea class="input-edit" rows="2" style="width:100%; margin-bottom:10px; border: 1px solid #cbd5e1;">${textoPregunta}</textarea>
+            
+            <div style="display: flex; flex-direction: column; gap: 8px; background: #f8fafc; padding: 12px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                
+                <!-- Fila Cargo -->
+                <div style="display: grid; grid-template-columns: 1fr; gap: 4px;">
+                    <label class="text-slate-500" style="font-size:0.7rem; font-weight:bold; text-transform: uppercase;">Cargo / Plantilla</label>
+                    <select class="input-edit select-cargo" style="width:100%;">${opcionesPlantillas(idPlantilla, nombreCargoActual)}</select>
+                </div>
+
+                <!-- Fila Tipo y su Porcentaje -->
+                <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 10px; align-items: end;">
+                    <div>
+                        <label class="text-slate-500" style="font-size:0.7rem; font-weight:bold; text-transform: uppercase;">Tipo de Competencia</label>
+                        <select class="input-edit select-tipo" style="width:100%;">${opcionesTipos(tipoActual)}</select>
+                    </div>
+                    <div>
+                        <label class="text-slate-500" style="font-size:0.7rem; font-weight:bold;">% TIPO</label>
+                        <input type="number" class="input-edit edit-porc-tipo" value="${porTipoVal}" placeholder="%" style="width:100%; text-align: center;">
+                    </div>
+                </div>
+
+                <!-- Fila Criterio y su Porcentaje -->
+                <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 10px; align-items: end;">
+                    <div>
+                        <label class="text-slate-500" style="font-size:0.7rem; font-weight:bold; text-transform: uppercase;">Criterio / Competencia</label>
+                        <select class="input-edit select-criterio" style="width:100%;">${opcionesCriteriosPorTipo(tipoActual, competenciaActual)}</select>
+                    </div>
+                    <div>
+                        <label class="text-slate-500" style="font-size:0.7rem; font-weight:bold;">% CRIT.</label>
+                        <input type="number" class="input-edit edit-porc-competencia" value="${porcCompVal}" placeholder="%" style="width:100%; text-align: center;">
+                    </div>
+                </div>
+            </div>
+        `;
+        const selCargo = tdPregunta.querySelector('.select-cargo');
+        const selTipo = tdPregunta.querySelector('.select-tipo');
+        const selCrit = tdPregunta.querySelector('.select-criterio');
+        const inputPorcTipo = tdPregunta.querySelector('.edit-porc-tipo');
+        const inputPorcCompetencia = tdPregunta.querySelector('.edit-porc-competencia');
+
+        function actualizarPorcentajesEdicion() {
+            const idPlantilla = Number(selCargo.value);
+            const idTipo = Number(selTipo.value);
+            const idCompetencia = Number(selCrit.value);
+            const regTipo = porcentajesTipoCompetencias.find(p =>
+                Number(p.id_plantilla) === idPlantilla && Number(p.id_tipo) === idTipo
+            );
+            const regCompetencia = porcentajesCompetencias.find(p =>
+                Number(p.id_plantilla) === idPlantilla && Number(p.id_competencia) === idCompetencia
+            );
+
+            inputPorcTipo.value = regTipo ? regTipo.porcentaje : "";
+            inputPorcCompetencia.value = regCompetencia ? regCompetencia.porcentaje : "";
+        }
+
+        selCargo.addEventListener('change', actualizarPorcentajesEdicion);
+        selTipo.addEventListener('change', () => {
+            selCrit.innerHTML = opcionesCriteriosPorTipo(selTipo.value);
+            actualizarPorcentajesEdicion();
+        });
+        selCrit.addEventListener('change', actualizarPorcentajesEdicion);
+        actualizarPorcentajesEdicion();
+        tdAsignado.style.display = 'none';
+        btn.innerText = 'Guardar';
+        btn.onclick = () => guardarPregunta(tr, btn);
+    }
+
+    async function guardarPregunta(tr, btn) {
+        const id = tr.dataset.id;
+        const tdPregunta = tr.querySelector('.col-pregunta');
+        const pregunta = tdPregunta.querySelector('textarea').value.trim();
+        const idPlantilla = tr.querySelector('.select-cargo').value;
+        const tipo = tr.querySelector('.select-tipo').value;
+        const competencia = tr.querySelector('.select-criterio').value;
+
+        const porc_tipo = tdPregunta.querySelector('.edit-porc-tipo').value;
+        const porc_competencia = tdPregunta.querySelector('.edit-porc-competencia').value;
+
+        if (!pregunta || !idPlantilla || !tipo || !competencia || !porc_tipo || !porc_competencia) {
+            swalError('Todos los campos son obligatorios');
+            return;
+        }
+
+        // Validar suma de porcentajes al editar (omite los registros actuales si ya existen)
+        const errorValidacion = validarSumaPorcentajes(idPlantilla, tipo, competencia, porc_tipo, porc_competencia);
+        if (errorValidacion) {
+            swalError(errorValidacion);
+            return;
+        }
+
+        try {
+            await fetchJson(apiUrl(`/rrhh/const_evaluacion/pregunta/editar/${id}`), {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    pregunta,
+                    id_plantilla: idPlantilla,
+                    tipo,
+                    competencia,
+                    porc_tipo,
+                    porc_competencia
+                })
+            });
+            Swal.fire({
+                icon: 'success',
+                title: 'Actualizado',
+                text: 'La pregunta y los porcentajes se han actualizado correctamente',
+                timer: 1500,
+                showConfirmButton: false
+            }).then(() => {
+                window.location.reload();
+            });
+        } catch (err) {
+            swalError(err.message);
+        }
+    }
+
+    async function eliminarPregunta(btn) {
+        const tr = btn.closest('tr');
+        const id = tr.dataset.id;
+        const idPlantilla = tr.dataset.idPlantilla;
+        if (!await swalConfirm('¿Eliminar esta pregunta?')) return;
+
+        try {
+            await fetchJson(apiUrl(`/rrhh/const_evaluacion/pregunta/eliminar/${id}`), {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id_plantilla: idPlantilla })
+            });
+            tr.remove();
+        } catch (err) {
+            swalError(err.message);
+        }
+    }
+
+    document.getElementById('formHabilitarEvaluacion').addEventListener('submit', async function (e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+        try {
+            const data = await fetchJson(apiUrl('/rrhh/habilitar_evaluacion'), {
+                method: 'POST',
+                body: formData
+            });
+            Swal.fire('Listo', data.message || 'Evaluación habilitada con éxito', 'success');
+            this.reset();
+            // Limpiar Select2 para que reflejen el reset
+            $('#evaluador_id').val(null).trigger('change');
+            $('#evaluado_id').val(null).trigger('change');
+        } catch (err) {
+            swalError(err.message);
+        }
+    });
+
+    //flujo para porcentaje de tipo de competencia y competencia
+    //1. cargar porcentajes que vienen de flask
+
+
+    //2. elementos del DOM
+    const selCargo = document.getElementById('nueva_p_cargo');
+    const selTipo = document.getElementById('nueva_p_tipo');
+    const selCompetencia = document.getElementById('nueva_p_criterio');
+    const inputPorcTipo = document.getElementById('porc_tipo');
+    const inputPorcCompetencia = document.getElementById('porc_criterio');
+
+    function verificaPorcentajeTipo() {
+        const idPlantilla = Number(selCargo.value);
+        const idTipo = Number(selTipo.value);
+        const idCompetencia = Number(selCompetencia.value);
+
+        if (idPlantilla && idTipo) {
+            const regTipo = porcentajesTipoCompetencias.find(p =>
+                Number(p.id_plantilla) === idPlantilla && Number(p.id_tipo) === idTipo
+            );
+            if (regTipo) {
+                inputPorcTipo.value = regTipo.porcentaje;
+                inputPorcTipo.readOnly = true;
+                inputPorcTipo.style.backgroundColor = "#e9ecef";
+            } else {
+                inputPorcTipo.value = "";
+                inputPorcTipo.readOnly = false;
+                inputPorcTipo.style.backgroundColor = "#fff";
+            }
+        }
+
+        if (idPlantilla && idCompetencia) {
+            const regCompetencia = porcentajesCompetencias.find(p =>
+                Number(p.id_plantilla) === idPlantilla && Number(p.id_competencia) === idCompetencia
+            );
+            if (regCompetencia) {
+                inputPorcCompetencia.value = regCompetencia.porcentaje;
+                inputPorcCompetencia.readOnly = true;
+                inputPorcCompetencia.style.backgroundColor = "#e9ecef";
+            } else {
+                inputPorcCompetencia.value = "";
+                inputPorcCompetencia.readOnly = false;
+                inputPorcCompetencia.style.backgroundColor = "#fff";
+            }
+        } else {
+            inputPorcCompetencia.value = "";
+            inputPorcCompetencia.readOnly = false;
+            inputPorcCompetencia.style.backgroundColor = "#fff";
+        }
+    }
+    selCargo.addEventListener('change', verificaPorcentajeTipo);
+    selTipo.addEventListener('change', verificaPorcentajeTipo);
+    selCompetencia.addEventListener('change', verificaPorcentajeTipo);
+
+    // =============================================================
+    // BARRA DE PROGRESO VISUAL EN TIEMPO REAL
+    // =============================================================
+    function actualizarBarraSuma() {
+        const idPlantilla = Number(selCargo.value);
+        const idTipo = Number(selTipo.value);
+
+        const barraTipoWrapper = document.getElementById('barra-tipo-wrapper');
+        const barraCritWrapper = document.getElementById('barra-criterio-wrapper');
+        const sumaTipoEl = document.getElementById('suma-tipo-actual');
+        const sumaCritEl = document.getElementById('suma-criterio-actual');
+        const barraTipoFill = document.getElementById('barra-tipo-fill');
+        const barraCritFill = document.getElementById('barra-criterio-fill');
+        const statusTipo = document.getElementById('status-tipo');
+        const statusCrit = document.getElementById('status-criterio');
+
+        // ---- TIPO: Suma actual - contando el valor del input si está activo ----
+        if (!idPlantilla) {
+            barraTipoWrapper.classList.add('hidden');
+            barraCritWrapper.classList.add('hidden');
+            return;
+        }
+        barraTipoWrapper.classList.remove('hidden');
+
+        const existeTipo = porcentajesTipoCompetencias.find(p =>
+            Number(p.id_plantilla) === idPlantilla && Number(p.id_tipo) === idTipo
+        );
+
+        let sumaBaseTipos = porcentajesTipoCompetencias
+            .filter(p => Number(p.id_plantilla) === idPlantilla)
+            .reduce((sum, p) => sum + Number(p.porcentaje), 0);
+
+        // Si ya existe un registro para este tipo, restamos su valor actual
+        if (existeTipo) {
+            sumaBaseTipos -= Number(existeTipo.porcentaje);
+        }
+
+        const valInputTipo = Number(inputPorcTipo.value) || 0;
+        const sumaTipoFinal = sumaBaseTipos + valInputTipo;
+        const pctTipo = Math.min(sumaTipoFinal, 100);
+
+        sumaTipoEl.textContent = sumaTipoFinal.toFixed(1);
+        barraTipoFill.style.width = pctTipo + '%';
+
+        // Estado visual para tipo
+        barraTipoFill.className = 'pct-bar-fill';
+        statusTipo.className = 'pct-bar-status';
+        if (sumaTipoFinal <= 0) {
+            statusTipo.textContent = '';
+        } else if (sumaTipoFinal <= 80) {
+            statusTipo.textContent = '✓ Bien';
+            statusTipo.classList.add('ok');
+        } else if (sumaTipoFinal <= 100) {
+            statusTipo.textContent = '⚠ Cerca del límite';
+            statusTipo.classList.add('warning');
+            barraTipoFill.classList.add('warning');
+        } else {
+            statusTipo.textContent = '✗ Excede 100%';
+            statusTipo.classList.add('danger');
+            barraTipoFill.classList.add('danger');
+        }
+        if (sumaTipoFinal > 0 && sumaTipoFinal <= 100) {
+            barraTipoFill.classList.add('full');
+        }
+
+        // ---- CRITERIO: Suma actual ----
+        if (!idPlantilla || !idTipo) {
+            barraCritWrapper.classList.add('hidden');
+            return;
+        }
+        barraCritWrapper.classList.remove('hidden');
+
+        const existeCompetencia = porcentajesCompetencias.find(p =>
+            Number(p.id_plantilla) === idPlantilla && Number(p.id_competencia) === Number(selCompetencia.value)
+        );
+
+        const idsCriteriosDeEsteTipo = criteriosLista
+            .filter(c => Number(c.id_tipo) === idTipo)
+            .map(c => Number(c.id_criterio));
+
+        let sumaBaseCriterios = porcentajesCompetencias
+            .filter(p => Number(p.id_plantilla) === idPlantilla && idsCriteriosDeEsteTipo.includes(Number(p.id_competencia)))
+            .reduce((sum, p) => sum + Number(p.porcentaje), 0);
+
+        if (existeCompetencia) {
+            sumaBaseCriterios -= Number(existeCompetencia.porcentaje);
+        }
+
+        const valInputCrit = Number(inputPorcCompetencia.value) || 0;
+        const sumaCritFinal = sumaBaseCriterios + valInputCrit;
+        const pctCrit = Math.min(sumaCritFinal, 100);
+
+        sumaCritEl.textContent = sumaCritFinal.toFixed(1);
+        barraCritFill.style.width = pctCrit + '%';
+
+        barraCritFill.className = 'pct-bar-fill';
+        statusCrit.className = 'pct-bar-status';
+        if (sumaCritFinal <= 0) {
+            statusCrit.textContent = '';
+        } else if (sumaCritFinal <= 80) {
+            statusCrit.textContent = '✓ Bien';
+            statusCrit.classList.add('ok');
+        } else if (sumaCritFinal <= 100) {
+            statusCrit.textContent = '⚠ Cerca del límite';
+            statusCrit.classList.add('warning');
+            barraCritFill.classList.add('warning');
+        } else {
+            statusCrit.textContent = '✗ Excede 100%';
+            statusCrit.classList.add('danger');
+            barraCritFill.classList.add('danger');
+        }
+        if (sumaCritFinal > 0 && sumaCritFinal <= 100) {
+            barraCritFill.classList.add('full');
+        }
+    }
+
+    // Vincular la barra a los cambios de selects e inputs de porcentaje
+    selCargo.addEventListener('change', actualizarBarraSuma);
+    selTipo.addEventListener('change', actualizarBarraSuma);
+    selCompetencia.addEventListener('change', actualizarBarraSuma);
+    inputPorcTipo.addEventListener('input', actualizarBarraSuma);
+    inputPorcCompetencia.addEventListener('input', actualizarBarraSuma);
+    // Inicializar al cargar página
+    document.addEventListener('DOMContentLoaded', function() {
+        actualizarBarraSuma();
+    });
+
+    // =============================================================
+    // APROBACION RRHH
+    // =============================================================
+    function exportarEvaluacionesPDF() {
+        const filtroUsuario = document.getElementById('filtro_respuesta_usuario');
+        const idUsuario = filtroUsuario ? filtroUsuario.value : '';
+        let url = apiUrl('/rrhh/evaluacion/exportar_pdf');
+        if (idUsuario) {
+            url += '?usuario_id=' + idUsuario;
+        }
+        // Abrir en nueva pestaña (descarga directa)
+        window.open(url, '_blank');
+    }
+
+    function exportarResumenPDF() {
+        window.open(apiUrl('/rrhh/evaluacion/exportar_resumen_pdf'), '_blank');
+    }
+
+    async function aprobarRRHH(idAsignacion, btn) {
+        const confirm = await Swal.fire({
+            title: '¿Aprobar evaluación?',
+            text: 'Al aprobar confirmas que estás de acuerdo con los resultados de esta evaluación.',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Sí, aprobar',
+            cancelButtonText: 'Cancelar',
+            confirmButtonColor: '#16a34a'
+        });
+        if (!confirm.isConfirmed) return;
+
+        try {
+            const resp = await fetch(apiUrl('/rrhh/aprobar_evaluacion_rrhh'), {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id_asignacion: idAsignacion })
+            });
+            const data = await resp.json();
+            if (data.success) {
+                Swal.fire('Aprobado', 'Evaluación aprobada por RRHH correctamente', 'success');
+                // Recargar la página para reflejar cambios
+                setTimeout(() => window.location.reload(), 1500);
+            } else {
+                throw new Error(data.error || 'Error al aprobar');
+            }
+        } catch (err) {
+            Swal.fire('Error', err.message, 'error');
+        }
+    }
+</script>
+{% endblock %}

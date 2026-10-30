@@ -1,0 +1,1003 @@
+{% extends 'home.html' %}
+{% block title %}Mensajería{% endblock %}
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/botones_accion.css') }}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.css">
+<style>
+    .messaging-container {
+        display: grid;
+        grid-template-columns: 380px 1fr;
+        gap: 20px;
+        min-height: 70vh;
+    }
+    @media (max-width: 900px) {
+        .messaging-container {
+            grid-template-columns: 1fr;
+        }
+    }
+    .messaging-panel {
+        background: rgba(15, 23, 42, 0.85);
+        backdrop-filter: blur(8px);
+        border-radius: 14px;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        padding: 20px;
+        overflow-y: auto;
+        max-height: 75vh;
+    }
+    .messaging-panel h3 {
+        color: #f1f5f9;
+        font-size: 1.05rem;
+        font-weight: 600;
+        margin: 0 0 16px 0;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .messaging-panel h3 i {
+        color: #60a5fa;
+        font-size: 1.1rem;
+    }
+    .filter-group {
+        margin-bottom: 16px;
+    }
+    .filter-group label {
+        display: block;
+        color: #94a3b8;
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 6px;
+    }
+    .filter-group select {
+        width: 100%;
+        padding: 10px 12px;
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(30, 41, 59, 0.8);
+        color: #e2e8f0;
+        font-size: 0.9rem;
+        outline: none;
+        transition: border-color 0.2s;
+    }
+    .filter-group select:focus {
+        border-color: #3b82f6;
+    }
+    .btn-filtrar {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 8px;
+        background: linear-gradient(135deg, #2563eb, #1d4ed8);
+        color: white;
+        font-weight: 600;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: opacity 0.2s;
+    }
+    .btn-filtrar:hover {
+        opacity: 0.9;
+    }
+    .btn-filtrar:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+    .filter-actions {
+        display: flex;
+        gap: 10px;
+    }
+    .filter-actions .btn-filtrar {
+        flex: 1;
+    }
+    .btn-limpiar {
+        flex: 1;
+        padding: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 8px;
+        background: transparent;
+        color: #cbd5e1;
+        font-weight: 600;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+    .btn-limpiar:hover {
+        background: rgba(255, 255, 255, 0.06);
+        color: #f1f5f9;
+    }
+
+    .destinatarios-count {
+        margin-top: 16px;
+        padding: 12px;
+        border-radius: 8px;
+        background: rgba(30, 41, 59, 0.6);
+        text-align: center;
+    }
+    .destinatarios-count .count-number {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #60a5fa;
+        display: block;
+    }
+    .destinatarios-count .count-label {
+        font-size: 0.8rem;
+        color: #94a3b8;
+        margin-top: 2px;
+    }
+
+    .destinatarios-list {
+        margin-top: 12px;
+        max-height: 200px;
+        overflow-y: auto;
+    }
+    .destinatarios-list .dest-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 8px;
+        border-radius: 6px;
+        font-size: 0.8rem;
+        color: #cbd5e1;
+        cursor: pointer;
+        transition: background 0.15s;
+    }
+    .destinatarios-list .dest-item:hover {
+        background: rgba(59, 130, 246, 0.1);
+    }
+    .destinatarios-list .dest-item input[type="checkbox"] {
+        accent-color: #3b82f6;
+    }
+
+    .compose-panel {
+        background: rgba(15, 23, 42, 0.85);
+        backdrop-filter: blur(8px);
+        border-radius: 14px;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+    }
+    .compose-panel .field-group {
+        margin-bottom: 16px;
+    }
+    .compose-panel .field-group label {
+        display: block;
+        color: #94a3b8;
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 6px;
+    }
+    .compose-panel input[type="text"],
+    .compose-panel textarea {
+        width: 100%;
+        padding: 10px 12px;
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(30, 41, 59, 0.8);
+        color: #e2e8f0;
+        font-size: 0.9rem;
+        outline: none;
+        transition: border-color 0.2s;
+        box-sizing: border-box;
+    }
+    .compose-panel input:focus,
+    .compose-panel textarea:focus {
+        border-color: #3b82f6;
+    }
+    .compose-panel textarea {
+        min-height: 180px;
+        resize: vertical;
+        font-family: inherit;
+        line-height: 1.6;
+    }
+    .compose-actions {
+        display: flex;
+        gap: 12px;
+        margin-top: auto;
+        padding-top: 16px;
+    }
+    .btn-enviar {
+        padding: 12px 32px;
+        border: none;
+        border-radius: 8px;
+        background: linear-gradient(135deg, #16a34a, #15803d);
+        color: white;
+        font-weight: 600;
+        font-size: 0.95rem;
+        cursor: pointer;
+        transition: opacity 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .btn-enviar:hover {
+        opacity: 0.9;
+    }
+    .btn-enviar:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+    .btn-preview-msg {
+        padding: 12px 24px;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 8px;
+        background: transparent;
+        color: #cbd5e1;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+    .btn-preview-msg:hover {
+        background: rgba(255, 255, 255, 0.05);
+    }
+    .to-summary {
+        padding: 10px 12px;
+        border-radius: 8px;
+        background: rgba(30, 41, 59, 0.6);
+        color: #94a3b8;
+        font-size: 0.85rem;
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+    .to-summary .dest-badge {
+        display: inline-block;
+        padding: 2px 10px;
+        border-radius: 12px;
+        background: rgba(59, 130, 246, 0.2);
+        color: #93c5fd;
+        font-size: 0.75rem;
+    }
+    .char-counter {
+        text-align: right;
+        font-size: 0.75rem;
+        color: #64748b;
+        margin-top: 4px;
+    }
+    .loading-spinner {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        border: 2px solid rgba(255,255,255,0.3);
+        border-top-color: white;
+        border-radius: 50%;
+        animation: spin 0.6s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ---------- Editor de texto enriquecido (Summernote) tema oscuro ---------- */
+    .note-editor.note-frame {
+        border-color: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        background: rgba(30, 41, 59, 0.8);
+        overflow: hidden;
+    }
+    .note-editor .note-toolbar {
+        background: rgba(30, 41, 59, 0.95);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 6px 8px;
+    }
+    .note-editor .note-btn {
+        background: transparent;
+        color: #cbd5e1;
+        border: 1px solid transparent;
+        border-radius: 6px;
+        margin: 1px;
+        transition: all 0.15s;
+    }
+    .note-editor .note-btn:hover {
+        background: rgba(59, 130, 246, 0.15);
+        color: #f1f5f9;
+    }
+    .note-editor .note-btn.active {
+        background: rgba(59, 130, 246, 0.3);
+        color: #fff;
+        border-color: rgba(59, 130, 246, 0.4);
+    }
+    .note-editor .note-btn.dropdown-toggle:after {
+        color: #64748b;
+    }
+    .note-editor .note-editable {
+        background: rgba(30, 41, 59, 0.8);
+        color: #e2e8f0;
+        min-height: 240px;
+        padding: 14px 16px;
+        line-height: 1.6;
+    }
+    .note-editor .note-editable:focus { outline: none; }
+    .note-editor .note-placeholder { color: #64748b; }
+    .note-editor .note-dropdown-menu {
+        background: #1e293b;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+    }
+    .note-editor .note-dropdown-menu .note-dropdown-item {
+        color: #cbd5e1;
+    }
+    .note-editor .note-dropdown-menu .note-dropdown-item:hover,
+    .note-editor .note-dropdown-menu .note-dropdown-item.active {
+        background: rgba(59, 130, 246, 0.2);
+        color: #fff;
+    }
+    .note-editor .note-modal-content {
+        background: #1e293b;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 12px;
+        color: #e2e8f0;
+    }
+    .note-editor .note-modal-header {
+        background: #0f172a;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px 12px 0 0;
+    }
+    .note-editor .note-modal-title { color: #f1f5f9; font-size: 1rem; }
+    .note-editor .note-form-label { color: #94a3b8; }
+    .note-editor .note-input,
+    .note-editor .note-form-control,
+    .note-editor .note-select {
+        background: rgba(30, 41, 59, 0.9);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 6px;
+        color: #e2e8f0;
+    }
+    .note-editor .note-input:focus { border-color: #3b82f6; }
+    .note-editor .note-btn-primary {
+        background: linear-gradient(135deg, #2563eb, #1d4ed8);
+        border: none;
+        border-radius: 6px;
+    }
+    .note-editor .note-btn-primary:hover { opacity: 0.9; }
+    .note-editor .note-statusbar {
+        background: rgba(30, 41, 59, 0.9);
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .note-editor .note-status-output { color: #64748b; }
+    .note-editor .note-tooltip .note-tooltip-inner {
+        background: #0f172a;
+        color: #e2e8f0;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .note-editor .note-popover .note-popover-content {
+        background: #1e293b;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        color: #e2e8f0;
+    }
+    .note-editor .note-popover .note-color-btn { margin: 2px; }
+    .note-editor .note-popover-content .note-color-palette-title { color: #94a3b8; }
+    .note-editor .note-fontsize-10, .note-editor .note-color-palette { color: #cbd5e1; }
+    .note-editor .note-hint-popover .note-hint-group .note-hint-item {
+        background: #1e293b;
+        color: #cbd5e1;
+    }
+    .note-editor .note-hint-popover .note-hint-group .note-hint-item.active {
+        background: rgba(59, 130, 246, 0.3);
+        color: #fff;
+    }
+    .note-editor .note-handle .note-control-selection { background: rgba(59, 130, 246, 0.2); }
+    .note-editor img { max-width: 100%; height: auto; }
+</style>
+
+<div class="messaging-container">
+    <!-- PANEL IZQUIERDO: FILTROS -->
+    <div class="messaging-panel">
+        <h3><i class="fa-solid fa-filter"></i> Filtrar Destinatarios</h3>
+
+        <div class="filter-group">
+            <label>Buscar Empleado</label>
+            <input type="text" id="filtroBusqueda" placeholder="Nombre, apellido o identificación..." style="width:100%;padding:10px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.1);background:rgba(30,41,59,0.8);color:#e2e8f0;font-size:0.9rem;outline:none;box-sizing:border-box;">
+        </div>
+
+        <div class="filter-group">
+            <label>Por Cargo</label>
+            <select id="filtroCargo">
+                <option value="">Todos los cargos</option>
+                {% for cargo in cargos %}
+                <option value="{{ cargo.id }}">{{ cargo.nombre }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="filter-group">
+            <label>Por Sede</label>
+            <select id="filtroSede">
+                <option value="">Todas las sedes</option>
+                {% for sede in sedes %}
+                <option value="{{ sede.id }}">{{ sede.nombre }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="filter-actions">
+            <button class="btn-filtrar" id="btnFiltrar" onclick="cargarDestinatarios()">
+                <i class="fa-solid fa-magnifying-glass"></i> Buscar
+            </button>
+            <button class="btn-limpiar" id="btnLimpiar" onclick="limpiarFiltros()" title="Limpiar filtros y selección">
+                <i class="fa-solid fa-broom"></i> Limpiar
+            </button>
+        </div>
+
+        <div class="filter-group">
+            <label>Selección Rápida</label>
+            <select id="selectorRapido" onchange="aplicarSeleccionRapida(this)">
+                <option value="">Seleccionar...</option>
+                <option value="visibles">Todos los visibles</option>
+                <option value="grupo">Todos los del filtro actual</option>
+                <option value="todos">Todos los empleados</option>
+            </select>
+        </div>
+
+        <div class="destinatarios-count">
+            <span class="count-number" id="totalCount">0</span>
+            <span class="count-label">empleados con correo</span>
+        </div>
+
+        <div class="destinatarios-list" id="destinatariosList">
+            <p style="color:#64748b;font-size:0.8rem;text-align:center;padding:10px;">
+                Usa los filtros y presiona "Buscar"
+            </p>
+        </div>
+    </div>
+
+    <!-- PANEL DERECHO: COMPOSICIÓN -->
+    <div class="compose-panel">
+        <h3 style="color:#f1f5f9;font-size:1.05rem;font-weight:600;margin:0 0 16px 0;display:flex;align-items:center;gap:8px;">
+            <i class="fa-solid fa-pen" style="color:#60a5fa;"></i> Redactar Mensaje
+        </h3>
+
+        <div class="to-summary" id="toSummary">
+            <span>Para:</span>
+            <span style="color:#64748b;">Selecciona destinatarios con los filtros</span>
+        </div>
+
+        <div class="field-group">
+            <label>Asunto</label>
+            <input type="text" id="asunto" placeholder="Ej: Recordatorio de capacitación..." maxlength="200">
+        </div>
+
+        <div class="field-group">
+            <label>Mensaje <small style="color:#64748b;font-weight:400;text-transform:none;">Editor enriquecido: negritas, enlaces, imágenes, listas y tablas</small></label>
+            <textarea id="mensajeHtml" placeholder="Escribe aquí tu mensaje..."></textarea>
+        </div>
+
+        <div class="compose-actions">
+            <button class="btn-preview-msg" onclick="previewMensaje()">
+                <i class="fa-solid fa-eye"></i> Vista Previa
+            </button>
+            <button class="btn-enviar" id="btnEnviar" onclick="enviarMensaje()">
+                <i class="fa-solid fa-paper-plane"></i> Enviar
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de vista previa -->
+<div id="modalPreviewMsg" class="modal-preview">
+    <div class="modal-preview-content" style="max-width:600px;">
+        <div class="modal-header">
+            <h3><i class="fa-solid fa-eye"></i> Vista Previa del Mensaje</h3>
+            <button class="btn-close" onclick="cerrarPreviewMsg()">&times;</button>
+        </div>
+        <div class="modal-body-preview" style="padding:24px;color:#1e293b;background:#fff;border-radius:8px;">
+            <div id="previewContent"></div>
+        </div>
+        <div class="modal-actions" style="padding:16px 24px;display:flex;justify-content:flex-end;gap:10px;">
+            <button class="btn-accion btn-cancelar" onclick="cerrarPreviewMsg()">Cerrar</button>
+        </div>
+    </div>
+</div>
+
+<script>
+let destinatariosSeleccionados = new Set();
+let ultimosResultados = [];
+
+// ---------- Borrador automático y confirmación de salida ----------
+const CLAVE_BORRADOR = 'sgi_borrador_mensajeria';
+let salidaPermitida = false;
+let autosaveTimer = null;
+
+// ¿Hay contenido sin enviar (asunto, mensaje o destinatarios seleccionados)?
+function hayBorrador() {
+    const asunto = document.getElementById('asunto').value.trim();
+    const html = obtenerMensajeHtml();
+    const texto = html.replace(/<[^>]*>/g, ' ').replace(/&nbsp;/g, ' ').trim();
+    const tieneImagen = /<img[^>]*>/i.test(html);
+    return asunto.length > 0 || texto.length > 0 || tieneImagen || destinatariosSeleccionados.size > 0;
+}
+
+// Guarda el borrador en localStorage (autosave con debounce).
+function guardarBorrador() {
+    try {
+        if (!hayBorrador()) {
+            localStorage.removeItem(CLAVE_BORRADOR);
+            return;
+        }
+        localStorage.setItem(CLAVE_BORRADOR, JSON.stringify({
+            asunto: document.getElementById('asunto').value,
+            mensaje_html: obtenerMensajeHtml(),
+            destinatarios: Array.from(destinatariosSeleccionados),
+            fecha: new Date().toISOString()
+        }));
+    } catch (e) {
+        // Almacenamiento no disponible o lleno: no crítico
+        console.warn('No se pudo guardar el borrador del mensaje:', e);
+    }
+}
+
+function descartarBorrador() {
+    try { localStorage.removeItem(CLAVE_BORRADOR); } catch (e) {}
+}
+
+function programarAutosave() {
+    clearTimeout(autosaveTimer);
+    autosaveTimer = setTimeout(guardarBorrador, 400);
+}
+
+// Restaura el borrador guardado al volver a la página.
+function restaurarBorrador() {
+    let guardado = null;
+    try { guardado = JSON.parse(localStorage.getItem(CLAVE_BORRADOR) || 'null'); } catch (e) {}
+    if (!guardado || typeof guardado !== 'object') return;
+
+    const hayAsunto = (guardado.asunto || '').trim().length > 0;
+    const hayMensaje = mensajeTieneContenido(guardado.mensaje_html || '');
+    if (!hayAsunto && !hayMensaje) {
+        descartarBorrador();
+        return;
+    }
+
+    if (hayAsunto) document.getElementById('asunto').value = guardado.asunto;
+    if (hayMensaje) {
+        if (typeof window.jQuery !== 'undefined' && typeof $.fn.summernote !== 'undefined' && $('#mensajeHtml').data('summernote')) {
+            $('#mensajeHtml').summernote('code', guardado.mensaje_html);
+        } else {
+            document.getElementById('mensajeHtml').value = guardado.mensaje_html;
+        }
+    }
+    if (Array.isArray(guardado.destinatarios)) {
+        guardado.destinatarios.forEach(id => destinatariosSeleccionados.add(Number(id)));
+        actualizarResumen();
+    }
+
+    let fechaTxt = '';
+    try { fechaTxt = ' (' + new Date(guardado.fecha).toLocaleString('es-CO') + ')'; } catch (e) {}
+
+    Swal.fire({
+        title: 'Borrador restaurado',
+        html: `Tienes un mensaje sin enviar guardado de tu última visita${fechaTxt}.<br><small style="color:#64748b;">Puedes continuar redactando o descartarlo.</small>`,
+        icon: 'info',
+        confirmButtonText: 'Continuar redactando',
+        showCancelButton: true,
+        cancelButtonText: 'Descartar borrador',
+        cancelButtonColor: '#dc2626',
+    }).then(result => {
+        if (result.dismiss === Swal.DismissReason.cancel) {
+            descartarBorrador();
+            vaciarMensaje();
+            document.getElementById('asunto').value = '';
+            destinatariosSeleccionados.clear();
+            actualizarResumen();
+            Swal.fire('Borrador descartado', 'El mensaje pendiente fue eliminado', 'success');
+        }
+    });
+}
+
+// Confirmación nativa del navegador al cerrar pestaña, refrescar o salir por URL externa.
+window.addEventListener('beforeunload', function (e) {
+    if (salidaPermitida || !hayBorrador()) return;
+    e.preventDefault();
+    e.returnValue = '';
+});
+
+// Confirmación con SweetAlert al navegar dentro de la aplicación.
+document.addEventListener('click', function (e) {
+    if (salidaPermitida || !hayBorrador()) return;
+    // Si ya hay un SweetAlert abierto (p.ej. 'Borrador restaurado'), no apilar otro
+    if (typeof Swal !== 'undefined' && Swal.isVisible()) return;
+    if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+
+    const link = e.target.closest('a[href]');
+    if (!link) return;
+    const href = link.getAttribute('href') || '';
+    if (!href || href.startsWith('#') || href.startsWith('javascript:') || link.target === '_blank') return;
+
+    e.preventDefault();
+
+    Swal.fire({
+        title: '¿Salir sin enviar?',
+        html: 'Tienes un mensaje sin enviar.<br><small style="color:#64748b;">Tu borrador se guarda automáticamente y se restaurará cuando vuelvas a entrar a Mensajería.</small>',
+        icon: 'warning',
+        confirmButtonText: 'Salir',
+        confirmButtonColor: '#dc2626',
+        showCancelButton: true,
+        cancelButtonText: 'Cancelar',
+    }).then(result => {
+        if (result.isConfirmed) {
+            salidaPermitida = true;
+            window.location.href = href;
+        }
+    });
+});
+
+function cargarDestinatarios() {
+    const cargoId = document.getElementById('filtroCargo').value;
+    const sedeId = document.getElementById('filtroSede').value;
+    const busqueda = document.getElementById('filtroBusqueda').value.trim();
+    const btn = document.getElementById('btnFiltrar');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="loading-spinner"></span> Buscando...';
+
+    let params = new URLSearchParams();
+    if (cargoId) params.set('cargo_id', cargoId);
+    if (sedeId) params.set('sede_id', sedeId);
+    if (busqueda) params.set('busqueda', busqueda);
+
+    fetch(getBaseUrl() + '/rrhh/api/empleados_filtrados?' + params.toString())
+        .then(res => res.json())
+        .then(data => {
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fa-solid fa-magnifying-glass"></i> Buscar';
+
+            if (!data.success) {
+                Swal.fire('Error', data.error || 'Error al buscar empleados', 'error');
+                return;
+            }
+
+            ultimosResultados = data.empleados || [];
+            renderListaDestinatarios(ultimosResultados);
+            actualizarResumen();
+        })
+        .catch(err => {
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fa-solid fa-magnifying-glass"></i> Buscar';
+            Swal.fire('Error', err.message, 'error');
+        });
+}
+
+function renderListaDestinatarios(empleados) {
+    const list = document.getElementById('destinatariosList');
+    const count = document.getElementById('totalCount');
+
+    if (!empleados || !empleados.length) {
+        list.innerHTML = '<p style="color:#64748b;font-size:0.8rem;text-align:center;padding:10px;">No se encontraron empleados con correo</p>';
+        count.textContent = '0';
+        return;
+    }
+
+    count.textContent = empleados.length;
+    list.innerHTML = empleados.map(e => {
+        const checked = destinatariosSeleccionados.has(e.id) ? 'checked' : '';
+        return `<label class="dest-item">
+            <input type="checkbox" value="${e.id}" ${checked} onchange="toggleDestinatario(this, ${e.id}, '${e.nombres} ${e.apellidos}')">
+            <span><strong>${e.nombres} ${e.apellidos}</strong> — ${e.cargo || 'Sin cargo'} <small style="color:#64748b;">${e.correo}</small></span>
+        </label>`;
+    }).join('');
+}
+
+function toggleDestinatario(checkbox, id, nombre) {
+    if (checkbox.checked) {
+        destinatariosSeleccionados.add(id);
+    } else {
+        destinatariosSeleccionados.delete(id);
+    }
+    actualizarResumen();
+    programarAutosave();
+}
+
+function seleccionarEmpleados(empleados) {
+    empleados.forEach(e => destinatariosSeleccionados.add(e.id));
+    document.querySelectorAll('#destinatariosList input[type="checkbox"]').forEach(cb => {
+        cb.checked = destinatariosSeleccionados.has(Number(cb.value));
+    });
+    actualizarResumen();
+    programarAutosave();
+}
+
+function aplicarSeleccionRapida(select) {
+    const opcion = select.value;
+    if (!opcion) return;
+    select.value = ''; // Permite volver a usar la misma opción
+
+    // 1) Todos los visibles (los que ya están cargados en pantalla)
+    if (opcion === 'visibles') {
+        if (!ultimosResultados.length) {
+            Swal.fire('Sin resultados', 'Primero presiona "Buscar" para cargar destinatarios', 'info');
+            return;
+        }
+        seleccionarEmpleados(ultimosResultados);
+        Swal.fire('Selección', `${ultimosResultados.length} empleado${ultimosResultados.length !== 1 ? 's' : ''} seleccionado${ultimosResultados.length !== 1 ? 's' : ''}`, 'success');
+        return;
+    }
+
+    // 2) Todos los del grupo filtrado o 3) Todos los empleados
+    const usarFiltro = opcion === 'grupo';
+    const cargoId = usarFiltro ? document.getElementById('filtroCargo').value : '';
+    const sedeId = usarFiltro ? document.getElementById('filtroSede').value : '';
+    const busqueda = usarFiltro ? document.getElementById('filtroBusqueda').value.trim() : '';
+
+    // Al elegir "Todos los empleados", limpiar los filtros para que la lista sea coherente
+    if (opcion === 'todos') {
+        document.getElementById('filtroBusqueda').value = '';
+        document.getElementById('filtroCargo').value = '';
+        document.getElementById('filtroSede').value = '';
+    }
+
+    let params = new URLSearchParams();
+    if (cargoId) params.set('cargo_id', cargoId);
+    if (sedeId) params.set('sede_id', sedeId);
+    if (busqueda) params.set('busqueda', busqueda);
+
+    fetch(getBaseUrl() + '/rrhh/api/empleados_filtrados?' + params.toString())
+        .then(res => res.json())
+        .then(data => {
+            if (!data.success) {
+                Swal.fire('Error', data.error || 'Error al buscar empleados', 'error');
+                return;
+            }
+            const empleados = data.empleados || [];
+            if (!empleados.length) {
+                Swal.fire('Sin resultados', 'No se encontraron empleados con correo para esta selección', 'info');
+                return;
+            }
+            ultimosResultados = empleados;
+            seleccionarEmpleados(empleados);
+            renderListaDestinatarios(empleados);
+            const etiqueta = opcion === 'todos' ? 'todos los empleados' : 'del grupo filtrado';
+            Swal.fire('Selección completada', `${empleados.length} empleados ${etiqueta} seleccionados`, 'success');
+        })
+        .catch(err => Swal.fire('Error', err.message, 'error'));
+}
+
+function actualizarResumen() {
+    const count = destinatariosSeleccionados.size;
+    const summary = document.getElementById('toSummary');
+    if (count === 0) {
+        summary.innerHTML = '<span>Para:</span><span style="color:#64748b;">Selecciona destinatarios con los filtros</span>';
+    } else {
+        summary.innerHTML = `<span>Para:</span><span class="dest-badge">${count} destinatario${count !== 1 ? 's' : ''} seleccionado${count !== 1 ? 's' : ''}</span>`;
+    }
+}
+
+function limpiarFiltros() {
+    // Limpiar filtros
+    document.getElementById('filtroBusqueda').value = '';
+    document.getElementById('filtroCargo').value = '';
+    document.getElementById('filtroSede').value = '';
+    // Resetear selección rápida
+    const selector = document.getElementById('selectorRapido');
+    if (selector) selector.value = '';
+    // Limpiar selección de destinatarios
+    destinatariosSeleccionados.clear();
+    ultimosResultados = [];
+    // Restaurar lista, contador y resumen al estado inicial
+    const list = document.getElementById('destinatariosList');
+    const count = document.getElementById('totalCount');
+    if (list) list.innerHTML = '<p style="color:#64748b;font-size:0.8rem;text-align:center;padding:10px;">Usa los filtros y presiona "Buscar"</p>';
+    if (count) count.textContent = '0';
+    actualizarResumen();
+    programarAutosave();
+}
+
+// ---------- Editor de texto enriquecido (Summernote) ----------
+// Devuelve el HTML del mensaje generado por el editor (con respaldo a texto plano
+// por si el CDN del editor no estuviera disponible).
+function obtenerMensajeHtml() {
+    if (typeof window.jQuery !== 'undefined') {
+        const $ta = $('#mensajeHtml');
+        if (typeof $.fn.summernote !== 'undefined' && $ta.data('summernote')) {
+            return $ta.summernote('code');
+        }
+    }
+    return document.getElementById('mensajeHtml').value;
+}
+
+// Vacía el contenido del editor (o del textarea de respaldo).
+function vaciarMensaje() {
+    if (typeof window.jQuery !== 'undefined') {
+        const $ta = $('#mensajeHtml');
+        if (typeof $.fn.summernote !== 'undefined' && $ta.data('summernote')) {
+            $ta.summernote('code', '');
+            return;
+        }
+    }
+    document.getElementById('mensajeHtml').value = '';
+}
+
+// El editor devuelve '<p><br></p>' cuando está vacío, por eso se compara el texto
+// real (sin etiquetas) y la presencia de imágenes.
+function mensajeTieneContenido(html) {
+    const contenido = html !== undefined ? html : obtenerMensajeHtml();
+    const texto = contenido.replace(/<[^>]*>/g, ' ').replace(/&nbsp;/g, ' ').trim();
+    const tieneImagen = /<img[^>]*>/i.test(contenido);
+    return texto.length > 0 || tieneImagen;
+}
+
+// Limpia HTML antes de inyectarlo en la vista previa: elimina etiquetas
+// peligrosas, atributos on* y enlaces javascript: (los correos se envían a
+// SMTP donde los scripts no se ejecutan, pero el preview usa innerHTML).
+function sanitizarHtml(html) {
+    const tmp = document.createElement('div');
+    tmp.innerHTML = html;
+    tmp.querySelectorAll('script, iframe, object, embed, link, meta, style').forEach(el => el.remove());
+    tmp.querySelectorAll('*').forEach(el => {
+        [...el.attributes].forEach(attr => {
+            if (attr.name.toLowerCase().startsWith('on') || /^javascript:/i.test(attr.value)) {
+                el.removeAttribute(attr.name);
+            }
+        });
+    });
+    return tmp.innerHTML;
+}
+
+// ---------- Carga e inicialización del editor (Summernote) ----------
+// IMPORTANTE: jQuery se carga al final de home.html, DESPUÉS de este bloque de
+// contenido. Por eso se espera a que jQuery esté disponible y recién entonces se
+// cargan los scripts de Summernote (que requieren jQuery al momento de cargarse)
+// y se inicializa el editor.
+function cargarScript(src) {
+    return new Promise(function (resolve, reject) {
+        const s = document.createElement('script');
+        s.src = src;
+        s.onload = resolve;
+        s.onerror = function () { reject(new Error('No se pudo cargar ' + src)); };
+        document.head.appendChild(s);
+    });
+}
+
+let intentosEditor = 0;
+const MAX_INTENTOS_EDITOR = 80; // ~12 segundos esperando a jQuery
+
+function iniciarEditor() {
+    if (typeof window.jQuery === 'undefined') {
+        if (intentosEditor++ < MAX_INTENTOS_EDITOR) {
+            setTimeout(iniciarEditor, 150);
+        } else {
+            console.warn('jQuery no cargó: el campo mensaje funcionará como texto plano.');
+            restaurarBorrador();
+        }
+        return;
+    }
+    cargarScript('https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-lite.min.js')
+        .then(function () {
+            return cargarScript('https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/lang/summernote-es-ES.min.js');
+        })
+        .then(function () {
+            $('#mensajeHtml').summernote({
+                height: 260,
+                minHeight: 200,
+                placeholder: 'Escribe aquí tu mensaje...',
+                lang: 'es-ES',
+                dialogsInBody: true,
+                styleTags: ['p', 'h2', 'h3', 'h4', 'blockquote', 'pre'],
+                maximumImageFileSize: 2 * 1024 * 1024,
+                callbacks: {
+                    onChange: programarAutosave
+                },
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'italic', 'underline', 'clear']],
+                    ['fontname', ['fontname', 'fontsize', 'color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['table', ['table']],
+                    ['insert', ['link', 'picture', 'hr']],
+                    ['misc', ['undo', 'redo', 'fullscreen', 'help']]
+                ]
+            });
+            restaurarBorrador();
+        })
+        .catch(function (err) {
+            console.warn('No se pudo cargar Summernote, el campo mensaje funcionará como texto plano:', err);
+            restaurarBorrador();
+        });
+}
+iniciarEditor();
+
+function previewMensaje() {
+    const html = obtenerMensajeHtml();
+    if (!mensajeTieneContenido(html)) {
+        Swal.fire('Mensaje vacío', 'Escribe un mensaje antes de previsualizar', 'info');
+        return;
+    }
+    document.getElementById('previewContent').innerHTML = sanitizarHtml(html);
+    document.getElementById('modalPreviewMsg').style.display = 'flex';
+}
+
+function cerrarPreviewMsg() {
+    document.getElementById('modalPreviewMsg').style.display = 'none';
+}
+
+function enviarMensaje() {
+    const asunto = document.getElementById('asunto').value.trim();
+    const mensajeHtml = obtenerMensajeHtml();
+    const ids = Array.from(destinatariosSeleccionados);
+
+    if (!asunto) {
+        Swal.fire('Asunto requerido', 'Escribe un asunto para el mensaje', 'warning');
+        return;
+    }
+    if (!mensajeTieneContenido(mensajeHtml)) {
+        Swal.fire('Mensaje vacío', 'Escribe el contenido del mensaje', 'warning');
+        return;
+    }
+    if (ids.length === 0) {
+        Swal.fire('Sin destinatarios', 'Selecciona al menos un destinatario usando los filtros', 'warning');
+        return;
+    }
+
+    Swal.fire({
+        title: '¿Enviar mensaje?',
+        html: `Se enviará a <strong>${ids.length}</strong> destinatario${ids.length !== 1 ? 's' : ''}<br><small style="color:#64748b;">Se enviará un correo individual a cada uno, así los destinatarios no verán los correos de los demás.</small>`,
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: '<i class="fa-solid fa-paper-plane"></i> Enviar',
+        cancelButtonText: 'Cancelar',
+        confirmButtonColor: '#16a34a',
+    }).then(result => {
+        if (!result.isConfirmed) return;
+
+        const btn = document.getElementById('btnEnviar');
+        btn.disabled = true;
+        btn.innerHTML = '<span class="loading-spinner"></span> Enviando...';
+
+        fetch(getBaseUrl() + '/rrhh/api/enviar_mensaje', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                asunto: asunto,
+                mensaje_html: mensajeHtml,
+                destinatarios_ids: ids
+            })
+        })
+        .then(res => res.json())
+        .then(data => {
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Enviar';
+
+            if (!data.success) {
+                Swal.fire('Error', data.error || 'Error al enviar el mensaje', 'error');
+                return;
+            }
+
+            let msg = `✅ <strong>${data.enviados}</strong> de <strong>${data.total}</strong> correos enviados`;
+            if (data.errores && data.errores.length) {
+                msg += '<br><br><strong>Errores:</strong><ul>' + data.errores.map(e => `<li>${e}</li>`).join('') + '</ul>';
+            }
+            Swal.fire({
+                title: data.enviados > 0 ? 'Enviado' : 'Error',
+                html: msg,
+                icon: data.enviados > 0 ? 'success' : 'error',
+            });
+
+            if (data.enviados > 0) {
+                document.getElementById('asunto').value = '';
+                vaciarMensaje();
+                descartarBorrador();
+                destinatariosSeleccionados.clear();
+                actualizarResumen();
+                document.getElementById('filtroBusqueda').value = '';
+                document.getElementById('filtroCargo').value = '';
+                document.getElementById('filtroSede').value = '';
+                // Recargar lista de destinatarios (queda vacía)
+                cargarDestinatarios();
+            }
+        })
+        .catch(err => {
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Enviar';
+            Swal.fire('Error', err.message, 'error');
+        });
+    });
+}
+
+// Filtrar al presionar Enter en los selects
+document.getElementById('filtroCargo').addEventListener('change', cargarDestinatarios);
+document.getElementById('filtroSede').addEventListener('change', cargarDestinatarios);
+document.getElementById('asunto').addEventListener('input', programarAutosave);
+</script>
+
+{% endblock %}

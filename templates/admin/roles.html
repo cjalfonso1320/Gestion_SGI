@@ -1,0 +1,31 @@
+{% extends 'home.html' %}
+{% block title %}Control de Roles{% endblock %}
+{% block content %}
+<h2>Lista de Roles</h2>
+<a class="custom-btn btn-10" href="{{ url_for('rol.nuevo_rol') }}"><i class="fa-solid fa-shield-halved"></i> Nuevo Rol</a>
+<div class="tbl-header">
+    <table cellpadding="0" cellspacing="0" border="0">
+      <thead>
+        <tr>
+          <th>Rol</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+  <div class="tbl-content">
+    <table cellpadding="0" cellspacing="0" border="0">
+      <tbody>
+        {% for u in roles %}
+        <tr>
+            <td>{{ u[1] }}</td>
+            <td>
+                <a href="{{ url_for('rol.editar_rol', id=u[0]) }}" class="custom-btn btn-5"><i class="fa-regular fa-pen-to-square"></i> Editar</a> |
+                <a href="{{ url_for('rol.eliminar_rol', id=u[0]) }}" class="custom-btn btn-5" onclick="return confirm('¿Eliminar usuario?')"><i class="fa-solid fa-trash-can"></i> Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+</div>
+{% endblock %}

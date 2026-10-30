@@ -1,0 +1,438 @@
+/* ===================================================== */
+/*       BOTONES DE ACCIÓN — REDISEÑO                   */
+/* ===================================================== */
+
+/* --- CONTENEDOR DE ACCIONES --- */
+.acciones {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    align-items: center;
+    padding: 2px;
+    background: #f8fafc;
+    border-radius: 10px;
+    border: 1px solid #f1f5f9;
+}
+
+/* --- BOTÓN DE ACCIÓN BASE --- */
+.btn-accion {
+    position: relative;
+    border: 1px solid transparent;
+    background: transparent;
+    cursor: pointer;
+    padding: 7px;
+    border-radius: 8px;
+    font-size: 15px;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+}
+
+/* Tooltip personalizado */
+.btn-accion::after {
+    content: attr(title);
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%) scale(0.9);
+    background: #1e293b;
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 5px 10px;
+    border-radius: 6px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.18s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+}
+
+/* Flechita del tooltip */
+.btn-accion::before {
+    content: '';
+    position: absolute;
+    bottom: calc(100% + 4px);
+    left: 50%;
+    transform: translateX(-50%) scale(0.9);
+    border: 5px solid transparent;
+    border-top-color: #1e293b;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.18s ease;
+    z-index: 1000;
+}
+
+.btn-accion:hover::after,
+.btn-accion:hover::before {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+}
+
+/* Estado activo (click) */
+.btn-accion:active {
+    transform: scale(0.92) !important;
+}
+
+/* Focus visible para accesibilidad */
+.btn-accion:focus-visible {
+    outline: 2px solid #2563eb;
+    outline-offset: 2px;
+}
+
+/* --- COLORES SEMÁNTICOS (REDISEÑADOS) --- */
+
+/* Editar: Azul Corporativo */
+.btn-editar {
+    color: #2563eb;
+}
+.btn-editar:hover {
+    background-color: #eff6ff;
+    border-color: #bfdbfe;
+    color: #1d4ed8;
+    transform: translateY(-2px);
+    box-shadow: 0 3px 8px rgba(37, 99, 235, 0.15);
+}
+
+/* Contrato/Tie: Verde Esmeralda */
+.btn-contrato {
+    color: #059669;
+}
+.btn-contrato:hover {
+    background-color: #ecfdf5;
+    border-color: #a7f3d0;
+    color: #047857;
+    transform: translateY(-2px);
+    box-shadow: 0 3px 8px rgba(5, 150, 105, 0.15);
+}
+
+/* Eliminar/Retirar: Rojo Suave */
+/* Botón aprobar RRHH */
+.btn-aprobar-rrhh {
+    background: linear-gradient(135deg, #059669, #10b981);
+    color: #fff;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    width: auto;
+    height: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+}
+.btn-aprobar-rrhh:hover {
+    background: linear-gradient(135deg, #047857, #059669);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
+}
+.btn-aprobar-rrhh:active {
+    transform: translateY(0);
+}
+
+/* Botón editar curso */
+.btn-editarCurso {
+    background: linear-gradient(135deg, #2563eb, #3b82f6);
+    color: #fff;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    width: auto;
+    height: auto;
+    transition: all 0.2s ease;
+}
+.btn-editarCurso:hover {
+    background: linear-gradient(135deg, #1d4ed8, #2563eb);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+.btn-editarCurso:active {
+    transform: translateY(0);
+}
+
+.btn-eliminar, .btn-eliminarCurso {
+    color: #dc2626;
+}
+.btn-eliminar:hover, .btn-eliminarCurso:hover {
+    background-color: #fef2f2;
+    border-color: #fecaca;
+    color: #b91c1c;
+    transform: translateY(-2px);
+    box-shadow: 0 3px 8px rgba(220, 38, 38, 0.15);
+}
+
+/* Foto/Cédula: Ámbar */
+.btn-foto {
+    color: #d97706;
+}
+.btn-foto:hover {
+    background-color: #fffbeb;
+    border-color: #fef3c7;
+    color: #b45309;
+    transform: translateY(-2px);
+    box-shadow: 0 3px 8px rgba(217, 119, 6, 0.15);
+}
+
+/* Activar: Verde Éxito */
+.btn-activar {
+    color: #10b981;
+}
+.btn-activar:hover {
+    background-color: #f0fdf4;
+    border-color: #bbf7d0;
+    color: #059669;
+    transform: translateY(-2px);
+    box-shadow: 0 3px 8px rgba(16, 185, 129, 0.15);
+}
+
+/* Eliminar definitivo (retirados): Rojo Destructivo */
+.btn-eliminar-def, .btn-eliminar-def:focus {
+    color: #dc2626;
+}
+.btn-eliminar-def:hover {
+    background-color: #fef2f2;
+    border-color: #fecaca;
+    color: #b91c1c;
+    transform: translateY(-2px);
+    box-shadow: 0 3px 8px rgba(220, 38, 38, 0.15);
+}
+
+/* Documentos: Cyan */
+.btn-docs {
+    color: #0891b2;
+    font-size: 15px;
+}
+.btn-docs:hover {
+    background-color: #ecfeff;
+    border-color: #cffafe;
+    color: #0e7490;
+    transform: translateY(-2px);
+    box-shadow: 0 3px 8px rgba(8, 145, 178, 0.15);
+}
+
+/* Ver Contratos: Morado */
+.btn-contratos {
+    color: #7c3aed;
+    font-size: 15px;
+}
+.btn-contratos:hover {
+    background-color: #f5f3ff;
+    border-color: #ddd6fe;
+    color: #6d28d9;
+    transform: translateY(-2px);
+    box-shadow: 0 3px 8px rgba(124, 58, 237, 0.15);
+}
+
+/* Restablecer contraseña: Naranja/Ámbar */
+.btn-restablecer {
+    color: #ea580c;
+}
+.btn-restablecer:hover {
+    background-color: #fff7ed;
+    border-color: #fed7aa;
+    color: #c2410c;
+    transform: translateY(-2px);
+    box-shadow: 0 3px 8px rgba(234, 88, 12, 0.15);
+}
+
+/* Certificado: Rosa/Rojo con texto */
+.btn-certificado {
+    color: #e11d48;
+    font-size: 0.78rem;
+    font-weight: 700;
+    gap: 5px;
+    padding: 6px 12px;
+    border: 1px solid #fecaca;
+    width: auto;
+    height: auto;
+}
+.btn-certificado:hover {
+    background-color: #fff1f2;
+    border-color: #fecdd3;
+    color: #be123c;
+    transform: translateY(-2px);
+    box-shadow: 0 3px 8px rgba(225, 29, 72, 0.15);
+}
+
+/* Navegación (flechas) */
+.btn-next, .btn-prev {
+    color: #3b82f6;
+}
+.btn-next:hover, .btn-prev:hover {
+    background-color: #dbeafe;
+    color: #2563eb;
+    transform: scale(1.1);
+}
+
+/* ===================================================== */
+/*       BADGES E INDICADORES                           */
+/* ===================================================== */
+
+/* Badge contador (ej: cantidad de contratos) */
+.btn-badge {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    background: #059669;
+    color: #fff;
+    font-size: 0.62rem;
+    font-weight: 800;
+    line-height: 1;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(5, 150, 105, 0.3);
+    pointer-events: none;
+    z-index: 5;
+}
+
+.btn-badge:empty {
+    display: none;
+}
+
+/* El botón debe ser relativo para posicionar el badge */
+.btn-contrato {
+    position: relative;
+}
+
+/* Indicador verde si el documento/foto existe */
+.file-dot {
+    position: absolute;
+    top: 1px;
+    right: 1px;
+    width: 8px;
+    height: 8px;
+    background: #22c55e;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    pointer-events: none;
+    z-index: 3;
+    box-shadow: 0 1px 3px rgba(34, 197, 94, 0.3);
+}
+
+/* Los botones con foto necesitan position:relative */
+.btn-foto {
+    position: relative;
+}
+
+/* --- ICONOS --- */
+.btn-accion i {
+    pointer-events: none;
+    font-size: 15px;
+}
+
+/* Botón con texto (certificado) mantiene su tamaño */
+.btn-certificado i {
+    font-size: 0.85rem;
+}
+
+/* --- RESPONSIVE --- */
+
+/* ===================================================== */
+/*       OVERRIDES PARA BOTONES CON TEXTO              */
+/* ===================================================== */
+/*
+  Estos overrides están AQUÍ (no en modal_empleado.css) porque
+  botones_accion.css es el ÚLTIMO CSS que carga home.html.
+  Si estuvieran en modal_empleado.css, el .btn-accion { width: 34px }
+  de este archivo los overridearía por la cascada.
+*/
+.btn-guardar,
+.btn-cancelar {
+    width: auto !important;
+    height: auto !important;
+}
+@media (max-width: 768px) {
+    .acciones {
+        gap: 4px;
+        padding: 2px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .btn-accion {
+        width: 30px;
+        height: 30px;
+        padding: 5px;
+        font-size: 13px;
+    }
+    .btn-accion i {
+        font-size: 13px;
+    }
+    .btn-certificado {
+        width: auto;
+        height: auto;
+        padding: 4px 8px;
+        font-size: 0.7rem;
+    }
+    /* Tooltips ocultos en móvil (no hay hover real en touch) */
+    .btn-accion::after,
+    .btn-accion::before {
+        opacity: 0 !important;
+        pointer-events: none !important;
+        transform: translateX(-50%) scale(0.9) !important;
+    }
+    /* Badges más pequeños */
+    .btn-badge {
+        min-width: 14px;
+        height: 14px;
+        font-size: 0.5rem;
+        padding: 0 3px;
+        top: -4px;
+        right: -4px;
+    }
+    .file-dot {
+        width: 6px;
+        height: 6px;
+        top: 0;
+        right: 0;
+        border-width: 1.5px;
+    }
+}
+
+@media (max-width: 420px) {
+    .acciones {
+        gap: 3px;
+        padding: 1px;
+    }
+    .btn-accion {
+        width: 26px;
+        height: 26px;
+        padding: 4px;
+        font-size: 11px;
+    }
+    .btn-accion i {
+        font-size: 11px;
+    }
+    .btn-certificado {
+        width: auto;
+        height: auto;
+        padding: 3px 6px;
+        font-size: 0.6rem;
+    }
+    .btn-badge {
+        min-width: 12px;
+        height: 12px;
+        font-size: 0.45rem;
+        padding: 0 2px;
+        top: -3px;
+        right: -3px;
+    }
+    .file-dot {
+        width: 5px;
+        height: 5px;
+    }
+}

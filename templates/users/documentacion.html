@@ -1,0 +1,373 @@
+{% extends 'home.html' %}
+{% block title %}Documentacion{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/acordeon_doc.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/busqueda.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/modal.css') }}">
+{% from 'macros.html' import role_selection_header with context %}
+{{ role_selection_header('fa-regular fa-file-lines', 'Documentación', 'doc.documentacion') }}
+<!-- barra de busqeuda -->
+<div class="search-container">
+    <input type="text" id="searchInput" placeholder="Buscar documentos por nombre...">
+</div>
+<!-- Botón flotante para subir documentos -->
+<div class="upload-fab" onclick="openUploadModal()">
+    <i class="fa fa-upload"></i>
+</div>
+
+<!-- Modal para subir documentos -->
+<div id="uploadModal" class="modal-overlay">
+    <div class="modal-container modal-sm">
+        <div class="modal-header">
+            <h2>Subir Documento</h2>
+            <button class="modal-close" onclick="closeUploadModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form id="uploadForm" enctype="multipart/form-data">
+                {% if config.get('WTF_CSRF_ENABLED') %}<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">{% endif %}
+                <div class="form-group">
+                    <label for="carpeta">Seleccionar Carpeta:</label>
+                    <select id="carpeta" name="carpeta" required>
+                        <option value="">Seleccione una carpeta...</option>
+                        <option value="Procedimientos">Procedimientos</option>
+                        <option value="Caracterizacion">Caracterización</option>
+                        <option value="Formatos Digitales">Formatos Digitales</option>
+                        <option value="Formatos Fisicos">Formatos Fisicos</option>
+                        <option value="Formatos Externos">Formatos Externos</option>
+                        <option value="Formatos Externos Digitales">Formatos Externos Digitales</option>
+                        <option value="Formatos Externos Fisicos">Formatos Externos Fisicos</option>
+                        <option value="Plan de Calidad">Plan de Calidad</option>
+                        <option value="Requisitos del Cliente">Requisitos del Cliente</option>
+                        <option value="Actas de Restauración">Actas de Restauración</option>
+                        <option value="Instructivos">Instructivos</option>
+                        <option value="Manuales">Manuales</option>
+                        <option value="Auditorias IFX">Auditorias IFX</option>
+                        <option value="Auditoria Integrum">Auditoria Integrum</option>
+                        <option value="Auditoria Inter Servicios">Auditoria Inter Servicios</option>
+                        <option value="ISEC Continuidad">ISEC Continuidad</option>
+                        <option value="ISEC Proteccion Datos">ISEC Proteccion Datos</option>
+                        <option value="ISEC Seguridad Inf">ISEC Seguridad Inf</option>
+                        <option value="Comite de Seguridad">Comite de Seguridad</option>
+                        <option value="Vulnerabilidades 2024">Vulnerabilidades 2024</option>
+                        <option value="Vulnerabilidades 2025">Vulnerabilidades 2025</option>
+                        <option value="Vulnerabilidades Anteriores">Vulnerabilidades Anteriores</option>
+                        <option value="Revision Seguridad 2021">Revision Seguridad 2021</option>
+                        <option value="Revision Seguridad 2022">Revision Seguridad 2022</option>
+                        <option value="Revision Seguridad 2023">Revision Seguridad 2023</option>
+                        <option value="Revision Seguridad 2024">Revision Seguridad 2024</option>
+                        <option value="SST">SST</option>
+                        <option value="Encuestas 2019">Encuestas 2019</option>
+                        <option value="Encuestas 2020">Encuestas 2020</option>
+                        <option value="Encuestas 2021">Encuestas 2021</option>
+                        <option value="Sagrilaft">Sagrilaft</option>
+                        <option value="Ambiental">Ambiental</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="documento">Seleccionar Documento:</label>
+                    <input type="file" id="documento" name="documento" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt" required>
+                </div>
+                <div class="form-actions">
+                    <button type="button" onclick="closeUploadModal()" class="btn-secondary"><i class="fa-solid fa-xmark"></i> Cancelar</button>
+                    <button type="submit" class="btn-primary"><i class="fa-solid fa-upload"></i> Subir</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de confirmación para reemplazar -->
+<div id="replaceModal" class="modal-overlay">
+    <div class="modal-container modal-sm">
+        <div class="modal-header">
+            <h2>Documento Existente</h2>
+            <button class="modal-close" onclick="closeReplaceModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p>El documento <strong id="existingFileName"></strong> ya existe en la carpeta seleccionada.</p>
+            <p>¿Desea reemplazarlo?</p>
+            <div class="form-actions">
+                <button type="button" onclick="closeReplaceModal()" class="btn-secondary"><i class="fa-solid fa-xmark"></i> Cancelar</button>
+                <button type="button" onclick="confirmReplace()" class="btn-warning"><i class="fa-solid fa-rotate"></i> Reemplazar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="doc-accordion">
+        <!-- Procedimientos y Caracterización para todos los roles -->
+        {% if rol_seleccionado not in [] %}
+        <div class="doc-section">Procedimientos</div>
+        <div class="doc-content">
+            {% set carpeta_actual = 'Procedimientos' %}
+            {% include 'users/procedimientos.html' %}
+        </div>
+
+        <div class="doc-section">Caracterización</div>
+        <div class="doc-content">
+            {% set carpeta_actual = 'Caracterizacion' %}
+            {% include 'users/caracterizacion.html' %}
+        </div>
+        {% endif %}
+
+        {% if rol_seleccionado != 14 %}
+        <div class="doc-section">Formatos</div>
+        <div class="doc-content">
+            <div class="doc-subsection">Formatos Digitales</div>
+            <div class="doc-subcontent">
+                {% set carpeta_actual = 'Formatos Digitales' %}
+                {% include 'users/formatosDigitales.html' %}
+            </div>
+
+            <div class="doc-subsection">Formato Fisicos</div>
+            <div class="doc-subcontent">
+                {% set carpeta_actual = 'Formatos Fisicos' %}
+                {% include 'users/formatosFisicos.html' %}
+            </div>
+
+            {% if formatoExternoDigital and formatoExternoFisico %}
+            <div class="doc-subsection">Formatos Externos</div>
+            <div class="doc-subcontent">
+
+                <div class="doc-subsubsection">Formato Externo Digital</div>
+                <div class="doc-subsubcontent">
+                    {% set carpeta_actual = 'Formatos Externos Digitales' %}
+                    {% include 'users/formatosExternosDigital.html' %}
+                </div>
+
+                <div class="doc-subsubsection">Formato Externo Fisico</div>
+                <div class="doc-subsubcontent">
+                    {% set carpeta_actual = 'Formatos Externos Fisicos' %}
+                    {% include 'users/formatosExternosFisico.html' %}
+                </div>
+
+            </div>
+            {% endif %}
+        </div>
+
+        {% if rol_seleccionado not in [8, 9, 14, 15, 16 ,17, 18, 19, 20] %} <!-- NO MOSTRAR SI EL ID ESTA EN LA LISTA -->
+        <div class="doc-section">Plan de Calidad</div>
+        <div class="doc-content">
+            {% set carpeta_actual = 'Plan de Calidad' %}
+            {% include 'users/planCalidad.html' %}
+        </div>
+
+        <div class="doc-section">Requisitos del Cliente</div>
+        <div class="doc-content">
+            {% set carpeta_actual = 'Requisitos del Cliente' %}
+            {% include 'users/requisitosCliente.html' %}
+        </div>
+
+        {% elif rol_seleccionado == 9 %} <!-- MOSTRAR SI EL ID ES EL DE T-I -->
+        <div class="doc-section">Actas de Restauración</div>
+        <div class="doc-content">
+            {% set carpeta_actual = 'Actas de Restauración' %}
+            {% include 'users/actasRestauracion.html' %}
+        </div>
+
+        <div class="doc-section">Instructivos</div>
+        <div class="doc-content">
+            {% set carpeta_actual = 'Instructivos' %}
+            {% include 'users/instructivos.html' %}
+        </div>
+        <div class="doc-section">Manuales</div>
+        <div class="doc-content">
+            {% set carpeta_actual = 'Manuales' %}
+            {% include 'users/manuales.html' %}
+        </div>
+
+        {% elif rol_seleccionado == 16 %} <!-- MOSTRAR SI EL ID ES EL DE SGI-->
+
+        <div class="doc-section">Auditorias Proveedores</div>
+        <div class="doc-content">
+            <div class="doc-subsection">IFX</div>
+            <div class="doc-subcontent">
+                {% set carpeta_actual = 'Auditorias IFX' %}
+                {% include 'users/auditoriaIFX.html' %}
+            </div>
+
+            <div class="doc-subsection">INTEGRUM</div>
+            <div class="doc-subcontent">
+                {% set carpeta_actual = 'Auditoria Integrum' %}
+                {% include 'users/auditoriaIntegrum.html' %}
+            </div>
+
+            <div class="doc-subsection">INTER SERVICIOS</div>
+            <div class="doc-subcontent">
+                {% set carpeta_actual = 'Auditoria Inter Servicios' %}
+                {% include 'users/auditoriaInterServicios.html' %}
+            </div>
+
+            <div class="doc-subsection">POLITICAS I-SEC</div>
+            <div class="doc-subcontent">
+
+                <div class="doc-subsubsection">CONTINUIDAD DEL NEGOCIO</div>
+                <div class="doc-subsubcontent">
+                    {% set carpeta_actual = 'ISEC Continuidad' %}
+                    {% include 'users/ISECpoliticaContinuidad.html' %}
+                </div>
+
+                <div class="doc-subsubsection">PROTECCION DATOS</div>
+                <div class="doc-subsubcontent">
+                    {% set carpeta_actual = 'ISEC Proteccion Datos' %}
+                    {% include 'users/ISECpoliticaProteccionDatos.html' %}
+                </div>
+
+                <div class="doc-subsubsection">SEGURIDAD DE LA INF</div>
+                <div class="doc-subsubcontent">
+                    {% set carpeta_actual = 'ISEC Seguridad Inf' %}
+                    {% include 'users/ISECpoliticaSeguridadInf.html' %}
+                </div>
+            </div>
+        </div>
+
+        <div class="doc-section">Comite de Seguridad</div>
+        <div class="doc-content">
+            {% set carpeta_actual = 'Comite de Seguridad' %}
+            {% include 'users/comiteSeguridad.html' %}
+        </div>
+
+        <div class="doc-section">Informes de Hacking Etico</div>
+        <div class="doc-content">   
+            LA CARPETA ESTA MUY MAL ESTRUCTURADA
+        </div>
+
+        <div class="doc-section">Informes de Vulnerabilidades</div>
+        <div class="doc-content">
+            <div class="doc-subsection">2024</div>
+            <div class="doc-subcontent">
+                {% set carpeta_actual = 'Vulnerabilidades 2024' %}
+                {% include 'users/vulnerabilidades_2024.html' %}
+            </div>
+
+            <div class="doc-subsection">2025</div>
+            <div class="doc-subcontent">
+                {% set carpeta_actual = 'Vulnerabilidades 2025' %}
+                {% include 'users/vulnerabilidades_2025.html' %}
+            </div>
+
+            <div class="doc-subsection">Anteriores</div>
+            <div class="doc-subcontent">
+                {% set carpeta_actual = 'Vulnerabilidades Anteriores' %}
+                {% include 'users/vulnerabilidades_ant.html' %}
+            </div>
+        </div>
+
+        <div class="doc-section">Instructivos</div>
+        <div class="doc-content">
+            {% set carpeta_actual = 'Instructivos' %}
+            {% include 'users/instructivos.html' %}
+        </div>
+
+        <div class="doc-section">Revision de Seguridad</div>
+        <div class="doc-content">
+            <div class="doc-subsection">2021</div>
+            <div class="doc-subcontent">
+                {% set carpeta_actual = 'Revision Seguridad 2021' %}
+                {% include 'users/revisionSeguridad_2021.html' %}
+            </div>
+
+            <div class="doc-subsection">2022</div>
+            <div class="doc-subcontent">
+                {% set carpeta_actual = 'Revision Seguridad 2022' %}
+                {% include 'users/revisionSeguridad_2022.html' %}
+            </div>
+
+            <div class="doc-subsection">2023</div>
+            <div class="doc-subcontent">
+                {% set carpeta_actual = 'Revision Seguridad 2023' %}
+                {% include 'users/revisionSeguridad_2023.html' %}
+            </div>
+
+            <div class="doc-subsection">2024</div>
+            <div class="doc-subcontent">
+                {% set carpeta_actual = 'Revision Seguridad 2024' %}
+                {% include 'users/revisionSeguridad_2024.html' %}
+            </div>
+        </div>
+
+        {% elif rol_seleccionado == 18 %} <!-- MOSTRAR SI EL ID ES EL DE COMERCIAL -->
+        <div class="doc-section">Encuestas de Satisfacción</div>
+        <div class="doc-content">
+            <div class="doc-subsection">2019</div>
+            <div class="doc-subcontent">
+                {% set carpeta_actual = 'Encuestas 2019' %}
+                {% include 'users/encuestas_2019.html' %}
+            </div>
+
+            <div class="doc-subsection">2020</div>
+            <div class="doc-subcontent">
+                {% set carpeta_actual = 'Encuestas 2020' %}
+                {% include 'users/encuestas_2020.html' %}
+            </div>
+
+            <div class="doc-subsection">2021</div>
+            <div class="doc-subcontent">
+                {% set carpeta_actual = 'Encuestas 2021' %}
+                {% include 'users/encuestas_2021.html' %}
+            </div>
+        </div>
+        {% endif %}
+        
+        <!-- Contenido específico para roles especiales -->
+        {% if rol_seleccionado == 17 %}
+        {% if sst_arbol_carpetas %}
+            {% set carpeta_actual = 'SST' %}
+            {% include 'users/sst.html' %}
+        {% endif %}
+        {% endif %}
+        {% if rol_seleccionado == 20 %}
+        {% if archivos_sagrilaft %}
+            {% set carpeta_actual = 'Sagrilaft' %}
+            {% include 'users/sagrilaft.html' %}
+        {% endif %}
+        {% endif %}
+        {% if rol_seleccionado == 21 %}
+        {% if archivos_ambiental %}
+            {% set carpeta_actual = 'Ambiental' %}
+            {% include 'users/ambiental.html' %}
+        {% endif %}
+        {% endif %}
+        {% endif %}
+    </div>
+<!-- ============================================= -->
+<!-- MODAL: EDITOR DE EXCEL (SheetJS) -->
+<!-- ============================================= -->
+<div id="excelEditorModal" class="modal-overlay">
+    <div class="modal-container" style="max-width:1200px;">
+        <div class="modal-header">
+            <h2><i class="fa-solid fa-table"></i> Editor: <span id="excelEditorFileName"></span></h2>
+            <button class="modal-close" onclick="cerrarEditorExcel()">&times;</button>
+        </div>
+        <div class="modal-body" style="flex:1;overflow:auto;padding:16px;">
+            <div id="excelEditorToolbar" style="margin-bottom:12px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+                <button onclick="agregarFilaExcel()" class="btn-accion btn-guardar" style="padding:6px 14px;font-size:0.85rem;">
+                    <i class="fa-solid fa-plus"></i> Agregar Fila
+                </button>
+                <button onclick="agregarColumnaExcel()" class="btn-accion btn-guardar" style="padding:6px 14px;font-size:0.85rem;">
+                    <i class="fa-solid fa-plus"></i> Agregar Columna
+                </button>
+                <span class="text-slate-500" style="margin-left:auto;font-size:0.8rem;" id="excelEditorStatus">Cargando...</span>
+            </div>
+            <div id="excelEditorContainer" style="overflow:auto;max-height:60vh;border:1px solid #e2e8f0;border-radius:8px;">
+                <table id="excelEditorTable" style="border-collapse:collapse;width:100%;font-size:0.85rem;">
+                    <thead id="excelEditorHead"></thead>
+                    <tbody id="excelEditorBody"></tbody>
+                </table>
+            </div>
+        </div>
+        <div class="modal-footer" style="padding:12px 16px;border-top:1px solid #e2e8f0;display:flex;gap:10px;justify-content:flex-end;">
+            <button onclick="cerrarEditorExcel()" class="btn-accion btn-cancelar">Cancelar</button>
+            <button onclick="guardarExcelEditado()" class="btn-accion btn-guardar">
+                <i class="fa-solid fa-floppy-disk"></i> Guardar Cambios
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- SheetJS CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js" integrity="sha384-vtjasyidUo0kW94K5MXDXntzOJpQgBKXmE7e2Ga4LG0skTTLeBi97eFAXsqewJjw" crossorigin="anonymous"></script>
+
+<script src="{{ url_for('static', filename='js/documentacion.js')}}?v=2"></script>
+<script src="{{ url_for('static', filename='js/rol_seleccionado.js')}}"></script>
+{% endblock %}

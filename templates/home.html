@@ -1,0 +1,1783 @@
+{% from 'macros.html' import avatar %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="{{ url_for('static', filename='imgs/logo.png') }}" type="image/png">
+<title>{% block title %}SGI{% endblock %}</title>
+{# Obtenemos el ID una sola vez para que el codigo sea limpio #}
+{% set u_id = current_user.get_id() if current_user.is_authenticated else None %}
+
+{% if u_id %}
+{% if u_id.startswith('sgi-') %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home_admin.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/form_indicadores.css') }}">
+
+{% elif u_id.startswith('rrhh-') %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home_admin.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/form_indicadores.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/empleados.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/tabla_lista.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/modal_empleado.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/botones_accion.css') }}">
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" crossorigin="anonymous" />
+
+{% elif u_id.startswith('estu-') %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home_admin.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/empleados.css') }}">
+{# Agrega aqui los estilos especificos que necesites para el aula #}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/tabla_lista.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/botones_accion.css') }}">
+{% endif %}
+{% endif %}
+</head>
+
+<body class="blue-theme">
+
+    <!-- MENU SUPERIOR MÓVIL (solo visible en celular) -->
+    <nav class="mobile-top-nav" id="mobileTopNav">
+        <div class="mobile-top-nav-inner">
+            <button class="mobile-nav-toggle" id="mobileNavToggle" aria-label="Menú">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <span class="mobile-nav-title">
+                {% if u_id and u_id.startswith('sgi-') %}
+                    Aula Virtual
+                {% elif u_id and u_id.startswith('rrhh-') %}
+                    Aula Virtual
+                {% elif u_id and u_id.startswith('estu-') %}
+                    Aula Virtual
+                {% endif %}
+            </span>
+            <a href="{{ url_for('auth.logout') }}" class="mobile-nav-logout" title="Cerrar Sesión">
+                <i class="fa-solid fa-right-from-bracket"></i>
+            </a>
+        </div>
+        <div class="mobile-nav-links" id="mobileNavLinks">
+            {% if u_id and u_id.startswith('sgi-') %}
+                {% if current_user.rol == 16 %}
+                <a href="{{ url_for('aula.aulaAdmin') }}" class="mobile-nav-link">
+                    <i class="fa-solid fa-house"></i> Inicio
+                </a>
+                <a href="{{ url_for('aula.gestionar_cursos', modo='cursos') }}" class="mobile-nav-link">
+                    <i class="fa-solid fa-book"></i> Cursos
+                </a>
+                <a href="{{ url_for('aula.gestionar_cursos', modo='resultados') }}" class="mobile-nav-link">
+                    <i class="fa-solid fa-square-poll-vertical"></i> Resultados
+                </a>
+                <a href="{{ url_for('aula.tabulacion') }}" class="mobile-nav-link">
+                    <i class="fa-solid fa-chart-pie"></i> Tabulación
+                </a>
+                {% endif %}
+                <a href="{{ url_for('rrhh.buzon')}}" class="mobile-nav-link">
+                    <i class="fa-solid fa-inbox"></i> Buzón
+                </a>
+            {% elif u_id and u_id.startswith('rrhh-') %}
+                <a href="{{ url_for('aula.aulaAdmin') }}" class="mobile-nav-link">
+                    <i class="fa-solid fa-house"></i> Inicio
+                </a>
+                <a href="{{ url_for('aula.gestionar_cursos', modo='cursos') }}" class="mobile-nav-link">
+                    <i class="fa-solid fa-book"></i> Cursos
+                </a>
+                <a href="{{ url_for('aula.gestionar_cursos', modo='resultados') }}" class="mobile-nav-link">
+                    <i class="fa-solid fa-square-poll-vertical"></i> Resultados
+                </a>
+                <a href="{{ url_for('aula.tabulacion') }}" class="mobile-nav-link">
+                    <i class="fa-solid fa-chart-pie"></i> Tabulación
+                </a>
+                <a href="{{ url_for('rrhh.buzon')}}" class="mobile-nav-link">
+                    <i class="fa-solid fa-inbox"></i> Buzón
+                </a>
+            {% elif u_id and u_id.startswith('estu-') %}
+                <a href="{{ url_for('aula.cursos_abiertos') }}" class="mobile-nav-link">
+                    <i class="fa-solid fa-book-open-reader"></i> Mis Cursos
+                </a>
+                <a href="{{ url_for('aula.mis_resultados') }}" class="mobile-nav-link">
+                    <i class="fa-solid fa-square-poll-vertical"></i> Resultados
+                </a>
+                <a href="{{ url_for('aula.mis_certificados') }}" class="mobile-nav-link">
+                    <i class="fa-solid fa-award"></i> Certificados
+                </a>
+                <a href="{{ url_for('rrhh.buzon')}}" class="mobile-nav-link">
+                    <i class="fa-solid fa-inbox"></i> Buzón
+                </a>
+            {% endif %}
+            <a href="{{ url_for('auth.logout') }}" class="mobile-nav-link mobile-nav-link-danger">
+                <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión
+            </a>
+        </div>
+    </nav>
+    <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+
+    <!-- MENU LATERAL -->
+    <nav class="main-menu">
+        <div>
+            <div class="user-info">
+                {{ avatar(src=foto_usuario, alt='user', shimmer=True) }}
+                {% if u_id and u_id.startswith('sgi-') %}
+                    <p>{{ current_user.name }}</p>
+                {% else %}
+                <br>
+                    <p>{{ current_user.nombres }} {{ current_user.apellidos }}</p>
+                {% endif %}
+            </div>
+        </div>
+        <div>
+            <ul>
+                <!-- SIDEBAR DINAMICO SEGUN MODULO ABIERTO -->
+                {% if current_user.get_id().startswith('sgi-') %}
+                <li class="nav-item">
+                    <a href="{{ url_for('doc.documentacion')}}" class="nav-link" data-section="documentacion" title="Documentación">
+                        <i class="fa-regular fa-file-lines nav-icon"></i>
+                        <span class="nav-text">Documentación</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url_for('ind.indicadores')}}" class="nav-link" data-section="indicadores" title="Indicadores">
+                        <i class="fa-solid fa-chart-line nav-icon"></i>
+                        <span class="nav-text">Indicadores</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url_for('usoInt.UsoInterno')}}" class="nav-link" data-section="uso-interno" title="Información de Uso Interno">
+                        <i class="fa-solid fa-up-right-from-square nav-icon"></i>
+                        <span class="nav-text">Información de Uso Interno</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url_for('mRiesgos.Matriz_Riesgos', role_id=current_user.rol)}}" class="nav-link"
+                        data-section="matriz-riesgos" title="Matriz de Riesgos">
+                        <i class="fa-solid fa-arrows-up-to-line nav-icon"></i>
+                        <span class="nav-text">Matriz de Riesgos</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url_for('mActivos.Matriz_Activos')}}" class="nav-link" data-section="matriz-activos" title="Matriz de Activos">
+                        <i class="fa-solid fa-magnifying-glass-chart"></i>
+                        <span class="nav-text">Matriz de Activos</span>
+                    </a>
+                </li>
+                {% if current_user.rol == 16 %}
+                <li class="nav-item">
+                    <a href="{{ url_for('lMaestra.Lista_Maestra')}}" class="nav-link" data-section="lista-maestra" title="Lista Maestra">
+                        <i class="fa-solid fa-list-check"></i>
+                        <span class="nav-text">Lista Maestra</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url_for('control.control') }}" class="nav-link" data-section="control" title="Control">
+                        <i class="fa-solid fa-gamepad nav-icon"></i>
+                        <span class="nav-text">Control</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url_for('aula.aulaAdmin') }}" class="nav-link" data-section="control" title="Aula Virtual">
+                        <i class="fa-solid fa-person-chalkboard"></i>
+                        <span class="nav-text">Aula Virtual</span>
+                    </a>
+                </li>
+                {% endif %}
+                <li class="nav-item">
+                    <a href="{{ url_for('rrhh.buzon')}}" class="nav-link" data-section="buzon" title="Buzón de Mensajes">
+                        <i class="fa-solid fa-inbox"></i>
+                        <span class="nav-text">Buzón</span>
+                    </a>
+                </li>
+                {% elif current_user.get_id().startswith('rrhh-') %}
+                <li class="nav-item">
+                    <a href="{{ url_for('rrhh.empleados') }}" class="nav-link" data-section="documentacion" title="Empleados">
+                        <i class="fa-solid fa-users"></i>
+                        <span class="nav-text">Empleados Activos</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url_for('rrhh.empleados_retirados') }}" class="nav-link" data-section="matriz-riesgos" title="Empleados Retirados">
+                        <i class="fa-solid fa-users-slash"></i>
+                        <span class="nav-text">Empleados Retirados</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url_for('rrhh.grupos_nomina') }}" class="nav-link" data-section="indicadores" title="Grupos de Nómina">
+                        <i class="fa-solid fa-building-user"></i>
+                        <span class="nav-text">Grupos de Nomina</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url_for('rrhh.cargos_vista') }}" class="nav-link" data-section="uso-interno" title="Cargos">
+                        <i class="fa-solid fa-briefcase"></i>
+                        <span class="nav-text">Cargos</span>
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="{{ url_for('rrhh.mensajeria') }}" class="nav-link" data-section="mensajeria" title="Mensajería">
+                        <i class="fa-solid fa-envelope"></i>
+                        <span class="nav-text">Mensajería</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url_for('rrhh.buzon')}}" class="nav-link" data-section="buzon" title="Buzón de Mensajes">
+                        <i class="fa-solid fa-inbox"></i>
+                        <span class="nav-text">Buzón</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url_for('aula.aulaAdmin') }}" class="nav-link" data-section="control" title="Aula Virtual">
+                        <i class="fa-solid fa-person-chalkboard"></i>
+                        <span class="nav-text">Aula Virtual</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url_for('rrhh.evaluacion') }}" class="nav-link" data-section="control" title="Evaluación de Desempeño">
+                        <i class="fa-solid fa-chart-line"></i>
+                        <span class="nav-text">Evaluacion de Desempeño</span>
+                    </a>
+                </li>
+                {% elif current_user.get_id().startswith('estu-') %}
+                <li class="nav-item">
+                    <a href="{{ url_for('rrhh.buzon')}}" class="nav-link" data-section="buzon" title="Buzón de Mensajes">
+                        <i class="fa-solid fa-inbox"></i>
+                        <span class="nav-text">Buzón</span>
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+
+        <ul>
+
+            <li class="nav-item">
+                <a href="{{ url_for('auth.logout') }}" title="Cerrar Sesión">
+                    <i class="fa fa-right-from-bracket nav-icon"></i>
+                    <span class="nav-text">Cerrar Sesion</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <!-- FINALIZA MENU LATERAL -->
+
+    <section class="content{% if u_id and u_id.startswith('estu-') %} student-view{% endif %}">
+        <div class="left-content">
+
+            <!-- MENU CENTRAL -->
+            <div class="upcoming-events">
+                {% if current_user.get_id().startswith('sgi-') %}
+                {% if request.endpoint != 'home.home' %}
+                <div class="btn-volver-wrapper">
+                    <a href="{{ url_for('home.home') }}" class="btn-10">
+                        <i class="fa fa-home"></i> Volver al Inicio
+                    </a>
+                </div>
+                {% endif %}
+                {% elif current_user.get_id().startswith('rrhh-') %}
+                {% if request.endpoint != 'rrhh.dashboard' %}
+                <div class="btn-volver-wrapper">
+                    <a href="{{ url_for('rrhh.dashboard') }}" class="btn-10">
+                        <i class="fa fa-home"></i> Volver al Inicio
+                    </a>
+                </div>
+                {% endif %}
+                {% elif current_user.get_id().startswith('estu-') %}
+                {% if request.endpoint != 'aula.cursos_estudiante' %}
+                <div class="btn-volver-wrapper">
+                    <a href="{{ url_for('aula.cursos_estudiante') }}" class="btn-10">
+                        <i class="fa fa-home"></i> Volver al Inicio
+                    </a>
+                </div>
+                {% endif %}
+                {% endif %}
+                <div id="content-container">
+                    <!-- PRESENTACION INICIAL -->
+                    <div id="initial-presentation" class="initial-content" {% if request.endpoint not in
+                        ['home.home', 'rrhh.dashboard' ] %}style="display: none;" {% endif %}>
+                        <div class="welcome-section">
+                            {% if current_user.get_id().startswith('sgi-') %}
+                            <h2>¡Bienvenido al Sistema de Gestión Integrado!</h2>
+                            <p>Selecciona una opción del menú para comenzar a gestionar tu información.</p>
+
+                            <div class="feature-grid">
+
+                                <a href="{{ url_for('doc.documentacion')}}" class="card-link">
+                                    <div class="card feature-card-new card-blue">
+                                        <i class="fa-regular fa-file-lines watermark"></i>
+                                        <div class="card-info">
+                                            <h3>Documentación <br><span>GENERAL</span></h3>
+                                            <p>Gestiona toda la documentación del sistema</p>
+                                        </div>
+                                    </div>
+                                </a>
+
+                                <a href="{{ url_for('doc.documentacion2')}}" class="card-link">
+                                    <div class="card feature-card-new card-indigo">
+                                        <i class="fa-solid fa-file-code watermark"></i>
+                                        <div class="card-info">
+                                            <h3>Documentación <br><span>VERSION 2</span></h3>
+                                            <p>Nueva interfaz de gestión documental</p>
+                                        </div>
+                                    </div>
+                                </a>
+
+                                <a href="{{ url_for('ind.indicadores')}}" class="card-link">
+                                    <div class="card feature-card-new card-teal">
+                                        <i class="fa-solid fa-chart-line watermark"></i>
+                                        <div class="card-info">
+                                            <h3>Indicadores <br><span>CLAVE</span></h3>
+                                            <p>Visualiza y analiza métricas de desempeño</p>
+                                        </div>
+                                    </div>
+                                </a>
+
+                                <a href="{{ url_for('usoInt.UsoInterno')}}" class="card-link"">
+                                    <div class=" card feature-card-new card-slate">
+                                    <i class="fa-solid fa-up-right-from-square watermark"></i>
+                                        <div class="card-info">
+                                            <h3>Uso <br><span>INTERNO</span></h3>
+                                            <p>Accede a información de uso interno</p>
+                                        </div>
+                                    </div>
+                                </a>
+
+                                <a href="{{ url_for('mRiesgos.Matriz_Riesgos')}}" class="card-link">
+                                    <div class="card feature-card-new card-green">
+                                        <i class="fa-solid fa-shield-virus watermark"></i>
+                                        <div class="card-info">
+                                            <h3>Matriz de <br><span>RIESGOS</span></h3>
+                                            <p>Gestión y evaluación de riesgos</p>
+                                        </div>
+                                    </div>
+                                </a>
+
+                            <a href="{{ url_for('mActivos.Matriz_Activos')}}" class="card-link">
+                                <div class="card feature-card-new card-amber">
+                                    <i class="fa-solid fa-magnifying-glass-chart watermark"></i>
+                                    <div class="card-info">
+                                        <h3>Matriz de <br><span>ACTIVOS</span></h3>
+                                        <p>Administra los activos del sistema</p>
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="{{ url_for('rrhh.buzon')}}" class="card-link">
+                                <div class="card feature-card-new card-amber">
+                                    <i class="fa-solid fa-magnifying-glass-chart watermark"></i>
+                                    <div class="card-info">
+                                        <h3>Buzón de <br><span>Comunicaciones</span></h3>
+                                        <p>Accede al buzón de comunicaciones</p>
+                                    </div>
+                                </div>
+                            </a>
+                            {% if evaluacion_asginada %}
+                            <a href="{{ url_for('rrhh.evaluacion_usuario') }}" class="card-link">
+                                <div class="card feature-card-new card-amber">
+                                    <i class="fa-solid fa-file-lines watermark"></i>
+                                    <div class="card-info">
+                                        <h3>Evaluacion de <br><span>Desempeño</span></h3>
+                                        <p>Accede a la evaluacion de desempeño</p>
+                                    </div>
+                                </div>
+                            </a>
+                            {% endif %}
+                            {% if current_user.rol == 16 %}
+                            <a href="{{ url_for('lMaestra.Lista_Maestra')}}" class="card-link">
+                                <div class="card feature-card-new card-purple">
+                                    <i class="fa-solid fa-list-check watermark"></i>
+                                    <div class="card-info">
+                                        <h3>Lista <br><span>MAESTRA</span></h3>
+                                        <p>Gestiona la lista maestra de documentos</p>
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="{{ url_for('control.control') }}" class="card-link">
+                                <div class="card feature-card-new card-blue">
+                                    <i class="fa-solid fa-gamepad watermark"></i>
+                                    <div class="card-info">
+                                        <h3><span>CONTROL</span></h3>
+                                        <p>Accede a las funciones de control</p>
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="{{ url_for('aula.aulaAdmin') }}" class="card-link">
+                                <div class="card feature-card-new card-indigo">
+                                    <i class="fa-solid fa-person-chalkboard watermark"></i>
+                                    <div class="card-info">
+                                        <h3>Aula <br><span>VIRTUAL</span></h3>
+                                        <p>Accede a las funciones de Aula Virtual</p>
+                                    </div>
+                                </div>
+                            </a>
+                            {% endif %}
+                        </div>
+                        {% elif 'rrhh-' in current_user.get_id() %}
+                        <h2>¡Bienvenido al Sistema Administrador RRHH!</h2>
+                        <p>Selecciona una opción del menú para comenzar a gestionar tu información.</p>
+                        {% if current_user.sgi_rol_id == 8 %}
+                        <div class="feature-grid">
+
+                            <a href="{{ url_for('rrhh.empleados') }}" class="card-link">
+                                <div class="card feature-card-new card-blue">
+                                    <i class="fa-solid fa-users watermark"></i>
+                                    <div class="card-info">
+                                        <h3>Empleados <span>ACTIVOS</span></h3>
+                                        <p>Gestiona toda la documentación de los empleados activos</p>
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="{{ url_for('rrhh.empleados_retirados') }}" class="card-link">
+                                <div class="card feature-card-new card-green">
+                                    <i class="fa-solid fa-users-slash watermark"></i>
+                                    <div class="card-info">
+                                        <h3>Empleados <br><span>RETIRADOS</span></h3>
+                                        <p>Accede a los empleados retirados</p>
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="{{ url_for('rrhh.grupos_nomina') }}" class="card-link">
+                                <div class="card feature-card-new card-indigo">
+                                    <i class="fa-solid fa-building-user watermark"></i>
+                                    <div class="card-info">
+                                        <h3>Grupos de <br><span>NÓMINA</span></h3>
+                                        <p>Gestiona todos los grupos de nómina</p>
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="{{ url_for('rrhh.cargos_vista') }}" class="card-link">
+                                <div class="card feature-card-new card-teal">
+                                    <i class="fa-solid fa-briefcase watermark"></i>
+                                    <div class="card-info">
+                                        <h3><span>CARGOS</span></h3>
+                                        <p>Gestiona todos los Cargos</p>
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="{{ url_for('rrhh.empleados_retirados') }}" class="card-link">
+                                <div class="card feature-card-new card-green">
+                                    <i class="fa-solid fa-users-slash watermark"></i>
+                                    <div class="card-info">
+                                        <h3>Empleados <br><span>RETIRADOS</span></h3>
+                                        <p>Accede a los empleados retirados</p>
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="{{ url_for('rrhh.evaluacion')}}" class="card-link">
+                                <div class="card feature-card-new card-amber">
+                                    <i class="fa-solid fa-chart-line watermark"></i>
+                                    <div class="card-info">
+                                        <h3>Evaluacion de <br><span>Desempeño</span></h3>
+                                        <p>Asignación de Evaluacion</p>
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="{{ url_for('rrhh.mensajeria') }}" class="card-link">
+                                <div class="card feature-card-new card-purple">
+                                    <i class="fa-solid fa-inbox watermark"></i>
+                                    <div class="card-info">
+                                        <h3>Mensajeria <br><span>Masiva</span></h3>
+                                        <p>Envia Mensajes a cualquier Empleado</p>
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="{{ url_for('aula.aulaAdmin') }}" class="card-link">
+                                <div class="card feature-card-new card-indigo">
+                                    <i class="fa-solid fa-person-chalkboard watermark"></i>
+                                    <div class="card-info">
+                                        <h3>Aula <br><span>VIRTUAL</span></h3>
+                                        <p>Accede a las funciones de Aula Virtual</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- CONTENIDO DINÁMICO -->
+                <div id="dynamic-content" class="dynamic-content" {% if request.endpoint !='home.home'
+                    %}style="display: block;" {% endif %}>
+                    {% block content %}
+                    <!-- Contenido específico de cada página -->
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+        <!-- FINALIZA MENU CENTRAL -->
+        </div>
+
+        <!-- MENU DERECHA-CONTEOS -->
+         {% if u_id.startswith('sgi-') or u_id.startswith('rrhh-') %}
+        <div class="right-content">
+            <div class="analytics">
+                <h1>Resultados</h1>
+                <div class="analytics-container">
+                    {% if request.endpoint == 'rrhh.evaluar_empleado' %}
+                    {% if evaluado is defined and evaluado %}
+                    {% for tipo_competencia in tipo_competencias %}
+                    <div class="total-events">
+                        <div class="event-number card div-tipo-competencia" data-tipo-id="{{ tipo_competencia.id_tipo }}">
+                            <h2>{{ tipo_competencia.nombre }}</h2>
+                            <p class="eval-valor">
+                                <span class="total-tipo-competencia" data-tipo-id="{{ tipo_competencia.id_tipo }}" data-porcentaje="{{ tipo_competencia.porcentaje or 0 }}">0.00</span>
+                            </p>
+                            <p class="label-tipo-competencia eval-label" data-tipo-id="{{ tipo_competencia.id_tipo }}">-</p>
+                            <small>{{ tipo_competencia.porcentaje }}%</small>
+                            <i class="fa-regular fa-clipboard"></i>
+                        </div>
+                    </div>    
+                    {% endfor %}
+                    <div class="total-events">
+                        <div class="event-number card div-total-general" data-tipo-id="">
+                            <h1>Total</h1>
+                            <p class="eval-valor">
+                                <span class="total-total-general" data-tipo-id="total_general" data-porcentaje="">0.00</span>
+                            </p>
+                            <p class="label-total-general eval-label" data-tipo-id="">-</p>
+                        </div>
+                    </div>  
+                    {% endif %}
+                    {% elif current_user.get_id().startswith('sgi-') %}
+                    <div class="total-events analytics-card-clickable" id="openProcesosModal">
+                        <div class="event-number analytics-card ac-indigo">
+                            <h2><i class="fa-solid fa-arrows-spin"></i> Procesos</h2>
+                            <p class="analytics-value">{{ procesos|length if procesos is defined else 0 }}</p>
+                            <p class="analytics-sub">Procesos asociados a tu rol — Haz clic para ver</p>
+                            <i class="fa-regular fa-circle-check proceso-icon"></i>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="total-events{% if pendientes > 0 %} parpadea {% endif %} analytics-card-clickable" id="openPendientesModal">
+                        <div class="event-number analytics-card ac-teal">
+                            <h2>Pendientes por Aprobar</h2>
+                            <p class="analytics-value">{{ pendientes|default(0) }}</p>
+                            <p class="analytics-sub">Cambios pendientes de aprobación</p>
+                        </div>
+                    </div>
+                    <br>
+                    {% if current_user.rol != 16 %}
+                    <div class="total-events{% if rechazados > 0 %} parpadea {% endif %} analytics-card-clickable" id="openRechazadosModal">
+                        <div class="event-number analytics-card ac-red">
+                            <h2>Pendientes Rechazados</h2>
+                            <p class="analytics-value">{{ rechazados|default(0) }}</p>
+                            <p class="analytics-sub">Cambios rechazados</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                    <!-- BOTON MIS EVALUACIONES: visible para TODOS los SGI (fuera del condicional rol != 16) -->
+                    <div class="total-events analytics-card-clickable" id="btnMisEvaluaciones">
+                        <div class="event-number analytics-card ac-blue">
+                            <h2>📋 Mis Evaluaciones</h2>
+                            <p class="analytics-sub">Ver evaluaciones pendientes de aprobar</p>
+                        </div>
+                    </div>
+                    <br>
+                    <!-- BUZON -->
+                    <div class="total-events analytics-card-clickable" onclick="location.href='{{ url_for('rrhh.buzon') }}'">
+                        <div class="event-number analytics-card ac-indigo">
+                            <h2><i class="fa-solid fa-inbox"></i> Buzón</h2>
+                            <p class="analytics-value" id="buzonNoLeidosCount">-</p>
+                            <p class="analytics-sub">Mensajes sin leer — Haz clic para ver</p>
+                        </div>
+                    </div>
+                    <br>
+                    {% elif 'rrhh-' in current_user.get_id() %}
+                    {% if current_user.sgi_rol_id == 8 %}
+                    <div class="total-events analytics-card-clickable" id="openEmpleadosActivosModal">
+                        <div class="event-number analytics-card ac-green">
+                            <h2><i class="fa-solid fa-users"></i> Empleados Activos</h2>
+                            <p class="analytics-value">{{empleados}}</p>
+                            <p class="analytics-sub">Empleados activos en el sistema — Haz clic para ver</p>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="total-events analytics-card-clickable" id="openEmpleadosRetiradosModal">
+                        <div class="event-number analytics-card ac-slate">
+                            <h2><i class="fa-solid fa-users-slash"></i> Empleados Retirados</h2>
+                            <p class="analytics-value">{{empleados_retirados}}</p>
+                            <p class="analytics-sub">Empleados retirados del sistema — Haz clic para ver</p>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="total-events analytics-card-clickable" id="openGruposNominaModal">
+                        <div class="event-number analytics-card ac-purple">
+                            <h2><i class="fa-solid fa-building-user"></i> Grupos de Nómina</h2>
+                            <p class="analytics-value">{{cuenta_nominas}}</p>
+                            <p class="analytics-sub">Grupos de nómina registrados — Haz clic para ver</p>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="total-events analytics-card-clickable" id="openConsecutivosModal">
+                        <div class="event-number analytics-card ac-amber">
+                            <h2><i class="fa-solid fa-file-signature"></i> Consecutivo de Contratos</h2>
+                            <p class="analytics-value">{{ consecutivo_contratos|length }}</p>
+                            <p class="analytics-sub">Tipos de contrato — Haz clic para ver</p>
+                        </div>
+                    </div>
+                    <br>
+                    {% endif %}
+                    <!-- BOTON MIS EVALUACIONES: visible para TODOS los RRHH (incluso sin cargo admin) -->
+                    <div class="total-events analytics-card-clickable" id="btnMisEvaluaciones">
+                        <div class="event-number analytics-card ac-blue">
+                            <h2>📋 Mis Evaluaciones</h2>
+                            <p class="analytics-sub">Ver evaluaciones pendientes de aprobar</p>
+                        </div>
+                    </div>
+                    <br>
+                    <!-- BUZON -->
+                    <div class="total-events analytics-card-clickable" onclick="location.href='{{ url_for('rrhh.buzon') }}'">
+                        <div class="event-number analytics-card ac-indigo">
+                            <h2><i class="fa-solid fa-inbox"></i> Buzón</h2>
+                            <p class="analytics-value" id="buzonNoLeidosCount">-</p>
+                            <p class="analytics-sub">Mensajes sin leer — Haz clic para ver</p>
+                        </div>
+                    </div>
+                    <br>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        <!-- FINALIZA MENU DERECHA -->
+    </section>
+    <!-- Modal personalizado -->
+    <div id="pendientesModal" class="custom-modal">
+        <div class="custom-modal-content">
+            <span class="custom-modal-close" id="closePendientesModal">&times;</span>
+            <h2><i class="fa-regular fa-clock"></i> Pendientes por Aprobar</h2>
+            <div id="pendientesModalBody" class="feature-grid">
+                <div class="feature-card">
+                    <p>Cargando cambios pendientes...</p>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="btn-accion btn-cancelar" onclick="cerrarPendientesModal()">
+                    <i class="fa-solid fa-xmark"></i> Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="rechazadosModal" class="custom-modal">
+        <div class="custom-modal-content">
+            <span class="custom-modal-close" id="closerechazadosModal">&times;</span>
+            <h2><i class="fa-regular fa-circle-xmark"></i> Pendientes Rechazados</h2>
+            <div id="rechazadosModalBody" class="feature-grid">
+                <div class="feature-card">
+                    <p>Cargando cambios rechazados...</p>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="btn-accion btn-cancelar" onclick="cerrarRechazadosModal()">
+                    <i class="fa-solid fa-xmark"></i> Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- MODAL CONSECUTIVO (edición individual) -->
+    <div id="modalConsecutivo" class="custom-modal">
+        <div class="custom-modal-content">
+            <h3 id="tituloContrato_Consecutivo"></h3>
+
+            <form id="formConsecutivo">
+                {% if config.get('WTF_CSRF_ENABLED') %}<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">{% endif %}
+                <input type="hidden" id="id_contrato_consecutivo">
+
+                <div class="modal-row">
+                    <label for="ult_consecutivo">Consecutivo:</label>
+                    <input type="text" id="ult_consecutivo">
+                </div>
+
+                <div class="modal-actions">
+                    <button type="submit" class="btn-accion btn-guardar"><i class="fa-solid fa-floppy-disk"></i> Guardar</button>
+                    <button type="button" class="btn-accion btn-cancelar"
+                        onclick="cerrarModalConsecutivo()">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL LISTA DE CONSECUTIVOS (todos los tipos) -->
+    <div id="modalConsecutivosLista" class="custom-modal">
+        <div class="custom-modal-content modal-consecutivos-content">
+            <span class="custom-modal-close" id="closeConsecutivosListaModal">&times;</span>
+            <h2><i class="fa-solid fa-file-signature"></i> Consecutivos de Contratos</h2>
+            <div class="consecutivos-table-container">
+                <table class="consecutivos-table">
+                    <thead>
+                        <tr>
+                            <th>Tipo de Contrato</th>
+                            <th>Último Consecutivo</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody id="consecutivosListaBody">
+                        {% for consecutivo in consecutivo_contratos %}
+                        <tr class="consecutivo-fila" data-id="{{ consecutivo.id }}">
+                            <td class="consecutivo-nombre">{{ consecutivo.nombre }}</td>
+                            <td>
+                                <span class="consecutivo-badge">{{ consecutivo.ult_consecutivo }}</span>
+                            </td>
+                            <td>
+                                <button class="btn-editar-consecutivo" data-id="{{ consecutivo.id }}">
+                                    <i class="fa-solid fa-pen-to-square"></i> Editar
+                                </button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% if not consecutivo_contratos %}
+                <p class="consecutivos-empty">No hay tipos de contrato registrados.</p>
+                {% endif %}
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="btn-accion btn-cancelar" onclick="cerrarConsecutivosListaModal()">
+                    <i class="fa-solid fa-xmark"></i> Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL LISTA DE EMPLEADOS ACTIVOS -->
+    <div id="modalEmpleadosActivos" class="custom-modal">
+        <div class="custom-modal-content modal-empleados-content">
+            <span class="custom-modal-close" id="closeEmpleadosActivosModal">&times;</span>
+            <h2><i class="fa-solid fa-users"></i> Empleados Activos</h2>
+            <div class="modal-empleados-body">
+                <div class="modal-empleados-loading">
+                    <div class="spinner-sm"></div>
+                    <p>Cargando empleados...</p>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="btn-accion btn-cancelar" onclick="cerrarEmpleadosActivosModal()">
+                    <i class="fa-solid fa-xmark"></i> Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL LISTA DE EMPLEADOS RETIRADOS -->
+    <div id="modalEmpleadosRetirados" class="custom-modal">
+        <div class="custom-modal-content modal-empleados-content">
+            <span class="custom-modal-close" id="closeEmpleadosRetiradosModal">&times;</span>
+            <h2><i class="fa-solid fa-users-slash"></i> Empleados Retirados</h2>
+            <div class="modal-empleados-body">
+                <div class="modal-empleados-loading">
+                    <div class="spinner-sm"></div>
+                    <p>Cargando empleados...</p>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="btn-accion btn-cancelar" onclick="cerrarEmpleadosRetiradosModal()">
+                    <i class="fa-solid fa-xmark"></i> Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL LISTA DE GRUPOS DE NÓMINA -->
+    <div id="modalGruposNomina" class="custom-modal">
+        <div class="custom-modal-content modal-grupos-content">
+            <span class="custom-modal-close" id="closeGruposNominaModal">&times;</span>
+            <h2><i class="fa-solid fa-building-user"></i> Grupos de Nómina</h2>
+            <div class="modal-grupos-body">
+                <div class="modal-empleados-loading">
+                    <div class="spinner-sm"></div>
+                    <p>Cargando grupos...</p>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="btn-accion btn-cancelar" onclick="cerrarGruposNominaModal()">
+                    <i class="fa-solid fa-xmark"></i> Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL LISTA DE PROCESOS -->
+    <div id="modalProcesos" class="custom-modal">
+        <div class="custom-modal-content modal-procesos-content">
+            <span class="custom-modal-close" id="closeProcesosModal">&times;</span>
+            <h2><i class="fa-solid fa-arrows-spin"></i> Procesos</h2>
+            <div class="modal-procesos-body">
+                {% if procesos is defined and procesos %}
+                <div class="procesos-grid">
+                    {% for proceso in procesos %}
+                    <div class="proceso-card">
+                        <i class="fa-solid fa-diagram-project"></i>
+                        <span>{{ proceso.replace('_', ' ') }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="modal-empty-state">
+                    <i class="fa-regular fa-face-smile"></i>
+                    <p>No hay procesos asociados a tu rol.</p>
+                </div>
+                {% endif %}
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="btn-accion btn-cancelar" onclick="cerrarProcesosModal()">
+                    <i class="fa-solid fa-xmark"></i> Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-vtXRMe3mGCbOeY7l30aIg8H9p3GdeSe4IFlP6G8JMa7o7lXvnz3GFKzPxzJdPfGK" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" integrity="sha384-nLoOnA/BDh8A/jxqtckg4DumuCGOBYUnNJLZdQz/zfYNp3wcjGSoWTAzgko06G/2" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='js/sweetalert-config.js') }}"></script>
+
+    <script>
+    // ---------- Cierre de sesión por inactividad (20 minutos) ----------
+    // El servidor también cierra la sesión por inactividad (before_request); este
+    // script es la capa visual: avisa 1 minuto antes y muestra la alerta al cerrar.
+    (function () {
+        var TIEMPO_INACTIVIDAD_MS = 20 * 60 * 1000; // 20 minutos
+        var AVISO_ANTES_MS = 60 * 1000;              // aviso 1 minuto antes de expirar
+        var SEGUNDOS_AVISO = 60;
+        // URL del logout generada por el servidor (respeta el prefijo y el endpoint real)
+        var urlLogout = "{{ url_for('auth.logout', expirada=1) }}";
+        var temporizadorAviso = null;
+        var temporizadorCierre = null;
+        var avisoAbierto = false;
+
+        function irAlLogout() {
+            window.location.href = urlLogout;
+        }
+
+        function mostrarAvisoExpiracion() {
+            if (avisoAbierto) return;
+            avisoAbierto = true;
+            var cuentaRegresiva = null;
+
+            Swal.fire({
+                title: 'Tu sesión expirará pronto',
+                html: 'Llevas <strong>20 minutos</strong> sin actividad.<br>Tu sesión se cerrará en <strong id="swal-countdown">' + SEGUNDOS_AVISO + '</strong> segundos.',
+                icon: 'warning',
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                showConfirmButton: true,
+                confirmButtonText: 'Permanecer conectado',
+                confirmButtonColor: '#2563eb',
+                showCancelButton: true,
+                cancelButtonText: 'Cerrar sesión ahora',
+                cancelButtonColor: '#dc2626',
+                didOpen: function () {
+                    var segundos = SEGUNDOS_AVISO;
+                    cuentaRegresiva = setInterval(function () {
+                        segundos -= 1;
+                        var el = document.getElementById('swal-countdown');
+                        if (el) el.textContent = segundos;
+                        if (segundos <= 0) {
+                            clearInterval(cuentaRegresiva);
+                            Swal.close();
+                            irAlLogout();
+                        }
+                    }, 1000);
+                },
+                willClose: function () {
+                    if (cuentaRegresiva) clearInterval(cuentaRegresiva);
+                }
+            }).then(function (result) {
+                if (result.isConfirmed) {
+                    // El usuario sigue activo: reiniciar contadores
+                    avisoAbierto = false;
+                    reiniciarTemporizadores();
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    irAlLogout();
+                }
+            });
+        }
+
+        function reiniciarTemporizadores() {
+            if (avisoAbierto) return; // no reiniciar mientras el aviso esté abierto
+            clearTimeout(temporizadorAviso);
+            clearTimeout(temporizadorCierre);
+            temporizadorAviso = setTimeout(mostrarAvisoExpiracion, TIEMPO_INACTIVIDAD_MS - AVISO_ANTES_MS);
+            temporizadorCierre = setTimeout(irAlLogout, TIEMPO_INACTIVIDAD_MS);
+        }
+
+        // Cualquier interacción del usuario reinicia el conteo de inactividad
+        ['mousemove', 'mousedown', 'keydown', 'scroll', 'touchstart', 'click'].forEach(function (evt) {
+            document.addEventListener(evt, reiniciarTemporizadores, { passive: true });
+        });
+
+        reiniciarTemporizadores();
+    })();
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js" integrity="sha384-e6nUZLBkQ86NJ6TVVKAeSaK8jWa3NhkYWZFomE39AvDbQWeie9PlQqM3pmYW5d1g" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='js/home_admin.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/empleados.js') }}"></script>
+
+    <script>
+        // Mobile nav toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            var toggleBtn = document.getElementById('mobileNavToggle');
+            var navLinks = document.getElementById('mobileNavLinks');
+            var overlay = document.getElementById('mobileNavOverlay');
+            if (toggleBtn && navLinks) {
+                toggleBtn.addEventListener('click', function() {
+                    var isOpen = navLinks.classList.toggle('open');
+                    toggleBtn.innerHTML = isOpen ? '<i class="fa-solid fa-xmark"></i>' : '<i class="fa-solid fa-bars"></i>';
+                    if (overlay) overlay.classList.toggle('open');
+                });
+                if (overlay) {
+                    overlay.addEventListener('click', function() {
+                        navLinks.classList.remove('open');
+                        toggleBtn.innerHTML = '<i class="fa-solid fa-bars"></i>';
+                        overlay.classList.remove('open');
+                    });
+                }
+            }
+        });
+
+        window.BASE_URL = "{{ request.script_root }}";
+        
+        // ---- Global CSRF token setup for AJAX/JSON requests ----
+        {% if config.get('WTF_CSRF_ENABLED') %}
+        window.CSRF_TOKEN = "{{ csrf_token() }}";
+        
+        // Intercept fetch() to add X-CSRFToken header to non-GET requests
+        (function() {
+            var originalFetch = window.fetch;
+            window.fetch = function(url, opts) {
+                opts = opts || {};
+                var method = (opts.method || 'GET').toUpperCase();
+                if (method !== 'GET' && method !== 'HEAD' && method !== 'OPTIONS') {
+                    opts.headers = opts.headers || {};
+                    if (typeof opts.headers.append === 'function') {
+                        // Headers object
+                        if (!opts.headers.has('X-CSRFToken')) {
+                            opts.headers.append('X-CSRFToken', window.CSRF_TOKEN);
+                        }
+                    } else {
+                        // Plain object
+                        if (!opts.headers['X-CSRFToken']) {
+                            opts.headers['X-CSRFToken'] = window.CSRF_TOKEN;
+                        }
+                    }
+                }
+                return originalFetch.call(window, url, opts);
+            };
+        })();
+        
+        // Also add to XMLHttpRequest for legacy AJAX calls
+        (function() {
+            var originalOpen = XMLHttpRequest.prototype.open;
+            XMLHttpRequest.prototype.open = function(method, url) {
+                this._csrfMethod = method;
+                return originalOpen.apply(this, arguments);
+            };
+            var originalSend = XMLHttpRequest.prototype.send;
+            XMLHttpRequest.prototype.send = function(body) {
+                var method = (this._csrfMethod || 'GET').toUpperCase();
+                if (method !== 'GET' && method !== 'HEAD' && method !== 'OPTIONS') {
+                    this.setRequestHeader('X-CSRFToken', window.CSRF_TOKEN);
+                }
+                return originalSend.apply(this, arguments);
+            };
+        })();
+        {% endif %}
+    </script>
+    <script>
+        const pendientesModal = document.getElementById('pendientesModal');
+        const rechazadosModal = document.getElementById('rechazadosModal');
+        const pendientesBody = document.getElementById('pendientesModalBody');
+        const rechazadosBody = document.getElementById('rechazadosModalBody');
+        const aprobarCambioUrl = "{{ url_for('proc.aprobar_cambio') }}";
+        const esAprobador = {{ 'true' if current_user.get_id().startswith('sgi-') and current_user.rol in [16] else 'false' }};
+
+        let pendientesCargados = false;
+        let rechazadosCargados = false;
+
+        function escapeHtml(value) {
+            return String(value ?? '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
+        function renderPendientes(cambios) {
+            if (!cambios.length) {
+                pendientesBody.innerHTML = '<div class="feature-card"><p>No hay cambios pendientes.</p></div>';
+                return;
+            }
+
+            pendientesBody.innerHTML = cambios.map((cambio) => {
+                const formHtml = esAprobador ? `
+                <form class="aprobacion-form" method="POST" action="${aprobarCambioUrl}">
+                    <input type="hidden" name="id" value="${escapeHtml(cambio.id)}">
+                    <input type="hidden" name="nombre_documento" value="${escapeHtml(cambio.documento)}">
+                    <input type="hidden" name="version" value="${escapeHtml(cambio.version)}">
+                    ${window.CSRF_TOKEN ? '<input type="hidden" name="csrf_token" value="' + window.CSRF_TOKEN + '">' : ''}
+                    <select class="form-label" name="aprobacion">
+                        <option value="Aprobado">Aprobar</option>
+                        <option value="Rechazado">Rechazar</option>
+                    </select>
+                    <button type="submit" class="btn-10"><i class="fa-solid fa-paper-plane"></i> Enviar</button>
+                </form>
+            ` : '';
+
+                return `
+                <div class="feature-card">
+                    <i class="fa-regular fa-file-lines"></i>
+                    <h3>Nombre del procedimiento: ${escapeHtml(cambio.documento)}</h3>
+                    <p>Solicitante: ${escapeHtml(cambio.solicitante)}</p>
+                    <p>Descripción del cambio: ${escapeHtml(cambio.descripcion)}</p>
+                    ${formHtml}
+                </div>
+            `;
+            }).join('');
+        }
+
+        function renderRechazados(cambios) {
+            if (!cambios.length) {
+                rechazadosBody.innerHTML = '<div class="feature-card"><p>No hay cambios rechazados.</p></div>';
+                return;
+            }
+
+            rechazadosBody.innerHTML = cambios.map((cambio) => `
+            <div class="feature-card">
+                <i class="fa-regular fa-file-lines"></i>
+                <h3>Nombre del procedimiento: ${escapeHtml(cambio.documento)}</h3>
+                <p>Solicitante: ${escapeHtml(cambio.solicitante)}</p>
+                <p>Descripción del cambio: ${escapeHtml(cambio.descripcion)}</p>
+            </div>
+        `).join('');
+        }
+
+        async function cargarPendientes() {
+            if (pendientesCargados) return;
+            pendientesBody.innerHTML = '<div class="feature-card"><p>Cargando cambios pendientes...</p></div>';
+
+            try {
+                const response = await fetch("{{ url_for('home.cambios_pendientes') }}");
+                const data = await response.json();
+                if (!response.ok || !data.success) {
+                    throw new Error(data.message || 'No fue posible cargar los pendientes.');
+                }
+                renderPendientes(data.cambios || []);
+                pendientesCargados = true;
+            } catch (error) {
+                pendientesBody.innerHTML = `<div class="feature-card"><p>${escapeHtml(error.message)}</p></div>`;
+            }
+        }
+
+        async function cargarRechazados() {
+            if (rechazadosCargados) return;
+            rechazadosBody.innerHTML = '<div class="feature-card"><p>Cargando cambios rechazados...</p></div>';
+
+            try {
+                const response = await fetch("{{ url_for('home.cambios_rechazados') }}");
+                const data = await response.json();
+                if (!response.ok || !data.success) {
+                    throw new Error(data.message || 'No fue posible cargar los rechazados.');
+                }
+                renderRechazados(data.cambios || []);
+                rechazadosCargados = true;
+            } catch (error) {
+                rechazadosBody.innerHTML = `<div class="feature-card"><p>${escapeHtml(error.message)}</p></div>`;
+            }
+        }
+
+        function cerrarPendientesModal() {
+            pendientesModal.style.display = 'none';
+            pendientesCargados = false; // Permitir recarga al reabrir
+        }
+
+        function cerrarRechazadosModal() {
+            rechazadosModal.style.display = 'none';
+            rechazadosCargados = false; // Permitir recarga al reabrir
+        }
+
+        const openPendientesBtn = document.getElementById('openPendientesModal');
+        if (openPendientesBtn) {
+            openPendientesBtn.onclick = function () {
+                pendientesModal.style.display = 'flex';
+                cargarPendientes();
+            };
+        }
+
+        document.getElementById('closePendientesModal').onclick = cerrarPendientesModal;
+
+        // =====================================================
+        // MODAL: Lista de Consecutivos de Contratos
+        // =====================================================
+        function abrirConsecutivosListaModal() {
+            document.getElementById('modalConsecutivosLista').style.display = 'flex';
+        }
+
+        function cerrarConsecutivosListaModal() {
+            document.getElementById('modalConsecutivosLista').style.display = 'none';
+        }
+
+        const openConsBtn = document.getElementById('openConsecutivosModal');
+        if (openConsBtn) {
+            openConsBtn.addEventListener('click', abrirConsecutivosListaModal);
+        }
+
+        document.getElementById('closeConsecutivosListaModal').onclick = cerrarConsecutivosListaModal;
+
+        // Click en botones "Editar" dentro de la tabla de consecutivos
+        document.addEventListener('click', function(e) {
+            const btnEditCons = e.target.closest('.btn-editar-consecutivo');
+            if (!btnEditCons) return;
+            e.preventDefault();
+            const id = btnEditCons.dataset.id;
+            // Cerrar el modal de lista y abrir el de edición
+            cerrarConsecutivosListaModal();
+            AbrirModalEditConsecutivo(id);
+        });
+
+        // Cerrar modal de lista al hacer clic fuera
+        window.addEventListener('click', function(event) {
+            const modal = document.getElementById('modalConsecutivosLista');
+            if (event.target === modal) cerrarConsecutivosListaModal();
+        });
+
+        // =====================================================
+        // MODAL: Empleados Activos
+        // =====================================================
+        let empleadosActivosCargados = false;
+        const modalEmpleadosActivos = document.getElementById('modalEmpleadosActivos');
+        const empleadosActivosBody = document.querySelector('#modalEmpleadosActivos .modal-empleados-body');
+
+        function escapeHtmlArr(value) {
+            if (value === null || value === undefined) return '-';
+            return String(value)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;');
+        }
+
+        async function cargarEmpleadosActivos() {
+            if (empleadosActivosCargados) return;
+            empleadosActivosBody.innerHTML = '<div class="modal-empleados-loading"><div class="spinner-sm"></div><p>Cargando empleados...</p></div>';
+            try {
+                const resp = await fetch(getBaseUrl() + '/rrhh/api/empleados_activos');
+                const data = await resp.json();
+                if (!resp.ok || !data.success) {
+                    throw new Error(data.error || 'Error al cargar empleados activos');
+                }
+                renderEmpleadosTabla(data.empleados, empleadosActivosBody);
+                empleadosActivosCargados = true;
+            } catch (e) {
+                empleadosActivosBody.innerHTML = `<div class="modal-empty-state"><i class="fa-solid fa-circle-exclamation"></i><p>${escapeHtmlArr(e.message)}</p></div>`;
+            }
+        }
+
+        function renderEmpleadosTabla(empleados, container) {
+            if (!empleados || !empleados.length) {
+                container.innerHTML = '<div class="modal-empty-state"><i class="fa-regular fa-face-smile"></i><p>No hay empleados para mostrar.</p></div>';
+                return;
+            }
+            container.innerHTML = `
+                <div class="modal-empleados-table-wrap">
+                    <table class="modal-empleados-table">
+                        <thead>
+                            <tr>
+                                <th>Identificación</th>
+                                <th>Nombres</th>
+                                <th>Apellidos</th>
+                                <th>Cargo</th>
+                                <th>Grupo Nómina</th>
+                                <th>Contrato</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${empleados.map(e => `
+                                <tr>
+                                    <td>${escapeHtmlArr(e.identificacion)}</td>
+                                    <td>${escapeHtmlArr(e.nombres)}</td>
+                                    <td>${escapeHtmlArr(e.apellidos)}</td>
+                                    <td>${escapeHtmlArr(e.cargo)}</td>
+                                    <td>${escapeHtmlArr(e.grupo_nomina)}</td>
+                                    <td>${escapeHtmlArr(e.tipo_contrato)}</td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+        }
+
+        function cerrarEmpleadosActivosModal() {
+            modalEmpleadosActivos.style.display = 'none';
+            empleadosActivosCargados = false;
+        }
+
+        const openEmpleadosActivos = document.getElementById('openEmpleadosActivosModal');
+        if (openEmpleadosActivos) {
+            openEmpleadosActivos.addEventListener('click', function() {
+                modalEmpleadosActivos.style.display = 'flex';
+                cargarEmpleadosActivos();
+            });
+        }
+        const closeEmpleadosActivosBtn = document.getElementById('closeEmpleadosActivosModal');
+        if (closeEmpleadosActivosBtn) closeEmpleadosActivosBtn.onclick = cerrarEmpleadosActivosModal;
+        window.addEventListener('click', function(event) {
+            if (event.target === modalEmpleadosActivos) cerrarEmpleadosActivosModal();
+        });
+
+        // =====================================================
+        // MODAL: Empleados Retirados
+        // =====================================================
+        let empleadosRetiradosCargados = false;
+        const modalEmpleadosRetirados = document.getElementById('modalEmpleadosRetirados');
+        const empleadosRetiradosBody = document.querySelector('#modalEmpleadosRetirados .modal-empleados-body');
+
+        async function cargarEmpleadosRetirados() {
+            if (empleadosRetiradosCargados) return;
+            empleadosRetiradosBody.innerHTML = '<div class="modal-empleados-loading"><div class="spinner-sm"></div><p>Cargando empleados retirados...</p></div>';
+            try {
+                const resp = await fetch(getBaseUrl() + '/rrhh/api/empleados_retirados');
+                const data = await resp.json();
+                if (!resp.ok || !data.success) {
+                    throw new Error(data.error || 'Error al cargar empleados retirados');
+                }
+                renderEmpleadosTabla(data.empleados, empleadosRetiradosBody);
+                empleadosRetiradosCargados = true;
+            } catch (e) {
+                empleadosRetiradosBody.innerHTML = `<div class="modal-empty-state"><i class="fa-solid fa-circle-exclamation"></i><p>${escapeHtmlArr(e.message)}</p></div>`;
+            }
+        }
+
+        function cerrarEmpleadosRetiradosModal() {
+            modalEmpleadosRetirados.style.display = 'none';
+            empleadosRetiradosCargados = false;
+        }
+
+        const openEmpleadosRetirados = document.getElementById('openEmpleadosRetiradosModal');
+        if (openEmpleadosRetirados) {
+            openEmpleadosRetirados.addEventListener('click', function() {
+                modalEmpleadosRetirados.style.display = 'flex';
+                cargarEmpleadosRetirados();
+            });
+        }
+        const closeEmpleadosRetiradosBtn = document.getElementById('closeEmpleadosRetiradosModal');
+        if (closeEmpleadosRetiradosBtn) closeEmpleadosRetiradosBtn.onclick = cerrarEmpleadosRetiradosModal;
+        window.addEventListener('click', function(event) {
+            if (event.target === modalEmpleadosRetirados) cerrarEmpleadosRetiradosModal();
+        });
+
+        // =====================================================
+        // MODAL: Grupos de Nómina
+        // =====================================================
+        let gruposNominaCargados = false;
+        const modalGruposNomina = document.getElementById('modalGruposNomina');
+        const gruposNominaBody = document.querySelector('#modalGruposNomina .modal-grupos-body');
+
+        async function cargarGruposNomina() {
+            if (gruposNominaCargados) return;
+            gruposNominaBody.innerHTML = '<div class="modal-empleados-loading"><div class="spinner-sm"></div><p>Cargando grupos de nómina...</p></div>';
+            try {
+                const resp = await fetch(getBaseUrl() + '/rrhh/api/grupos_nomina');
+                const data = await resp.json();
+                if (!resp.ok || !data.success) {
+                    throw new Error(data.error || 'Error al cargar grupos de nómina');
+                }
+                renderGruposNomina(data.grupos, gruposNominaBody);
+                gruposNominaCargados = true;
+            } catch (e) {
+                gruposNominaBody.innerHTML = `<div class="modal-empty-state"><i class="fa-solid fa-circle-exclamation"></i><p>${escapeHtmlArr(e.message)}</p></div>`;
+            }
+        }
+
+        function renderGruposNomina(grupos, container) {
+            if (!grupos || !grupos.length) {
+                container.innerHTML = '<div class="modal-empty-state"><i class="fa-regular fa-face-smile"></i><p>No hay grupos de nómina registrados.</p></div>';
+                return;
+            }
+            container.innerHTML = `
+                <div class="grupos-nomina-grid">
+                    ${grupos.map(g => `
+                        <div class="grupo-nomina-card">
+                            <i class="fa-solid fa-building"></i>
+                            <span>${escapeHtmlArr(g.nombre)}</span>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        function cerrarGruposNominaModal() {
+            modalGruposNomina.style.display = 'none';
+            gruposNominaCargados = false;
+        }
+
+        const openGruposNomina = document.getElementById('openGruposNominaModal');
+        if (openGruposNomina) {
+            openGruposNomina.addEventListener('click', function() {
+                modalGruposNomina.style.display = 'flex';
+                cargarGruposNomina();
+            });
+        }
+        const closeGruposNominaBtn = document.getElementById('closeGruposNominaModal');
+        if (closeGruposNominaBtn) closeGruposNominaBtn.onclick = cerrarGruposNominaModal;
+        window.addEventListener('click', function(event) {
+            if (event.target === modalGruposNomina) cerrarGruposNominaModal();
+        });
+
+        // =====================================================
+        // MODAL: Procesos
+        // =====================================================
+        const modalProcesos = document.getElementById('modalProcesos');
+
+        function abrirProcesosModal() {
+            modalProcesos.style.display = 'flex';
+        }
+
+        function cerrarProcesosModal() {
+            modalProcesos.style.display = 'none';
+        }
+
+        const openProcesos = document.getElementById('openProcesosModal');
+        if (openProcesos) openProcesos.addEventListener('click', abrirProcesosModal);
+        const closeProcesos = document.getElementById('closeProcesosModal');
+        if (closeProcesos) closeProcesos.onclick = cerrarProcesosModal;
+        window.addEventListener('click', function(event) {
+            if (event.target === modalProcesos) cerrarProcesosModal();
+        });
+
+        const openRechazadosBtn = document.getElementById('openRechazadosModal');
+        if (openRechazadosBtn) {
+            openRechazadosBtn.onclick = function () {
+                rechazadosModal.style.display = 'flex';
+                cargarRechazados();
+            };
+        }
+
+        document.getElementById('closerechazadosModal').onclick = cerrarRechazadosModal;
+
+        window.addEventListener('click', function (event) {
+            if (event.target === pendientesModal) cerrarPendientesModal();
+            if (event.target === rechazadosModal) cerrarRechazadosModal();
+        });
+
+        // =====================================================
+        // MODAL: Aprobación de evaluaciones por el evaluado
+        // =====================================================
+        function obtenerCalificacion(valor) {
+            let texto = "SIN EVALUAR";
+            let color = "#92400e";
+            let clase = "calif-sin-evaluar";
+            let claseTexto = "calif-txt-sin-evaluar";
+            if (valor >= 0 && valor < 2.0) {
+                texto = "PÉSIMO";
+                color = "#CC0000";
+                clase = "calif-pesimo";
+                claseTexto = "calif-txt-pesimo";
+            } else if (valor >= 2.0 && valor < 3.0) {
+                texto = "MALO";
+                color = "#5D417E";
+                clase = "calif-malo";
+                claseTexto = "calif-txt-malo";
+            } else if (valor >= 3.0 && valor < 3.5) {
+                texto = "REGULAR";
+                color = "#2C5D98";
+                clase = "calif-regular";
+                claseTexto = "calif-txt-regular";
+            } else if (valor >= 3.5 && valor < 4.0) {
+                texto = "BUENO";
+                color = "#CB6C1D";
+                clase = "calif-bueno";
+                claseTexto = "calif-txt-bueno";
+            } else if (valor >= 4.0 && valor < 4.6) {
+                texto = "SOBRESALIENTE";
+                color = "#769535";
+                clase = "calif-sobresaliente";
+                claseTexto = "calif-txt-sobresaliente";
+            } else if (valor >= 4.6 && valor <= 5.0) {
+                texto = "EXCELENTE";
+                color = "#2787A0";
+                clase = "calif-excelente";
+                claseTexto = "calif-txt-excelente";
+            }
+            return { texto, color, clase, claseTexto };
+        }
+
+        async function verificarEvaluacionesPendientes(manual) {
+            // Aplica para usuarios RRHH y SGI (ambos pueden ser evaluados)
+            const userId = '{{ current_user.get_id() if current_user.is_authenticated else "" }}';
+            if (!userId.startsWith('rrhh-') && !userId.startsWith('sgi-')) return;
+
+            try {
+                const urlEvaluaciones = "{{ url_for('rrhh.mis_evaluaciones_pendientes') }}";
+                const urlAprobar = "{{ url_for('rrhh.aprobar_evaluacion_evaluado') }}";
+
+                // Si es llamado manualmente, mostrar loading
+                if (manual) {
+                    Swal.fire({
+                        title: 'Consultando...',
+                        text: 'Buscando evaluaciones pendientes',
+                        allowOutsideClick: false,
+                        didOpen: () => Swal.showLoading()
+                    });
+                }
+
+                const resp = await fetch(urlEvaluaciones);
+                if (!resp.ok) {
+                    if (manual) Swal.close();
+                    console.warn('Evaluaciones pendientes: respuesta no OK', resp.status);
+                    if (manual) {
+                        Swal.fire('Error', 'No se pudo conectar con el servidor (HTTP ' + resp.status + ')', 'error');
+                    }
+                    return;
+                }
+                const data = await resp.json();
+                if (!data.success || !data.evaluaciones || !data.evaluaciones.length) {
+                    if (manual) {
+                        Swal.fire('Sin pendientes', 'No tienes evaluaciones pendientes de aprobar.', 'info');
+                    } else {
+                        console.log('No hay evaluaciones pendientes de aprobaci\u00f3n');
+                    }
+                    return;
+                }
+                if (manual) Swal.close();
+
+                // Hay evaluaciones pendientes, mostrar modal
+                const ev = data.evaluaciones[0];
+                
+                // Construir HTML de resultados
+                let resultadosHtml = '';
+                if (ev.resultados_tipo && ev.resultados_tipo.length) {
+                    ev.resultados_tipo.forEach(tipo => {
+                        const resultadoTipo = Number(tipo.resultado) || 0;
+                        const cal = obtenerCalificacion(resultadoTipo);
+                        resultadosHtml += `
+                            <div class="eval-result-item">
+                                <div class="eval-result-row">
+                                    <span class="${cal.clase} eval-result-badge">
+                                        ${tipo.nombre_tipo}: ${resultadoTipo ? resultadoTipo.toFixed(2) : '—'}
+                                    </span>
+                                    <span class="eval-result-label">${cal.texto}</span>
+                                </div>
+                                ${tipo.competencias && tipo.competencias.length ? `
+                                <div class="eval-competencias-wrap">
+                                    ${tipo.competencias.map(c => {
+                                        const resultadoComp = Number(c.resultado) || 0;
+                                        const calComp = obtenerCalificacion(resultadoComp);
+                                        return `<span class="${calComp.clase} eval-comp-badge">${c.nombre_competencia}: ${resultadoComp ? resultadoComp.toFixed(2) : '—'}</span>`;
+                                    }).join('')}
+                                </div>` : ''}
+                            </div>
+                        `;
+                    });
+                } else {
+                    resultadosHtml = '<p class="eval-empty">Sin resultados detallados</p>';
+                }
+
+                // Resultado general
+                let generalHtml = '';
+                if (ev.resultado_general) {
+                    const resultadoGeneral = Number(ev.resultado_general) || 0;
+                    const cal = obtenerCalificacion(resultadoGeneral / 20);
+                    generalHtml = `
+                        <div class="${cal.clase} eval-general-bar">
+                            <span class="eval-general-label">Resultado General</span>
+                            <span class="eval-general-value">${resultadoGeneral.toFixed(2)}%</span>
+                            <span class="eval-general-text">${cal.texto}</span>
+                        </div>
+                    `;
+                }
+
+                // Observaciones del evaluador
+                const obsEvaluador = ev.observaciones_evaluador 
+                    ? `<div class="eval-obs-block">
+                        <strong class="eval-obs-label">Observaciones del Evaluador:</strong>
+                        <p class="eval-obs-text">${ev.observaciones_evaluador}</p>
+                       </div>`
+                    : '';
+
+                const result = await Swal.fire({
+                    title: `Evaluación de Desempeño ${ev.anio_evaluacion}`,
+                    html: `
+                        <div class="eval-container">
+                            <div class="eval-info-box">
+                                <span class="eval-info-text"><strong>Evaluador:</strong> ${ev.evaluador_nombres} ${ev.evaluador_apellidos}</span>
+                                ${ev.plantilla_nombre ? `<span class="eval-separator">·</span><span class="eval-info-text"><strong>Cargo:</strong> ${ev.plantilla_nombre}</span>` : ''}
+                            </div>
+                            ${generalHtml}
+                            <div class="eval-section-wrap">
+                                <strong class="eval-section-title">Resultados por Competencia</strong>
+                            </div>
+                            ${resultadosHtml}
+                            ${obsEvaluador}
+                            <div class="eval-field-wrap">
+                                <label for="swal-observaciones-evaluado" class="eval-field-label">
+                                    * Tus observaciones (obligatorio)
+                                </label>
+                                <textarea id="swal-observaciones-evaluado" class="eval-textarea"
+                                    placeholder="Escribe aquí tus comentarios sobre la evaluación…"
+                                ></textarea>
+                                <small id="swal-obs-error" class="eval-error-msg">Debes escribir tus observaciones para aprobar la evaluación.</small>
+                            </div>
+                        </div>
+                    `,
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonText: 'Aprobar Evaluación',
+                    cancelButtonText: 'Revisar después',
+                    confirmButtonColor: '#16a34a',
+                    cancelButtonColor: '#64748b',
+                    width: '520px',
+                    didOpen: () => {
+                        document.querySelectorAll('.swal2-html-container [style*="background"]').forEach(el => {
+                            if (el.style.color === '') el.style.color = '#fff';
+                        });
+                    },
+                    preConfirm: () => {
+                        const obs = document.getElementById('swal-observaciones-evaluado');
+                        if (!obs || !obs.value.trim()) {
+                            if (obs) {
+                                obs.style.borderColor = '#dc2626';
+                                obs.focus();
+                            }
+                            Swal.showValidationMessage('Debes escribir tus observaciones para aprobar');
+                            throw new Error('Observaciones requeridas');
+                        }
+                        return obs.value.trim();
+                    }
+                });
+
+                if (result.isConfirmed) {
+                    const observaciones = document.getElementById('swal-observaciones-evaluado').value;
+                    try {
+                        const saveResp = await fetch(urlAprobar, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                id_asignacion: ev.id_asignacion,
+                                observaciones: observaciones
+                            })
+                        });
+                        const saveData = await saveResp.json();
+                        if (saveData.success) {
+                            Swal.fire('Aprobado', 'Has aprobado la evaluación correctamente', 'success');
+                            // Recargar para verificar si hay más
+                            verificarEvaluacionesPendientes();
+                        } else {
+                            throw new Error(saveData.error || 'Error al guardar');
+                        }
+                    } catch (err) {
+                        Swal.fire('Error', err.message, 'error');
+                    }
+                }
+            } catch (err) {
+                console.error('Error al verificar evaluaciones pendientes:', err);
+            }
+        }
+
+        // Ejecutar al cargar la página
+        document.addEventListener('DOMContentLoaded', function() {
+            verificarEvaluacionesPendientes();
+            
+            // Cargar conteo de buzón
+            cargarConteoBuzon();
+            
+            // Bot\u00f3n manual en el men\u00fa derecho
+            const btnEval = document.getElementById('btnMisEvaluaciones');
+            if (btnEval) {
+                btnEval.addEventListener('click', function() {
+                    verificarEvaluacionesPendientes(true);
+                });
+            }
+        });
+
+        function cargarConteoBuzon() {
+            const el = document.getElementById('buzonNoLeidosCount');
+            if (!el) return;
+            fetch((typeof getBaseUrl === 'function' ? getBaseUrl() : '') + '/rrhh/api/buzon/no_leidos')
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        const count = data.no_leidos || 0;
+                        el.textContent = count;
+                        // Si hay mensajes sin leer, darle un color llamativo
+                        if (count > 0) {
+                            el.style.color = '#fca5a5';
+                        }
+                    }
+                })
+                .catch(() => {});
+        }
+
+    // =============================================================
+    // CERRAR TODOS LOS MODALES CON TECLA ESC (global)
+    // =============================================================
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            // Llamar cleanup específico para modalPreview (limpiar src de img/pdf)
+            if (typeof cerrarPreview === 'function') {
+                const previewModal = document.getElementById('modalPreview');
+                if (previewModal && (previewModal.classList.contains('active') || previewModal.style.display === 'flex')) {
+                    cerrarPreview();
+                    return;
+                }
+            }
+
+            const modalIds = [
+                'pendientesModal', 'rechazadosModal', 'modalConsecutivo',
+                'roleModal',
+                'uploadModal', 'replaceModal', 'excelEditorModal',
+                'modalEvaluacion', 'modalRevision',
+                'modalEmpleado', 'modalRetiro',
+                'modalContratos', 'modalImportar', 'modalZip', 'modalEditContrato',
+                'modalIngreso'
+            ];
+            modalIds.forEach(id => {
+                const el = document.getElementById(id);
+                if (!el) return;
+                if (el.classList.contains('active')) {
+                    el.classList.remove('active');
+                }
+                if (el.style.display === 'flex' || el.style.display === 'block') {
+                    el.style.display = 'none';
+                }
+                // Resetear flags de modales de carga
+                if (id === 'pendientesModal') pendientesCargados = false;
+                if (id === 'rechazadosModal') rechazadosCargados = false;
+            });
+            document.querySelectorAll('.modal, .modal-preview, .custom-modal, .modal-overlay').forEach(el => {
+                if (el.style.display === 'flex' || el.style.display === 'block') {
+                    el.style.display = 'none';
+                }
+                if (el.classList.contains('active')) {
+                    el.classList.remove('active');
+                }
+            });
+        }
+    });
+    </script>
+
+    <!-- ===================== MODAL CONFIRMACIÓN DE DATOS PERSONALES ===================== -->
+    {% if session.get('requiere_confirmacion_datos') and current_user.get_id().startswith('rrhh-') %}
+    <div id="modalConfirmarDatos" class="custom-modal" style="display:flex;">
+        <div class="custom-modal-content" style="max-width:480px;">
+            <div style="text-align:center;margin-bottom:16px;">
+                <i class="fa-solid fa-user-check" style="font-size:48px;color:#2563eb;margin-bottom:10px;"></i>
+                <h2 style="margin:0;">Actualiza tus Datos Personales</h2>
+                <p style="color:#64748b;margin-top:6px;font-size:14px;">Por favor verifica y confirma tu correo electrónico y número de celular.</p>
+            </div>
+            <form id="formConfirmarDatos">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <div style="margin-bottom:14px;">
+                    <label style="font-weight:600;font-size:13px;color:#374151;">Nombres</label>
+                    <input type="text" id="confNombres" class="form-control" readonly style="background:#f1f5f9;cursor:not-allowed;">
+                </div>
+                <div style="margin-bottom:14px;">
+                    <label style="font-weight:600;font-size:13px;color:#374151;">Apellidos</label>
+                    <input type="text" id="confApellidos" class="form-control" readonly style="background:#f1f5f9;cursor:not-allowed;">
+                </div>
+                <div style="margin-bottom:14px;">
+                    <label style="font-weight:600;font-size:13px;color:#374151;">N° Identificación</label>
+                    <input type="text" id="confIdentificacion" class="form-control" readonly style="background:#f1f5f9;cursor:not-allowed;">
+                </div>
+                <div style="margin-bottom:14px;">
+                    <label style="font-weight:600;font-size:13px;color:#374151;">Correo Electrónico <span style="color:#dc2626;">*</span></label>
+                    <input type="email" id="confCorreo" class="form-control" required placeholder="tu@correo.com">
+                </div>
+                <div style="margin-bottom:18px;">
+                    <label style="font-weight:600;font-size:13px;color:#374151;">Celular <span style="color:#dc2626;">*</span></label>
+                    <input type="number" id="confCelular" class="form-control" required placeholder="Ej: 3001234567">
+                </div>
+                <div id="confError" style="display:none;color:#dc2626;font-size:13px;margin-bottom:10px;"></div>
+                <div style="text-align:center;">
+                    <button type="submit" class="btn-10" id="btnConfirmarDatos" style="background:#2563eb;color:#fff;border:none;padding:10px 28px;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;">
+                        <i class="fa-solid fa-check"></i> Confirmar Datos
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+    (function () {
+        var modal = document.getElementById('modalConfirmarDatos');
+        var form = document.getElementById('formConfirmarDatos');
+        var errorDiv = document.getElementById('confError');
+        var btnConfirmar = document.getElementById('btnConfirmarDatos');
+        if (!modal || !form) return;
+
+        // Cargar datos del empleado desde la API
+        fetch('{{ url_for("rrhh.api_obtener_datos_confirmacion") }}', {
+            headers: {'X-Requested-With': 'XMLHttpRequest'}
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+            if (data.success && data.empleado) {
+                document.getElementById('confNombres').value = data.empleado.nombres || '';
+                document.getElementById('confApellidos').value = data.empleado.apellidos || '';
+                document.getElementById('confIdentificacion').value = data.empleado.identificacion || '';
+                document.getElementById('confCorreo').value = data.empleado.correo || '';
+                document.getElementById('confCelular').value = data.empleado.celular || '';
+            }
+        })
+        .catch(function() {
+            errorDiv.textContent = 'Error al cargar tus datos. Intenta recargar la página.';
+            errorDiv.style.display = 'block';
+        });
+
+        // Obtener token CSRF para las peticiones AJAX
+        var csrfToken = document.querySelector('input[name="csrf_token"]').value;
+
+        // Enviar confirmación
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            var correo = document.getElementById('confCorreo').value.trim();
+            var celular = document.getElementById('confCelular').value.trim();
+
+            if (!correo || !celular) {
+                errorDiv.textContent = 'Debes completar el correo y el celular.';
+                errorDiv.style.display = 'block';
+                return;
+            }
+            errorDiv.style.display = 'none';
+            btnConfirmar.disabled = true;
+            btnConfirmar.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Guardando...';
+
+            fetch('{{ url_for("rrhh.api_confirmar_datos") }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRFToken': csrfToken
+                },
+                body: JSON.stringify({ correo: correo, celular: celular })
+            })
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+                if (data.success) {
+                    // Cerrar el modal (el flag de sesión ya se limpió en el servidor)
+                    modal.style.display = 'none';
+                } else {
+                    errorDiv.textContent = data.error || 'Error al guardar.';
+                    errorDiv.style.display = 'block';
+                    btnConfirmar.disabled = false;
+                    btnConfirmar.innerHTML = '<i class="fa-solid fa-check"></i> Confirmar Datos';
+                }
+            })
+            .catch(function() {
+                errorDiv.textContent = 'Error de conexión. Intenta nuevamente.';
+                errorDiv.style.display = 'block';
+                btnConfirmar.disabled = false;
+                btnConfirmar.innerHTML = '<i class="fa-solid fa-check"></i> Confirmar Datos';
+            });
+        });
+    })();
+    </script>
+    {% endif %}
+    <!-- ===================== FIN MODAL CONFIRMACIÓN DE DATOS ===================== -->
+
+
+</body>
+</html>

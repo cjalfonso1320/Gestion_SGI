@@ -1,0 +1,464 @@
+{% extends 'home.html' %}
+{% block title %}Editar Curso{% endblock %}
+{% block content %}
+<!-- Vinculamos el CSS -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/reg_aula.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/form_indicadores.css') }}">
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" integrity="sha384-OXVF05DQEe311p6ohU11NwlnX08FzMCsyoXzGOaL+83dKAb3qS17yZJxESl8YrJQ" crossorigin="anonymous" />
+
+<div class="welcome-section">
+    <!-- Botón Volver estilizado -->
+    <button class="btn-volver" onclick="location.href='{{ url_for('aula.gestionar_cursos') }}'">
+        <i class="fa-solid fa-arrow-left"></i> Volver a Gestionar Cursos
+    </button>
+
+    <div class="form-container">
+        <form action="{{ url_for('aula.editar_curso', curso_id=curso.id) }}" method="post" enctype="multipart/form-data">
+            {% if config.get('WTF_CSRF_ENABLED') %}<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">{% endif %}
+            <h2>Editar Curso: {{ curso.nombre }}</h2>
+
+            <div class="form-grid-container">
+                <div class="form-field full-width">
+                    <label class="form-label" for="nombre">Nombre del Curso:</label>
+                    <input class="form-control" type="text" id="nombre" name="nombre"
+                        value="{{ curso.nombre }}" placeholder="Ej: Inducción de Seguridad" required>
+                </div>
+
+                <div class="form-field full-width">
+                    <label class="form-label" for="descripcion">Descripción:</label>
+                    <textarea class="form-control" id="descripcion" name="descripcion"
+                        placeholder="Breve descripción del contenido..." required>{{ curso.descripcion }}</textarea>
+                </div>
+
+                <div class="form-field full-width">
+                    <label class="form-label">Dirigido a:</label>
+                    <input type="radio" name="dirigido_a" value="todos" id="todos" {% if curso.dirigido_a == 'todos' or not curso.dirigido_a %}checked{% endif %}> Todos
+                    <input type="radio" name="dirigido_a" value="roles" id="roles" {% if curso.dirigido_a == 'roles' %}checked{% endif %}> Roles
+                    <input type="radio" name="dirigido_a" value="personas" id="personas" {% if curso.dirigido_a == 'personas' %}checked{% endif %}> Personas
+                </div>
+
+                <div class="form-field full-width" id="roles_field" style="{% if curso.dirigido_a == 'roles' %}display:block;{% else %}display:none;{% endif %}">
+                    <label class="form-label">Seleccionar Roles:</label>
+                    <select class="form-control select2-roles" id="roles_select" name="roles_seleccionados" multiple>
+                        {% if roles %}
+                            {% for rol in roles %}
+                            <option value="{{ rol.id }}" {% if rol.id in roles_seleccionados %}selected{% endif %}>{{ rol.rol }}</option>
+                            {% endfor %}
+                        {% else %}
+                            <option disabled>No hay roles disponibles</option>
+                        {% endif %}
+                    </select>
+                </div>
+
+                <div class="form-field full-width" id="personas_field" style="{% if curso.dirigido_a == 'personas' %}display:block;{% else %}display:none;{% endif %}">
+                    <label class="form-label">Seleccionar Personas:</label>
+                    <select class="form-control select2-personas" id="personas_select" name="personas_seleccionadas" multiple>
+                        {% for empleado in lista_empleados %}
+                        <option value="{{ empleado.id }}" {% if empleado.id in personas_seleccionadas %}selected{% endif %}>{{ empleado.nombres }} {{ empleado.apellidos }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-field">
+                    <label class="form-label">Archivo de Estudio (PDF)</label>
+                    <input class="form-control" type="file" id="documento" name="documento" accept=".pdf" title="Solo archivos PDF">
+                    {% if curso.archivo %}
+                    <small class="text-slate-500" style="margin-top:4px;display:block;">
+                        <i class="fa-solid fa-file-pdf"></i> Archivo actual: {{ curso.archivo.split('/')[-1] }}
+                    </small>
+                    {% endif %}
+                </div>
+                <div class="form-field">
+                    <label class="form-label">Enlace de Video (YouTube)</label>
+                    <input class="form-control" type="text" id="enlace_video" name="enlace_video" value="{{ curso.enlace_video or '' }}" placeholder="https://youtube.com/watch?v=...">
+                </div>
+
+                <div class="form-field">
+                    <label class="form-label">Videos del Curso (subir archivo)</label>
+                    <input class="form-control" type="file" id="videos_curso" name="videos_curso" accept="video/mp4,video/webm,video/ogg" multiple>
+                    <small class="text-slate-500" style="margin-top:4px;display:block;">
+                        <i class="fa-solid fa-info-circle"></i> Puedes seleccionar varios videos (MP4, WebM, OGG)
+                    </small>
+                </div>
+
+                <div class="form-field">
+                    <label class="form-label">Fecha Límite</label>
+                    <input class="form-control" type="date" id="duracion" name="duracion" value="{{ curso.fecha_limite }}" required>
+                </div>
+            </div>
+
+            <div class="evaluacion-header">
+                <h3><i class="fa-solid fa-graduation-cap"></i> Evaluación del Curso</h3>
+            </div>
+
+            <div class="info-box-notice" style="margin-top:16px;">
+                <p class="text-slate-600">
+                    <i class="fa-solid fa-circle-info icon-blue"></i>
+                    La evaluación se configuró al crear el curso. Para modificarla, elimina y vuelve a crear el curso.
+                </p>
+            </div>
+
+            <!-- Barra de progreso para subida de videos -->
+            <div id="uploadProgressContainer" class="upload-progress-wrapper" style="display:none;">
+                <div class="upload-progress-label">
+                    <span id="uploadProgressText"><i class="fa-solid fa-circle-notch fa-spin"></i> Subiendo videos...</span>
+                    <span id="uploadProgressPercent" class="upload-progress-percent">0%</span>
+                </div>
+                <div class="upload-progress-bar-bg">
+                    <div id="uploadProgressBar" class="upload-progress-bar-fill" style="width:0%;"></div>
+                </div>
+                <small id="uploadProgressStatus" class="upload-progress-status">Preparando archivos...</small>
+            </div>
+
+            <button type="submit" class="btn-guardar" id="btnGuardarCurso"><i class="fa-solid fa-floppy-disk"></i> Guardar Cambios</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Función para manejar el cambio de "Dirigido a"
+    document.querySelectorAll('input[name="dirigido_a"]').forEach(radio => {
+        radio.addEventListener('change', function() {
+            const rolesField = document.getElementById('roles_field');
+            const personasField = document.getElementById('personas_field');
+
+            if (this.value === 'roles') {
+                rolesField.style.display = 'block';
+                personasField.style.display = 'none';
+                if (!window.rolesSelect2Ready) {
+                    setTimeout(function() {
+                        initSelect2Roles();
+                    }, 50);
+                }
+            } else if (this.value === 'personas') {
+                rolesField.style.display = 'none';
+                personasField.style.display = 'block';
+                if (!window.personasSelect2Ready) {
+                    setTimeout(function() {
+                        initSelect2Personas();
+                    }, 50);
+                }
+            } else {
+                rolesField.style.display = 'none';
+                personasField.style.display = 'none';
+            }
+        });
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const form = document.querySelector("form");
+        const inputDocumento = document.getElementById("documento");
+        const inputVideo = document.getElementById("enlace_video");
+        const inputVideos = document.getElementById("videos_curso");
+
+        // ── Validar que el archivo seleccionado sea PDF (cliente) ──
+        inputDocumento.addEventListener("change", function() {
+            const file = this.files[0];
+            if (!file) return;
+            const ext = file.name.split('.').pop().toLowerCase();
+            if (ext !== 'pdf') {
+                this.value = '';
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Formato no válido',
+                    html: `<strong>${file.name}</strong> no es un archivo PDF.<br><br>Solo se permiten archivos con extensión <strong>.pdf</strong>.`,
+                    confirmButtonColor: '#dc2626',
+                    confirmButtonText: 'Entendido'
+                });
+            }
+        });
+
+        form.addEventListener("submit", function(e) {
+            const documentoVacio = inputDocumento.files.length === 0;
+            const videoVacio = inputVideo.value.trim() === "";
+            const videosSubidos = inputVideos && inputVideos.files && inputVideos.files.length > 0;
+            const archivoActual = {{ 'true' if curso.archivo else 'false' }};
+
+            // Solo validar si NO hay archivo actual, ni PDF nuevo, ni YouTube, ni videos subidos
+            if (!archivoActual && documentoVacio && videoVacio && !videosSubidos) {
+                e.preventDefault();
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Campo requerido',
+                    text: 'Debes cargar un archivo PDF o proporcionar un enlace de video.'
+                });
+                return;
+            }
+
+            // Validar que si seleccionó "Roles", al menos uno esté elegido
+            const dirigidoA = document.querySelector('input[name="dirigido_a"]:checked');
+            if (dirigidoA) {
+                if (dirigidoA.value === 'roles') {
+                    const rolesSelect = document.getElementById('roles_select');
+                    const selectedRoles = Array.from(rolesSelect.selectedOptions).map(o => o.value).filter(v => v);
+                    if (selectedRoles.length === 0) {
+                        e.preventDefault();
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Campos requeridos',
+                            text: 'Debes seleccionar al menos un rol.'
+                        });
+                        return;
+                    }
+                } else if (dirigidoA.value === 'personas') {
+                    const personasSelect = document.getElementById('personas_select');
+                    const selectedPersonas = Array.from(personasSelect.selectedOptions).map(o => o.value).filter(v => v);
+                    if (selectedPersonas.length === 0) {
+                        e.preventDefault();
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Campos requeridos',
+                            text: 'Debes seleccionar al menos una persona.'
+                        });
+                        return;
+                    }
+                }
+            }
+        });
+
+        // Inicializar Select2 según la opción seleccionada por defecto
+        const defaultDirigido = document.querySelector('input[name="dirigido_a"]:checked');
+        if (defaultDirigido) {
+            if (defaultDirigido.value === 'roles') {
+                setTimeout(initSelect2Roles, 100);
+            } else if (defaultDirigido.value === 'personas') {
+                setTimeout(initSelect2Personas, 100);
+            }
+        }
+    });
+
+    // ---- Funciones Select2 ----
+    function initSelect2Roles() {
+        if (window.rolesSelect2Ready) return;
+        $('#roles_select').select2({
+            placeholder: 'Selecciona uno o más roles…',
+            allowClear: true,
+            width: '100%',
+            language: {
+                noResults: function() { return 'No se encontraron roles'; }
+            }
+        });
+        window.rolesSelect2Ready = true;
+    }
+
+    function initSelect2Personas() {
+        if (window.personasSelect2Ready) return;
+        $('#personas_select').select2({
+            placeholder: 'Buscar personas por nombre…',
+            allowClear: true,
+            width: '100%',
+            language: {
+                noResults: function() { return 'No se encontraron personas'; }
+            },
+            matcher: function(params, data) {
+                if ($.trim(params.term) === '') return data;
+                const termino = params.term.toLowerCase();
+                const texto = data.text.toLowerCase();
+                if (texto.indexOf(termino) > -1) return data;
+                return null;
+            }
+        });
+        window.personasSelect2Ready = true;
+    }
+</script>
+
+<style>
+/* ========== PROGRESS BAR UPLOAD ========== */
+.upload-progress-wrapper {
+    background: #f8fafc;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin: 24px 0 12px;
+}
+.upload-progress-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 10px;
+}
+.upload-progress-percent {
+    font-size: 0.95rem;
+    color: #2563eb;
+    font-weight: 700;
+}
+.upload-progress-bar-bg {
+    height: 10px;
+    background: #e2e8f0;
+    border-radius: 99px;
+    overflow: hidden;
+}
+.upload-progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #2563eb, #3b82f6);
+    border-radius: 99px;
+    transition: width 0.3s ease;
+}
+.upload-progress-status {
+    display: block;
+    margin-top: 8px;
+    color: #64748b;
+    font-size: 0.8rem;
+}
+
+/* ========== SELECT2 – Estilo para el tema azul ========== */
+.select2-container--default .select2-selection--multiple {
+    background-color: #ffffff !important;
+    border: 1.5px solid #cbd5e1 !important;
+    border-radius: 8px !important;
+    min-height: 48px;
+    padding: 4px 8px;
+}
+
+.select2-container--default.select2-container--focus .select2-selection--multiple {
+    border-color: #2563eb !important;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1) !important;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    background-color: #eff6ff !important;
+    border: 1px solid #93c5fd !important;
+    border-radius: 6px !important;
+    color: #1e3a8a !important;
+    font-weight: 600;
+    font-size: 0.85rem;
+    padding: 3px 10px;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+    color: #3b82f6 !important;
+    border-right: 1px solid #93c5fd !important;
+    font-weight: 700;
+    margin-right: 6px;
+    padding-right: 6px;
+}
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove:hover {
+    background-color: transparent !important;
+    color: #dc2626 !important;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__placeholder {
+    color: #94a3b8 !important;
+    font-weight: 500;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__rendered {
+    padding: 2px 8px;
+}
+
+.select2-container--default .select2-dropdown {
+    border: 1.5px solid #cbd5e1 !important;
+    border-radius: 8px !important;
+    box-shadow: 0 4px 12px rgba(30, 58, 138, 0.12) !important;
+}
+
+.select2-container--default .select2-results__option--highlighted.select2-results__option--selectable {
+    background-color: #eff6ff !important;
+    color: #1e3a8a !important;
+}
+
+.select2-container--default .select2-results__option--selected {
+    background-color: #dbeafe !important;
+    color: #1e3a8a !important;
+}
+
+.select2-container--default .select2-search--dropdown .select2-search__field {
+    border: 1.5px solid #cbd5e1 !important;
+    border-radius: 6px !important;
+    padding: 8px 12px;
+}
+.select2-container--default .select2-search--dropdown .select2-search__field:focus {
+    border-color: #2563eb !important;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1) !important;
+    outline: none;
+}
+</style>
+
+<script>
+// ── Progress bar for video uploads ──
+document.addEventListener("DOMContentLoaded", function() {
+    const form = document.querySelector("form");
+    const videoInput = document.getElementById("videos_curso");
+    const submitBtn = document.getElementById("btnGuardarCurso");
+
+    if (!form || !videoInput || !submitBtn) return;
+
+    form.addEventListener("submit", function(e) {
+        // Solo interceptamos si hay videos seleccionados
+        if (!videoInput.files || videoInput.files.length === 0) return;
+
+        e.preventDefault();
+
+        const progressContainer = document.getElementById("uploadProgressContainer");
+        const progressBar = document.getElementById("uploadProgressBar");
+        const progressPercent = document.getElementById("uploadProgressPercent");
+        const progressText = document.getElementById("uploadProgressText");
+        const progressStatus = document.getElementById("uploadProgressStatus");
+        const originalBtnHTML = submitBtn.innerHTML;
+
+        // Mostrar barra de progreso y deshabilitar botón
+        progressContainer.style.display = "block";
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Subiendo...';
+        progressBar.style.background = "linear-gradient(90deg, #2563eb, #3b82f6)";
+        progressText.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Subiendo videos...';
+
+        const formData = new FormData(form);
+        const xhr = new XMLHttpRequest();
+
+        // ── Progress event ──
+        xhr.upload.addEventListener("progress", function(evt) {
+            if (evt.lengthComputable) {
+                const pct = Math.round((evt.loaded / evt.total) * 100);
+                progressBar.style.width = pct + "%";
+                progressPercent.textContent = pct + "%";
+                const mbLoaded = (evt.loaded / (1024 * 1024)).toFixed(1);
+                const mbTotal = (evt.total / (1024 * 1024)).toFixed(1);
+                progressStatus.textContent = mbLoaded + " MB / " + mbTotal + " MB";
+            }
+        });
+
+        // ── Success ──
+        xhr.addEventListener("load", function() {
+            if (xhr.status >= 200 && xhr.status < 400) {
+                progressText.innerHTML = '<i class="fa-solid fa-check-circle"></i> Subida completada';
+                progressPercent.textContent = "100%";
+                progressBar.style.width = "100%";
+                progressBar.style.background = "linear-gradient(90deg, #16a34a, #22c55e)";
+                progressStatus.textContent = "Redirigiendo…";
+                setTimeout(function() {
+                    window.location.href = "{{ url_for('aula.gestionar_cursos') }}";
+                }, 600);
+            } else {
+                handleUploadError(originalBtnHTML);
+            }
+        });
+
+        // ── Network error ──
+        xhr.addEventListener("error", function() {
+            handleUploadError(originalBtnHTML);
+            Swal.fire({ icon: 'error', title: 'Error de conexión', text: 'Verifica tu conexión e intenta de nuevo.' });
+        });
+
+        xhr.open("POST", form.action);
+        xhr.send(formData);
+    });
+
+    function handleUploadError(originalHTML) {
+        const progressText = document.getElementById("uploadProgressText");
+        const progressBar = document.getElementById("uploadProgressBar");
+        const submitBtn = document.getElementById("btnGuardarCurso");
+        progressText.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Error en la subida';
+        progressBar.style.background = "linear-gradient(90deg, #dc2626, #ef4444)";
+        document.getElementById("uploadProgressStatus").textContent = "Ocurrió un error. Intenta de nuevo.";
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalHTML;
+    }
+});
+</script>
+{% endblock %}

@@ -1,0 +1,404 @@
+{% extends 'home.html' %}
+{% block title %}Documentacion{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/acordeon_doc.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/busqueda.css') }}">
+
+<div id="content-container">
+    <!-- PRESENTACION INICIAL -->
+    <div id="initial-presentation" class="initial-content">
+        <div class="welcome-section">
+            <h2>¡Bienvenido a Procedimeintos</h2>
+            <p>Selecciona una opción del menú para comenzar a gestionar tu información.</p>
+            
+            <!-- PARA ROL BANCOLOMBIA -->
+             {% if usuario.rol == 2 %}
+            <div class="feature-grid">
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-012')}}"
+                    class="card-link">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>PRO-PR-012</h3>
+                        <p>Impuestos Departamentales Bancolombia</p>
+                    </div>
+                </a>
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-013')}}"
+                    class="card-link">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>PRO-PR-013</h3>
+                        <p>Impuestos Distritales Bancolombia</p>
+                    </div>
+                </a>
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-014')}}"
+                    class="card-link">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>PRO-PR-014</h3>
+                        <p>Impuestos Nacionales y Tributos Aduaneros de Bancolombia</p>
+                    </div>
+                </a>
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-033')}}"
+                    class="card-link">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>PRO-PR-033</h3>
+                        <p>Gestion de Usuarios</p>
+                    </div>
+                </a>
+            </div>
+            {% elif usuario.rol == 4 %}
+            <div class="feature-grid">
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-015')}}"
+                    class="card-link">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>PRO-PR-015</h3>
+                        <p>Impuestos Distritales Occidente</p>
+                    </div>
+                </a>
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-026')}}"
+                    class="card-link">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>PRO-PR-026</h3>
+                        <p>Impuestos Nacionales y Tributos Aduaneros Occidente</p>
+                    </div>
+                </a>
+            </div>
+            {% elif usuario.rol == 5 %}
+            <div class="feature-grid">
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-005')}}"
+                    class="card-link">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>PRO-PR-005</h3>
+                        <p>Impuestos Nacionales y Tributos Aduaneros Banagrario</p>
+                    </div>
+                </a>
+            </div>
+            {% elif usuario.rol == 6 %}
+            <div class="feature-grid">
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-007')}}"
+                    class="card-link">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>PRO-PR-007</h3>
+                        <p>Impuestos Distritales Davivienda</p>
+                    </div>
+                </a>
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-011')}}"
+                    class="card-link">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>PRO-PR-011</h3>
+                        <p>Impuestos Departamentales Davivienda</p>
+                    </div>
+                </a>
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-016')}}"
+                    class="card-link">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>PRO-PR-016</h3>
+                        <p>Convenios Especiales Davivienda</p>
+                    </div>
+                </a>
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-019')}}"
+                    class="card-link">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>PRO-PR-019</h3>
+                        <p>Impuestos Nacionales y Tributos Aduaneros de Davivienda</p>
+                    </div>
+                </a>
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-023')}}"
+                    class="card-link">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>PRO-PR-023</h3>
+                        <p>Convenios  Davivienda</p>
+                    </div>
+                </a>
+            </div>
+            {% elif usuario.rol == 7 %}
+            <div class="feature-grid">
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-028')}}"
+                    class="card-link">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>PRO-PR-028</h3>
+                        <p>Impuestos Nacionales y Tributos Aduaneros Itau</p>
+                    </div>
+                </a>
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-029')}}"
+                    class="card-link">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>PRO-PR-029</h3>
+                        <p>Impuesto Departamentales Itau</p>
+                    </div>
+                </a>
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-030')}}"
+                    class="card-link">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>PRO-PR-030</h3>
+                        <p>Impuesto Municipales Cali Itau</p>
+                    </div>
+                </a>
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-031')}}"
+                    class="card-link">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>PRO-PR-031</h3>
+                        <p>Impuesto Municipales Cartagena Itau</p>
+                    </div>
+                </a>
+            </div>
+             {% elif usuario.rol == 8 %}
+            <div class="feature-grid">
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-028')}}"
+                    class="card-link">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>PRO-TH-001</h3>
+                        <p>Impuestos Nacionales y Tributos Aduaneros Itau</p>
+                    </div>
+                </a>
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-029')}}"
+                    class="card-link">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>PRO-TH-002</h3>
+                        <p>Impuesto Departamentales Itau</p>
+                    </div>
+                </a>
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-030')}}"
+                    class="card-link">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>PRO-TH-003</h3>
+                        <p>Impuesto Municipales Cali Itau</p>
+                    </div>
+                </a>
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-031')}}"
+                    class="card-link">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>PRO-TH-004</h3>
+                        <p>Impuesto Municipales Cartagena Itau</p>
+                    </div>
+                </a>
+            </div>
+            {% elif usuario.rol == 10 %}
+            <div class="feature-grid">
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-008')}}"
+                    class="card-link">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>PRO-PR-008</h3>
+                        <p>Impuestos Departamentales Popular - SANTANDER Y VALLE</p>
+                    </div>
+                </a>
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-027')}}"
+                    class="card-link">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>PRO-PR-027</h3>
+                        <p>Convenios Popular</p>
+                    </div>
+                </a>
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-034')}}"
+                    class="card-link">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>PRO-PR-034</h3>
+                        <p>Impuestos Departamentales Popular - ANTIOQUIA</p>
+                    </div>
+                </a>
+                
+            </div>
+            {% elif usuario.rol == 11 %}
+            <div class="feature-grid">
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-001')}}"
+                    class="card-link">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>PRO-PR-001</h3>
+                        <p>Impuestos Distritales Av Villas</p>
+                    </div>
+                </a>
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-009')}}"
+                    class="card-link">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>PRO-PR-009</h3>
+                        <p>Impuestos Departamentales Av Villas</p>
+                    </div>
+                </a>
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-010')}}"
+                    class="card-link">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>PRO-PR-010</h3>
+                        <p>Impuestos Distritales Av Villas</p>
+                    </div>
+                </a>
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-017')}}"
+                    class="card-link">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>PRO-PR-017</h3>
+                        <p>Radicación AV Villas</p>
+                    </div>
+                </a>
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-022')}}"
+                    class="card-link">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>PRO-PR-022</h3>
+                        <p>Impuestos Nacionales y Tributos Aduaneros Av Villas</p>
+                    </div>
+                </a>
+            </div>
+            {% elif usuario.rol == 12 %}
+            <div class="feature-grid">
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-018')}}"
+                    class="card-link">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>PRO-PR-018</h3>
+                        <p>Impuestos Departamentales Bancoomeva</p>
+                    </div>
+                </a>
+            </div>
+            {% elif usuario.rol == 13 %}
+            <div class="feature-grid">
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-006')}}"
+                    class="card-link">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>PRO-PR-006</h3>
+                        <p>Impuestos Nacionales y Tributos Aduaneros Banco Caja Social</p>
+                    </div>
+                </a>
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-020')}}"
+                    class="card-link">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>PRO-PR-020</h3>
+                        <p>Procedimiento Recaudos Banco Caja Social</p>
+                    </div>
+                </a>
+            </div>
+            {% endif %}
+
+            <!-- PARA ROL DE TI -->
+            {% if usuario.rol == 9 %}
+            <div class="feature-grid">
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-001')}}"
+                    class="card-link">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>TEC-PR-001</h3>
+                        <p>Registro, Monitoreo y Manejo de Logs</p>
+                    </div>
+                </a>
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-002')}}"
+                    class="card-link">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>TEC-PR-002</h3>
+                        <p>Soporte Tecnico</p>
+                    </div>
+                </a>
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-003')}}"
+                    class="card-link">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>TEC-PR-003</h3>
+                        <p>Copias de Respaldo</p>
+                    </div>
+                </a>
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-004')}}"
+                    class="card-link">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>TEC-PR-004</h3>
+                        <p>Gestion de Usuarios</p>
+                    </div>
+                </a>
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-005')}}"
+                    class="card-link">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>TEC-PR-005</h3>
+                        <p>Alistamiento de Equipos</p>
+                    </div>
+                </a>
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-006')}}"
+                    class="card-link">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>TEC-PR-006</h3>
+                        <p>Creacion y manejo de carpetas</p>
+                    </div>
+                </a>
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-008')}}"
+                    class="card-link">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>TEC-PR-008</h3>
+                        <p>Backup de Roles</p>
+                    </div>
+                </a>
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-009')}}"
+                    class="card-link">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>TEC-PR-009</h3>
+                        <p>Retiro de equipos de computo</p>
+                    </div>
+                </a>
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-010')}}"
+                    class="card-link">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>TEC-PR-010</h3>
+                        <p>Gestion de Redes</p>
+                    </div>
+                </a>
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-011')}}"
+                    class="card-link">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>TEC-PR-011</h3>
+                        <p>Administración de Firewall</p>
+                    </div>
+                </a>
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-012')}}" class="card-link">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>TEC-PR-012</h3>
+                        <p>Manejo de medios removibles</p>
+                    </div>
+                </a>
+                <a href="{{ url_for('proc.procedimiento', doc_id=current_user.rol ~ '-013')}}" class="card-link">
+                    <div class="feature-card">
+                        <i class="fa-regular fa-file-lines"></i>
+                        <h3>TEC-PR-013</h3>
+                        <p>Destrucción, Eliminación o Borrado Seguro de la Información</p>
+                    </div>
+                </a>
+            </div>
+            {% endif %}
+
+
+        </div>
+    </div>
+</div>
+
+
+<script src="{{ url_for('static', filename='js/jquery.min.js')}}"></script>
+<script src="{{ url_for('static', filename='js/acordeon_doc.js')}}"></script>
+{% endblock %}

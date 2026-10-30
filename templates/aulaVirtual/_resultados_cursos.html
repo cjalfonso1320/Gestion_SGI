@@ -1,0 +1,397 @@
+{% from 'macros.html' import avatar %}
+{% extends 'home.html' %}
+{% block title %}Resultados de Cursos{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/modal_curso.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/acordeon_doc.css') }}">
+<style>
+    .emp-name-cell { display: flex; align-items: center; gap: 12px; }
+    .emp-photo-thumb { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 2px solid var(--accent-color); flex-shrink: 0; background: #f0f4f9; }
+
+    /* --- ACORDEÓN DE RESULTADOS --- */
+    .resultados-accordion { margin-top: 8px; }
+
+    .resultados-accordion .accordion-item {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        margin-bottom: 12px;
+        overflow: hidden;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+        transition: box-shadow 0.3s ease;
+    }
+    .resultados-accordion .accordion-item:hover {
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .resultados-accordion .accordion-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 20px;
+        cursor: pointer;
+        background: #f8fafc;
+        transition: background 0.2s ease;
+        user-select: none;
+    }
+    .resultados-accordion .accordion-header:hover {
+        background: #eff6ff;
+    }
+    .resultados-accordion .accordion-header:active {
+        background: #dbeafe;
+    }
+
+    .resultados-accordion .accordion-header-left {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        flex: 1;
+        min-width: 0;
+    }
+    .resultados-accordion .accordion-header-left i {
+        font-size: 1.3rem;
+        color: #2563eb;
+        width: 28px;
+        text-align: center;
+        transition: transform 0.3s ease;
+    }
+    .resultados-accordion .accordion-item.open .accordion-header-left i.fa-chevron-down {
+        transform: rotate(180deg);
+    }
+    .resultados-accordion .accordion-title {
+        font-weight: 700;
+        font-size: 1rem;
+        color: #1e3a8a;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .resultados-accordion .accordion-stats {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-shrink: 0;
+    }
+    .resultados-accordion .stat-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        white-space: nowrap;
+    }
+    .stat-badge.total    { background: #f1f5f9; color: #475569; }
+    .stat-badge.aprobados { background: #dcfce7; color: #166534; }
+    .stat-badge.reprobados { background: #fef2f2; color: #991b1b; }
+    .stat-badge.pendientes { background: #fef3c7; color: #92400e; }
+
+    .resultados-accordion .accordion-body {
+        display: none;
+        padding: 0 16px 16px;
+        border-top: 1px solid #e2e8f0;
+        animation: accordionFadeIn 0.25s ease-out;
+    }
+    .resultados-accordion .accordion-item.open .accordion-body {
+        display: block;
+    }
+
+    @keyframes accordionFadeIn {
+        from { opacity: 0; transform: translateY(-6px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .resultados-accordion .accordion-body table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 12px;
+    }
+    .resultados-accordion .accordion-body th {
+        background-color: #f8fafc !important;
+        color: #1e3a8a !important;
+        font-weight: 800 !important;
+        text-transform: uppercase;
+        font-size: 0.7rem;
+        padding: 10px 12px;
+        border-bottom: 2px solid #2563eb;
+        text-align: left;
+        white-space: nowrap;
+    }
+    .resultados-accordion .accordion-body td {
+        padding: 8px 12px;
+        border-bottom: 1px solid #f1f5f9;
+        color: #475569;
+        font-size: 0.85rem;
+        vertical-align: middle;
+    }
+    .resultados-accordion .accordion-body tbody tr:hover {
+        background: #f8fafc;
+    }
+
+    @media (max-width: 640px) {
+        .resultados-accordion .accordion-body table,
+        .resultados-accordion .accordion-body thead,
+        .resultados-accordion .accordion-body tbody,
+        .resultados-accordion .accordion-body tr,
+        .resultados-accordion .accordion-body th,
+        .resultados-accordion .accordion-body td {
+            display: block;
+        }
+        .resultados-accordion .accordion-body thead tr {
+            display: none;
+        }
+        .resultados-accordion .accordion-body tr {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+        }
+        .resultados-accordion .accordion-body td {
+            padding: 5px 0;
+            border: none;
+            white-space: normal;
+            font-size: 0.85rem;
+        }
+        .resultados-accordion .accordion-body td:first-child {
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+        .resultados-accordion .accordion-body td:not(:last-child) {
+            border-bottom: 1px solid #f1f5f9;
+            margin-bottom: 5px;
+            padding-bottom: 8px;
+        }
+        .resultados-accordion .accordion-body td:last-child {
+            padding-top: 6px;
+        }
+        .resultados-accordion .accordion-body .btn-ver {
+            width: 100%;
+            justify-content: center;
+        }
+        .resultados-accordion .accordion-header {
+            padding: 12px 14px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .resultados-accordion .accordion-stats {
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .resultados-accordion .stat-badge {
+            font-size: 0.7rem;
+            padding: 3px 8px;
+        }
+    }
+    .tab-btn-res {
+        background: #f8fafc;
+        border: 1px solid #cbd5e1;
+        padding: 8px 16px;
+        border-radius: 8px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: #475569;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+    }
+    .tab-btn-res:hover {
+        background: #eff6ff;
+        color: #1e40af;
+        border-color: #93c5fd;
+    }
+    .tab-btn-res.active {
+        background: #2563eb;
+        color: #ffffff;
+        border-color: #2563eb;
+        box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+    }
+</style>
+
+<div class="welcome-section">
+    <h2>Resultados de Evaluaciones</h2>
+
+    {% if resultados %}
+    <div class="resultados-accordion">
+        {% for c in resultados %}
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAcordeon(this)">
+                <div class="accordion-header-left">
+                    <i class="fa-solid fa-chevron-down"></i>
+                    <i class="fa-solid fa-book-open" style="font-size: 1.1rem; color: #2563eb;"></i>
+                    <span class="accordion-title">{{ c.curso_nombre }}</span>
+                </div>
+                <div class="accordion-stats">
+                    <span class="stat-badge total" style="background:#e0f2fe;color:#0369a1;" title="Total de empleados asignados al curso"><i class="fa-solid fa-users"></i> Asignados: {{ c.total_asignados }}</span>
+                    <span class="stat-badge" style="background:#f1f5f9;color:#475569;" title="Empleados que presentaron la evaluación"><i class="fa-solid fa-clipboard-check"></i> Evaluados: {{ c.total_evaluados }}</span>
+                    <span class="stat-badge aprobados" title="Aprobados en su último intento"><i class="fa-solid fa-check"></i> Aprobados: {{ c.total_aprobados }}</span>
+                    {% if c.total_reprobados > 0 %}
+                    <span class="stat-badge reprobados" title="Reprobados"><i class="fa-solid fa-xmark"></i> Reprobados: {{ c.total_reprobados }}</span>
+                    {% endif %}
+                    {% if c.total_no_presentaron > 0 %}
+                    <span class="stat-badge pendientes" style="background:#fef3c7;color:#92400e;" title="Empleados asignados que aún NO realizan el curso"><i class="fa-solid fa-user-clock"></i> Sin Realizar: {{ c.total_no_presentaron }}</span>
+                    {% endif %}
+                    <span class="stat-badge" style="background:#dbeafe;color:#1e40af;font-weight:800;" title="Porcentaje de cumplimiento sobre asignados"><i class="fa-solid fa-chart-line"></i> {{ c.porcentaje_cumplimiento }}% cumpl.</span>
+                </div>
+            </div>
+            <div class="accordion-body">
+                <!-- Pestañas para alternar entre evaluaciones e incompletos -->
+                <div class="tabs-resultados" style="display:flex;gap:10px;margin-top:14px;margin-bottom:14px;border-bottom:2px solid #e2e8f0;padding-bottom:10px;flex-wrap:wrap;">
+                    <button type="button" class="tab-btn-res active" onclick="cambiarTabResultados(this, 'tab_presentaron_{{ c.curso_id }}')">
+                        <i class="fa-solid fa-clipboard-check"></i> Evaluaciones Realizadas ({{ c.intentos|length }})
+                    </button>
+                    <button type="button" class="tab-btn-res" onclick="cambiarTabResultados(this, 'tab_pendientes_{{ c.curso_id }}')">
+                        <i class="fa-solid fa-user-clock"></i> Pendientes por Realizar ({{ c.total_no_presentaron }})
+                    </button>
+                </div>
+
+                <!-- TAB 1: INTENTOS PRESENTADOS -->
+                <div id="tab_presentaron_{{ c.curso_id }}" class="tab-content-res" style="display:block;">
+                    {% if c.intentos %}
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Estudiante</th>
+                                <th>Ciudad</th>
+                                <th>Nota</th>
+                                <th>Fecha</th>
+                                <th>Estado</th>
+                                {% if current_user.rol == 16 %}
+                                <th>Acciones</th>
+                                {% endif %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for r in c.intentos %}
+                            <tr>
+                                <td>
+                                    <div class="emp-name-cell">
+                                        {{ avatar(src=r.foto_path, class='emp-photo-thumb', alt='Foto') }}
+                                        {{ r.nombre_estudiante }}
+                                    </div>
+                                </td>
+                                <td>{{ r.ciudad or '-' }}</td>
+                                <td>
+                                    <span class="{{ 'aprobado' if r.nota >= 70 else 'reprobado' }}">
+                                        {{ r.nota }}% {% if r.nota >= 70 %} Aprobado {% else %} Reprobado {% endif %}
+                                    </span>
+                                </td>
+                                <td>{{ r.fecha_presentacion }}</td>
+                                <td>{{ r.estado }}</td>
+                                {% if current_user.rol == 16 %}
+                                <td>
+                                    <button type="button" class="btn-ver" onclick="revisarIntento({{ r.intento_id }})">
+                                        Revisar
+                                    </button>
+                                </td>
+                                {% endif %}
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% else %}
+                    <p style="color:#64748b;padding:12px;font-size:0.9rem;">No hay intentos registrados para este curso.</p>
+                    {% endif %}
+                </div>
+
+                <!-- TAB 2: PENDIENTES POR REALIZAR -->
+                <div id="tab_pendientes_{{ c.curso_id }}" class="tab-content-res" style="display:none;">
+                    {% if c.no_presentaron %}
+                    <div style="margin-bottom:10px;padding:8px 12px;background:#fef3c7;border-left:4px solid #f59e0b;border-radius:6px;font-size:0.85rem;color:#92400e;">
+                        <i class="fa-solid fa-circle-exclamation"></i> Estos <strong>{{ c.total_no_presentaron }}</strong> empleados fueron asignados a este curso pero aún no han presentado la evaluación.
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Empleado</th>
+                                <th>Identificación</th>
+                                <th>Cargo</th>
+                                <th>Ciudad</th>
+                                <th>Correo</th>
+                                <th>Celular</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for np in c.no_presentaron %}
+                            <tr>
+                                <td>
+                                    <div class="emp-name-cell">
+                                        {{ avatar(src=np.foto_path, class='emp-photo-thumb', alt='Foto') }}
+                                        <strong>{{ np.nombre_completo }}</strong>
+                                    </div>
+                                </td>
+                                <td>{{ np.identificacion }}</td>
+                                <td>{{ np.cargo or '-' }}</td>
+                                <td>{{ np.ciudad or '-' }}</td>
+                                <td>{{ np.correo or '-' }}</td>
+                                <td>{{ np.celular or '-' }}</td>
+                                <td>
+                                    <span class="stat-badge pendientes" style="background:#fef3c7;color:#92400e;">Sin Presentar</span>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% else %}
+                    <div style="padding:16px;text-align:center;color:#166534;background:#dcfce7;border-radius:8px;font-weight:600;margin-top:10px;">
+                        <i class="fa-solid fa-circle-check"></i> ¡Excelente! Todos los empleados asignados han presentado la evaluación.
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="resultados-container">
+        <div class="no-results">
+            <i class="fa-solid fa-circle-info"></i> No hay resultados registrados actualmente.
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<div id="modalRevision" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 style="color: white !important;">Revisión de Intento</h2>
+            <span class="close" onclick="cerrarModal()">&times;</span>
+        </div>
+        <div class="modal-body" id="contenidoRevision"></div>
+    </div>
+</div>
+
+<script>
+    function toggleAcordeon(header) {
+        const item = header.closest('.accordion-item');
+        item.classList.toggle('open');
+    }
+
+    function revisarIntento(intentoId) {
+        const url = "{{ url_for('aula.revisar_intento', intento_id=0) }}".replace('0', intentoId);
+        fetch(url)
+            .then(res => res.text())
+            .then(html => {
+                document.getElementById('contenidoRevision').innerHTML = html;
+                document.getElementById('modalRevision').style.display = 'flex';
+            });
+    }
+    function cerrarModal() {
+        document.getElementById('modalRevision').style.display = 'none';
+    }
+    function cambiarTabResultados(btn, tabId) {
+        const body = btn.closest('.accordion-body');
+        body.querySelectorAll('.tab-btn-res').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        body.querySelectorAll('.tab-content-res').forEach(c => c.style.display = 'none');
+        const target = body.querySelector('#' + tabId);
+        if (target) target.style.display = 'block';
+    }
+</script>
+{% endblock %}

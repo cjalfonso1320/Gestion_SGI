@@ -1,0 +1,525 @@
+{% extends 'home.html' %}
+{% block title %}Cargos{% endblock %}
+{% block content %}
+
+{#
+============================================================
+ PÁGINA: EJECUTAR EVALUACIÓN DE DESEMPEÑO
+============================================================
+Esta página permite al EVALUADOR (usuario RRHH asignado)
+calificar a un EMPLEADO (evaluado) en base a una plantilla
+de preguntas agrupadas por TIPOS DE COMPETENCIA.
+
+FLUJO DE DATOS:
+  1. El admin de RRHH habilita una evaluación desde
+     "construccion_evaluacion.html" seleccionando evaluador,
+     evaluados, fechas y año.
+  2. El evaluador (usuario RRHH) accede a 
+     "/rrhh/evaluar_empleado/<id_asignacion>" donde ve
+     esta página con las preguntas de la plantilla del cargo.
+  3. El evaluador ingresa notas (1.0 - 5.0) para cada criterio.
+  4. El JS calcula en tiempo real:
+       - Resultado ponderado por competencia (nota × %competencia)
+       - Total por tipo de competencia (suma de ponderados)
+       - Total general (suma de tipos × %tipo)
+  5. Al enviar, hace un POST fetch a "/rrhh/guardar_evaluacion"
+     y guarda resultados en las tablas:
+       - evaluacion_desempeno_resultado_competencias
+       - evaluacion_desempeno_resultado_tipos
+       - evaluacion_desempeno_resultado
+  6. Posteriormente, el EVALUADO debe aprobar la evaluación
+     desde el modal en home.html, y RRHH da la aprobación final.
+
+VARIABLES RECIBIDAS (desde ruta evaluar_empleado):
+  - evaluado:       dict con datos del empleado (nombres, apellidos, id_asignacion, id_plantilla)
+  - preguntas:      lista de preguntas con {id, id_tipo, id_competencia, tipo_competencia,
+                    competencia, pregunta, porcentaje_competencia}
+  - tipo_competencias: lista de tipos de competencia con {id_tipo, nombre, porcentaje}
+                    (se usa en el sidebar derecho de home.html)
+  - competencias:   lista de competencias con {id_competencia, nombre, porcentaje}
+                    (se usa en el sidebar derecho de home.html)
+============================================================
+#}
+
+<div class="feature-card-new card-blue" style="height: auto; padding: 25px;">
+    <!-- =========================================================
+         ENCABEZADO: Muestra el nombre del empleado evaluado
+         ========================================================= -->
+    <h2
+        style="color: white; margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 15px;">
+        Evaluación para: <span style="color: #87CEFA;">{{ evaluado.nombres }} {{ evaluado.apellidos }}</span>
+    </h2>
+
+    <!-- =========================================================
+         FORMULARIO PRINCIPAL
+         El envío se captura con JS (enviarResultado) para hacer
+         un POST asíncrono (fetch) en lugar de recargar la página.
+         ========================================================= -->
+    <form method="POST" onsubmit="enviarResultado(event)">
+        {% if config.get('WTF_CSRF_ENABLED') %}<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">{% endif %}
+        <!-- ID de la asignación (oculto) para saber qué evaluación es -->
+        <input type="hidden" name="id_asignacion" value="{{ evaluado.id_asignacion }}">
+
+        {#
+         ============================================================
+         AGRUPACIÓN POR TIPO DE COMPETENCIA
+         Jinja2 filtró "groupby('tipo_competencia')" agrupa todas
+         las preguntas que pertenecen al mismo tipo (ej: "Técnica",
+         "Comportamental", etc.). Cada grupo genera una tabla.
+         ============================================================
+        #}
+        {% if preguntas %}
+        {% for grupo in preguntas|groupby('tipo_competencia') %}
+
+        <!-- Título del tipo de competencia -->
+        <h3 style="color: #333 !important; margin-top: 30px; text-transform: uppercase; font-size: 1.2rem;">
+            {{ grupo.grouper }}
+        </h3>
+
+        <!-- Tabla de preguntas para este tipo de competencia -->
+        <table
+            style="width: 100%; border-collapse: collapse; margin-top: 10px; margin-bottom: 30px; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.3);">
+            <thead>
+                <tr style="background: #1e3a8a; color: white; font-size: 0.8rem;">
+                    <th style="width: 18%; padding: 12px; border: 1px solid #ddd;">COMPETENCIA</th>
+                    <th style="width: 44%; padding: 12px; border: 1px solid #ddd;">DESCRIPCIÓN DE LOS CRITERIOS A
+                        CALIFICAR</th>
+                    <th style="width: 14%; padding: 12px; border: 1px solid #ddd;">CALIFICACIÓN (1.0 - 5.0)</th>
+                    <th style="width: 12%; padding: 12px; border: 1px solid #ddd;">RESULTADO</th>
+                    <th style="width: 12%; padding: 12px; border: 1px solid #ddd;">DESCRIPCIÓN</th>
+                </tr>
+            </thead>
+            <tbody>
+                {# Itera cada pregunta individual dentro del grupo #}
+                {% for p in grupo.list %}
+                <tr style="color: #333; font-size: 0.9rem;">
+                    <!-- NOMBRE DE LA COMPETENCIA (ej: "Conocimiento Técnico") -->
+                    <td
+                        class="text-slate-800" style="padding: 10px; border: 1px solid #ddd; font-weight: bold; background: #f1f5f9; text-align: center;">
+                        {{ p.competencia }}
+                    </td>
+                    <!-- DESCRIPCIÓN DEL CRITERIO (la pregunta a calificar) -->
+                    <td
+                        class="text-slate-800" style="padding: 10px; border: 1px solid #ddd; text-align: justify; line-height: 1.4;">
+                        {{ p.pregunta }}
+                    </td>
+                    <!-- INPUT DE CALIFICACIÓN (1.0 - 5.0)
+                         Los data-* almacenan IDs y porcentajes para los cálculos JS -->
+                    <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">
+                        <input type="number" name="nota_{{ p.id }}" step="0.1" min="1" max="5" placeholder="0.0"
+                            data-tipo-id="{{ p.id_tipo }}" data-competencia-id="{{ p.id_competencia }}" data-porcentaje="{{ p.porcentaje_competencia or 0 }}"
+                            oninput="validarCalificacion(this)"
+                            style="width: 70px; padding: 8px; text-align: center; border: 2px solid #1e3a8a; border-radius: 4px; font-weight: bold;"
+                            required>
+                    </td>
+                    <!-- RESULTADO PONDERADO (calculado por JS: nota × %competencia / 100) -->
+                    <td
+                        class="text-blue-900" style="padding: 10px; border: 1px solid #ddd; text-align: center; font-weight: 800;">
+                        <span class="resultado-ponderado">0.00</span>
+                        <input type="hidden" name="resultado_{{ p.id }}" class="input-resultado-ponderado" value="0.00">
+                    </td>
+                    <!-- ETIQUETA DE DESCRIPCIÓN (PÉSIMO, MALO, REGULAR, etc.) -->
+                    <td style="padding: 10px; border: 1px solid #ddd; text-align: center; font-weight: 800;">
+                        <span class="label-calificacion" style="color: #999;">-</span>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        {% endfor %}
+        {% else %}
+        <!-- Mensaje cuando no hay preguntas para el cargo -->
+        <div class="text-slate-400" style="text-align:center;padding:60px 20px;">
+            <i class="fa-regular fa-file-lines" style="font-size:3em;display:block;margin-bottom:16px;opacity:0.5;"></i>
+            <h3 class="text-slate-300" style="margin-bottom:8px;">No hay preguntas para evaluar</h3>
+            <p style="font-size:0.9rem;max-width:400px;margin:0 auto;line-height:1.6;">
+                Este cargo no tiene preguntas de evaluación creadas.
+                Ve a <strong>Evaluación de Desempeño → Construcción</strong>
+                para agregar preguntas al cargo de este empleado.
+            </p>
+        </div>
+        {% endif %}
+
+        <!-- =========================================================
+             OBSERVACIONES DEL EVALUADOR
+             Campo opcional donde el evaluador escribe comentarios
+             sobre la evaluación general del empleado.
+             ========================================================= -->
+        <div class="observaciones-container">
+            <label for="observacionesEvaluador">Observaciones del Evaluador</label>
+            <textarea name="observaciones_evaluador" id="observacionesEvaluador" placeholder="Escriba aquí sus observaciones sobre la evaluación realizada…"></textarea>
+
+            <label for="observacionesEvaluador">Aspectos Sobresalientes</label>
+            <textarea name="aspectos_sobresalientes" id="aspectos_sobresalientes" placeholder="Escriba aquí los aspectos sobresalientes del evaluado…"></textarea>
+
+            <label for="observacionesEvaluador">Aspectos por mejorar</label>
+            <textarea name="aspectos_mejorar" id="aspectos_mejorar" placeholder="Escriba aquí los aspectos por mejorar del evaluado…"></textarea>
+        </div>
+
+        <!-- BOTÓN DE ENVÍO -->
+        <button type="submit" class="submit-btn"
+            style="width: 100%; height: 55px; font-size: 1.3rem; margin-top: 20px;">
+            FINALIZAR Y GUARDAR EVALUACIÓN
+        </button>
+    </form>
+</div>
+
+<!-- =========================================================
+     ESTILOS DEL TEXTAREA DE OBSERVACIONES
+     ========================================================= -->
+<style>
+    .observaciones-container {
+        margin: 20px 0;
+    }
+    .observaciones-container label {
+        display: block;
+        color: #fff;
+        font-weight: 700;
+        font-size: 0.85em;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 8px;
+    }
+    .observaciones-container textarea {
+        width: 100%;
+        min-height: 100px;
+        padding: 14px 16px;
+        border: 2px solid #cbd5e1;
+        border-radius: 10px;
+        background: #ffffff;
+        color: #1e293b;
+        font-size: 0.95em;
+        font-family: inherit;
+        resize: vertical;
+        transition: border-color 0.2s, box-shadow 0.2s;
+        box-sizing: border-box;
+    }
+    .observaciones-container textarea:focus {
+        border-color: #2563eb;
+        box-shadow: 0 0 0 3px rgba(37,99,235,0.15);
+        outline: none;
+    }
+    .observaciones-container textarea::placeholder {
+        color: #94a3b8;
+    }
+</style>
+
+{#
+ ============================================================
+ JAVASCRIPT: CÁLCULOS Y ENVÍO DE EVALUACIÓN
+ ============================================================
+
+ FUNCIONES PRINCIPALES:
+
+ 1. obtenerCalificacion(valor)
+    - Convierte un número (0.0 - 5.0) en una etiqueta textual
+      con color asociado.
+    - Rangos:
+        0.0 - 1.99 → PÉSIMO    (#CC0000)
+        2.0 - 2.99 → MALO      (#5D417E)
+        3.0 - 3.49 → REGULAR   (#2C5D98)
+        3.5 - 3.99 → BUENO     (#CB6C1D)
+        4.0 - 4.59 → SOBRESALIENTE (#769535)
+        4.6 - 5.0 → EXCELENTE  (#2787A0)
+
+ 2. validarCalificacion(input)
+    - Se dispara con cada tecleo en los inputs de nota.
+    - Calcula el resultado ponderado: nota × (%competencia / 100)
+    - Actualiza la celda "RESULTADO" y la "DESCRIPCIÓN" textual.
+    - Llama a actualizarTotales() para recalcular el sidebar.
+
+ 3. actualizarTotales()
+    - Itera TODOS los inputs de nota en la página.
+    - Acumula los resultados ponderados por tipo de competencia.
+    - Calcula el total general: suma de (total_tipo × %tipo / 100).
+    - Actualiza las tarjetas del SIDEBAR DERECHO (en home.html):
+        • .total-tipo-competencia  → total por tipo
+        • .total-total-general     → total general de la evaluación
+    - Cambia el color de fondo de las tarjetas según la calificación.
+
+ 4. enviarResultado(event)
+    - Previene el envío tradicional del formulario.
+    - Recopila en un JSON:
+        • id_asignacion
+        • competencias: [{id_competencia, id_tipo, resultado_ponderado}]
+        • totales_por_tipo: [{id_tipo, total}]
+        • resultado_general: {total}
+        • observacionesEvaluador: texto
+    - Hace un POST fetch a /rrhh/guardar_evaluacion.
+    - Muestra SweetAlert con el resultado.
+ ============================================================
+#}
+<script>
+    /**
+     * Convierte una calificación numérica (0.0 - 5.0) en
+     * un objeto con {texto, color} para mostrar en la UI.
+     */
+    function obtenerCalificacion(valor) {
+        let texto = "SIN EVALUAR";
+        let color = "#92400e";
+        let clase = "calif-sin-evaluar";
+        let claseTexto = "calif-txt-sin-evaluar";
+
+        if (valor >= 0 && valor < 2.0) {
+            texto = "PÉSIMO";
+            color = "#CC0000";
+            clase = "calif-pesimo";
+            claseTexto = "calif-txt-pesimo";
+        } else if (valor >= 2.0 && valor < 3.0) {
+            texto = "MALO";
+            color = "#5D417E";
+            clase = "calif-malo";
+            claseTexto = "calif-txt-malo";
+        } else if (valor >= 3.0 && valor < 3.5) {
+            texto = "REGULAR";
+            color = "#2C5D98";
+            clase = "calif-regular";
+            claseTexto = "calif-txt-regular";
+        } else if (valor >= 3.5 && valor < 4.0) {
+            texto = "BUENO";
+            color = "#CB6C1D";
+            clase = "calif-bueno";
+            claseTexto = "calif-txt-bueno";
+        } else if (valor >= 4.0 && valor < 4.6) {
+            texto = "SOBRESALIENTE";
+            color = "#769535";
+            clase = "calif-sobresaliente";
+            claseTexto = "calif-txt-sobresaliente";
+        } else if (valor >= 4.6 && valor <= 5.0) {
+            texto = "EXCELENTE";
+            color = "#2787A0";
+            clase = "calif-excelente";
+            claseTexto = "calif-txt-excelente";
+        }
+
+        return { texto, color, clase, claseTexto };
+    }
+
+    /**
+     * Valida la calificación ingresada y actualiza:
+     * - El resultado ponderado (nota × %competencia / 100)
+     * - La etiqueta descriptiva en la misma fila
+     * - Los totales del sidebar
+     */
+    function validarCalificacion(input) {
+        const valor = parseFloat(input.value);
+        const porcentajeCompetencia = parseFloat(input.dataset.porcentaje || 0);
+        const fila = input.closest('tr');
+        if (!fila) return;
+
+        const label = fila.querySelector('.label-calificacion');
+        const resultado = fila.querySelector('.resultado-ponderado');
+        const inputResultado = fila.querySelector('.input-resultado-ponderado');
+        const calificacion = obtenerCalificacion(valor);
+
+        if (label) {
+            label.innerText = calificacion.texto;
+            label.className = label.className.replace(/\bcalif-txt-\S+/g, '').trim() + ' ' + calificacion.claseTexto;
+        }
+
+        const valorPonderado = Number.isFinite(valor) ? valor * (porcentajeCompetencia / 100) : 0;
+
+        if (resultado) resultado.innerText = valorPonderado.toFixed(2);
+        if (inputResultado) inputResultado.value = valorPonderado.toFixed(2);
+
+        // Forzar recálculo general
+        actualizarTotales();
+    }
+
+    /**
+     * Recalcula todos los totales (por tipo de competencia y general)
+     * y actualiza las tarjetas del sidebar derecho (home.html).
+     * 
+     * Lógica:
+     *   1. Inicializa acumuladores por id_tipo
+     *   2. Suma todos los resultados ponderados de cada input
+     *   3. Por cada tipo: muestra el total acumulado y su color
+     *   4. Total general = Σ(total_tipo × %tipo / 100)
+     */
+    function actualizarTotales() {
+        const totales = {};
+        const tieneInputsModificados = {};
+
+        // 1. Inicializar los contenedores
+        document.querySelectorAll('.total-tipo-competencia').forEach(total => {
+            const idTipo = total.dataset.tipoId;
+            totales[idTipo] = 0;
+            tieneInputsModificados[idTipo] = false;
+        });
+
+        // 2. Mapear y acumular valores del DOM
+        document.querySelectorAll('input[data-tipo-id]').forEach(input => {
+            const idTipo = input.dataset.tipoId;
+            const fila = input.closest('tr');
+
+            if (fila) {
+                const inputResultado = fila.querySelector('.input-resultado-ponderado');
+                if (inputResultado) {
+                    const valor = parseFloat(inputResultado.value || 0);
+                    // Validamos si el usuario ya escribió una nota real en este grupo de inputs
+                    if (input.value.trim() !== "") {
+                        tieneInputsModificados[idTipo] = true;
+                    }
+                    if (Number.isFinite(valor)) {
+                        totales[idTipo] += valor;
+                    }
+                }
+            }
+        });
+
+        let acumuladorTotalGeneral = 0;
+
+        // 3. Renderizar las tarjetas de Competencia
+        document.querySelectorAll('.total-tipo-competencia').forEach(total => {
+            const idTipo = total.dataset.tipoId;
+            const porcentajeTipo = parseFloat(total.dataset.porcentaje || 0);
+
+            let totalTipo = totales[idTipo] || 0;
+
+            // Si no tiene modificaciones en sus inputs pero ya mostraba valor previo, lo conserva
+            if (!tieneInputsModificados[idTipo]) {
+                const valorActualEnPantalla = parseFloat(total.innerText || 0);
+                if (valorActualEnPantalla > 0 && totalTipo === 0) {
+                    totalTipo = valorActualEnPantalla;
+                }
+            }
+
+            total.innerText = totalTipo.toFixed(2);
+
+            const labelTipo = document.querySelector(`.label-tipo-competencia[data-tipo-id="${idTipo}"]`);
+            const DivTipo = document.querySelector(`.div-tipo-competencia[data-tipo-id="${idTipo}"]`);
+            const calificacionTipo = obtenerCalificacion(totalTipo);
+
+            if (labelTipo && DivTipo && totalTipo > 0) {
+                labelTipo.innerText = calificacionTipo.texto;
+                DivTipo.className = DivTipo.className.replace(/\bcalif-\S+/g, '').trim() + ' ' + calificacionTipo.clase;
+            }
+
+            // Acumular para el total de la evaluación global
+            acumuladorTotalGeneral += totalTipo * (porcentajeTipo / 100);
+        });
+
+        // 4. Renderizar Tarjeta de Total General
+        const totalGeneralSpan = document.querySelector('.total-total-general');
+        const labelTotalGeneral = document.querySelector('.label-total-general');
+        const divTotalGeneral = document.querySelector('.div-total-general');
+
+        if (totalGeneralSpan) {
+            totalGeneralSpan.innerText = acumuladorTotalGeneral.toFixed(2);
+            const calificacionGeneral = obtenerCalificacion(acumuladorTotalGeneral);
+
+            if (labelTotalGeneral && divTotalGeneral && acumuladorTotalGeneral > 0) {
+                labelTotalGeneral.innerText = calificacionGeneral.texto;
+                divTotalGeneral.className = divTotalGeneral.className.replace(/\bcalif-\S+/g, '').trim() + ' ' + calificacionGeneral.clase;
+            }
+        }
+    }
+
+    // 5. DISPARADOR DE ARRANQUE SEGURO
+    // Ejecuta el cálculo cuando se carga la página para enlazar
+    // las tarjetas del padre (home.html)
+    document.addEventListener("DOMContentLoaded", function () {
+        actualizarTotales();
+    });
+
+    /**
+     * Envía el resultado de la evaluación al servidor vía fetch.
+     * Previene el envío normal del formulario.
+     * 
+     * Estructura del payload JSON:
+     * {
+     *   id_asignacion: number,
+     *   competencias: [{ id_competencia, id_tipo, resultado_ponderado }],
+     *   totales_por_tipo: [{ id_tipo, total }],
+     *   resultado_general: { total },
+     *   observacionesEvaluador: string
+     * }
+     * 
+     * Endpoint: POST /rrhh/guardar_evaluacion
+     */
+    async function enviarResultado(event) {
+        event.preventDefault();
+
+        // RECOPILA COMPETENCIAS INDIVIDUALMENTE
+        const competencias = [];
+        document.querySelectorAll('input[data-tipo-id]').forEach(input => {
+            const idCompetencia = input.dataset.competenciaId;
+            const idTipo = input.dataset.tipoId;
+
+            const fila = input.closest('tr');
+            const inputResultado = fila ? fila.querySelector('.input-resultado-ponderado') : null;
+            const resultadoPonderado = inputResultado ? parseFloat(inputResultado.value) : 0;
+
+            competencias.push({
+                id_competencia: parseInt(idCompetencia),
+                id_tipo: parseInt(idTipo),
+                resultado_ponderado: resultadoPonderado
+            });
+        });
+
+        // RECOPILA TOTALES POR TIPO DE COMPETENCIA
+        const totalesPorTipo = [];
+        document.querySelectorAll('.total-tipo-competencia').forEach(totalSpan =>{
+            const idTipo = totalSpan.dataset.tipoId;
+            const totalTipo = parseFloat(totalSpan.innerText) || 0;
+
+            totalesPorTipo.push({
+                id_tipo: parseInt(idTipo),
+                total: totalTipo,
+            });
+        });
+
+        // RECOPILA RESULTADO GENERAL
+        const totalGeneralSpan = document.querySelector('.total-total-general');
+        const resultadoGeneral = {
+            total: totalGeneralSpan ? parseFloat(totalGeneralSpan.innerText) : 0,
+        };
+
+        // ARMA EL PAYLOAD
+        const idAsignacion = document.querySelector('input[name="id_asignacion"]').value;
+        const observacionesEvaluador = document.getElementById('observacionesEvaluador').value;
+        const aspectos_sobresalientes = document.getElementById('aspectos_sobresalientes').value;
+        const aspectos_mejorar = document.getElementById('aspectos_mejorar').value;
+        const payload = {
+            id_asignacion: idAsignacion,
+            competencias: competencias,
+            totales_por_tipo: totalesPorTipo,
+            resultado_general: resultadoGeneral,
+            observacionesEvaluador: observacionesEvaluador,
+            aspectos_sobresalientes: aspectos_sobresalientes,
+            aspectos_mejorar: aspectos_mejorar
+        };
+
+        // ENVÍA AL SERVIDOR
+        try {
+            const response = await fetch(`${window.BASE_URL}/rrhh/guardar_evaluacion`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            });
+            const data = await response.json();
+            if(response.ok && data.success){
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Evaluacion Guardada!',
+                    text: data.success || 'Se han actualizacio las calificaciones correctamente'
+                }).then(() => {
+                    // Redirigir descomentando la línea si se desea:
+                    //window.location.href = `${window.BASE_URL}/rrhh/evaluacion`;
+                });
+            } else {
+                throw new Error(data.message || 'Hubo un problema en el servidor.');
+            }
+        } catch (error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error al guardar',
+                text: error.message
+            });
+        }
+    }
+</script>
+{% endblock %}

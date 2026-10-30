@@ -1,0 +1,312 @@
+{% from 'macros.html' import avatar %}
+{% extends 'home.html' %}
+{% block title %}Empleados{% endblock %}
+{% block content %}
+
+
+<div class="header-actions">
+    
+    <!-- Menú Acciones -->
+    <nav class="navbar-actions">
+        <ul class="nav-main">
+            <li class="dropdown">
+                <a href="#" class="dropbtn">Acciones Masivas <i class="fa-solid fa-chevron-down"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{{ url_for('rrhh.descargar_reporte_empleados', filtro=2) }}">Descargar Reporte de Empleados</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Buscador -->
+    <div class="search-container">
+        <input type="text" id="inputBusquedaID" placeholder="Buscar identificación...">
+        <i class="fa-solid fa-magnifying-glass"></i>
+    </div>
+</div>
+
+
+{% include 'rrhh/_modal_empleado.html' %}
+<table class="tabla-expandible">
+    <thead>
+        <tr>
+            <th>Identificacion</th>
+            <th>Apellidos y Nombres</th>
+            <th>Cargo</th>
+            <th>Tipo de Contrato</th>
+            <th>Fecha de Retiro</th>
+            <th>Motivo</th>
+            <th>Documentacion</th>
+        </tr>
+    </thead>
+    <tbody id="tabla_lista_empleados_body">
+        {% for dato in empleados_list %}
+        <!-- Fila Principal Visible -->
+        {% if dato.activo == 2 %}
+        <tr class="fila-principal" data-id="{{ dato.id }}">
+            <td data-column="identificacion">{{ dato.identificacion }}</td> <!-- tipo_documento -->
+            <td data-column="nombres_y_apellidos">
+                <div class="emp-name-cell">
+                    {{ avatar(src=dato.foto_path, class='emp-photo-thumb', alt='Foto') }}
+                    <span>{{ dato.apellidos }} {{ dato.nombres }}</span>
+                </div>
+            </td> <!-- consecutivo -->
+            <td data-column="cargo">{{ dato.cargos }}</td> <!-- nombre_documento -->
+            <td data-column="tipo_contrato">{{ dato.tipo_contrato }}</td> <!-- fecha_ultima_revision -->
+            <td data-column="fecha_retiro">{{ dato.fecha_finalizacion }}</td>
+            <td data-column="motivo">{{ dato.motivo or '' }}</td>
+            <td class="acciones">
+                <button type="button" class="btn-accion btn-foto btn-preview"
+                    data-url="{{ dato.cedula_path | replace('\\', '/') }}" data-tipo="cedula" title="Ver Cedula"><i
+                        class="fa-regular fa-id-card"></i></button>
+                <button type="button" class="btn-accion btn-foto btn-preview"
+                    data-url="{{ dato.foto_path | replace('\\', '/') }}" data-tipo="foto" title="Ver Foto"><i
+                        class="fa-solid fa-image-portrait"></i></button>
+                <button type="button" class="btn-accion btn-editar" data-id="{{ dato.id }}" title="Editar Empleado"><i
+                        class="fa-solid fa-user-pen"></i></button>
+                <button type="button" class="btn-accion btn-activar" data-id="{{ dato.id }}" title="Activar Empleado"><i
+                        class="fa-solid fa-person-circle-plus"></i></button>
+                <button type="button" class="btn-accion btn-eliminar-def" data-id="{{ dato.id }}" title="Eliminar Definitivamente (requiere contraseña)"><i
+                        class="fa-solid fa-trash-can"></i></button>
+            </td>
+        </tr>
+        <!-- Fila de Detalles Oculta (rediseñada con pestañas) -->
+        <tr class="fila-detalles">
+            <td colspan="7">
+                <div class="detalle-tabs">
+                    <!-- Barra de pestañas -->
+                    <div class="detalle-tab-nav" data-empleado-id="{{ dato.id }}">
+                        <button class="detalle-tab-btn active" data-tab="personales" onclick="switchDetalleTab(this, 'personales')">
+                            <i class="fa-solid fa-user"></i> Personales
+                        </button>
+                        <button class="detalle-tab-btn" data-tab="contacto" onclick="switchDetalleTab(this, 'contacto')">
+                            <i class="fa-solid fa-phone"></i> Contacto
+                        </button>
+                        <button class="detalle-tab-btn" data-tab="seguridad" onclick="switchDetalleTab(this, 'seguridad')">
+                            <i class="fa-solid fa-shield-heart"></i> Seguridad Social
+                        </button>
+                        <button class="detalle-tab-btn" data-tab="laboral" onclick="switchDetalleTab(this, 'laboral')">
+                            <i class="fa-solid fa-briefcase"></i> Laboral
+                        </button>
+                        <button class="detalle-tab-btn" data-tab="educacion" onclick="switchDetalleTab(this, 'educacion')">
+                            <i class="fa-solid fa-graduation-cap"></i> Educación
+                        </button>
+                        <button class="detalle-tab-btn" data-tab="documentos" onclick="switchDetalleTab(this, 'documentos')">
+                            <i class="fa-solid fa-folder"></i> Documentos
+                        </button>
+                    </div>
+
+                    <!-- ─── TAB: Personales ─── -->
+                    <div class="detalle-tab-panel active" data-tab="personales">
+                        <div class="detalle-personales-layout">
+                            <div class="detalle-foto-col">
+                                {{ avatar(src=dato.foto_path, class='emp-photo-detail', alt='Foto') }}
+                            </div>
+                            <div class="detalles-contenido">
+                            <div class="detalle-item"><strong>Tipo Identificación:</strong> <span data-column="tipo_doc_nombre">{{ dato.tipo_doc_nombre }}</span></div>
+                            <div class="detalle-item"><strong>Cédula Expedida en:</strong> <span data-column="cedula_expedida_en">{{ dato.cedula_expedida_en }}</span></div>
+                            <div class="detalle-item"><strong>Sexo:</strong> <span data-column="sexo">{{ dato.sexo }}</span></div>
+                            <div class="detalle-item"><strong>Fecha de Nacimiento:</strong> <span data-column="fecha_nacimiento">{{ dato.fecha_nacimiento }}</span></div>
+                            <div class="detalle-item"><strong>Lugar de Nacimiento:</strong> <span data-column="lugar_nacimiento">{{ dato.lugar_nacimiento }}</span></div>
+                            <div class="detalle-item"><strong>Edad:</strong> <span data-column="edad">{{ dato.edad }} Años</span></div>
+                            <div class="detalle-item"><strong>Estado Civil:</strong> <span data-column="estado_civil_id">{{ dato.estado_civil }}</span></div>
+                            <div class="detalle-item"><strong>Grupo Sanguíneo:</strong> <span data-column="grupo_sanguineo_id">{{ dato.grupo_sanguineo }}</span></div>
+                            <div class="detalle-item"><strong>N° Hijos:</strong> <span data-column="numero_hijos">{{ dato.numero_hijos }}</span></div>
+                        </div>
+                        </div>
+                    </div>
+
+                    <!-- ─── TAB: Contacto ─── -->
+                    <div class="detalle-tab-panel" data-tab="contacto">
+                        <div class="detalles-contenido">
+                            <div class="detalle-item"><strong>Dirección:</strong> <span data-column="direccion">{{ dato.direccion }}</span></div>
+                            <div class="detalle-item"><strong>Ciudad:</strong> <span data-column="barrio">{{ dato.barrio }}</span></div>
+                            <div class="detalle-item"><strong>Localidad:</strong> <span data-column="localidad">{{ dato.localidad }}</span></div>
+                            <div class="detalle-item"><strong>Estrato:</strong> <span data-column="estrato">{{ dato.estrato }}</span></div>
+                            <div class="detalle-item"><strong>Teléfono Fijo:</strong> <span data-column="telefono_fijo">{{ dato.telefono_fijo }}</span></div>
+                            <div class="detalle-item"><strong>Celular:</strong> <span data-column="celular">{{ dato.celular }}</span></div>
+                            <div class="detalle-item"><strong>Correo:</strong> <span data-column="correo">{{ dato.correo }}</span></div>
+                            <div class="detalle-item"><strong>Contacto Emergencia:</strong> <span data-column="contacto_emergencia">{{ dato.contacto_emergencia }}</span></div>
+                            <div class="detalle-item"><strong>Tel. Emergencia:</strong> <span data-column="telefono_emergencia">{{ dato.telefono_emergencia }}</span></div>
+                            <div class="detalle-item"><strong>Parentesco:</strong> <span data-column="parentesco">{{ dato.parentesco }}</span></div>
+                        </div>
+                    </div>
+
+                    <!-- ─── TAB: Seguridad Social ─── -->
+                    <div class="detalle-tab-panel" data-tab="seguridad">
+                        <div class="detalles-contenido">
+                            <div class="detalle-item"><strong>EPS:</strong> <span data-column="eps_id">{{ dato.eps }}</span></div>
+                            <div class="detalle-item"><strong>AFP:</strong> <span data-column="afp_id">{{ dato.afp }}</span></div>
+                            <div class="detalle-item"><strong>Cesantías:</strong> <span data-column="cesantias_id">{{ dato.cesantias }}</span></div>
+                            <div class="detalle-item"><strong>CCF:</strong> <span data-column="ccf_id">{{ dato.ccf }}</span></div>
+                            <div class="detalle-item"><strong>ARL:</strong> <span data-column="arl_id">{{ dato.arl }}</span></div>
+                        </div>
+                    </div>
+
+                    <!-- ─── TAB: Laboral ─── -->
+                    <div class="detalle-tab-panel" data-tab="laboral">
+                        <div class="detalles-contenido">
+                            <div class="detalle-item"><strong>Tipo Contrato:</strong> <span data-column="tipo_contrato">{{ dato.tipo_contrato }}</span></div>
+                            <div class="detalle-item"><strong>Jornada:</strong> <span data-column="jornada">{{ dato.jornada }}</span></div>
+                            <div class="detalle-item"><strong>Sede:</strong> <span data-column="sede">{{ dato.sedes }}</span></div>
+                            <div class="detalle-item"><strong>Fecha Ingreso:</strong> <span data-column="fecha_ingreso">{{ dato.fecha_ingreso }}</span></div>
+                            <div class="detalle-item"><strong>Antigüedad:</strong> <span data-column="antiguedad">{{ dato.antiguedad_texto or (dato.antiguedad ~ ' Años' if dato.antiguedad else '') }}</span></div>
+                            <div class="detalle-item"><strong>Salario Básico:</strong> <span data-column="salario_basico">{{ dato.salario_basico_moneda }}</span></div>
+                            <div class="detalle-item"><strong>Factor No Salarial:</strong> <span data-column="factor_no_salarial">{{ dato.factor_no_salarial_moneda }}</span></div>
+                            <div class="detalle-item"><strong>N° Cuenta:</strong> <span data-column="numero_cuenta">{{ dato.numero_cuenta }}</span></div>
+                            <div class="detalle-item"><strong>Banco:</strong> <span data-column="banco">{{ dato.bancos }}</span></div>
+                        </div>
+                    </div>
+
+                    <!-- ─── TAB: Educación ─── -->
+                    <div class="detalle-tab-panel" data-tab="educacion">
+                        <div class="detalles-contenido">
+                            <div class="detalle-item"><strong>Nivel Escolaridad:</strong> <span data-column="nivel_escolaridad_id">{{ dato.nivel_escolaridad }}</span></div>
+                            <div class="detalle-item"><strong>Programa Académico:</strong> <span data-column="programa_academico">{{ dato.programa_academico }}</span></div>
+                            <div class="detalle-item"><strong>Estudia Actualmente:</strong> <span data-column="estudia_actualmente">{{ dato.estudia_actualmente }}</span></div>
+                            <div class="detalle-item"><strong>Programa Actual:</strong> <span data-column="nombre_programa_actual">{{ dato.nombre_programa_actual }}</span></div>
+                        </div>
+                    </div>
+
+                    <!-- ─── TAB: Documentos ─── -->
+                    <div class="detalle-tab-panel" data-tab="documentos">
+                        <div class="detalles-contenido">
+                            <div class="detalle-item"><strong>Documentos de Estudio:</strong>
+                                <button type="button" class="btn-accion btn-docs" data-id="{{ dato.id }}" title="Ver Documentos de Estudio">
+                                    <i class="fa-solid fa-folder-open"></i> Ver documentos
+                                </button>
+                            </div>
+                            <div class="detalle-item"><strong>Contratos:</strong>
+                                <span>{{ dato.cantidad_contratos }}</span>
+                                <button type="button" class="btn-accion btn-contratos" data-id="{{ dato.id }}" title="Ver Contratos">
+                                    <i class="fa-solid fa-eye"></i> Ver contratos
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- modal para ver imagenes y documentos  -->
+<div id="modalPreview" class="modal-preview">
+    <div class="modal-preview-content">
+        <div class="modal-header">
+            <h3 id="modalPreviewTitle"><i class="fa-regular fa-file-image"></i> Visualización</h3>
+            <button class="btn-close" onclick="cerrarPreview()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body-preview">
+            <!-- Loading spinner -->
+            <div id="previewLoader" class="preview-loader" style="display: none;">
+                <div class="preview-spinner"></div>
+                <span class="preview-loader-text">Cargando documento...</span>
+            </div>
+
+            <!-- Error state -->
+            <div id="previewError" class="preview-error" style="display: none;">
+                <i class="fa-regular fa-circle-exclamation"></i>
+                <span>No se pudo cargar el documento</span>
+            </div>
+
+            <!-- Back button -->
+            <button id="btnVolverLista" onclick="volverListaDocs()" style="display: none;">
+                <i class="fa-solid fa-arrow-left"></i> Volver a documentos
+            </button>
+
+            <!-- Image preview -->
+            <img src="" alt="Preview" id="previewImg" style="display: none;">
+
+            <!-- PDF preview -->
+            <iframe src="" frameborder="0" id="previewPdf" style="display: none;"></iframe>
+
+            <!-- Document list -->
+            <div id="previewListaDocs" style="display: none;">
+                <h3 class="preview-docs-title"><i class="fa-solid fa-folder-open"></i> Documentos de Estudio</h3>
+                <div id="listaDocsContainer" class="docs-list-container"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- MODAL ACTIVAR EMPLEADO -->
+<div id="modalIngreso" class="modal-preview">
+    <div class="modal-preview-content">
+        <div class="modal-header">
+            <h3><i class="fa-solid fa-person-circle-plus"></i> Activar Empleado</h3>
+            <button class="btn-close" onclick="cerrarModalIngreso()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body-preview">
+            <div class="form-field">
+                <label for="fecha_ingreso"><i class="fa-regular fa-calendar"></i> Fecha de Ingreso</label>
+                <input type="date" name="fecha_ingreso" id="fecha_ingreso">
+            </div>
+            <div class="form-field">
+                <label for="tipo_contrato"><i class="fa-solid fa-file-contract"></i> Tipo de Contrato</label>
+                <select name="tipo_contrato" id="tipo_contrato">
+                    <option value="">Seleccione uno...</option>
+                    {% for contrato in contratos %}
+                        <option value="{{contrato.id}}">{{contrato.nombre}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-field">
+                <label for="salario_basico_ingreso"><i class="fa-solid fa-dollar-sign"></i> Salario Básico</label>
+                <input type="text" name="salario_basico_ingreso" id="salario_basico_ingreso" placeholder="$ 0">
+            </div>
+            <div class="form-field">
+                <label for="factor_no_salarial_ingreso"><i class="fa-solid fa-percent"></i> Factor No Salarial <span class="opcional">(opcional)</span></label>
+                <input type="text" name="factor_no_salarial_ingreso" id="factor_no_salarial_ingreso" placeholder="$ 0">
+            </div>
+        </div>
+        <div class="acciones">
+            <button type="button" class="btn-accion btn-cancelar" onclick="cerrarModalIngreso()">Cancelar</button>
+            <button type="button" class="btn-accion btn-guardar" id="btnGuardarIngreso" onclick="guardarFechaIngreso()">
+                <i class="fa-solid fa-check"></i> Guardar
+            </button>
+        </div>
+    </div>
+</div>
+
+<div id="modalContratos" class="modal-preview">
+    <div class="modal-preview-content modal-contratos-content">
+        <div class="modal-header">
+            <h2><i class="fa-solid fa-file-contract"></i> Contratos del Empleado</h2>
+            <button class="btn-close" onclick="cerrarModalContratos()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body-preview">
+            <div class="contratos-helper">
+                <i class="fa-solid fa-hand-point-up"></i>
+                <span>Haz clic en un contrato para ver sus <strong>Otrosí</strong></span>
+            </div>
+            <table class="tabla-expandible contratos-table">
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Tipo</th>
+                        <th>Inicio</th>
+                        <th>Fin</th>
+                        <th>Salario Básico</th>
+                        <th>Factor No Salarial</th>
+                        <th>Motivo</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody id="tabla_contratos_empleado_body"></tbody>
+            </table>
+        </div>
+        <div class="acciones">
+            <button type="button" class="btn-accion btn-cancelar" onclick="cerrarModalContratos()"><i class="fa-solid fa-xmark"></i> Cerrar</button>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

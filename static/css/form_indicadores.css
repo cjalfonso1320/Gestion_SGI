@@ -1,0 +1,534 @@
+/* --- FORMULARIOS E INDICADORES - ESTILO BLUE LIGHT --- */
+
+form {
+    background-color: #ffffff !important;
+    padding: 30px !important;
+    border-radius: 12px !important;
+    max-width: 1100px !important; /* Aumentamos el ancho para que quepan 3 columnas bien */
+    margin: 0 auto 2rem;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+}
+/* El contenedor de los campos DEBE ser grid */
+.form-grid-container {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important; /* 3 columnas iguales */
+    gap: 20px 25px !important; /* Espacio entre campos */
+    align-items: start;
+}
+/* Cada campo individual */
+.form-field {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.form-label {
+    color: #1e3a8a !important;
+    font-weight: 800 !important;
+    font-size: 0.8rem !important;
+    text-transform: uppercase;
+    margin-bottom: 8px !important;
+}
+
+/* Estilo base para todos los controles de formulario */
+.form-control,
+select,
+textarea {
+    width: 100% !important;
+    box-sizing: border-box;
+    margin-bottom: 0px !important;
+    border: 1.5px solid #d1d5db;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: #1e293b;
+    background: #ffffff;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    outline: none;
+    font-family: inherit;
+    height: auto;
+    min-height: 42px;
+}
+
+.form-control:focus,
+select:focus,
+textarea:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+}
+
+.form-control::placeholder,
+textarea::placeholder {
+    color: #94a3b8;
+    font-weight: 400;
+}
+
+/* Flecha personalizada en todos los selects */
+select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 36px;
+    cursor: pointer;
+}
+
+/* Textareas con altura mínima */
+textarea {
+    resize: vertical;
+    min-height: 80px;
+    line-height: 1.5;
+}
+/* Campos que deben ocupar todo el ancho (como el Análisis) */
+.full-width {
+    grid-column: 1 / -1 !important; /* Ocupa las 3 columnas */
+}
+/* --- BOTONES --- */
+button[type="submit"] {
+    background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+    color: #ffffff;
+    padding: 12px 25px;
+    font-size: 1rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2);
+}
+
+button[type="submit"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(37, 99, 235, 0.3);
+}
+
+/* --- ACORDEONES --- */
+.accordion {
+    width: 100%;
+    border-radius: 8px;
+    background-color: #ffffff;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+    margin-bottom: 15px;
+    overflow: hidden;
+}
+
+.accordion-header {
+    padding: 15px 20px;
+    background-color: #f8fafc; /* Fondo gris/azul muy tenue */
+    /*color: var(--primary-color);*/
+    
+    cursor: pointer;
+    font-weight: 800;
+    border-bottom: 1px solid var(--border-color);
+    transition: background 0.3s;
+}
+
+.accordion-header:hover {
+    background-color: #eff6ff;
+    color: var(--accent-color);
+}
+
+.accordion-content {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    visibility: hidden;
+    background-color: #ffffff !important;
+    padding: 0 20px !important;
+    border-top: 1px solid #e2e8f0;
+    transition: max-height 0.4s ease, opacity 0.35s ease, padding 0.3s ease, visibility 0s 0.4s;
+}
+
+.accordion.active .accordion-content {
+    max-height: 9999px;
+    opacity: 1;
+    visibility: visible;
+    padding: 20px !important;
+    transition: max-height 0.5s ease, opacity 0.35s ease 0.05s, padding 0.3s ease;
+}
+
+.accordion.active .accordion-header {
+    background-color: #eff6ff; /* Azul muy pálido al abrir */
+    color: #2563eb;           /* Azul vibrante en el título */
+    border-bottom: 1.5px solid #e2e8f0;
+}
+
+@keyframes fadeInAccordion {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- TABLAS --- */
+.table {
+    width: 100%;
+    border-collapse: collapse !important;
+    background-color: #ffffff !important;
+    margin-top: 15px;
+    border: 1px solid #e2e8f0 !important;
+}
+/* Encabezados con filas dobles */
+.table thead th {
+    background-color: #f8fafc !important; /* Gris azulado muy claro */
+    color: #1e3a8a !important;           /* Azul marino profundo */
+    font-weight: 800 !important;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    padding: 12px 8px !important;
+    border: 1px solid #cbd5e1 !important; /* Borde más visible para las rejillas */
+    text-align: center !important;
+    vertical-align: middle !important;
+}
+.table thead tr:first-child th {
+    border-top: 3px solid var(--accent-color) !important;
+}
+
+/* Celdas de datos (Aquí es donde no se veía el texto) */
+.table tbody td {
+    background-color: #ffffff !important;
+    color: #334155 !important;           /* Gris oscuro visible */
+    padding: 10px 12px !important;
+    border: 1px solid #f1f5f9 !important; /* Bordes internos más suaves */
+    font-size: 0.85rem !important;
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* Efecto al pasar el mouse por la fila */
+.table tbody tr:hover td {
+    background-color: #f1f7ff !important;
+    color: #2563eb !important; /* El texto se resalta en azul al pasar el mouse */
+}
+
+/* Estilo para los números (Criticidad y Total) */
+.table td[data-column*="Activo"], 
+.table td[data-column="total"] {
+    font-weight: 700;
+}
+/* Resaltar la columna TOTAL */
+.table td[data-column="total"] {
+    background-color: #f8fafc !important;
+    color: var(--accent-color) !important;
+}
+.table th,
+.table td {
+    padding: 12px;
+    border: 1px solid #e2e8f0;
+    text-align: left;
+}
+
+.table th {
+    background-color: #f1f5f9;
+    color: var(--primary-color);
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    border-bottom: 2px solid var(--accent-color);
+}
+
+/* --- GRIDS Y SECCIONES --- */
+.section-title {
+    color: var(--accent-color) !important;
+    border-bottom: 2px solid #eff6ff !important;
+    margin-bottom: 15px !important;
+    font-size: 1.1rem !important;
+}
+
+.analysis-container {
+    background-color: #f9fbff; /* Diferenciación sutil para análisis */
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px dashed #cbd5e1;
+}
+
+/* --- INTEGRACIÓN SELECT2 - MODO CLARO BLUE LIGHT --- */
+
+.select2-container--default .select2-selection--single {
+    background-color: #ffffff !important;
+    border: 1.5px solid #cbd5e1 !important;
+    border-radius: 8px !important;
+    height: 42px !important;
+    display: flex;
+    align-items: center;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #1e293b !important;
+    font-weight: 500;
+    padding-left: 12px !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow b {
+    border-color: #64748b transparent transparent transparent !important;
+}
+
+/* Desplegable de Select2 */
+.select2-dropdown {
+    background-color: #ffffff !important;
+    border: 1px solid #cbd5e1 !important;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1) !important;
+}
+
+.select2-container--default .select2-search--dropdown .select2-search__field {
+    background-color: #f8fafc !important;
+    border: 1px solid #e2e8f0 !important;
+    color: #1e293b !important;
+    border-radius: 6px;
+}
+
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background-color: #eff6ff !important;
+    color: var(--accent-color) !important;
+    font-weight: 700;
+}
+/* --- RESPONSIVO --- */
+@media (max-width: 992px) {
+    .form-grid-container {
+        grid-template-columns: repeat(2, 1fr) !important; /* 2 columnas en tablets */
+    }
+}
+
+@media (max-width: 600px) {
+    .form-grid-container {
+        grid-template-columns: 1fr !important; /* 1 columna en móviles */
+    }
+    .full-width {
+        grid-column: auto !important;
+    }
+}
+.chart-wrapper {
+    position: relative;
+    width: 100%;
+    height: 350px !important; /* Altura fija para que la gráfica tenga espacio */
+    margin: 20px 0;
+    display: block;
+}
+
+canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.proceso-selector {
+    background-color: #f8fafc;
+    padding: 15px 25px;
+    border-radius: 12px;
+    border: 1.5px solid #e2e8f0;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.proceso-selector label {
+    color: #1e3a8a;
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    margin: 0;
+    white-space: nowrap;
+}
+
+.proceso-selector select {
+    margin-bottom: 0 !important; /* Quita el margen inferior para alinear */
+    flex-grow: 1;
+    background-color: #ffffff;
+    border: 1.5px solid #cbd5e1;
+    height: 40px;
+    border-radius: 8px;
+    padding: 0 10px;
+    font-weight: 600;
+}
+
+/* ==========================================================
+   MEJORAS A FORMULARIOS DE INDICADORES
+   ========================================================== */
+
+/* Botón Exportar unificado (reemplaza los <style> duplicados en cada template) */
+.btn-export {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #4b6cb7, #182848);
+    color: #fff;
+    padding: 10px 18px;
+    border-radius: 8px;
+    border: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 0.85rem;
+    margin-bottom: 12px;
+    transition: all 0.25s ease;
+}
+
+.btn-export:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+}
+
+.btn-export i {
+    font-size: 1rem;
+}
+
+/* Campos readonly en formularios de indicadores */
+.form-grid-container .form-control[readonly] {
+    background-color: #f8fafc;
+    cursor: default;
+    font-weight: 700;
+    color: #1e293b;
+    border-color: #dbeafe;
+}
+
+/* Campo de resultado destacado */
+.form-grid-container .form-control[name$="resultado"],
+.form-grid-container .form-control[id*="resultado"] {
+    background-color: #f0fdf4 !important;
+    border-color: #86efac !important;
+    color: #16a34a !important;
+    font-weight: 800 !important;
+}
+
+/* Campo de meta con color dinámico (se asigna vía JS) */
+.form-grid-container .form-control[name$="meta"],
+.form-grid-container .form-control[id*="meta"] {
+    font-weight: 700;
+    transition: all 0.3s ease;
+}
+
+/* Valor de meta alcanzada (se asigna con clase vía JS) */
+.form-grid-container .form-control.meta-alcanzada {
+    background-color: #f0fdf4 !important;
+    border-color: #86efac !important;
+    color: #16a34a !important;
+}
+
+.form-grid-container .form-control.meta-no-alcanzada {
+    background-color: #fef2f2 !important;
+    border-color: #fecaca !important;
+    color: #dc2626 !important;
+}
+
+/* Textareas dentro del grid */
+.form-grid-container textarea {
+    min-height: 72px;
+}
+
+/* Espaciado entre secciones de indicadores */
+.doc-section + .doc-content .form-grid-container {
+    margin-top: 8px;
+}
+
+/* Ajuste para el botón Guardar dentro del grid */
+.form-grid-container button[type="submit"] {
+    align-self: end;
+}
+
+/* Animación al hacer foco en campos dentro del grid */
+.form-grid-container .form-control:focus,
+.form-grid-container select:focus,
+.form-grid-container textarea:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+    outline: none;
+}
+
+@media (max-width: 768px) {
+    form {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 16px !important;
+        margin: 0 0 1rem !important;
+        border-radius: 10px !important;
+    }
+
+    .form-grid-container {
+        grid-template-columns: 1fr !important;
+        gap: 14px !important;
+    }
+
+    .form-label {
+        font-size: 0.75rem !important;
+        line-height: 1.25 !important;
+    }
+
+    .form-control,
+    select,
+    textarea {
+        min-height: 40px;
+        font-size: 16px !important;
+    }
+
+    textarea {
+        min-height: 96px;
+    }
+
+    button[type="submit"],
+    .btn-export,
+    .btn-primary,
+    .btn-secondary {
+        width: 100%;
+        justify-content: center;
+        text-align: center;
+        white-space: normal;
+    }
+
+    .accordion {
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .accordion-header {
+        padding: 12px 14px !important;
+        font-size: 0.95rem !important;
+    }
+
+    .accordion-content {
+        padding: 12px !important;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .table,
+    table {
+        min-width: 680px;
+        table-layout: auto !important;
+    }
+
+    .table thead th,
+    .table tbody td,
+    th,
+    td {
+        padding: 8px 10px !important;
+        font-size: 0.78rem !important;
+        white-space: nowrap;
+    }
+
+    .chart-wrapper {
+        height: 260px !important;
+        overflow: hidden;
+    }
+
+    canvas {
+        max-width: 100% !important;
+    }
+
+    .proceso-selector {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+        padding: 12px !important;
+    }
+
+    .proceso-selector label {
+        white-space: normal;
+        line-height: 1.25;
+    }
+
+    .proceso-selector select {
+        width: 100%;
+    }
+}

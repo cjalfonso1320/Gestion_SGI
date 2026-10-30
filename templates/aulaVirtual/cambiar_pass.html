@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cambio de contraseña</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQodUVekKKeZrEnEyp4H2R0RHFz0KWpmj7i8g" crossorigin="anonymous">
+    <style>
+        .password-modal {
+            width: min(420px, calc(100vw - 32px));
+            background-color: rgba(255, 255, 255, 0.82);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.65);
+            border-radius: 20px;
+            box-shadow: 0 25px 50px -12px rgba(30, 58, 138, 0.18);
+            padding: 38px 40px 36px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .password-modal h3 {
+            color: #1e3a8a;
+            font-size: 24px;
+            font-weight: 800;
+            line-height: 1.2;
+            text-align: center;
+            margin-bottom: 12px;
+        }
+
+        .password-modal p {
+            color: #475569;
+            font-size: 14px;
+            line-height: 1.5;
+            text-align: center;
+            margin-bottom: 22px;
+        }
+
+        .password-modal label {
+            display: block;
+            margin-top: 15px;
+            font-size: 0.8rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: #1e3a8a;
+        }
+
+        .password-modal input {
+            display: block;
+            height: 50px;
+            width: 100%;
+            background-color: #ffffff;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 0 15px;
+            margin-top: 8px;
+            font-size: 15px;
+            color: #1e293b;
+            font-family: inherit;
+        }
+
+        .password-modal input:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+        }
+
+        .password-modal button {
+            margin-top: 30px;
+            width: 100%;
+            background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+            color: #ffffff;
+            padding: 15px;
+            font-size: 15px;
+            font-weight: 700;
+            text-transform: uppercase;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+        }
+
+        .password-modal button:hover {
+            filter: brightness(1.08);
+            transform: translateY(-1px);
+        }
+
+        .login-error-msg.alert-success {
+            background: #dcfce7;
+            border-color: #bbf7d0;
+            color: #166534;
+        }
+
+        .login-error-msg.alert-info {
+            background: #dbeafe;
+            border-color: #bfdbfe;
+            color: #1d4ed8;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="background">
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% set last_message = messages | last %}
+    <input type="hidden" id="flash-category" value="{{ last_message[0] }}">
+    <input type="hidden" id="flash-message" value="{{ last_message[1] | replace('"', '&quot;') }}">
+    {% endif %}
+    {% endwith %}
+
+    <section class="password-modal" role="dialog" aria-labelledby="password-title" aria-modal="true">
+        <h3 id="password-title">Cambio de contraseña obligatorio</h3>
+        <p>Detectamos que es tu primer ingreso. Asigna una clave personal para entrar al aula virtual.</p>
+
+        <form method="POST" action="{{ url_for('auth.cambiar_password_inicial') }}">
+            {% if config.get('WTF_CSRF_ENABLED') %}<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">{% endif %}
+            <label for="nueva_password">Nueva contraseña</label>
+            <div class="password-wrapper">
+                <input type="password" name="nueva_password" id="nueva_password" required autocomplete="new-password" style="padding-right: 44px;">
+                <button type="button" class="password-toggle" onclick="togglePassword('nueva_password', this)" tabindex="-1" aria-label="Mostrar contraseña">
+                    <i class="fa-regular fa-eye"></i>
+                </button>
+            </div>
+
+            <label for="confirmar_password">Confirmar contraseña</label>
+            <div class="password-wrapper">
+                <input type="password" name="confirmar_password" id="confirmar_password" required autocomplete="new-password" style="padding-right: 44px;">
+                <button type="button" class="password-toggle" onclick="togglePassword('confirmar_password', this)" tabindex="-1" aria-label="Mostrar contraseña">
+                    <i class="fa-regular fa-eye"></i>
+                </button>
+            </div>
+
+            <button type="submit"><i class="fa-solid fa-arrow-right-to-bracket"></i> Actualizar y entrar</button>
+        </form>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" integrity="sha384-nLoOnA/BDh8A/jxqtckg4DumuCGOBYUnNJLZdQz/zfYNp3wcjGSoWTAzgko06G/2" crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const categoryEl = document.getElementById('flash-category');
+            const messageEl = document.getElementById('flash-message');
+            if (categoryEl && messageEl && messageEl.value) {
+                const cat = categoryEl.value;
+                const toastStyles = {
+                    success: { icon: 'check-circle', bg: '#ecfdf5', text: '#065f46', border: '#a7f3d0' },
+                    error:   { icon: 'times-circle', bg: '#fef2f2', text: '#991b1b', border: '#fecaca' },
+                    info:    { icon: 'info-circle', bg: '#eff6ff', text: '#1e40af', border: '#bfdbfe' },
+                    warning: { icon: 'exclamation-triangle', bg: '#fffbeb', text: '#92400e', border: '#fde68a' }
+                };
+                const style = toastStyles[cat] || toastStyles.info;
+                Swal.fire({
+                    html: `<div style="display:flex;align-items:center;gap:14px;">
+                        <div style="
+                            width:44px;height:44px;border-radius:12px;
+                            display:flex;align-items:center;justify-content:center;
+                            font-size:1.5rem;flex-shrink:0;
+                            background:${style.bg};
+                            color:${style.text};
+                            border:2px solid ${style.border};
+                        ">
+                            <i class="fa-solid fa-${style.icon}"></i>
+                        </div>
+                        <div style="font-size:0.95rem;font-weight:600;color:${style.text};line-height:1.4;">
+                            ${messageEl.value}
+                        </div>
+                    </div>`,
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 4000,
+                    timerProgressBar: true,
+                    background: '#fff',
+                    customClass: {
+                        popup: 'swal-toast-custom toast-' + cat
+                    }
+                });
+            }
+
+            // ── Client-side password validation ──
+            const form = document.querySelector('form');
+            if (!form) return;
+
+            const passInput = document.getElementById('nueva_password');
+            const confirmInput = document.getElementById('confirmar_password');
+            if (!passInput || !confirmInput) return;
+
+            function validarFortaleza(pw) {
+                const errores = [];
+                if (pw.length < 8) errores.push('• Al menos 8 caracteres');
+                if (!/[A-Z]/.test(pw)) errores.push('• Una letra mayúscula');
+                if (!/[a-z]/.test(pw)) errores.push('• Una letra minúscula');
+                if (!/[0-9]/.test(pw)) errores.push('• Un número');
+                if (!/[!@#$%^&*()_+\-=\[\]{}|;:,.<>?\/~`]/.test(pw)) errores.push('• Un carácter especial (!@#$%^&*)');
+                return errores;
+            }
+
+            form.addEventListener('submit', function (e) {
+                const errores = [];
+                const pw = passInput.value;
+                const confirm = confirmInput.value;
+
+                const fortaleza = validarFortaleza(pw);
+                if (fortaleza.length > 0) {
+                    errores.push('La contraseña no cumple los requisitos:');
+                    errores.push(...fortaleza);
+                }
+
+                if (pw !== confirm) {
+                    errores.push('Las contraseñas no coinciden.');
+                }
+
+                if (errores.length > 0) {
+                    e.preventDefault();
+                    Swal.fire({
+                        title: 'Contraseña inválida',
+                        html: errores.join('<br>'),
+                        icon: 'error',
+                        confirmButtonColor: '#2563eb',
+                        confirmButtonText: 'Entendido'
+                    });
+                    return false;
+                }
+            });
+        });
+
+        function togglePassword(inputId, btn) {
+            const input = document.getElementById(inputId);
+            if (!input) return;
+            const isPassword = input.type === 'password';
+            input.type = isPassword ? 'text' : 'password';
+            const icon = btn.querySelector('i');
+            if (icon) {
+                icon.className = isPassword ? 'fa-regular fa-eye-slash' : 'fa-regular fa-eye';
+            }
+            btn.setAttribute('aria-label', isPassword ? 'Ocultar contraseña' : 'Mostrar contraseña');
+        }
+    </script>
+    <style>
+        .password-wrapper {
+            position: relative;
+            display: block;
+        }
+        .password-toggle {
+            position: absolute;
+            right: 2px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px 12px;
+            color: #94a3b8;
+            font-size: 1.2rem;
+            line-height: 1;
+            transition: color 0.2s;
+        }
+        .password-toggle:hover {
+            color: #2563eb;
+        }
+        .password-toggle:focus-visible {
+            outline: 2px solid #2563eb;
+            outline-offset: 2px;
+            border-radius: 4px;
+        }
+
+        .swal-toast-custom {
+            border-radius: 16px !important;
+            padding: 14px 18px !important;
+            box-shadow: 0 10px 30px -8px rgba(0,0,0,0.15), 0 0 0 1px rgba(0,0,0,0.04) !important;
+            border-left: 5px solid transparent !important;
+        }
+        .swal-toast-custom .swal2-timer-progress-bar {
+            height: 3px;
+            border-radius: 0 0 16px 16px;
+            background: linear-gradient(90deg, #93c5fd, #3b82f6) !important;
+        }
+        .toast-success { border-left-color: #10b981 !important; }
+        .toast-error   { border-left-color: #ef4444 !important; }
+        .toast-info    { border-left-color: #3b82f6 !important; }
+        .toast-warning { border-left-color: #f59e0b !important; }
+    </style>
+</body>
+
+</html>

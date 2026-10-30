@@ -1,0 +1,643 @@
+{% from 'macros.html' import avatar %}
+{% extends 'home.html' %}
+{% block title %}Empleados{% endblock %}
+{% block content %}
+
+
+
+
+<div class="header-actions">
+    <!-- Botón Nuevo -->
+    <button class="accordion-header" onclick="abrirModalEmpleado()">
+        Nuevo Empleado <i class="fa-regular fa-square-plus"></i>
+    </button>
+
+    <!-- Menú Acciones -->
+    <nav class="navbar-actions">
+        <ul class="nav-main">
+            <li class="dropdown">
+                <a href="#" class="dropbtn">Acciones Masivas <i class="fa-solid fa-chevron-down"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{{ url_for('rrhh.descargar_plantilla_excel') }}">Descargar Plantilla Inicial</a></li>
+                    <li><a href="javascript:void(0)" onclick="abrirModalImportar()">Cargar Datos Masivamente</a></li>
+                    <li><a href="javascript:void(0)" onclick="abrirModalImportar('actualizar')">Actualizar Datos
+                            Masivamente</a></li>
+                    <li><a href="{{ url_for('rrhh.descargar_plantilla_contratos') }}">Descargar Plantilla Contratos</a></li>
+                    <li><a href="javascript:void(0)" onclick="abrirModalImportar('contratos')">Importar Contratos Masivamente</a></li>
+                    <li><a href="{{ url_for('rrhh.descargar_plantilla_rol_sgi') }}">Descargar Plantilla Rol SGI</a></li>
+                    <li><a href="javascript:void(0)" onclick="abrirModalImportar('rol_sgi')">Asignar Rol SGI Masivamente</a></li>
+                    <li><a href="{{ url_for('rrhh.descargar_reporte_empleados', filtro=1) }}">Descargar Reporte de
+                            Empleados</a></li>
+                    <li><a href="javascript:void(0)" onclick="abrirModalZip()">Cargar Archivos Masivamente (.ZIP)</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Buscador -->
+    <div class="search-container">
+        <input type="text" id="inputBusquedaID" placeholder="Buscar Empleado...">
+        <i class="fa-solid fa-magnifying-glass"></i>
+    </div>
+</div>
+
+<!-- FILTROS AVANZADOS (panel colapsable: sede, EPS, ARL, mes de nacimiento, etc.) -->
+<div class="filtros-avanzados-wrapper">
+    <button type="button" class="btn-filtros-av" id="btnToggleFiltrosAv" onclick="toggleFiltrosAvanzados()">
+        <i class="fa-solid fa-filter"></i> Filtros Avanzados
+        <span class="filtro-badge" id="badgeFiltrosAv" style="display:none;">0</span>
+        <i class="fa-solid fa-chevron-down chevron"></i>
+    </button>
+
+    <div class="filtros-avanzados" id="panelFiltrosAvanzados">
+        <div class="filtros-av-grid">
+            <div class="filtro-av-item">
+                <label for="filtroTipoContrato">Tipo de Contrato</label>
+                <select id="filtroTipoContrato" multiple data-placeholder="Todos los tipos de contrato">
+                    {% for tipo_contrato in tipoContrato %}
+                    <option value="{{ tipo_contrato.nombre }}">{{ tipo_contrato.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="filtro-av-item">
+                <label for="filtroCargo">Cargo</label>
+                <select id="filtroCargo" multiple data-placeholder="Todos los cargos">
+                    {% for cargo in cargoS %}
+                    <option value="{{ cargo.nombre }}">{{ cargo.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="filtro-av-item">
+                <label for="filtroSede">Sede</label>
+                <select id="filtroSede" multiple data-placeholder="Todas las sedes">
+                    {% for sede in sedeS %}
+                    <option value="{{ sede.nombre }}">{{ sede.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="filtro-av-item">
+                <label for="filtroEps">EPS</label>
+                <select id="filtroEps" multiple data-placeholder="Todas las EPS">
+                    {% for eps in epsS %}
+                    <option value="{{ eps.nombre }}">{{ eps.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="filtro-av-item">
+                <label for="filtroArl">ARL</label>
+                <select id="filtroArl" multiple data-placeholder="Todas las ARL">
+                    {% for arl in arlS %}
+                    <option value="{{ arl.nombre }}">{{ arl.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="filtro-av-item">
+                <label for="filtroAfp">AFP</label>
+                <select id="filtroAfp" multiple data-placeholder="Todas las AFP">
+                    {% for afp in afpS %}
+                    <option value="{{ afp.nombre }}">{{ afp.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="filtro-av-item">
+                <label for="filtroEstadoCivil">Estado Civil</label>
+                <select id="filtroEstadoCivil" multiple data-placeholder="Todos los estados civiles">
+                    {% for estado in estadoCivil %}
+                    <option value="{{ estado.nombre }}">{{ estado.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="filtro-av-item">
+                <label for="filtroSexo">Sexo</label>
+                <select id="filtroSexo" multiple data-placeholder="Todos">
+                    <option value="M">Masculino</option>
+                    <option value="F">Femenino</option>
+                </select>
+            </div>
+            <div class="filtro-av-item">
+                <label for="filtroJornada">Jornada</label>
+                <select id="filtroJornada" multiple data-placeholder="Todas las jornadas">
+                    <option value="DIURNO">Diurno</option>
+                    <option value="TARDE">Tarde</option>
+                    <option value="NOCTURNO">Nocturno</option>
+                </select>
+            </div>
+            <div class="filtro-av-item">
+                <label for="filtroBanco">Banco</label>
+                <select id="filtroBanco" multiple data-placeholder="Todos los bancos">
+                    {% for banco in bancoS %}
+                    <option value="{{ banco.nombre }}">{{ banco.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="filtro-av-item">
+                <label for="filtroGrupoNomina">Grupo de Nómina</label>
+                <select id="filtroGrupoNomina" multiple data-placeholder="Todos los grupos">
+                    {% for nomina in nominaS %}
+                    <option value="{{ nomina.nombre }}">{{ nomina.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="filtro-av-item">
+                <label for="filtroNivelEscolaridad">Nivel de Escolaridad</label>
+                <select id="filtroNivelEscolaridad" multiple data-placeholder="Todos los niveles">
+                    {% for nivel in nivelEscolaridad %}
+                    <option value="{{ nivel.nombre }}">{{ nivel.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="filtro-av-item">
+                <label for="filtroMesNacimiento">Mes de Nacimiento</label>
+                <select id="filtroMesNacimiento" class="filtro-av-simple">
+                    <option value="">Todos los meses</option>
+                    <option value="01">Enero</option>
+                    <option value="02">Febrero</option>
+                    <option value="03">Marzo</option>
+                    <option value="04">Abril</option>
+                    <option value="05">Mayo</option>
+                    <option value="06">Junio</option>
+                    <option value="07">Julio</option>
+                    <option value="08">Agosto</option>
+                    <option value="09">Septiembre</option>
+                    <option value="10">Octubre</option>
+                    <option value="11">Noviembre</option>
+                    <option value="12">Diciembre</option>
+                </select>
+            </div>
+        </div>
+        <div class="filtros-av-acciones">
+            <button type="button" class="btn-limpiar-filtros" onclick="limpiarTodosLosFiltros()">
+                <i class="fa-solid fa-eraser"></i> Limpiar todos los filtros
+            </button>
+        </div>
+    </div>
+</div>
+
+{% include 'rrhh/_modal_empleado.html' %}
+
+<!-- Total de empleados filtrados -->
+<div class="total-filtrados">
+    <i class="fa-solid fa-users"></i>
+    <span id="totalFiltradosLabel">0 empleados</span>
+</div>
+
+<table class="tabla-expandible">
+    <thead>
+        <tr>
+            <th>Identificacion</th>
+            <th>Apellidos y Nombres</th>
+            <th>Cargo</th>
+            <th>Tipo de Contrato</th>
+            <th>Documentacion</th>
+        </tr>
+    </thead>
+    <tbody id="tabla_lista_empleados_body">
+        {% for dato in empleados_list %}
+        <!-- Fila Principal Visible -->
+        {% if dato.activo == 1 %}
+        <tr class="fila-principal" data-id="{{ dato.id }}">
+            <td data-column="identificacion">{{ dato.identificacion }}</td> <!-- tipo_documento -->
+            <td data-column="nombres_y_apellidos">
+                <div class="emp-name-cell">
+                    {{ avatar(src=dato.foto_path, class='emp-photo-thumb', alt='Foto') }}
+                    <span>{{ dato.apellidos }} {{ dato.nombres }}</span>
+                </div>
+            </td> <!-- consecutivo -->
+            <td data-column="cargo">{{ dato.cargos }}</td> <!-- nombre_documento -->
+            <td data-column="tipo_contrato">{{ dato.tipo_contrato }}</td> <!-- fecha_ultima_revision -->
+            <td class="acciones">
+                <button type="button" class="btn-accion btn-foto btn-preview"
+                    data-url="{{ dato.cedula_path | replace('\\', '/') }}" data-tipo="cedula" title="Ver Cédula"><i
+                        class="fa-regular fa-id-card"></i>
+                    {% if dato.cedula_path %}<span class="file-dot"></span>{% endif %}</button>
+                <button type="button" class="btn-accion btn-foto btn-preview"
+                    data-url="{{ dato.foto_path | replace('\\', '/') }}" data-tipo="foto" title="Ver Foto"><i
+                        class="fa-solid fa-image-portrait"></i>
+                    {% if dato.foto_path %}<span class="file-dot"></span>{% endif %}</button>
+                <button type="button" class="btn-accion btn-contrato" data-id="{{ dato.id }}"
+                    title="Modificar Contrato"><i class="fa-solid fa-user-tie"></i>
+                    {% if dato.cantidad_contratos > 0 %}<span class="btn-badge">{{ dato.cantidad_contratos }}</span>{% endif %}</button>
+                <button type="button" class="btn-accion btn-editar" data-id="{{ dato.id }}" title="Editar Empleado"><i
+                        class="fa-solid fa-user-pen"></i></button>
+                <button type="button" class="btn-accion btn-restablecer" data-id="{{ dato.id }}"
+                    title="Restablecer Contraseña"><i class="fa-solid fa-key"></i></button>
+                <button type="button" class="btn-accion btn-eliminar" id="btn-eliminar" data-id="{{ dato.id }}"
+                    title="Retirar Empleado"><i class="fa-solid fa-person-circle-minus"></i></button>
+            </td>
+        </tr>
+        <!-- Fila de Detalles Oculta (rediseñada con pestañas) -->
+        <tr class="fila-detalles">
+            <td colspan="5">
+                <div class="detalle-tabs">
+                    <!-- Barra de pestañas -->
+                    <div class="detalle-tab-nav" data-empleado-id="{{ dato.id }}">
+                        <button class="detalle-tab-btn active" data-tab="personales" onclick="switchDetalleTab(this, 'personales')">
+                            <i class="fa-solid fa-user"></i> Personales
+                        </button>
+                        <button class="detalle-tab-btn" data-tab="contacto" onclick="switchDetalleTab(this, 'contacto')">
+                            <i class="fa-solid fa-phone"></i> Contacto
+                        </button>
+                        <button class="detalle-tab-btn" data-tab="seguridad" onclick="switchDetalleTab(this, 'seguridad')">
+                            <i class="fa-solid fa-shield-heart"></i> Seguridad Social
+                        </button>
+                        <button class="detalle-tab-btn" data-tab="laboral" onclick="switchDetalleTab(this, 'laboral')">
+                            <i class="fa-solid fa-briefcase"></i> Laboral
+                        </button>
+                        <button class="detalle-tab-btn" data-tab="educacion" onclick="switchDetalleTab(this, 'educacion')">
+                            <i class="fa-solid fa-graduation-cap"></i> Educación
+                        </button>
+                        <button class="detalle-tab-btn" data-tab="documentos" onclick="switchDetalleTab(this, 'documentos')">
+                            <i class="fa-solid fa-folder"></i> Documentos
+                        </button>
+                    </div>
+
+                    <!-- ─── TAB: Personales ─── -->
+                    <div class="detalle-tab-panel active" data-tab="personales">
+                        <div class="detalles-contenido">
+                            <div class="detalle-item"><strong>Cédula Expedida en:</strong> <span data-column="cedula_expedida_en">{{ dato.cedula_expedida_en }}</span></div>
+                            <div class="detalle-item"><strong>Sexo:</strong> <span data-column="sexo">{{ dato.sexo }}</span></div>
+                            <div class="detalle-item"><strong>Fecha de Nacimiento:</strong> <span data-column="fecha_nacimiento">{{ dato.fecha_nacimiento }}</span></div>
+                            <div class="detalle-item"><strong>Lugar de Nacimiento:</strong> <span data-column="lugar_nacimiento">{{ dato.lugar_nacimiento }}</span></div>
+                            <div class="detalle-item"><strong>Edad:</strong> <span data-column="edad">{{ dato.edad }} Años</span></div>
+                            <div class="detalle-item"><strong>Estado Civil:</strong> <span data-column="estado_civil_id">{{ dato.estado_civil }}</span></div>
+                            <div class="detalle-item"><strong>Grupo Sanguíneo:</strong> <span data-column="grupo_sanguineo_id">{{ dato.grupo_sanguineo }}</span></div>
+                            <div class="detalle-item"><strong>N° Hijos:</strong> <span data-column="numero_hijos">{{ dato.numero_hijos }}</span></div>
+                        </div>
+                    </div>
+
+                    <!-- ─── TAB: Contacto ─── -->
+                    <div class="detalle-tab-panel" data-tab="contacto">
+                        <div class="detalles-contenido">
+                            <div class="detalle-item"><strong>Dirección:</strong> <span data-column="direccion">{{ dato.direccion }}</span></div>
+                            <div class="detalle-item"><strong>Ciudad:</strong> <span data-column="barrio">{{ dato.barrio }}</span></div>
+                            <div class="detalle-item"><strong>Localidad:</strong> <span data-column="localidad">{{ dato.localidad }}</span></div>
+                            <div class="detalle-item"><strong>Estrato:</strong> <span data-column="estrato">{{ dato.estrato }}</span></div>
+                            <div class="detalle-item"><strong>Teléfono Fijo:</strong> <span data-column="telefono_fijo">{{ dato.telefono_fijo }}</span></div>
+                            <div class="detalle-item"><strong>Celular:</strong> <span data-column="celular">{{ dato.celular }}</span></div>
+                            <div class="detalle-item"><strong>Correo:</strong> <span data-column="correo">{{ dato.correo }}</span></div>
+                            <div class="detalle-item"><strong>Contacto Emergencia:</strong> <span data-column="contacto_emergencia">{{ dato.contacto_emergencia }}</span></div>
+                            <div class="detalle-item"><strong>Tel. Emergencia:</strong> <span data-column="telefono_emergencia">{{ dato.telefono_emergencia }}</span></div>
+                            <div class="detalle-item"><strong>Parentesco:</strong> <span data-column="parentesco">{{ dato.parentesco }}</span></div>
+                        </div>
+                    </div>
+
+                    <!-- ─── TAB: Seguridad Social ─── -->
+                    <div class="detalle-tab-panel" data-tab="seguridad">
+                        <div class="detalles-contenido">
+                            <div class="detalle-item"><strong>EPS:</strong> <span data-column="eps_id">{{ dato.eps }}</span></div>
+                            <div class="detalle-item"><strong>AFP:</strong> <span data-column="afp_id">{{ dato.afp }}</span></div>
+                            <div class="detalle-item"><strong>Cesantías:</strong> <span data-column="cesantias_id">{{ dato.cesantias }}</span></div>
+                            <div class="detalle-item"><strong>CCF:</strong> <span data-column="ccf_id">{{ dato.ccf }}</span></div>
+                            <div class="detalle-item"><strong>ARL:</strong> <span data-column="arl_id">{{ dato.arl }}</span></div>
+                        </div>
+                    </div>
+
+                    <!-- ─── TAB: Laboral ─── -->
+                    <div class="detalle-tab-panel" data-tab="laboral">
+                        <div class="detalles-contenido">
+                            <div class="detalle-item"><strong>Tipo Contrato:</strong> <span data-column="tipo_contrato">{{ dato.tipo_contrato }}</span></div>
+                            <div class="detalle-item"><strong>Jornada:</strong> <span data-column="jornada">{{ dato.jornada }}</span></div>
+                            <div class="detalle-item"><strong>Sede:</strong> <span data-column="sede">{{ dato.sedes }}</span></div>
+                            <div class="detalle-item"><strong>Fecha Ingreso:</strong> <span data-column="fecha_ingreso">{{ dato.fecha_ingreso }}</span></div>
+                            <div class="detalle-item"><strong>Antigüedad:</strong> <span data-column="antiguedad">{{ dato.antiguedad_texto or (dato.antiguedad ~ ' Años' if dato.antiguedad else '') }}</span></div>
+                            <div class="detalle-item"><strong>Salario Básico:</strong> <span data-column="salario_basico">{{ dato.salario_basico_moneda }}</span></div>
+                            <div class="detalle-item"><strong>Factor No Salarial:</strong> <span data-column="factor_no_salarial">{{ dato.factor_no_salarial_moneda }}</span></div>
+                            <div class="detalle-item"><strong>N° Cuenta:</strong> <span data-column="numero_cuenta">{{ dato.numero_cuenta }}</span></div>
+                            <div class="detalle-item"><strong>Banco:</strong> <span data-column="banco">{{ dato.bancos }}</span></div>
+                            <div class="detalle-item"><strong>Grupo Nómina:</strong> <span data-column="grupo_nomina">{{ dato.grupo_nomina }}</span></div>
+                            <div class="detalle-item"><strong>Rol SGI:</strong> <span data-column="sgi_rol">{{ dato.sgi_rol or 'Sin acceso' }}</span></div>
+                        </div>
+                    </div>
+
+                    <!-- ─── TAB: Educación ─── -->
+                    <div class="detalle-tab-panel" data-tab="educacion">
+                        <div class="detalles-contenido">
+                            <div class="detalle-item"><strong>Nivel Escolaridad:</strong> <span data-column="nivel_escolaridad_id">{{ dato.nivel_escolaridad }}</span></div>
+                            <div class="detalle-item"><strong>Programa Académico:</strong> <span data-column="programa_academico">{{ dato.programa_academico }}</span></div>
+                            <div class="detalle-item"><strong>Estudia Actualmente:</strong> <span data-column="estudia_actualmente">{{ dato.estudia_actualmente }}</span></div>
+                            <div class="detalle-item"><strong>Programa Actual:</strong> <span data-column="nombre_programa_actual">{{ dato.nombre_programa_actual }}</span></div>
+                        </div>
+                    </div>
+
+                    <!-- ─── TAB: Documentos ─── -->
+                    <div class="detalle-tab-panel" data-tab="documentos">
+                        <div class="detalles-contenido">
+                            <div class="detalle-item"><strong>Documentos de Estudio:</strong>
+                                <button type="button" class="btn-accion btn-docs" data-id="{{ dato.id }}" title="Ver Documentos de Estudio">
+                                    <i class="fa-solid fa-folder-open"></i> Ver documentos
+                                </button>
+                            </div>
+                            <div class="detalle-item"><strong>Contratos:</strong>
+                                <span>{{ dato.cantidad_contratos }}</span>
+                                <button type="button" class="btn-accion btn-contratos" data-id="{{ dato.id }}" title="Ver Contratos">
+                                    <i class="fa-solid fa-eye"></i> Ver contratos
+                                </button>
+                            </div>
+                            <div class="detalle-item"><strong>Certificado Laboral:</strong>
+                                <button type="button" class="btn-accion btn-certificado" data-id="{{ dato.id }}" title="Generar Certificado">
+                                    <i class="fa-solid fa-file-pdf"></i> Generar Certificado
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- modal para ver imagenes  -->
+<div id="modalPreview" class="modal-preview">
+    <div class="modal-preview-content">
+        <div class="modal-header">
+            <h3>Visualizacion de Documentos</h3>
+        </div>
+        <div class="modal-body-preview">
+            <span class="modal-close" onclick="cerrarPreview()">&times;</span>
+
+            <button id="btnVolverLista" onclick="volverListaDocs()" style="display: none;">Volver a Documentos</button>
+
+            <img src="" alt="Preview" id="previewImg">
+
+            <iframe src="" frameborder="0" id="previewPdf"></iframe>
+
+            <div id="previewListaDocs" style="display: none;">
+                <h3>Documentos de Estudio</h3>
+                <div id="listaDocsContainer"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL RETIRO -->
+<div id="modalRetiro" class="modal-preview">
+    <div class="modal-preview-content">
+        <div class="modal-body-preview">
+            <span class="modal-close" onclick="cerrarModalRetiro()">&times;</span>
+            <h3>Fecha de Retiro</h3>
+            <input class="form-control" type="date" name="fecha_retiro" id="fecha_retiro">
+            <select name="motivo_retiro" id="motivo_retiro">
+                <option value="">Seleccione un motivo...</option>
+                <option value="Con Justa Causa">Con Justa Causa</option>
+                <option value="Mutuo Acuerdo">Mutuo Acuerdo</option>
+                <option value="Pensionado">Pensionado</option>
+                <option value="Sin Justa Causa">Sin Justa Causa</option>
+                <option value="Vencimiento de Contrato">Vencimiento de Contrato</option>
+                <option value="Voluntario">Voluntario</option>
+                <option value="Cambio a Productiva">Cambio a Productiva</option>
+            </select>
+            <div class="acciones" style="margin-top: 20px;">
+                <button type="button" class="btn-accion btn-guardar" id="btnGuardarRetiro"
+                    onclick="guardarFechaRetiro()">Guardar</button>
+                <button type="button" class="btn-accion btn-cancelar" onclick="cerrarModalRetiro()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL CONTRATOS (rediseñado) -->
+<div id="modalContratos" class="modal-preview">
+    <div class="modal-preview-content modal-contratos-content">
+        <div class="modal-header">
+            <h2><i class="fa-solid fa-file-contract"></i> Contratos del Empleado</h2>
+            <button class="btn-close" onclick="cerrarModalContratos()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body-preview">
+            <!-- Indicador de interacción -->
+            <div class="contratos-helper">
+                <i class="fa-solid fa-hand-point-up"></i>
+                <span>Haz clic en un contrato para ver sus <strong>Otrosí</strong></span>
+            </div>
+            <table class="tabla-expandible contratos-table">
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Tipo</th>
+                        <th>Inicio</th>
+                        <th>Fin</th>
+                        <th>Salario Básico</th>
+                        <th>Factor No Salarial</th>
+                        <th>Motivo</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody id="tabla_contratos_empleado_body"></tbody>
+            </table>
+            <div class="acciones" style="margin-top: 20px;">
+                <button type="button" class="btn-accion btn-cancelar" onclick="cerrarModalContratos()"><i class="fa-solid fa-xmark"></i> Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL IMPORTAR -->
+<div id="modalImportar" class="modal-preview">
+    <div class="modal-preview-content">
+        <div class="modal-header">
+            <h3 id="modalImportarTitulo"></h3>
+            <button class="btn-close" onclick="cerrarModalImportar()">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form id="formImportarExcel" enctype="multipart/form-data">
+                <div class="form-field" style="margin-bottom: 20px;">
+                    <label class="form-label">Seleccione el archivo Excel (.xlsx)</label>
+                    <input type="file" id="archivo_excel" accept=".xlsx" class="form-control" required>
+                </div>
+
+                <div id="resultadoImportacion"
+                    style="margin-bottom: 15px; display: none; padding: 10px; border-radius: 5px;"></div>
+
+                <div class="acciones">
+                    <button type="submit" class="btn-accion btn-guardar" id="btnCargarExcel">Procesar Carga</button>
+                    <button type="button" class="btn-accion btn-cancelar"
+                        onclick="cerrarModalImportar()">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal ZIP -->
+<div id="modalZip" class="modal-preview">
+    <div class="modal-preview-content">
+        <div class="modal-header">
+            <h3>Carga Masiva de Documentos (ZIP)</h3>
+            <button class="btn-close" onclick="cerrarModalZip()">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p style="color: #ccc; font-size: 0.9rem; margin-bottom: 15px;">
+                Suba un archivo ZIP con las fotos y documentos. <br>
+                Nombres requeridos: <b>ID_FOTO.jpg</b>, <b>ID_CEDULA.pdf</b> o <b>ID_ESTUDIO_X.pdf</b>
+            </p>
+            <form id="formImportarZip">
+                <input type="file" id="archivo_zip" accept=".zip" class="form-control" required>
+                <div id="resultadoZip" style="margin-top: 15px; display: none; padding: 10px; border-radius: 5px;">
+                </div>
+                <div class="acciones" style="margin-top: 20px;">
+                    <button type="submit" class="btn-accion btn-guardar" id="btnCargarZip">Subir y Procesar</button>
+                    <button type="button" class="btn-accion btn-cancelar" onclick="cerrarModalZip()">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL EDITAR CONTRATO (rediseñado) -->
+<div id="modalEditContrato" class="modal-preview">
+    <div class="modal-preview-content modal-contratos-content">
+        <div class="modal-header">
+            <h2><i class="fa-solid fa-pen-to-square"></i> <span id="tituloContrato">Edición de Contrato</span></h2>
+            <button class="btn-close" onclick="cerrarEditContrato()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body-preview">
+            <!-- Info del contrato actual -->
+            <div class="contrato-info-bar" id="contratoInfoBar" style="display:none;">
+                <div class="contrato-info-item">
+                    <span class="contrato-info-label">Código</span>
+                    <span class="contrato-info-value" id="infoCodigo">—</span>
+                </div>
+                <div class="contrato-info-item">
+                    <span class="contrato-info-label">Tipo Actual</span>
+                    <span class="contrato-info-value" id="infoTipo">—</span>
+                </div>
+                <div class="contrato-info-item">
+                    <span class="contrato-info-label">Otrosí</span>
+                    <span class="contrato-info-value" id="infoOtrosi">0</span>
+                </div>
+            </div>
+
+            <form action="" id="formEditContrato">
+                <input type="hidden" id="id_empleado_edit_contrato">
+                <input type="hidden" id="consecutivo_edit_contrato">
+                <input type="hidden" id="cuenta_otrosi">
+
+                <!-- SELECTOR DE ACCIÓN (prominente) -->
+                <div class="accion-selector">
+                    <label class="accion-selector-label">¿Qué deseas hacer?</label>
+                    <div class="accion-selector-options" id="accionSelectorOptions">
+                        <div class="accion-option accion-crear" data-accion="crear_contrato" onclick="selectAccion(this)">
+                            <i class="fa-solid fa-file-circle-plus"></i>
+                            <span>Crear Contrato</span>
+                        </div>
+                        <div class="accion-option" data-accion="cambio_cargo" onclick="selectAccion(this)">
+                            <i class="fa-solid fa-briefcase"></i>
+                            <span>Cambio de Cargo</span>
+                        </div>
+                        <div class="accion-option" data-accion="cambio_salario" onclick="selectAccion(this)">
+                            <i class="fa-solid fa-money-bill-trend-up"></i>
+                            <span>Cambio de Salario</span>
+                        </div>
+                        <div class="accion-option" data-accion="cambio_contrato" onclick="selectAccion(this)">
+                            <i class="fa-solid fa-file-pen"></i>
+                            <span>Cambio de Contrato</span>
+                        </div>
+                        <div class="accion-option" data-accion="prorroga" onclick="selectAccion(this)">
+                            <i class="fa-solid fa-calendar-plus"></i>
+                            <span>Prórroga</span>
+                        </div>
+                        <div class="accion-option" id="accionEditarOtrosi" data-accion="editar_otrosi" onclick="selectAccion(this)" style="display:none;">
+                            <i class="fa-solid fa-file-signature"></i>
+                            <span>Editar Otrosí</span>
+                        </div>
+                        <div class="accion-option accion-eliminar" data-accion="eliminar_contrato" onclick="selectAccion(this)">
+                            <i class="fa-solid fa-trash-can"></i>
+                            <span>Eliminar Contrato</span>
+                        </div>
+                    </div>
+                    <input type="hidden" name="accion" id="accion" value="">
+                </div>
+
+                <!-- CAMPOS DINÁMICOS -->
+                <div class="edit-contrato-dynamic">
+                    <!-- Cargo nuevo -->
+                    <div class="form-field dynamic-field" id="cargos" style="display:none;">
+                        <label class="form-label" for="cargo_id_edit">
+                            <i class="fa-solid fa-briefcase"></i> Nuevo Cargo
+                        </label>
+                        <select name="cargo_id" id="cargo_id_edit" class="form-control">
+                            <option value="">Seleccione un cargo...</option>
+                            {% for cargo in cargoS %}
+                            <option value="{{cargo.id}}">{{cargo.nombre}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <!-- Nuevo tipo de contrato -->
+                    <div class="form-field dynamic-field" id="nuevoTipoContrato" style="display:none;">
+                        <label class="form-label" for="nuevo_tipo_contrato">
+                            <i class="fa-solid fa-file-contract"></i> Nuevo Tipo de Contrato
+                        </label>
+                        <select name="nuevo_tipo_contrato" id="nuevo_tipo_contrato" class="form-control">
+                            <option value="">Seleccione un tipo...</option>
+                            {% for tipo_contrato in tipoContrato %}
+                            <option value="{{tipo_contrato.id}}">{{tipo_contrato.nombre}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <!-- Salarios -->
+                    <div class="dynamic-field" id="salarios" style="display:none;">
+                        <div class="form-grid-container two-col">
+                            <div class="form-field">
+                                <label class="form-label" for="salario_basico_edit">
+                                    <i class="fa-solid fa-dollar-sign"></i> Salario Básico
+                                </label>
+                                <input class="form-control" type="text" name="salario_basico" id="salario_basico_edit" placeholder="0">
+                            </div>
+                            <div class="form-field">
+                                <label class="form-label" for="factor_no_salarial_edit">
+                                    <i class="fa-solid fa-coins"></i> Factor No Salarial <span class="opcional">(opcional)</span>
+                                </label>
+                                <input class="form-control" type="text" name="factor_no_salarial" id="factor_no_salarial_edit" placeholder="0">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Fechas -->
+                    <div class="dynamic-field" id="fechaInicio" style="display:none;">
+                        <div class="form-field">
+                            <label class="form-label" for="fecha_inicio_prorroga">
+                                <i class="fa-solid fa-calendar-day"></i> Fecha de Inicio
+                            </label>
+                            <input type="date" name="fecha_inicio_prorroga" id="fecha_inicio_prorroga" class="form-control">
+                        </div>
+                    </div>
+                    <div class="dynamic-field" id="fechaFin" style="display:none;">
+                        <div class="form-field">
+                            <label class="form-label" for="fecha_final_prorroga">
+                                <i class="fa-solid fa-calendar-check"></i> Fecha de Finalización
+                            </label>
+                            <input type="date" name="fecha_final_prorroga" id="fecha_final_prorroga" class="form-control">
+                        </div>
+                    </div>
+
+                    <!-- Descripción -->
+                    <div class="dynamic-field" id="descripcion" style="display:none;">
+                        <div class="form-field">
+                            <label class="form-label" for="descripcion_cambio">
+                                <i class="fa-solid fa-pencil"></i> Descripción / Motivo
+                            </label>
+                            <input type="text" name="descripcion_cambio" id="descripcion_cambio" class="form-control" placeholder="Describe el motivo del cambio...">
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <div class="acciones" style="margin-top: 24px; display: flex; gap: 10px; justify-content: flex-end;">
+                <button type="button" class="btn-accion btn-cancelar" onclick="cerrarEditContrato()"><i class="fa-solid fa-xmark"></i> Cancelar</button>
+                <button type="submit" class="btn-accion btn-guardar" form="formEditContrato"><i class="fa-solid fa-floppy-disk"></i> Guardar Cambios</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

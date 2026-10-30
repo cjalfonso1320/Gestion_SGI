@@ -1,0 +1,33 @@
+
+<div class="tbl-header">
+    <table cellpadding="0" cellspacing="0" border="0">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+  <div class="tbl-content">
+    <table cellpadding="0" cellspacing="0" border="0">
+      <tbody>
+        {% for p in archivos_instructivos %}
+        <tr class="filterable-item">
+            <td>{{ p.nombre.split('.')[:-1]|join('.') }}</td>
+            <td>
+                {% if p.tipo == '.pdf' %}
+                    <a target="_blank" href="{{ url_for('doc.ver_documento_query', filepath=p.ruta) }}" class="custom-btn btn-5"><i class="fa-regular fa-eye"></i> Ver</a>
+                    <button onclick="editarArchivo('{{ url_for('doc.ver_documento_query', filepath=p.ruta) }}','{{ p.nombre }}','{{ p.tipo }}','{{ carpeta_actual }}')" class="custom-btn btn-5"><i class="fa-regular fa-pen-to-square"></i> Editar</button>
+                {% elif p.tipo in ['.xlsx', '.xls'] %}
+                    <a href="{{ url_for('doc.descargar_documento_query', filepath=p.ruta) }}" class="custom-btn btn-5"><i class="fa-solid fa-download"></i> Descargar</a>
+                    <button onclick="editarArchivo('{{ url_for('doc.ver_documento_query', filepath=p.ruta) }}','{{ p.nombre }}','{{ p.tipo }}','{{ carpeta_actual }}')" class="custom-btn btn-5"><i class="fa-regular fa-pen-to-square"></i> Editar</button>
+                {% else %}
+                    <a href="{{ url_for('doc.descargar_documento_query', filepath=p.ruta) }}" class="custom-btn btn-5"><i class="fa-solid fa-download"></i> Descargar</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+</div>

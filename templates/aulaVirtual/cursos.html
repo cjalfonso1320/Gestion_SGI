@@ -1,0 +1,183 @@
+{% extends 'home.html' %}
+{% block title %}Gestion de Cursos{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/modal_curso.css') }}">
+
+<div class="welcome-section">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const toastStyles = {
+                success: { icon: 'check-circle', bg: '#ecfdf5', text: '#065f46', border: '#a7f3d0' },
+                error:   { icon: 'times-circle', bg: '#fef2f2', text: '#991b1b', border: '#fecaca' },
+                info:    { icon: 'info-circle', bg: '#eff6ff', text: '#1e40af', border: '#bfdbfe' },
+                warning: { icon: 'exclamation-triangle', bg: '#fffbeb', text: '#92400e', border: '#fde68a' }
+            };
+            {% for category, message in messages %}
+            (function() {
+                const cat = {{ category | tojson }};
+                const style = toastStyles[cat] || toastStyles.info;
+                Swal.fire({
+                    html: `<div style="display:flex;align-items:center;gap:14px;">
+                        <div style="
+                            width:44px;height:44px;border-radius:12px;
+                            display:flex;align-items:center;justify-content:center;
+                            font-size:1.5rem;flex-shrink:0;
+                            background:${style.bg};
+                            color:${style.text};
+                            border:2px solid ${style.border};
+                        ">
+                            <i class="fa-solid fa-${style.icon}"></i>
+                        </div>
+                        <div style="font-size:0.95rem;font-weight:600;color:${style.text};line-height:1.4;">
+                            {{ message | tojson }}
+                        </div>
+                    </div>`,
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 4000,
+                    timerProgressBar: true,
+                    background: '#fff',
+                    customClass: {
+                        popup: 'swal-toast-custom toast-' + cat
+                    }
+                });
+            })();
+            {% endfor %}
+        });
+    </script>
+    <style>
+        .swal-toast-custom {
+            border-radius: 16px !important;
+            padding: 14px 18px !important;
+            box-shadow: 0 10px 30px -8px rgba(0,0,0,0.15), 0 0 0 1px rgba(0,0,0,0.04) !important;
+            border-left: 5px solid transparent !important;
+        }
+        .swal-toast-custom .swal2-timer-progress-bar {
+            height: 3px;
+            border-radius: 0 0 16px 16px;
+            background: linear-gradient(90deg, #93c5fd, #3b82f6) !important;
+        }
+        /* Colorear borde izquierdo según tipo */
+        .toast-success { border-left-color: #10b981 !important; }
+        .toast-error   { border-left-color: #ef4444 !important; }
+        .toast-info    { border-left-color: #3b82f6 !important; }
+        .toast-warning { border-left-color: #f59e0b !important; }
+    </style>
+    {% endif %}
+    {% endwith %}
+
+    <button class="btn-crear-curso" onclick="location.href='{{ url_for('aula.crear_curso') }}'">
+        <i class="fa-solid fa-circle-plus"></i> Crear Nuevo Curso
+    </button>
+
+    <div class="feature-grid">
+
+        <table>
+            <tr>
+                <th>Nombre del Curso</th>
+                <th>Descripción</th>
+                <th>Fecha Limite</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+            {% for curso in cursos %}
+            <tr>
+                <td>{{ curso.nombre }}</td>
+                <td>{{ curso.descripcion }}</td>
+                <td>{{ curso.fecha_limite }}</td>
+                <td>{{ curso.estado }}</td>
+                <td class="acciones">
+                    <!-- Botón Ver -->
+                    <button type="button" class="btn-ver" onclick="verEvaluacion({{ curso.id }})"><i class="fa-regular fa-eye"></i> Ver</button>
+
+                    <!-- Botón Editar -->
+                    <button type="button" class="btn-editarCurso"
+                        onclick="location.href='{{ url_for('aula.editar_curso', curso_id=curso.id) }}'">
+                        Editar
+                    </button>
+
+                    <!-- Formulario de Eliminar (Limpio) -->
+                    <form action="{{ url_for('aula.eliminar_curso', curso_id=curso['id']) }}" method="post"
+                        class="form-eliminar">
+                        {% if config.get('WTF_CSRF_ENABLED') %}<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">{% endif %}
+                        <button type="submit" formmethod="post" class="btn-eliminarCurso btn-accion"
+                            onclick="confirmarEliminar(event, this)">
+                            Eliminar
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% if cursos|length == 0 %}
+        <div class="no-results">
+            <i class="fa-solid fa-circle-info"></i> No hay cursos registrados actualmente.
+        </div>
+        {% endif %}
+    </div>
+</div>
+<div id="modalEvaluacion" class="modal">
+
+    <div class="modal-content">
+        <span class="close" onclick="cerrarModal()">&times;</span>
+        <div id="contenidoEvaluacion"></div>
+    </div>
+</div>
+<script>
+    function verEvaluacion(cursoId) {
+        // Mostrar un estado de carga opcional
+        document.getElementById('contenidoEvaluacion').innerHTML = '<p>Cargando evaluación...</p>';
+
+        fetch(`{{ url_for('aula.ver_evaluacion', curso_id=0) }}`.replace('0', cursoId))
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('contenidoEvaluacion').innerHTML = data;
+                // CAMBIO: Usar 'flex' para que el CSS lo centre
+                document.getElementById('modalEvaluacion').style.display = 'flex';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error al cargar la evaluación.');
+            });
+    }
+
+    function cerrarModal() {
+        document.getElementById('modalEvaluacion').style.display = 'none';
+    }
+
+    // CERRAR AL HACER CLIC FUERA (Opcional pero recomendado)
+    window.onclick = function (event) {
+        const modal = document.getElementById('modalEvaluacion');
+        if (event.target == modal) {
+            cerrarModal();
+        }
+    }
+    function confirmarEliminar(event, button) {
+        // Evitamos cualquier acción por defecto
+        event.preventDefault();
+
+        // Buscamos el formulario más cercano al botón
+        const formulario = button.closest('form');
+
+        Swal.fire({
+            title: '¿Seguro que desea eliminar este curso?',
+            text: "¡Esta acción no se puede deshacer y eliminará todo el progreso relacionado!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33', // Rojo para eliminar
+            cancelButtonColor: '#64748b', // Grisáceo para cancelar
+            confirmButtonText: 'Sí, eliminar curso',
+            cancelButtonText: 'Cancelar',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Si el usuario confirma, enviamos el formulario
+                formulario.submit();
+            }
+        });
+    }
+</script>
+{% endblock %}

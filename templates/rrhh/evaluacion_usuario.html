@@ -1,0 +1,55 @@
+{% extends 'home.html' %}
+{% block title %}Evaluación de Personal{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/construccion_evaluacion.css') }}">
+
+<div class="form-card" style="max-width:700px;margin:0 auto;text-align:center;">
+    <div class="form-eval-title" style="justify-content:center;">
+        <i class="fa-solid fa-clipboard-list"></i> Realizar Evaluación de Desempeño
+    </div>
+    
+    <div class="form-field" style="margin-bottom:24px;">
+        <label for="select_evaluado" class="text-slate-700" style="display:block;text-align:left;font-size:0.75em;font-weight:700;text-transform:uppercase;letter-spacing:0.3px;margin-bottom:8px;">
+            <i class="fa-regular fa-user"></i> Seleccione el personal a evaluar
+        </label>
+        <select id="select_evaluado" class="form-control select2-busqueda" style="width:100%;height:48px;font-size:1rem;">
+            <option value="">-- Seleccione un empleado --</option>
+            {% for evaluacion in evaluaciones_habilitadas %}
+                <option value="{{ evaluacion.id_asignacion }}">
+                    {{ evaluacion.nombres }} {{ evaluacion.apellidos }} — {{ evaluacion.plantilla }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div id="btn_container" style="display:none;">
+        <button id="btn_iniciar" class="btn-submit" style="width:100%;padding:14px 20px;font-size:1.1rem;justify-content:center;">
+            <i class="fa-solid fa-play"></i> COMENZAR EVALUACIÓN
+        </button>
+    </div>
+    
+    {% if not evaluaciones_habilitadas %}
+    <div class="text-slate-400" style="padding:30px 20px;">
+        <i class="fa-regular fa-face-smile" style="font-size:3em;display:block;margin-bottom:12px;"></i>
+        <p style="font-size:0.95rem;">No tienes evaluaciones pendientes por realizar.</p>
+    </div>
+    {% endif %}
+</div>
+
+<script>
+    function getBaseUrl() { return (typeof BASE_URL !== 'undefined' && BASE_URL) ? BASE_URL : (window.BASE_URL || ''); }
+
+    const select = document.getElementById('select_evaluado');
+    const btnContainer = document.getElementById('btn_container');
+    const btnIniciar = document.getElementById('btn_iniciar');
+
+    select.addEventListener('change', function() {
+        btnContainer.style.display = this.value ? 'block' : 'none';
+    });
+
+    btnIniciar.addEventListener('click', function() {
+        const idAsignacion = select.value;
+        window.location.href = `${getBaseUrl()}/rrhh/evaluar_empleado/${idAsignacion}`;
+    });
+</script>
+{% endblock %}

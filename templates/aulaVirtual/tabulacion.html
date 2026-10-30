@@ -1,0 +1,811 @@
+{% extends 'home.html' %}
+{% block title %}Tabulación de Cursos{% endblock %}
+{% block content %}
+
+<style>
+.tabulacion-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+/* --- Stats Cards --- */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin-bottom: 30px;
+}
+.stat-card {
+    background: #fff;
+    border-radius: 14px;
+    padding: 20px 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    text-align: center;
+    border: 1px solid #e2e8f0;
+    transition: transform 0.2s;
+}
+.stat-card:hover { transform: translateY(-2px); }
+.stat-card .stat-icon { font-size: 28px; margin-bottom: 8px; }
+.stat-card .stat-value { font-size: 26px; font-weight: 800; }
+.stat-card .stat-label { font-size: 13px; color: #64748b; margin-top: 2px; }
+.stat-card.stat-total { border-left: 4px solid #0284c7; }
+.stat-card.stat-evaluated { border-left: 4px solid #6366f1; }
+.stat-card.stat-approved { border-left: 4px solid #22c55e; }
+.stat-card.stat-failed { border-left: 4px solid #ef4444; }
+.stat-card.stat-pending { border-left: 4px solid #f59e0b; }
+.stat-card.stat-unattempted { border-left: 4px solid #f59e0b; }
+
+/* --- Progress Bar --- */
+.progress-bar-track {
+    height: 8px;
+    border-radius: 99px;
+    background: #e2e8f0;
+    overflow: hidden;
+    display: flex;
+    margin: 10px 0;
+}
+.progress-bar-fill-green { height: 100%; background: #22c55e; transition: width 0.5s; }
+.progress-bar-fill-red { height: 100%; background: #ef4444; transition: width 0.5s; }
+.progress-bar-fill-amber { height: 100%; background: #f59e0b; transition: width 0.5s; }
+.progress-bar-fill-gray { height: 100%; background: #94a3b8; transition: width 0.5s; }
+
+/* --- Accordion --- */
+.accordion-curso {
+    background: #fff;
+    border-radius: 14px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    border: 1px solid #e2e8f0;
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+}
+.accordion-curso:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+.accordion-curso-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 24px;
+    cursor: pointer;
+    background: #f8fafc;
+    border: none;
+    width: 100%;
+    text-align: left;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #1e293b;
+    transition: background 0.2s;
+    gap: 16px;
+}
+.accordion-curso-header:hover { background: #f1f5f9; }
+.accordion-curso-header .curso-info {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex: 1;
+}
+.accordion-curso-header .curso-icon {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+.accordion-curso-header .curso-stats {
+    display: flex;
+    gap: 14px;
+    font-size: 13px;
+    font-weight: 500;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 4px;
+}
+.accordion-curso-header .curso-stats span {
+    white-space: nowrap;
+}
+.accordion-curso-header .accordion-arrow {
+    font-size: 18px;
+    transition: transform 0.3s;
+    color: #94a3b8;
+    flex-shrink: 0;
+}
+.accordion-curso.open .accordion-arrow { transform: rotate(180deg); }
+.accordion-curso-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+}
+.accordion-curso.open .accordion-curso-body { max-height: none; }
+.accordion-curso-inner { padding: 20px 24px 24px; border-top: 1px solid #e2e8f0; }
+
+/* --- Student Table --- */
+.tabla-tabulacion {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    margin-top: 10px;
+}
+.tabla-tabulacion th {
+    background: #1e3a8a;
+    color: #fff;
+    padding: 10px 12px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 13px;
+    white-space: nowrap;
+}
+.tabla-tabulacion td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #f1f5f9;
+    vertical-align: middle;
+    color: #1e293b;
+}
+.tabla-tabulacion tbody tr {
+    transition: opacity 0.35s ease, transform 0.35s ease, visibility 0.35s ease;
+}
+.tabla-tabulacion tbody tr.filter-hidden {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.97);
+    pointer-events: none;
+    visibility: hidden;
+}
+.tabla-tabulacion tr:hover td { background: #f8fafc; }
+
+/* --- Empty filter message transition --- */
+.empty-filter-msg.filter-visible {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    pointer-events: auto !important;
+}
+
+.badge-aprobado {
+    background: #dcfce7;
+    color: #166534;
+    padding: 3px 10px;
+    border-radius: 99px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+.badge-reprobado {
+    background: #fef2f2;
+    color: #991b1b;
+    padding: 3px 10px;
+    border-radius: 99px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+.badge-pendiente {
+    background: #fef3c7;
+    color: #92400e;
+    padding: 3px 10px;
+    border-radius: 99px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.respuesta-item {
+    font-size: 13px;
+    padding: 2px 0;
+}
+.respuesta-correcta { color: #16a34a; }
+.respuesta-incorrecta { color: #dc2626; }
+
+/* --- Tabs inside course --- */
+.tab-btn-tabulacion {
+    padding: 8px 16px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background: #f8fafc;
+    color: #475569;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+.tab-btn-tabulacion:hover {
+    background: #eff6ff;
+    color: #1e40af;
+    border-color: #93c5fd;
+}
+.tab-btn-tabulacion.active {
+    background: #2563eb;
+    color: #ffffff;
+    border-color: #2563eb;
+    box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+}
+
+/* --- Buttons --- */
+.btn-download {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+    box-shadow: 0 4px 12px rgba(37,99,235,0.25);
+}
+.btn-download:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(37,99,235,0.35);
+}
+
+/* --- Empty state --- */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #94a3b8;
+}
+.empty-state i { font-size: 50px; margin-bottom: 14px; color: #cbd5e1; }
+.empty-state h3 { font-size: 18px; margin-bottom: 6px; color: #475569; }
+</style>
+
+<div class="tabulacion-wrapper">
+    <div class="welcome-section">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:16px;">
+            <div>
+                <h2 style="margin:0 0 4px;"><i class="fa-solid fa-chart-pie"></i> Tabulación de Cursos</h2>
+                <p style="margin:0;color:#64748b;">Resultados, cobertura y respuestas detalladas por curso y empleado</p>
+            </div>
+        </div>
+
+        {% if cursos %}
+        <!-- ===== GLOBAL STATS ===== -->
+        {% set total_global = namespace(asignados=0, estudiantes=0, aprobados=0, reprobados=0, pendientes=0, no_presentaron=0) %}
+        {% for c in cursos %}
+            {% set total_global.asignados = total_global.asignados + (c.total_asignados or 0) %}
+            {% set total_global.estudiantes = total_global.estudiantes + c.total_estudiantes %}
+            {% set total_global.aprobados = total_global.aprobados + c.total_aprobados %}
+            {% set total_global.reprobados = total_global.reprobados + c.total_reprobados %}
+            {% set total_global.pendientes = total_global.pendientes + c.total_pendientes %}
+            {% set total_global.no_presentaron = total_global.no_presentaron + (c.total_no_presentaron or 0) %}
+        {% endfor %}
+
+        <!-- ===== FILTRO POR CARGO ===== -->
+        {% set cargos_unicos = [] %}
+        {% for c in cursos %}
+          {% for est in c.estudiantes %}
+            {% set cargo_est = est.cargo|trim if est.cargo else '-' %}
+            {% if cargo_est not in cargos_unicos %}
+              {% set _ = cargos_unicos.append(cargo_est) %}
+            {% endif %}
+          {% endfor %}
+          {% for est in c.estudiantes_no_presentaron %}
+            {% set cargo_est = est.cargo|trim if est.cargo else '-' %}
+            {% if cargo_est not in cargos_unicos %}
+              {% set _ = cargos_unicos.append(cargo_est) %}
+            {% endif %}
+          {% endfor %}
+        {% endfor %}
+        {% set cargos_unicos = cargos_unicos|sort %}
+
+        <div class="filter-bar" id="filterBar" style="
+            background:#fff;padding:16px 20px;
+            border-radius:12px;border:1px solid #e2e8f0;
+            box-shadow:0 1px 4px rgba(0,0,0,0.04);
+            margin-bottom:24px;
+        ">
+            <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+                <div style="display:flex;align-items:center;gap:8px;color:#475569;font-weight:600;font-size:14px;">
+                    <i class="fa-solid fa-filter"></i>
+                    <span>Filtrar por cargo:</span>
+                </div>
+                <!-- Tags de cargos seleccionados -->
+                <div id="selectedCargosTags" style="display:flex;gap:6px;flex-wrap:wrap;flex:1;">
+                    <span style="color:#94a3b8;font-size:13px;" id="noSelectionText">Ninguno seleccionado</span>
+                </div>
+                <span id="filtroResultCount" style="
+                    font-size:13px;color:#64748b;font-weight:500;
+                    white-space:nowrap;
+                ">{{ total_global.asignados }} empleados asignados</span>
+                <button onclick="toggleCargoDropdown()" style="
+                    display:inline-flex;align-items:center;gap:6px;
+                    padding:7px 14px;border:1px solid #cbd5e1;border-radius:8px;
+                    background:#f8fafc;font-size:13px;font-weight:500;
+                    color:#1e293b;cursor:pointer;
+                    outline:none;transition:all 0.2s;
+                    white-space:nowrap;
+                " onmouseover="this.style.borderColor='#2563eb'" onmouseout="this.style.borderColor='#cbd5e1'">
+                    <i class="fa-solid fa-chevron-down" id="dropdownArrow" style="font-size:10px;transition:transform 0.2s;"></i>
+                    Seleccionar cargos
+                </button>
+            </div>
+            <!-- Dropdown de checkboxes -->
+            <div id="cargoDropdown" style="
+                display:none;margin-top:12px;
+                background:#fff;border:1px solid #e2e8f0;border-radius:10px;
+                box-shadow:0 8px 24px rgba(0,0,0,0.12);
+                padding:12px;max-height:280px;overflow-y:auto;
+            ">
+                <div style="display:flex;justify-content:space-between;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid #f1f5f9;">
+                    <button type="button" onclick="seleccionarTodosCargos(true)" style="
+                        border:none;background:none;color:#2563eb;font-size:13px;font-weight:600;cursor:pointer;padding:4px 8px;border-radius:6px;transition:background 0.2s;
+                    " onmouseover="this.style.background='#eff6ff'" onmouseout="this.style.background='transparent'">
+                        <i class="fa-solid fa-check-double"></i> Seleccionar todos
+                    </button>
+                    <button type="button" onclick="seleccionarTodosCargos(false)" style="
+                        border:none;background:none;color:#64748b;font-size:13px;font-weight:500;cursor:pointer;padding:4px 8px;border-radius:6px;transition:background 0.2s;
+                    " onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='transparent'">
+                        <i class="fa-solid fa-times"></i> Limpiar
+                    </button>
+                </div>
+                <div id="cargoCheckboxList" style="display:flex;flex-direction:column;gap:4px;">
+                    {% for cargo in cargos_unicos %}
+                    <label style="
+                        display:flex;align-items:center;gap:10px;
+                        padding:8px 10px;border-radius:8px;cursor:pointer;
+                        transition:background 0.2s;font-size:14px;font-weight:500;
+                        color:#1e293b;
+                    " onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='transparent'"
+                       data-cargo-value="{{ cargo|e }}">
+                        <input type="checkbox" value="{{ cargo|e }}" data-cargo-lower="{{ cargo|lower|e }}" onchange="actualizarFiltroCargos()" style="
+                            width:16px;height:16px;accent-color:#2563eb;cursor:pointer;
+                        ">
+                        <span>{{ cargo }}</span>
+                    </label>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card stat-total">
+                <div class="stat-icon">👥</div>
+                <div class="stat-value">{{ total_global.asignados }}</div>
+                <div class="stat-label">Total Asignados</div>
+            </div>
+            <div class="stat-card stat-evaluated">
+                <div class="stat-icon">📝</div>
+                <div class="stat-value">{{ total_global.estudiantes }}</div>
+                <div class="stat-label">Evaluados</div>
+            </div>
+            <div class="stat-card stat-approved">
+                <div class="stat-icon">✅</div>
+                <div class="stat-value">{{ total_global.aprobados }}</div>
+                <div class="stat-label">Aprobados</div>
+            </div>
+            <div class="stat-card stat-failed">
+                <div class="stat-icon">❌</div>
+                <div class="stat-value">{{ total_global.reprobados }}</div>
+                <div class="stat-label">Reprobados</div>
+            </div>
+            <div class="stat-card stat-unattempted">
+                <div class="stat-icon">⚠️</div>
+                <div class="stat-value">{{ total_global.no_presentaron }}</div>
+                <div class="stat-label">Sin Realizar</div>
+            </div>
+        </div>
+
+        <!-- ===== ACCORDIONS ===== -->
+        {% for c in cursos %}
+        <div class="accordion-curso" data-curso-id="{{ c.curso_id }}">
+            <button class="accordion-curso-header" onclick="toggleCurso(this)">
+                <div class="curso-info">
+                    <div class="curso-icon" style="background:{% if c.porcentaje_cumplimiento >= 70 %}#dcfce7;color:#166534{% elif c.porcentaje_cumplimiento >= 40 %}#fef3c7;color:#92400e{% else %}#fef2f2;color:#991b1b{% endif %};">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+                    <div>
+                        <div style="font-weight:700;font-size:1.05rem;">{{ c.curso_nombre }}</div>
+                        <div class="curso-stats">
+                            <span style="color:#0284c7;" title="Total de empleados asignados">👥 {{ c.total_asignados }} Asignados</span>
+                            <span style="color:#475569;" title="Empleados que presentaron">📝 {{ c.total_estudiantes }} Evaluados</span>
+                            <span style="color:#16a34a;" title="Aprobados">✅ {{ c.total_aprobados }} Aprob.</span>
+                            {% if c.total_reprobados > 0 %}
+                            <span style="color:#dc2626;" title="Reprobados">❌ {{ c.total_reprobados }} Reprob.</span>
+                            {% endif %}
+                            {% if c.total_no_presentaron > 0 %}
+                            <span style="color:#d97706;" title="Sin presentar la evaluación">⚠️ {{ c.total_no_presentaron }} Sin Realizar</span>
+                            {% endif %}
+                            <span style="color:#2563eb;font-weight:700;" title="Cumplimiento sobre total asignado">🎯 {{ c.porcentaje_cumplimiento }}% cumpl.</span>
+                            <span style="color:#64748b;" title="Aprobación sobre evaluados">({{ c.porcentaje_aprobados }}% aprob.)</span>
+                        </div>
+                    </div>
+                </div>
+                <span class="accordion-arrow"><i class="fa-solid fa-chevron-down"></i></span>
+            </button>
+            <div class="accordion-curso-body">
+                <div class="accordion-curso-inner">
+                    <!-- Minichart + Progress bar row -->
+                    {% set total_curso = c.total_asignados if c.total_asignados > 0 else c.total_estudiantes %}
+                    {% if total_curso > 0 %}
+                    {% set pct_aprob = ((c.total_aprobados / total_curso) * 100)|round(1) %}
+                    {% set pct_reprob = ((c.total_reprobados / total_curso) * 100)|round(1) %}
+                    {% set pct_sin_realizar = ((c.total_no_presentaron / total_curso) * 100)|round(1) %}
+                    <div style="display:flex;gap:24px;align-items:center;margin-bottom:20px;flex-wrap:wrap;background:#f8fafc;padding:16px;border-radius:12px;border:1px solid #e2e8f0;">
+                        <!-- Doughnut mini -->
+                        <div style="flex-shrink:0;width:130px;height:130px;">
+                            <canvas id="chartCurso{{ c.curso_id }}" width="130" height="130"></canvas>
+                        </div>
+                        <!-- Stats + progress bar -->
+                        <div style="flex:1;min-width:240px;">
+                            <div style="display:flex;justify-content:space-between;font-size:13px;color:#334155;margin-bottom:6px;flex-wrap:wrap;gap:8px;">
+                                <span>👥 <strong>Asignados:</strong> {{ c.total_asignados }}</span>
+                                <span style="color:#16a34a;">✅ <strong>Aprobados:</strong> {{ c.total_aprobados }} ({{ c.porcentaje_aprobados }}%)</span>
+                                <span style="color:#dc2626;">❌ <strong>Reprobados:</strong> {{ c.total_reprobados }} ({{ c.porcentaje_reprobados }}%)</span>
+                                <span style="color:#d97706;">⚠️ <strong>Sin Realizar:</strong> {{ c.total_no_presentaron }}</span>
+                            </div>
+                            <div class="progress-bar-track" style="height:10px;border-radius:99px;background:#e2e8f0;overflow:hidden;display:flex;margin:8px 0;">
+                                <div class="progress-bar-fill-green" style="width:{{ c.porcentaje_aprobados }}%;background:#22c55e;" title="Aprobados: {{ c.total_aprobados }} ({{ c.porcentaje_aprobados }}%)"></div>
+                                <div class="progress-bar-fill-red" style="width:{{ c.porcentaje_reprobados }}%;background:#ef4444;" title="Reprobados: {{ c.total_reprobados }} ({{ c.porcentaje_reprobados }}%)"></div>
+                            </div>
+                            <div style="display:flex;justify-content:space-between;font-size:12px;color:#64748b;margin-top:4px;flex-wrap:wrap;gap:6px;">
+                                <span>Cumplimiento real: <strong style="color:#1e3a8a;">{{ c.porcentaje_cumplimiento }}%</strong> de la población asignada ingreso al curso y realizó las evaluaciones</span>
+                                <span>Efectividad sobre evaluados: <strong style="color:#166534;">{{ c.porcentaje_aprobados }}%</strong></span>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <!-- Pestañas + Botón Excel -->
+                    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:16px;border-bottom:2px solid #e2e8f0;padding-bottom:10px;">
+                        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                            <button type="button" class="tab-btn-tabulacion active" onclick="cambiarTabTabulacion(this, 'tab_evaluados_{{ c.curso_id }}')">
+                                <i class="fa-solid fa-clipboard-check"></i> Evaluaciones Realizadas ({{ c.total_estudiantes }})
+                            </button>
+                            <button type="button" class="tab-btn-tabulacion" onclick="cambiarTabTabulacion(this, 'tab_sin_realizar_{{ c.curso_id }}')">
+                                <i class="fa-solid fa-user-clock"></i> Sin Realizar / Faltantes ({{ c.total_no_presentaron }})
+                            </button>
+                        </div>
+                        <a href="{{ url_for('aula.descargar_tabulacion_excel', curso_id=c.curso_id) }}" class="btn-download" style="font-size:13px;padding:8px 16px;">
+                            <i class="fa-solid fa-file-excel"></i> Descargar Excel Completo
+                        </a>
+                    </div>
+
+                    <!-- TAB 1: EVALUACIONES REALIZADAS -->
+                    <div id="tab_evaluados_{{ c.curso_id }}" class="tab-pane-tabulacion" style="display:block;">
+                        {% if c.estudiantes %}
+                        <div style="overflow-x:auto;position:relative;">
+                            <table class="tabla-tabulacion">
+                                <thead>
+                                    <tr>
+                                        <th>Estudiante</th>
+                                        <th>Identificación</th>
+                                        <th>Cargo</th>
+                                        {% for preg in c.preguntas %}
+                                        <th>Pregunta {{ loop.index }}</th>
+                                        {% endfor %}
+                                        <th>Nota</th>
+                                        <th>Resultado</th>
+                                        <th>Intento</th>
+                                        <th>Fecha</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for est in c.estudiantes %}
+                                    <tr data-cargo="{{ (est.cargo or '-')|trim|e }}">
+                                        <td><strong>{{ est.nombre_estudiante }}</strong></td>
+                                        <td>{{ est.estudiante_id }}</td>
+                                        <td>{{ est.cargo or '-' }}</td>
+                                        {% for preg in c.preguntas %}
+                                        <td>
+                                            {% set resp = est.respuestas | selectattr('pregunta_id', 'equalto', preg.id) | first %}
+                                            {% if resp %}
+                                            <div class="respuesta-item {% if resp.es_correcta == 1 %}respuesta-correcta{% elif resp.es_correcta == 0 %}respuesta-incorrecta{% endif %}">
+                                                {{ resp.respuesta_texto or '(sin respuesta)' }}
+                                                {% if resp.es_correcta == 1 %} ✅{% elif resp.es_correcta == 0 %} ❌{% endif %}
+                                            </div>
+                                            {% else %}
+                                            <span style="color:#94a3b8;">—</span>
+                                            {% endif %}
+                                        </td>
+                                        {% endfor %}
+                                        <td><strong>{{ est.nota }}%</strong></td>
+                                        <td>
+                                            {% if est.nota is not none and est.nota >= 70 %}
+                                            <span class="badge-aprobado">
+                                                Aprobado
+                                                {% if est.aprobo_en_anterior %}
+                                                <span title="Aprobó en un intento anterior" style="margin-left:4px;cursor:help;">🔄</span>
+                                                {% endif %}
+                                            </span>
+                                            {% elif est.nota is not none %}
+                                            <span class="badge-reprobado">Reprobado</span>
+                                            {% else %}
+                                            <span class="badge-pendiente">Pendiente</span>
+                                            {% endif %}
+                                        </td>
+                                        <td style="text-align:center;">
+                                            {% if est.aprobo_en_anterior %}
+                                            <span title="Aprobó en un intento anterior. Este es su último intento." style="
+                                                display:inline-flex;align-items:center;gap:4px;
+                                                padding:3px 8px;border-radius:99px;
+                                                background:#fef3c7;color:#92400e;
+                                                font-size:11px;font-weight:600;cursor:help;
+                                            ">
+                                                <i class="fa-solid fa-rotate"></i> Reintento
+                                            </span>
+                                            {% else %}
+                                            <span style="color:#94a3b8;font-size:11px;">—</span>
+                                            {% endif %}
+                                        </td>
+                                        <td style="font-size:12px;color:#64748b;">{{ est.fecha_presentacion }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            <div class="empty-filter-msg" style="text-align:center;padding:30px;color:#94a3b8;opacity:0;transform:translateY(-10px);pointer-events:none;transition:opacity 0.35s ease, transform 0.35s ease, visibility 0.35s ease;">
+                                <i class="fa-solid fa-users-slash" style="font-size:32px;display:block;margin-bottom:12px;"></i>
+                                No hay estudiantes evaluados con ese cargo
+                            </div>
+                        </div>
+                        {% else %}
+                        <div class="empty-state" style="padding:30px;">
+                            <i class="fa-solid fa-users-slash"></i>
+                            <h3>Sin evaluaciones</h3>
+                            <p>Este curso aún no tiene evaluaciones registradas.</p>
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- TAB 2: SIN REALIZAR / FALTANTES -->
+                    <div id="tab_sin_realizar_{{ c.curso_id }}" class="tab-pane-tabulacion" style="display:none;">
+                        {% if c.estudiantes_no_presentaron %}
+                        <div style="overflow-x:auto;position:relative;">
+                            <table class="tabla-tabulacion">
+                                <thead>
+                                    <tr>
+                                        <th>Empleado</th>
+                                        <th>Identificación</th>
+                                        <th>Cargo</th>
+                                        <th>Ciudad</th>
+                                        <th>Correo</th>
+                                        <th>Celular</th>
+                                        <th>Estado</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for emp in c.estudiantes_no_presentaron %}
+                                    <tr data-cargo="{{ (emp.cargo or '-')|trim|e }}">
+                                        <td><strong>{{ emp.nombre_completo }}</strong></td>
+                                        <td>{{ emp.identificacion }}</td>
+                                        <td>{{ emp.cargo or '-' }}</td>
+                                        <td>{{ emp.ciudad or '-' }}</td>
+                                        <td>{{ emp.email or '-' }}</td>
+                                        <td>{{ emp.celular or '-' }}</td>
+                                        <td>
+                                            <span class="badge-pendiente">
+                                                <i class="fa-solid fa-clock"></i> Sin Presentar
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            <div class="empty-filter-msg" style="text-align:center;padding:30px;color:#94a3b8;opacity:0;transform:translateY(-10px);pointer-events:none;transition:opacity 0.35s ease, transform 0.35s ease, visibility 0.35s ease;">
+                                <i class="fa-solid fa-users-slash" style="font-size:32px;display:block;margin-bottom:12px;"></i>
+                                No hay empleados pendientes con ese cargo
+                            </div>
+                        </div>
+                        {% else %}
+                        <div class="empty-state" style="padding:30px;">
+                            <i class="fa-solid fa-circle-check" style="color:#22c55e;"></i>
+                            <h3>¡Excelente!</h3>
+                            <p>Todos los empleados asignados han realizado su evaluación.</p>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+        {% else %}
+        <div class="empty-state">
+            <i class="fa-solid fa-chart-pie"></i>
+            <h3>No hay datos de tabulación</h3>
+            <p>Aún no hay cursos con evaluaciones realizadas por estudiantes.</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+<script>
+// --- VARIABLES GLOBALES DEL FILTRO ---
+let cargoDropdownOpen = false;
+
+// --- CAMBIO DE PESTAÑAS DENTRO DEL CURSO ---
+function cambiarTabTabulacion(btn, targetId) {
+    const container = btn.closest('.accordion-curso-inner');
+    if (!container) return;
+
+    container.querySelectorAll('.tab-btn-tabulacion').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    container.querySelectorAll('.tab-pane-tabulacion').forEach(pane => {
+        if (pane.id === targetId) {
+            pane.style.display = 'block';
+        } else {
+            pane.style.display = 'none';
+        }
+    });
+
+    actualizarFiltroCargos();
+}
+
+// --- FILTRO MULTI-SELECCIÓN POR CARGO ---
+function obtenerCargosSeleccionados() {
+    const checks = document.querySelectorAll('#cargoCheckboxList input[type="checkbox"]:checked');
+    return Array.from(checks).map(c => c.value.toLowerCase());
+}
+
+function toggleCargoDropdown() {
+    cargoDropdownOpen = !cargoDropdownOpen;
+    const dd = document.getElementById('cargoDropdown');
+    const arrow = document.getElementById('dropdownArrow');
+    dd.style.display = cargoDropdownOpen ? 'block' : 'none';
+    arrow.style.transform = cargoDropdownOpen ? 'rotate(180deg)' : '';
+}
+
+function seleccionarTodosCargos(seleccionar) {
+    document.querySelectorAll('#cargoCheckboxList input[type="checkbox"]').forEach(function(chk) {
+        chk.checked = seleccionar;
+    });
+    actualizarFiltroCargos();
+}
+
+function actualizarFiltroCargos() {
+    const selected = obtenerCargosSeleccionados();
+    const haySeleccion = selected.length > 0;
+    const rows = document.querySelectorAll('.tabla-tabulacion tbody tr');
+    let visiblesGlobal = 0;
+
+    const visibles = [];
+    const ocultas = [];
+    rows.forEach(function(row) {
+        const rowCargo = (row.getAttribute('data-cargo') || '-').toLowerCase();
+        if (!haySeleccion || selected.includes(rowCargo)) {
+            visibles.push(row);
+            visiblesGlobal++;
+        } else {
+            ocultas.push(row);
+        }
+    });
+
+    visibles.forEach(function(r) {
+        r.classList.remove('filter-hidden');
+    });
+
+    ocultas.forEach(function(r, i) {
+        setTimeout(function() {
+            r.classList.add('filter-hidden');
+        }, i * 20);
+    });
+
+    // Actualizar etiquetas de cargos seleccionados
+    const tagsContainer = document.getElementById('selectedCargosTags');
+    if (haySeleccion) {
+        const labels = document.querySelectorAll('#cargoCheckboxList label');
+        tagsContainer.innerHTML = '';
+        labels.forEach(function(label) {
+            const chk = label.querySelector('input[type="checkbox"]');
+            if (chk.checked) {
+                const nombreOriginal = label.querySelector('span').textContent;
+                const valorLower = chk.value.toLowerCase();
+                const tag = document.createElement('span');
+                tag.style.cssText = 'display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:99px;background:#eff6ff;color:#1e40af;font-size:13px;font-weight:500;border:1px solid #bfdbfe;';
+                tag.innerHTML = nombreOriginal + ' <i class="fa-solid fa-xmark" style="cursor:pointer;font-size:12px;opacity:0.7;" data-quitar-cargo="' + valorLower.replace(/&/g, '&amp;').replace(/"/g, '&quot;') + '"></i>';
+                tagsContainer.appendChild(tag);
+            }
+        });
+        tagsContainer.querySelectorAll('[data-quitar-cargo]').forEach(function(icon) {
+            icon.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const cargo = this.getAttribute('data-quitar-cargo');
+                const checkbox = document.querySelector('#cargoCheckboxList input[data-cargo-lower="' + CSS.escape(cargo) + '"]');
+                if (checkbox) {
+                    checkbox.checked = false;
+                    actualizarFiltroCargos();
+                }
+            });
+        });
+    } else {
+        tagsContainer.innerHTML = '<span id="noSelectionText" style="color:#94a3b8;font-size:13px;">Ninguno seleccionado</span>';
+    }
+
+    // Actualizar contador
+    const countEl = document.getElementById('filtroResultCount');
+    if (countEl) {
+        const totalAsig = {{ total_global.asignados }};
+        if (!haySeleccion) {
+            countEl.textContent = totalAsig + ' empleados asignados';
+        } else {
+            countEl.textContent = visiblesGlobal + ' registros filtrados';
+        }
+    }
+
+    // Mostrar/ocultar mensaje vacío por filtro en cada tabla
+    document.querySelectorAll('.empty-filter-msg').forEach(function(el) {
+        const container = el.closest('.tab-pane-tabulacion') || el.closest('.accordion-curso-inner') || el.parentNode;
+        const table = container.querySelector('.tabla-tabulacion tbody');
+        if (!table) return;
+        const cursoRows = table.querySelectorAll('tr');
+        const cursoVisibles = Array.from(cursoRows).filter(function(r) {
+            const rc = (r.getAttribute('data-cargo') || '-').toLowerCase();
+            return !haySeleccion || selected.includes(rc);
+        }).length;
+        if (cursoVisibles === 0 && cursoRows.length > 0) {
+            el.classList.add('filter-visible');
+        } else {
+            el.classList.remove('filter-visible');
+        }
+    });
+}
+
+// Cerrar dropdown al hacer clic fuera
+document.addEventListener('click', function(e) {
+    const filterBar = document.getElementById('filterBar');
+    if (cargoDropdownOpen && filterBar && !filterBar.contains(e.target)) {
+        cargoDropdownOpen = false;
+        document.getElementById('cargoDropdown').style.display = 'none';
+        document.getElementById('dropdownArrow').style.transform = '';
+    }
+});
+
+function toggleCurso(btn) {
+    const accordion = btn.closest('.accordion-curso');
+    const isOpen = accordion.classList.contains('open');
+
+    // Cerrar todos
+    document.querySelectorAll('.accordion-curso.open').forEach(a => {
+        if (a !== accordion) a.classList.remove('open');
+    });
+
+    if (isOpen) {
+        accordion.classList.remove('open');
+    } else {
+        accordion.classList.add('open');
+    }
+}
+
+// --- Per-course Charts ---
+document.addEventListener('DOMContentLoaded', function() {
+    {% for c in cursos %}
+    (function() {
+        const canvas = document.getElementById('chartCurso{{ c.curso_id }}');
+        if (!canvas) return;
+        new Chart(canvas, {
+            type: 'doughnut',
+            data: {
+                labels: ['Aprobados', 'Reprobados'],
+                datasets: [{
+                    data: [{{ c.total_aprobados }}, {{ c.total_reprobados }}],
+                    backgroundColor: ['#22c55e', '#ef4444'],
+                    borderWidth: 2,
+                    borderColor: '#fff',
+                    hoverOffset: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                cutout: '65%',
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const total = context.dataset.data.reduce((a,b) => a + b, 0);
+                                const pct = total > 0 ? ((context.raw / total) * 100).toFixed(1) : 0;
+                                return context.label + ': ' + context.raw + ' (' + pct + '%)';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    })();
+    {% endfor %}
+});
+</script>
+{% endblock %}

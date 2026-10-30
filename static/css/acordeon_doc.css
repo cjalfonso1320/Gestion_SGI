@@ -1,0 +1,440 @@
+/* --- ACORDEÓN DE DOCUMENTOS - ESTILO BLUE LIGHT --- */
+
+/* --- CONTENEDORES OCULTOS INICIALMENTE (JS maneja el toggle) --- */
+.doc-content,
+.doc-subcontent,
+.doc-subsubcontent,
+.accordion-content {
+    display: none;
+}
+
+/* Mostrar el contenido cuando el acordeón padre tiene clase active */
+.accordion.active .accordion-content {
+    display: block;
+}
+
+/* Estilo visual para saber que están activos */
+.doc-section.active, .doc-subsection.active {
+    background-color: #eff6ff !important;
+    color: #2563eb !important;
+    border-bottom: 1px solid #e2e8f0;
+}
+/* Evita que se solapen estilos de otros módulos */
+.doc-accordion, .accordion {
+    all: unset;
+    display: block;
+    width: 100%;
+}
+.doc-accordion .doc-section, 
+.doc-accordion .doc-subsection {
+    cursor: pointer;
+    background-color: #f8fafc;
+    color: #1e3a8a;
+    padding: 10px 15px;
+    margin-top: 3px;
+    font-weight: 800;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    transition: all 0.3s;
+}
+
+.doc-accordion .doc-section:hover {
+    background-color: #eff6ff;
+    border-color: #2563eb;
+}
+
+.doc-accordion .doc-content, 
+.doc-accordion .doc-subcontent {
+    background-color: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    padding: 20px !important;
+}
+
+.doc-accordion .doc-subsection {
+    background-color: #f1f5f9;
+    color: #1e40af;
+    margin-left: 15px;
+}
+
+.doc-accordion .doc-subsubsection {
+    cursor: pointer;
+    background-color: #dbeafe; /* Azul claro para sub-niveles */
+    color: #1e40af;
+    padding: 10px;
+    margin-top: 8px;
+    margin-left: 30px;
+    border-radius: 4px;
+}
+
+/* --- TABLAS DENTRO DE ACORDEONES --- */
+.doc-accordion table, 
+.sst-accordion table,
+.tbl-content table {
+    background-color: #ffffff !important;
+    color: #1e293b !important; /* Gris muy oscuro/Azul marino para los datos */
+    border-collapse: collapse !important;
+    width: 100% !important;
+    margin-top: 10px !important;
+}
+/* Encabezados de tabla en SGI */
+.doc-accordion th, 
+.sst-accordion th {
+    background-color: #f8fafc !important; /* Fondo gris pálido */
+    color: #1e3a8a !important;           /* Azul marino fuerte */
+    font-weight: 800 !important;
+    text-transform: uppercase !important;
+    border: 1px solid #e2e8f0 !important;
+    padding: 12px !important;
+}
+/* Celdas de datos */
+.doc-accordion td, 
+.sst-accordion td {
+    color: #334155 !important;           /* Texto visible */
+    border: 1px solid #f1f5f9 !important;
+    padding: 10px !important;
+    font-size: 0.9rem !important;
+}
+
+/* --- BOTÓN FLOTANTE (FAB) - CAMBIO A AZUL --- */
+.upload-fab {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%); /* Azul en lugar de purpura */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+/* --- MODAL GENERAL (RE-ESTILIZADO) --- */
+.modal {
+    display: none; /* Oculto por defecto */
+    position: fixed !important; /* Fuerza a que flote sobre la pantalla */
+    inset: 0 !important; /* Cubre toda la ventana (top, left, right, bottom: 0) */
+    z-index: 9999 !important; /* Por encima de cualquier tabla o sidebar */
+    background-color: rgba(30, 58, 138, 0.3) !important; /* Fondo translúcido azul */
+    backdrop-filter: blur(5px);
+    padding: 20px;
+    align-items: center;
+    justify-content: center;
+}
+.modal.active, .modal[style*="display: block"] {
+    display: flex !important; /* Usamos flex para centrar el contenido */
+}
+.modal-content {
+    background-color: #ffffff !important;
+    margin: auto; /* Centrado automático */
+    border-radius: 12px !important;
+    border: 1px solid #e2e8f0 !important;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
+    overflow: hidden;
+    animation: modalPop 0.3s ease-out;
+}
+
+@keyframes modalPop {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* --- ENCABEZADOS (Legibilidad corregida) --- */
+.modal-header {
+    background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%) !important;
+    padding: 15px 20px !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #ffffff !important; /* Texto BLANCO para que se lea */
+}
+
+.modal-header h2 {
+    color: #ffffff !important; /* Forzamos blanco */
+    font-size: 1.2rem !important;
+    margin: 0;
+    font-weight: 700;
+}
+
+.modal-header .close {
+    color: #ffffff !important;
+    opacity: 0.8;
+    cursor: pointer;
+    font-size: 24px;
+}
+
+/* --- CUERPO Y FORMULARIOS --- */
+.modal-body {
+    padding: 25px !important;
+    background-color: #ffffff !important;
+}
+
+.form-group label {
+    color: #1e3a8a !important; /* Azul marino para los labels */
+    font-weight: 800 !important;
+    font-size: 0.8rem !important;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.form-group select, 
+.form-group input[type="file"] {
+    border: 1.5px solid #cbd5e1 !important;
+    border-radius: 8px !important;
+    color: #1e293b !important;
+    background-color: #f8fafc !important;
+}
+
+/* --- BOTONES DE ACCIÓN --- */
+.form-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+.btn-primary {
+    background: #2563eb !important;
+    color: white !important;
+    border-radius: 6px !important;
+    padding: 10px 20px !important;
+    font-weight: 700 !important;
+}
+
+.btn-secondary {
+    background: #f1f5f9 !important;
+    color: #475569 !important;
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 6px !important;
+}
+
+.btn-warning {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important; /* Ámbar/Naranja para advertencias */
+}
+
+/* --- BOTÓN "AGREGAR" (EL VERDE DE ABAJO) --- */
+.upload-section-btn,
+.btn-agregar-procedimiento {
+    background: #ffffff !important;
+    color: #059669 !important; /* Verde esmeralda para el texto */
+    border: 2.5px solid #059669 !important; /* Borde grueso verde */
+    padding: 8px 15px !important;
+    border-radius: 8px !important;
+    font-weight: 800 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    cursor: pointer !important;
+    transition: all 0.3s !important;
+}
+
+.upload-section-btn:hover {
+    background: #059669 !important;
+    color: #ffffff !important;
+}
+
+/* --- BOTÓN "VER" (RE-ESTILIZADO A AZUL) --- */
+.btn-ver, 
+button.btn-ver,
+a.btn-ver {
+    background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%) !important;
+    color: #ffffff !important;
+    border: none !important;
+    padding: 8px 16px !important;
+    border-radius: 6px !important;
+    font-weight: 700 !important;
+    text-decoration: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2) !important;
+    transition: all 0.3s ease !important;
+    cursor: pointer !important;
+}
+.btn-ver:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 6px 12px rgba(37, 99, 235, 0.3) !important;
+    filter: brightness(1.1);
+}
+
+/* --- JERARQUÍA DE NIVELES USO INTERNO (BLUE LIGHT) --- */
+
+/* Nivel 0: Carpetas Raíz */
+.doc-section {
+    background-color: #f8fafc !important;
+    color: #1e3a8a !important;
+    border-bottom: 1px solid #e2e8f0 !important;
+}
+
+/* Nivel 1: Subcarpetas */
+.doc-subsection {
+    margin-left: 20px !important;
+    background-color: #f1f5f9 !important;
+    color: #1e40af !important;
+    border-left: 3px solid #cbd5e1 !important;
+}
+
+/* Nivel 2 en adelante: Sub-subcarpetas */
+.doc-subsubsection {
+    margin-left: 40px !important;
+    background-color: #ffffff !important;
+    color: #2563eb !important;
+    border-left: 2px dashed #cbd5e1 !important;
+    font-size: 0.9rem !important;
+}
+
+/* Contenedores de contenido (donde están las tablas) */
+.doc-content, .doc-subcontent, .doc-subsubcontent {
+    background-color: #ffffff !important;
+    padding: 0 !important;
+    border: none !important;
+}
+
+/* Estilo cuando están activos */
+.active {
+    border-left-color: #2563eb !important;
+    background-color: #eff6ff !important;
+}
+
+/* Estilo para las tablas de archivos */
+.tbl-header table th {
+    background-color: #f8fafc !important;
+    color: #64748b !important;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+}
+
+.tbl-content table td {
+    color: #1e293b !important;
+    border-bottom: 1px solid #f1f5f9 !important;
+}
+
+@media (max-width: 768px) {
+    .doc-accordion,
+    .accordion {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .doc-accordion .doc-section,
+    .doc-accordion .doc-subsection,
+    .doc-section,
+    .doc-subsection,
+    .doc-subsubsection {
+        margin-left: 0 !important;
+        padding: 11px 12px !important;
+        font-size: 0.92rem !important;
+        line-height: 1.25 !important;
+        border-radius: 8px !important;
+    }
+
+    .doc-accordion .doc-content,
+    .doc-accordion .doc-subcontent,
+    .doc-content,
+    .doc-subcontent,
+    .doc-subsubcontent {
+        padding: 12px !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .doc-accordion table,
+    .sst-accordion table,
+    .tbl-content table {
+        min-width: 640px;
+        table-layout: auto !important;
+    }
+
+    .doc-accordion th,
+    .doc-accordion td,
+    .sst-accordion th,
+    .sst-accordion td,
+    .tbl-content th,
+    .tbl-content td {
+        padding: 8px 10px !important;
+        font-size: 0.78rem !important;
+        white-space: nowrap;
+    }
+
+    iframe {
+        width: 100% !important;
+        height: 70vh !important;
+        max-height: 620px;
+    }
+
+    .upload-fab {
+        width: 52px;
+        height: 52px;
+        right: 16px;
+        bottom: 16px;
+    }
+
+    .modal {
+        padding: 12px !important;
+        align-items: flex-start !important;
+        overflow-y: auto !important;
+    }
+
+    .modal-content {
+        width: 100% !important;
+        max-width: 94vw !important;
+        max-height: 88vh !important;
+        margin: 20px auto !important;
+    }
+
+    .modal-header {
+        padding: 12px 14px !important;
+    }
+
+    .modal-header h2 {
+        font-size: 1rem !important;
+        line-height: 1.2 !important;
+    }
+
+    .modal-body {
+        padding: 14px !important;
+    }
+
+    .role-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 10px !important;
+    }
+
+    .role-option {
+        padding: 12px 8px !important;
+    }
+
+    .role-option img {
+        width: 42px !important;
+        height: 42px !important;
+        margin-bottom: 8px !important;
+    }
+
+    .role-option span {
+        font-size: 0.82rem !important;
+        line-height: 1.2 !important;
+    }
+
+    .form-actions {
+        flex-direction: column-reverse !important;
+    }
+
+    .form-actions button,
+    .form-actions a {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 420px) {
+    .role-grid {
+        grid-template-columns: 1fr !important;
+    }
+}

@@ -1,0 +1,285 @@
+{% extends 'home.html' %}
+{% block title %}Control{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/form_indicadores.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/modal.css') }}">
+
+<style>
+    /* ==========================================================
+       ANIMACIONES DE ENTRADA PARA EL MODAL DE ROLES
+       ========================================================== */
+    #roleModal.modal-overlay.active {
+        animation: roleOverlayIn 0.3s ease-out;
+    }
+
+    #roleModal .modal-container {
+        animation: none;
+    }
+
+    #roleModal.modal-overlay.active .modal-container {
+        animation: roleContainerIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    #roleModal .role-option {
+        animation: roleCardIn 0.4s ease-out forwards;
+    }
+
+    /* Stagger: cada card aparece con un pequeno retraso */
+    #roleModal .role-option:nth-child(1)  { animation-delay: 0.02s; }
+    #roleModal .role-option:nth-child(2)  { animation-delay: 0.04s; }
+    #roleModal .role-option:nth-child(3)  { animation-delay: 0.06s; }
+    #roleModal .role-option:nth-child(4)  { animation-delay: 0.08s; }
+    #roleModal .role-option:nth-child(5)  { animation-delay: 0.10s; }
+    #roleModal .role-option:nth-child(6)  { animation-delay: 0.12s; }
+    #roleModal .role-option:nth-child(7)  { animation-delay: 0.14s; }
+    #roleModal .role-option:nth-child(8)  { animation-delay: 0.16s; }
+    #roleModal .role-option:nth-child(9)  { animation-delay: 0.18s; }
+    #roleModal .role-option:nth-child(10) { animation-delay: 0.20s; }
+    #roleModal .role-option:nth-child(11) { animation-delay: 0.22s; }
+    #roleModal .role-option:nth-child(12) { animation-delay: 0.24s; }
+    #roleModal .role-option:nth-child(13) { animation-delay: 0.26s; }
+    #roleModal .role-option:nth-child(14) { animation-delay: 0.28s; }
+    #roleModal .role-option:nth-child(15) { animation-delay: 0.30s; }
+    #roleModal .role-option:nth-child(16) { animation-delay: 0.32s; }
+    #roleModal .role-option:nth-child(17) { animation-delay: 0.34s; }
+    #roleModal .role-option:nth-child(18) { animation-delay: 0.36s; }
+    #roleModal .role-option:nth-child(19) { animation-delay: 0.38s; }
+    #roleModal .role-option:nth-child(20) { animation-delay: 0.40s; }
+    #roleModal .role-option:nth-child(21) { animation-delay: 0.42s; }
+
+    @keyframes roleOverlayIn {
+        from { opacity: 0; backdrop-filter: blur(0px); }
+        to   { opacity: 1; backdrop-filter: blur(5px); }
+    }
+
+    @keyframes roleContainerIn {
+        from {
+            opacity: 0;
+            transform: scale(0.92) translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+    }
+
+    @keyframes roleCardIn {
+        from {
+            opacity: 0;
+            transform: translateY(12px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Modal body scroll si hay muchas opciones */
+    #roleModal .modal-body {
+        max-height: 65vh;
+        overflow-y: auto;
+    }
+
+    #roleModal .modal-body::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    #roleModal .modal-body::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 10px;
+    }
+</style>
+
+<div class="welcome-section">
+    <h2>&iexcl;Bienvenido al Control del Sistema de Gesti&oacute;n Integrado!</h2>
+    <p>Selecciona una opci&oacute;n del men&uacute; para comenzar a gestionar tu informaci&oacute;n.</p>
+
+    <div class="feature-grid">
+        <div class="card feature-card-new card-blue card-link cursor-pointer" onclick="openRoleModal(event, 'documentacion')">
+            <i class="fa-regular fa-file-lines watermark"></i>
+            <div class="card-info">
+                <h3>Documentaci&oacute;n <br><span>GENERAL</span></h3>
+                <p>Gestiona toda la documentaci&oacute;n del sistema</p>
+            </div>
+        </div>
+
+        <div class="card feature-card-new card-teal card-link cursor-pointer" onclick="openRoleModal(event, 'indicadores')">
+            <i class="fa-solid fa-chart-line watermark"></i>
+            <div class="card-info">
+                <h3>Indicadores <br><span>CLAVE</span></h3>
+                <p>Visualiza y analiza m&eacute;tricas de desempe&ntilde;o</p>
+            </div>
+        </div>
+
+        <div class="card feature-card-new card-green card-link cursor-pointer" onclick="openRoleModal(event, 'Matriz_Riesgos')">
+            <i class="fa-solid fa-arrows-up-to-line watermark"></i>
+            <div class="card-info">
+                <h3>Matriz de <br><span>RIESGOS</span></h3>
+                <p>Gesti&oacute;n y evaluaci&oacute;n de riesgos</p>
+            </div>
+        </div>
+
+        <div class="card feature-card-new card-amber card-link cursor-pointer" onclick="openRoleModal(event, 'Matriz_Activos')">
+            <i class="fa-solid fa-magnifying-glass-chart watermark"></i>
+            <div class="card-info">
+                <h3>Matriz de <br><span>ACTIVOS</span></h3>
+                <p>Administra los activos del sistema</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- MODAL DE SELECCION DE ROL -->
+<div id="roleModal" class="modal-overlay">
+    <div class="modal-container modal-xl">
+        <div class="modal-header">
+            <h2><i class="fa-solid fa-users-gear"></i> Seleccionar Rol</h2>
+            <button class="modal-close" onclick="closeRoleModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p class="text-slate-500" style="margin-bottom:20px;">
+                <i class="fa-solid fa-circle-info icon-blue"></i>
+                Selecciona el rol para el cual quieres ver la informaci&oacute;n:
+            </p>
+            <div class="role-grid">
+                <div class="role-option" onclick="selectRole(5, 'Agrario')">
+                    <img src="{{ url_for('static', filename='imgs/rol/agrario.png') }}" alt="Agrario">
+                    <span>Agrario</span>
+                </div>
+                <div class="role-option" onclick="selectRole(2, 'Bancolombia')">
+                    <img src="{{ url_for('static', filename='imgs/rol/bancolombia.png') }}" alt="Bancolombia">
+                    <span>Bancolombia</span>
+                </div>
+                <div class="role-option" onclick="selectRole(6, 'Davivienda')">
+                    <img src="{{ url_for('static', filename='imgs/rol/davivienda.png') }}" alt="Davivienda">
+                    <span>Davivienda</span>
+                </div>
+                <div class="role-option" onclick="selectRole(4, 'Occidente')">
+                    <img src="{{ url_for('static', filename='imgs/rol/occidente.png') }}" alt="Occidente">
+                    <span>Occidente</span>
+                </div>
+                <div class="role-option" onclick="selectRole(7, 'Itau')">
+                    <img src="{{ url_for('static', filename='imgs/rol/itau.png') }}" alt="Itau">
+                    <span>Itau</span>
+                </div>
+                <div class="role-option" onclick="selectRole(10, 'Popular')">
+                    <img src="{{ url_for('static', filename='imgs/rol/popular.png') }}" alt="Popular">
+                    <span>Popular</span>
+                </div>
+                <div class="role-option" onclick="selectRole(11, 'AvVillas')">
+                    <img src="{{ url_for('static', filename='imgs/rol/av villas.png') }}" alt="AvVillas">
+                    <span>AvVillas</span>
+                </div>
+                <div class="role-option" onclick="selectRole(12, 'Bancoomeva')">
+                    <img src="{{ url_for('static', filename='imgs/rol/bancoomeva.png') }}" alt="Bancoomeva">
+                    <span>Bancoomeva</span>
+                </div>
+                <div class="role-option" onclick="selectRole(13, 'CajaSocial')">
+                    <img src="{{ url_for('static', filename='imgs/rol/caja social.png') }}" alt="CajaSocial">
+                    <span>CajaSocial</span>
+                </div>
+                <div class="role-option" onclick="selectRole(14, 'Sistemas')">
+                    <img src="{{ url_for('static', filename='imgs/rol/sistemas.png') }}" alt="Sistemas">
+                    <span>Gesti&oacute;n de Sistemas</span>
+                </div>
+                <div class="role-option" onclick="selectRole(8, 'GestionHumana')">
+                    <img src="{{ url_for('static', filename='imgs/rol/th.png') }}" alt="GestionHumana">
+                    <span>Gesti&oacute;n Humana</span>
+                </div>
+                <div class="role-option" onclick="selectRole(9, 'Tecnologico')">
+                    <img src="{{ url_for('static', filename='imgs/rol/ti.png') }}" alt="Tecnologico">
+                    <span>Recurso Tecnol&oacute;gico</span>
+                </div>
+                <div class="role-option" onclick="selectRole(15, 'Financiero')">
+                    <img src="{{ url_for('static', filename='imgs/rol/financiero.png') }}" alt="Financiero">
+                    <span>Recurso Financiero</span>
+                </div>
+                <div class="role-option" onclick="selectRole(16, 'SGI')">
+                    <img src="{{ url_for('static', filename='imgs/rol/sgi.png') }}" alt="SGI">
+                    <span>Sistema de Gesti&oacute;n Integrado</span>
+                </div>
+                <div class="role-option" onclick="selectRole(17, 'SST')">
+                    <img src="{{ url_for('static', filename='imgs/rol/sst.png') }}" alt="SST">
+                    <span>Seguridad y Salud en el Trabajo</span>
+                </div>
+                <div class="role-option" onclick="selectRole(18, 'Comercial')">
+                    <img src="{{ url_for('static', filename='imgs/rol/comercial.png') }}" alt="Comercial">
+                    <span>Gesti&oacute;n Comercial</span>
+                </div>
+                <div class="role-option" onclick="selectRole(19, 'Direccion')">
+                    <img src="{{ url_for('static', filename='imgs/rol/direccion.png') }}" alt="Direccion">
+                    <span>Gesti&oacute;n Direcci&oacute;n</span>
+                </div>
+                <div class="role-option" onclick="selectRole(20, 'Sagrilaft')">
+                    <img src="{{ url_for('static', filename='imgs/rol/sagrilaft.png') }}" alt="Sagrilaft">
+                    <span>Sagrilaft</span>
+                </div>
+                <div class="role-option" onclick="selectRole(21, 'Ambiental')">
+                    <img src="{{ url_for('static', filename='imgs/rol/ambiental.png') }}" alt="Ambiental">
+                    <span>Gesti&oacute;n Ambiental</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    if (window.location.pathname.endsWith("/control")) {
+        var enlaces = document.querySelectorAll(
+            'a[data-section="documentacion"], a[data-section="indicadores"], ' +
+            'a[data-section="matriz-riesgos"], a[data-section="matriz-activos"]'
+        );
+        enlaces.forEach(function(el) {
+            el.addEventListener("click", function (e) { e.preventDefault(); });
+        });
+    }
+});
+</script>
+
+<script>
+var currentAction = '';
+
+function openRoleModal(event, action) {
+    if (event) { event.preventDefault(); event.stopPropagation(); }
+    currentAction = action;
+    document.getElementById('roleModal').classList.add('active');
+}
+
+function closeRoleModal() {
+    document.getElementById('roleModal').classList.remove('active');
+}
+
+function selectRole(roleId, roleName) {
+    closeRoleModal();
+    if (currentAction === 'documentacion') {
+        window.location.href = 'documentacion/' + roleId;
+    } else if (currentAction === 'indicadores') {
+        window.location.href = 'indicadores/' + roleId;
+    } else if (currentAction === 'Matriz_Riesgos') {
+        window.location.href = 'Matriz_Riesgos/' + roleId;
+    } else if (currentAction === 'Matriz_Activos') {
+        window.location.href = 'Matriz_Activos/' + roleId;
+    }
+}
+
+// Cerrar modal al hacer clic fuera del contenedor
+document.addEventListener('click', function (event) {
+    if (event.target === document.getElementById('roleModal')) {
+        closeRoleModal();
+    }
+});
+
+// Evitar cierre al hacer clic dentro del contenedor
+document.addEventListener('DOMContentLoaded', function () {
+    var container = document.querySelector('#roleModal .modal-container');
+    if (container) {
+        container.addEventListener('click', function (event) {
+            event.stopPropagation();
+        });
+    }
+});
+</script>
+
+{% endblock %}

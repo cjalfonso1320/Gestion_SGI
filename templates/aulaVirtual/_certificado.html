@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        /* Configuramos el cuerpo para que ocupe todo el ancho */
+        body { 
+            font-family: 'Helvetica', sans-serif; 
+            text-align: center; 
+            padding: 20px; 
+            margin: 0;
+        }
+
+        .border { 
+            border: 10px solid #2563eb; 
+            padding: 40px; 
+            height: 90vh; /* Ajuste para que quepa bien en la hoja */
+            position: relative;
+        }
+
+        /* Contenedor para las imágenes de la cabecera */
+        .header-images {
+            width: 100%;
+            height: 120px; /* Espacio para las imágenes */
+            margin-bottom: 20px;
+        }
+
+        /* Logo a la izquierda */
+        .logo-left {
+            float: left;
+            width: 350px; /* Ajusta el tamaño según tu logo */
+            height: auto;
+        }
+
+        /* Premio a la derecha */
+        .premio-right {
+            float: right;
+            width: 350px; /* Ajusta el tamaño según tu imagen de premio */
+            height: auto;
+        }
+
+        /* Limpiar los flotados para que el texto no se suba */
+        .clearfix::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+        h1 { font-size: 50px; color: #1e3a8a; margin-top: 20px; }
+        
+        .nombre { 
+            font-size: 40px; 
+            font-weight: bold; 
+            border-bottom: 2px solid #000; 
+            display: inline-block; 
+            padding: 10px 50px; 
+            margin-top: 10px;
+        }
+
+        .curso { font-size: 25px; margin-top: 30px; }
+        .fecha { margin-top: 40px; font-style: italic; }
+        
+        p { font-size: 18px; margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <div class="border">
+        <!-- Cabecera con imágenes -->
+        <div class="header-images clearfix">
+            <img src="{{ logo }}" class="logo-left" alt="Logo" />
+            <img src="{{ premio }}" class="premio-right" alt="Premio" />
+        </div>
+
+        <p style="margin-top: 40px;">OTORGAMOS EL PRESENTE</p>
+        <h1>CERTIFICADO</h1>
+        <p>A:</p>
+        <div style="display: flex; align-items: center; justify-content: center; gap: 24px; margin: 20px 0;">
+            {% if foto_estudiante %}
+            <img src="{{ foto_estudiante }}"
+                 style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 3px solid #2563eb; flex-shrink: 0;"
+                 alt="Foto">
+            {% endif %}
+            <div class="nombre" style="margin: 0;">{{ estudiante.nombre }}</div>
+        </div>
+        <p>Identificado con número de documento: <strong>{{ estudiante.identificacion }}</strong></p>
+        
+        <p class="curso">Por haber completado satisfactoriamente el curso de:</p>
+        <h2 style="color: #1e3a8a; font-size: 30px;">{{ resultado.curso }}</h2>
+        
+        <p>Con una calificación de: <strong>{{ resultado.nota }}%</strong></p>
+        
+        <p class="fecha">Generado el: {{ fecha }}</p>
+    </div>
+</body>
+</html>

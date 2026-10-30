@@ -1,0 +1,243 @@
+{% if current_user.rol != 16 or not is_role_override %}
+    <form id="form_incon_{{ proceso }}" method="post">
+        <div class="form-grid-container">
+            {% if config.get('WTF_CSRF_ENABLED') %}<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">{% endif %}
+            <input type="hidden" name="proceso" value="{{ proceso }}">
+        <div class="form-field">
+            <label class="form-label" for="mes">Mes</label>
+            <select id="mes_{{ proceso }}" name="mes" required>
+                <option value="">Seleccione un mes</option>
+                <option value="Enero">Enero</option>
+                <option value="Febrero">Febrero</option>
+                <option value="Marzo">Marzo</option>
+                <option value="Abril">Abril</option>
+                <option value="Mayo">Mayo</option>
+                <option value="Junio">Junio</option>
+                <option value="Julio">Julio</option>
+                <option value="Agosto">Agosto</option>
+                <option value="Septiembre">Septiembre</option>
+                <option value="Octubre">Octubre</option>
+                <option value="Noviembre">Noviembre</option>
+                <option value="Diciembre">Diciembre</option>
+            </select>
+        </div>
+        <div class="form-field">
+            <label class="form-label" for="t_casos">Total de Casos</label>
+            <input class="form-control" type="number" id="t_casos_{{ proceso }}" name="t_casos" required>
+        </div>
+        <div class="form-field">
+            <label class="form-label" for="e_grabacion_analisis">
+                {% if proceso == 'complementacion_repsuestaTradicional' or proceso == 'complementacion_repsuestaOCI' %}
+                Casos Entregados Fuera de tiempo
+                {% else %}
+                Errores en grabacion y Analisis
+                {% endif %}
+            </label>
+            <input class="form-control" type="number" id="e_grabacion_analisis_{{ proceso }}"
+                name="e_grabacion_analisis">
+        </div>
+        <div class="form-field">
+            <label class="form-label" for="resultado_inconsistenciasPasivo">Resultado (%)</label>
+            <input class="form-control" type="number" id="resultado_inconsistenciasPasivo_{{ proceso }}"
+                name="resultado_inconsistenciasPasivo" readonly>
+        </div>
+        <div class="form-field">
+            <label class="form-label" for="meta_inconsistenciasPasivo">Meta</label>
+            <input class="form-control" type="text" id="meta_inconsistenciasPasivo_{{ proceso }}"
+                name="meta_inconsistenciasPasivo" readonly>
+        </div>
+        <div class="form-field">
+            <label class="form-label" for="analisis_inconsistenciasPasivo">Analisis</label>
+            <textarea id="analisis_inconsistenciasPasivo_{{ proceso }}"
+                name="analisis_inconsistenciasPasivo"></textarea>
+        </div>
+        <button type="submit"><i class="fa-solid fa-floppy-disk"></i> Guardar</button>
+        </div>
+    </form>
+
+{% endif %}
+{% if current_user.rol == 16 %}
+<button id="export_btn_{{ proceso }}" class="btn-export"><i class="fa-solid fa-file-export"></i> Exportar</button>
+{% endif %}
+<div class="container mt-4">
+
+    <div class="accordion" id="acordeonTabla">
+        <div class="accordion-header">
+            Ver Tabla de Registros
+        </div>
+        <div class="accordion-content">
+            <table class="table" id="tabla_inconsistencias_pasivo_{{ proceso }}">
+                <thead>
+                    <tr>
+                        <th>Mes</th>
+                        <th>Total de Casos</th>
+                        <th>Errores en Grabacion y Analisis</th>
+                        <th>Resultado (%)</th>
+                        <th>Meta</th>
+                        <th>Analisis</th>
+                    </tr>
+                </thead>
+                <tbody id="tabla_inconsistencia_body_{{ proceso }}">
+                    {% for registro in datos_inconsistencias_pasivo %}
+                    <tr>
+                        <td>{{registro[0]}}</td>
+                        <td>{{registro[1]}}</td>
+                        <td>{{registro[2]}}</td>
+                        <td>{{registro[3]}}</td>
+                        <td>{{registro[4]}}</td>
+                        <td>{{registro[5]}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <h3>Porcentaje de Casos por Mes</h3>
+    <canvas id="grafica_inconsistenciasPasivo_{{ proceso }}" width="400" height="200"></canvas>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js" integrity="sha384-9MhbyIRcBVQiiC7FSd7T38oJNj2Zh+EfxS7/vjhBi4OOT78NlHSnzM31EZRWR1LZ" crossorigin="anonymous"></script>
+<script>
+    const ctx_inconsistenciasPasivo_{{ proceso }} = document.getElementById('grafica_inconsistenciasPasivo_{{ proceso }}').getContext('2d');
+    window.grafica_inconsistenciasPasivo_{{ proceso }} = new Chart(ctx_inconsistenciasPasivo_{{ proceso }}, {
+        type: 'line',
+        data: {
+            labels: {{ meses_inconsistenciasPasivo|default([]) | tojson | safe }},
+        datasets: [{
+            label: 'Porcentaje (%)',
+            data: {{ porcentajes_inconsistenciasPasivo|default ([]) | tojson | safe }},
+            borderColor: '#2563eb',
+            backgroundColor: 'rgba(37, 99, 235, 0.12)',
+            borderWidth: 3,
+            pointBackgroundColor: '#1e40af',
+            pointBorderColor: '#ffffff',
+            pointBorderWidth: 2,
+            pointRadius: 5,
+            pointHoverRadius: 8,
+            fill: true,
+            tension: 0.4
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'bottom',
+                    labels: {
+                        usePointStyle: true,
+                        padding: 16,
+                        font: { size: 12, family: "'Segoe UI', Arial, sans-serif" },
+                        color: '#334155'
+                    }
+                },
+                tooltip: {
+                    backgroundColor: '#1e293b',
+                    titleFont: { size: 13, weight: '600' },
+                    bodyFont: { size: 12 },
+                    padding: 12,
+                    cornerRadius: 8,
+                    displayColors: true,
+                    callbacks: {
+                        label: function(ctx) {
+                            return 'Efectividad: ' + ctx.parsed.y.toFixed(1) + '%';
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 100,
+                    grid: {
+                        color: 'rgba(100, 116, 139, 0.12)',
+                        drawBorder: false,
+                        drawTicks: false
+                    },
+                    ticks: {
+                        font: { size: 11, family: "'Segoe UI', Arial, sans-serif" },
+                        color: '#64748b',
+                        padding: 8,
+                        callback: function(value) { return value + '%'; }
+                    }
+                },
+                x: {
+                    grid: { display: false },
+                    ticks: {
+                        font: { size: 11, family: "'Segoe UI', Arial, sans-serif" },
+                        color: '#64748b',
+                        padding: 8,
+                        maxRotation: 45
+                    }
+                }
+            },
+            animation: {
+                duration: 800,
+                easing: 'easeOutQuart'
+            },
+            hover: {
+                mode: 'index',
+                intersect: false
+            }
+        }
+    });
+</script>
+
+<!-- html2pdf for Export PDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js" integrity="sha384-rxnxciqQhuYzyrQLukvH8WzU2hnbCOn4CgbxhHHpyZmkzBWSiJREP6wHiOD1fVuz" crossorigin="anonymous"></script>
+<script>
+    (function(){
+        const exportBtn = document.getElementById('export_btn_{{ proceso }}');
+        if (!exportBtn) return;
+        exportBtn.addEventListener('click', async function(){
+            try{
+                const table = document.getElementById('tabla_inconsistencias_pasivo_{{ proceso }}');
+                const canvas = document.getElementById('grafica_inconsistenciasPasivo_{{ proceso }}');
+                if (!table && !canvas) throw new Error('No hay contenido para exportar');
+                const wrapper = document.createElement('div');
+                wrapper.style.padding = '10px'; wrapper.style.background = '#fff'; wrapper.style.color = '#000';
+                const title = document.createElement('h2'); title.innerText = `Inconsistencias Pasivo - {{ proceso }}`; wrapper.appendChild(title);
+                if (canvas){ const img = document.createElement('img'); img.src = canvas.toDataURL('image/png'); img.style.maxWidth='100%'; img.style.display='block'; img.style.marginBottom='12px'; wrapper.appendChild(img); }
+                if (table){ const cloned = table.cloneNode(true); cloned.style.width='100%'; cloned.style.borderCollapse='collapse'; Array.from(cloned.querySelectorAll('th, td')).forEach(cell=>{cell.style.border='1px solid #444'; cell.style.padding='6px'; cell.style.fontSize='10pt'; cell.style.color='#000';}); Array.from(cloned.querySelectorAll('thead th')).forEach(th=>{th.style.background='#f2f2f2'; th.style.color='#000';}); wrapper.appendChild(cloned); }
+                document.body.appendChild(wrapper);
+                const opt = { margin:10, filename:`inconsistencias_pasivo_{{ proceso }}.pdf`, image:{type:'jpeg', quality:0.98}, html2canvas:{scale:2, useCORS:true}, jsPDF:{unit:'mm', format:'a4', orientation:'portrait'} };
+                    await html2pdf().set(opt).from(wrapper).toPdf().get('pdf').then(function (pdf) {
+                        const totalPages = pdf.internal.getNumberOfPages();
+                        const usuario = "{{ current_user.username|default(current_user.email)|default('') }}";
+                        const fecha = new Date().toLocaleString();
+                        for (let i = 1; i <= totalPages; i++) {
+                            pdf.setPage(i);
+                            pdf.setFontSize(9);
+                            pdf.setTextColor(40);
+                            pdf.text(`Usuario: ${usuario}`, 10, 10);
+                            pdf.text(fecha, pdf.internal.pageSize.getWidth() - 10, 10, { align: 'right' });
+                            pdf.text(`Página ${i} de ${totalPages}`, pdf.internal.pageSize.getWidth() / 2, pdf.internal.pageSize.getHeight() - 10, { align: 'center' });
+                        }
+                        pdf.save(opt.filename);
+                        document.body.removeChild(wrapper);
+                    });
+            }catch(e){ console.error(e); alert('Error al generar PDF: '+ (e.message||e)); }
+        });
+    })();
+</script>
+<script>
+    document.addEventListener('input', function (event) {
+        const form = event.target.closest('#form_incon_{{ proceso }}');
+        if (form) {
+            const total = parseInt(document.getElementById('t_casos_{{ proceso }}').value) || 0;
+            const fueraRango = parseInt(document.getElementById('e_grabacion_analisis_{{ proceso }}').value) || 0;
+            let porcentaje = 0;
+            if (total > 0) {
+                porcentaje = ((total - fueraRango) / total) * 100;
+            }
+            document.getElementById('resultado_inconsistenciasPasivo_{{ proceso }}').value = porcentaje.toFixed(1);
+            const metaInput = document.getElementById('meta_inconsistenciasPasivo_{{ proceso }}');
+            if (porcentaje >= 99) {
+                metaInput.value = 'meta Alcanzada';
+                metaInput.className = 'form-control meta-alcanzada';
+            } else {
+                metaInput.value = 'meta no alcanzada';
+                metaInput.className = 'form-control meta-no-alcanzada';
+            }
+        }
+    });
+</script>

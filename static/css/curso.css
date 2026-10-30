@@ -1,0 +1,238 @@
+/* --- VISTA DE CURSO Y MATERIAL ESTILO BLUE LIGHT --- */
+
+.material-box {
+    background-color: #ffffff; /* Blanco puro para el fondo del contenido */
+    padding: 30px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+    margin-bottom: 25px;
+}
+
+/* Título del material dentro de la caja */
+.material-box h2 {
+    color: var(--primary-color);
+    font-weight: 800;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--accent-color);
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+/* Contenedor del Visor de PDF */
+.pdf-container {
+    height: 600px; /* Aumentado para mejor visualización */
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    overflow: hidden; /* Limpiamos bordes */
+    background-color: #f1f5f9; /* Fondo gris azulado pálido detrás del PDF */
+    margin-bottom: 12px;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+    position: relative;
+}
+
+#pdfFrame,
+.pdf-object,
+.pdf-iframe {
+    width: 100%;
+    height: 100%; /* Ocupa todo el contenedor */
+    border: none;
+}
+
+.pdf-object {
+    display: block;
+}
+
+/* --- Botón de descarga del PDF --- */
+.pdf-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+.btn-download-pdf-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: #2563eb;
+    color: #fff;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.btn-download-pdf-link:hover {
+    background: #1e40af;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    color: #fff;
+}
+
+/* --- Fallback para móvil (PDF no cargó) --- */
+.pdf-mobile-fallback {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f8fafc;
+    z-index: 10;
+    padding: 20px;
+}
+
+.pdf-fallback-content {
+    text-align: center;
+    max-width: 320px;
+}
+
+.pdf-fallback-content h3 {
+    color: #1e293b;
+    margin: 12px 0 8px;
+    font-size: 1.1rem;
+}
+
+.pdf-fallback-content p {
+    color: #64748b;
+    font-size: 0.9rem;
+    margin-bottom: 16px;
+    line-height: 1.4;
+}
+
+.pdf-fallback-icon {
+    font-size: 2.5rem;
+    color: #ef4444;
+}
+
+.btn-download-pdf {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background: linear-gradient(135deg, #2563eb, #1e40af);
+    color: #fff;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-download-pdf:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.35);
+    color: #fff;
+}
+
+.btn-download-pdf-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: #ffffff;
+    color: #1e40af;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    border: 1.5px solid #bfdbfe;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.btn-download-pdf-secondary:hover {
+    background: #eff6ff;
+    border-color: #3b82f6;
+    color: #1d4ed8;
+}
+
+/* --- BOTÓN DE EVALUACIÓN --- */
+.btn-evaluacion {
+    background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%) !important;
+    color: white !important;
+    padding: 15px 30px !important;
+    border-radius: 10px !important;
+    font-weight: 800 !important;
+    border: none !important;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Estado Deshabilitado (Cuando aún no terminan de leer) */
+.btn-evaluacion:disabled {
+    background: #e2e8f0 !important;
+    color: #94a3b8 !important;
+    cursor: not-allowed !important;
+    opacity: 1 !important; /* Que se vea sólido pero gris */
+}
+.parpadea {
+    animation: pulse-blue 2s infinite;
+}
+
+@keyframes pulse-blue {
+    0% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.7); }
+    70% { box-shadow: 0 0 0 15px rgba(37, 99, 235, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0); }
+}
+
+
+/* Mensajes informativos */
+.mensaje {
+    font-size: 0.95rem;
+    color: #64748b; /* Gris azulado medio */
+    font-weight: 500;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Icono de advertencia o información en el mensaje */
+.mensaje::before {
+    content: '\f05a'; /* Icono de info de FontAwesome */
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    color: var(--accent-color);
+}
+
+/* Responsivo para tablets/móviles */
+@media (max-width: 768px) {
+    .pdf-container {
+        height: 400px;
+    }
+
+    .pdf-actions {
+        justify-content: center;
+    }
+    
+    .material-box {
+        padding: 15px;
+    }
+
+    .btn-download-pdf-link {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .pdf-container {
+        height: 300px;
+    }
+
+    .pdf-fallback-content h3 {
+        font-size: 1rem;
+    }
+
+    .btn-download-pdf {
+        width: 100%;
+        justify-content: center;
+    }
+}

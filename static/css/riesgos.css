@@ -1,0 +1,567 @@
+/* ==========================================================
+   MATRIZ DE RIESGOS — ESTILOS MEJORADOS
+   ========================================================== */
+
+/* ==========================================================
+   FORMULARIO DE RIESGO — GRID Y SECCIONES
+   ========================================================== */
+
+/* Grid maestro del formulario de riesgo */
+.risk-form-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px 24px;
+}
+
+/* Títulos de sección con barra lateral */
+.risk-form-grid .section-title {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #1e3a8a;
+    font-size: 1.05rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 8px 0 4px 0;
+    padding: 10px 16px;
+    background: #f8fafc;
+    border-left: 4px solid #2563eb;
+    border-radius: 0 8px 8px 0;
+}
+
+.risk-form-grid .section-title i {
+    color: #2563eb;
+    font-size: 1.1rem;
+}
+
+/* Campos individuales */
+.risk-form-grid .form-field {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.risk-form-grid .form-field.full-width {
+    grid-column: 1 / -1;
+}
+
+.risk-form-grid .form-field label {
+    color: #1e3a8a;
+    font-weight: 700;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    margin-bottom: 6px;
+}
+
+/* --- ANÁLISIS DE RIESGO (2 columnas) --- */
+.analysis-container {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    background: #f9fbff;
+    padding: 20px 24px;
+    border-radius: 12px;
+    border: 1.5px dashed #dbeafe;
+}
+
+.analysis-column {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.analysis-column label {
+    color: #1e3a8a;
+    font-weight: 700;
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    margin-bottom: 4px;
+    display: block;
+}
+
+/* --- INPUT GROUPS (probabilidad + impacto lado a lado) --- */
+.input-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.input-group .form-control {
+    min-width: 0;
+}
+
+/* --- CONTENEDOR DE BOTONES --- */
+.submit-container {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+    padding-top: 16px;
+    border-top: 1.5px solid #e2e8f0;
+}
+
+.submit-container button[type="submit"] {
+    min-width: 180px;
+}
+
+/* --- CAMPOS READONLY (criticidad, totales) --- */
+.risk-form-grid .form-control[readonly],
+.analysis-container .form-control[readonly] {
+    background: #f8fafc;
+    cursor: default;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+/* ==========================================================
+   FORMULARIO DE ACTIVO — MEJORAS
+   ========================================================== */
+
+/* Labels dentro del grid de activo (sin clase .form-label) */
+.form-grid-container label {
+    color: #1e3a8a;
+    font-weight: 800;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    margin-bottom: 8px;
+    display: block;
+}
+
+/* Sección visual para el grupo de criticidad (CID) */
+.criticidad-group {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px 24px;
+    background: #f9fbff;
+    padding: 20px 24px;
+    border-radius: 12px;
+    border: 1.5px dashed #dbeafe;
+    margin: 4px 0;
+}
+
+.criticidad-group .form-field {
+    margin-bottom: 0 !important;
+}
+
+.criticidad-group + .form-field {
+    /* El campo Total después del grupo */
+    grid-column: 1 / -1;
+}
+
+/* Campo Total destacado */
+#TotalActivo {
+    background: #f0fdf4 !important;
+    border-color: #86efac !important;
+    color: #16a34a !important;
+    font-weight: 800 !important;
+    font-size: 1.1rem !important;
+}
+
+/* ==========================================================
+   MEJORAS GENERALES A INPUTS / SELECTS / TEXTAREAS
+   ========================================================== */
+
+.form-control,
+select,
+textarea {
+    border: 1.5px solid #d1d5db;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: #1e293b;
+    background: #ffffff;
+    transition: all 0.2s ease;
+    outline: none;
+    font-family: inherit;
+}
+
+.form-control:focus,
+select:focus,
+textarea:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+}
+
+.form-control::placeholder,
+textarea::placeholder {
+    color: #94a3b8;
+    font-weight: 400;
+}
+
+/* --- SELECT con flecha personalizada --- */
+select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 36px;
+    cursor: pointer;
+}
+
+/* --- TEXTAREAS --- */
+textarea {
+    resize: vertical;
+    min-height: 80px;
+    line-height: 1.5;
+}
+
+/* ==========================================================
+   BADGES DE CRITICIDAD
+   ========================================================== */
+
+/* --- BADGES DE CRITICIDAD --- */
+.badge-criticidad {
+    display: inline-block;
+    padding: 3px 12px;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.badge-criticidad.extrema {
+    background: #fef2f2;
+    color: #dc2626;
+    border: 1px solid #fecaca;
+}
+
+.badge-criticidad.alta {
+    background: #fff7ed;
+    color: #ea580c;
+    border: 1px solid #fed7aa;
+}
+
+.badge-criticidad.moderada {
+    background: #fffbeb;
+    color: #d97706;
+    border: 1px solid #fde68a;
+}
+
+.badge-criticidad.baja {
+    background: #eff6ff;
+    color: #2563eb;
+    border: 1px solid #bfdbfe;
+}
+
+.badge-criticidad.na {
+    background: #f8fafc;
+    color: #94a3b8;
+    border: 1px solid #e2e8f0;
+}
+
+/* --- BADGES DE OPCIONES DE MANEJO --- */
+.badge-manejo {
+    display: inline-block;
+    padding: 3px 12px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+}
+
+.badge-manejo.asumir {
+    background: #f1f5f9;
+    color: #475569;
+    border: 1px solid #cbd5e1;
+}
+
+.badge-manejo.mitigar {
+    background: #eff6ff;
+    color: #2563eb;
+    border: 1px solid #bfdbfe;
+}
+
+.badge-manejo.transferir {
+    background: #fef2f2;
+    color: #dc2626;
+    border: 1px solid #fecaca;
+}
+
+.badge-manejo.evitar {
+    background: #f0fdf4;
+    color: #16a34a;
+    border: 1px solid #bbf7d0;
+}
+
+/* --- COLUMNAS DE ACCIÓN --- */
+.tabla-expandible td .toggle-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    background: #f1f5f9;
+    color: #64748b;
+    font-weight: 700;
+    font-size: 0.85rem;
+    transition: all 0.25s ease;
+    user-select: none;
+}
+
+.fila-principal:hover .toggle-icon {
+    background: #dbeafe;
+    color: #2563eb;
+}
+
+.fila-principal.expanded .toggle-icon {
+    background: #2563eb;
+    color: #ffffff;
+    transform: rotate(45deg);
+}
+
+/* --- FILAS PRINCIPALES MEJORADAS --- */
+.tabla-expandible tbody tr.fila-principal {
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+}
+
+.tabla-expandible tbody tr.fila-principal:hover {
+    background: #f1f7ff;
+    border-left-color: #93c5fd;
+}
+
+.tabla-expandible tbody tr.fila-principal.expanded {
+    background: #eff6ff;
+    border-left-color: #2563eb;
+}
+
+/* Rayado (striping) solo en filas no expandidas */
+.tabla-expandible tbody tr.fila-principal:nth-child(4n+1):not(.expanded) {
+    background: #fafbfc;
+}
+
+/* --- CELDAS DE LA TABLA --- */
+.tabla-expandible td {
+    padding: 14px 16px !important;
+    vertical-align: middle !important;
+    font-size: 0.88rem;
+}
+
+.tabla-expandible thead th {
+    padding: 14px 16px !important;
+    font-size: 0.78rem !important;
+    letter-spacing: 0.5px;
+}
+
+/* --- FILA DE DETALLES MEJORADA --- */
+.fila-detalles {
+    display: none;
+}
+
+.fila-detalles.show {
+    display: table-row;
+    animation: detallesFadeIn 0.3s ease;
+}
+
+@keyframes detallesFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.tabla-expandible .fila-detalles > td {
+    padding: 20px 24px !important;
+    background: #fafcff;
+    border-top: none !important;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.detalles-contenido {
+    padding: 0 !important;
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 10px;
+}
+
+.detalle-item {
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    border: 1px solid #f1f5f9;
+    border-radius: 8px;
+    padding: 12px 14px;
+    transition: all 0.2s ease;
+}
+
+.detalle-item:hover {
+    border-color: #dbeafe;
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.06);
+}
+
+.detalle-item strong {
+    color: #64748b;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.detalle-item span {
+    color: #1e293b;
+    font-weight: 600;
+    font-size: 0.9rem;
+    word-break: break-word;
+}
+
+/* --- INDICADOR DE PROCESO EN CABECERA --- */
+.proceso-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 16px;
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #1e40af;
+    margin-bottom: 16px;
+}
+
+.proceso-indicator i {
+    color: #2563eb;
+    font-size: 0.85rem;
+}
+
+/* --- EMPTY STATE --- */
+.tabla-empty-state {
+    text-align: center;
+    padding: 48px 20px;
+    color: #94a3b8;
+}
+
+.tabla-empty-state i {
+    font-size: 2.5rem;
+    margin-bottom: 12px;
+    opacity: 0.4;
+    display: block;
+}
+
+.tabla-empty-state p {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+/* --- BOTÓN EDITAR EN TABLA --- */
+.btn-editar-riesgo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.95rem;
+}
+
+.btn-editar-riesgo:hover {
+    background: #dbeafe;
+    color: #2563eb;
+    transform: scale(1.1);
+}
+
+/* --- INDICADOR DE MODO EDICIÓN EN EL ACORDEÓN --- */
+#acordeonTabla.modo-edicion .accordion-header {
+    background: #fffbeb !important;
+    color: #d97706 !important;
+    border-color: #fde68a !important;
+}
+
+#acordeonTabla.modo-edicion .accordion-header::after {
+    content: " (Editando)";
+    font-weight: 400;
+    font-size: 0.85rem;
+    opacity: 0.8;
+}
+
+/* --- BOTÓN CANCELAR EDICIÓN --- */
+.btn-cancelar-edicion {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 20px;
+    background: #f1f5f9;
+    color: #475569;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-right: 8px;
+}
+
+.btn-cancelar-edicion:hover {
+    background: #e2e8f0;
+    color: #1e293b;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+    .tabla-expandible td {
+        padding: 10px 12px !important;
+        font-size: 0.8rem;
+    }
+
+    .tabla-expandible thead th {
+        padding: 10px 12px !important;
+        font-size: 0.7rem !important;
+    }
+
+    .badge-criticidad,
+    .badge-manejo {
+        font-size: 0.65rem;
+        padding: 2px 8px;
+    }
+
+    .detalles-contenido {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 8px;
+    }
+
+    .detalle-item {
+        padding: 10px 12px;
+    }
+
+    .detalle-item strong {
+        font-size: 0.65rem;
+    }
+
+    .detalle-item span {
+        font-size: 0.82rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .detalles-contenido {
+        grid-template-columns: 1fr !important;
+    }
+}

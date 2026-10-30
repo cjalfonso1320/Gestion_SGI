@@ -1,0 +1,291 @@
+{% if current_user.rol != 16 or not is_role_override %}
+<form id="form_tiempoCredito_{{proceso}}" method="post">
+    <div class="form-grid-container">
+        {% if config.get('WTF_CSRF_ENABLED') %}<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">{% endif %}
+        <input type="hidden" id="procesoInput_{{ proceso }}" name="proceso" value="{{ proceso }}"
+            data-proceso="{{ proceso }}">
+        <div class="form-field">
+            <label class="form-label" for="mes_TRespuesta_{{ proceso }}">Mes</label>
+            <select id="mes_TRespuesta_{{ proceso }}" name="mes_TRespuesta" required>
+                <option value="">Seleccione un mes</option>
+                <option value="Enero">Enero</option>
+                <option value="Febrero">Febrero</option>
+                <option value="Marzo">Marzo</option>
+                <option value="Abril">Abril</option>
+                <option value="Mayo">Mayo</option>
+                <option value="Junio">Junio</option>
+                <option value="Julio">Julio</option>
+                <option value="Agosto">Agosto</option>
+                <option value="Septiembre">Septiembre</option>
+                <option value="Octubre">Octubre</option>
+                <option value="Noviembre">Noviembre</option>
+                <option value="Diciembre">Diciembre</option>
+            </select>
+        </div>
+        <div class="form-field">
+            <label class="form-label" for="t_creditos">Total de Creditos Recibidos</label>
+            <input class="form-control" type="number" id="t_creditos_{{ proceso }}" name="t_creditos" required>
+        </div>
+        <div class="form-field">
+            <label class="form-label" for="t_respuesta">Tiempo de Respuesta en minutos y segundos del mes
+                anterior</label>
+            {% if proceso == 'complementacion_repsuestaCreditoOCI' %}
+            <input class="form-control" type="text" id="mes_anterior_{{ proceso }}" name="" placeholder="MM:SS"
+                pattern="^[0-5]?[0-9]:[0-5][0-9]$">
+            {% elif proceso == 'complementacion_repsuestaCreditoTradicional' %}
+            <input class="form-control" type="text" id="mes_anterior_{{ proceso }}" name="mes_anterior"
+                placeholder="HH:MM:SS" pattern="^([0-9]{1,2}:)?[0-5]?[0-9]:[0-5][0-9]$">
+            {% endif %}
+
+
+        </div>
+        <div class="form-field">
+            <label class="form-label" for="t_respuesta">Tiempo de Respuesta en minutos y segundos</label>
+            {% if proceso == 'complementacion_repsuestaCreditoOCI' %}
+            <input class="form-control" type="text" id="t_respuesta_{{ proceso }}" name="t_respuesta"
+                placeholder="MM:SS" pattern="^[0-5]?[0-9]:[0-5][0-9]$">
+            {% elif proceso == 'complementacion_repsuestaCreditoTradicional' %}
+            <input class="form-control" type="text" id="t_respuesta_{{ proceso }}" name="t_respuesta"
+                placeholder="HH:MM:SS" pattern="^([0-9]{1,2}:)?[0-5]?[0-9]:[0-5][0-9]$">
+            {% endif %}
+
+        </div>
+        <div class="form-field">
+            <label class="form-label" for="resultado_TRespuesta">Variacion (Segundos)</label>
+            <input class="form-control" type="text" id="resultado_TRespuesta_{{ proceso }}" name="resultado_TRespuesta"
+                readonly>
+        </div>
+        <div class="form-field">
+            <label class="form-label" for="Analisis_TRespuesta">Analisis</label>
+            <textarea id="Analisis_TRespuesta_{{ proceso }}" name="Analisis_TRespuesta"></textarea>
+        </div>
+        <button type="submit"><i class="fa-solid fa-floppy-disk"></i> Guardar</button>
+    </div>
+</form>
+{% endif %}
+
+
+<div class="container mt-4">
+{% if current_user.rol == 16 %}
+<button id="export_btn_{{ proceso }}" class="btn-export"><i class="fa-solid fa-file-export"></i> Exportar</button>
+{% endif %}
+
+
+
+    <div class="accordion" id="acordeonTabla">
+        <div class="accordion-header">
+            Ver Tabla de Registros
+        </div>
+        <div class="accordion-content">
+            <table class="table" id="tabla_TRespuesta_{{ proceso }}">
+                <thead>
+                    <tr>
+                        <th>Mes</th>
+                        <th>Total de Creditos</th>
+                        <th>Tiempo de Respuesta</th>
+                        <th>Resultado</th>
+                        <th>Analisis</th>
+                    </tr>
+                </thead>
+
+                <tbody id="tabla_RespuestaCredito_body_{{proceso}}">
+                    {% for registro in datos_repsuestaCredito %}
+                    <tr>
+                        <td>{{registro[0]}}</td>
+                        <td>{{registro[1]}}</td>
+                        <td>{{registro[2]}}</td>
+                        <td>{{registro[3]}}</td>
+                        <td>{{registro[4]}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+    <h3>Porcentaje de Casos por Mes</h3>
+    <canvas id="grafica_TRespuesta_{{ proceso }}" width="400" height="200"></canvas>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js" integrity="sha384-9MhbyIRcBVQiiC7FSd7T38oJNj2Zh+EfxS7/vjhBi4OOT78NlHSnzM31EZRWR1LZ" crossorigin="anonymous"></script>
+<script>
+    document.getElementById('mes_TRespuesta_{{ proceso }}').addEventListener('change', function () {
+        const mes = this.value;
+        const proceso = document.getElementById('procesoInput_{{ proceso }}').dataset.proceso;
+        if (!mes) return;
+
+        fetch(`get_tiempo_mes_anterior?mes=${encodeURIComponent(mes)}&proceso=${encodeURIComponent(proceso)}`)
+            .then(res => res.json())
+            .then(data => {
+                console.log("tiempo_{{ proceso }}: " + data.tiempo_respuesta)
+                if (data.tiempo_respuesta) {
+                    document.getElementById('mes_anterior_{{ proceso }}').value = data.tiempo_respuesta;
+                } else {
+                    document.getElementById('mes_anterior_{{ proceso }}').value = "";
+                }
+            })
+            .catch(err => console.error("Error:", err));
+    });
+</script>
+<!-- html2pdf for Export PDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js" integrity="sha384-rxnxciqQhuYzyrQLukvH8WzU2hnbCOn4CgbxhHHpyZmkzBWSiJREP6wHiOD1fVuz" crossorigin="anonymous"></script>
+<script>
+    (function(){
+        const exportBtn = document.getElementById('export_btn_{{ proceso }}');
+        if (!exportBtn) return;
+        exportBtn.addEventListener('click', async function(){
+            try{
+                const table = document.getElementById('tabla_TRespuesta_{{ proceso }}');
+                const canvas = document.getElementById('grafica_TRespuesta_{{ proceso }}');
+                if (!table && !canvas) throw new Error('No hay contenido para exportar');
+                const wrapper = document.createElement('div'); wrapper.style.padding='10px'; wrapper.style.background='#fff'; wrapper.style.color='#000';
+                const title = document.createElement('h2'); title.innerText = `Tiempo Respuesta Credito - {{ proceso }}`; wrapper.appendChild(title);
+                if (canvas){ const img = document.createElement('img'); img.src = canvas.toDataURL('image/png'); img.style.maxWidth='100%'; img.style.display='block'; img.style.marginBottom='12px'; wrapper.appendChild(img); }
+                if (table){ const cloned = table.cloneNode(true); cloned.style.width='100%'; cloned.style.borderCollapse='collapse'; Array.from(cloned.querySelectorAll('th, td')).forEach(cell=>{cell.style.border='1px solid #444'; cell.style.padding='6px'; cell.style.fontSize='10pt'; cell.style.color='#000';}); Array.from(cloned.querySelectorAll('thead th')).forEach(th=>{th.style.background='#f2f2f2'; th.style.color='#000';}); wrapper.appendChild(cloned); }
+                document.body.appendChild(wrapper);
+                const opt = { margin:10, filename:`TRespuesta_{{ proceso }}.pdf`, image:{type:'jpeg', quality:0.98}, html2canvas:{scale:2, useCORS:true}, jsPDF:{unit:'mm', format:'a4', orientation:'portrait'} };
+                await html2pdf().set(opt).from(wrapper).toPdf().get('pdf').then(function (pdf) {
+                    const totalPages = pdf.internal.getNumberOfPages();
+                    const usuario = "{{ current_user.username|default(current_user.email)|default('') }}";
+                    const fecha = new Date().toLocaleString();
+                    for (let i = 1; i <= totalPages; i++) {
+                        pdf.setPage(i);
+                        pdf.setFontSize(9);
+                        pdf.setTextColor(40);
+                        pdf.text(`Usuario: ${usuario}`, 10, 10);
+                        pdf.text(fecha, pdf.internal.pageSize.getWidth() - 10, 10, { align: 'right' });
+                        pdf.text(`Página ${i} de ${totalPages}`, pdf.internal.pageSize.getWidth() / 2, pdf.internal.pageSize.getHeight() - 10, { align: 'center' });
+                    }
+                    pdf.save(opt.filename);
+                    document.body.removeChild(wrapper);
+                });
+            }catch(e){ console.error(e); alert('Error al generar PDF: '+ (e.message||e)); }
+        });
+    })();
+</script>
+<script>
+    const ctx_TRespuesta_{{ proceso }} = document.getElementById('grafica_TRespuesta_{{ proceso }}').getContext('2d');
+    window['grafica_TRespuesta_{{ proceso }}'] = new Chart(ctx_TRespuesta_{{ proceso }}, {
+        type: 'line',
+        data: {
+            labels: {{ meses_repsuestaCredito|default([]) | tojson | safe }},
+            datasets: [{
+                label: 'Tiempo (segundos)',
+                data: {{ tiempo_repsuestaCredito|default ([]) | tojson | safe }},
+                borderColor: '#7c3aed',
+                backgroundColor: 'rgba(124, 58, 237, 0.12)',
+                borderWidth: 3,
+                pointBackgroundColor: '#6d28d9',
+                pointBorderColor: '#ffffff',
+                pointBorderWidth: 2,
+                pointRadius: 5,
+                pointHoverRadius: 8,
+                fill: true,
+                tension: 0.4
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'bottom',
+                    labels: {
+                        usePointStyle: true,
+                        padding: 16,
+                        font: { size: 12, family: "'Segoe UI', Arial, sans-serif" },
+                        color: '#334155'
+                    }
+                },
+                tooltip: {
+                    backgroundColor: '#1e293b',
+                    titleFont: { size: 13, weight: '600' },
+                    bodyFont: { size: 12 },
+                    padding: 12,
+                    cornerRadius: 8,
+                    displayColors: true,
+                    callbacks: {
+                        label: function(ctx) {
+                            let segs = ctx.parsed.y;
+                            let h = Math.floor(segs / 3600);
+                            let m = Math.floor((segs % 3600) / 60);
+                            let s = segs % 60;
+                            if (h > 0) return 'Tiempo: ' + String(h).padStart(2,'0') + ':' + String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+                            return 'Tiempo: ' + String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: {
+                        color: 'rgba(100, 116, 139, 0.12)',
+                        drawBorder: false,
+                        drawTicks: false
+                    },
+                    ticks: {
+                        font: { size: 11, family: "'Segoe UI', Arial, sans-serif" },
+                        color: '#64748b',
+                        padding: 8,
+                        callback: function (value) {
+                            let hours = Math.floor(value / 3600);
+                            let minutes = Math.floor((value % 3600) / 60);
+                            let seconds = value % 60;
+                            if (hours > 0) {
+                                return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                            } else {
+                                return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                            }
+                        }
+                    }
+                },
+                x: {
+                    grid: { display: false },
+                    ticks: {
+                        font: { size: 11, family: "'Segoe UI', Arial, sans-serif" },
+                        color: '#64748b',
+                        padding: 8,
+                        maxRotation: 45
+                    }
+                }
+            },
+            animation: {
+                duration: 800,
+                easing: 'easeOutQuart'
+            },
+            hover: {
+                mode: 'index',
+                intersect: false
+            }
+        }
+    });
+</script>
+<script>
+    function timeToSeconds(timeString) {
+        const parts = timeString.split(':').map(Number);
+        if (parts.length === 2) {
+            //MM:SS
+            return (parts[0] * 60) + parts[1];
+        } else if (parts.length === 3) {
+            //HH:MM:SS
+            return (parts[0] * 3600) + (parts[1] * 60) + parts[2];
+        }
+        return 0;
+    }
+
+    document.addEventListener('input', function () {
+        const t_creditos = parseInt(document.getElementById("t_creditos_{{ proceso }}").value) || 0;
+        const mes_anterior = document.getElementById("mes_anterior_{{ proceso }}").value || "";
+        const t_respuesta = document.getElementById("t_respuesta_{{ proceso }}").value || "";
+
+        let resultado = 0;
+        if (t_creditos > 0 && mes_anterior.includes(":") && t_respuesta.includes(":")) {
+            const total_mes_anterior = timeToSeconds(mes_anterior);
+            const total_t_respuesta = timeToSeconds(t_respuesta);
+            resultado = total_t_respuesta - total_mes_anterior;
+        }
+
+        document.getElementById("resultado_TRespuesta_{{ proceso }}").value = resultado + " seg";
+    });
+
+</script>

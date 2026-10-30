@@ -1,0 +1,212 @@
+{% extends 'home.html' %}
+{% block title %}Aula Virtual{% endblock %}
+{% block content %}
+
+<div class="welcome-header" style="text-align: left; margin-bottom: 40px;">
+    {% set nombre_parts = estudiante.nombre.split(' ') %}
+    {% set primer_nombre_raw = nombre_parts[0] if nombre_parts else '' %}
+    {% set primer_nombre = primer_nombre_raw if primer_nombre_raw and primer_nombre_raw != 'None' else '' %}
+    <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 12px; flex-wrap: wrap;">
+        <div style="
+            width: 56px; height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #2563eb, #1e40af);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; font-weight: 800; color: #fff;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        ">{{ primer_nombre[0] if primer_nombre else '?' }}</div>
+        <div>
+            <h2 style="font-size: 1.6rem; color: var(--primary-color); font-weight: 800; margin: 0 0 2px 0;">
+                {% set hora = now.hour if now else 0 %}
+                {% if hora < 12 %}
+                    ¡Buenos días, {{ primer_nombre }}! ☀️
+                {% elif hora < 18 %}
+                    ¡Buenas tardes, {{ primer_nombre }}! 🌤️
+                {% else %}
+                    ¡Buenas noches, {{ primer_nombre }}! 🌙
+                {% endif %}
+            </h2>
+            <p style="color: var(--modal-text-soft); font-size: 0.95rem; margin: 0;">
+                {% if estudiante.cargo and estudiante.cargo != 'N/A' %}
+                    {{ estudiante.cargo }} · 
+                {% endif %}
+                {% if estudiante.proceso and estudiante.proceso != 'N/A' %}
+                    {{ estudiante.proceso }}
+                {% endif %}
+            </p>
+        </div>
+    </div>
+    <div style="
+        background: linear-gradient(135deg, #eff6ff, #dbeafe);
+        border: 1px solid #bfdbfe;
+        border-radius: 12px;
+        padding: 14px 18px;
+        margin-bottom: 24px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+    ">
+        <i class="fa-solid fa-graduation-cap" style="color: #2563eb; font-size: 1.3rem;"></i>
+        <span style="font-size: 0.95rem; color: #1e40af; flex: 1;">
+            {% if cursos_disponibles > 0 %}
+                Tienes <strong>{{ cursos_disponibles }}</strong> curso{{ 's' if cursos_disponibles != 1 else '' }} disponible{{ 's' if cursos_disponibles != 1 else '' }} para realizar.
+            {% else %}
+                No tienes cursos pendientes por el momento. ¡Sigue así!
+            {% endif %}
+            {% if certificados_count > 0 %}
+                &nbsp;·&nbsp; <strong>{{ certificados_count }}</strong> certificado{{ 's' if certificados_count != 1 else '' }} listo{{ 's' if certificados_count != 1 else '' }} para descargar.
+            {% endif %}
+        </span>
+    </div>
+
+    {% if pendientes_revision and pendientes_revision|length > 0 %}
+    <div style="
+        background: #fef3c7;
+        border: 1px solid #f59e0b;
+        border-radius: 12px;
+        padding: 14px 18px;
+        margin-bottom: 24px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    ">
+        <div style="
+            width: 40px; height: 40px;
+            background: #f59e0b;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        ">
+            <i class="fa-solid fa-clock" style="color: white; font-size: 1.1rem;"></i>
+        </div>
+        <div>
+            <strong style="color: #92400e; display: block; margin-bottom: 2px;">
+                Evaluaciones pendientes de revisión
+            </strong>
+            <p style="color: #92400e; margin: 0; font-size: 0.9rem;">
+                Tienes <strong>{{ pendientes_revision|length }}</strong> evaluación{{ 'es' if pendientes_revision|length != 1 else '' }} con preguntas abiertas que aún no ha{{ 'n' if pendientes_revision|length != 1 else '' }} sido revisada{{ 's' if pendientes_revision|length != 1 else '' }}.
+                Una vez el administrador las califique, podrás ver tu nota final y descargar tu certificado si apruebas.
+            </p>
+        </div>
+        <a href="{{ url_for('aula.mis_resultados') }}" style="
+            margin-left: auto;
+            padding: 8px 16px;
+            background: #fff;
+            border: 1px solid #f59e0b;
+            border-radius: 8px;
+            color: #92400e;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-decoration: none;
+            white-space: nowrap;
+            transition: all 0.2s;
+        " onmouseover="this.style.background='#fef3c7'" onmouseout="this.style.background='#fff'">
+            Ver resultados
+        </a>
+    </div>
+    {% endif %}
+
+    <div class="feature-grid">
+        <!-- tarjeta cursos -->
+        <div class="card feature-card-new card-link card-blue" onclick="location.href='{{ url_for('aula.cursos_abiertos') }}'">
+            <i class="fa-solid fa-book-open-reader watermark"></i>
+            <div class="card-info">
+                <h3><span>MIS CURSOS</span></h3>
+                <p>Accede al material de estudio y presenta tus evaluaciones.</p>
+                <div style="
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 6px;
+                    margin-top: 8px;
+                    padding: 4px 12px;
+                    background: rgba(255,255,255,0.4);
+                    border-radius: 20px;
+                    font-size: 0.85rem;
+                    font-weight: 700;
+                    color: #1e40af;
+                ">
+                    <i class="fa-solid fa-book"></i>
+                    <span>{{ cursos_disponibles }}</span>
+                    <span style="font-weight:400;color:#64748b;">disponible{{ 's' if cursos_disponibles != 1 else '' }}</span>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="card feature-card-new card-link card-indigo" onclick="location.href='{{ url_for('aula.mis_resultados') }}'">
+            <i class="fa-solid fa-square-poll-vertical watermark"></i>
+            <div class="card-info">
+                <h3><span>RESULTADOS</span></h3>
+                <p>Consulta las notas de tus evaluaciones presentadas.</p>
+            </div>
+        </div>
+
+        <div class="card feature-card-new card-link card-teal" onclick="location.href='{{ url_for('aula.mis_certificados') }}'">
+            <i class="fa-solid fa-award watermark"></i>
+            <div class="card-info">
+                <h3><span>CERTIFICADOS</span></h3>
+                <p>Descarga tus certificados de aprobación.</p>
+                <div style="
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 6px;
+                    margin-top: 8px;
+                    padding: 4px 12px;
+                    background: rgba(255,255,255,0.4);
+                    border-radius: 20px;
+                    font-size: 0.85rem;
+                    font-weight: 700;
+                    color: #0f766e;
+                ">
+                    <i class="fa-solid fa-certificate"></i>
+                    <span>{{ certificados_count }}</span>
+                    <span style="font-weight:400;color:#64748b;">certificado{{ 's' if certificados_count != 1 else '' }} para descargar</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card feature-card-new card-link card-slate" onclick="location.href='{{ url_for('rrhh.buzon') }}'">
+            <i class="fa-solid fa-inbox watermark"></i>
+            <div class="card-info">
+                <h3><span>BUZÓN</span></h3>
+                <p style="font-size:1.6rem;font-weight:800;margin:0;" id="buzonNoLeidosCount">-</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if eval_aprobado %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(function() {
+        Swal.fire({
+            title: '¡Felicitaciones! 🎉',
+            html: '<div style="text-align: center;">'
+                + '<div style="font-size: 3rem; margin-bottom: 10px;">🎓</div>'
+                + '<p style="font-size: 1.2rem; font-weight: 700; color: #166534; margin-bottom: 8px;">¡Has aprobado la evaluación!</p>'
+                + '<p style="font-size: 1rem; color: #475569;">Tu calificación: <strong style="font-size: 1.4rem; color: #16a34a;">{{ eval_aprobado.nota }}%</strong></p>'
+                + '<p style="font-size: 0.85rem; color: #94a3b8; margin-top: 8px;">Puedes descargar tu certificado desde la sección de Certificados.</p>'
+                + '</div>',
+            icon: 'success',
+            confirmButtonText: 'Ir a Certificados',
+            confirmButtonColor: '#16a34a',
+            showCancelButton: true,
+            cancelButtonText: 'Seguir en el Inicio',
+            cancelButtonColor: '#64748b',
+            reverseButtons: true,
+            allowOutsideClick: false,
+            allowEscapeKey: false
+        }).then(function(result) {
+            if (result.isConfirmed) {
+                window.location.href = '{{ url_for("aula.mis_certificados") }}';
+            }
+        });
+    }, 500);
+});
+</script>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,2399 @@
+/* --- ESTILO DE MODALES BLUE LIGHT (Actualizado) --- */
+
+:root {
+    --modal-bg: #ffffff;
+    --modal-header-bg: #f8fafc;
+    --modal-border: #e2e8f0;
+    --modal-text: #1e293b;
+    --modal-text-soft: #64748b;
+    --accent-blue: #2563eb;
+}
+
+.modal-overlay, .modal-preview {
+    position: fixed;
+    inset: 0;
+    background: rgba(30, 58, 138, 0.25);
+    backdrop-filter: blur(4px);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+
+.modal-overlay.active, .modal-preview.active {
+    display: flex;
+}
+
+.modal-overlay.active {
+    animation: modalOverlayIn 0.2s ease-out;
+}
+
+@keyframes modalOverlayIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-overlay.active .modal-container {
+    animation: modalContainerIn 0.25s ease-out;
+}
+
+@keyframes modalContainerIn {
+    from { opacity: 0; transform: scale(0.95) translateY(10px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.modal-container, .modal-preview-content {
+    background: var(--modal-bg);
+    border-radius: 12px;
+    border: 1px solid var(--modal-border);
+    width: 90%;
+    max-width: 1100px; /* Ajustado para el Wizard */
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.modal-overlay.active .modal-container, 
+.modal-preview.active .modal-preview-content {
+    transform: scale(1);
+}
+
+/* --- CABECERA --- */
+.modal-header {
+    padding: 20px 25px;
+    border-bottom: 2px solid var(--accent-blue);
+    background: var(--modal-header-bg);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 1.4rem;
+    color: var(--accent-blue);
+    font-weight: 800;
+}
+
+.modal-header h2, .modal-header h3, .titulo-modal {
+    margin: 0;
+    font-size: 1.4rem;
+    color: var(--accent-blue);
+    font-weight: 800;
+}
+
+.modal-body, .modal-body-preview {
+    padding: 25px;
+    overflow-y: auto;
+    background: #ffffff;
+    flex-shrink: 0;
+    max-height: 65vh;
+}
+
+#modalEmpleado .modal-body {
+    max-height: 55vh;
+}
+
+/* --- BOTONES DE CIERRE --- */
+
+.btn-close, .modal-close {
+    background: #f1f5f9;
+    border: none;
+    color: #64748b;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-close:hover, .modal-close:hover {
+    background: #fee2e2;
+    color: #ef4444;
+}
+
+/* --- FORMULARIOS --- */
+
+.modal-body label {
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: var(--modal-text-soft);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.modal-body input, 
+.modal-body select, 
+.modal-body textarea,
+.modal-body-preview input,
+.modal-body-preview select {
+    width: 100%;
+    background: var(--input-bg);
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    padding: 10px 12px;
+    color: var(--modal-text);
+    margin-bottom: 18px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.modal-body input:focus, .modal-body select:focus {
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+/* Corregir visibilidad de opciones en select modo claro */
+.modal-body select option {
+    background-color: #ffffff;
+    color: #1e293b;
+}
+
+/* ===================================================== */
+/*        WIZARD — PROGRESS INDICATOR                   */
+/* ===================================================== */
+
+.wizard-progress {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 30px 12px;
+    background: #fafbfc;
+    border-bottom: 1px solid var(--modal-border);
+    gap: 0;
+}
+
+.wizard-progress-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    cursor: default;
+    position: relative;
+}
+
+.wizard-progress-circle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #e2e8f0;
+    color: #94a3b8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.78rem;
+    font-weight: 800;
+    transition: all 0.35s ease;
+    border: 2px solid transparent;
+}
+
+.wizard-progress-step.active .wizard-progress-circle {
+    background: #2563eb;
+    color: #fff;
+    border-color: #1e40af;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.2);
+    transform: scale(1.1);
+}
+
+.wizard-progress-step.completed .wizard-progress-circle {
+    background: #22c55e;
+    color: #fff;
+    border-color: #16a34a;
+    font-size: 0.7rem;
+}
+
+.wizard-progress-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    transition: color 0.3s;
+    white-space: nowrap;
+}
+
+.wizard-progress-step.active .wizard-progress-label {
+    color: #2563eb;
+}
+
+.wizard-progress-step.completed .wizard-progress-label {
+    color: #16a34a;
+}
+
+.wizard-progress-line {
+    flex: 1;
+    height: 2px;
+    background: #e2e8f0;
+    margin: 0 6px;
+    margin-bottom: 18px;
+    transition: background 0.4s ease;
+    min-width: 20px;
+}
+
+.wizard-progress-line.completed {
+    background: #22c55e;
+}
+
+/* --- LÓGICA DEL WIZARD (PASOS) --- */
+.wizard-step {
+    display: none;
+}
+
+.wizard-step.active {
+    display: block;
+}
+
+.wizard-step.animating-next {
+    animation: wizardFadeInNext 0.3s ease-out;
+}
+
+.wizard-step.animating-prev {
+    animation: wizardFadeInPrev 0.3s ease-out;
+}
+
+@keyframes wizardFadeInNext {
+    from { opacity: 0; transform: translateX(16px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes wizardFadeInPrev {
+    from { opacity: 0; transform: translateX(-16px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+.wizard-step h3 {
+    color: #1e3a8a;
+    font-size: 1.05rem;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.wizard-step h3 i {
+    color: #2563eb;
+    font-size: 1.1rem;
+}
+
+/* --- WIZARD FOOTER (REDISEÑADO) --- */
+.wizard-footer {
+    padding: 16px 25px;
+    background: #f8fafc;
+    border-top: 1px solid var(--modal-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+.wizard-footer-left,
+.wizard-footer-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.wizard-footer-center {
+    display: flex;
+    align-items: center;
+}
+
+.wizard-step-counter {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Botones del wizard */
+.btn-wizard {
+    padding: 10px 22px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: none;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.btn-wizard-back {
+    background: #ffffff;
+    color: #64748b;
+    border: 1.5px solid #e2e8f0;
+}
+
+.btn-wizard-back:hover {
+    background: #f1f5f9;
+    color: #1e293b;
+    border-color: #cbd5e1;
+}
+
+.btn-wizard-next {
+    background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+    color: #fff;
+    box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2);
+}
+
+.btn-wizard-next:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 12px rgba(37, 99, 235, 0.3);
+}
+
+.btn-wizard-save {
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+    color: #fff;
+    box-shadow: 0 4px 6px rgba(34, 197, 94, 0.2);
+}
+
+.btn-wizard-save:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 12px rgba(34, 197, 94, 0.3);
+}
+
+/* --- SISTEMA DE GRILLA (3 COLUMNAS) --- */
+.form-grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 campos por fila */
+    gap: 15px 25px;
+    padding: 10px 5px;
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- FORMULARIOS (LABELS E INPUTS) --- */
+.form-field label,
+.form-label {
+    font-weight: 700;
+    font-size: 0.8rem;
+    color: var(--modal-text-soft);
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+
+/* Upload dropzone styles */
+.upload-card {
+    margin-bottom: 0;
+}
+
+.upload-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 6px;
+}
+
+.upload-label i {
+    color: #2563eb;
+}
+
+.upload-dropzone {
+    position: relative;
+    border: 2px dashed #cbd5e1;
+    border-radius: 10px;
+    padding: 20px 16px;
+    text-align: center;
+    background: #fafbfc;
+    transition: all 0.25s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.upload-dropzone:hover {
+    border-color: #2563eb;
+    background: #f0f4ff;
+    border-style: dashed;
+}
+
+.upload-dropzone i {
+    font-size: 1.5rem;
+    color: #94a3b8;
+    transition: color 0.25s;
+}
+
+.upload-dropzone:hover i {
+    color: #2563eb;
+}
+
+.upload-dropzone span {
+    font-size: 0.78rem;
+    color: #94a3b8;
+    font-weight: 600;
+}
+
+.upload-dropzone input[type="file"] {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+}
+
+.upload-hint {
+    display: block;
+    margin-top: 4px;
+    font-size: 0.72rem;
+    color: #94a3b8;
+}
+
+/* --- PREVIEW DE FOTO EN MODAL DE EDICIÓN --- */
+
+.foto-preview-wrapper {
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.foto-preview-wrapper .emp-photo-detail {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--accent-color, #2563eb);
+    background: #f1f5f9;
+}
+
+.foto-preview-label {
+    font-size: 0.72rem;
+    color: #94a3b8;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+/* --- PREVIEW DE CÉDULA EN MODAL DE EDICIÓN --- */
+
+.cedula-preview-wrapper {
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.cedula-preview-card {
+    width: 160px;
+    height: 90px;
+    border-radius: 8px;
+    border: 2px dashed #cbd5e1;
+    background: #f8fafc;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    overflow: hidden;
+    position: relative;
+}
+
+.cedula-preview-card.has-file {
+    border-style: solid;
+    border-color: var(--accent-color, #2563eb);
+    background: #f0f4ff;
+}
+
+.cedula-preview-card.has-file:hover {
+    border-color: #1e40af;
+    background: #dbeafe;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
+}
+
+.cedula-preview-card i {
+    font-size: 1.6rem;
+    color: #94a3b8;
+    transition: color 0.2s;
+}
+
+.cedula-preview-card.has-file i {
+    color: var(--accent-color, #2563eb);
+}
+
+.cedula-preview-card.has-file:hover i {
+    color: #1e40af;
+}
+
+.cedula-preview-text {
+    font-size: 0.7rem;
+    color: #94a3b8;
+    font-weight: 600;
+    text-align: center;
+    line-height: 1.2;
+    padding: 0 6px;
+}
+
+.cedula-preview-card.has-file .cedula-preview-text {
+    color: var(--accent-color, #2563eb);
+}
+
+.cedula-preview-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+/* Lista de documentos */
+.lista-documentos {
+    margin-top: 8px;
+    padding: 0;
+    list-style: none;
+}
+
+.lista-documentos li {
+    font-size: 0.78rem;
+    color: #475569;
+    padding: 4px 0;
+}
+
+.form-control, .modal-body select, .modal-body input {
+    background: #ffffff;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 8px;
+    padding: 10px;
+    color: var(--modal-text);
+    font-size: 0.9rem;
+    outline: none;
+    transition: all 0.2s;
+}
+
+.form-control:focus {
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.btn-prev, .btn-next {
+    background: #ffffff;
+    border: 1.5px solid var(--accent-blue);
+    color: var(--accent-blue);
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    transition: all 0.3s;
+}
+
+.btn-prev:hover, .btn-next:hover {
+    background: var(--accent-blue);
+    color: #ffffff;
+}
+
+/* --- TABLAS DENTRO DE MODALES --- */
+
+.modal-body .tabla-expandible thead th {
+    background-color: #f1f5f9;
+    color: #1e3a8a;
+    border-bottom: 2px solid var(--accent-blue);
+}
+
+.otrosi-container {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+}
+
+.tabla-otrosi th {
+    color: #64748b;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+/* --- BOTONES DE ACCIÓN --- */
+
+.btn-guardar {
+    background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+    color: white;
+    padding: 12px 30px;
+    border-radius: 30px;
+    font-weight: 700;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2);
+    width: auto;
+    height: auto;
+}
+
+.btn-cancelar {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    color: #64748b;
+    width: auto;
+    height: auto;
+}
+
+.btn-cancelar:hover {
+    background: #f1f5f9;
+    color: #1e293b;
+}
+
+/* Documentos de estudio */
+.btn-doc-item {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    color: #1e3a8a;
+    font-weight: 600;
+}
+
+.btn-doc-item:hover {
+    background: #eff6ff;
+    border-color: var(--accent-blue);
+}
+
+/* Previsualización */
+#previewImg, #previewPdf {
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+/* ===================================================== */
+/*       MODAL PREVIEW — IMÁGENES Y DOCUMENTOS          */
+/*       REDISEÑO COMPLETO                             */
+/* ===================================================== */
+
+/* --- OVERLAY MEJORADO --- */
+.modal-preview {
+    background: rgba(15, 23, 42, 0.65);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    animation: previewOverlayIn 0.2s ease-out;
+}
+
+@keyframes previewOverlayIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* --- CONTENEDOR PRINCIPAL --- */
+.modal-preview .modal-preview-content {
+    max-width: 900px;
+    width: 92%;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.3);
+    animation: previewContentIn 0.25s ease-out;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@keyframes previewContentIn {
+    from { opacity: 0; transform: scale(0.95) translateY(10px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.modal-preview .modal-preview-content .modal-header {
+    background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+    padding: 14px 24px;
+    border-bottom: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-preview .modal-preview-content .modal-header h3 {
+    margin: 0;
+    color: #ffffff;
+    font-size: 1.05rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    letter-spacing: 0.2px;
+}
+
+.modal-preview .modal-preview-content .modal-header h3 i {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+.modal-preview .modal-preview-content .modal-header .btn-close {
+    background: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 16px;
+}
+
+.modal-preview .modal-preview-content .modal-header .btn-close:hover {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: rotate(90deg);
+}
+
+/* --- BODY DEL MODAL --- */
+.modal-preview .modal-preview-content .modal-body-preview {
+    padding: 0;
+    background: #f1f5f9;
+    min-height: 300px;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* --- LOADING SPINNER --- */
+.preview-loader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 60px 20px;
+    color: #64748b;
+}
+
+.preview-spinner {
+    width: 44px;
+    height: 44px;
+    border: 3px solid #e2e8f0;
+    border-top-color: #2563eb;
+    border-radius: 50%;
+    animation: previewSpin 0.7s linear infinite;
+}
+
+@keyframes previewSpin {
+    to { transform: rotate(360deg); }
+}
+
+.preview-loader-text {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #94a3b8;
+    animation: previewPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes previewPulse {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+}
+
+/* --- ERROR STATE --- */
+.preview-error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 60px 20px;
+    color: #ef4444;
+}
+
+.preview-error i {
+    font-size: 2.5rem;
+    opacity: 0.6;
+}
+
+.preview-error span {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #64748b;
+}
+
+/* --- BOTÓN VOLVER --- */
+#btnVolverLista {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    z-index: 10;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid #e2e8f0;
+    color: #475569;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.8rem;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    backdrop-filter: blur(4px);
+}
+
+#btnVolverLista:hover {
+    background: #ffffff;
+    border-color: #2563eb;
+    color: #2563eb;
+    transform: translateX(-2px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
+}
+
+#btnVolverLista i {
+    font-size: 0.85rem;
+}
+
+/* --- IMAGEN PREVIEW --- */
+#previewImg {
+    max-width: 100%;
+    max-height: 78vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+    padding: 20px;
+    background: #ffffff;
+    border: none;
+    box-shadow: none;
+    animation: previewFadeIn 0.3s ease-out;
+}
+
+@keyframes previewFadeIn {
+    from { opacity: 0; transform: scale(0.97); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* --- PDF PREVIEW --- */
+#previewPdf {
+    width: 100%;
+    height: 78vh;
+    border: none;
+    display: block;
+    background: #ffffff;
+    animation: previewFadeIn 0.3s ease-out;
+}
+
+/* --- LISTA DE DOCUMENTOS --- */
+#previewListaDocs {
+    width: 100%;
+    padding: 24px 28px;
+    background: #ffffff;
+    min-height: 300px;
+    animation: previewFadeIn 0.3s ease-out;
+}
+
+.preview-docs-title {
+    font-size: 1.05rem;
+    color: #1e3a8a;
+    margin: 0 0 18px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    padding-bottom: 14px;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.preview-docs-title i {
+    color: #2563eb;
+}
+
+.docs-list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* --- TARJETAS DE DOCUMENTOS (REDISEÑADAS) --- */
+.doc-card-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 18px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 100%;
+    text-align: left;
+    font-family: inherit;
+    font-size: 0.88rem;
+    color: #1e293b;
+}
+
+.doc-card-item:hover {
+    border-color: #2563eb;
+    background: #eff6ff;
+    transform: translateX(4px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.1);
+}
+
+.doc-card-item:active {
+    transform: translateX(4px) scale(0.99);
+}
+
+.doc-card-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+
+.doc-card-icon.icon-pdf {
+    background: #fef2f2;
+    color: #dc2626;
+}
+
+.doc-card-icon.icon-image {
+    background: #fffbeb;
+    color: #d97706;
+}
+
+.doc-card-icon.icon-default {
+    background: #eff6ff;
+    color: #2563eb;
+}
+
+.doc-card-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.doc-card-name {
+    font-weight: 700;
+    font-size: 0.88rem;
+    color: #1e293b;
+}
+
+.doc-card-meta {
+    font-size: 0.75rem;
+    color: #94a3b8;
+    font-weight: 500;
+}
+
+.doc-card-arrow {
+    color: #94a3b8;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+    flex-shrink: 0;
+}
+
+.doc-card-item:hover .doc-card-arrow {
+    color: #2563eb;
+    transform: translateX(2px);
+}
+
+/* --- EMPTY STATE --- */
+.preview-empty {
+    text-align: center;
+    padding: 60px 20px;
+    color: #94a3b8;
+}
+
+.preview-empty i {
+    font-size: 2.5rem;
+    margin-bottom: 12px;
+    opacity: 0.4;
+}
+
+.preview-empty p {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+/* --- RESPONSIVE: MODAL PREVIEW --- */
+@media (max-width: 768px) {
+    .modal-preview .modal-preview-content {
+        width: 96%;
+        border-radius: 12px;
+    }
+
+    .modal-preview .modal-preview-content .modal-header {
+        padding: 12px 16px;
+    }
+
+    .modal-preview .modal-preview-content .modal-header h3 {
+        font-size: 0.9rem;
+        gap: 8px;
+    }
+
+    .modal-preview .modal-preview-content .modal-body-preview {
+        max-height: 85vh;
+        min-height: 200px;
+    }
+
+    #previewImg {
+        max-height: 70vh;
+        padding: 12px;
+    }
+
+    #previewPdf {
+        height: 70vh;
+    }
+
+    #previewListaDocs {
+        padding: 16px 18px;
+    }
+
+    .preview-docs-title {
+        font-size: 0.92rem;
+        margin-bottom: 14px;
+        padding-bottom: 10px;
+    }
+
+    .doc-card-item {
+        padding: 12px 14px;
+        font-size: 0.82rem;
+    }
+
+    .doc-card-icon {
+        width: 32px;
+        height: 32px;
+        font-size: 0.95rem;
+    }
+
+    .doc-card-name {
+        font-size: 0.82rem;
+    }
+
+    #btnVolverLista {
+        top: 10px;
+        left: 10px;
+        padding: 6px 10px;
+        font-size: 0.74rem;
+    }
+}
+
+@media (max-width: 420px) {
+    .modal-preview .modal-preview-content {
+        width: 98%;
+        border-radius: 8px;
+    }
+
+    .modal-preview .modal-preview-content .modal-header h3 {
+        font-size: 0.82rem;
+    }
+
+    #previewImg {
+        max-height: 60vh;
+        padding: 8px;
+    }
+
+    #previewPdf {
+        height: 60vh;
+    }
+
+    #previewListaDocs {
+        padding: 12px 14px;
+    }
+
+    .doc-card-item {
+        padding: 10px 12px;
+    }
+}
+
+/* ===================================================== */
+/*       MODAL IMPORTAR — RESULTADO DE CARGA MASIVA     */
+/* ===================================================== */
+
+/* Contenedor del resultado de importación */
+.import-result {
+    margin-bottom: 16px;
+    padding: 16px 20px;
+    border-radius: 10px;
+    display: none;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    border: 1px solid transparent;
+    animation: importResultFadeIn 0.3s ease-out;
+}
+
+.import-result.show {
+    display: block;
+}
+
+@keyframes importResultFadeIn {
+    from { opacity: 0; transform: translateY(-6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Estado: Éxito total (verde) */
+.import-result.import-success {
+    background: #ecfdf5;
+    border-color: #a7f3d0;
+    color: #065f46;
+}
+
+/* Estado: Éxito parcial con errores (ámbar) */
+.import-result.import-warning {
+    background: #fffbeb;
+    border-color: #fde68a;
+    color: #92400e;
+}
+
+/* Estado: Error completo (rojo) */
+.import-result.import-error {
+    background: #fef2f2;
+    border-color: #fecaca;
+    color: #991b1b;
+}
+
+/* Resumen del resultado */
+.import-result-summary {
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+.import-result-summary .count-ok {
+    color: #059669;
+    font-weight: 800;
+}
+
+.import-result-summary .count-err {
+    color: #dc2626;
+    font-weight: 800;
+}
+
+/* Lista de errores */
+.import-error-list {
+    max-height: 200px;
+    overflow-y: auto;
+    font-size: 0.82rem;
+    margin-bottom: 14px;
+    background: #fffdf5;
+    border: 1px solid #fef3c7;
+    border-radius: 8px;
+    padding: 4px 0;
+}
+
+.import-error-list::-webkit-scrollbar {
+    width: 5px;
+}
+
+.import-error-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.import-error-list::-webkit-scrollbar-thumb {
+    background: #fde68a;
+    border-radius: 10px;
+}
+
+/* Cada fila de error */
+.import-error-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 7px 14px;
+    border-bottom: 1px solid #fef3c7;
+    font-size: 0.82rem;
+    line-height: 1.4;
+    transition: background 0.15s;
+}
+
+.import-error-item:last-child {
+    border-bottom: none;
+}
+
+.import-error-item:hover {
+    background: #fffbeb;
+}
+
+.import-error-fila {
+    flex-shrink: 0;
+    min-width: 60px;
+    padding: 2px 8px;
+    background: #fef3c7;
+    color: #92400e;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 0.72rem;
+    text-align: center;
+    font-family: 'Courier New', monospace;
+}
+
+.import-error-ident {
+    flex-shrink: 0;
+    font-weight: 700;
+    color: #1e293b;
+    min-width: 80px;
+}
+
+.import-error-msg {
+    color: #dc2626;
+    flex: 1;
+    word-break: break-word;
+}
+
+.import-error-more {
+    padding: 8px 14px;
+    color: #92400e;
+    font-size: 0.78rem;
+    font-style: italic;
+    font-weight: 600;
+}
+
+/* Botón de descarga de Excel de errores */
+.import-error-download {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    text-decoration: none;
+    box-shadow: 0 4px 6px rgba(220, 38, 38, 0.2);
+}
+
+.import-error-download:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(220, 38, 38, 0.3);
+}
+
+.import-error-download i {
+    font-size: 1.05rem;
+}
+
+/* --- VALIDACIÓN DE COLUMNAS DEL EXCEL --- */
+.import-column-error-list {
+    margin-top: 12px;
+    padding: 12px 16px;
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 8px;
+}
+
+.import-column-error-header {
+    font-weight: 700;
+    font-size: 0.82rem;
+    color: #991b1b;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.import-column-error-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 8px;
+    font-size: 0.82rem;
+    color: #7f1d1d;
+    font-family: 'Courier New', monospace;
+    font-weight: 600;
+    border-bottom: 1px solid #fee2e2;
+}
+
+.import-column-error-item:last-child {
+    border-bottom: none;
+}
+
+.import-column-error-item i {
+    color: #dc2626;
+    font-size: 0.75rem;
+    flex-shrink: 0;
+}
+
+.import-column-hint {
+    margin-top: 10px;
+    padding: 8px 10px;
+    background: #fffbeb;
+    border-radius: 6px;
+    font-size: 0.78rem;
+    color: #92400e;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.import-column-hint a {
+    color: #2563eb;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.import-column-hint a:hover {
+    text-decoration: underline;
+}
+
+/* --- BARRA DE PROGRESO DE IMPORTACIÓN --- */
+.import-progress-container {
+    margin-bottom: 16px;
+    padding: 20px 20px 16px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    display: none;
+}
+
+.import-progress-container.show {
+    display: block;
+    animation: importResultFadeIn 0.3s ease-out;
+}
+
+.import-progress-bar-track {
+    width: 100%;
+    height: 10px;
+    background: #e2e8f0;
+    border-radius: 99px;
+    overflow: hidden;
+    position: relative;
+}
+
+.import-progress-bar-fill {
+    height: 100%;
+    width: 0%;
+    border-radius: 99px;
+    background: linear-gradient(90deg, #2563eb 0%, #3b82f6 50%, #60a5fa 100%);
+    background-size: 200% 100%;
+    animation: progressShimmer 1.5s ease-in-out infinite;
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.import-progress-bar-fill.complete {
+    background: linear-gradient(90deg, #22c55e 0%, #16a34a 100%);
+    background-size: 100% 100%;
+    animation: none;
+}
+
+.import-progress-bar-fill.error {
+    background: linear-gradient(90deg, #ef4444 0%, #dc2626 100%);
+    background-size: 100% 100%;
+    animation: none;
+}
+
+@keyframes progressShimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+.import-progress-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.import-progress-label {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #475569;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.import-progress-label i {
+    color: #2563eb;
+    animation: progressSpin 1s linear infinite;
+}
+
+.import-progress-label .fa-check-circle {
+    color: #22c55e;
+    animation: none;
+}
+
+.import-progress-label .fa-circle-xmark {
+    color: #ef4444;
+    animation: none;
+}
+
+@keyframes progressSpin {
+    to { transform: rotate(360deg); }
+}
+
+.import-progress-pct {
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: #2563eb;
+    font-family: 'Courier New', monospace;
+}
+
+/* --- UTILIDADES --- */
+.full-width {
+    grid-column: span 3; /* Para campos largos */
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsivo */
+@media (max-width: 900px) {
+    .form-grid-container { grid-template-columns: repeat(2, 1fr); }
+    .full-width { grid-column: span 2; }
+}
+
+@media (max-width: 600px) {
+    .form-grid-container { grid-template-columns: 1fr; }
+    .full-width { grid-column: span 1; }
+}
+
+
+/* ===================================================== */
+/*       MODAL CONTRATOS — TABLA Y OTROSÍ CARDS         */
+/* ===================================================== */
+
+.modal-contratos-content {
+    max-width: 850px !important;
+}
+
+/* Scroll interno para ver toda la tabla de contratos y los Otrosí.
+   El .modal-body-preview genérico usa overflow:hidden + flex centrado
+   (pensado para imágenes/PDF); aquí se anula para permitir scroll. */
+#modalContratos .modal-body-preview,
+#modalEditContrato .modal-body-preview {
+    display: block;
+    overflow-y: auto;
+    max-height: 68vh;
+    padding: 20px 24px;
+}
+
+#modalContratos .modal-body-preview::-webkit-scrollbar,
+#modalEditContrato .modal-body-preview::-webkit-scrollbar {
+    width: 8px;
+}
+
+#modalContratos .modal-body-preview::-webkit-scrollbar-track,
+#modalEditContrato .modal-body-preview::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 8px;
+}
+
+#modalContratos .modal-body-preview::-webkit-scrollbar-thumb,
+#modalEditContrato .modal-body-preview::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 8px;
+}
+
+#modalContratos .modal-body-preview::-webkit-scrollbar-thumb:hover,
+#modalEditContrato .modal-body-preview::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+.contratos-helper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    background: #f0f4ff;
+    border: 1px solid #dbeafe;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    color: #1e40af;
+    font-size: 0.85rem;
+}
+
+.contratos-helper i {
+    font-size: 1.1rem;
+    animation: pointUp 1.5s ease-in-out infinite;
+}
+
+@keyframes pointUp {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+}
+
+.contratos-table {
+    margin-bottom: 0;
+}
+
+.contratos-table thead th {
+    background: #f1f5f9;
+    color: #1e3a8a;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    padding: 12px 10px;
+    border-bottom: 2px solid #2563eb;
+}
+
+.contratos-table .fila-principal-contrato td {
+    padding: 12px 10px;
+    font-size: 0.88rem;
+    border-bottom: 1px solid #e2e8f0;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.contratos-table .fila-principal-contrato:hover td {
+    background: #f8fafc;
+}
+
+.contratos-table .fila-principal-contrato.seleccionada td {
+    background: #eff6ff;
+}
+
+.contratos-table .fila-principal-contrato td:first-child strong {
+    font-family: 'Courier New', monospace;
+    font-size: 0.82rem;
+    color: #1e3a8a;
+}
+
+/* Tarjeta de Otrosí dentro del detalle */
+.otrosi-card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.otrosi-card-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    background: #f1f5f9;
+    border-bottom: 1px solid #e2e8f0;
+    color: #475569;
+    font-size: 0.82rem;
+}
+
+.otrosi-card-body {
+    padding: 12px 14px;
+}
+
+.otrosi-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.otrosi-item:last-child {
+    border-bottom: none;
+}
+
+.otrosi-item-icon {
+    width: 34px;
+    height: 34px;
+    background: #eff6ff;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #2563eb;
+    flex-shrink: 0;
+}
+
+.otrosi-item-content {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    flex: 1;
+}
+
+.otrosi-item-type {
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: #1e293b;
+}
+
+.otrosi-item-date {
+    font-size: 0.78rem;
+    color: #64748b;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.otrosi-item-date .fa-arrow-right {
+    font-size: 0.7rem;
+    color: #94a3b8;
+}
+
+.otrosi-item-desc {
+    font-size: 0.82rem;
+    color: #475569;
+    margin-top: 2px;
+    padding: 6px 10px;
+    background: #ffffff;
+    border-radius: 6px;
+    border: 1px solid #e2e8f0;
+}
+
+.otrosi-empty .otrosi-card-body {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 14px;
+    color: #64748b;
+    font-size: 0.88rem;
+}
+
+/* ===================================================== */
+/*       MODAL EDITAR CONTRATO — SELECTOR DE ACCIÓN     */
+/* ===================================================== */
+
+#modalEditContrato .modal-contratos-content {
+    max-width: 700px !important;
+}
+
+/* Info bar */
+.contrato-info-bar {
+    display: flex;
+    gap: 16px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin-bottom: 20px;
+}
+
+.contrato-info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.contrato-info-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    color: #94a3b8;
+    font-weight: 700;
+}
+
+.contrato-info-value {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+/* Selector de acción por tarjetas */
+.accion-selector {
+    margin-bottom: 20px;
+}
+
+.accion-selector-label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #475569;
+    margin-bottom: 10px;
+}
+
+.accion-selector-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 10px;
+}
+
+.accion-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 12px;
+    background: #ffffff;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+}
+
+.accion-option:hover {
+    border-color: #93c5fd;
+    background: #f0f4ff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.1);
+}
+
+.accion-option.selected {
+    border-color: #2563eb;
+    background: #eff6ff;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    transform: translateY(-2px);
+}
+
+.accion-option i {
+    font-size: 1.5rem;
+    color: #64748b;
+    transition: color 0.2s;
+}
+
+.accion-option:hover i,
+.accion-option.selected i {
+    color: #2563eb;
+}
+
+.accion-option span {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #475569;
+    line-height: 1.2;
+}
+
+.accion-option.selected span {
+    color: #1e3a8a;
+}
+
+/* Tarjeta de Crear Contrato (estilo destacado) */
+.accion-option.accion-crear {
+    border-color: #bbf7d0;
+    background: #f0fdf4;
+}
+
+.accion-option.accion-crear:hover {
+    border-color: #4ade80;
+    background: #ecfdf5;
+    box-shadow: 0 4px 12px rgba(34, 197, 94, 0.15);
+}
+
+.accion-option.accion-crear.selected {
+    border-color: #16a34a;
+    background: #f0fdf4;
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.18);
+    transform: translateY(-2px);
+}
+
+.accion-option.accion-crear i {
+    color: #16a34a;
+}
+
+.accion-option.accion-crear span {
+    color: #166534;
+}
+
+/* Tarjeta de Eliminar Contrato (estilo destructivo) */
+.accion-option.accion-eliminar {
+    border-color: #fecaca;
+}
+
+.accion-option.accion-eliminar:hover {
+    border-color: #f87171;
+    background: #fef2f2;
+    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.12);
+}
+
+.accion-option.accion-eliminar.selected {
+    border-color: #dc2626;
+    background: #fef2f2;
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15);
+    transform: translateY(-2px);
+}
+
+.accion-option.accion-eliminar i {
+    color: #dc2626;
+}
+
+.accion-option.accion-eliminar span {
+    color: #b91c1c;
+}
+
+/* Campos dinámicos dentro del modal */
+.edit-contrato-dynamic {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.dynamic-field {
+    animation: fadeInUp 0.25s ease-out;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.form-grid-container.two-col {
+    grid-template-columns: 1fr 1fr;
+}
+
+.edit-contrato-dynamic .form-field label i {
+    color: #2563eb;
+    margin-right: 4px;
+    font-size: 0.8rem;
+}
+
+/* Ajustes responsive */
+@media (max-width: 700px) {
+    .accion-selector-options {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .contrato-info-bar {
+        flex-direction: column;
+        gap: 8px;
+    }
+    .form-grid-container.two-col {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ===================================================== */
+/*       ANIMACIÓN DE CIERRE (modal-preview)             */
+/* ===================================================== */
+
+.modal-preview.closing {
+    animation: previewOverlayOut 0.2s ease-in forwards;
+    pointer-events: none;
+}
+
+.modal-preview.closing .modal-preview-content {
+    animation: previewContentOut 0.2s ease-in forwards;
+}
+
+@keyframes previewOverlayOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+@keyframes previewContentOut {
+    from { opacity: 1; transform: scale(1) translateY(0); }
+    to { opacity: 0; transform: scale(0.97) translateY(8px); }
+}
+
+/* ===================================================== */
+/*       MODALES COMPACTOS: ACTIVAR / RETIRO / IMPORTAR  */
+/* ===================================================== */
+
+#modalIngreso.modal-preview .modal-preview-content,
+#modalRetiro.modal-preview .modal-preview-content {
+    max-width: 480px;
+    width: 90%;
+    border-radius: 14px;
+}
+
+#modalImportar.modal-preview .modal-preview-content {
+    max-width: 520px;
+    width: 90%;
+    border-radius: 14px;
+}
+
+#modalIngreso.modal-preview .modal-body-preview,
+#modalRetiro.modal-preview .modal-body-preview,
+#modalImportar.modal-preview .modal-body-preview {
+    min-height: auto;
+    padding: 22px 25px 8px;
+    max-height: none;
+}
+
+#modalIngreso .form-field,
+#modalRetiro .form-field,
+#modalImportar .form-field {
+    margin-bottom: 18px;
+}
+
+#modalIngreso .form-field label,
+#modalRetiro .form-field label,
+#modalImportar .form-field label {
+    display: block;
+    font-weight: 700;
+    font-size: 0.8rem;
+    color: #64748b;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+#modalIngreso .form-field label i,
+#modalRetiro .form-field label i,
+#modalImportar .form-field label i {
+    color: #2563eb;
+    margin-right: 5px;
+    font-size: 0.82rem;
+}
+
+#modalIngreso .form-field input,
+#modalIngreso .form-field select,
+#modalRetiro .form-field input,
+#modalRetiro .form-field select,
+#modalImportar .form-field input,
+#modalImportar .form-field select {
+    width: 100%;
+    background: #ffffff;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 8px;
+    padding: 10px 12px;
+    color: #1e293b;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    font-family: inherit;
+    box-sizing: border-box;
+    height: auto;
+    min-height: 42px;
+}
+
+#modalImportar .form-field input[type="file"] {
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+#modalImportar .form-field input[type="file"]::file-selector-button {
+    background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+    color: #fff;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.78rem;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: all 0.2s;
+}
+
+#modalImportar .form-field input[type="file"]::file-selector-button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(37, 99, 235, 0.25);
+}
+
+#modalIngreso .form-field select,
+#modalRetiro .form-field select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2364748b'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 20px;
+    padding-right: 36px;
+    cursor: pointer;
+}
+
+#modalIngreso .form-field input:focus,
+#modalIngreso .form-field select:focus,
+#modalRetiro .form-field input:focus,
+#modalRetiro .form-field select:focus,
+#modalImportar .form-field input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+#modalIngreso .form-field input::placeholder,
+#modalRetiro .form-field input::placeholder,
+#modalImportar .form-field input::placeholder {
+    color: #94a3b8;
+    font-weight: 400;
+}
+
+/* ===================================================== */
+/*       MODAL ZIP — CARGA MASIVA DE DOCUMENTOS         */
+/* ===================================================== */
+
+#modalZip.modal-preview .modal-preview-content {
+    max-width: 500px;
+    width: 90%;
+    border-radius: 14px;
+}
+
+#modalZip.modal-preview .modal-body-preview {
+    min-height: auto;
+    padding: 20px 25px 4px;
+    max-height: none;
+    display: block;
+}
+
+/* Helper info */
+.zip-helper {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 10px 14px;
+    background: #f0f4ff;
+    border: 1px solid #dbeafe;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    color: #1e40af;
+    font-size: 0.82rem;
+    line-height: 1.4;
+}
+
+.zip-helper i {
+    color: #2563eb;
+    font-size: 1rem;
+    margin-top: 1px;
+    flex-shrink: 0;
+}
+
+/* Reglas de nomenclatura */
+.zip-naming-rules {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+    padding: 12px 14px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+}
+
+.zip-rule {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 0.75rem;
+    font-family: 'Courier New', monospace;
+    color: #475569;
+}
+
+.zip-rule b {
+    color: #dc2626;
+}
+
+/* Resultado ZIP */
+.zip-result {
+    margin-bottom: 4px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    display: none;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    border: 1px solid transparent;
+    animation: importResultFadeIn 0.3s ease-out;
+}
+
+.zip-result.show {
+    display: block;
+}
+
+.zip-result.zip-success {
+    background: #ecfdf5;
+    border-color: #a7f3d0;
+    color: #065f46;
+}
+
+.zip-result.zip-error {
+    background: #fef2f2;
+    border-color: #fecaca;
+    color: #991b1b;
+}
+
+#modalZip .form-field {
+    margin-bottom: 14px;
+}
+
+#modalZip .form-field label {
+    display: block;
+    font-weight: 700;
+    font-size: 0.8rem;
+    color: #64748b;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+#modalZip .form-field label i {
+    color: #2563eb;
+    margin-right: 5px;
+    font-size: 0.82rem;
+}
+
+#modalZip .form-field input[type="file"] {
+    width: 100%;
+    background: #ffffff;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 8px;
+    padding: 8px 12px;
+    color: #1e293b;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    font-family: inherit;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+#modalZip .form-field input[type="file"]:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+#modalZip .form-field input[type="file"]::file-selector-button {
+    background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+    color: #fff;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.78rem;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: all 0.2s;
+}
+
+#modalZip .form-field input[type="file"]::file-selector-button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(37, 99, 235, 0.25);
+}
+
+/* Footer de acciones */
+#modalIngreso .acciones,
+#modalRetiro .acciones,
+#modalContratos .acciones,
+#modalImportar .acciones,
+#modalZip .acciones {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 16px 25px;
+    background: #f8fafc;
+    border-top: 1px solid #e2e8f0;
+    margin-top: 0;
+}
+
+/* Ajustar import-result dentro del body compacto */
+#modalImportar .import-result {
+    margin-bottom: 4px;
+}
+
+#modalImportar .import-progress-container {
+    padding: 16px 18px 14px;
+    margin-bottom: 4px;
+}
+
+@media (max-width: 520px) {
+    #modalIngreso.modal-preview .modal-preview-content,
+    #modalRetiro.modal-preview .modal-preview-content,
+    #modalImportar.modal-preview .modal-preview-content,
+    #modalZip.modal-preview .modal-preview-content {
+        width: 94%;
+    }
+    #modalIngreso .acciones,
+    #modalRetiro .acciones,
+    #modalImportar .acciones,
+    #modalZip .acciones {
+        flex-direction: column-reverse;
+        padding: 14px 18px;
+    }
+    #modalIngreso .acciones .btn-accion,
+    #modalRetiro .acciones .btn-accion,
+    #modalImportar .acciones .btn-accion,
+    #modalZip .acciones .btn-accion {
+        width: 100%;
+        justify-content: center;
+    }
+    #modalIngreso.modal-preview .modal-body-preview,
+    #modalRetiro.modal-preview .modal-body-preview,
+    #modalImportar.modal-preview .modal-body-preview,
+    #modalZip.modal-preview .modal-body-preview {
+        padding: 16px 18px 4px;
+    }
+    .zip-naming-rules {
+        flex-direction: column;
+        gap: 6px;
+    }
+}
+
+/* ===================================================
+   RESPONSIVE: MODAL EMPLEADO Y WIZARD
+   =================================================== */
+@media (max-width: 768px) {
+    .modal-container {
+        width: 96%;
+        max-height: 92vh;
+    }
+
+    .modal-header {
+        padding: 14px 18px;
+    }
+
+    .modal-header h2 {
+        font-size: 1.1rem;
+    }
+
+    .modal-body {
+        padding: 16px;
+    }
+
+    #modalEmpleado .modal-body {
+        max-height: 60vh;
+    }
+
+    /* Wizard progress: circles más pequeños, labels ocultos */
+    .wizard-progress {
+        padding: 14px 12px 8px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .wizard-progress-circle {
+        width: 28px;
+        height: 28px;
+        font-size: 0.7rem;
+        flex-shrink: 0;
+    }
+
+    .wizard-progress-label {
+        display: none; /* Ocultar labels en móvil para ahorrar espacio */
+    }
+
+    .wizard-progress-line {
+        min-width: 12px;
+        margin-bottom: 0;
+    }
+
+    .wizard-footer {
+        flex-wrap: wrap;
+        padding: 12px 16px;
+        gap: 8px;
+    }
+
+    .wizard-footer-left,
+    .wizard-footer-right {
+        flex: 1;
+    }
+
+    .wizard-footer-right {
+        justify-content: flex-end;
+    }
+
+    .wizard-footer-center {
+        order: -1;
+        flex: 0 0 100%;
+        justify-content: center;
+        margin-bottom: 4px;
+    }
+
+    .btn-wizard {
+        padding: 10px 16px;
+        font-size: 0.78rem;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .wizard-step h3 {
+        font-size: 0.95rem;
+        margin-bottom: 14px;
+    }
+
+    /* Upload dropzone más compacto */
+    .upload-dropzone {
+        padding: 14px 12px;
+    }
+
+    .upload-dropzone i {
+        font-size: 1.2rem;
+    }
+
+    .upload-dropzone span {
+        font-size: 0.72rem;
+    }
+
+    .form-grid-container {
+        gap: 10px 16px;
+    }
+
+    /* Modal edit contrato */
+    .contrato-info-bar {
+        flex-direction: column;
+        gap: 8px;
+        padding: 12px;
+    }
+
+    .accion-selector-options {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+
+    .accion-option {
+        padding: 12px 8px;
+    }
+
+    .accion-option i {
+        font-size: 1.2rem;
+    }
+
+    .accion-option span {
+        font-size: 0.7rem;
+    }
+}
+
+@media (max-width: 420px) {
+    .wizard-progress-circle {
+        width: 24px;
+        height: 24px;
+        font-size: 0.6rem;
+    }
+
+    .wizard-progress-line {
+        min-width: 8px;
+        margin: 0 3px;
+    }
+
+    .wizard-footer {
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .wizard-footer-left,
+    .wizard-footer-right {
+        flex: 0 0 100%;
+        width: 100%;
+    }
+
+    .wizard-footer-center {
+        order: 0;
+    }
+
+    .btn-wizard {
+        padding: 10px 14px;
+        font-size: 0.75rem;
+    }
+
+    .form-grid-container {
+        grid-template-columns: 1fr;
+    }
+
+    .full-width {
+        grid-column: span 1;
+    }
+
+    .accion-selector-options {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .contratos-table {
+        font-size: 0.78rem;
+    }
+
+    .contratos-table thead th,
+    .contratos-table td {
+        padding: 8px 6px;
+    }
+
+    .otrosi-card-header {
+        font-size: 0.75rem;
+        padding: 8px 10px;
+    }
+}

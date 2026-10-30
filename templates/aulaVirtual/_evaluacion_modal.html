@@ -1,0 +1,36 @@
+<div class="modal-header">
+    <h3>{{ evaluacion.titulo }}</h3>
+</div>
+
+<div class="modal-body">
+    {% if evaluacion is none %}
+    <p>No hay evaluación disponible para este curso.</p>
+{% else %}
+    {% for p in evaluacion.preguntas %}
+        <div class="pregunta">
+            <p><strong>{{ loop.index }}. {{ p.pregunta }}</strong></p>
+
+            {% if p.tipo == 'opcion_multiple' %}
+                <ul>
+                    {% for o in p.opciones %}
+                        <li>
+                            {{ o.texto }}
+                            {% if o.es_correcta %}
+                                <span class="correcta">✅ Correcta</span>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+
+            {% elif p.tipo == 'vf' %}
+                <p>Respuesta correcta: {{ p.respuesta }}</p>
+
+            {% elif p.tipo == 'texto' %}
+                <p>Respuesta esperada: {{ p.respuesta }}</p>
+            {% endif %}
+        </div>
+        <hr>
+    {% endfor %}
+{% endif %}
+</div>
+
