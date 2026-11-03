@@ -12,6 +12,8 @@ Configuración requerida (variables de entorno):
 """
 
 import smtplib
+from email import encoders
+from email.mime.base import MIMEBase
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from flask import current_app
@@ -45,7 +47,7 @@ def _get_email_logger():
     return _email_logger
 
 
-def enviar_correo(destinatarios, asunto, mensaje_html, mensaje_texto=None):
+def enviar_correo(destinatarios, asunto, mensaje_html, mensaje_texto=None, adjuntos=None):
     """Envía un correo electrónico a múltiples destinatarios.
 
     Utiliza la configuración SMTP definida en variables de entorno.
@@ -56,6 +58,7 @@ def enviar_correo(destinatarios, asunto, mensaje_html, mensaje_texto=None):
         asunto: Asunto del mensaje.
         mensaje_html: Contenido del correo en formato HTML.
         mensaje_texto: Contenido alternativo en texto plano (opcional).
+        adjuntos: Lista de tuplas (nombre de archivo, contenido en bytes).
 
     Returns:
         bool: True si el correo se envió correctamente, False en caso contrario.
@@ -82,17 +85,31 @@ def enviar_correo(destinatarios, asunto, mensaje_html, mensaje_texto=None):
             log.error('   En producción (IIS): configura las variables como variables de entorno del sistema Windows.')
             return False
 
-        msg = MIMEMultipart('alternative')
+        if adjuntos:
+            msg = MIMEMultipart('mixed')
+            cuerpo = MIMEMultipart('alternative')
+            msg.attach(cuerpo)
+        else:
+            msg = MIMEMultipart('alternative')
+            cuerpo = msg
+
         msg['Subject'] = asunto
         msg['From'] = smtp_username
         msg['To'] = ', '.join(destinatarios)
 
         if mensaje_texto:
             part1 = MIMEText(mensaje_texto, 'plain')
-            msg.attach(part1)
+            cuerpo.attach(part1)
 
         part2 = MIMEText(mensaje_html, 'html')
-        msg.attach(part2)
+        cuerpo.attach(part2)
+
+        for nombre, contenido in adjuntos or []:
+            adjunto = MIMEBase('application', 'octet-stream')
+            adjunto.set_payload(contenido)
+            encoders.encode_base64(adjunto)
+            adjunto.add_header('Content-Disposition', 'attachment', filename=nombre)
+            msg.attach(adjunto)
 
         log.info(f'📨 Conectando a {smtp_server}:{smtp_port}...')
 
@@ -334,4 +351,3 @@ Ingresa al sistema para realizar tu evaluación:
 https://servicios.digicom.com.co/Gestion
 """
     return enviar_correo([destinatario_email], asunto, mensaje_html, mensaje_texto)
-

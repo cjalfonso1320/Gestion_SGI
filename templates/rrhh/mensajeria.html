@@ -170,6 +170,17 @@
         letter-spacing: 0.05em;
         margin-bottom: 6px;
     }
+    .compose-panel input[type="file"] {
+        width: 100%;
+        color: #cbd5e1;
+        font-size: 0.85rem;
+    }
+    .attachment-list {
+        margin-top: 8px;
+        color: #94a3b8;
+        font-size: 0.8rem;
+        overflow-wrap: anywhere;
+    }
     .compose-panel input[type="text"],
     .compose-panel textarea {
         width: 100%;
@@ -465,6 +476,13 @@
             <textarea id="mensajeHtml" placeholder="Escribe aquí tu mensaje..."></textarea>
         </div>
 
+        <div class="field-group">
+            <label for="adjuntos">Archivos adjuntos <small style="color:#64748b;font-weight:400;text-transform:none;">Máximo 20 MB en total</small></label>
+            <input type="file" id="adjuntos" multiple>
+            <div class="attachment-list" id="listaAdjuntos">No hay archivos seleccionados</div>
+            <small style="color:#64748b;">Los archivos adjuntos no se guardan en el borrador.</small>
+        </div>
+
         <div class="compose-actions">
             <button class="btn-preview-msg" onclick="previewMensaje()">
                 <i class="fa-solid fa-eye"></i> Vista Previa
@@ -495,6 +513,7 @@
 <script>
 let destinatariosSeleccionados = new Set();
 let ultimosResultados = [];
+const MAX_ADJUNTOS_BYTES = 20 * 1024 * 1024;
 
 // ---------- Borrador automático y confirmación de salida ----------
 const CLAVE_BORRADOR = 'sgi_borrador_mensajeria';
@@ -507,7 +526,8 @@ function hayBorrador() {
     const html = obtenerMensajeHtml();
     const texto = html.replace(/<[^>]*>/g, ' ').replace(/&nbsp;/g, ' ').trim();
     const tieneImagen = /<img[^>]*>/i.test(html);
-    return asunto.length > 0 || texto.length > 0 || tieneImagen || destinatariosSeleccionados.size > 0;
+    const tieneAdjuntos = document.getElementById('adjuntos').files.length > 0;
+    return asunto.length > 0 || texto.length > 0 || tieneImagen || destinatariosSeleccionados.size > 0 || tieneAdjuntos;
 }
 
 // Guarda el borrador en localStorage (autosave con debounce).
@@ -915,6 +935,8 @@ function enviarMensaje() {
     const asunto = document.getElementById('asunto').value.trim();
     const mensajeHtml = obtenerMensajeHtml();
     const ids = Array.from(destinatariosSeleccionados);
+    const archivos = Array.from(document.getElementById('adjuntos').files);
+    const totalAdjuntos = archivos.reduce((total, archivo) => total + archivo.size, 0);
 
     if (!asunto) {
         Swal.fire('Asunto requerido', 'Escribe un asunto para el mensaje', 'warning');
@@ -928,10 +950,14 @@ function enviarMensaje() {
         Swal.fire('Sin destinatarios', 'Selecciona al menos un destinatario usando los filtros', 'warning');
         return;
     }
+    if (totalAdjuntos > MAX_ADJUNTOS_BYTES) {
+        Swal.fire('Adjuntos demasiado grandes', 'El tamaño total de los archivos no puede superar 20 MB', 'warning');
+        return;
+    }
 
     Swal.fire({
         title: '¿Enviar mensaje?',
-        html: `Se enviará a <strong>${ids.length}</strong> destinatario${ids.length !== 1 ? 's' : ''}<br><small style="color:#64748b;">Se enviará un correo individual a cada uno, así los destinatarios no verán los correos de los demás.</small>`,
+        html: `Se enviará a <strong>${ids.length}</strong> destinatario${ids.length !== 1 ? 's' : ''}${archivos.length ? `<br>Con <strong>${archivos.length}</strong> archivo${archivos.length !== 1 ? 's' : ''} adjunto${archivos.length !== 1 ? 's' : ''}` : ''}<br><small style="color:#64748b;">Se enviará un correo individual a cada uno, así los destinatarios no verán los correos de los demás.</small>`,
         icon: 'question',
         showCancelButton: true,
         confirmButtonText: '<i class="fa-solid fa-paper-plane"></i> Enviar',
@@ -944,14 +970,15 @@ function enviarMensaje() {
         btn.disabled = true;
         btn.innerHTML = '<span class="loading-spinner"></span> Enviando...';
 
+        const datos = new FormData();
+        datos.append('asunto', asunto);
+        datos.append('mensaje_html', mensajeHtml);
+        datos.append('destinatarios_ids', JSON.stringify(ids));
+        archivos.forEach(archivo => datos.append('adjuntos', archivo));
+
         fetch(getBaseUrl() + '/rrhh/api/enviar_mensaje', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                asunto: asunto,
-                mensaje_html: mensajeHtml,
-                destinatarios_ids: ids
-            })
+            body: datos
         })
         .then(res => res.json())
         .then(data => {
@@ -976,6 +1003,8 @@ function enviarMensaje() {
             if (data.enviados > 0) {
                 document.getElementById('asunto').value = '';
                 vaciarMensaje();
+                document.getElementById('adjuntos').value = '';
+                actualizarListaAdjuntos();
                 descartarBorrador();
                 destinatariosSeleccionados.clear();
                 actualizarResumen();
@@ -998,6 +1027,25 @@ function enviarMensaje() {
 document.getElementById('filtroCargo').addEventListener('change', cargarDestinatarios);
 document.getElementById('filtroSede').addEventListener('change', cargarDestinatarios);
 document.getElementById('asunto').addEventListener('input', programarAutosave);
+document.getElementById('adjuntos').addEventListener('change', function () {
+    const archivos = Array.from(this.files);
+    const total = archivos.reduce((suma, archivo) => suma + archivo.size, 0);
+    if (total > MAX_ADJUNTOS_BYTES) {
+        this.value = '';
+        Swal.fire('Adjuntos demasiado grandes', 'El tamaño total de los archivos no puede superar 20 MB', 'warning');
+    }
+    actualizarListaAdjuntos();
+});
+
+function actualizarListaAdjuntos() {
+    const archivos = Array.from(document.getElementById('adjuntos').files);
+    const lista = document.getElementById('listaAdjuntos');
+    if (!archivos.length) {
+        lista.textContent = 'No hay archivos seleccionados';
+        return;
+    }
+    lista.textContent = archivos.map(archivo => `${archivo.name} (${(archivo.size / (1024 * 1024)).toFixed(2)} MB)`).join(' · ');
+}
 </script>
 
 {% endblock %}

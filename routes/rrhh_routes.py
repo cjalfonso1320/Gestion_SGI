@@ -2,11 +2,13 @@ from flask import Blueprint, render_template, redirect, url_for, flash, make_res
 from flask import request, jsonify, current_app, send_file
 from flask_login import login_required, current_user
 import os
+import json
 from datetime import datetime
 import zipfile
 import shutil
 import unicodedata
 from fpdf import FPDF
+from werkzeug.utils import secure_filename
 
 from controllers.rrhh_controller import total_empleados, empleados_lista, empleado_lista_completo, estado_civil, grupo_sanguineo, eps, afp, cesantias, ccf, arl, tipo_contrato, sede, escolaridad, bancos, grupo_nomina, cargos, ciudades, total_empleados_retirados, tipo_doc
 from controllers.rrhh_controller import crear_grupoNomina, editar_grupoNomina, eliminar_grupoNomina, crear_cargo, editar_cargo, eliminar_cargo, crear_empleado, guardar_documentos_estudio, lista_documentos_estudio_empleado, actualizar_empleado, desactivar_empleado
@@ -1883,10 +1885,38 @@ def api_empleados_filtrados():
 def api_enviar_mensaje():
     """Envía un correo a los empleados seleccionados."""
     try:
-        data = request.get_json()
+        max_adjuntos_bytes = 20 * 1024 * 1024
+        if request.content_length and request.content_length > max_adjuntos_bytes + 1024 * 1024:
+            return jsonify({'success': False, 'error': 'El tamaño total de los archivos no puede superar 20 MB'}), 413
+
+        if request.is_json:
+            data = request.get_json(silent=True) or {}
+            adjuntos = []
+        else:
+            data = request.form
+            try:
+                destinatarios_ids = json.loads(data.get('destinatarios_ids', '[]'))
+            except (TypeError, ValueError):
+                return jsonify({'success': False, 'error': 'La lista de destinatarios no es válida'}), 400
+
+            adjuntos = []
+            bytes_adjuntos = 0
+            for archivo in request.files.getlist('adjuntos'):
+                if not archivo.filename:
+                    continue
+                nombre = secure_filename(archivo.filename)
+                if not nombre:
+                    return jsonify({'success': False, 'error': 'Uno de los archivos tiene un nombre no válido'}), 400
+                contenido = archivo.read(max_adjuntos_bytes - bytes_adjuntos + 1)
+                bytes_adjuntos += len(contenido)
+                if bytes_adjuntos > max_adjuntos_bytes:
+                    return jsonify({'success': False, 'error': 'El tamaño total de los archivos no puede superar 20 MB'}), 413
+                adjuntos.append((nombre, contenido))
+
         asunto = (data.get('asunto') or '').strip()
         mensaje_html = (data.get('mensaje_html') or '').strip()
-        destinatarios_ids = data.get('destinatarios_ids', [])
+        if request.is_json:
+            destinatarios_ids = data.get('destinatarios_ids', [])
 
         if not asunto:
             return jsonify({'success': False, 'error': 'El asunto es obligatorio'}), 400
@@ -1910,7 +1940,8 @@ def api_enviar_mensaje():
         enviados, total, errores = enviar_mensaje_masivo(
             asunto, mensaje_html, destinatarios_ids,
             enviado_por_id=real_id,
-            enviado_por_nombre=remitente_nombre
+            enviado_por_nombre=remitente_nombre,
+            adjuntos=adjuntos
         )
 
         return jsonify({

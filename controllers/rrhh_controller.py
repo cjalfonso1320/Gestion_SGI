@@ -205,7 +205,7 @@ def empleados_para_mensajeria(cargo_id=None, sede_id=None, busqueda=None):
     return empleados
 
 
-def enviar_mensaje_masivo(asunto, mensaje_html, destinatarios_ids, enviado_por_id=None, enviado_por_nombre=None):
+def enviar_mensaje_masivo(asunto, mensaje_html, destinatarios_ids, enviado_por_id=None, enviado_por_nombre=None, adjuntos=None):
     """Envía un correo a los empleados cuyos IDs están en destinatarios_ids.
     Retorna (enviados: int, total: int, errores: list).
     """
@@ -283,7 +283,7 @@ def enviar_mensaje_masivo(asunto, mensaje_html, destinatarios_ids, enviado_por_i
     errores = []
     for i, correo in enumerate(correos):
         try:
-            enviado_ok = enviar_correo([correo], asunto, plantilla_html)
+            enviado_ok = enviar_correo([correo], asunto, plantilla_html, adjuntos=adjuntos)
         except Exception as e:
             print(f"Error inesperado enviando a {correo}: {e}")
             enviado_ok = False
@@ -2810,4 +2810,3 @@ def necesita_confirmacion_datos(fecha_confirmacion):
         except:
             return True
     return (datetime.now() - fecha_confirmacion).days >= 90
-
