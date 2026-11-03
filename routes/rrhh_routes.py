@@ -1906,7 +1906,7 @@ def api_enviar_mensaje():
                     continue
                 nombre = secure_filename(archivo.filename)
                 if not nombre:
-                    return jsonify({'success': False, 'error': 'Uno de los archivos tiene un nombre no válido'}), 400
+                    nombre = f'adjunto_{len(adjuntos)+1}.dat' 
                 contenido = archivo.read(max_adjuntos_bytes - bytes_adjuntos + 1)
                 bytes_adjuntos += len(contenido)
                 if bytes_adjuntos > max_adjuntos_bytes:

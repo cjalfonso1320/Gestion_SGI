@@ -282,15 +282,20 @@ def enviar_mensaje_masivo(asunto, mensaje_html, destinatarios_ids, enviado_por_i
     enviados = 0
     errores = []
     for i, correo in enumerate(correos):
+        err_msg = None
         try:
             enviado_ok = enviar_correo([correo], asunto, plantilla_html, adjuntos=adjuntos)
         except Exception as e:
+            err_msg = str(e)
             print(f"Error inesperado enviando a {correo}: {e}")
             enviado_ok = False
         if enviado_ok:
             enviados += 1
         else:
-            errores.append(f"No se pudo enviar a {correo}")
+            if err_msg:
+                errores.append(f"No se pudo enviar a {correo} ({err_msg})")
+            else:
+                errores.append(f"No se pudo enviar a {correo}")
         # Pequeña pausa entre envíos para no saturar el servidor SMTP
         if i < total - 1:
             time.sleep(0.3)

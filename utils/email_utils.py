@@ -12,7 +12,9 @@ Configuración requerida (variables de entorno):
 """
 
 import smtplib
+import mimetypes
 from email import encoders
+from email.header import Header
 from email.mime.base import MIMEBase
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
@@ -35,14 +37,25 @@ def _get_email_logger():
         return _email_logger
     _email_logger = logging.getLogger('email')
     _email_logger.setLevel(logging.DEBUG)
-    handler = logging.handlers.RotatingFileHandler(
-        EMAIL_LOG_FILE, maxBytes=5*1024*1024, backupCount=3, encoding='utf-8'
-    )
-    handler.setFormatter(logging.Formatter(
-        '[%(asctime)s] %(levelname)s | %(message)s',
-        datefmt='%Y-%m-%d %H:%M:%S'
-    ))
-    _email_logger.addHandler(handler)
+    if not _email_logger.handlers:
+        try:
+            os.makedirs(EMAIL_LOG_DIR, exist_ok=True)
+            handler = logging.handlers.RotatingFileHandler(
+                EMAIL_LOG_FILE, maxBytes=5*1024*1024, backupCount=3, encoding='utf-8'
+            )
+            handler.setFormatter(logging.Formatter(
+                '[%(asctime)s] %(levelname)s | %(message)s',
+                datefmt='%Y-%m-%d %H:%M:%S'
+            ))
+            _email_logger.addHandler(handler)
+        except Exception as e:
+            stream_handler = logging.StreamHandler()
+            stream_handler.setFormatter(logging.Formatter(
+                '[%(asctime)s] %(levelname)s | %(message)s',
+                datefmt='%Y-%m-%d %H:%M:%S'
+            ))
+            _email_logger.addHandler(stream_handler)
+            _email_logger.warning(f'⚠️ No se pudo inicializar archivo de log de correos ({e}), usando stream')
     _email_logger.info('📧 Logger de correos iniciado')
     return _email_logger
 
@@ -93,19 +106,25 @@ def enviar_correo(destinatarios, asunto, mensaje_html, mensaje_texto=None, adjun
             msg = MIMEMultipart('alternative')
             cuerpo = msg
 
-        msg['Subject'] = asunto
+        msg['Subject'] = Header(asunto, 'utf-8')
         msg['From'] = smtp_username
         msg['To'] = ', '.join(destinatarios)
 
         if mensaje_texto:
-            part1 = MIMEText(mensaje_texto, 'plain')
+            part1 = MIMEText(mensaje_texto, 'plain', 'utf-8')
             cuerpo.attach(part1)
 
-        part2 = MIMEText(mensaje_html, 'html')
+        part2 = MIMEText(mensaje_html, 'html', 'utf-8')
         cuerpo.attach(part2)
 
         for nombre, contenido in adjuntos or []:
-            adjunto = MIMEBase('application', 'octet-stream')
+            if not contenido:
+                continue
+            ctype, encoding = mimetypes.guess_type(nombre)
+            if ctype is None or encoding is not None:
+                ctype = 'application/octet-stream'
+            maintype, subtype = ctype.split('/', 1)
+            adjunto = MIMEBase(maintype, subtype)
             adjunto.set_payload(contenido)
             encoders.encode_base64(adjunto)
             adjunto.add_header('Content-Disposition', 'attachment', filename=nombre)
